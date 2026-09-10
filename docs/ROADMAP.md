@@ -71,6 +71,18 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ⬜ JSON-LD structured data components (`components/seo/JsonLd.tsx` folder exists, empty)
 - ⬜ Content clusters, internal linking engine, category pages, site search
 
+## Guide Phase 1 — Guide Article Template (this change)
+**Status: implemented, pending `npm install` / `prisma migrate` / lint-typecheck-build in a real environment — this sandbox has no package registry or database access.**
+- ✅ `Article` gains `keyTakeaways String[]`, `lastReviewedAt`, `searchIntent` (`ArticleSearchIntent` enum), `region`/`canonicalArticleId` self-relation, and a curated `ArticleRelated` join table — all additive, migration at `prisma/migrations/20260910090000_guide_phase_1/`
+- ✅ `src/lib/articles/content.ts` — heading extraction (anchors ids for TOC) + reading-time estimate, both derived from real content, nothing fabricated
+- ✅ `src/lib/articles/service.ts` — `getRelatedGuides()` (curated → category/intent → tags → recent, per the priority chain in the spec), `getNextSteps()` (only for BEGINNER/LEARN intent, only when curated), `getRegionalFamily()` for hreflang, all wrapped in React `cache()` to dedupe within a request
+- ✅ `src/lib/affiliates/service.ts` — `getActiveAffiliateLinksForProviderSlugs()`, a batched lookup for the guide's provider-discovery section
+- ✅ New `src/components/guide/*` — `GuideHeader`, `KeyTakeaways`, `GuideTableOfContents` (zero-JS, native `<details>`), `GuideSidebar`, `GuideSourceList`, `RelatedGuides`, `RelatedProviders` (safe non-superlative labels, affiliate CTA gated on a real ACTIVE link), `GuideNextSteps`
+- ✅ `AffiliateCTA` gains an optional `showDisclosure` prop so multi-provider sections show one disclosure, not one per card
+- ✅ `/crypto/guides/[slug]` rebuilt around all of the above; `generateMetadata()` emits `hreflang`/`x-default` only when real regional variants exist
+- ⬜ Admin authoring UI for the new fields (`keyTakeaways`, `searchIntent`, `region`, curated `ArticleRelated` rows) — still blocked on the Phase 3 article editor not existing yet
+- ⬜ No real guide content exists yet to verify the layout against beyond the seed data — do this before publishing
+
 ## Phase 9 — Provider Admin
 - ⬜ Not started — Providers are seeded via `prisma/seed.ts` only, as intended for this phase
 

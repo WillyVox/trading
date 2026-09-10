@@ -1,6 +1,15 @@
 import { AffiliateDisclosure } from "./AffiliateDisclosure";
 
-export function AffiliateCTA({ partnerSlug, providerName }: { partnerSlug: string; providerName: string }) {
+export function AffiliateCTA({
+  partnerSlug,
+  providerName,
+  showDisclosure = true,
+}: {
+  partnerSlug: string;
+  providerName: string;
+  /** Set false when the caller renders one shared AffiliateDisclosure for a whole section (e.g. several provider cards) instead of per-card. */
+  showDisclosure?: boolean;
+}) {
   return (
     <div className="mt-6 rounded-2xl border border-gold-soft bg-panel-secondary p-4">
       <a
@@ -9,7 +18,7 @@ export function AffiliateCTA({ partnerSlug, providerName }: { partnerSlug: strin
       >
         Visit {providerName}
       </a>
-      <AffiliateDisclosure />
+      {showDisclosure && <AffiliateDisclosure />}
     </div>
   );
 }

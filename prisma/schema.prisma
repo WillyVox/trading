@@ -72,6 +72,10 @@ model Article {
   slug                       String        @unique
   excerpt                    String?
   content                    String        @db.Text
+  // Editor-written "Key takeaways" bullets shown near the top of the Guide
+  // template. Deliberately a plain string array, not auto-generated from
+  // content — the spec calls for this to be high-value and non-generic.
+  keyTakeaways               String[]      @default([])
   status                     ArticleStatus @default(DRAFT)
   author                     String?
   reviewer                   String?
@@ -84,13 +88,53 @@ model Article {
   noIndex                    Boolean       @default(false)
   publishedAt                DateTime?
   scheduledAt                DateTime?
-  createdAt                  DateTime      @default(now())
-  updatedAt                  DateTime      @updatedAt
+  // Editorial "meaningfully updated" timestamp, distinct from `updatedAt`
+  // (which also changes on non-editorial edits like status or SEO tweaks).
+  // Guide pages display this as "Last updated" instead of `updatedAt`.
+  lastReviewedAt             DateTime?
+  searchIntent               ArticleSearchIntent?
+
+  // ---- Regional variants (see docs/IMPLEMENTATION-PLAN.md §7) ----
+  // Simplest schema that satisfies the "meaningfully different content
+  // only" rule: a nullable region code plus a self-relation back to the
+  // global/default article. A row with region == null and no
+  // canonicalArticleId IS the global/default version. A regional variant
+  // sets both. Do not create a variant row unless its content genuinely
+  // differs — see RelatedGuides / region-aware queries in
+  // src/lib/articles/service.ts.
+  region                     String?
+  canonicalArticleId         String?
+  canonicalArticle           Article?  @relation("RegionalVariant", fields: [canonicalArticleId], references: [id], onDelete: SetNull)
+  regionalVariants           Article[] @relation("RegionalVariant")
 
   tags      ArticleTag[]
   sources   ArticleSource[]
   providers ArticleProvider[]
   cryptoAssets ArticleCryptoAsset[]
+
+  // Curated related guides, editor-ordered. This is the top tier of the
+  // relevance fallback chain in getRelatedGuides() — category/tag/intent
+  // matching only kicks in once this list is exhausted.
+  relatedFrom ArticleRelated[] @relation("RelatedFromArticle")
+  relatedTo   ArticleRelated[] @relation("RelatedToArticle")
+
+  @@index([category])
+  @@index([region])
+  @@index([searchIntent])
+}
+
+model ArticleRelated {
+  id               String   @id @default(cuid())
+  articleId        String
+  relatedArticleId String
+  position         Int      @default(0)
+  createdAt        DateTime @default(now())
+
+  article        Article @relation("RelatedFromArticle", fields: [articleId], references: [id], onDelete: Cascade)
+  relatedArticle Article @relation("RelatedToArticle", fields: [relatedArticleId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, relatedArticleId])
+  @@index([articleId])
 }
 
 model ArticleTag {
@@ -112,6 +156,21 @@ enum ArticleProviderRelationship {
   MENTIONED
   COMPARED
   FEATURED
+}
+
+// Editorial intent, drives which CTA / related-content strategy the Guide
+// template uses (see docs/IMPLEMENTATION-PLAN.md Guide Phase 1).
+enum ArticleSearchIntent {
+  LEARN
+  HOW_TO
+  BEGINNER
+  COMPARISON
+  PROVIDER_GUIDE
+  FEES
+  SECURITY
+  WALLET
+  REGULATION
+  MARKET_EDUCATION
 }
 
 model ArticleProvider {

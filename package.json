@@ -16,7 +16,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "@prisma/client": "^5.19.1",
-    "next-auth": "5.0.0-beta.25",
+    "next-auth": "^5.0.0-beta.25",
     "@auth/prisma-adapter": "^2.7.4",
     "clsx": "^2.1.1"
   },

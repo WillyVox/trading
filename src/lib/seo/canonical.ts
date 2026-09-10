@@ -27,3 +27,16 @@ export function isCanonicalCompareSlug(slug: string): boolean {
   const [a, b] = parts;
   return canonicalCompareSlug(a, b) === slug;
 }
+
+const REGION_HREFLANG: Record<string, string> = {
+  AU: "en-AU",
+  UK: "en-GB",
+  US: "en-US",
+  NZ: "en-NZ",
+  SG: "en-SG",
+};
+
+/** Region code (e.g. "AU") -> hreflang tag. Falls back to the bare code for regions not yet in the map, rather than guessing. */
+export function regionHreflang(region: string): string {
+  return REGION_HREFLANG[region.toUpperCase()] ?? region.toLowerCase();
+}
