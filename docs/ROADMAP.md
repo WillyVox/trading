@@ -63,12 +63,18 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ⬜ `/compare/[slug]` indexing policy for arbitrary provider combinations is still an open SEO decision, deliberately left `noIndex: true` pending Phase 8 review rather than indexing every possible pair/triple
 
 ## Phase 6 — Affiliate Domain
-- ✅ Full schema: `AffiliatePartnership`, `AffiliateProgram`, `AffiliateLink`, `AffiliatePlacement`, `AffiliateClick`, `AffiliateConversion`
-- ✅ `lib/affiliates/service.ts` — `getActiveAffiliateLink`, `recordAffiliateClick`
+- ✅ Full schema: `AffiliatePartnership`, `AffiliateProgram`, `AffiliateLink`, `AffiliateClick`, `AffiliateConversion` (no separate `AffiliatePlacement` model — placement is a string field on `AffiliateLink`/`AffiliateClick` instead; see IMPLEMENTATION-PLAN §4 vs. the actual schema)
+- ✅ `lib/affiliates/service.ts` — `getActiveAffiliateLink`, `getActiveAffiliateLinksForProviderSlugs`, `recordAffiliateClick`, plus (this change) the admin read queries `getPartnershipsAdmin`, `getProvidersForPartnershipForm`, `getPartnershipsForLinkForm`, `getAffiliateLinksAdmin`, `getAffiliateClicksAdmin`
 - ✅ `/go/[partner]` route handler — redirects only to a stored `approvedUrl` on an ACTIVE link, 404s otherwise, records a click first (open-redirect-safe by construction)
 - ✅ `AffiliateCTA` + `AffiliateDisclosure` components
-- 🟡 Nothing in the UI currently calls `getActiveAffiliateLink` to conditionally render `AffiliateCTA` on a provider profile — that wiring is the next concrete step
-- ⬜ `/admin/affiliates/partners`, `/links`, `/clicks` are placeholders — no CRUD yet
+- ✅ `AffiliateCTA` wired into the exchange profile page (`/crypto/exchanges/[slug]`), conditional on a real `getActiveAffiliateLink()` lookup, and into `RelatedProviders` on the guide template — both gated on a real ACTIVE link, never fabricated. (This change also fixed the exchange profile page rendering the CTA with `showDisclosure={false}` and no other disclosure on the page — it now shows its own, matching the one-CTA vs. shared-section-disclosure convention `RelatedProviders` already used.)
+- ✅ `/admin/affiliates/partners`, `/links`, `/clicks` (this change) — real CRUD/read views, not placeholders:
+  - `/admin/affiliates` — overview with partnership/link/click counts linking into the three tabs
+  - `/admin/affiliates/partners` — list + create `AffiliatePartnership` (`lib/affiliates/actions.ts#createPartnership`), inline status update (`updatePartnershipStatus`)
+  - `/admin/affiliates/links` — list + create `AffiliateLink` under an APPROVED/ACTIVE partnership (`createAffiliateLink`, reuses or creates the backing `AffiliateProgram` in a transaction), activate/deactivate toggle (`toggleAffiliateLinkActive`); `approvedUrl` is validated as a real `https://` URL before it's stored, since it's the only place `/go/[partner]`'s redirect target is ever set
+  - `/admin/affiliates/clicks` — paginated, read-only click log (`AffiliateClick` is an append-only record written by `/go/[partner]`, never edited from the admin UI)
+  - Every mutation in `lib/affiliates/actions.ts` calls `requireAdmin()` itself, independent of the `/admin` layout guard, per the Phase 10 cross-cutting rule
+  - Ending/pausing a partnership only changes its own status — it never deletes an `AffiliateLink` or touches the `Provider` row; a link's own `active` flag is what controls whether `getActiveAffiliateLink()` returns it publicly
 
 ## Phase 7 — Affiliate Analytics
 - ✅ `/admin/affiliates` overview reads real click counts per link
