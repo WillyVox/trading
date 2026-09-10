@@ -36,7 +36,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ✅ `/admin/articles` list view (real data, honest empty state)
 - 🟡 `/admin/articles/new` and `/admin/articles/[id]` are placeholders — no editor, no `createArticle()`/`updateArticle()`/`publishArticle()` server actions yet
 - ⬜ Markdown/MDX editor decision + implementation (see IMPLEMENTATION-PLAN §6 design notes)
-- ⬜ File upload/import workflow (.md/.mdx/.txt)
+- 🟡 File-based import workflow (`npm run import:article`, see `docs/article-publishing-format.md`) — Phase 1 only: scanning, shared `.md`/`.txt` parsing, Zod validation, Markdown→sanitized-HTML conversion, and `--dry-run` reporting are implemented (`src/lib/articles/import/`, `scripts/import-articles.ts`). **No database writes or file movement yet** — that's Phase 2/3 of `src/lib/articles/import/`.
 - ⬜ Media integration
 
 ## Phase 4 — Provider Domain
