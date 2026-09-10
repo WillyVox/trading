@@ -24,8 +24,6 @@ import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { RelatedProviders } from "@/components/guide/RelatedProviders";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);

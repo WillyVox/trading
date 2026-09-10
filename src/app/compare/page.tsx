@@ -9,8 +9,6 @@ export const metadata = buildMetadata({
   path: "/compare",
 });
 
-export const dynamic = "force-dynamic";
-
 export default async function ComparePage() {
   const { items } = await getProviders();
   return (

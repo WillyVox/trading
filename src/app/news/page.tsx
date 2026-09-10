@@ -10,8 +10,6 @@ export const metadata = buildMetadata({
   path: "/news",
 });
 
-export const dynamic = "force-dynamic";
-
 export default async function NewsPage() {
   const { items } = await getPublishedArticles({ category: "news" });
   return (

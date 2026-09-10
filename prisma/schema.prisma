@@ -277,6 +277,7 @@ model Provider {
   facts        ProviderFact[]
   fees         ProviderFee[]
   features     ProviderFeature[]
+  prosCons     ProviderProsCon[]
   sources      ProviderSource[]
   regulations  ProviderRegulation[]
   assets       ProviderAsset[]
@@ -363,6 +364,35 @@ model ProviderSource {
 
   @@index([providerId])
   @@index([sourceType])
+}
+
+// Editorial pros/limitations shown on the exchange profile. Kept sourced
+// like every other Provider fact (sourceUrl + verificationStatus) rather
+// than free-floating marketing copy -- see docs/IMPLEMENTATION-PLAN.md
+// cross-cutting rule against fabricated/superlative claims. `label` should
+// stay a short, factual, non-superlative statement ("Wide coin selection
+// (500+)", not "The best coin selection").
+enum ProviderProsConsType {
+  PRO
+  LIMITATION
+}
+
+model ProviderProsCon {
+  id                 String               @id @default(cuid())
+  providerId         String
+  type               ProviderProsConsType
+  label              String
+  detail             String?              @db.Text
+  sourceUrl          String?
+  jurisdiction       String?
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+  position           Int                @default(0)
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([type])
 }
 
 model ProviderRegulation {

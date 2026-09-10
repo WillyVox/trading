@@ -1,17 +1,20 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getProviderBySlug } from "@/lib/providers/service";
+import { getProviderBySlug, getRelatedContentForProvider } from "@/lib/providers/service";
 import { getActiveAffiliateLink } from "@/lib/affiliates/service";
+import { groupFeatures } from "@/lib/providers/features";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
 import { Card } from "@/components/ui/Card";
+import { ProviderFeatureSection } from "@/components/providers/ProviderFeatureSection";
+import { ProviderProsCons } from "@/components/providers/ProviderProsCons";
+import { RelatedGuides } from "@/components/guide/RelatedGuides";
+import { RelatedNews } from "@/components/providers/RelatedNews";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -35,7 +38,12 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
   const { slug } = await params;
   const provider = await getProviderBySlug(slug);
   if (!provider) notFound();
-  const link = await getActiveAffiliateLink(slug);
+  const [link, relatedContent] = await Promise.all([
+    getActiveAffiliateLink(slug),
+    getRelatedContentForProvider(provider.id),
+  ]);
+
+  const featureGroups = groupFeatures(provider.features);
 
   const trail = breadcrumbTrail([
     { name: "Exchanges", path: "/crypto/exchanges" },
@@ -78,18 +86,25 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
         </ul>
       </Card>
 
-      <Card className="mt-4">
-        <h2 className="mb-4 font-display text-lg font-bold text-navy">Features</h2>
-        <ul className="space-y-2 text-sm">
-          {provider.features.map((f: any) => (
-            <li key={f.id} className="flex justify-between border-b border-border pb-2">
-              <span className="text-muted">{(f.label ?? f.featureType).toString().replace(/_/g, " ")}</span>
-              <span>{f.available === false ? "\u2014" : f.available === true ? "\u2713" : "?"}</span>
-            </li>
-          ))}
-          {provider.features.length === 0 && <li className="text-muted">No feature data yet.</li>}
-        </ul>
-      </Card>
+      <ProviderFeatureSection
+        title="Products & trading"
+        emptyLabel="No product/trading feature data yet."
+        features={featureGroups.products}
+      />
+
+      <ProviderFeatureSection
+        title="Deposits & withdrawals"
+        emptyLabel="No deposit/withdrawal method data yet."
+        features={featureGroups.deposits}
+      />
+
+      <ProviderFeatureSection
+        title="Security"
+        emptyLabel="No security data yet."
+        features={featureGroups.security}
+      />
+
+      <ProviderProsCons items={provider.prosCons} />
 
       {provider.assets.length > 0 && (
         <Card className="mt-4">
@@ -109,7 +124,9 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
       )}
 
       {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} showDisclosure={false} />}
-    
+
+      <RelatedGuides guides={relatedContent.guides} />
+      <RelatedNews items={relatedContent.news} />
     </div>
   );
 }

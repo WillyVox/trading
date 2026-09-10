@@ -1,8 +1,6 @@
 import { getPublishedArticles } from "@/lib/articles/service";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const dynamic = "force-dynamic";
-
 export const metadata = buildMetadata({
   title: "Crypto Guides Australia \u2014 How-To & Educational Articles",
   description: "Step-by-step crypto guides for Australians \u2014 buying, wallets, fees, and how exchanges work.",

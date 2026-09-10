@@ -9,8 +9,6 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
-export const dynamic = "force-dynamic";
-
 function parseSlug(slug: string): [string, string | null] {
   const parts = slug.split("-vs-");
   return parts.length === 2 ? [parts[0], parts[1]] : [slug, null];
