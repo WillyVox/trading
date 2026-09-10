@@ -10,6 +10,8 @@ export const metadata = buildMetadata({
   path: "/crypto/exchanges",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function ExchangesPage() {
   const { items } = await getProviders();
   return (
