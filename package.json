@@ -11,6 +11,7 @@
     "db:seed": "tsx prisma/seed.ts",
     "postinstall": "prisma generate",
     "import:article": "tsx scripts/import-articles.ts",
+    "promote:admin": "tsx scripts/promote-admin.ts",
     "test": "tsx --test src/lib/articles/import/__tests__/*.test.ts"
   },
   "dependencies": {

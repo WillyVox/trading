@@ -26,8 +26,11 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ✅ `src/middleware.ts` — server-side `/admin/*` protection (redirects unauthenticated → `/login`, non-admin → `/403`)
 - ✅ `requireAdmin()` helper for guarding server actions/mutations independently of the middleware
 - ✅ Admin shell (`AdminSidebar`, `AdminHeader`, `/admin` dashboard with real DB-backed counts)
-- 🟡 `src/lib/auth/config.ts` has no real provider wired in — add Google/email/credentials before this is usable
-- 🟡 `/login` page has no actual sign-in form yet
+- ✅ Credentials (email/password) provider wired in `src/lib/auth/config.ts`; `User.passwordHash` added (migration `20260911060000_user_password_auth`), hashed with scrypt (`src/lib/auth/password.ts`, no new dependency), session strategy switched from `database` to `jwt` (required for the Credentials provider)
+- ✅ `/login` and `/register` — real forms (`src/components/auth/LoginForm.tsx` / `RegisterForm.tsx`) backed by server actions (`src/lib/auth/actions.ts`); new accounts always default to `Role.USER`, never self-promotable
+- ✅ `scripts/promote-admin.ts` (`npm run promote:admin -- <email>`) — out-of-band CLI to promote/demote a user to `ADMIN`, or bootstrap the first admin with `--create --password ...`
+- ⬜ OAuth provider(s) (Google/etc.) still not wired — Credentials is the only sign-in method for now
+- ⬜ No password-reset / forgot-password flow yet
 
 ## Phase 3 — Article CMS
 - ✅ `Article`, `ArticleTag`, `ArticleSource`, `ArticleProvider`, `ArticleCryptoAsset` models

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Card } from "@/components/ui/Card";
+import { LoginForm } from "@/components/auth/LoginForm";
 
 export const metadata: Metadata = {
   title: "Sign in",
@@ -7,9 +9,12 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="mx-auto max-w-sm px-4 py-20 text-center">
-      <h1 className="font-display text-2xl font-bold text-navy">Sign in</h1>
-      <p className="mt-2 text-muted">No auth provider is wired up yet — add one in src/lib/auth/config.ts.</p>
+    <div className="mx-auto max-w-sm px-4 py-20">
+      <h1 className="text-center font-display text-2xl font-bold text-navy">Sign in</h1>
+      <p className="mt-2 text-center text-sm text-muted">Sign in with your email and password.</p>
+      <Card className="mt-8">
+        <LoginForm />
+      </Card>
     </div>
   );
 }
