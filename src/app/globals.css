@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/*
+  Theme reference: DomainEmpire.com listing page (light cream + navy + gold,
+  bold serif display headline, pill buttons/badges). Replaces the previous
+  dark navy theme from the AusMarket index.html reference.
+*/
+@theme {
+  --color-background: #f5f2ea;
+  --color-panel: #ffffff;
+  --color-panel-secondary: #ece7db;
+  --color-border: #e1dbca;
+  --color-navy: #1c2e4a;
+  --color-navy-dark: #16233a;
+  --color-text: #1c2230;
+  --color-muted: #6b7280;
+  --color-gold: #b6924f;
+  --color-gold-soft: #d9c48f;
+  --color-green: #2f9e6e;
+  --color-red: #c95a4a;
+  --color-blue: #2f6fb0;
+
+  --font-display: var(--next-font-display), Georgia, serif;
+  --font-sans: var(--next-font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--next-font-mono), ui-monospace, monospace;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}

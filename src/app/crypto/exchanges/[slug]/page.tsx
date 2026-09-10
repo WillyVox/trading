@@ -1,0 +1,79 @@
+import { notFound } from "next/navigation";
+import { getProviderBySlug } from "@/lib/providers/service";
+import { getActiveAffiliateLink } from "@/lib/affiliates/service";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
+import { Card } from "@/components/ui/Card";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const provider = await getProviderBySlug(slug);
+  if (!provider) return buildMetadata({ title: "Exchange not found", description: "", path: `/crypto/exchanges/${slug}`, noIndex: true });
+
+  return buildMetadata({
+    title: `${provider.name} Australia Review: Fees, Features & Verified Facts`,
+    description:
+      provider.description ??
+      `${provider.name} crypto exchange profile for Australian users \u2014 fees, features, and source-verified facts.`,
+    path: `/crypto/exchanges/${slug}`,
+    // Provider has no admin-editable SEO override fields yet (see Phase 0
+    // audit \u00a7S) \u2014 defaults only for now.
+  });
+}
+
+export default async function ExchangeProfilePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const provider = await getProviderBySlug(slug);
+  if (!provider) notFound();
+  const link = await getActiveAffiliateLink(slug);
+
+  const trail = breadcrumbTrail([
+    { name: "Exchanges", path: "/crypto/exchanges" },
+    { name: provider.name, path: `/crypto/exchanges/${slug}` },
+  ]);
+
+  return (
+    <div className="mx-auto max-w-4xl px-4 py-12">
+      <JsonLd data={breadcrumbSchema(trail)} />
+      <Breadcrumbs items={trail} />
+      <div className="flex items-center justify-between">
+        <h1 className="font-display text-3xl font-extrabold text-navy">{provider.name}</h1>
+        <VerificationBadge status={provider.verificationStatus} />
+      </div>
+      <p className="mt-2 text-muted">{provider.description}</p>
+
+      {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} />}
+
+      <Card className="mt-8">
+        <h2 className="mb-4 font-display text-lg font-bold text-navy">Facts</h2>
+        <ul className="space-y-2 text-sm">
+          {provider.facts.map((f: any) => (
+            <li key={f.id} className="flex justify-between border-b border-border pb-2">
+              <span className="text-muted">{f.label}</span>
+              <span>{f.value}</span>
+            </li>
+          ))}
+          {provider.facts.length === 0 && <li className="text-muted">No verified facts yet.</li>}
+        </ul>
+      </Card>
+
+      <Card className="mt-4">
+        <h2 className="mb-4 font-display text-lg font-bold text-navy">Fees</h2>
+        <ul className="space-y-2 text-sm">
+          {provider.fees.map((f: any) => (
+            <li key={f.id} className="flex justify-between border-b border-border pb-2">
+              <span className="text-muted">{f.label}</span>
+              <span>{f.value}</span>
+            </li>
+          ))}
+          {provider.fees.length === 0 && <li className="text-muted">No fee data yet.</li>}
+        </ul>
+      </Card>
+    </div>
+  );
+}
