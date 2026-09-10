@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AuthStatus } from "./AuthStatus";
 
 const NAV = [
   { href: "/crypto", label: "Crypto" },
@@ -82,6 +83,10 @@ export function MobileNav() {
             );
           })}
         </nav>
+
+        <div className="mt-6 border-t border-border pt-4">
+          <AuthStatus variant="mobile" onNavigate={() => setOpen(false)} />
+        </div>
       </div>
     </div>
   );
