@@ -90,6 +90,7 @@ model Article {
   tags      ArticleTag[]
   sources   ArticleSource[]
   providers ArticleProvider[]
+  cryptoAssets ArticleCryptoAsset[]
 }
 
 model ArticleTag {
@@ -131,26 +132,95 @@ enum VerificationStatus {
   STALE
 }
 
+enum ProviderType {
+  CRYPTO_EXCHANGE
+  BROKER
+  MULTI_ASSET_BROKER
+  TRADING_PLATFORM
+  WALLET_PROVIDER
+  OTHER
+}
+
+enum ProviderFeeType {
+  TRADING
+  MAKER
+  TAKER
+  INSTANT_BUY
+  DEPOSIT
+  WITHDRAWAL
+  FIAT_DEPOSIT
+  FIAT_WITHDRAWAL
+  SPREAD
+  OTHER
+}
+
+enum FeeValueType {
+  PERCENTAGE
+  FIXED
+  TIERED
+  VARIABLE
+  FREE
+  UNKNOWN
+}
+
+enum ProviderFeatureType {
+  AUD_DEPOSITS
+  AUD_WITHDRAWALS
+  PAYID
+  BANK_TRANSFER
+  CARD_DEPOSIT
+  MOBILE_APP
+  WEB_PLATFORM
+  LIMIT_ORDERS
+  MARKET_ORDERS
+  STOP_ORDERS
+  RECURRING_BUYS
+  STAKING
+  API_ACCESS
+  ADVANCED_CHARTING
+  TWO_FACTOR_AUTH
+  COLD_STORAGE
+  SMSF_SUPPORT
+  OTC_DESK
+}
+
+enum ProviderSourceType {
+  OFFICIAL_WEBSITE
+  OFFICIAL_FEES
+  OFFICIAL_TERMS
+  OFFICIAL_SUPPORT
+  REGULATOR
+  GOVERNMENT
+  APP_STORE
+  THIRD_PARTY_RESEARCH
+  OTHER
+}
+
 model Provider {
-  id                String   @id @default(cuid())
-  name              String
-  slug              String   @unique
-  logo              String?
+  id                 String              @id @default(cuid())
+  name               String
+  slug               String              @unique
+  logo               String?
   website            String?
-  description        String?  @db.Text
-  providerType        String?
-  jurisdictions       String[]
-  regulatoryInfo      String?
-  supportedAssets     String[]
-  verificationStatus  VerificationStatus @default(UNVERIFIED)
-  lastVerifiedAt      DateTime?
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  description        String?             @db.Text
+  providerType       ProviderType?
+  jurisdictions      String[]
+  verificationStatus VerificationStatus  @default(UNVERIFIED)
+  lastVerifiedAt     DateTime?
+  // SEO overrides — mirrors Article's seoTitle/seoDescription/noIndex so
+  // generateMetadata() can treat both domains the same way.
+  seoTitle           String?
+  seoDescription     String?
+  noIndex            Boolean             @default(false)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
 
   facts        ProviderFact[]
   fees         ProviderFee[]
   features     ProviderFeature[]
   sources      ProviderSource[]
+  regulations  ProviderRegulation[]
+  assets       ProviderAsset[]
   articles     ArticleProvider[]
   partnerships AffiliatePartnership[]
 }
@@ -159,35 +229,134 @@ model ProviderFact {
   id                 String             @id @default(cuid())
   providerId         String
   label              String
-  value               String
-  sourceUrl           String?
-  jurisdiction         String?
-  verificationStatus   VerificationStatus @default(UNVERIFIED)
-  verifiedAt           DateTime?
-  provider             Provider           @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  value              String
+  sourceUrl          String?
+  jurisdiction       String?
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+  provider           Provider           @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
 }
 
 model ProviderFee {
-  id          String   @id @default(cuid())
+  id          String          @id @default(cuid())
   providerId  String
+  feeType     ProviderFeeType
   label       String
-  value       String
-  provider    Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  valueType   FeeValueType
+
+  percentage  Decimal?        @db.Decimal(10, 6)
+  fixedAmount Decimal?        @db.Decimal(18, 8)
+  currency    String?
+
+  // Human-readable value shown on the page even when the underlying
+  // percentage/fixedAmount can't be captured precisely (e.g. "Varies").
+  displayValue String?
+  notes        String?        @db.Text
+
+  sourceUrl    String?
+  jurisdiction String?
+
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([feeType])
 }
 
 model ProviderFeature {
-  id          String   @id @default(cuid())
+  id          String              @id @default(cuid())
   providerId  String
-  label       String
-  provider    Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  featureType ProviderFeatureType
+  label       String?
+  value       String?
+  available   Boolean?
+
+  sourceUrl    String?
+  jurisdiction String?
+
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([featureType])
 }
 
 model ProviderSource {
+  id         String             @id @default(cuid())
+  providerId String
+  label      String
+  url        String
+  sourceType ProviderSourceType
+
+  jurisdiction String?
+  publishedAt  DateTime?
+  checkedAt    DateTime?
+
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([sourceType])
+}
+
+model ProviderRegulation {
+  id             String   @id @default(cuid())
+  providerId     String
+  jurisdiction   String
+  regulator      String
+  registrationId String?
+  status         String?
+
+  sourceUrl  String?
+  verifiedAt DateTime?
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([jurisdiction])
+}
+
+// ---------- Crypto asset domain ----------
+model CryptoAsset {
   id          String   @id @default(cuid())
-  providerId  String
-  label       String
-  url         String
-  provider    Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  symbol      String   @unique
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  providers ProviderAsset[]
+  articles  ArticleCryptoAsset[]
+}
+
+model ProviderAsset {
+  providerId String
+  assetId    String
+
+  provider Provider    @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  asset    CryptoAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@id([providerId, assetId])
+  @@index([assetId])
+}
+
+model ArticleCryptoAsset {
+  articleId String
+  assetId   String
+
+  article Article     @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  asset   CryptoAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, assetId])
+  @@index([assetId])
 }
 
 // ---------- Affiliate domain (commercial only) ----------
