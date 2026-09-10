@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/Card";
-import type { ProfileFeature } from "@/lib/providers/features";
+import type { ProviderFeatureRow } from "@/lib/providers/features";
 
 /**
  * One profile-page card for a single feature group (products/trading,
@@ -16,7 +16,7 @@ export function ProviderFeatureSection({
 }: {
   title: string;
   emptyLabel: string;
-  features: ProfileFeature[];
+  features: ProviderFeatureRow[];
 }) {
   return (
     <Card className="mt-4">

@@ -9,11 +9,18 @@ import type { ProviderFeatureType } from "@prisma/client";
  * undifferentiated list. Add new ProviderFeatureType values to exactly one
  * group; anything left unmapped falls into "products" by default so it's
  * never silently dropped from the page.
+ *
+ * Deliberately not generic: the repository layer's findBySlug(slug, extra)
+ * takes an untyped `extra` include object (see src/lib/repository.ts), so
+ * Prisma can't statically infer the ProviderFeature payload shape from
+ * getProviderBySlug()'s include -- a generic here would have its type
+ * parameter fall back to the bare constraint at the call site instead of
+ * the real row shape. An explicit row type + a cast at the call site is
+ * more reliable than fighting that inference.
  */
 export type ProviderFeatureGroup = "deposits" | "security" | "products";
 
-/** Fields the profile page needs to render a feature row. */
-export type ProfileFeature = {
+export type ProviderFeatureRow = {
   id: string;
   featureType: ProviderFeatureType;
   label: string | null;
@@ -37,8 +44,8 @@ export function featureGroup(featureType: ProviderFeatureType): ProviderFeatureG
   return "products";
 }
 
-export function groupFeatures<T extends ProfileFeature>(features: T[]) {
-  const groups: Record<ProviderFeatureGroup, T[]> = { deposits: [], security: [], products: [] };
+export function groupFeatures(features: ProviderFeatureRow[]): Record<ProviderFeatureGroup, ProviderFeatureRow[]> {
+  const groups: Record<ProviderFeatureGroup, ProviderFeatureRow[]> = { deposits: [], security: [], products: [] };
   for (const feature of features) {
     groups[featureGroup(feature.featureType)].push(feature);
   }

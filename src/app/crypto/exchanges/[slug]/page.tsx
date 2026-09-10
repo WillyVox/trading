@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProviderBySlug, getRelatedContentForProvider } from "@/lib/providers/service";
 import { getActiveAffiliateLink } from "@/lib/affiliates/service";
-import { groupFeatures } from "@/lib/providers/features";
+import { groupFeatures, type ProviderFeatureRow } from "@/lib/providers/features";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
 import { Card } from "@/components/ui/Card";
@@ -43,7 +43,7 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
     getRelatedContentForProvider(provider.id),
   ]);
 
-  const featureGroups = groupFeatures(provider.features);
+  const featureGroups = groupFeatures(provider.features as ProviderFeatureRow[]);
 
   const trail = breadcrumbTrail([
     { name: "Exchanges", path: "/crypto/exchanges" },
