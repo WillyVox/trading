@@ -1,4 +1,4 @@
-import { AffiliateTabs } from "@/components/admin/AffiliateTabs";
+import { AffiliateTabs } from "@/components/admin/Affiliatetabs";
 
 export default function AffiliatesLayout({ children }: { children: React.ReactNode }) {
   // requireAdmin() already runs in src/app/admin/layout.tsx for every

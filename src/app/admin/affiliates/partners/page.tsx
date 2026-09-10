@@ -1,7 +1,7 @@
 import { getPartnershipsAdmin, getProvidersForPartnershipForm } from "@/lib/affiliates/service";
 import { createPartnership, updatePartnershipStatus } from "@/lib/affiliates/actions";
 import { Card } from "@/components/ui/Card";
-import { PartnerStatusBadge } from "@/components/admin/PartnerStatusBadge";
+import { PartnerStatusBadge } from "@/components/admin/Partnerstatusbadge";
 
 const STATUS_OPTIONS = ["PROSPECT", "APPLIED", "APPROVED", "ACTIVE", "PAUSED", "REJECTED", "ENDED"] as const;
 
