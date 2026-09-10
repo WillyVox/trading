@@ -85,7 +85,7 @@ export async function getRelatedGuides(article: RelatedGuideCandidate, limit = 6
   const topicOr = [
     article.category ? { category: article.category } : undefined,
     article.searchIntent ? { searchIntent: article.searchIntent } : undefined,
-  ].filter((clause): clause is Record<string, unknown> => Boolean(clause));
+  ].filter((clause): clause is NonNullable<typeof clause> => Boolean(clause));
 
   const tiers: Record<string, unknown>[] = [];
   if (topicOr.length > 0) tiers.push({ OR: topicOr });

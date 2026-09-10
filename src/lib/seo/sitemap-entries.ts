@@ -31,22 +31,22 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
 export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
   const articles = await prisma.article.findMany({
     where: { status: "PUBLISHED", noIndex: false, category: "guide" },
-    select: { slug: true, updatedAt: true },
+    select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
     url: absoluteUrl(`/crypto/guides/${a.slug}`),
-    lastModified: a.updatedAt,
+    lastModified: a.lastReviewedAt ?? a.publishedAt ?? undefined,
   }));
 }
 
 export async function newsEntries(): Promise<MetadataRoute.Sitemap> {
   const articles = await prisma.article.findMany({
     where: { status: "PUBLISHED", noIndex: false, category: "news" },
-    select: { slug: true, updatedAt: true },
+    select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
     url: absoluteUrl(`/news/${a.slug}`),
-    lastModified: a.updatedAt,
+    lastModified: a.lastReviewedAt ?? a.publishedAt ?? undefined,
   }));
 }
 

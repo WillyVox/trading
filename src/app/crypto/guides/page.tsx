@@ -15,7 +15,9 @@ export default async function GuidesPage() {
       {items.length === 0 && <p className="mt-4 text-muted">No guides published yet.</p>}
       <ul className="mt-6 space-y-4">
         {items.map((a: any) => (
-          <li key={a.id} className="text-navy">{a.title}</li>
+          <li key={a.id} className="text-navy">
+            {a.title}
+            </li>
         ))}
       </ul>
     </div>

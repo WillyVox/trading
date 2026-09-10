@@ -2,7 +2,12 @@ import { prisma } from "@/lib/prisma";
 import { affiliateLinkRepository } from "@/lib/repository";
 
 export async function getActiveAffiliateLink(partnerSlug: string) {
-  const link = await affiliateLinkRepository.findBySlug(partnerSlug);
+  const link = await affiliateLinkRepository.findFirst({
+    where: {
+      partnerSlug,
+      active: true,
+    },
+  });
   if (!link || !link.active) return null;
   return link;
 }

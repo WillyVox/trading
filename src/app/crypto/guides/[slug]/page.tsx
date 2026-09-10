@@ -80,16 +80,28 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
   ]);
   const otherRegions = regionalFamily.filter((m) => m.slug !== slug);
 
-  const providerSlugs = article.providers.map((ap) => ap.provider.slug);
+  const providerSlugs = article.providers.map(
+    (ap: { provider: { slug: string } }) => ap.provider.slug
+  );
   const activeLinks = await getActiveAffiliateLinksForProviderSlugs(providerSlugs);
-  const guideProviders = article.providers.map((ap) => ({
-    id: ap.provider.id,
-    slug: ap.provider.slug,
-    name: ap.provider.name,
-    description: ap.provider.description,
-    verificationStatus: ap.provider.verificationStatus,
-    activeLink: activeLinks.has(ap.provider.slug),
-  }));
+  const guideProviders = article.providers.map(
+    (ap: {
+      provider: {
+        id: string;
+        slug: string;
+        name: string;
+        description: string | null;
+        verificationStatus: string;
+      };
+    }) => ({
+      id: ap.provider.id,
+      slug: ap.provider.slug,
+      name: ap.provider.name,
+      description: ap.provider.description,
+      verificationStatus: ap.provider.verificationStatus,
+      activeLink: activeLinks.has(ap.provider.slug),
+    })
+  );
 
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },

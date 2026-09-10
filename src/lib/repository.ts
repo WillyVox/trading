@@ -8,6 +8,7 @@ import { prisma } from "@/lib/prisma";
 export function createRepository<
   Delegate extends {
     findMany: (...args: any[]) => any;
+    findFirst?: (...args: any[]) => any; // Add optional findFirst
     findUnique: (...args: any[]) => any;
     count: (...args: any[]) => any;
     create: (...args: any[]) => any;
@@ -17,6 +18,7 @@ export function createRepository<
 >(delegate: Delegate) {
   return {
     findMany: (args?: Parameters<Delegate["findMany"]>[0]) => delegate.findMany(args),
+    findFirst: (args?: any) => delegate.findFirst?.(args),
     findUnique: (args: Parameters<Delegate["findUnique"]>[0]) => delegate.findUnique(args),
     findBySlug: (slug: string, extra?: Record<string, unknown>) =>
       delegate.findUnique({ where: { slug }, ...extra }),

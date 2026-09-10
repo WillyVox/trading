@@ -50,8 +50,6 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
       </div>
       <p className="mt-2 text-muted">{provider.description}</p>
 
-      {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} />}
-
       <Card className="mt-8">
         <h2 className="mb-4 font-display text-lg font-bold text-navy">Facts</h2>
         <ul className="space-y-2 text-sm">
@@ -107,6 +105,9 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
           </div>
         </Card>
       )}
+
+      {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} showDisclosure={false} />}
+    
     </div>
   );
 }

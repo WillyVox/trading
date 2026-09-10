@@ -7,6 +7,8 @@ import {
   ProviderFeatureType,
   ProviderSourceType,
   ArticleStatus,
+  CommissionType,
+  AffiliatePartnerStatus,
 } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -150,6 +152,111 @@ const cryptoAssets = [
   { symbol: "SOL", name: "Solana", slug: "solana", description: "A high-throughput blockchain used for trading and applications." },
   { symbol: "XRP", name: "XRP", slug: "xrp", description: "A digital asset associated with the XRP Ledger, used for payments." },
 ];
+async function seedAffiliateLinks() {
+  const affiliateSeeds = [
+    {
+      providerSlug: "coinspot",
+      partnerSlug: "coinspot",
+      approvedUrl: "https://www.coinspot.com.au",
+      placement: "PROVIDER_PROFILE",
+      campaign: "default",
+      commissionType: CommissionType.NONE,
+      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
+      notes:
+        "Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.",
+      active: false,
+    },
+    {
+      providerSlug: "kraken",
+      partnerSlug: "kraken",
+      approvedUrl: "https://www.kraken.com",
+      placement: "PROVIDER_PROFILE",
+      campaign: "default",
+      commissionType: CommissionType.NONE,
+      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
+      notes:
+        "Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.",
+      active: false,
+    },
+  ];
+
+  for (const seed of affiliateSeeds) {
+    const provider = await prisma.provider.findUnique({
+      where: {
+        slug: seed.providerSlug,
+      },
+    });
+
+    if (!provider) {
+      console.warn(
+        `Affiliate seed skipped: provider "${seed.providerSlug}" does not exist.`,
+      );
+      continue;
+    }
+
+    // Find an existing partnership for this provider.
+    let partnership = await prisma.affiliatePartnership.findFirst({
+      where: {
+        providerId: provider.id,
+      },
+      include: {
+        programs: true,
+      },
+    });
+
+    // Create one if the provider does not have a partnership yet.
+    if (!partnership) {
+      partnership = await prisma.affiliatePartnership.create({
+        data: {
+          providerId: provider.id,
+          status: seed.partnershipStatus,
+        },
+        include: {
+          programs: true,
+        },
+      });
+    }
+
+    // For the seed, reuse the first existing program if one exists.
+    // Otherwise create a default program.
+    let program = partnership.programs[0];
+
+    if (!program) {
+      program = await prisma.affiliateProgram.create({
+        data: {
+          partnershipId: partnership.id,
+          commissionType: seed.commissionType,
+          notes: seed.notes,
+        },
+      });
+    }
+
+    await prisma.affiliateLink.upsert({
+      where: {
+        partnerSlug: seed.partnerSlug,
+      },
+      update: {
+        programId: program.id,
+        approvedUrl: seed.approvedUrl,
+        placement: seed.placement,
+        campaign: seed.campaign,
+        active: seed.active,
+      },
+      create: {
+        programId: program.id,
+        partnerSlug: seed.partnerSlug,
+        approvedUrl: seed.approvedUrl,
+        placement: seed.placement,
+        campaign: seed.campaign,
+        active: seed.active,
+      },
+    });
+
+    console.log(
+      `Seeded affiliate link for ${provider.name} (${seed.partnerSlug})`,
+    );
+  }
+}
 
 async function main() {
   for (const asset of cryptoAssets) {
@@ -186,6 +293,13 @@ async function main() {
       await prisma.providerAsset.create({ data: { providerId: provider.id, assetId: asset.id } });
     }
   }
+
+
+  // ---------------------------------------
+  // Seed affiliate partnerships/programs/links
+  // ---------------------------------------
+
+  await seedAffiliateLinks();
 
   // One sample guide, linked to Bitcoin, so /crypto/bitcoin's "related
   // guides" section has something real to show rather than an empty state.

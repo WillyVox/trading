@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { articleRepository } from "@/lib/repository";
 import type { ArticleImportPayload } from "./types";
+import { ArticleStatus, Prisma } from "@prisma/client";
 
 export interface CoreUpsertResult {
   id: string;
@@ -14,8 +15,8 @@ export interface CoreUpsertResult {
  * untouched on UPDATE rather than being nulled out. `status` is
  * deliberately never included here — see upsertArticleCore below.
  */
-function buildScalarData(payload: ArticleImportPayload) {
-  const data: Record<string, unknown> = {
+function buildScalarData(payload: ArticleImportPayload): Prisma.ArticleUpdateInput {
+  const data: Prisma.ArticleUpdateInput = {
     title: payload.title,
     content: payload.content,
   };
@@ -36,19 +37,19 @@ function buildScalarData(payload: ArticleImportPayload) {
   return data;
 }
 
-async function syncTags(articleId: string, tags: string[] | undefined) {
+async function syncTags(tx: Prisma.TransactionClient, articleId: string, tags: string[] | undefined) {
   if (tags === undefined) return; // not present in file — leave existing tags untouched
-  await prisma.articleTag.deleteMany({ where: { articleId } });
+  await tx.articleTag.deleteMany({ where: { articleId } });
   if (tags.length > 0) {
-    await prisma.articleTag.createMany({ data: tags.map((tag) => ({ articleId, tag })) });
+    await tx.articleTag.createMany({ data: tags.map((tag) => ({ articleId, tag })) });
   }
 }
 
-async function syncSources(articleId: string, sources: { label: string; url: string }[] | undefined) {
+async function syncSources(tx: Prisma.TransactionClient, articleId: string, sources: { label: string; url: string }[] | undefined) {
   if (sources === undefined) return; // not present in file — leave existing sources untouched
-  await prisma.articleSource.deleteMany({ where: { articleId } });
+  await tx.articleSource.deleteMany({ where: { articleId } });
   if (sources.length > 0) {
-    await prisma.articleSource.createMany({
+    await tx.articleSource.createMany({
       data: sources.map((s) => ({ articleId, label: s.label, url: s.url })),
     });
   }
@@ -81,14 +82,18 @@ export async function upsertArticleCore(payload: ArticleImportPayload): Promise<
       outcome = "UPDATED";
     } else {
       const created = await tx.article.create({
-        data: { ...scalarData, slug: payload.slug, status: "DRAFT" },
+        data: {
+          ...(scalarData as Prisma.ArticleCreateInput),
+          slug: payload.slug,
+          status: ArticleStatus.DRAFT,
+        }
       });
       id = created.id;
       outcome = "CREATED";
     }
 
-    await syncTags(id, payload.tags);
-    await syncSources(id, payload.sources);
+    await syncTags(tx, id, payload.tags);
+    await syncSources(tx, id, payload.sources);
 
     return { id, outcome };
   });
