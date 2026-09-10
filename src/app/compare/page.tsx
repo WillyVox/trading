@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { getProviders } from "@/lib/providers/service";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { CompareSelector } from "@/components/compare/CompareSelector";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
@@ -20,6 +22,13 @@ export default async function ComparePage() {
         compare-specific tables.
       </p>
 
+      <Link
+        href="/compare/crypto-exchanges"
+        className="mt-6 inline-flex items-center justify-center rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-background hover:bg-navy-dark"
+      >
+        Compare every crypto exchange at once
+      </Link>
+
       <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-panel shadow-sm">
         <table className="w-full border-collapse text-sm">
           <thead>
@@ -31,7 +40,11 @@ export default async function ComparePage() {
           <tbody>
             {items.map((p: any) => (
               <tr key={p.id} className="border-b border-border last:border-0">
-                <td className="px-4 py-3 text-navy">{p.name}</td>
+                <td className="px-4 py-3 text-navy">
+                  <Link href={`/crypto/exchanges/${p.slug}`} className="hover:underline">
+                    {p.name}
+                  </Link>
+                </td>
                 <td className="px-4 py-3"><VerificationBadge status={p.verificationStatus} /></td>
               </tr>
             ))}
@@ -43,6 +56,8 @@ export default async function ComparePage() {
           </tbody>
         </table>
       </div>
+
+      <CompareSelector providers={items.map((p: any) => ({ id: p.id, slug: p.slug, name: p.name }))} />
     </div>
   );
 }

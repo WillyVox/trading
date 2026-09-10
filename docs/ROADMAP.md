@@ -41,16 +41,26 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 
 ## Phase 4 — Provider Domain
 - ✅ `Provider`, `ProviderFact`, `ProviderFee`, `ProviderFeature`, `ProviderSource` models with full provenance fields
-- ✅ `lib/providers/service.ts`
+- ✅ `ProviderProsCon` model (this change) — sourced pros/limitations, same provenance shape (`sourceUrl`, `verificationStatus`, `verifiedAt`) as every other Provider fact, migration at `prisma/migrations/20260911050000_provider_profile_phase2/`
+- ✅ `lib/providers/service.ts` — `getProviderBySlug()` now includes `prosCons`; added `getRelatedContentForProvider()` (guides/news via the existing `ArticleProvider` join, split by `Article.category`, same convention `/crypto/guides` and `/news` already use)
+- ✅ `lib/providers/features.ts` (this change) — groups the existing flat `ProviderFeature` list into `products` / `deposits` / `security` by `ProviderFeatureType`, so the profile page can render honest per-section cards without a schema change or duplicated data
 - ✅ `/crypto/exchanges` list + `/crypto/exchanges/[slug]` profile page (facts + fees rendered with verification badges)
-- ✅ Seed script creates two clearly-labeled placeholder providers
-- 🟡 Profile page covers facts/fees only — products, security info, deposit/withdrawal methods, pros/limitations, related guides/news sections from IMPLEMENTATION-PLAN §4 are not laid out yet
-- ⬜ Real, sourced Australian provider data (seed data is explicitly placeholder — do not publish as-is)
+- ✅ Profile page (this change) — added **Products & trading**, **Deposits & withdrawals**, and **Security** sections (grouped `ProviderFeature` rows via `features.ts`), a **Pros & limitations** section (`components/providers/ProviderProsCons.tsx`, each item individually sourced/verification-badged), and **Related guides** / **Related news** sections (`components/guide/RelatedGuides.tsx` reused + new `components/providers/RelatedNews.tsx`) — closes the IMPLEMENTATION-PLAN §4 profile-layout gap
+- ✅ Seed script creates three providers; two now carry **real, sourced Australian data**:
+  - **CoinSpot** — fees, AUD deposit/withdrawal methods, OTC desk, and AUSTRAC/ASIC regulatory status verified directly against `coinspot.com.au/fees` and CoinSpot's own Zendesk support articles (official sources, marked `VERIFIED`); coin-count and a few UX claims sourced from reputable third-party reviews and left `UNVERIFIED` rather than upgraded on secondhand reporting.
+  - **Independent Reserve** — added as a second real AU exchange (Sydney-hosted infrastructure and API access confirmed via its official FAQ, `VERIFIED`; tiered maker/taker fee schedule, coin count, ownership and AFSL-exemption status sourced from third-party reviews/Forbes Advisor and left `UNVERIFIED`).
+  - **Kraken** remains the original `UNVERIFIED` placeholder — real AU-specific sourcing for it is still outstanding.
+  - All of the above were checked 11 Sep 2026. Australia's crypto licensing regime changed materially in 2026 (AUSTRAC's expanded VASP scope from 31 March 2026; ASIC's AFSL "no-action" deadline of 30 June 2026 under the Digital Assets Framework) — re-verify regulatory facts on a short cycle, don't treat this seed as done-once.
+- ⬜ Still to do before public launch: real sourcing for Kraken (or drop it in favour of a third genuinely AU-first exchange, e.g. Swyftx/CoinJar/Coinstash, following the same pattern), and an admin UI to edit these facts without touching the seed script (tracked in Phase 9).
 
 ## Phase 5 — Comparison Engine
-- ✅ `/compare` index + `/compare/[slug]` (supports `a-vs-b` slug parsing)
-- ✅ Comparison data pulled live from the Provider domain, not duplicated
-- 🟡 Table is a simple two-column card layout — no mobile-card fallback pattern, no 3+-way comparison UI, no `/compare/crypto-exchanges` dedicated route yet
+- ✅ `/compare` index (provider list + new `CompareSelector` to pick 2+ exchanges without hand-typing a slug), `/compare/[slug]` (now parses **any number** of `-vs-` segments, not just pairs), and `/compare/crypto-exchanges` (this change — dedicated, always-complete route)
+- ✅ Comparison data pulled live from the Provider domain, not duplicated — `lib/providers/compare.ts` (this change) builds Facts/Fees/Products & trading/Deposits & withdrawals/Security rows from `getProvidersBySlugs()`'s live query, reusing the same `featureGroup()` split the exchange profile page uses so the two views never disagree
+- ✅ Real comparison table (this change) — `components/compare/CompareTable.tsx` renders one column per provider with actual facts/fees/features (not just names), horizontally scrollable so it supports any number of providers
+- ✅ Mobile-card fallback (this change) — `components/compare/CompareMobileCards.tsx`, one stacked card per provider, same rows, shown below the `md` breakpoint while `CompareTable` is hidden
+- ✅ 3+-way comparison UI (this change) — `/compare/[slug]` and `canonicalCompareSlugMulti()` in `lib/seo/canonical.ts` generalized from exactly two providers to any number; a mistyped or non-existent slug still 404s correctly rather than rendering a soft "not found" 200 (kept from the Phase 0 hardening)
+- ✅ `/compare/crypto-exchanges` dedicated route (this change) — always includes every `CRYPTO_EXCHANGE` provider with no combinatorial URL to mistype, so unlike `/compare/[slug]` it's indexed (added to `sitemap.ts` via `staticEntries()`)
+- ⬜ `/compare/[slug]` indexing policy for arbitrary provider combinations is still an open SEO decision, deliberately left `noIndex: true` pending Phase 8 review rather than indexing every possible pair/triple
 
 ## Phase 6 — Affiliate Domain
 - ✅ Full schema: `AffiliatePartnership`, `AffiliateProgram`, `AffiliateLink`, `AffiliatePlacement`, `AffiliateClick`, `AffiliateConversion`

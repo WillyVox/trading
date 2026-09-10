@@ -13,19 +13,25 @@ export function canonicalUrl(path: string, override?: string | null): string {
 }
 
 /**
- * Comparison pages are reachable as both "a-vs-b" and "b-vs-a". Alphabetical
- * ordering owns the canonical URL so the two never compete as duplicate
- * content (see Phase 0 audit, §G).
+ * Comparison pages are reachable in any URL order (e.g. "a-vs-b-vs-c" and
+ * "c-vs-a-vs-b" refer to the same comparison). Alphabetical ordering owns
+ * the canonical URL for any number of providers so permutations never
+ * compete as duplicate content (see Phase 0 audit, §G; generalized in
+ * Phase 5 to support 3+-way comparisons).
  */
+export function canonicalCompareSlugMulti(slugs: string[]): string {
+  return [...slugs].sort((a, b) => a.localeCompare(b)).join("-vs-");
+}
+
+/** @deprecated kept for two-way call sites; prefer canonicalCompareSlugMulti. */
 export function canonicalCompareSlug(slugA: string, slugB: string): string {
-  return [slugA, slugB].sort((a, b) => a.localeCompare(b)).join("-vs-");
+  return canonicalCompareSlugMulti([slugA, slugB]);
 }
 
 export function isCanonicalCompareSlug(slug: string): boolean {
-  const parts = slug.split("-vs-");
-  if (parts.length !== 2) return true; // not a pair slug — nothing to canonicalize
-  const [a, b] = parts;
-  return canonicalCompareSlug(a, b) === slug;
+  const parts = slug.split("-vs-").filter(Boolean);
+  if (parts.length < 2) return true; // not a multi-provider slug — nothing to canonicalize
+  return canonicalCompareSlugMulti(parts) === slug;
 }
 
 const REGION_HREFLANG: Record<string, string> = {

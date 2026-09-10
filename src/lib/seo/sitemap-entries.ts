@@ -4,10 +4,13 @@ import { absoluteUrl } from "./config";
 
 /**
  * Note: /compare/[slug] is intentionally excluded from the sitemap for now
- * — pages are noindex until they carry real, unique comparison content
- * rather than just provider names (see audit §N). Add it here once that
- * content exists — do not programmatically generate every provider-pair
- * combination just to grow sitemap size (see audit rule §34).
+ * -- pages are noindex until indexing every possible provider combination
+ * has had an SEO review (Phase 8). /compare/crypto-exchanges is different:
+ * it's a single, deterministic, always-complete comparison (every
+ * CRYPTO_EXCHANGE provider, no combinatorial URL to generate), so it's
+ * both indexed and listed below rather than programmatically generating
+ * every provider-pair/triple combination just to grow sitemap size (see
+ * audit rule §34).
  *
  * /crypto/[slug] is now backed by the CryptoAsset model (see cryptoAssetEntries).
  */
@@ -19,6 +22,7 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/crypto/exchanges",
     "/crypto/guides",
     "/compare",
+    "/compare/crypto-exchanges",
     "/news",
     "/methodology",
     "/methodology/editorial-policy",
