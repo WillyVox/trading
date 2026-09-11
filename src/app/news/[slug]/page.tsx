@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
 import { getPublishedArticleBySlugAndType } from "@/lib/articles/service";
+import { estimateReadingMinutes } from "@/lib/articles/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { newsArticleSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { GuideHeader } from "@/components/guide/GuideHeader";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -32,6 +34,8 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
   const article = await getPublishedArticleBySlugAndType(slug, "NEWS");
   if (!article) notFound();
 
+  const readingMinutes = estimateReadingMinutes(article.content);
+
   const trail = breadcrumbTrail([
     { name: "News", path: "/news" },
     { name: article.title, path: `/news/${slug}` },
@@ -52,7 +56,17 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
       />
       <JsonLd data={breadcrumbSchema(trail)} />
       <Breadcrumbs items={trail} />
-      <h1 className="font-display text-3xl font-extrabold text-navy">{article.title}</h1>
+      <GuideHeader
+        category={article.category}
+        title={article.title}
+        excerpt={article.excerpt}
+        author={article.author}
+        reviewer={article.reviewer}
+        publishedAt={article.publishedAt}
+        lastReviewedAt={article.lastReviewedAt}
+        updatedAt={article.updatedAt}
+        readingMinutes={readingMinutes}
+      />
       <div className="prose mt-6" dangerouslySetInnerHTML={{ __html: article.content }} />
     </article>
   );

@@ -1079,6 +1079,7 @@ I would divide it into roughly five implementation blocks:
 2. Build real admin CRUD. Implement /admin/articles/new, /admin/articles/[id], server-side create/update, provider/asset/tag/source relationships, Draft/Review/Published actions, and secure Preview.
 
 3. Create the shared ArticleRenderer. Sanitized HTML, heading IDs, images, videos, tables, and controlled embeds. Both public content and admin preview should use this renderer.
+- after done coding this block 3, try to implemtent automation end to end to verify this step work perfectly.
 
 4. Add dynamic article components. Start with the highest-value blocks: PROVIDER_COMPARISON, PROVIDER_CARD, PROVIDER_FEES, and AFFILIATE_CTA. Then add others as real needs arise.
 
