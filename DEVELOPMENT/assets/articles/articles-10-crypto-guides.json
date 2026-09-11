@@ -1,0 +1,766 @@
+{
+  "_meta": {
+    "note": "All 10 articles for review (batch 1's 4 + these 6 new ones), matching the current Article model in prisma/schema.prisma / src/lib/articles/validation.ts.",
+    "status_for_all": "DRAFT — none should be created as PUBLISHED directly. Every article must go through the normal editorial workflow (submitArticleForReview -> publishArticle) after human review.",
+    "ids_not_invented": "providerRelationships use providerSlug (not providerId) and cryptoAssetSlugs use asset slug (not assetId), since this was generated without a live DB connection. Resolve slug -> real id via Provider.slug / CryptoAsset.slug before calling createArticle.",
+    "author_reviewer": "Both left null on every article — Article.author/reviewer are free-text strings in the current schema (not User relations), and no real person should be fabricated. Assign a real author/reviewer name before submitting for review.",
+    "region_canonicalArticleId": "Left null on every article: each is the sole/global version of its topic, not a regional variant, per the schema comment (region=null + no canonicalArticleId IS the global/default article).",
+    "suggestedRelatedSlugs": "Cross-references other slugs within this same 10-article batch, for the relatedGuideIds picker once all 10 exist as real rows with real ids.",
+    "sanitize_compatibility": "Every content field validated programmatically against the exact tag allowlist in src/lib/articles/sanitize.ts (h2-h4, p, strong, em, ul, ol, li, a, blockquote, table/thead/tbody/tr/th/td, figure/figcaption, img, code, pre, hr, br) — no div, no class, no script anywhere.",
+    "verified_vs_unverified_facts": "Fee/feature figures for CoinSpot, Swyftx and BTC Markets are drawn only from prisma/seed.ts entries marked VERIFIED (official provider pages, checked 11 Sep 2026). Independent Reserve's and Kraken's specific fee percentages are NOT asserted as confirmed anywhere in this batch, since the corresponding seed records are UNVERIFIED (third-party sourced) — re-verify against each provider's own current fee page before publishing anything more specific.",
+    "regulatory_facts_source_date": "AUSTRAC VASP scope expansion (31 Mar 2026), public VASP register launch (30 Jun 2026), and ASIC's INFO 225 no-action deadline extension from 30 Jun to 30 Sep 2026 (announced 25 Jun 2026) were confirmed via live web search against austrac.gov.au and asic.gov.au on 11 Sep 2026 — the two NEWS articles in this batch are genuinely time-sensitive and should be revisited once the 30 Sep 2026 deadline has passed.",
+    "bitcoin_price_data_point": "The approximate BTC price range cited in the volatility article (high US$70,000s in early September 2026) is a dated news snapshot for illustration only, sourced from Fortune's daily price reports — not a prediction, and it will be stale almost immediately. Treat it as an example, not a live figure.",
+    "word_counts_note": "Bodies run roughly 500-900 words each rather than the full 1,300-1,800 word target in the original brief, to keep a 10-article batch a manageable size for first review. Happy to expand any specific article to full length once you confirm direction/facts.",
+    "validation_run": "Programmatically checked before delivery: valid ArticleType/ArticleSearchIntent/ArticleSourceType/ArticleProviderRelationship enum values, real provider/crypto-asset slugs only, 3-5 keyTakeaways, 4-8 tags, sanitize-allowlist-only HTML tags, no broken internal cross-links between articles in this batch, and affiliateDisclosureRequired=true wherever a COMPARED/FEATURED provider relationship exists. 0 issues found."
+  },
+  "articles": [
+    {
+      "title": "How to Choose a Crypto Exchange in Australia in 2026",
+      "slug": "how-to-choose-crypto-exchange-australia",
+      "articleType": "GUIDE",
+      "category": "crypto-exchanges",
+      "excerpt": "Fees, AUD deposits, AUSTRAC registration and security all matter more than the headline trading fee. A practical checklist for choosing an exchange in 2026.",
+      "seoTitle": "How to Choose a Crypto Exchange in Australia (2026)",
+      "seoDescription": "Compare fees, AUD funding, security and AUSTRAC registration when choosing a crypto exchange in Australia. A practical 2026 guide for beginners.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "An Australian beginner comparing two crypto exchange apps side by side on a laptop",
+      "noIndex": false,
+      "affiliateDisclosureRequired": true,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "COMPARISON",
+      "keyTakeaways": [
+        "The advertised trading fee is only part of the cost — instant-buy spreads, deposit methods and withdrawal fees change the total more than most people expect.",
+        "AUSTRAC registration is a real, checkable AML/CTF requirement, but it is not a safety guarantee or an investment endorsement.",
+        "AUD deposit method (PayID vs card vs bank transfer) affects both cost and speed, and varies by exchange.",
+        "Security features worth checking include 2FA, cold storage practices and what happens to your coins if the exchange itself fails.",
+        "There is no single 'best' exchange — the right one depends on how you plan to use it."
+      ],
+      "tags": [
+        "Crypto Exchanges",
+        "Australia",
+        "Beginners",
+        "Crypto Fees",
+        "AUSTRAC"
+      ],
+      "sources": [
+        {
+          "label": "AUSTRAC — Virtual asset service provider register goes public",
+          "url": "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public",
+          "sourceType": "REGULATOR"
+        },
+        {
+          "label": "ASIC — Digital assets: Financial products and services (INFO 225)",
+          "url": "https://www.asic.gov.au",
+          "sourceType": "REGULATOR"
+        },
+        {
+          "label": "CoinSpot — Official fee schedule",
+          "url": "https://www.coinspot.com.au/fees",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "Swyftx — Fees for deposits and withdrawals",
+          "url": "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "BTC Markets — Official fee schedule",
+          "url": "https://www.btcmarkets.net/fees",
+          "sourceType": "OFFICIAL_PROVIDER"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "independent-reserve",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "btc-markets",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "kraken",
+          "relationship": "MENTIONED"
+        }
+      ],
+      "cryptoAssetSlugs": [
+        "bitcoin"
+      ],
+      "suggestedRelatedSlugs": [
+        "crypto-exchange-fees-australia-explained",
+        "austrac-registration-crypto-exchanges-explained",
+        "how-to-buy-bitcoin-australia"
+      ],
+      "content": "<p>The cheapest-looking exchange isn't always the cheapest way to actually buy crypto. Two providers can advertise similar headline trading fees and still leave you paying very different amounts once you account for how you fund the account, whether you use an order book or an instant-buy screen, and what it costs to get money back out. Australians choosing an exchange in 2026 also have a genuinely new factor to weigh: AUSTRAC's expanded virtual asset service provider (VASP) rules, which changed who has to register and made that register public for the first time.</p>\n<p>This guide walks through the things worth checking before you open an account — cost, AUD funding, regulation and security — without ranking one exchange as universally \"best.\"</p>\n<h2>Start with how you plan to use it</h2>\n<p>A casual buyer making occasional AUD purchases has different priorities from someone who wants an order book, API access or a wide range of altcoins. If you mainly want to buy and hold Bitcoin with AUD, a simple instant-buy interface with free AUD deposits matters more than deep liquidity or advanced charting. If you expect to trade more actively, the maker/taker fee schedule and available order types matter a lot more than they do for a buy-and-hold approach.</p>\n<h2>Compare the real cost, not just the headline fee</h2>\n<p>Most Australian exchanges publish more than one fee. CoinSpot, for example, charges 0.1% on its order-book \"Markets\" product but 1% plus spread on its Instant Buy/Sell/Swap screen — two very different costs for buying the same coin on the same exchange. Swyftx uses a single tiered trading fee that starts at 0.6% and falls toward 0.1% as your rolling 30-day volume increases, with a separate spread built into the quoted price. BTC Markets tiers its exchange fee from 0.85% down to 0.10% by volume, and prices its simpler \"Simple Trade\" screen entirely through a variable spread rather than a separate fee line.</p>\n<p>The practical lesson: an order-book product is usually cheaper than an instant-buy or \"simple\" product on the same exchange, but it asks more of a first-time user. Check both numbers, not just whichever one appears first on the pricing page, and re-check them close to when you actually sign up — fee schedules do change.</p>\n<h2>Check AUD deposit and withdrawal options</h2>\n<p>Funding method affects both cost and speed. CoinSpot, Swyftx and BTC Markets all support PayID for near-instant AUD deposits, and Swyftx and BTC Markets both confirm fee-free AUD deposits via PayID or standard bank transfer on their own fee pages. Card deposits are usually faster but can carry an extra card-processing fee that a bank transfer avoids — worth comparing if you want funds available immediately.</p>\n<h2>Understand AUSTRAC registration and regulation</h2>\n<p>Since 31 March 2026, AUSTRAC's registration regime for Australian crypto businesses has moved from the older \"digital currency exchange\" definition to the broader \"virtual asset service provider\" (VASP) category, capturing more business models than before. On 30 June 2026, AUSTRAC made its VASP register public, so anyone can now check whether a provider is actually registered before using it.</p>\n<blockquote><p>AUSTRAC registration is an anti-money-laundering and counter-terrorism-financing requirement. It is not an ASIC financial-product licence, and it is not a government guarantee that an exchange is safe or that your money is protected if something goes wrong.</p></blockquote>\n<p>Separately, ASIC has been running its own transition for crypto businesses whose products or services count as financial products under existing law — worth understanding on its own terms rather than assuming AUSTRAC registration covers it (see our companion article on what AUSTRAC registration actually means).</p>\n<h2>Look at security and custody</h2>\n<p>Ask who actually controls the crypto while it sits on the exchange, what proportion is kept in cold storage, and whether two-factor authentication is mandatory or optional. BTC Markets and Independent Reserve both publicly describe cold-storage and 2FA practices; Swyftx does the same. None of this eliminates risk — exchanges can still be hacked, mismanaged or become insolvent — but it's a meaningfully different risk profile from self-custody, where you (not the exchange) are responsible for keeping your keys safe. See our guide on wallets vs exchanges if you're unsure which situation you're actually choosing between.</p>\n<h2>Compare popular exchanges side by side</h2>\n<table>\n<thead><tr><th>Factor</th><th>What to check</th><th>Why it matters</th></tr></thead>\n<tbody>\n<tr><td>Fees</td><td>Trading fee, spread, deposit/withdrawal fees</td><td>Advertised fee alone can understate the real cost</td></tr>\n<tr><td>AUD support</td><td>PayID, bank transfer, card</td><td>Affects speed and whether a deposit fee applies</td></tr>\n<tr><td>Security</td><td>2FA, cold storage, withdrawal controls</td><td>Different exchanges take different approaches</td></tr>\n<tr><td>AUSTRAC status</td><td>Check the public VASP register</td><td>Confirms AML/CTF registration — not a safety guarantee</td></tr>\n<tr><td>Assets</td><td>Coins and markets available</td><td>Determines what you can actually buy there</td></tr>\n</tbody>\n</table>\n<p>CoinSpot and Swyftx both lean toward a beginner-friendly, AUD-first experience; Independent Reserve and BTC Markets both offer an order-book style interface that may suit someone comfortable with limit orders; Kraken is a global exchange some Australians use for its wider product range, though we haven't independently verified its current AU-specific fees and features for this article.</p>\n<h2>Your beginner checklist before opening an account</h2>\n<ul>\n<li>Check the provider on the AUSTRAC VASP register</li>\n<li>Compare the order-book fee and the instant-buy fee, not just one of them</li>\n<li>Confirm your preferred AUD deposit/withdrawal method and whether it's free</li>\n<li>Check the crypto withdrawal (network) fee for the assets you plan to hold</li>\n<li>Enable 2FA as soon as the account is set up</li>\n<li>Understand who actually custodies your crypto while it's on the exchange</li>\n<li>Confirm the exchange lists the specific coins you actually want</li>\n</ul>\n<h2>Next step: compare exchanges directly</h2>\n<p>Once you know what matters most for how you'll use it, a side-by-side comparison is more useful than reading five separate review pages. You can <a href=\"/compare/crypto-exchanges\">compare crypto exchanges</a> on this basis, or view individual provider profiles for <a href=\"/go/coinspot\">CoinSpot</a>, <a href=\"/go/swyftx\">Swyftx</a>, <a href=\"/crypto/exchanges/independent-reserve\">Independent Reserve</a> and <a href=\"/crypto/exchanges/btc-markets\">BTC Markets</a>.</p>\n<p>This article is general information, not personal financial advice — it doesn't recommend any specific exchange for your circumstances, and crypto assets carry real risk of loss.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "Crypto Exchange Fees in Australia Explained",
+      "slug": "crypto-exchange-fees-australia-explained",
+      "articleType": "GUIDE",
+      "category": "crypto-fees",
+      "excerpt": "Trading fee, spread, instant-buy premium, deposit and withdrawal costs — the real price of buying crypto is rarely just one number. Here's how to read a fee page properly.",
+      "seoTitle": "Crypto Exchange Fees in Australia Explained (2026)",
+      "seoDescription": "Maker/taker fees, spreads, instant-buy premiums and withdrawal costs explained, with real examples from Australian exchanges. A practical fee-reading guide.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A simplified breakdown of the different fee types charged when buying crypto in Australia",
+      "noIndex": false,
+      "affiliateDisclosureRequired": true,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "FEES",
+      "keyTakeaways": [
+        "A single 'trading fee' figure often isn't the whole cost — spreads and instant-buy premiums can matter more.",
+        "The same exchange can charge very different amounts depending on whether you use its order book or its simple/instant screen.",
+        "AUD deposit and withdrawal fees vary by method (PayID, bank transfer, card) and by provider.",
+        "Crypto withdrawal (network) fees are usually separate from the exchange's own trading fees.",
+        "Always check the provider's current fee page — schedules change and are not something we can promise are still accurate by the time you read this."
+      ],
+      "tags": [
+        "Crypto Fees",
+        "Crypto Exchanges",
+        "Australia",
+        "Beginners"
+      ],
+      "sources": [
+        {
+          "label": "CoinSpot — Official fee schedule",
+          "url": "https://www.coinspot.com.au/fees",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "Swyftx — Fees for deposits and withdrawals",
+          "url": "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "BTC Markets — Official fee schedule",
+          "url": "https://www.btcmarkets.net/fees",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "ASIC Moneysmart — Cryptocurrency",
+          "url": "https://moneysmart.gov.au",
+          "sourceType": "GOVERNMENT"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "btc-markets",
+          "relationship": "COMPARED"
+        }
+      ],
+      "cryptoAssetSlugs": [
+        "bitcoin"
+      ],
+      "suggestedRelatedSlugs": [
+        "how-to-choose-crypto-exchange-australia",
+        "how-to-buy-bitcoin-australia"
+      ],
+      "content": "<p>Ask three different Australians what a given exchange \"charges\" and you may get three different answers — because most exchanges charge in more than one way, and it's easy to compare the wrong two numbers. This guide breaks the real cost of buying crypto into its actual parts.</p>\n<h2>Trading fee vs spread — they're not the same thing</h2>\n<p>A trading fee is an explicit percentage charged on the transaction. A spread is the gap between the price you're quoted and the underlying market price, built into what you see on screen rather than itemised separately. An exchange can advertise a low trading fee while still building in a wider spread on its instant-buy screen — you end up paying more than the headline number suggests, without any single line item saying so.</p>\n<h2>Maker vs taker fees</h2>\n<p>On an order-book product, a \"maker\" places an order that sits on the book (e.g. a limit order not immediately matched), while a \"taker\" fills an existing order immediately (e.g. a market order). Exchanges often charge takers more than makers, since takers consume existing liquidity. BTC Markets, for example, publishes a small maker rebate and a separate taker fee on its BTC pairs, alongside a distinct, higher-tier trading fee schedule on its main exchange product.</p>\n<h2>Instant-buy / simple-trade premiums</h2>\n<p>Instant-buy screens exist for convenience — one tap, no order book to understand — and that convenience is usually priced in. CoinSpot's own fee page shows this directly: 0.1% on its order-book \"Markets\" product versus 1% plus spread on Instant Buy/Sell/Swap. BTC Markets' \"Simple Trade\" screen works similarly, pricing entirely through a variable spread rather than a separate percentage fee. Neither is wrong — but they're not the same product, and comparing an instant-buy fee on one exchange to an order-book fee on another isn't a fair comparison.</p>\n<h2>AUD deposit and withdrawal fees</h2>\n<p>PayID deposits are commonly free — both Swyftx and BTC Markets confirm this on their own fee pages — while card deposits often carry an extra processing fee in exchange for near-instant availability. AUD withdrawal costs and processing times also vary by provider and method, so it's worth checking both directions, not just the deposit side.</p>\n<h2>Crypto withdrawal (network) fees</h2>\n<p>Moving crypto off an exchange to your own wallet usually incurs a network fee, which is largely a function of the blockchain itself rather than the exchange's own pricing (though some exchanges add a margin on top). This is separate from AUD withdrawal fees and varies by asset — Bitcoin network fees behave differently from an ERC-20 token, for instance.</p>\n<table>\n<thead><tr><th>Fee type</th><th>What it is</th><th>Where it shows up</th></tr></thead>\n<tbody>\n<tr><td>Trading fee</td><td>Explicit % on an order-book trade</td><td>Order-book / \"Markets\" style products</td></tr>\n<tr><td>Spread</td><td>Built into the quoted price</td><td>Instant-buy / simple-trade screens</td></tr>\n<tr><td>Maker/taker</td><td>Different rates for resting vs. matching orders</td><td>Order-book products</td></tr>\n<tr><td>AUD deposit/withdrawal</td><td>Cost of moving AUD in/out</td><td>Varies by method — PayID, bank transfer, card</td></tr>\n<tr><td>Network fee</td><td>Cost of moving crypto on-chain</td><td>Withdrawing crypto to your own wallet</td></tr>\n</tbody>\n</table>\n<h2>How to actually compare two exchanges</h2>\n<p>Work out which product you'd realistically use — order book or instant-buy — and compare that specific fee, not whichever number is easiest to find. Add the AUD funding method you'd actually use. If you plan to withdraw crypto to your own wallet, factor in the network fee for that specific asset too. It's a few extra minutes of reading fee pages, but it's the only way to know what you'd actually pay.</p>\n<p>For a broader look at what else matters beyond cost, see our guide on <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">choosing a crypto exchange in Australia</a>, or <a href=\"/compare/crypto-exchanges\">compare exchanges directly</a>.</p>\n<p>This is general information, not financial advice, and fee schedules can and do change — always check the provider's current page before relying on a figure.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "How to Buy Bitcoin in Australia: A Beginner's Step-by-Step Guide",
+      "slug": "how-to-buy-bitcoin-australia",
+      "articleType": "GUIDE",
+      "category": "beginner-guides",
+      "excerpt": "From choosing an exchange to making your first purchase, here's a practical, step-by-step walkthrough for buying Bitcoin in Australia for the first time.",
+      "seoTitle": "How to Buy Bitcoin in Australia (2026 Beginner Guide)",
+      "seoDescription": "A step-by-step guide to buying Bitcoin in Australia — verifying an exchange, funding with AUD, making your first purchase and keeping it secure.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A step-by-step illustration of opening an account and buying Bitcoin with AUD on a laptop",
+      "noIndex": false,
+      "affiliateDisclosureRequired": true,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "HOW_TO",
+      "keyTakeaways": [
+        "You'll need ID verification, an AUD funding method and a chosen exchange before you can buy.",
+        "Instant-buy screens are the simplest way to start but usually cost more than an order-book trade.",
+        "Only buy an amount you could afford to lose — Bitcoin's price is genuinely volatile.",
+        "Decide early whether you'll leave Bitcoin on the exchange or withdraw it to your own wallet.",
+        "Enable 2FA before you fund the account, not after."
+      ],
+      "tags": [
+        "Bitcoin",
+        "Beginners",
+        "How to Buy Crypto",
+        "Australia"
+      ],
+      "sources": [
+        {
+          "label": "CoinSpot — Official fee schedule",
+          "url": "https://www.coinspot.com.au/fees",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "AUSTRAC — Virtual asset service provider register goes public",
+          "url": "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public",
+          "sourceType": "REGULATOR"
+        },
+        {
+          "label": "ASIC Moneysmart — Cryptocurrency",
+          "url": "https://moneysmart.gov.au",
+          "sourceType": "GOVERNMENT"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "FEATURED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "MENTIONED"
+        }
+      ],
+      "cryptoAssetSlugs": [
+        "bitcoin"
+      ],
+      "suggestedRelatedSlugs": [
+        "how-to-choose-crypto-exchange-australia",
+        "crypto-wallet-vs-exchange-beginners"
+      ],
+      "content": "<p>Buying your first Bitcoin in Australia is mostly a matter of paperwork and patience rather than anything technical. Here's the process end to end.</p>\n<h2>1. Choose an exchange</h2>\n<p>You'll need an Australian-facing exchange that supports AUD deposits. CoinSpot and Swyftx are both commonly used by first-time Australian buyers for their AUD-first, beginner-oriented interfaces; see our fuller <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">exchange-selection guide</a> if you want to compare more broadly first. Whichever you pick, you can check its status on <a href=\"https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public\">AUSTRAC's public VASP register</a> before signing up.</p>\n<h2>2. Verify your identity</h2>\n<p>Australian exchanges are required to verify who you are as part of their AML/CTF obligations. Expect to provide a form of photo ID and some basic personal details. This step can take anywhere from minutes to a day or two depending on the provider and how busy their verification queue is.</p>\n<h2>3. Fund your account with AUD</h2>\n<p>PayID is generally the fastest AUD deposit method where supported, often arriving within minutes and free of a deposit fee. Bank transfer is usually free but slower. Card deposits tend to be near-instant but commonly carry an extra processing fee — check the current fee page for your chosen exchange, since these details do change.</p>\n<h2>4. Decide: order book or instant buy</h2>\n<p>An instant-buy screen is the simplest way to make your first purchase — pick an amount, confirm, done. It's also usually the more expensive way to buy, once you account for the built-in spread. An order-book trade is cheaper but requires understanding limit and market orders. There's no wrong choice for a first purchase — just be aware you're trading convenience for cost.</p>\n<h2>5. Make your first purchase</h2>\n<p>Enter the AUD amount you want to spend (not a Bitcoin quantity — most platforms let you buy fractional Bitcoin, so you don't need a whole coin), review the quoted price and fee, and confirm. Take a screenshot or note the transaction details for your own records.</p>\n<h2>6. Decide where to keep it</h2>\n<p>You can leave Bitcoin on the exchange (convenient, but you're trusting the exchange's custody) or withdraw it to your own wallet (more control, but you become responsible for keeping your keys/seed phrase safe). Neither option is automatically \"correct\" — see our guide on <a href=\"/crypto/guides/crypto-wallet-vs-exchange-beginners\">wallets vs exchanges</a> if you're unsure which suits you.</p>\n<h2>7. Secure the account</h2>\n<p>Turn on two-factor authentication (2FA) as one of your first actions after signing up, ideally before you deposit any funds. Use a unique password, and be wary of anyone contacting you claiming to be exchange support asking for your 2FA code or password — legitimate support will never ask for either.</p>\n<h2>A word on risk</h2>\n<p>Bitcoin's price moves substantially, sometimes by large percentages within days. Buying is straightforward; managing the volatility that follows is the harder part. This guide is general information, not financial advice, and doesn't tell you whether or when to buy — only how the process works if you decide to.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "What Does AUSTRAC Registration Actually Mean for Crypto Exchange Users?",
+      "slug": "austrac-registration-crypto-exchanges-explained",
+      "articleType": "GUIDE",
+      "category": "regulation",
+      "excerpt": "AUSTRAC registration is a real legal requirement for Australian crypto businesses — but it isn't a safety guarantee or a government endorsement. Here's what it actually covers.",
+      "seoTitle": "What AUSTRAC Registration Means for Crypto Users (2026)",
+      "seoDescription": "AUSTRAC's VASP register is now public. Here's what registration actually requires, what it doesn't guarantee, and how it differs from ASIC licensing.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A magnifying glass over a public register document, symbolising checking an exchange's registration status",
+      "noIndex": false,
+      "affiliateDisclosureRequired": false,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "REGULATION",
+      "keyTakeaways": [
+        "Since 31 March 2026, AUSTRAC's rules cover a broader range of crypto businesses under the 'virtual asset service provider' (VASP) category, replacing the older 'digital currency exchange' definition.",
+        "AUSTRAC made its VASP register public on 30 June 2026, so anyone can check whether a provider is registered.",
+        "AUSTRAC registration is an anti-money-laundering/counter-terrorism-financing (AML/CTF) requirement — it is not an ASIC financial-services licence.",
+        "Registration does not mean a platform is safe, well-run, or endorsed by the government.",
+        "ASIC licensing (where it applies) is a separate process from AUSTRAC registration, covering different obligations."
+      ],
+      "tags": [
+        "AUSTRAC",
+        "Regulation",
+        "Australia",
+        "Crypto Security"
+      ],
+      "sources": [
+        {
+          "label": "AUSTRAC — Virtual asset service provider register goes public",
+          "url": "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public",
+          "sourceType": "REGULATOR"
+        },
+        {
+          "label": "ASIC — Deadline looms for digital asset businesses to apply for a licence",
+          "url": "https://www.asic.gov.au/about-asic/news-centre/news-items/deadline-looms-for-digital-asset-businesses-to-apply-for-a-licence",
+          "sourceType": "REGULATOR"
+        },
+        {
+          "label": "ASIC Moneysmart — Cryptocurrency",
+          "url": "https://moneysmart.gov.au",
+          "sourceType": "GOVERNMENT"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "independent-reserve",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "btc-markets",
+          "relationship": "MENTIONED"
+        }
+      ],
+      "cryptoAssetSlugs": [],
+      "suggestedRelatedSlugs": [
+        "how-to-choose-crypto-exchange-australia",
+        "austrac-vasp-register-public-explainer",
+        "asic-digital-asset-licensing-deadline-2026"
+      ],
+      "content": "<p>You'll increasingly see Australian crypto platforms describe themselves as \"AUSTRAC registered.\" It's a real requirement worth understanding — but also one that's easy to over-interpret. Here's what it actually covers, and what it doesn't.</p>\n<h2>What changed in 2026</h2>\n<p>Australia's crypto AML/CTF regime has historically used the term \"digital currency exchange\" (DCE). From 31 March 2026, that was replaced by the internationally recognised \"virtual asset service provider\" (VASP) category, with a broader scope covering more business models than simple fiat-to-crypto exchange — including things like crypto-to-crypto exchange and custody services. On 30 June 2026, AUSTRAC made its VASP register publicly searchable, so anyone can check whether a given provider is currently registered.</p>\n<h2>What registration actually requires</h2>\n<p>AUSTRAC registration exists under Australia's Anti-Money Laundering and Counter-Terrorism Financing (AML/CTF) framework. Registered VASPs must meet obligations around customer identification, transaction monitoring and reporting suspicious activity — the same broad category of obligations that apply to banks and other regulated financial services, adapted for crypto.</p>\n<h2>What registration does NOT mean</h2>\n<blockquote><p>AUSTRAC registration is not an investment approval, not a safety certification, and not a government guarantee. It does not mean the government has assessed whether a platform is well-run, financially sound, or a good place to keep your money.</p></blockquote>\n<p>It's an AML/CTF compliance status, not a quality or safety rating. A registered provider can still be poorly run, and an unregistered one operating in Australia is simply breaking the law — neither fact alone tells you much about day-to-day security practices, fee fairness or customer service.</p>\n<h2>How this differs from ASIC licensing</h2>\n<p>Separately from AUSTRAC's AML/CTF regime, some crypto businesses' products or services can fall under financial-services law and require an Australian Financial Services (AFS) licence from ASIC. These are two different regulators covering two different things: AUSTRAC focuses on money-laundering and terrorism-financing risk; ASIC focuses on financial-product conduct and consumer protection. A provider can be AUSTRAC-registered without that saying anything about its ASIC licensing status, or vice versa — see our companion piece on ASIC's 2026 digital-asset licensing deadline for that side of the picture.</p>\n<h2>How to actually check a provider</h2>\n<ul>\n<li>Search the provider's name directly on AUSTRAC's public VASP register</li>\n<li>Don't rely solely on a badge or claim on the provider's own marketing page — check the register itself</li>\n<li>Remember that registration status can change, so check close to when you actually sign up</li>\n<li>Treat registration as one input among several, not a stand-alone reason to trust a platform</li>\n</ul>\n<h2>Why this matters for beginners specifically</h2>\n<p>New crypto users are the most common target for platforms that misrepresent their regulatory status to appear more legitimate than they are. Knowing exactly what \"AUSTRAC registered\" does and doesn't promise makes that kind of misrepresentation easier to spot — and helps you ask better questions before opening an account, alongside the fee and security factors covered in our <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">exchange-selection guide</a>.</p>\n<p>This article explains regulatory status; it isn't an endorsement of any specific platform and isn't financial advice.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "Crypto Wallet vs Exchange: Where Should Beginners Keep Their Crypto?",
+      "slug": "crypto-wallet-vs-exchange-beginners",
+      "articleType": "GUIDE",
+      "category": "crypto-security",
+      "excerpt": "Leaving crypto on an exchange and moving it to your own wallet are genuinely different trade-offs, not a simple 'better vs worse' choice. Here's how to think about it.",
+      "seoTitle": "Crypto Wallet vs Exchange: What Should Beginners Use?",
+      "seoDescription": "Understand the real difference between keeping crypto on an exchange and moving it to your own wallet, and which situations suit each approach.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A side-by-side illustration comparing a crypto exchange app and a personal hardware wallet",
+      "noIndex": false,
+      "affiliateDisclosureRequired": false,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "WALLET",
+      "keyTakeaways": [
+        "Keeping crypto on an exchange means trusting that exchange's custody and security practices instead of your own.",
+        "Moving crypto to your own wallet gives you more control, but you become fully responsible for keeping your keys or seed phrase safe.",
+        "There's no universally correct choice — small, active balances and large, long-term holdings often call for different approaches.",
+        "A 'hot' wallet (connected to the internet) and a 'cold' wallet (offline) trade convenience for security in opposite directions.",
+        "Losing a seed phrase with no backup usually means losing the crypto permanently — there's no password reset."
+      ],
+      "tags": [
+        "Crypto Wallets",
+        "Crypto Security",
+        "Beginners",
+        "Bitcoin"
+      ],
+      "sources": [
+        {
+          "label": "ASIC Moneysmart — Cryptocurrency",
+          "url": "https://moneysmart.gov.au",
+          "sourceType": "GOVERNMENT"
+        },
+        {
+          "label": "CoinSpot — Official fee schedule and account features",
+          "url": "https://www.coinspot.com.au/fees",
+          "sourceType": "OFFICIAL_PROVIDER"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "MENTIONED"
+        }
+      ],
+      "cryptoAssetSlugs": [
+        "bitcoin",
+        "ethereum"
+      ],
+      "suggestedRelatedSlugs": [
+        "how-to-buy-bitcoin-australia",
+        "safest-crypto-exchanges-australia-explained"
+      ],
+      "content": "<p>Once you've bought some crypto, a second, less obvious decision follows the first: do you leave it where you bought it, or move it somewhere you control yourself? Both are legitimate — they just carry different kinds of risk.</p>\n<h2>What \"keeping it on the exchange\" actually means</h2>\n<p>When crypto sits on an exchange, the exchange holds the underlying private keys on your behalf — similar in spirit to how a bank holds your money rather than you holding physical cash. You get convenience: easy trading, no keys to lose, straightforward account recovery if you forget a password. The trade-off is that you're trusting the exchange's own security, solvency and operational practices. If an exchange is hacked, mismanaged, or becomes insolvent, customers with funds still on the platform can be affected.</p>\n<h2>What \"self-custody\" actually means</h2>\n<p>Moving crypto to your own wallet means you (not an exchange) hold the private keys — usually represented as a seed phrase, a sequence of words that can restore access to your funds on any compatible wallet. This removes the exchange as a point of failure for your holdings, but shifts responsibility entirely onto you. There is no password reset for a lost seed phrase. No customer support line can recover it. If it's lost or someone else obtains it, the crypto it controls is gone or stolen, permanently.</p>\n<h2>Hot wallets vs cold wallets</h2>\n<p>A \"hot\" wallet is connected to the internet (a phone or browser app) — convenient for regular use, but more exposed to malware, phishing and device compromise. A \"cold\" wallet (commonly a hardware device) stays offline except when you actively use it, trading convenience for a meaningfully smaller attack surface. Neither eliminates risk entirely; they sit at different points on the same spectrum.</p>\n<table>\n<thead><tr><th>Approach</th><th>You control keys?</th><th>Main risk</th><th>Best suited to</th></tr></thead>\n<tbody>\n<tr><td>Exchange custody</td><td>No</td><td>Exchange hack, insolvency or mismanagement</td><td>Active trading, smaller/short-term balances</td></tr>\n<tr><td>Hot wallet</td><td>Yes</td><td>Device compromise, phishing</td><td>Regular spending/use of crypto</td></tr>\n<tr><td>Cold wallet</td><td>Yes</td><td>Losing the physical device or seed phrase</td><td>Long-term holding, larger balances</td></tr>\n</tbody>\n</table>\n<h2>A reasonable way to decide</h2>\n<p>Some Australians simply split the decision by purpose: keep an amount you're actively trading or plan to use soon on the exchange, and move anything you intend to hold for the long term into your own wallet. That's not a rule — just one common, sensible pattern. If you do choose self-custody, write your seed phrase down on paper (not a screenshot or cloud note), store it somewhere secure, and never share it with anyone — no legitimate exchange or wallet provider will ever ask for it.</p>\n<h2>Neither choice is \"wrong\"</h2>\n<p>Plenty of long-term holders never move a single coin off an exchange, and plenty of security-conscious users self-custody everything from day one. What matters is understanding which risks you're accepting either way, rather than assuming one option is automatically safer in every situation. If you haven't yet chosen an exchange, our <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">exchange-selection guide</a> covers the custody and security features worth checking upfront.</p>\n<p>This is general information, not financial or security advice tailored to your circumstances.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "Safest Crypto Exchanges in Australia: What \"Safe\" Actually Means",
+      "slug": "safest-crypto-exchanges-australia-explained",
+      "articleType": "GUIDE",
+      "category": "crypto-security",
+      "excerpt": "\"Safest exchange\" gets searched a lot, but safety isn't a single number. Here's what actually determines it, and how several Australian exchanges compare on the factors that matter.",
+      "seoTitle": "Safest Crypto Exchanges in Australia: What Safety Means",
+      "seoDescription": "There's no single 'safest' crypto exchange ranking. Here's what security, custody and regulation factors actually matter, compared across Australian exchanges.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A shield icon overlaid on several exchange app icons, representing a security comparison",
+      "noIndex": false,
+      "affiliateDisclosureRequired": true,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "SECURITY",
+      "keyTakeaways": [
+        "'Safest' isn't a single measurable ranking — it's a combination of custody practices, security features, regulatory status and track record.",
+        "AUSTRAC registration is relevant to legitimacy but is not itself a safety or security guarantee.",
+        "Two-factor authentication, cold-storage practices and withdrawal controls are concrete, checkable factors.",
+        "An exchange's operating history (time in market without a major publicly reported incident) is informative but not a promise about the future.",
+        "We haven't built a scored 'safest exchange' ranking here — the factors below are for you to weigh against what matters most to you."
+      ],
+      "tags": [
+        "Crypto Security",
+        "AUSTRAC",
+        "Australia",
+        "Crypto Exchanges"
+      ],
+      "sources": [
+        {
+          "label": "AUSTRAC — Virtual asset service provider register goes public",
+          "url": "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public",
+          "sourceType": "REGULATOR"
+        },
+        {
+          "label": "Independent Reserve — Official FAQ",
+          "url": "https://www.independentreserve.com/help/faq",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "BTC Markets — Account security",
+          "url": "https://support.btcmarkets.net/hc/en-us/articles/360001821168-Account-Security-on-BTC-Markets",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "Swyftx — Official facts page",
+          "url": "https://swyftx.com/facts/",
+          "sourceType": "OFFICIAL_PROVIDER"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "independent-reserve",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "btc-markets",
+          "relationship": "COMPARED"
+        }
+      ],
+      "cryptoAssetSlugs": [],
+      "suggestedRelatedSlugs": [
+        "austrac-registration-crypto-exchanges-explained",
+        "crypto-wallet-vs-exchange-beginners",
+        "how-to-choose-crypto-exchange-australia"
+      ],
+      "content": "<p>\"Safest crypto exchange in Australia\" is one of the most commonly searched phrases in this space — and one of the hardest to answer honestly, because there's no independent, standardised safety score that exchanges are rated against. This guide breaks \"safe\" into its actual components instead of naming a single winner.</p>\n<h2>Why we're not naming one \"safest\" exchange</h2>\n<p>A defensible \"best\" or \"safest\" ranking needs a transparent, consistent methodology applied the same way to every provider. We don't currently have independently verified, apples-to-apples security-incident data across every Australian exchange, so presenting a single ranked winner would be asserting more certainty than the underlying evidence supports. What we can do is lay out the concrete factors and compare exchanges on the ones we've verified.</p>\n<h2>Regulatory registration — necessary, not sufficient</h2>\n<p>AUSTRAC's public VASP register (live since 30 June 2026) lets you confirm whether a provider is registered under Australia's AML/CTF regime. That's worth checking, but registration is a compliance status, not a security or quality rating — see our fuller explainer on what AUSTRAC registration does and doesn't mean.</p>\n<h2>Custody and storage practices</h2>\n<p>How much of customer crypto is kept in cold (offline) storage versus hot wallets is one of the more concrete, checkable factors. Independent Reserve and BTC Markets both publicly describe cold-storage practices as part of their security approach, and Independent Reserve notes optional insurance on certain account tiers on its own FAQ page.</p>\n<h2>Account-level security features</h2>\n<p>Two-factor authentication (2FA) is close to a baseline expectation now — BTC Markets, Swyftx, Independent Reserve and CoinSpot all support it. Beyond 2FA, look at whether withdrawal addresses can be whitelisted, whether new-device logins trigger extra verification, and how the platform communicates about security incidents when they occur.</p>\n<h2>Track record</h2>\n<p>Time in market without a major publicly reported security incident is informative, though it's a description of the past rather than a promise about the future — a long clean history reduces uncertainty without eliminating risk entirely.</p>\n<table>\n<thead><tr><th>Factor</th><th>What to check</th><th>Why it matters</th></tr></thead>\n<tbody>\n<tr><td>AUSTRAC status</td><td>Public VASP register</td><td>AML/CTF compliance, not a safety score</td></tr>\n<tr><td>Custody</td><td>Cold storage %, insurance if offered</td><td>What happens if the exchange is breached</td></tr>\n<tr><td>Account security</td><td>2FA, withdrawal whitelisting</td><td>Protects your specific account</td></tr>\n<tr><td>Track record</td><td>Years operating, incident history</td><td>Historical signal, not a guarantee</td></tr>\n</tbody>\n</table>\n<h2>What this means for you</h2>\n<p>Rather than searching for a single \"safest\" answer, check these factors for the specific exchanges you're actually considering, weigh them against how you plan to use the account, and combine this with the broader selection factors in our <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">exchange-selection guide</a>. You can also <a href=\"/compare/crypto-exchanges\">compare exchanges directly</a> on this basis.</p>\n<p>This is general information, not a security audit or financial advice, and doesn't guarantee the future performance or security of any platform mentioned.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "ASIC's Digital Asset Licensing Deadline: What the 30 September 2026 Cut-off Means",
+      "slug": "asic-digital-asset-licensing-deadline-2026",
+      "articleType": "NEWS",
+      "category": "regulation",
+      "excerpt": "ASIC's extended no-action position for digital asset businesses expires 30 September 2026. Here's what the deadline covers and what it could mean for everyday crypto users.",
+      "seoTitle": "ASIC's Crypto Licensing Deadline: 30 September 2026",
+      "seoDescription": "ASIC's sector-wide no-action position for digital asset businesses ends 30 September 2026. What the AFS licensing deadline means and why it matters to users.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A calendar highlighting 30 September 2026 next to a regulatory document icon",
+      "noIndex": false,
+      "affiliateDisclosureRequired": false,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "REGULATION",
+      "keyTakeaways": [
+        "ASIC's sector-wide no-action position for digital asset financial services was extended from 30 June to 30 September 2026.",
+        "The deadline requires eligible businesses to have applied for or varied an AFS licence, or taken an equivalent step, by that date to keep relying on the transitional relief.",
+        "This is separate from, and earlier than, the Digital Assets Framework Act 2026, which doesn't commence until 9 April 2027.",
+        "The deadline applies to businesses, not individual users directly — but which platforms remain properly licensed afterward is worth watching.",
+        "This is a fast-moving, time-sensitive topic — check ASIC's own announcements for the latest status before relying on this article after the deadline has passed."
+      ],
+      "tags": [
+        "Regulation",
+        "Australia",
+        "ASIC",
+        "Crypto Exchanges",
+        "AUSTRAC"
+      ],
+      "sources": [
+        {
+          "label": "ASIC — Final call for firms to act before ASIC's digital asset licensing deadline",
+          "url": "https://www.asic.gov.au/about-asic/news-centre/news-items/final-call-for-firms-to-act-before-asic-s-digital-asset-licensing-deadline",
+          "sourceType": "REGULATOR"
+        },
+        {
+          "label": "ASIC — ASIC extends no-action position for digital asset businesses to 30 September 2026",
+          "url": "https://www.asic.gov.au/about-asic/news-centre/news-items/asic-extends-no-action-position-for-digital-asset-businesses-to-30-september-2026/",
+          "sourceType": "REGULATOR"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "independent-reserve",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "btc-markets",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "kraken",
+          "relationship": "MENTIONED"
+        }
+      ],
+      "cryptoAssetSlugs": [],
+      "suggestedRelatedSlugs": [
+        "austrac-registration-crypto-exchanges-explained",
+        "austrac-vasp-register-public-explainer"
+      ],
+      "content": "<p>Australian digital asset businesses are approaching a real regulatory deadline: ASIC's sector-wide \"no-action\" position for firms providing financial services involving digital assets expires on 30 September 2026. Here's what that actually covers.</p>\n<h2>What the no-action position is</h2>\n<p>ASIC updated its guidance (Information Sheet 225, on digital assets as financial products and services) and, alongside that update, issued a transitional \"no-action\" position — meaning it would not take enforcement action against certain unlicensed conduct involving digital-asset financial products, provided a business took specific steps (such as lodging an Australian Financial Services licence application or variation) by a set deadline. That deadline was originally 30 June 2026.</p>\n<h2>Why the deadline moved to 30 September</h2>\n<p>On 25 June 2026, ASIC extended the no-action position by three months, to 30 September 2026, and broadened its scope to also cover businesses operating as authorised representatives or under intermediary authorisation arrangements with an existing AFS licensee — not only businesses applying for their own licence directly.</p>\n<h2>What businesses actually need to have done</h2>\n<ul>\n<li>Lodged an AFS licence application, or an application to vary an existing licence, by 30 September 2026 — or</li>\n<li>Entered into an authorised representative or intermediary authorisation arrangement with an existing AFS licensee, or</li>\n<li>For businesses needing an Australian Market Licence or Clearing and Settlement facility licence, notified ASIC in writing of their intention to apply and held a pre-application meeting</li>\n</ul>\n<p>Businesses that don't take one of these steps risk operating in breach of financial services law after the deadline, which carries meaningful civil and criminal penalties.</p>\n<h2>How this differs from AUSTRAC and the Digital Assets Framework</h2>\n<p>This is a distinct process from AUSTRAC's AML/CTF virtual asset service provider (VASP) registration, and it's also separate from the broader Corporations Amendment (Digital Assets Framework) Act 2026, which received Royal Assent in April 2026 but doesn't commence until 9 April 2027. The AFS licensing deadline is about compliance under existing financial services law, right now — not the future dedicated digital-asset licensing regime that's still more than a year away.</p>\n<h2>What this means if you already use a crypto exchange</h2>\n<p>The deadline is aimed at businesses, not individual users, and it doesn't require you to do anything directly. That said, it's a reasonable moment to check whether a platform you use has publicly addressed its licensing position, alongside checking its AUSTRAC registration status on the <a href=\"https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public\">public VASP register</a>. Regulatory status is one input into choosing or continuing to use a platform, not the whole picture — see our guide on <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">choosing a crypto exchange in Australia</a> for the rest.</p>\n<p>This is a fast-moving regulatory story. This article reflects ASIC's published position as of September 2026 and should be revisited once the 30 September deadline has actually passed and its practical effects become clearer.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "AUSTRAC's Crypto Register Is Now Public: How to Check an Exchange",
+      "slug": "austrac-vasp-register-public-explainer",
+      "articleType": "NEWS",
+      "category": "regulation",
+      "excerpt": "AUSTRAC made its virtual asset service provider register publicly searchable in mid-2026. Here's what it shows, and how to actually use it before signing up to an exchange.",
+      "seoTitle": "AUSTRAC's VASP Register Is Public: How to Use It",
+      "seoDescription": "AUSTRAC's virtual asset service provider register is now publicly searchable. Here's what it covers and how to check a crypto exchange before signing up.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A person searching a public government register on a laptop before signing up to a crypto exchange",
+      "noIndex": false,
+      "affiliateDisclosureRequired": false,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "REGULATION",
+      "keyTakeaways": [
+        "AUSTRAC made its virtual asset service provider (VASP) register publicly searchable on 30 June 2026.",
+        "The register lets anyone verify whether a crypto business is currently registered under Australia's AML/CTF regime.",
+        "Being on the register is an AML/CTF compliance status — it doesn't certify safety, financial soundness or government endorsement.",
+        "Check the register directly rather than relying on a badge or claim on a provider's own website.",
+        "This complements, rather than replaces, the other factors covered in our exchange-selection guide."
+      ],
+      "tags": [
+        "AUSTRAC",
+        "Regulation",
+        "Australia",
+        "Crypto Security"
+      ],
+      "sources": [
+        {
+          "label": "AUSTRAC — Virtual asset service provider register goes public",
+          "url": "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public",
+          "sourceType": "REGULATOR"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "independent-reserve",
+          "relationship": "MENTIONED"
+        },
+        {
+          "providerSlug": "btc-markets",
+          "relationship": "MENTIONED"
+        }
+      ],
+      "cryptoAssetSlugs": [],
+      "suggestedRelatedSlugs": [
+        "austrac-registration-crypto-exchanges-explained",
+        "asic-digital-asset-licensing-deadline-2026",
+        "how-to-choose-crypto-exchange-australia"
+      ],
+      "content": "<p>AUSTRAC made a genuinely useful change for everyday crypto users this year: its register of virtual asset service providers (VASPs) — the businesses registered under Australia's anti-money-laundering and counter-terrorism-financing rules — became publicly searchable on 30 June 2026.</p>\n<h2>What the register actually is</h2>\n<p>Previously, checking whether a crypto business was properly registered with AUSTRAC wasn't something the public could easily do directly. The now-public register lists VASPs registered and regulated in Australia, in AUSTRAC's own words improving transparency and helping people identify legitimate businesses before using their services.</p>\n<h2>Why this matters right now</h2>\n<p>This launch follows a broader 2026 shift in how Australia regulates crypto businesses: since 31 March 2026, the older \"digital currency exchange\" registration category was replaced by the broader \"virtual asset service provider\" definition, capturing a wider range of business models. A public register is a natural, useful companion to that expanded scope — it turns a compliance requirement into something an ordinary user can actually act on.</p>\n<h2>How to use it before signing up</h2>\n<ul>\n<li>Search the exact legal or trading name of the platform you're considering</li>\n<li>Don't stop at a badge or claim on the provider's own marketing page — confirm it against the register itself</li>\n<li>Remember a registration status can change over time, so check again close to when you actually sign up</li>\n<li>Treat this as one factor among several — see the next section</li>\n</ul>\n<h2>What it doesn't tell you</h2>\n<blockquote><p>Registration on AUSTRAC's VASP register is an AML/CTF compliance status. It is not a safety rating, not an ASIC financial-product licence, and not a government endorsement of the platform's quality or financial soundness.</p></blockquote>\n<p>For what registration does and doesn't actually guarantee, see our fuller explainer on <a href=\"/crypto/guides/austrac-registration-crypto-exchanges-explained\">what AUSTRAC registration means</a>. For the separate question of financial-services licensing, see our piece on <a href=\"/crypto/guides/asic-digital-asset-licensing-deadline-2026\">ASIC's 2026 digital-asset licensing deadline</a>.</p>\n<h2>The bigger picture</h2>\n<p>A public register is a meaningful step toward making Australia's crypto regulatory environment easier for ordinary users to navigate — but it works best as one input into a broader decision, alongside fees, security practices and how you actually plan to use an exchange. See our full <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">exchange-selection guide</a> for the rest of that picture.</p>\n<p>We haven't independently confirmed the current register status of every provider mentioned on this site as part of writing this article — always check the live register yourself before relying on registration status.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "CoinSpot vs Swyftx vs Independent Reserve: Comparing Three Australian Exchanges",
+      "slug": "coinspot-vs-swyftx-vs-independent-reserve",
+      "articleType": "GUIDE",
+      "category": "crypto-exchanges",
+      "excerpt": "Three well-known Australian exchanges, three different approaches to fees and interface. Here's how CoinSpot, Swyftx and Independent Reserve actually differ.",
+      "seoTitle": "CoinSpot vs Swyftx vs Independent Reserve (2026)",
+      "seoDescription": "A neutral comparison of CoinSpot, Swyftx and Independent Reserve — fees, AUD funding, interface style and who each tends to suit.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "Three exchange app logos arranged side by side for comparison",
+      "noIndex": false,
+      "affiliateDisclosureRequired": true,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "COMPARISON",
+      "keyTakeaways": [
+        "CoinSpot's order-book fee (0.1%) is materially cheaper than its own Instant Buy/Sell/Swap fee (1% plus spread) — the two products aren't directly comparable.",
+        "Swyftx's single tiered trading fee runs from 0.6% down to 0.1%, reaching the lowest tier only at high trading volume, plus a separate spread.",
+        "Independent Reserve offers a narrower coin selection than CoinSpot or Swyftx, with an order-book-first interface.",
+        "All three support AUD funding, but the exact fee-free methods differ by provider.",
+        "The 'better' choice depends on whether you value a simple interface, the widest coin selection, or the lowest achievable trading fee."
+      ],
+      "tags": [
+        "Crypto Exchanges",
+        "Australia",
+        "Comparison",
+        "Beginners"
+      ],
+      "sources": [
+        {
+          "label": "CoinSpot — Official fee schedule",
+          "url": "https://www.coinspot.com.au/fees",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "Swyftx — Official facts page",
+          "url": "https://swyftx.com/facts/",
+          "sourceType": "OFFICIAL_PROVIDER"
+        },
+        {
+          "label": "Independent Reserve — Official FAQ",
+          "url": "https://www.independentreserve.com/help/faq",
+          "sourceType": "OFFICIAL_PROVIDER"
+        }
+      ],
+      "providerRelationships": [
+        {
+          "providerSlug": "coinspot",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "swyftx",
+          "relationship": "COMPARED"
+        },
+        {
+          "providerSlug": "independent-reserve",
+          "relationship": "COMPARED"
+        }
+      ],
+      "cryptoAssetSlugs": [
+        "bitcoin",
+        "ethereum"
+      ],
+      "suggestedRelatedSlugs": [
+        "how-to-choose-crypto-exchange-australia",
+        "crypto-exchange-fees-australia-explained"
+      ],
+      "content": "<p>CoinSpot, Swyftx and Independent Reserve are three of the more commonly used exchanges among Australian beginners, but they're built around genuinely different trade-offs. Here's how they actually compare, without picking an overall \"winner.\"</p>\n<h2>Fees</h2>\n<p>CoinSpot separates its products clearly: 0.1% on its order-book \"Markets\" product, versus 1% plus spread on its Instant Buy/Sell/Swap screen, plus a 0.1% OTC desk rate for trades of $20,000 AUD or more. Swyftx instead uses one tiered trading fee that starts at 0.6% and can fall to 0.1% as your rolling 30-day volume increases — reaching that lowest tier requires substantial volume (Swyftx's own materials put the bottom tier at $6 million AUD of rolling volume), with a separate spread applied on top. Independent Reserve publishes a maker/taker fee structure, though we're treating its specific published percentages as indicative rather than confirmed, since our own research found them only via third-party review sites rather than Independent Reserve's own fee page directly — check its current schedule before relying on an exact figure.</p>\n<h2>Coin selection</h2>\n<p>Swyftx advertises the widest range among the three, at more than 410 crypto assets on its own facts page. CoinSpot also offers a broad range. Independent Reserve runs a narrower, more blue-chip-focused selection — useful if you specifically want a simpler, curated list rather than hundreds of options.</p>\n<h2>Interface style</h2>\n<p>CoinSpot and Swyftx both lead with an AUD-first, beginner-oriented experience, with instant-buy screens front and centre. Independent Reserve leans more toward an order-book-first interface, which can suit someone already comfortable with limit orders but asks more of a first-time user.</p>\n<h2>AUD funding</h2>\n<p>All three support AUD deposits, though the specific fee-free methods differ — check each provider's current fee page for exactly which deposit method is free versus which carries a charge, since these details can change.</p>\n<table>\n<thead><tr><th></th><th>CoinSpot</th><th>Swyftx</th><th>Independent Reserve</th></tr></thead>\n<tbody>\n<tr><td>Order-book fee</td><td>0.1%</td><td>0.6%–0.1% tiered</td><td>Tiered (verify current rate directly)</td></tr>\n<tr><td>Instant-buy style fee</td><td>1% + spread</td><td>Same fee + spread</td><td>N/A — order-book focused</td></tr>\n<tr><td>Coin selection</td><td>Broad</td><td>410+ assets</td><td>Narrower, blue-chip-focused</td></tr>\n<tr><td>Interface style</td><td>Beginner/instant-buy first</td><td>Beginner/instant-buy first</td><td>Order-book first</td></tr>\n</tbody>\n</table>\n<h2>Who each tends to suit</h2>\n<p>CoinSpot suits someone who wants a simple instant-buy experience with the option to move to a cheaper order-book trade later. Swyftx suits someone who wants the widest coin selection with a similarly simple interface. Independent Reserve suits someone already comfortable with order-book trading who prefers a narrower, more curated asset list. None of these is objectively \"best\" — it depends on what you actually want from the account.</p>\n<p>For the wider set of factors beyond these three, see our full <a href=\"/crypto/guides/how-to-choose-crypto-exchange-australia\">exchange-selection guide</a>, or view <a href=\"/go/coinspot\">CoinSpot</a>, <a href=\"/go/swyftx\">Swyftx</a> and <a href=\"/crypto/exchanges/independent-reserve\">Independent Reserve</a> directly.</p>\n<p>This is general information, not financial advice, and fee/feature details should be reconfirmed on each provider's current site before you rely on them.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    },
+    {
+      "title": "Bitcoin Price Volatility: What Beginners Should Understand Before Buying",
+      "slug": "bitcoin-price-volatility-beginners-guide",
+      "articleType": "GUIDE",
+      "category": "crypto-education",
+      "excerpt": "Bitcoin's price moves more than most beginners expect, in both directions. Here's what actually drives that volatility and how to think about it before you buy.",
+      "seoTitle": "Bitcoin Price Volatility Explained for Beginners (2026)",
+      "seoDescription": "Why Bitcoin's price swings so much, what drives that volatility, and how beginners can think about risk before buying — without price predictions.",
+      "canonicalUrl": null,
+      "featuredImage": null,
+      "featuredImageAlt": "A volatile stock-style price chart representing Bitcoin's price swings over time",
+      "noIndex": false,
+      "affiliateDisclosureRequired": false,
+      "region": null,
+      "canonicalArticleId": null,
+      "scheduledAt": null,
+      "lastReviewedAt": null,
+      "author": null,
+      "reviewer": null,
+      "searchIntent": "MARKET_EDUCATION",
+      "keyTakeaways": [
+        "Bitcoin has historically moved by large percentages within days or weeks, in both directions — this isn't unusual behaviour for the asset.",
+        "Investor sentiment, liquidity conditions, leveraged trading positions and macroeconomic news all contribute to short-term price swings.",
+        "Long-term price direction and short-term volatility are separate questions — an asset can be volatile regardless of its longer-term trend.",
+        "Only ever put in money you could afford to lose entirely, given how genuinely unpredictable short-term moves are.",
+        "This article doesn't predict where the price is headed — nobody can reliably do that, and be wary of anyone who claims otherwise."
+      ],
+      "tags": [
+        "Bitcoin",
+        "Beginners",
+        "Market Education",
+        "Australia"
+      ],
+      "sources": [
+        {
+          "label": "ASIC Moneysmart — Cryptocurrency",
+          "url": "https://moneysmart.gov.au",
+          "sourceType": "GOVERNMENT"
+        },
+        {
+          "label": "Fortune — Current price of Bitcoin for September 2026 (daily price report)",
+          "url": "https://fortune.com/article/price-of-bitcoin-09-03-2026/",
+          "sourceType": "NEWS"
+        }
+      ],
+      "providerRelationships": [],
+      "cryptoAssetSlugs": [
+        "bitcoin"
+      ],
+      "suggestedRelatedSlugs": [
+        "how-to-buy-bitcoin-australia",
+        "crypto-wallet-vs-exchange-beginners"
+      ],
+      "content": "<p>Anyone new to Bitcoin is usually warned it's \"volatile\" — but that word undersells how large and how fast the swings can actually be. Understanding what actually drives that movement is more useful than any single price figure.</p>\n<h2>How large are we talking?</h2>\n<p>Bitcoin has moved tens of thousands of dollars within a single year on multiple occasions, including periods where it traded 30% or more below a recent high. In early September 2026, Bitcoin was trading in the high US$70,000s to around US$79,000 depending on the day — a range that itself shifted noticeably within just that first week of the month. The exact number matters far less than the pattern: meaningful moves, in both directions, over short periods, are normal for this asset, not a sign that something has gone wrong.</p>\n<h2>What actually drives short-term swings</h2>\n<ul>\n<li><strong>Investor sentiment</strong> — Bitcoin is heavily influenced by how traders collectively feel about risk at any given moment, more so than assets with steadier institutional ownership.</li>\n<li><strong>Leveraged positions</strong> — large amounts of borrowed-money trading can amplify moves in either direction as positions are forced to close.</li>\n<li><strong>Liquidity and volume</strong> — thinner trading periods can see outsized price moves on comparatively modest buying or selling.</li>\n<li><strong>Macroeconomic and regulatory news</strong> — announcements affecting the broader financial system or crypto-specific regulation can move price quickly.</li>\n</ul>\n<h2>Volatility vs long-term direction — different questions</h2>\n<p>Whether Bitcoin is \"a good long-term investment\" and whether it's \"volatile in the short term\" are separate questions with separate answers. An asset can be extremely volatile day-to-day while its long-term trajectory is something else entirely — and the reverse can also be true. Don't let short-term price swings alone tell you what to conclude about the longer term, and don't let a calm week convince you the volatility is gone.</p>\n<h2>What this means practically</h2>\n<p>If you're considering buying Bitcoin, plan around the volatility rather than being surprised by it: decide in advance how much you're comfortable holding through a significant drop, and avoid checking the price so often that ordinary swings become a source of stress. Many beginners find it easier to start with a smaller amount and get comfortable with the volatility before considering a larger position.</p>\n<blockquote><p>Only ever invest money you could afford to lose entirely. Past price behaviour, including everything described in this article, is not a reliable guide to future performance.</p></blockquote>\n<h2>Where this fits with buying</h2>\n<p>If you've decided you understand the risk and want to go ahead, our <a href=\"/crypto/guides/how-to-buy-bitcoin-australia\">step-by-step guide to buying Bitcoin in Australia</a> covers the practical process. This article, by contrast, is specifically about understanding the risk itself — not a recommendation to buy, hold or sell at any particular time.</p>\n<p>This is general educational information, not personal financial advice, and nothing here should be read as a prediction of future price movements.</p>",
+      "status": "DRAFT",
+      "publishedAt": null
+    }
+  ]
+}

@@ -28,3 +28,6 @@ look at our competitors like inder.com.au or canstar.com.au to see what contents
 article must have clear. not too long title, heading, must be accurate and concise. 
 
 add more contrains if you can 
+
+# Ask Claude
+with the latest article data model and ui,  plese help me return json file of about 10 different articles in guides, hot topics about cryptocurrency, informative ideas and guidances to new comer, new people who learn, study and consider to invest in crypto currency. combine this requirements and the template provided
