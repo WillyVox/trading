@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getArticleBySlug } from "@/lib/articles/service";
+import { getPublishedArticleBySlugAndType } from "@/lib/articles/service";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { newsArticleSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
@@ -8,7 +8,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getPublishedArticleBySlugAndType(slug, "NEWS");
   if (!article) return buildMetadata({ title: "News not found", description: "", path: `/news/${slug}`, noIndex: true });
 
   return buildMetadata({
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function NewsArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getPublishedArticleBySlugAndType(slug, "NEWS");
   if (!article) notFound();
 
   const trail = breadcrumbTrail([

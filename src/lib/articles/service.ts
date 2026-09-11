@@ -51,6 +51,15 @@ const articleDetailInclude = {
   cryptoAssets: { include: { asset: true } },
   canonicalArticle: { select: { id: true, slug: true, title: true, region: true } },
   regionalVariants: { select: { id: true, slug: true, region: true } },
+  // Curated related guides *from* this article — only actually consumed by
+  // the admin editor's "related guides" picker today (public Guide pages
+  // build their related-guides section via getRelatedGuides() instead, see
+  // below), but kept on the shared include rather than a second query
+  // shape so admin/public detail lookups stay structurally identical.
+  relatedFrom: {
+    orderBy: { position: "asc" as const },
+    include: { relatedArticle: { select: { id: true, title: true, slug: true } } },
+  },
 } as const;
 
 /**
@@ -93,15 +102,72 @@ export function getAdminArticles(opts: {
   pageSize?: number;
   status?: "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
   articleType?: ArticleType;
+  category?: string;
+  search?: string;
 } = {}) {
   const where: Record<string, unknown> = {};
   if (opts.status) where.status = opts.status;
   if (opts.articleType) where.articleType = opts.articleType;
+  if (opts.category) where.category = opts.category;
+  if (opts.search) {
+    where.OR = [
+      { title: { contains: opts.search, mode: "insensitive" } },
+      { slug: { contains: opts.search, mode: "insensitive" } },
+    ];
+  }
   return articleRepository.paginate({
     where,
     orderBy: { updatedAt: "desc" },
     page: opts.page,
     pageSize: opts.pageSize,
+  });
+}
+
+/**
+ * Every distinct `category` value currently in use, for the admin list
+ * filter dropdown. `category` stays free-text (see Req.md §4 — it's a
+ * topic, not a type), so this is populated from real data rather than a
+ * hardcoded list that would drift from what editors actually type.
+ */
+export async function getAdminArticleCategories() {
+  const rows = await prisma.article.findMany({
+    where: { category: { not: null } },
+    select: { category: true },
+    distinct: ["category"],
+    orderBy: { category: "asc" },
+  });
+  return rows.map((r) => r.category).filter((c): c is string => Boolean(c));
+}
+
+/** Providers for the admin editor's provider-relationship picker — id/name/slug only, no fee/feature payload needed here. */
+export function getProvidersForArticleForm() {
+  return prisma.provider.findMany({
+    select: { id: true, name: true, slug: true },
+    orderBy: { name: "asc" },
+  });
+}
+
+/** Crypto assets for the admin editor's asset-relationship picker. */
+export function getCryptoAssetsForArticleForm() {
+  return prisma.cryptoAsset.findMany({
+    select: { id: true, name: true, symbol: true },
+    orderBy: { name: "asc" },
+  });
+}
+
+/**
+ * Candidate articles for the "related guides" and "regional canonical
+ * article" pickers. Admin-only (any status — an editor may want to link to
+ * a REVIEW article they're publishing together), capped at 200 so the
+ * select stays usable; excludes the article currently being edited so it
+ * can't reference itself.
+ */
+export function getArticlesForRelatedPicker(excludeArticleId?: string) {
+  return prisma.article.findMany({
+    where: excludeArticleId ? { id: { not: excludeArticleId } } : undefined,
+    select: { id: true, title: true, slug: true, articleType: true, status: true },
+    orderBy: { updatedAt: "desc" },
+    take: 200,
   });
 }
 

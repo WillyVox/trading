@@ -1,10 +1,15 @@
+import { ArticleForm } from "@/components/admin/article/ArticleForm";
+
 export default function NewArticlePage() {
   return (
-    <div>
-      <h1 className="font-display text-2xl font-bold text-navy">New Article</h1>
-      <p className="mt-4 text-muted">
-        Placeholder — no editor or createArticle() server action wired up yet (see ROADMAP.md Phase 3).
+    <div className="max-w-4xl">
+      <h1 className="font-display text-2xl font-bold text-navy">New article</h1>
+      <p className="mt-2 text-sm text-muted">
+        Saves as DRAFT — publishing rules and Preview become available once the article exists.
       </p>
+      <div className="mt-6">
+        <ArticleForm mode="create" />
+      </div>
     </div>
   );
 }

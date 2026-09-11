@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { IMPORT_REGIONS } from "./types";
+import { SLUG_PATTERN } from "@/lib/articles/slug";
 
 /** Mirrors the Prisma `ArticleSearchIntent` enum — see prisma/schema.prisma. Kept as a plain
  * literal list (not imported from @prisma/client) so this module stays usable before `prisma
@@ -23,17 +24,14 @@ const RELATIONSHIP_TYPES = ["MENTIONED", "COMPARED", "FEATURED"] as const;
  * list for the same pre-`prisma generate` reason as SEARCH_INTENTS above. */
 const ARTICLE_TYPES = ["NEWS", "GUIDE"] as const;
 
-/** Lowercase, hyphen-separated, no leading/trailing/double hyphens — matches Article.slug and
- * Provider.slug conventions already used by the seed data. */
-const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-
 const slugField = z
   .string()
   .trim()
   .min(1, "slug is required")
   .regex(SLUG_PATTERN, 'slug must be lowercase, URL-safe, hyphen-separated (e.g. "how-to-trade-crypto")');
 
-const urlField = z.string().trim().refine(
+/** Exported for reuse by src/lib/articles/validation.ts (admin CRUD) — one URL-validity rule, not two. */
+export const urlField = z.string().trim().refine(
   (value) => {
     try {
       const url = new URL(value);

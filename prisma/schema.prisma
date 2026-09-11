@@ -110,6 +110,11 @@ model Article {
   seoDescription             String?
   canonicalUrl               String?
   featuredImage              String?
+  // Block 2 (Article CMS admin editor) — the featured image is meaningless
+  // to screen-reader/assistive-tech users and to image-SEO without this.
+  // Nullable/additive: existing rows simply have no alt text yet, which the
+  // admin SEO checklist below surfaces as a warning rather than a hard error.
+  featuredImageAlt           String?
   affiliateDisclosureRequired Boolean      @default(false)
   noIndex                    Boolean       @default(false)
   publishedAt                DateTime?
@@ -171,12 +176,36 @@ model ArticleTag {
   article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
 }
 
+// Block 2 (Article CMS admin editor) — deliberately a small, article-specific
+// enum rather than reusing `ProviderSourceType`: an article cites evidence
+// ("we used AUSTRAC's register to confirm this"), a Provider *is* the
+// regulator/official source itself. Merging the two would blur that
+// distinction (see docs/IMPLEMENTATION-PLAN.md / Req2 §14, which explicitly
+// warns against incorrectly merging the Article and Provider source
+// concepts). Nullable on ArticleSource — see note there re: partial fit
+// with the original Req.md source-type list.
+enum ArticleSourceType {
+  OFFICIAL_PROVIDER
+  REGULATOR
+  GOVERNMENT
+  OFFICIAL_DOCUMENTATION
+  NEWS
+  RESEARCH
+  OTHER
+}
+
 model ArticleSource {
-  id        String  @id @default(cuid())
-  articleId String
-  label     String
-  url       String
-  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  id         String             @id @default(cuid())
+  articleId  String
+  label      String
+  url        String
+  // Nullable/additive — existing rows and importer files that don't set
+  // this simply have no classification yet; never required to save a
+  // source. `publisher`/`accessedAt`/`notes` from the original source list
+  // were deliberately left out of this pass — see the roadmap doc's Block 2
+  // check note for why.
+  sourceType ArticleSourceType?
+  article    Article            @relation(fields: [articleId], references: [id], onDelete: Cascade)
 }
 
 enum ArticleProviderRelationship {

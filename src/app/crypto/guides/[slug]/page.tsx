@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
-  getArticleBySlug,
+  getPublishedArticleBySlugAndType,
   getRelatedGuides,
   getNextSteps,
   getRegionalFamily,
@@ -26,7 +26,7 @@ import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
   if (!article) {
     return buildMetadata({ title: "Guide not found", description: "", path: `/crypto/guides/${slug}`, noIndex: true });
   }
@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
   if (!article) notFound();
 
   const { html: contentHtml, headings } = extractHeadings(article.content);
