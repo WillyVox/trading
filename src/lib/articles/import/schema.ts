@@ -19,6 +19,10 @@ const SEARCH_INTENTS = [
 
 const RELATIONSHIP_TYPES = ["MENTIONED", "COMPARED", "FEATURED"] as const;
 
+/** Mirrors the Prisma `ArticleType` enum — see prisma/schema.prisma. Kept as a plain literal
+ * list for the same pre-`prisma generate` reason as SEARCH_INTENTS above. */
+const ARTICLE_TYPES = ["NEWS", "GUIDE"] as const;
+
 /** Lowercase, hyphen-separated, no leading/trailing/double hyphens — matches Article.slug and
  * Provider.slug conventions already used by the seed data. */
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -63,6 +67,7 @@ const relatedProviderField = z.union([
 export const articleFrontmatterSchema = z.object({
   title: z.string().trim().min(1, "title is required").max(200, "title should be under 200 characters"),
   slug: slugField,
+  articleType: z.enum(ARTICLE_TYPES).optional(),
   excerpt: z.string().trim().min(1).optional(),
   category: z.string().trim().min(1).optional(),
   tags: z.array(z.string().trim().min(1)).optional(),
@@ -120,6 +125,12 @@ export function validateFrontmatter(raw: unknown, body: string): FrontmatterVali
 
   if (data.status && data.status.toUpperCase() !== "DRAFT") {
     warnings.push(`status "${data.status}" was ignored — imports are always created as DRAFT`);
+  }
+
+  if (!data.articleType) {
+    warnings.push(
+      'articleType not set — defaulted to "GUIDE". Add "articleType: NEWS" or "articleType: GUIDE" to frontmatter to be explicit.'
+    );
   }
 
   if (data.seoTitle && data.seoTitle.length > 60) {

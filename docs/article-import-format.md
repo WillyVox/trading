@@ -26,6 +26,7 @@ This is the exact contract for files dropped into `/publish_article` and picked 
 
 | Field | Type | Notes |
 |---|---|---|
+| `articleType` | `NEWS` \| `GUIDE` | **Recommended, not required.** Determines whether the article can ever resolve under `/news/[slug]` (NEWS) or `/crypto/guides/[slug]` (GUIDE) — the two routes strictly enforce this and will 404 on a mismatch. Omitting it produces a warning and defaults to `GUIDE` **on create only**; re-importing an existing article without this field never changes its stored type (same safe-merge rule as every other optional field below). |
 | `excerpt` | string | Used as the fallback SEO description and card summary. |
 | `category` | string | Free text, matched against existing categories used elsewhere on the site. |
 | `tags` | string[] | Lowercased and de-duplicated on import. |

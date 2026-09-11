@@ -8,6 +8,7 @@ import {
   ProviderSourceType,
   ProviderProsConsType,
   ArticleStatus,
+  ArticleType,
   CommissionType,
   AffiliatePartnerStatus,
 } from "@prisma/client";
@@ -944,6 +945,7 @@ async function main() {
         excerpt: "An introduction to how Bitcoin works and how Australians can access it.",
         content: "<p>Placeholder guide content -- replace before publication.</p>",
         status: ArticleStatus.DRAFT,
+        articleType: ArticleType.GUIDE,
         category: "guide",
       },
     });

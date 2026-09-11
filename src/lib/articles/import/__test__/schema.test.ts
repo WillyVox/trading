@@ -74,3 +74,22 @@ test("warns on regional variant missing canonicalArticleSlug", () => {
   assert.equal(result.ok, true);
   assert.ok(result.warnings.some((w) => w.includes("canonicalArticleSlug")));
 });
+
+test("accepts explicit articleType without warning", () => {
+  const result = validateFrontmatter({ title: "Title", slug: "title", articleType: "NEWS" }, "content");
+  assert.equal(result.ok, true);
+  assert.equal(result.data?.articleType, "NEWS");
+  assert.ok(!result.warnings.some((w) => w.includes("articleType")));
+});
+
+test("warns (does not fail) when articleType is omitted", () => {
+  const result = validateFrontmatter({ title: "Title", slug: "title" }, "content");
+  assert.equal(result.ok, true);
+  assert.equal(result.data?.articleType, undefined);
+  assert.ok(result.warnings.some((w) => w.includes("articleType")));
+});
+
+test("rejects an unknown articleType", () => {
+  const result = validateFrontmatter({ title: "Title", slug: "title", articleType: "COMPARISON" }, "content");
+  assert.equal(result.ok, false);
+});

@@ -1,4 +1,4 @@
-import type { ArticleSearchIntent } from "@prisma/client";
+import type { ArticleSearchIntent, ArticleType } from "@prisma/client";
 
 /** Region codes the site currently knows how to serve. "GLOBAL" is stored as `region: null`. */
 export const IMPORT_REGIONS = ["GLOBAL", "AU", "US", "UK", "NZ", "SG"] as const;
@@ -31,6 +31,15 @@ export interface ArticleImportPayload {
   title: string;
   slug: string;
   content: string; // sanitized HTML, ready for storage
+  /**
+   * Required by the Article schema (see prisma/schema.prisma Block 1), but
+   * kept optional here and defaulted at import time (parser.ts) rather than
+   * making every existing import file a hard error — see
+   * docs/article-import-format.md "articleType". Full import-format
+   * validation of this field (unknown values, embed-aware checks, etc.) is
+   * Article CMS Block 5 scope; this is the minimal compatibility fix.
+   */
+  articleType?: ArticleType;
   excerpt?: string;
   category?: string;
   tags?: string[];

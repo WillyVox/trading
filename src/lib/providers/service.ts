@@ -58,18 +58,19 @@ export function getProvidersForAsset(assetSlug: string) {
 /**
  * Guides and news that mention/compare/feature this provider (via the
  * ArticleProvider join, see prisma/schema.prisma "Article domain"), split
- * by the same `category` convention getPublishedArticles() and the
- * /crypto/guides and /news routes already use ("guide" / "news"). Never
- * duplicates article data into the Provider domain -- pulled live, per the
- * Phase 5 rule that comparisons/related content read from source domains
- * rather than copies.
+ * by the real `articleType` column (see docs/IMPLEMENTATION-PLAN.md
+ * Article CMS Block 1) rather than the old `category` string convention --
+ * `category` is a free-text topic field and was never a reliable way to
+ * tell Guide/News apart. Never duplicates article data into the Provider
+ * domain -- pulled live, per the Phase 5 rule that comparisons/related
+ * content read from source domains rather than copies.
  */
 export async function getRelatedContentForProvider(providerId: string, limit = 4) {
   const links = await prisma.articleProvider.findMany({
     where: { providerId, article: { status: "PUBLISHED", noIndex: false } },
     include: {
       article: {
-        select: { id: true, slug: true, title: true, excerpt: true, category: true, publishedAt: true },
+        select: { id: true, slug: true, title: true, excerpt: true, articleType: true, publishedAt: true },
       },
     },
     orderBy: { article: { publishedAt: "desc" } },
@@ -77,11 +78,11 @@ export async function getRelatedContentForProvider(providerId: string, limit = 4
 
   const guides = links
     .map((l) => l.article)
-    .filter((a) => a.category === "guide")
+    .filter((a) => a.articleType === "GUIDE")
     .slice(0, limit);
   const news = links
     .map((l) => l.article)
-    .filter((a) => a.category === "news")
+    .filter((a) => a.articleType === "NEWS")
     .slice(0, limit);
 
   return { guides, news };

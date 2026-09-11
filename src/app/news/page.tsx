@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
 });
 
 export default async function NewsPage() {
-  const { items } = await getPublishedArticles({ category: "news" });
+  const { items } = await getPublishedArticles({ articleType: "NEWS" });
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
       <Eyebrow>News</Eyebrow>

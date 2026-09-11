@@ -58,6 +58,12 @@ export function parseArticleFile(rawText: string): ParseResult {
   const payload: ArticleImportPayload = {
     title: data.title,
     slug: data.slug,
+    // Left undefined (not defaulted here) when absent from frontmatter, so
+    // the importer's safe-merge rule can tell "not specified in this file"
+    // apart from "explicitly GUIDE" -- an update must never silently flip
+    // an existing article's type. importer.ts defaults to GUIDE only on
+    // CREATE, mirroring how `status` is only ever set on CREATE.
+    articleType: data.articleType as ArticleImportPayload["articleType"],
     content: html,
     excerpt: data.excerpt,
     category: data.category,

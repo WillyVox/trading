@@ -8,7 +8,7 @@ export const metadata = buildMetadata({
 });
 
 export default async function GuidesPage() {
-  const { items } = await getPublishedArticles({ category: "guide" });
+  const { items } = await getPublishedArticles({ articleType: "GUIDE" });
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="font-display text-3xl font-extrabold text-navy">Guides</h1>

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { articleRepository } from "@/lib/repository";
 import type { ArticleImportPayload } from "./types";
-import { ArticleStatus, Prisma } from "@prisma/client";
+import { ArticleStatus, ArticleType, Prisma } from "@prisma/client";
 
 export interface CoreUpsertResult {
   id: string;
@@ -21,6 +21,7 @@ function buildScalarData(payload: ArticleImportPayload): Prisma.ArticleUpdateInp
     content: payload.content,
   };
 
+  if (payload.articleType !== undefined) data.articleType = payload.articleType;
   if (payload.excerpt !== undefined) data.excerpt = payload.excerpt;
   if (payload.category !== undefined) data.category = payload.category;
   if (payload.seoTitle !== undefined) data.seoTitle = payload.seoTitle;
@@ -86,6 +87,10 @@ export async function upsertArticleCore(payload: ArticleImportPayload): Promise<
           ...(scalarData as Prisma.ArticleCreateInput),
           slug: payload.slug,
           status: ArticleStatus.DRAFT,
+          // Same "default only on CREATE, never on UPDATE" rule as status
+          // above -- see the articleType comment in types.ts. GUIDE is the
+          // safer default (see the migration's backfill note).
+          articleType: payload.articleType ?? ArticleType.GUIDE,
         }
       });
       id = created.id;

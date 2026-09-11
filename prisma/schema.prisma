@@ -66,8 +66,19 @@ model VerificationToken {
 // ---------- Article domain ----------
 enum ArticleStatus {
   DRAFT
+  REVIEW
   PUBLISHED
   ARCHIVED
+}
+
+// Content type, distinct from the free-text `category` topic field below.
+// Deliberately minimal for now (see docs/IMPLEMENTATION-PLAN.md Article CMS
+// Block 1) — NEWS/GUIDE is the only distinction the public routes currently
+// need to isolate. Extend the enum (not a parallel field) if
+// COMPARISON/PROVIDER_REVIEW/etc become real routed content types later.
+enum ArticleType {
+  NEWS
+  GUIDE
 }
 
 model Article {
@@ -76,6 +87,17 @@ model Article {
   slug                       String        @unique
   excerpt                    String?
   content                    String        @db.Text
+  // `updatedAt` = technically modified in the database (any field, any
+  // reason). `lastReviewedAt` below = an editor meaningfully re-checked the
+  // financial content. Guide/News pages use `updatedAt` for dateModified;
+  // do not conflate the two.
+  createdAt                  DateTime      @default(now())
+  updatedAt                  DateTime      @updatedAt
+  // No default: every article must be explicitly NEWS or GUIDE. Existing
+  // rows are backfilled from `category` in the migration for this column
+  // (see prisma/migrations/20260911071500_article_domain_foundation) before
+  // this becomes NOT NULL.
+  articleType                ArticleType
   // Editor-written "Key takeaways" bullets shown near the top of the Guide
   // template. Deliberately a plain string array, not auto-generated from
   // content — the spec calls for this to be high-value and non-generic.
@@ -125,6 +147,7 @@ model Article {
   @@index([category])
   @@index([region])
   @@index([searchIntent])
+  @@index([status, articleType, publishedAt])
 }
 
 model ArticleRelated {
