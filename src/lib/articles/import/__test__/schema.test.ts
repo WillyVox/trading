@@ -60,13 +60,87 @@ test("warns (does not fail) when status is not DRAFT", () => {
   assert.ok(result.warnings.some((w) => w.includes("ignored")));
 });
 
-test("warns when source has a type (unsupported column)", () => {
+test("accepts sourceType without warning", () => {
+  const result = validateFrontmatter(
+    {
+      title: "Title",
+      slug: "title",
+      sources: [{ label: "Src", url: "https://example.com", sourceType: "REGULATOR" }],
+    },
+    "content"
+  );
+  assert.equal(result.ok, true);
+  assert.equal(result.data?.sources?.[0].sourceType, "REGULATOR");
+  assert.ok(!result.warnings.some((w) => w.toLowerCase().includes("sourcetype")));
+});
+
+test("rejects an unrecognized sourceType enum value", () => {
+  const result = validateFrontmatter(
+    {
+      title: "Title",
+      slug: "title",
+      sources: [{ label: "Src", url: "https://example.com", sourceType: "BLOG" }],
+    },
+    "content"
+  );
+  assert.equal(result.ok, false);
+});
+
+test("warns when source uses the deprecated `type` field (recognized value)", () => {
   const result = validateFrontmatter(
     { title: "Title", slug: "title", sources: [{ label: "Src", url: "https://example.com", type: "REGULATOR" }] },
     "content"
   );
   assert.equal(result.ok, true);
-  assert.ok(result.warnings.some((w) => w.includes("not stored")));
+  assert.ok(result.warnings.some((w) => w.includes("deprecated") && w.includes("sourceType")));
+});
+
+test("warns when source uses the deprecated `type` field with an unrecognized value", () => {
+  const result = validateFrontmatter(
+    { title: "Title", slug: "title", sources: [{ label: "Src", url: "https://example.com", type: "BLOG" }] },
+    "content"
+  );
+  assert.equal(result.ok, true);
+  assert.ok(result.warnings.some((w) => w.includes("not a recognized sourceType")));
+});
+
+test("warns when the deprecated relatedProviders key is used", () => {
+  const result = validateFrontmatter(
+    { title: "Title", slug: "title", relatedProviders: ["kraken"] },
+    "content"
+  );
+  assert.equal(result.ok, true);
+  assert.ok(result.warnings.some((w) => w.includes("providerRelationships")));
+});
+
+test("accepts providerRelationships with providerSlug", () => {
+  const result = validateFrontmatter(
+    {
+      title: "Title",
+      slug: "title",
+      providerRelationships: [{ providerSlug: "kraken", relationship: "COMPARED" }],
+    },
+    "content"
+  );
+  assert.equal(result.ok, true);
+  assert.ok(!result.warnings.some((w) => w.includes("providerRelationships")));
+});
+
+test("accepts cryptoAssetSlugs, featuredImageAlt and affiliateDisclosureRequired", () => {
+  const result = validateFrontmatter(
+    {
+      title: "Title",
+      slug: "title",
+      cryptoAssetSlugs: ["bitcoin"],
+      featuredImageAlt: "A description of the image",
+      affiliateDisclosureRequired: true,
+    },
+    "content"
+  );
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.data?.cryptoAssetSlugs, ["bitcoin"]);
+  assert.equal(result.data?.featuredImageAlt, "A description of the image");
+  assert.equal(result.data?.affiliateDisclosureRequired, true);
 });
 
 test("warns on regional variant missing canonicalArticleSlug", () => {

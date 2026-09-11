@@ -3,7 +3,7 @@
 This is the exact contract for files dropped into `/publish_article` and picked up by
 `npm run import:article`. If you're asking an AI tool to generate an article, tell it:
 
-> Generate this article using our publishing format in docs/article-publishing-format.md,
+> Generate this article using our publishing format in docs/article-import-format.md,
 > and save it as `publish_article/<slug>.md`.
 
 ## File format
@@ -12,7 +12,12 @@ This is the exact contract for files dropped into `/publish_article` and picked 
 - One article per file.
 - The body (everything after the closing `---`) is Markdown. It is converted to sanitized HTML
   on import — `<script>`, `<iframe>`, inline event handlers, and `style` attributes are stripped
-  regardless of what the AI produced. Do not rely on raw HTML in the body; write Markdown.
+  regardless of what the AI produced. Do not rely on raw HTML in the body; write Markdown. Raw
+  HTML that only uses tags already on the sanitizer's allowlist (see
+  `src/lib/articles/sanitize.ts` — `h2`-`h4`, `p`, `strong`, `em`, `ul`, `ol`, `li`, `a`,
+  `blockquote`, `table`/`thead`/`tbody`/`tr`/`th`/`td`, `figure`/`figcaption`, `img`, `code`,
+  `pre`, `hr`, `br`) also passes through unchanged, since the Markdown parser leaves already-valid
+  HTML alone — useful if you're converting content that was authored as HTML elsewhere.
 
 ## Required fields
 
@@ -23,6 +28,11 @@ This is the exact contract for files dropped into `/publish_article` and picked 
 | *(body)*  | Markdown | must render to non-empty content |
 
 ## Optional fields
+
+These field names match the current `Article` Prisma model (`prisma/schema.prisma`) and the admin
+editor's form schema (`src/lib/articles/validation.ts`) — the importer and the admin CRUD paths
+share one data model, so a value set here maps 1:1 onto the same column/relation an editor would
+set by hand in `/admin/articles`.
 
 | Field | Type | Notes |
 |---|---|---|
@@ -36,16 +46,33 @@ This is the exact contract for files dropped into `/publish_article` and picked 
 | `seoDescription` | string | Recommended ≤ 160 chars (warning only, not enforced). |
 | `canonicalUrl` | URL | Only set this if the canonical page genuinely lives at a different URL. |
 | `featuredImage` | string | Path or absolute URL. |
+| `featuredImageAlt` | string | Alt text for `featuredImage`. Nullable/additive — missing alt text is surfaced as a warning on the admin SEO checklist, not a hard import error, but should be filled in for accessibility and image SEO. |
 | `author` | string | |
 | `reviewer` | string | |
 | `noIndex` | boolean | |
+| `affiliateDisclosureRequired` | boolean | Whether the affiliate disclosure banner should show on this article. Independent of `affiliateProviders` below — set this explicitly rather than relying on it being inferred from having affiliate placements. |
+| `scheduledAt` | date/datetime string | Advisory only — nothing reads this to auto-publish. Purely an editor reminder (see docs/ROADMAP.md "Scheduling"). Invalid/unparseable dates are ignored rather than failing the import. |
+| `lastReviewedAt` | date/datetime string | Editorial "meaningfully reviewed" timestamp, shown on Guide pages as "Last updated" instead of the row's technical `updatedAt`. Invalid/unparseable dates are ignored rather than failing the import. |
 | `keyTakeaways` | string[] | Short bullet points shown near the top of the guide. |
 | `searchIntent` | one of: `LEARN`, `HOW_TO`, `BEGINNER`, `COMPARISON`, `PROVIDER_GUIDE`, `FEES`, `SECURITY`, `WALLET`, `REGULATION`, `MARKET_EDUCATION` | Drives related-content and CTA behavior on the guide template. |
-| `relatedProviders` | string[] or `{slug, relationship}`[] | `relationship` is one of `MENTIONED` (default), `COMPARED`, `FEATURED`. Slugs are matched against existing `Provider.slug` — providers are never auto-created. |
+| `providerRelationships` | string[] or `{providerSlug, relationship}`[] | `relationship` is one of `MENTIONED` (default), `COMPARED`, `FEATURED`. Slugs are matched against existing `Provider.slug` — providers are never auto-created. |
+| `cryptoAssetSlugs` | string[] | Slugs of `CryptoAsset` rows this article is about (e.g. `bitcoin`), matched against existing `CryptoAsset.slug` — assets are never auto-created, same rule as `providerRelationships`. |
 | `relatedGuides` | string[] (article slugs) | Slugs of other articles. A missing slug produces a warning, not a failure — useful for batches where articles reference each other. |
-| `sources` | `{label, url, type?}`[] | `type` is accepted but currently **not stored** (see "Known limitations"). |
+| `sources` | `{label, url, sourceType?}`[] | `sourceType` is one of `OFFICIAL_PROVIDER`, `REGULATOR`, `GOVERNMENT`, `OFFICIAL_DOCUMENTATION`, `NEWS`, `RESEARCH`, `OTHER` and is stored on `ArticleSource.sourceType`. |
 | `affiliateProviders` | string[] (provider slugs) | Declares that this article *may* show a contextual affiliate CTA for these providers, if an active affiliate link exists. Never accepts a raw affiliate URL — see "Affiliate resolution". |
 | `status` | string | **Ignored.** All imports are created as `DRAFT`; see "Status policy" below. |
+
+### Deprecated field names (still accepted)
+
+Files written against the older contract keep working — these are accepted as aliases, mapped
+onto the current field, and flagged with a warning so you know to update the file:
+
+| Deprecated | Use instead |
+|---|---|
+| `relatedProviders: [{slug, relationship}]` | `providerRelationships: [{providerSlug, relationship}]` |
+| `sources[].type` | `sources[].sourceType` |
+
+If both the deprecated and current field are present, the current one wins.
 
 ## Example
 
@@ -53,6 +80,7 @@ This is the exact contract for files dropped into `/publish_article` and picked 
 ---
 title: "How to Trade Crypto: A Beginner Guide"
 slug: "how-to-trade-crypto"
+articleType: "GUIDE"
 excerpt: "Learn how crypto trading works, including exchanges, order types, fees and major risks."
 category: "Crypto Trading"
 tags:
@@ -62,20 +90,26 @@ region: "GLOBAL"
 searchIntent: "BEGINNER"
 seoTitle: "How to Trade Crypto: Beginner Guide"
 seoDescription: "Learn how crypto trading works, how exchanges operate, common order types, fees and key risks."
+featuredImageAlt: "A beginner comparing order types on a crypto exchange screen"
 author: "Editorial Team"
+affiliateDisclosureRequired: true
 keyTakeaways:
   - "Exchanges differ in fees, supported assets and AUD support."
   - "Market orders execute immediately; limit orders execute at your price or better."
-relatedProviders:
+providerRelationships:
   - kraken
-  - slug: binance
+  - providerSlug: binance
     relationship: COMPARED
+cryptoAssetSlugs:
+  - bitcoin
+  - ethereum
 relatedGuides:
   - crypto-trading-fees
   - market-vs-limit-orders
 sources:
   - label: "Example Source"
     url: "https://example.com"
+    sourceType: "OFFICIAL_DOCUMENTATION"
 affiliateProviders:
   - kraken
 ---
@@ -110,6 +144,9 @@ contextual placement for provider X." The importer resolves the provider by slug
 existing **active** `AffiliateLink` for it. If none exists, you'll see a warning and no placement is
 shown — the importer never fabricates or stores an affiliate destination from article content.
 
+`affiliateDisclosureRequired` is a separate, explicit flag for whether the disclosure banner
+itself should render — it is not inferred from having `affiliateProviders` set.
+
 ## Content rendering & embed markers (Article CMS Block 3)
 
 Imported Markdown/HTML is parsed, sanitized, and stored in `Article.content` exactly like
@@ -140,10 +177,8 @@ simply light up once Block 4 ships, with no re-import required.
 
 ## Known limitations
 
-- `sources[].type` is accepted in the file format for forward-compatibility but is not currently
-  stored — `ArticleSource` has no `type` column yet. You'll get a warning if you set it.
-- `relatedProviders` slugs must already exist as `Provider` records. This job does not create
-  providers.
+- `providerRelationships`/`cryptoAssetSlugs` slugs must already exist as `Provider`/`CryptoAsset`
+  records. This job does not create providers or crypto assets.
 
 ## Filename recommendations
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { SLUG_PATTERN } from "@/lib/articles/slug";
-import { urlField } from "@/lib/articles/import/schema";
+import { urlField, SOURCE_TYPES, RELATIONSHIP_TYPES } from "@/lib/articles/import/schema";
 import { IMPORT_REGIONS } from "@/lib/articles/import/types";
 
 /**
@@ -26,17 +26,11 @@ export const SEARCH_INTENTS = [
   "MARKET_EDUCATION",
 ] as const;
 
-export const PROVIDER_RELATIONSHIPS = ["MENTIONED", "COMPARED", "FEATURED"] as const;
-
-export const SOURCE_TYPES = [
-  "OFFICIAL_PROVIDER",
-  "REGULATOR",
-  "GOVERNMENT",
-  "OFFICIAL_DOCUMENTATION",
-  "NEWS",
-  "RESEARCH",
-  "OTHER",
-] as const;
+/** Re-exported so existing imports of PROVIDER_RELATIONSHIPS/SOURCE_TYPES from this module keep
+ * working — the canonical lists now live in import/schema.ts (see that file's comments) so the
+ * admin editor and the importer can never drift apart on allowed enum values. */
+export const PROVIDER_RELATIONSHIPS = RELATIONSHIP_TYPES;
+export { SOURCE_TYPES };
 
 const slugField = z
   .string()

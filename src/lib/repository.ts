@@ -52,6 +52,7 @@ export function createRepository<
 
 export const articleRepository = createRepository(prisma.article);
 export const providerRepository = createRepository(prisma.provider);
+export const cryptoAssetRepository = createRepository(prisma.cryptoAsset);
 export const affiliateLinkRepository = createRepository(prisma.affiliateLink);
 export const affiliateClickRepository = createRepository(prisma.affiliateClick);
 export const affiliatePartnershipRepository = createRepository(prisma.affiliatePartnership);

@@ -12,6 +12,7 @@
     "postinstall": "prisma generate",
     "import:article": "tsx scripts/import-articles.ts",
     "promote:admin": "tsx scripts/promote-admin.ts",
+    "studio": "npx prisma studio",
     "test": "tsx --test src/lib/articles/import/__test__/*.test.ts src/lib/articles/__test__/*.test.ts"
   },
   "dependencies": {

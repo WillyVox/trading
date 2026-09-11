@@ -18,7 +18,17 @@ const SEARCH_INTENTS = [
   "MARKET_EDUCATION",
 ] as const;
 
-const RELATIONSHIP_TYPES = ["MENTIONED", "COMPARED", "FEATURED"] as const;
+export const RELATIONSHIP_TYPES = ["MENTIONED", "COMPARED", "FEATURED"] as const;
+
+export const SOURCE_TYPES = [
+  "OFFICIAL_PROVIDER",
+  "REGULATOR",
+  "GOVERNMENT",
+  "OFFICIAL_DOCUMENTATION",
+  "NEWS",
+  "RESEARCH",
+  "OTHER",
+] as const;
 
 /** Mirrors the Prisma `ArticleType` enum — see prisma/schema.prisma. Kept as a plain literal
  * list for the same pre-`prisma generate` reason as SEARCH_INTENTS above. */

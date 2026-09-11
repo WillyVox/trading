@@ -1,7 +1,7 @@
 import matter from "gray-matter";
-import { validateFrontmatter } from "./schema";
+import { validateFrontmatter, SOURCE_TYPES } from "./schema";
 import { markdownToSafeHtml } from "./markdown";
-import type { ArticleImportPayload, ImportRegion } from "./types";
+import type { ArticleImportPayload, ImportRegion, ImportSourceType } from "./types";
 
 export interface ParseSuccess {
   ok: true;
@@ -49,11 +49,39 @@ export function parseArticleFile(rawText: string): ParseResult {
     };
   }
 
-  const relatedProviders = data.relatedProviders?.map((entry) =>
-    typeof entry === "string"
-      ? { slug: entry, relationship: "MENTIONED" as const }
-      : { slug: entry.slug, relationship: entry.relationship ?? ("MENTIONED" as const) }
-  );
+  // Merge the current `providerRelationships` key with the deprecated
+  // `relatedProviders` alias into one normalized list, keyed by provider
+  // slug. `providerRelationships` wins on a slug collision — validation.ts
+  // already warned about the deprecated key being present at all.
+  const providerRelationshipsBySlug = new Map<string, "MENTIONED" | "COMPARED" | "FEATURED">();
+  for (const entry of data.relatedProviders ?? []) {
+    const slug = typeof entry === "string" ? entry : entry.slug;
+    const relationship = typeof entry === "string" ? "MENTIONED" : entry.relationship ?? "MENTIONED";
+    providerRelationshipsBySlug.set(slug, relationship);
+  }
+  for (const entry of data.providerRelationships ?? []) {
+    const slug = typeof entry === "string" ? entry : entry.providerSlug;
+    const relationship = typeof entry === "string" ? "MENTIONED" : entry.relationship ?? "MENTIONED";
+    providerRelationshipsBySlug.set(slug, relationship);
+  }
+  const providerRelationships =
+    data.relatedProviders !== undefined || data.providerRelationships !== undefined
+      ? Array.from(providerRelationshipsBySlug, ([providerSlug, relationship]) => ({ providerSlug, relationship }))
+      : undefined;
+
+  // Same merge for `sources[].sourceType` vs the deprecated `sources[].type`
+  // — `sourceType` wins when both are present on the same entry (already
+  // warned about above in validateFrontmatter).
+  const sources = data.sources?.map((s) => {
+    let sourceType = s.sourceType;
+    if (!sourceType && s.type) {
+      const upper = s.type.toUpperCase();
+      if ((SOURCE_TYPES as readonly string[]).includes(upper)) {
+        sourceType = upper as ImportSourceType;
+      }
+    }
+    return { label: s.label, url: s.url, sourceType };
+  });
 
   const payload: ArticleImportPayload = {
     title: data.title,
@@ -74,14 +102,19 @@ export function parseArticleFile(rawText: string): ParseResult {
     seoDescription: data.seoDescription,
     canonicalUrl: data.canonicalUrl,
     featuredImage: data.featuredImage,
+    featuredImageAlt: data.featuredImageAlt,
     author: data.author,
     reviewer: data.reviewer,
     noIndex: data.noIndex,
+    affiliateDisclosureRequired: data.affiliateDisclosureRequired,
+    scheduledAt: data.scheduledAt,
+    lastReviewedAt: data.lastReviewedAt,
     keyTakeaways: data.keyTakeaways,
     searchIntent: data.searchIntent as ArticleImportPayload["searchIntent"],
-    relatedProviders,
+    providerRelationships,
+    cryptoAssetSlugs: data.cryptoAssetSlugs,
     relatedGuides: data.relatedGuides,
-    sources: data.sources?.map((s) => ({ label: s.label, url: s.url })),
+    sources,
     affiliateProviders: data.affiliateProviders,
   };
 

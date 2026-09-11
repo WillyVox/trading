@@ -4,21 +4,28 @@ import type { ArticleSearchIntent, ArticleType } from "@prisma/client";
 export const IMPORT_REGIONS = ["GLOBAL", "AU", "US", "UK", "NZ", "SG"] as const;
 export type ImportRegion = (typeof IMPORT_REGIONS)[number];
 
+/** Mirrors the Prisma `ArticleSourceType` enum — kept as a type alias (not imported from
+ * @prisma/client) for the same pre-`prisma generate` reason as ImportRegion below. */
+export type ImportSourceType =
+  | "OFFICIAL_PROVIDER"
+  | "REGULATOR"
+  | "GOVERNMENT"
+  | "OFFICIAL_DOCUMENTATION"
+  | "NEWS"
+  | "RESEARCH"
+  | "OTHER";
+
 export interface ImportSource {
   label: string;
   url: string;
-  /**
-   * Accepted for forward-compatibility with the article file contract, but
-   * `ArticleSource` has no `type` column today — see docs/article-publishing-format.md
-   * "Known limitations". Carried through parsing/validation and then dropped
-   * (with a WARNING) rather than silently discarded without a trace.
-   */
-  type?: string;
+  /** Stored on `ArticleSource.sourceType` (see prisma/schema.prisma — the column was added in
+   * migration 20260911053226_add_article_layout). */
+  sourceType?: ImportSourceType;
 }
 
-export type RelatedProviderInput =
+export type ProviderRelationshipInput =
   | string
-  | { slug: string; relationship?: "MENTIONED" | "COMPARED" | "FEATURED" };
+  | { providerSlug: string; relationship?: "MENTIONED" | "COMPARED" | "FEATURED" };
 
 /**
  * Fully parsed and validated representation of one article file, ready to
@@ -50,14 +57,24 @@ export interface ArticleImportPayload {
   seoDescription?: string;
   canonicalUrl?: string;
   featuredImage?: string;
+  /** Alt text for `featuredImage` — see prisma/schema.prisma comment on `Article.featuredImageAlt`. */
+  featuredImageAlt?: string;
   author?: string;
   reviewer?: string;
   noIndex?: boolean;
+  affiliateDisclosureRequired?: boolean;
+  /** Advisory only — nothing reads this to auto-publish. See docs/ROADMAP.md "Scheduling". */
+  scheduledAt?: string;
+  /** Editorial "meaningfully reviewed" timestamp, distinct from the row's updatedAt. */
+  lastReviewedAt?: string;
   keyTakeaways?: string[];
   searchIntent?: ArticleSearchIntent;
-  relatedProviders?: { slug: string; relationship: "MENTIONED" | "COMPARED" | "FEATURED" }[];
+  providerRelationships?: { providerSlug: string; relationship: "MENTIONED" | "COMPARED" | "FEATURED" }[];
+  /** Slugs of `CryptoAsset` rows this article is about — matched against `CryptoAsset.slug`,
+   * never auto-created (same rule as `providerRelationships`/`relatedGuides`). */
+  cryptoAssetSlugs?: string[];
   relatedGuides?: string[];
-  sources?: { label: string; url: string }[];
+  sources?: ImportSource[];
   affiliateProviders?: string[];
 }
 

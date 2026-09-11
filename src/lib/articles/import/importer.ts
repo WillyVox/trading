@@ -8,12 +8,25 @@ export interface CoreUpsertResult {
   outcome: "CREATED" | "UPDATED";
 }
 
+/** Same `undefined`-or-invalid-string -> null rule as actions.ts's toDateOrNull, for the
+ * scheduledAt/lastReviewedAt fields below — kept as a local copy rather than a shared import
+ * since the two modules deliberately don't depend on each other (importer.ts has no "use server"
+ * boundary and actions.ts is server-action-only). */
+function toDateOrUndefined(value: string | undefined): Date | undefined {
+  if (value === undefined) return undefined;
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? undefined : d;
+}
+
 /**
  * Builds the scalar-field portion of the Prisma write, including only keys
  * that were actually present in the import file. This is the core of the
  * "safe merge" rule from spec §12: omitted fields are left completely
  * untouched on UPDATE rather than being nulled out. `status` is
  * deliberately never included here — see upsertArticleCore below.
+ *
+ * Mirrors buildScalarData() in src/lib/articles/actions.ts — same field set, same Article
+ * model, just "undefined means leave untouched on UPDATE" here instead of "always sync".
  */
 function buildScalarData(payload: ArticleImportPayload): Prisma.ArticleUpdateInput {
   const data: Prisma.ArticleUpdateInput = {
@@ -28,12 +41,19 @@ function buildScalarData(payload: ArticleImportPayload): Prisma.ArticleUpdateInp
   if (payload.seoDescription !== undefined) data.seoDescription = payload.seoDescription;
   if (payload.canonicalUrl !== undefined) data.canonicalUrl = payload.canonicalUrl;
   if (payload.featuredImage !== undefined) data.featuredImage = payload.featuredImage;
+  if (payload.featuredImageAlt !== undefined) data.featuredImageAlt = payload.featuredImageAlt;
   if (payload.author !== undefined) data.author = payload.author;
   if (payload.reviewer !== undefined) data.reviewer = payload.reviewer;
   if (payload.noIndex !== undefined) data.noIndex = payload.noIndex;
+  if (payload.affiliateDisclosureRequired !== undefined) data.affiliateDisclosureRequired = payload.affiliateDisclosureRequired;
   if (payload.keyTakeaways !== undefined) data.keyTakeaways = payload.keyTakeaways;
   if (payload.searchIntent !== undefined) data.searchIntent = payload.searchIntent;
   if (payload.region !== undefined) data.region = payload.region === "GLOBAL" ? null : payload.region;
+
+  const scheduledAt = toDateOrUndefined(payload.scheduledAt);
+  if (scheduledAt !== undefined) data.scheduledAt = scheduledAt;
+  const lastReviewedAt = toDateOrUndefined(payload.lastReviewedAt);
+  if (lastReviewedAt !== undefined) data.lastReviewedAt = lastReviewedAt;
 
   return data;
 }
@@ -46,12 +66,16 @@ async function syncTags(tx: Prisma.TransactionClient, articleId: string, tags: s
   }
 }
 
-async function syncSources(tx: Prisma.TransactionClient, articleId: string, sources: { label: string; url: string }[] | undefined) {
+async function syncSources(
+  tx: Prisma.TransactionClient,
+  articleId: string,
+  sources: ArticleImportPayload["sources"]
+) {
   if (sources === undefined) return; // not present in file — leave existing sources untouched
   await tx.articleSource.deleteMany({ where: { articleId } });
   if (sources.length > 0) {
     await tx.articleSource.createMany({
-      data: sources.map((s) => ({ articleId, label: s.label, url: s.url })),
+      data: sources.map((s) => ({ articleId, label: s.label, url: s.url, sourceType: s.sourceType ?? null })),
     });
   }
 }

@@ -3,7 +3,7 @@
     "note": "Batch 1 of 2 (articles 1-4 of 10). Matches the current Article model in prisma/schema.prisma / src/lib/articles/validation.ts as of this project state.",
     "status_for_all": "DRAFT — none of these should be created as PUBLISHED. Every article must go through the normal editorial workflow (submitArticleForReview -> publishArticle) after human review.",
     "ids_not_invented": "providerRelationships use providerSlug (not providerId) and cryptoAssetSlugs use asset slug (not assetId) because this batch was generated without a live DB connection to look up real cuids. Resolve slug -> id via Provider.slug / CryptoAsset.slug before calling createArticle, or extend the import/admin tooling to accept slugs directly.",
-    "author_reviewer": "Both left null on every article — Article.author/reviewer are free-text strings in the current schema (not User relations), and no real person should be fabricated. Assign a real author/reviewer name before submitting for review.",
+    "reviewer": "Left null on every article — Article.author/reviewer are free-text strings in the current schema (not User relations), and no real person should be fabricated. Assign a real author/reviewer name before submitting for review.",
     "region_canonicalArticleId": "Left null on every article: each is being created as the sole/global version of its topic, not a regional variant, per the schema comment in prisma/schema.prisma (a row with region=null and no canonicalArticleId IS the global/default article).",
     "suggestedRelatedSlugs": "Cross-references other slugs in this same 10-article batch for the relatedGuideIds picker once all 10 exist as real rows with real ids — not yet resolvable to IDs.",
     "sanitize_compatibility": "All content HTML uses only tags allowed by src/lib/articles/sanitize.ts (h2-h4, p, strong, em, ul, ol, li, a, blockquote, table/thead/tbody/tr/th/td, figure/figcaption, img, code, pre, hr, br) — no div, no class attributes, no script.",
@@ -29,7 +29,7 @@
       "canonicalArticleId": null,
       "scheduledAt": null,
       "lastReviewedAt": null,
-      "author": null,
+      "author": "Editorial Team",
       "reviewer": null,
       "searchIntent": "COMPARISON",
       "keyTakeaways": [
@@ -122,7 +122,7 @@
       "canonicalArticleId": null,
       "scheduledAt": null,
       "lastReviewedAt": null,
-      "author": null,
+      "author": "Editorial Team",
       "reviewer": null,
       "searchIntent": "FEES",
       "keyTakeaways": [
@@ -200,7 +200,7 @@
       "canonicalArticleId": null,
       "scheduledAt": null,
       "lastReviewedAt": null,
-      "author": null,
+      "author": "Editorial Team",
       "reviewer": null,
       "searchIntent": "HOW_TO",
       "keyTakeaways": [
@@ -269,7 +269,7 @@
       "canonicalArticleId": null,
       "scheduledAt": null,
       "lastReviewedAt": null,
-      "author": null,
+      "author": "Editorial Team",
       "reviewer": null,
       "searchIntent": "REGULATION",
       "keyTakeaways": [

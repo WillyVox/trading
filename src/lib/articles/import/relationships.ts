@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { articleRepository, providerRepository } from "@/lib/repository";
+import { articleRepository, providerRepository, cryptoAssetRepository } from "@/lib/repository";
 import type { ArticleImportPayload } from "./types";
 
 export interface RelationshipResult {
@@ -14,13 +14,13 @@ interface ResolvedProvider {
 
 /**
  * Providers this article mentions, comparing, or features — plus any
- * `affiliateProviders` not already covered by `relatedProviders`. See
- * docs/article-publishing-format.md "Affiliate resolution": affiliateProviders
+ * `affiliateProviders` not already covered by `providerRelationships`. See
+ * docs/article-import-format.md "Affiliate resolution": affiliateProviders
  * never stores a URL, it only makes the provider eligible for the site's
  * existing affiliate-CTA logic (which keys off ArticleProvider + an ACTIVE
  * AffiliateLink — see src/lib/affiliates/service.ts).
  *
- * Sync behavior: `relatedProviders`, when present, is treated as the
+ * Sync behavior: `providerRelationships`, when present, is treated as the
  * complete desired list — existing ArticleProvider rows for providers no
  * longer listed are removed. `affiliateProviders`-only entries are
  * additive and never cause a deletion, so adding an affiliate declaration
@@ -32,14 +32,14 @@ async function resolveProviders(
   payload: ArticleImportPayload,
   warnings: string[]
 ): Promise<void> {
-  const relatedEntries = payload.relatedProviders;
+  const relatedEntries = payload.providerRelationships;
   const affiliateSlugs = payload.affiliateProviders ?? [];
 
   if (relatedEntries === undefined && affiliateSlugs.length === 0) return;
 
   const bySlug = new Map<string, ResolvedProvider["relationship"]>();
   for (const entry of relatedEntries ?? []) {
-    bySlug.set(entry.slug, entry.relationship);
+    bySlug.set(entry.providerSlug, entry.relationship);
   }
   for (const slug of affiliateSlugs) {
     if (!bySlug.has(slug)) bySlug.set(slug, "MENTIONED");
@@ -56,16 +56,18 @@ async function resolveProviders(
   }
 
   if (relatedEntries !== undefined) {
-    // relatedProviders is the authoritative full list — drop anything no
-    // longer mentioned. affiliateProviders-only slugs are exempt (additive).
-    const affiliateOnlySlugs = new Set(affiliateSlugs.filter((s) => !relatedEntries.some((e) => e.slug === s)));
+    // providerRelationships is the authoritative full list — drop anything
+    // no longer mentioned. affiliateProviders-only slugs are exempt (additive).
+    const affiliateOnlySlugs = new Set(
+      affiliateSlugs.filter((s) => !relatedEntries.some((e) => e.providerSlug === s))
+    );
     const keepProviderIds = resolved.map((r) => r.providerId);
     await prisma.articleProvider.deleteMany({
       where: {
         articleId,
         providerId: { notIn: keepProviderIds.length > 0 ? keepProviderIds : ["__none__"] },
         // Never delete a row we're about to keep purely because it came in
-        // via affiliateProviders rather than relatedProviders this run.
+        // via affiliateProviders rather than providerRelationships this run.
         NOT: { provider: { slug: { in: Array.from(affiliateOnlySlugs) } } },
       },
     });
@@ -139,6 +141,45 @@ async function resolveRelatedGuides(
 }
 
 /**
+ * `CryptoAsset` rows this article is about (`ArticleCryptoAsset`), matched by
+ * `CryptoAsset.slug` — assets are never auto-created, same rule as providers
+ * and related guides. Full-sync semantics when `cryptoAssetSlugs` is present:
+ * the list is treated as complete, so a slug removed from the file removes
+ * the row here too. No cross-article dependency, but this still lives in
+ * PASS 2 (alongside resolveProviders) because it needs an async slug lookup
+ * and a place to collect warnings for slugs that don't resolve.
+ */
+async function resolveCryptoAssets(
+  articleId: string,
+  payload: ArticleImportPayload,
+  warnings: string[]
+): Promise<void> {
+  if (payload.cryptoAssetSlugs === undefined) return;
+
+  const resolvedIds: string[] = [];
+  for (const slug of payload.cryptoAssetSlugs) {
+    const asset = await cryptoAssetRepository.findBySlug(slug, { select: { id: true } });
+    if (!asset) {
+      warnings.push(`Crypto asset "${slug}" not found — no relationship was created`);
+      continue;
+    }
+    resolvedIds.push(asset.id);
+  }
+
+  await prisma.articleCryptoAsset.deleteMany({
+    where: { articleId, assetId: { notIn: resolvedIds.length > 0 ? resolvedIds : ["__none__"] } },
+  });
+
+  for (const assetId of resolvedIds) {
+    await prisma.articleCryptoAsset.upsert({
+      where: { articleId_assetId: { articleId, assetId } },
+      create: { articleId, assetId },
+      update: {},
+    });
+  }
+}
+
+/**
  * Links a regional variant back to its GLOBAL/default article. Only acts
  * when `region` is a real region (not GLOBAL/undefined) — see spec §19 and
  * docs/article-publishing-format.md "Regional variants".
@@ -186,6 +227,7 @@ async function resolveCanonicalArticle(
 export async function resolveRelationships(articleId: string, payload: ArticleImportPayload): Promise<RelationshipResult> {
   const warnings: string[] = [];
   await resolveProviders(articleId, payload, warnings);
+  await resolveCryptoAssets(articleId, payload, warnings);
   await resolveRelatedGuides(articleId, payload, warnings);
   await resolveCanonicalArticle(articleId, payload, warnings);
   return { warnings };
@@ -205,12 +247,17 @@ export async function previewRelationshipWarnings(payload: ArticleImportPayload)
   const warnings: string[] = [];
 
   const providerSlugs = new Set<string>([
-    ...(payload.relatedProviders?.map((p) => p.slug) ?? []),
+    ...(payload.providerRelationships?.map((p) => p.providerSlug) ?? []),
     ...(payload.affiliateProviders ?? []),
   ]);
   for (const slug of providerSlugs) {
     const provider = await providerRepository.findBySlug(slug, { select: { id: true } });
     if (!provider) warnings.push(`Provider "${slug}" not found — no relationship will be created`);
+  }
+
+  for (const slug of payload.cryptoAssetSlugs ?? []) {
+    const asset = await cryptoAssetRepository.findBySlug(slug, { select: { id: true } });
+    if (!asset) warnings.push(`Crypto asset "${slug}" not found — no relationship will be created`);
   }
 
   for (const slug of payload.relatedGuides ?? []) {
