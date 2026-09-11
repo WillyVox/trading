@@ -1,1 +1,1 @@
-# Always remember to explore and study yourself to understand he requirements first, give me your feedback, any concerns or suggestion, and comaparisons (if any) before I decide what to do,, when we start updating code.
+# Always remember to explore and study yourself to understand he requirements first, analyse in depth our product compare to other competitors to figure out the good we can adopt, and bad to improve ourselves, give me your feedback, any concerns or suggestion, and comaparisons (if any) before I decide what to do,, when we start updating code.
