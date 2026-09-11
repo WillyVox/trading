@@ -65,6 +65,9 @@ Then in .env in the project root
 9. `npx tsc --noEmit`
 10. `npm run build`
 
+When migrate failed
+`npx prisma migrate dev`
+
 ## What's stubbed (matches ROADMAP.md)
 
 - Article editor (`/admin/articles/new`, `/admin/articles/[id]`) — no
