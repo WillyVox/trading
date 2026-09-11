@@ -110,6 +110,34 @@ contextual placement for provider X." The importer resolves the provider by slug
 existing **active** `AffiliateLink` for it. If none exists, you'll see a warning and no placement is
 shown — the importer never fabricates or stores an affiliate destination from article content.
 
+## Content rendering & embed markers (Article CMS Block 3)
+
+Imported Markdown/HTML is parsed, sanitized, and stored in `Article.content` exactly like
+admin-authored content — there is one shared HTML sanitization policy
+(`src/lib/articles/sanitize.ts`) and one shared rendering pipeline (`renderArticleContent()` in
+`src/lib/articles/renderer.tsx`) used by public Guide pages, public News pages, and admin preview.
+An imported file's content is rendered through that same pipeline once the article is published, so
+everything below applies to imported articles too, with no separate import-only rendering path.
+
+The renderer:
+
+- re-sanitizes on every render (defense in depth on top of sanitizing at write time);
+- injects stable heading ids for table-of-contents links;
+- wraps `<table>` elements so wide tables don't break the mobile layout;
+- splits content on `{{type:args}}` embed markers.
+
+**Embed markers you can put in imported content today:**
+
+- `{{video:youtube:VIDEO_ID}}` or `{{video:youtube:VIDEO_ID:Optional caption}}` — renders a
+  responsive, lazy-loaded YouTube embed via our own component (never a raw stored iframe).
+- `{{video:vimeo:VIDEO_ID}}` — same, for Vimeo.
+
+Any other marker (`{{provider-comparison:...}}`, `{{affiliate-cta:...}}`, etc.) is recognized by the
+parser but has no renderer yet — that's Block 4 ("dynamic article components"). Until then, such a
+marker renders nothing on the public page and shows a "not yet available" notice only in
+`/admin/articles/[id]/preview`. It's safe to import content containing these markers now; they'll
+simply light up once Block 4 ships, with no re-import required.
+
 ## Known limitations
 
 - `sources[].type` is accepted in the file format for forward-compatibility but is not currently

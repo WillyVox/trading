@@ -41,6 +41,17 @@ test("keeps a plain https link and adds rel=noopener noreferrer", () => {
   assert.ok(out.includes('rel="noopener noreferrer"'));
 });
 
+test("adds target=_blank to an absolute external link", () => {
+  const out = sanitizeArticleContent('<a href="https://asic.gov.au/page">ASIC</a>');
+  assert.ok(out.includes('target="_blank"'));
+});
+
+test("does not add target=_blank to a relative/internal link", () => {
+  const out = sanitizeArticleContent('<a href="/crypto/guides/how-to-buy-bitcoin">Guide</a>');
+  assert.ok(!out.includes("target="));
+  assert.ok(out.includes('rel="noopener noreferrer"'));
+});
+
 test("keeps allowed img attributes (src/alt/width/height) but drops class", () => {
   const out = sanitizeArticleContent('<img src="/x.png" alt="desc" width="100" height="50" class="hack">');
   assert.ok(out.includes('src="/x.png"'));

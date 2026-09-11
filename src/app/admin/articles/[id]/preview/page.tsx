@@ -2,16 +2,17 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { getArticleById } from "@/lib/articles/service";
-import { extractHeadings, estimateReadingMinutes } from "@/lib/articles/content";
+import { renderArticleContent } from "@/lib/articles/renderer";
 import { Badge } from "@/components/ui/Badge";
 import { Notice } from "@/components/ui/Notice";
 
 /**
- * Admin-only preview — Req.md §42. Deliberately provisional: plain
- * sanitized HTML + heading ids, no embed parsing (that's the shared
- * ArticleRenderer, Block 3). Content shown here is already sanitized at
- * write time (see src/lib/articles/sanitize.ts), so this can render it
- * directly.
+ * Admin-only preview — Req.md §42. Now uses the same shared
+ * renderArticleContent() pipeline as the public Guide/News routes (Block
+ * 3), with context: "preview" so unrecognized/invalid embed markers show a
+ * visible EmbedPlaceholder instead of silently rendering nothing — an
+ * editor previewing a DRAFT should be able to see exactly what a marker
+ * did or didn't resolve to before publishing.
  *
  * - requireAdmin() independently of the /admin layout's own check, per the
  *   existing convention (a protected page is not the same as a protected
@@ -38,8 +39,7 @@ export default async function ArticlePreviewPage({ params }: { params: Promise<{
   const article = await getArticleById(id);
   if (!article) notFound();
 
-  const { html, headings } = extractHeadings(article.content);
-  const readingMinutes = estimateReadingMinutes(article.content);
+  const { content, headings, readingMinutes } = renderArticleContent(article.content, { context: "preview" });
   const publicPath = article.articleType === "GUIDE" ? `/crypto/guides/${article.slug}` : `/news/${article.slug}`;
 
   return (
@@ -106,8 +106,7 @@ export default async function ArticlePreviewPage({ params }: { params: Promise<{
           </nav>
         )}
 
-        {/* Already sanitized at write time (createArticle/updateArticle) — see src/lib/articles/sanitize.ts. */}
-        <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none" dangerouslySetInnerHTML={{ __html: html }} />
+        <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none">{content}</div>
 
         {article.providers.length > 0 && (
           <div className="mt-8">

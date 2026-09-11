@@ -12,7 +12,7 @@ import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { regionHreflang } from "@/lib/seo/canonical";
 import { absoluteUrl } from "@/lib/seo/config";
-import { extractHeadings, estimateReadingMinutes } from "@/lib/articles/content";
+import { renderArticleContent } from "@/lib/articles/renderer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { GuideHeader } from "@/components/guide/GuideHeader";
@@ -70,8 +70,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
   const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
   if (!article) notFound();
 
-  const { html: contentHtml, headings } = extractHeadings(article.content);
-  const readingMinutes = estimateReadingMinutes(article.content);
+  const { content, headings, readingMinutes } = renderArticleContent(article.content);
 
   const [relatedGuides, nextSteps, regionalFamily] = await Promise.all([
     getRelatedGuides(article),
@@ -159,7 +158,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             <GuideTableOfContents headings={headings} />
           </div>
 
-          <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+          <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none">{content}</div>
 
           <GuideSourceList sources={article.sources} />
           <RelatedProviders providers={guideProviders} />

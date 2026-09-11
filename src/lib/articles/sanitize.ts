@@ -1,4 +1,5 @@
 import sanitizeHtml from "sanitize-html";
+import { siteConfig } from "@/lib/seo/config";
 
 /**
  * The one HTML sanitization policy for article content — see
@@ -22,6 +23,19 @@ import sanitizeHtml from "sanitize-html";
  * video wrapper elements) but should still import and build on this
  * module.
  */
+
+/** True for an absolute http(s) link whose host differs from our own site — never for relative/internal hrefs, and never throws on a malformed href (treated as internal/no-op in that case). */
+function isExternalHref(href: string): boolean {
+  if (!/^https?:\/\//i.test(href)) return false;
+  try {
+    const linkHost = new URL(href).host;
+    const siteHost = new URL(siteConfig.domain).host;
+    return linkHost !== siteHost;
+  } catch {
+    return false;
+  }
+}
+
 const ALLOWED_TAGS = [
   "h2",
   "h3",
@@ -58,7 +72,10 @@ const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
   // so the rel="noopener noreferrer" added below would otherwise be
   // stripped right back out and silently do nothing (caught by
   // src/lib/articles/__test__/sanitize.test.ts).
-  a: ["href", "title", "rel"],
+  // `target` is only ever set by the transform below (external links) —
+  // nothing hand-authors it, but it must be allow-listed here for the same
+  // reason `rel` is: allowedAttributes filtering runs after transformTags.
+  a: ["href", "title", "rel", "target"],
   // width/height "where known" per Req.md §18 — purely descriptive
   // (browser-side layout hint), not a styling escape hatch.
   img: ["src", "alt", "title", "width", "height"],
@@ -75,8 +92,27 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   // Applies to every path that uses this policy (admin save AND import) —
   // stops a linked page from controlling the referring tab via
   // window.opener. Previously only the importer did this.
+  //
+  // Also distinguishes external vs internal links (Req.md §23: "render
+  // external links safely" and "render internal links" are listed as
+  // separate renderer responsibilities): an absolute http(s) link whose
+  // host differs from siteConfig's own domain opens in a new tab; a
+  // relative/internal link (e.g. "/crypto/guides/x") never does, since
+  // sending a visitor away from an in-progress article read is only
+  // warranted for genuinely external destinations (sources, regulators).
   transformTags: {
-    a: sanitizeHtml.simpleTransform("a", { rel: "noopener noreferrer" }, true),
+    a: (tagName, attribs) => {
+      const href = attribs.href ?? "";
+      const isExternal = isExternalHref(href);
+      return {
+        tagName,
+        attribs: {
+          ...attribs,
+          rel: "noopener noreferrer",
+          ...(isExternal ? { target: "_blank" } : {}),
+        },
+      };
+    },
   },
 };
 

@@ -4,7 +4,7 @@ import {
   getCryptoAssetsForArticleForm,
   getArticlesForRelatedPicker,
 } from "@/lib/articles/service";
-import { ARTICLE_TYPES, SEARCH_INTENTS, SOURCE_TYPES } from "@/lib/articles/validation";
+import { ARTICLE_TYPES, SEARCH_INTENTS } from "@/lib/articles/validation";
 import { IMPORT_REGIONS } from "@/lib/articles/import/types";
 import { buildEditorialChecklist } from "@/lib/articles/editorial-checklist";
 import { Card } from "@/components/ui/Card";
@@ -21,8 +21,6 @@ import { PublishingPanel } from "@/components/admin/article/PublishingPanel";
  * getArticleById/getArticleBySlug. Kept intentionally loose (fields
  * optional) so `mode: "create"` can pass `article={undefined}`.
  */
-type SourceTypeValue = (typeof SOURCE_TYPES)[number];
-
 interface ArticleFormData {
   id: string;
   title: string;
@@ -51,7 +49,7 @@ interface ArticleFormData {
   updatedAt: Date;
   publishedAt: Date | null;
   tags: { tag: string }[];
-  sources: { label: string; url: string; sourceType: SourceTypeValue | null }[];
+  sources: { label: string; url: string; sourceType: string | null }[];
   providers: { providerId: string; relationshipType: "MENTIONED" | "COMPARED" | "FEATURED" }[];
   cryptoAssets: { assetId: string }[];
   relatedFrom: { relatedArticleId: string }[];
@@ -172,6 +170,12 @@ export async function ArticleForm({
           <p className="mt-1 text-xs text-muted">
             HTML content. A rich block-based editor is planned for a later pass — this is deliberately a plain
             textarea for now; content is sanitized on save regardless of what's pasted in here.
+          </p>
+          <p className="mt-1 text-xs text-muted">
+            Video embeds are supported: <code className="font-mono">{"{{video:youtube:VIDEO_ID:Optional caption}}"}</code>{" "}
+            or <code className="font-mono">{"{{video:vimeo:VIDEO_ID}}"}</code>, on their own line. Other embed markers
+            (e.g. <code className="font-mono">{"{{provider-comparison:...}}"}</code>) can be typed in now — they'll show a
+            "not yet available" note in Preview until that block type ships.
           </p>
           <textarea
             name="content"

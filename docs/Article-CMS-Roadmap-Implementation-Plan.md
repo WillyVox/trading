@@ -395,3 +395,19 @@ revalidatePath slug/id bug	Fixed this session
 Lifecycle/validation/sanitization tests	Added this session — 33 new pure-logic tests, plus caught and fixed a real rel="noopener noreferrer" sanitization bug in the process
 DB-integration test gap	Documented this session, not silently claimed as covered
 Migration safety	Parked at your request — the rewritten safe migration is sitting in the working copy but I haven't re-surfaced it or asked about it again
+
+# Block 3 — where it stands now
+Item	Status
+Shared `renderArticleContent()` (`src/lib/articles/renderer.tsx`)	Implemented — one pipeline used identically by Guide, News, and admin preview
+Re-sanitization at render time	Added — belt-and-braces on top of write-time sanitization (Req.md §17)
+Table wrapping for mobile	Added (`wrapTables()` in `content.ts`)
+Embed marker parser (`{{type:args}}`)	Implemented (`src/lib/articles/embeds.ts`) — generic, not tied to any specific embed type
+`video` embed (YouTube/Vimeo)	Implemented — the only working embed type in this block; builds its own embed URL from a validated provider+id, never trusts stored iframe HTML
+Other embed types (`provider-comparison`, `affiliate-cta`, etc.)	Recognized by the parser but inert on public pages; shown as an explicit "not yet available" notice only in admin preview — this is Block 4's job
+External vs internal link handling	Added — external absolute links get `target="_blank"`, internal links stay same-tab; both keep `rel="noopener noreferrer"`
+News page	Was raw unsanitized `dangerouslySetInnerHTML` with no headings/byline/sources; now uses the shared renderer and shows author/reviewer/dates/reading time/sources/TOC, matching Guide's trust signals (Req.md §30/§35)
+Admin preview `no-store` header	Fixed a real gap found while reading `proxy.ts` — the header was documented in a comment but never actually set; now set in `src/proxy.ts` for `/admin/articles/*/preview`
+Tests	`src/lib/articles/__test__/renderer.test.ts` (new) covers re-sanitization, heading ids, table wrapping, reading-time scaling, valid/invalid video markers, unknown-embed behavior in both contexts, external/internal link handling, and public/preview parity for non-embed content. `sanitize.test.ts` extended with two link-target cases.
+Verification	Not run in the authoring sandbox — no network access, so `npm install`/`npm test`/`npm run build`/`prisma validate` could not be executed there. Needs a real run in your environment; see the manual verification steps for exact commands.
+Rich block-based content editor	Still a plain textarea (unchanged) — Req2 explicitly treats this as a later pass, and Block 3 is about the render path, not the authoring UI, beyond a one-line hint about the `video` marker syntax
+Featured image in article body	Still not rendered anywhere (Guide or News) — only used for `og:image`/JSON-LD `image`. Pre-existing gap, not introduced by this block; flagging as a candidate for a future small pass, not fixed here since it wasn't part of the agreed Block 3 scope
