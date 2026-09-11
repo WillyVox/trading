@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Article } from "@prisma/client";
 import { getAdminArticles, getAdminArticleCategories } from "@/lib/articles/service";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -160,7 +161,7 @@ export default async function AdminArticlesPage({
               </tr>
             </thead>
             <tbody>
-              {items.map((a) => (
+              {items.map((a: Article) => (
                 <tr key={a.id} className="border-b border-border align-top">
                   <td className="py-2 pr-4">
                     <Link href={`/admin/articles/${a.id}`} className="font-medium text-navy hover:underline">

@@ -4,7 +4,7 @@ import {
   getCryptoAssetsForArticleForm,
   getArticlesForRelatedPicker,
 } from "@/lib/articles/service";
-import { ARTICLE_TYPES, SEARCH_INTENTS } from "@/lib/articles/validation";
+import { ARTICLE_TYPES, SEARCH_INTENTS, SOURCE_TYPES } from "@/lib/articles/validation";
 import { IMPORT_REGIONS } from "@/lib/articles/import/types";
 import { buildEditorialChecklist } from "@/lib/articles/editorial-checklist";
 import { Card } from "@/components/ui/Card";
@@ -21,6 +21,8 @@ import { PublishingPanel } from "@/components/admin/article/PublishingPanel";
  * getArticleById/getArticleBySlug. Kept intentionally loose (fields
  * optional) so `mode: "create"` can pass `article={undefined}`.
  */
+type SourceTypeValue = (typeof SOURCE_TYPES)[number];
+
 interface ArticleFormData {
   id: string;
   title: string;
@@ -49,7 +51,7 @@ interface ArticleFormData {
   updatedAt: Date;
   publishedAt: Date | null;
   tags: { tag: string }[];
-  sources: { label: string; url: string; sourceType: string | null }[];
+  sources: { label: string; url: string; sourceType: SourceTypeValue | null }[];
   providers: { providerId: string; relationshipType: "MENTIONED" | "COMPARED" | "FEATURED" }[];
   cryptoAssets: { assetId: string }[];
   relatedFrom: { relatedArticleId: string }[];
