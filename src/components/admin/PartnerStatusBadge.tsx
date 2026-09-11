@@ -26,3 +26,5 @@ const LABEL: Record<AffiliatePartnerStatus, string> = {
 export function PartnerStatusBadge({ status }: { status: AffiliatePartnerStatus }) {
   return <Badge tone={TONE[status]}>{LABEL[status]}</Badge>;
 }
+
+1
