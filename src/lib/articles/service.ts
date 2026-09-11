@@ -2,6 +2,7 @@ import { cache } from "react";
 import type { ArticleSearchIntent, ArticleType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { articleRepository } from "@/lib/repository";
+import { isPubliclyVisibleArticle } from "@/lib/articles/status-transitions";
 
 /**
  * `articleType` (not `category`) is what actually scopes a listing to
@@ -93,8 +94,7 @@ export const getArticleById = cache(async (id: string) => {
  */
 export const getPublishedArticleBySlugAndType = cache(async (slug: string, articleType: ArticleType) => {
   const article = await articleRepository.findBySlug(slug, { include: articleDetailInclude });
-  if (!article || article.status !== "PUBLISHED" || article.articleType !== articleType) return null;
-  return article;
+  return isPubliclyVisibleArticle(article, articleType) ? article : null;
 });
 
 export function getAdminArticles(opts: {

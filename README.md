@@ -60,6 +60,10 @@ Then in .env in the project root
 5. Wire a real Auth.js provider in `src/lib/auth/config.ts`, then promote a
    user to `ADMIN` via `prisma studio` or a script
 6. `npm run dev`
+7. `npx prisma generate && npx prisma validate`
+8. `npm test`
+9. `npx tsc --noEmit`
+10. `npm run build`
 
 ## What's stubbed (matches ROADMAP.md)
 

@@ -160,6 +160,53 @@ Auto-generate from title on creation, editable, uniqueness-checked server-side (
 ### List page (`/admin/articles`)
 Extend the existing table: columns for Type / Status / Updated / Published; filters for status and type; Edit/Preview/Publish row actions wired to the new actions.
 
+### Testing status
+**Covered — pure logic, no database required, runs today via `npm test`:**
+- Status-transition legality: every legal edge in `DRAFT → REVIEW → PUBLISHED`,
+  `→ ARCHIVED`, and the `ARCHIVED → DRAFT` restore path succeeds; every
+  illegal jump (`DRAFT → PUBLISHED`, `ARCHIVED → PUBLISHED`,
+  `ARCHIVED → REVIEW`, `PUBLISHED → REVIEW`, any status to itself) is
+  rejected. See `src/lib/articles/status-transitions.ts` (the single source
+  of truth `actions.ts` now defers to, rather than repeating the rule set
+  per action) and `src/lib/articles/__test__/status-transitions.test.ts`.
+- Guide/News route isolation (Block 1's rule): a PUBLISHED GUIDE is
+  invisible when NEWS is required and vice versa; DRAFT/REVIEW/ARCHIVED
+  articles are never publicly visible regardless of type. See
+  `isPubliclyVisibleArticle` in the same file.
+- `validateArticleForm` edge cases: missing/invalid title, slug, articleType,
+  content, canonicalUrl, provider relationships, source URLs — see
+  `src/lib/articles/__test__/validation.test.ts`.
+- `sanitizeArticleContent`: `<script>`, inline event handlers, `javascript:`
+  URLs, `<iframe>`, and disallowed attributes (`class`, `style`) are
+  stripped; allowed tags/attributes and the `rel="noopener noreferrer"`
+  link transform survive — see `src/lib/articles/__test__/sanitize.test.ts`.
+  (Writing this test caught a real bug: `rel` was never in the `<a>`
+  attribute allowlist, so sanitize-html's own filtering silently stripped
+  the transform's `rel="noopener noreferrer"` right back out — fixed in
+  `sanitize.ts`.)
+
+**NOT covered — genuinely needs a database, and no test-DB infrastructure
+exists yet (no docker-compose, no `.env.example`, no test-DB convention
+anywhere in the repo):**
+- `requireAdmin()` actually rejecting a non-admin/unauthenticated session on
+  every mutation (currently exercised only by code review, not a test).
+- The duplicate-slug race between `assertSlugAvailable`'s pre-check and
+  Postgres's real `@unique` constraint (`withFriendlySlugConflict`) —
+  needs two concurrent writes against a real database to exercise honestly.
+- End-to-end `createArticle` → relationship sync (`updateArticle`'s
+  tag/source/provider/asset/related-guide diffing in a transaction) against
+  real rows, not just the input validation in front of it.
+- Public route DRAFT/REVIEW invisibility as an actual HTTP-level 404, not
+  just the `isPubliclyVisibleArticle` predicate in isolation.
+- `revalidatePath` firing on the correct paths after a real mutation.
+
+This isn't a small follow-up test file — it needs a decision on test-DB
+strategy first (a local Postgres via docker-compose + a seed/reset script
+per test run, or Prisma's own testing recipes, or a lighter mocking layer
+in front of `prisma.article.*`). Flagging it here as a named gap rather than
+claiming coverage that isn't real; do not treat "tests pass" as covering
+this list until it's addressed.
+
 **Exit criteria:** an admin can create a GUIDE article with providers/tags/sources, save DRAFT, edit it, move DRAFT→REVIEW→PUBLISHED, and see it live at `/crypto/guides/[slug]`.
 
 ---
@@ -336,3 +383,15 @@ per Req2 §66 — don't defer this to the end.
 - Expanded `ArticleSource` (sourceType/publisher/accessedAt) (Req2 §14).
 - Article revision history (Req2 §59).
 - Automated scheduled publishing (Req2 §45) — no job runner exists; `scheduledAt` remains manual/advisory and this is documented, not silently ignored.
+
+
+# Block 2 — where it stands now
+Item	Status
+createArticle / updateArticle	Already solid (verified by reading, not just trusting the earlier review)
+Status lifecycle (DRAFT→REVIEW→PUBLISHED→ARCHIVED, restore)	Already solid, now backed by one shared rule table + 21 transition tests
+Preview route, admin auth	Already solid
+/admin/articles list/filter/pagination/actions	Fixed this session — was title+status only, now full filters/search/pagination/row actions
+revalidatePath slug/id bug	Fixed this session
+Lifecycle/validation/sanitization tests	Added this session — 33 new pure-logic tests, plus caught and fixed a real rel="noopener noreferrer" sanitization bug in the process
+DB-integration test gap	Documented this session, not silently claimed as covered
+Migration safety	Parked at your request — the rewritten safe migration is sitting in the working copy but I haven't re-surfaced it or asked about it again

@@ -53,7 +53,12 @@ const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
   // No `class` on `a`/`img`/`*` — nothing in the spec calls for admins or
   // imported content to hand-author CSS classes into article body HTML;
   // dropping it removes surface area for no lost functionality.
-  a: ["href", "title"],
+  // `rel` must be listed here even though nothing ever hand-authors it —
+  // sanitize-html's own allowedAttributes filter runs AFTER transformTags,
+  // so the rel="noopener noreferrer" added below would otherwise be
+  // stripped right back out and silently do nothing (caught by
+  // src/lib/articles/__test__/sanitize.test.ts).
+  a: ["href", "title", "rel"],
   // width/height "where known" per Req.md §18 — purely descriptive
   // (browser-side layout hint), not a styling escape hatch.
   img: ["src", "alt", "title", "width", "height"],

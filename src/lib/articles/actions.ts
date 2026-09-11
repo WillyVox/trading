@@ -7,6 +7,10 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { validateArticleForm, type ArticleFormInput } from "@/lib/articles/validation";
 import { sanitizeArticleContent } from "@/lib/articles/sanitize";
+import {
+  isValidArticleStatusTransition,
+  type ArticleLifecycleStatus,
+} from "@/lib/articles/status-transitions";
 
 /**
  * Block 2 admin mutations for the Article domain. Every action
@@ -29,11 +33,17 @@ function publicPathFor(articleType: ArticleType, slug: string): string {
 }
 
 function revalidateArticlePaths(opts: {
+  id: string;
   before?: { articleType: ArticleType; slug: string } | null;
   after: { articleType: ArticleType; slug: string };
 }) {
   revalidatePath("/admin/articles");
-  revalidatePath(`/admin/articles/${opts.after.slug}`); // harmless no-op if path doesn't match id-based route
+  // Admin edit route is /admin/articles/[id] -- the id, not the slug, is
+  // what the route actually keys on. Previously this revalidated
+  // `/admin/articles/${slug}`, which never matches that route and was a
+  // silent no-op.
+  revalidatePath(`/admin/articles/${opts.id}`);
+  revalidatePath(`/admin/articles/${opts.id}/preview`);
   revalidatePath(opts.after.articleType === "GUIDE" ? "/crypto/guides" : "/news");
   revalidatePath(publicPathFor(opts.after.articleType, opts.after.slug));
   if (opts.before && (opts.before.slug !== opts.after.slug || opts.before.articleType !== opts.after.articleType)) {
@@ -297,6 +307,7 @@ export async function updateArticle(formData: FormData) {
   }));
 
   revalidateArticlePaths({
+    id,
     before: { articleType: existing.articleType, slug: existing.slug },
     after: { articleType: data.articleType, slug: data.slug },
   });
@@ -333,8 +344,7 @@ async function assertPublishable(articleId: string) {
 async function transitionStatus(
   formData: FormData,
   opts: {
-    from: Array<"DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED">;
-    to: "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
+    to: ArticleLifecycleStatus;
     extraData?: (article: { publishedAt: Date | null }) => Prisma.ArticleUpdateInput;
   }
 ) {
@@ -347,7 +357,11 @@ async function transitionStatus(
     select: { status: true, slug: true, articleType: true, publishedAt: true },
   });
   if (!existing) throw new Error("Article not found");
-  if (!opts.from.includes(existing.status)) {
+  // Single source of truth for legal transitions -- see
+  // src/lib/articles/status-transitions.ts. Previously each exported
+  // action below repeated its own `from` array; that's now generated from
+  // (and tested against) one shared table instead of six parallel copies.
+  if (!isValidArticleStatusTransition(existing.status, opts.to)) {
     throw new Error(`Cannot move from ${existing.status} to ${opts.to} directly.`);
   }
 
@@ -359,33 +373,33 @@ async function transitionStatus(
   await prisma.article.update({ where: { id }, data: { status: opts.to, ...extra } });
 
   revalidateArticlePaths({
+    id,
     before: { articleType: existing.articleType, slug: existing.slug },
     after: { articleType: existing.articleType, slug: existing.slug },
   });
 }
 
 export async function submitArticleForReview(formData: FormData) {
-  await transitionStatus(formData, { from: ["DRAFT"], to: "REVIEW" });
+  await transitionStatus(formData, { to: "REVIEW" });
 }
 
 export async function moveArticleBackToDraft(formData: FormData) {
-  await transitionStatus(formData, { from: ["REVIEW"], to: "DRAFT" });
+  await transitionStatus(formData, { to: "DRAFT" });
 }
 
 export async function publishArticle(formData: FormData) {
   await transitionStatus(formData, {
-    from: ["REVIEW"],
     to: "PUBLISHED",
     extraData: (article) => (article.publishedAt ? {} : { publishedAt: new Date() }),
   });
 }
 
 export async function unpublishArticle(formData: FormData) {
-  await transitionStatus(formData, { from: ["PUBLISHED"], to: "DRAFT" });
+  await transitionStatus(formData, { to: "DRAFT" });
 }
 
 export async function archiveArticle(formData: FormData) {
-  await transitionStatus(formData, { from: ["DRAFT", "REVIEW", "PUBLISHED"], to: "ARCHIVED" });
+  await transitionStatus(formData, { to: "ARCHIVED" });
 }
 
 /**
@@ -393,8 +407,9 @@ export async function archiveArticle(formData: FormData) {
  * Req.md, but ARCHIVED with no way back would be a one-way trap for a
  * misclick — see the "decide + document ARCHIVED behaviour" instruction in
  * Req.md §4. Restoring always lands back in DRAFT, never straight to
- * PUBLISHED, so a restored article always goes through review again.
+ * PUBLISHED (see ARTICLE_STATUS_TRANSITIONS), so a restored article always
+ * goes through review again.
  */
 export async function restoreArticleFromArchive(formData: FormData) {
-  await transitionStatus(formData, { from: ["ARCHIVED"], to: "DRAFT" });
+  await transitionStatus(formData, { to: "DRAFT" });
 }
