@@ -27,7 +27,10 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/methodology",
     "/methodology/editorial-policy",
     "/methodology/comparisons",
-    "/methodology/affiliate-disclosure",
+    "/affiliate-disclosure",
+    "/how-we-get-paid",
+    "/terms",
+    "/privacy",
   ];
   return paths.map((path) => ({ url: absoluteUrl(path) }));
 }

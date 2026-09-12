@@ -2,6 +2,10 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
 import { Notice } from "@/components/ui/Notice";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
@@ -18,8 +22,12 @@ const PRINCIPLES = [
 ];
 
 export default function MethodologyPage() {
+  const trail = breadcrumbTrail([{ name: "Methodology", path: "/methodology" }]);
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
+      <JsonLd data={breadcrumbSchema(trail)} />
+      <Breadcrumbs items={trail} />
       <Eyebrow>Methodology</Eyebrow>
       <h1 className="mt-4 font-display text-5xl font-extrabold text-navy">How AusMarket verifies research</h1>
 
@@ -42,8 +50,7 @@ export default function MethodologyPage() {
       <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
         <Link href="/methodology/comparisons" className="text-blue underline">Comparison methodology</Link>
         <Link href="/methodology/editorial-policy" className="text-blue underline">Editorial policy</Link>
-        <Link href="/methodology/affiliate-disclosure" className="text-blue underline">Affiliate disclosure</Link>
-      </div>
+       </div>
     </div>
   );
 }

@@ -123,7 +123,7 @@ Trading-online currently has:
 /methodology
 /methodology/editorial-policy
 /methodology/comparisons
-/methodology/affiliate-disclosure
+/affiliate-disclosure
 
 which is also good.
 
@@ -135,7 +135,7 @@ Eventually something like:
 /methodology/how-we-compare
 /methodology/data-sources
 /methodology/editorial-policy
-/methodology/affiliate-disclosure
+/affiliate-disclosure
 /about
 /authors/[slug]
 

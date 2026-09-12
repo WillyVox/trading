@@ -58,7 +58,7 @@ Before any code changes, inspect and report on:
 /methodology
 /methodology/comparisons
 /methodology/editorial-policy
-/methodology/affiliate-disclosure
+/affiliate-disclosure
 
 /go/[partnerSlug]                    (server-side affiliate redirect, route handler)
 
