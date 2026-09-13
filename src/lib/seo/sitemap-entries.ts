@@ -35,9 +35,15 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
   return paths.map((path) => ({ url: absoluteUrl(path) }));
 }
 
+
 export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
+  // `articleType` (not `category`) is what actually scopes a listing to
+  // guides — see lib/articles/service.ts. `category` is a free-text topic
+  // filter that a GUIDE is never guaranteed to carry the literal value
+  // "guide" in, so filtering the sitemap on it silently dropped any guide
+  // whose category was e.g. "how-to" or "crypto-exchanges".
   const articles = await prisma.article.findMany({
-    where: { status: "PUBLISHED", noIndex: false, category: "guide" },
+    where: { status: "PUBLISHED", noIndex: false, articleType: "GUIDE" satisfies ArticleType },
     select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
@@ -48,7 +54,7 @@ export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
 
 export async function newsEntries(): Promise<MetadataRoute.Sitemap> {
   const articles = await prisma.article.findMany({
-    where: { status: "PUBLISHED", noIndex: false, category: "news" },
+    where: { status: "PUBLISHED", noIndex: false, articleType: "NEWS" satisfies ArticleType },
     select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
