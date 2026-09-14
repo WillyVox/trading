@@ -44,7 +44,7 @@ export default function TermsOfUsePage() {
         <section>
           <h2 className="mb-2 font-display text-lg font-bold text-navy">1. Acceptance of these terms</h2>
           <p>
-            By accessing or using this website ({businessIdentity.legalName ?? "Trading Guide Crypto"},
+            By accessing or using this website ({businessIdentity.legalName ?? "Trading Guide"},
             &quot;Trading Guide&quot;, &quot;we&quot;, &quot;us&quot;), you agree to these Terms of Use. If
             you don&apos;t agree, please don&apos;t use the site.
           </p>

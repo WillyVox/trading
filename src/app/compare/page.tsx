@@ -21,8 +21,8 @@ export default async function ComparePage() {
       <PageHero
         breadcrumbs={trail}
         eyebrow="Comparisons"
-        title="Compare providers side-by-side"
-        subheading="Live, data-driven comparisons — never a paid ranking."
+        title="Compare crypto exchanges side-by-side"
+        subheading="Live, data-driven comparisons."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
 

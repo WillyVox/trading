@@ -27,7 +27,7 @@ function resolveDomain(): string {
 }
 
 export const siteConfig = {
-  name: "Trading Guide Crypto",
+  name: "Trading Guide Cryptocurrencies and Shares",
   shortName: "Trading Guide",
   domain: resolveDomain(),
   description:
@@ -35,8 +35,8 @@ export const siteConfig = {
   locale: "en_AU",
   language: "en-AU",
   country: "AU",
-  titleTemplate: "%s | Trading Guide Crypto",
-  defaultTitle: "Trading Guide Crypto — Independent Crypto Exchange Research for Australia",
+  titleTemplate: "%s | Trading Guide Cryptocurrencies and Shares",
+  defaultTitle: "Trading Guide — Independent Crypto Exchange and Trading Platform Research for Australia",
   // No real social profiles exist yet — never fabricate sameAs entries.
   sameAs: [] as string[],
 } as const;

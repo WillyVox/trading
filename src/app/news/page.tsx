@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
-  title: "Crypto News Australia \u2014 Market & Regulatory Updates",
+  title: "Trading News | Educational Materials | Trading Guides - TradingGuide",
   description: "Current crypto market and regulatory news relevant to Australian users.",
   path: "/news",
 });

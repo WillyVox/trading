@@ -5,8 +5,8 @@ import TradingGuideLogo from "./HeaderLogo"
 
 const NAV = [
   { href: "/crypto", label: "Crypto" },
-  { href: "/compare", label: "Compare" },
-  { href: "/methodology", label: "Methodology" },
+  { href: "/compare", label: "Compare Cryptocurrencies" },
+  // { href: "/methodology", label: "Methodology" },
   { href: "/news", label: "News" },
 ];
 

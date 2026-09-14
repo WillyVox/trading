@@ -41,7 +41,7 @@ export function Footer() {
               This renders just the trading name until then. */}
           <div className="text-right text-xs leading-relaxed text-background/70">
             <p>
-              {"\u00A9"} {YEAR} {businessIdentity.legalName ?? "Trading Guide Crypto"}
+              {"\u00A9"} {YEAR} {businessIdentity.legalName ?? "Trading Guide"}
               {businessIdentity.abn ? ` \u00B7 ABN ${businessIdentity.abn}` : null}
             </p>
             {businessIdentity.businessAddress ? <p>{businessIdentity.businessAddress}</p> : null}

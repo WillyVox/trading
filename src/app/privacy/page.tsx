@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="mb-2 font-display text-lg font-bold text-navy">1. Who operates this site</h2>
           <p>
-            This policy covers {businessIdentity.legalName ?? "Trading Guide Crypto"}
+            This policy covers {businessIdentity.legalName ?? "Trading Guide"}
             {businessIdentity.abn ? ` (ABN ${businessIdentity.abn})` : ""} (&quot;Trading Guide&quot;,
             &quot;we&quot;, &quot;us&quot;).
           </p>

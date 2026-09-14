@@ -12,7 +12,7 @@ My website currently focuses on:
 
 > **Independent Australian crypto exchange research, comparisons, educational content, market information and affiliate/referral links.**
 
-The current brand in the project is **Trading Guide Crypto / Trading Guide**.
+The current brand in the project is **Trading Guide**.
 
 The business may earn money when visitors click an affiliate/referral link and subsequently register, apply, deposit, trade, purchase a service or otherwise complete a qualifying action with a provider.
 

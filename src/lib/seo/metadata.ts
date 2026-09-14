@@ -8,7 +8,7 @@ interface BuildMetadataInput extends SeoOverrides {
   title: string;
   /** Fallback description, used when no seoDescription override is present. */
   description: string;
-  /** Site-relative path, e.g. "/crypto/guides/how-to-buy-bitcoin-australia" */
+  /** Site-relative path, e.g. "/crypto/how-to-buy-bitcoin-australia" */
   path: string;
   image?: string | null;
   type?: "website" | "article";

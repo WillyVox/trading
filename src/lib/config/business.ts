@@ -14,7 +14,7 @@
  * applicable") before production launch.
  */
 export interface BusinessIdentity {
-    /** Registered legal entity name, if different from the "Trading Guide Crypto" trading name. */
+    /** Registered legal entity name, if different from the "Trading Guide" trading name. */
     legalName?: string;
     tradingName?: string;
     abn?: string;
