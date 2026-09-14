@@ -21,6 +21,7 @@ export default function CryptoPage() {
         eyebrow="Crypto education"
         title="Understand crypto before you trade it"
         subheading="Detailed explains on exchanges, wallets, and how Australian crypto actually works."
+        graphic="crypto"
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
 

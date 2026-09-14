@@ -27,16 +27,22 @@ function resolveDomain(): string {
 }
 
 export const siteConfig = {
-  name: "Trading Guide Cryptocurrencies and Shares",
+  // Generalized from "Trading Guide Crypto" — the site is expanding beyond
+  // crypto into other trading platforms (share trading, etc.), and this
+  // name/template/description apply to every page via titleTemplate below,
+  // not just crypto-specific ones. Crypto-specific pages (e.g.
+  // /crypto/guides) still say "crypto" in their own page-level title —
+  // only the shared site-wide identity was generalized here.
+  name: "Trading Guide",
   shortName: "Trading Guide",
   domain: resolveDomain(),
   description:
-    "Independent, source-linked crypto exchange comparisons and guides for Australia.",
+    "Independent, source-linked comparisons and guides for crypto and trading platforms in Australia.",
   locale: "en_AU",
   language: "en-AU",
   country: "AU",
-  titleTemplate: "%s | Trading Guide Cryptocurrencies and Shares",
-  defaultTitle: "Trading Guide — Independent Crypto Exchange and Trading Platform Research for Australia",
+  titleTemplate: "%s | Trading Guide",
+  defaultTitle: "Trading Guide — Independent Research for Australian Trading Platforms",
   // No real social profiles exist yet — never fabricate sameAs entries.
   sameAs: [] as string[],
 } as const;

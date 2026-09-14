@@ -4,20 +4,27 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AuthStatus } from "./AuthStatus";
+import { NAV_ITEMS } from "@/lib/nav/config";
 
-const NAV = [
-  { href: "/crypto", label: "Crypto" },
-  { href: "/compare", label: "Compare" },
-  { href: "/methodology", label: "Methodology" },
-  { href: "/news", label: "News" },
-];
+/** Exact match for "/", startsWith for everything else — otherwise "/" would match every route. */
+function isActive(pathname: string | null, href: string): boolean {
+  if (!pathname) return false;
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  // Which top-level accordion item (by label) is expanded — hover dropdowns
+  // (NavMenuItem, desktop) don't translate to touch, so items with
+  // `children` get an expand/collapse section here instead.
+  const [expandedLabel, setExpandedLabel] = useState<string | null>(null);
   const pathname = usePathname();
 
   // Close on route change and lock body scroll while open.
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    setOpen(false);
+    setExpandedLabel(null);
+  }, [pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -68,18 +75,61 @@ export function MobileNav() {
           </button>
         </div>
         <nav className="mt-6 flex flex-col gap-1">
-          {NAV.map((item) => {
-            const active = pathname?.startsWith(item.href);
+          {NAV_ITEMS.map((item) => {
+            const children = item.children ?? [];
+
+            if (children.length === 0) {
+              const href = item.href ?? "#";
+              const active = isActive(pathname, href);
+              return (
+                <Link
+                  key={item.label}
+                  href={href}
+                  className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
+                    active ? "bg-panel-secondary text-navy" : "text-muted hover:bg-panel-secondary hover:text-navy"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+
+            const expanded = expandedLabel === item.label;
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
-                  active ? "bg-panel-secondary text-navy" : "text-muted hover:bg-panel-secondary hover:text-navy"
-                }`}
-              >
-                {item.label}
-              </Link>
+              <div key={item.label}>
+                <button
+                  type="button"
+                  aria-expanded={expanded}
+                  onClick={() => setExpandedLabel(expanded ? null : item.label)}
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-medium text-muted transition-colors hover:bg-panel-secondary hover:text-navy"
+                >
+                  {item.label}
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 12 12"
+                    className={`h-3 w-3 shrink-0 transition-transform duration-150 ${expanded ? "rotate-180" : ""}`}
+                  >
+                    <path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                {expanded && (
+                  <div className="ml-3 mt-1 flex flex-col gap-1 border-l border-border pl-3">
+                    {children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className={`rounded-xl px-3 py-2 text-sm transition-colors ${
+                          isActive(pathname, child.href)
+                            ? "bg-panel-secondary text-navy"
+                            : "text-muted hover:bg-panel-secondary hover:text-navy"
+                        }`}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>

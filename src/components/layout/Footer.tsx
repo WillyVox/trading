@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { footerLinks } from "@/lib/config/footer";
 import { businessIdentity } from "@/lib/config/business";
+import { siteConfig } from "@/lib/seo/config";
 import TradingGuideLogo from "./HeaderLogo";
 
 // Computed once per server render. On a statically-generated page this
@@ -32,7 +33,7 @@ export function Footer() {
               <TradingGuideLogo/>
             </Link>
             <p className="mt-1 text-xs text-background/60">
-              Independent Australian crypto exchange research
+              Independent Australian trading research — crypto and beyond
             </p>
           </div>
 
@@ -41,7 +42,7 @@ export function Footer() {
               This renders just the trading name until then. */}
           <div className="text-right text-xs leading-relaxed text-background/70">
             <p>
-              {"\u00A9"} {YEAR} {businessIdentity.legalName ?? "Trading Guide"}
+              {"\u00A9"} {YEAR} {businessIdentity.legalName ?? siteConfig.shortName}
               {businessIdentity.abn ? ` \u00B7 ABN ${businessIdentity.abn}` : null}
             </p>
             {businessIdentity.businessAddress ? <p>{businessIdentity.businessAddress}</p> : null}

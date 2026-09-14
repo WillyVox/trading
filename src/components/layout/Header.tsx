@@ -1,14 +1,9 @@
 import Link from "next/link";
 import { AuthStatus } from "./AuthStatus";
 import { MobileNav } from "./MobileNav";
+import { NavMenuItem } from "./NavMenuItem";
 import TradingGuideLogo from "./HeaderLogo"
-
-const NAV = [
-  { href: "/crypto", label: "Crypto" },
-  { href: "/compare", label: "Compare Cryptocurrencies" },
-  // { href: "/methodology", label: "Methodology" },
-  { href: "/news", label: "News" },
-];
+import { NAV_ITEMS } from "@/lib/nav/config";
 
 // Deliberately NOT async / no auth() call here. Header is rendered from the
 // root layout on every route, including statically-generated content pages
@@ -25,11 +20,9 @@ export function Header() {
           {/* Trading<span className="text-gold">Guide</span> */}
           <TradingGuideLogo/>
           </Link>
-        <nav className="hidden flex-1 gap-6 md:flex">
-          {NAV.map((item) => (
-            <Link key={item.href} href={item.href} className="text-sm font-medium text-navy/80 transition-colors hover:text-navy">
-              {item.label}
-            </Link>
+        <nav className="hidden flex-1 items-center gap-6 md:flex">
+          {NAV_ITEMS.map((item) => (
+            <NavMenuItem key={item.label} item={item} />
           ))}
         </nav>
 

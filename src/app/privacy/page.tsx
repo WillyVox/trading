@@ -4,6 +4,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { businessIdentity } from "@/lib/config/business";
+import { siteConfig } from "@/lib/seo/config";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
@@ -56,7 +57,7 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="mb-2 font-display text-lg font-bold text-navy">1. Who operates this site</h2>
           <p>
-            This policy covers {businessIdentity.legalName ?? "Trading Guide"}
+            This policy covers {businessIdentity.legalName ?? siteConfig.shortName}
             {businessIdentity.abn ? ` (ABN ${businessIdentity.abn})` : ""} (&quot;Trading Guide&quot;,
             &quot;we&quot;, &quot;us&quot;).
           </p>

@@ -22,6 +22,7 @@ export default function HomePage() {
           { label: "Read methodology", href: "/methodology", variant: "outline" },
         ]}
         meta={["Source-linked facts", "Independent editorial", "Direct provider comparisons"]}
+        graphic="home"
       />
 
       <section className="mx-auto max-w-6xl px-4 py-14">

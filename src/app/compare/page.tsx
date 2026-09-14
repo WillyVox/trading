@@ -23,6 +23,7 @@ export default async function ComparePage() {
         eyebrow="Comparisons"
         title="Compare crypto exchanges side-by-side"
         subheading="Live, data-driven comparisons."
+        graphic="compare"
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
 

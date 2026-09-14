@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { businessIdentity } from "@/lib/config/business";
+import { siteConfig } from "@/lib/seo/config";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
@@ -44,7 +45,7 @@ export default function TermsOfUsePage() {
         <section>
           <h2 className="mb-2 font-display text-lg font-bold text-navy">1. Acceptance of these terms</h2>
           <p>
-            By accessing or using this website ({businessIdentity.legalName ?? "Trading Guide"},
+            By accessing or using this website ({businessIdentity.legalName ?? siteConfig.shortName},
             &quot;Trading Guide&quot;, &quot;we&quot;, &quot;us&quot;), you agree to these Terms of Use. If
             you don&apos;t agree, please don&apos;t use the site.
           </p>

@@ -31,6 +31,7 @@ export default function MethodologyPage() {
         eyebrow="Our standards"
         title="How we research and verify facts"
         subheading="Our sourcing, verification, and affiliate-disclosure standards."
+        graphic="methodology"
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
       <div className="mt-8 grid gap-4 md:grid-cols-2">

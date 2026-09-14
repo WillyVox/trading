@@ -23,6 +23,7 @@ export default async function GuidesPage() {
         eyebrow="Guides"
         title="Step-by-step crypto guides for Australians"
         subheading="How-to guides for buying, storing, and trading crypto safely."
+        graphic="guides"
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
       {items.length === 0 && <p className="mt-4 text-muted">No guides published yet.</p>}

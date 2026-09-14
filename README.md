@@ -1,4 +1,4 @@
-# Trading Guide Cryptocurrencies and Shares
+# Trading Guide Crypto
 
 Next.js 16 (App Router) + React 19 + Tailwind v4 + Prisma (Postgres) + Auth.js
 v5 scaffold, built against `docs/IMPLEMENTATION-PLAN.md` and `docs/ROADMAP.md`.
