@@ -31,7 +31,7 @@ export const siteConfig = {
   // crypto into other trading platforms (share trading, etc.), and this
   // name/template/description apply to every page via titleTemplate below,
   // not just crypto-specific ones. Crypto-specific pages (e.g.
-  // /crypto/guides) still say "crypto" in their own page-level title —
+  // /guides) still say "crypto" in their own page-level title —
   // only the shared site-wide identity was generalized here.
   name: "Trading Guide",
   shortName: "Trading Guide",

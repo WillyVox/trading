@@ -31,13 +31,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
   if (!article) {
-    return buildMetadata({ title: "Guide not found", description: "", path: `/crypto/guides/${slug}`, noIndex: true });
+    return buildMetadata({ title: "Guide not found", description: "", path: `/guides/${slug}`, noIndex: true });
   }
 
   const metadata = buildMetadata({
     title: article.title,
     description: article.excerpt ?? article.title,
-    path: `/crypto/guides/${slug}`,
+    path: `/guides/${slug}`,
     image: article.featuredImage,
     type: "article",
     publishedTime: article.publishedAt,
@@ -57,10 +57,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const languages: Record<string, string> = {};
     for (const member of family) {
       if (!member.region) continue;
-      languages[regionHreflang(member.region)] = absoluteUrl(`/crypto/guides/${member.slug}`);
+      languages[regionHreflang(member.region)] = absoluteUrl(`/guides/${member.slug}`);
     }
     if (globalMember) {
-      languages["x-default"] = absoluteUrl(`/crypto/guides/${globalMember.slug}`);
+      languages["x-default"] = absoluteUrl(`/guides/${globalMember.slug}`);
     }
     metadata.alternates = { ...metadata.alternates, languages };
   }
@@ -107,8 +107,8 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
 
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },
-    { name: "Guides", path: "/crypto/guides" },
-    { name: article.title, path: `/crypto/guides/${slug}` },
+    { name: "Guides", path: "/guides" },
+    { name: article.title, path: `/guides/${slug}` },
   ]);
 
   // Same fields GuideHeader used to render inline — now the hero's
@@ -133,7 +133,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
           author: article.author,
           datePublished: article.publishedAt,
           dateModified: article.lastReviewedAt ?? article.updatedAt,
-          path: `/crypto/guides/${slug}`,
+          path: `/guides/${slug}`,
         })}
       />
       <JsonLd data={breadcrumbSchema(trail)} />
@@ -152,7 +152,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
           {otherRegions.map((m, i) => (
             <span key={m.id}>
               {i > 0 && ", "}
-              <Link href={`/crypto/guides/${m.slug}`} className="underline hover:text-navy">
+              <Link href={`/guides/${m.slug}`} className="underline hover:text-navy">
                 {m.region ?? "Global"}
               </Link>
             </span>

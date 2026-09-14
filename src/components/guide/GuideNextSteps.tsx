@@ -14,7 +14,7 @@ export function GuideNextSteps({ steps }: { steps: NextStep[] }) {
           {steps.map((step, i) => (
             <li key={step.id} className="flex gap-3">
               <span className="font-display font-bold text-gold">{i + 1}.</span>
-              <Link href={`/crypto/guides/${step.slug}`} className="text-navy hover:underline">
+              <Link href={`/guides/${step.slug}`} className="text-navy hover:underline">
                 {step.title}
               </Link>
             </li>

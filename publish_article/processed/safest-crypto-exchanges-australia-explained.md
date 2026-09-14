@@ -76,5 +76,5 @@ sources:
 </tbody>
 </table>
 <h2>What this means for you</h2>
-<p>Rather than searching for a single "safest" answer, check these factors for the specific exchanges you're actually considering, weigh them against how you plan to use the account, and combine this with the broader selection factors in our <a href="/crypto/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a>. You can also <a href="/compare/crypto-exchanges">compare exchanges directly</a> on this basis.</p>
+<p>Rather than searching for a single "safest" answer, check these factors for the specific exchanges you're actually considering, weigh them against how you plan to use the account, and combine this with the broader selection factors in our <a href="/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a>. You can also <a href="/compare/crypto-exchanges">compare exchanges directly</a> on this basis.</p>
 <p>This is general information, not a security audit or financial advice, and doesn't guarantee the future performance or security of any platform mentioned.</p>

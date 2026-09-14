@@ -85,7 +85,7 @@ test("unknown embed markers show a 'not yet available' placeholder in preview co
 
 test("adds target=_blank + rel to external links but leaves internal links same-tab", () => {
   const { content } = renderArticleContent(
-    '<p><a href="https://asic.gov.au/page">ASIC</a> and <a href="/crypto/guides/x">Guide</a></p>'
+    '<p><a href="https://asic.gov.au/page">ASIC</a> and <a href="/guides/x">Guide</a></p>'
   );
   const html = toHtml(content);
 

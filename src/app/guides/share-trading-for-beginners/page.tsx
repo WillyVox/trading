@@ -16,7 +16,7 @@ export const metadata = buildMetadata({
 
 export default function ShareTradingForBeginnersPage() {
   const trail = breadcrumbTrail([
-    { name: "Guides", path: "/crypto/guides" },
+    { name: "Guides", path: "/guides" },
     { name: "Share trading for beginners", path: "/guides/share-trading-for-beginners" },
   ]);
 
@@ -27,7 +27,7 @@ export default function ShareTradingForBeginnersPage() {
         eyebrow="Guides · Coming soon"
         title="Share trading for beginners"
         subheading="We're expanding beyond crypto — this guide is being written now."
-        ctas={[{ label: "Browse crypto guides", href: "/crypto/guides", variant: "gold" }]}
+        ctas={[{ label: "Browse crypto guides", href: "/guides", variant: "gold" }]}
       />
       <div className="mx-auto max-w-3xl px-4 py-16">
         <Notice>

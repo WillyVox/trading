@@ -40,7 +40,7 @@ export default async function ArticlePreviewPage({ params }: { params: Promise<{
   if (!article) notFound();
 
   const { content, headings, readingMinutes } = renderArticleContent(article.content, { context: "preview" });
-  const publicPath = article.articleType === "GUIDE" ? `/crypto/guides/${article.slug}` : `/news/${article.slug}`;
+  const publicPath = article.articleType === "GUIDE" ? `/guides/${article.slug}` : `/news/${article.slug}`;
 
   return (
     <div className="mx-auto max-w-3xl">

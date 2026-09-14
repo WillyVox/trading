@@ -38,7 +38,7 @@ export default function CryptoPage() {
             <p className="mt-1 text-sm text-muted">Side-by-side, generated from the same dataset.</p>
           </Card>
         </Link>
-        <Link href="/crypto/guides">
+        <Link href="/guides">
           <Card className="h-full transition-colors hover:border-gold-soft">
             <h2 className="font-display text-lg font-bold text-navy">Guides</h2>
             <p className="mt-1 text-sm text-muted">Educational content on crypto assets and exchanges.</p>

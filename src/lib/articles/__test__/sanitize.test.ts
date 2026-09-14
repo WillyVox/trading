@@ -47,7 +47,7 @@ test("adds target=_blank to an absolute external link", () => {
 });
 
 test("does not add target=_blank to a relative/internal link", () => {
-  const out = sanitizeArticleContent('<a href="/crypto/guides/how-to-buy-bitcoin">Guide</a>');
+  const out = sanitizeArticleContent('<a href="/guides/how-to-buy-bitcoin">Guide</a>');
   assert.ok(!out.includes("target="));
   assert.ok(out.includes('rel="noopener noreferrer"'));
 });

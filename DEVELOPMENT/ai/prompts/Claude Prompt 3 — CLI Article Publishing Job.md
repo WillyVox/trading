@@ -459,7 +459,7 @@ Reject malformed values such as:
 
 ```text
 How To Trade Crypto!!!
-/crypto/guides/test
+/guides/test
 ?article=123
 ```
 

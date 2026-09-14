@@ -67,7 +67,7 @@ export default async function CryptoAssetPage({ params }: { params: Promise<{ sl
             {asset.articles.map((aa: any) => (
               <li key={aa.article.id}>
                 <Link
-                  href={`/${aa.article.category === "news" ? "news" : "crypto/guides"}/${aa.article.slug}`}
+                  href={`/${aa.article.category === "news" ? "news" : "guides"}/${aa.article.slug}`}
                   className="text-navy hover:underline"
                 >
                   {aa.article.title}

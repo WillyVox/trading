@@ -40,7 +40,7 @@ test("rejects empty content", () => {
   assert.ok(result.errors.some((e) => e.includes("content") || e.includes("Content")));
 });
 
-const invalidSlugs = ["How To Buy Bitcoin!!!", "/crypto/guides/x", "double--hyphen", "-leading", "trailing-"];
+const invalidSlugs = ["How To Buy Bitcoin!!!", "/guides/x", "double--hyphen", "-leading", "trailing-"];
 for (const slug of invalidSlugs) {
   test(`rejects malformed slug: ${slug}`, () => {
     const result = validateArticleForm(minimalValid({ slug }));

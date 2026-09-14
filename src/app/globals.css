@@ -38,7 +38,7 @@
     scratch, just point its palette at --color-navy etc. Article
     templates already apply `prose-headings:font-display
     prose-headings:text-navy` on top of this (see
-    src/app/crypto/guides/[slug]/page.tsx and src/app/news/[slug]/page.tsx)
+    src/app/guides/[slug]/page.tsx and src/app/news/[slug]/page.tsx)
     for the serif display heading treatment.
   */
   --tw-prose-body: var(--color-text);
@@ -71,7 +71,7 @@ body {
   src/lib/articles/sanitize.ts) rather than an inline `style` attribute —
   article content never gets a `style` allowlist entry, so this is the one
   place alignment is actually applied. Scoped to `.prose`, the wrapper
-  class both /crypto/guides/[slug] and /news/[slug] render article content
+  class both /guides/[slug] and /news/[slug] render article content
   inside (see src/lib/articles/renderer.tsx usage sites).
 */
 .prose img[data-align="left"] {

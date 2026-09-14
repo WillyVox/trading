@@ -40,8 +40,8 @@ Before any code changes, inspect and report on:
 /
 /crypto
 /crypto/[slug]                      (e.g. /crypto/bitcoin)
-/crypto/guides
-/crypto/guides/[slug]
+/guides
+/guides/[slug]
 /crypto/exchanges
 /crypto/exchanges/[slug]
 /crypto/categories/[slug]
@@ -66,7 +66,7 @@ Before any code changes, inspect and report on:
 /robots.txt
 ```
 
-**Decision needed:** educational articles live under `/crypto/guides/[slug]`, not a separate `/articles/[slug]` tree — one canonical location avoids duplicate URLs and split SEO equity. Revisit only if editorial content clearly outgrows the crypto namespace (e.g. broader non-crypto content strategy later).
+**Decision needed:** educational articles live under `/guides/[slug]`, not a separate `/articles/[slug]` tree — one canonical location avoids duplicate URLs and split SEO equity. Revisit only if editorial content clearly outgrows the crypto namespace (e.g. broader non-crypto content strategy later).
 
 ---
 
@@ -214,7 +214,7 @@ Each phase ends with: lint → typecheck → tests → build → fix regressions
 ### Phase 3 — Article CMS
 **Goal:** Article model, admin CRUD (create/upload/edit/preview/publish/unpublish/archive), SEO fields, categories/tags, media integration, related-providers/related-crypto linking, sources. Published articles render on public routes via a shared renderer (same renderer for admin preview and public page).
 **DB changes:** `Article`, `ArticleProvider`, `ArticleTag`, `ArticleSource`, `ArticleStatus` enum.
-**Validation:** create → draft → preview → publish → visible at `/crypto/guides/[slug]` or `/news/[slug]`; unpublished content returns 404/noindex to the public.
+**Validation:** create → draft → preview → publish → visible at `/guides/[slug]` or `/news/[slug]`; unpublished content returns 404/noindex to the public.
 
 ### Phase 4 — Provider Domain
 **Goal:** Structured, database-backed provider data (no hard-coded provider names in components). Build `/crypto/exchanges` and `/crypto/exchanges/[slug]` with full profile layout (facts, fees, products, security, regulatory info, sources, verification date). No Provider Admin UI yet — seed via migration/script.

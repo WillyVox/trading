@@ -22,7 +22,7 @@ test("rejects empty body even with valid frontmatter", () => {
 
 const invalidSlugs = [
   "How To Trade Crypto!!!",
-  "/crypto/guides/test",
+  "/guides/test",
   "?article=123",
   "double--hyphen",
   "-leading-hyphen",

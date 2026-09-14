@@ -73,5 +73,5 @@ sources:
 </table>
 <h2>Who each tends to suit</h2>
 <p>CoinSpot suits someone who wants a simple instant-buy experience with the option to move to a cheaper order-book trade later. Swyftx suits someone who wants the widest coin selection with a similarly simple interface. Independent Reserve suits someone already comfortable with order-book trading who prefers a narrower, more curated asset list. None of these is objectively "best" — it depends on what you actually want from the account.</p>
-<p>For the wider set of factors beyond these three, see our full <a href="/crypto/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a>, or view <a href="/go/coinspot">CoinSpot</a>, <a href="/go/swyftx">Swyftx</a> and <a href="/crypto/exchanges/independent-reserve">Independent Reserve</a> directly.</p>
+<p>For the wider set of factors beyond these three, see our full <a href="/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a>, or view <a href="/go/coinspot">CoinSpot</a>, <a href="/go/swyftx">Swyftx</a> and <a href="/crypto/exchanges/independent-reserve">Independent Reserve</a> directly.</p>
 <p>This is general information, not financial advice, and fee/feature details should be reconfirmed on each provider's current site before you rely on them.</p>

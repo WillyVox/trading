@@ -71,5 +71,5 @@ sources:
 <li>Treat registration as one input among several, not a stand-alone reason to trust a platform</li>
 </ul>
 <h2>Why this matters for beginners specifically</h2>
-<p>New crypto users are the most common target for platforms that misrepresent their regulatory status to appear more legitimate than they are. Knowing exactly what "AUSTRAC registered" does and doesn't promise makes that kind of misrepresentation easier to spot — and helps you ask better questions before opening an account, alongside the fee and security factors covered in our <a href="/crypto/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a>.</p>
+<p>New crypto users are the most common target for platforms that misrepresent their regulatory status to appear more legitimate than they are. Knowing exactly what "AUSTRAC registered" does and doesn't promise makes that kind of misrepresentation easier to spot — and helps you ask better questions before opening an account, alongside the fee and security factors covered in our <a href="/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a>.</p>
 <p>This article explains regulatory status; it isn't an endorsement of any specific platform and isn't financial advice.</p>

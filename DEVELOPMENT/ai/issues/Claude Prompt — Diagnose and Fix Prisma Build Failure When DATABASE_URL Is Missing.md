@@ -186,8 +186,8 @@ Examples may include:
 /crypto/exchanges/[slug]
 /news
 /news/[slug]
-/crypto/guides
-/crypto/guides/[slug]
+/guides
+/guides/[slug]
 sitemap
 metadata generation
 related content

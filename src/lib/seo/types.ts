@@ -8,6 +8,6 @@ export interface SeoOverrides {
 
 export interface BreadcrumbItem {
   name: string;
-  /** Site-relative path, e.g. "/crypto/guides/how-to-buy-bitcoin" */
+  /** Site-relative path, e.g. "/guides/how-to-buy-bitcoin" */
   path: string;
 }

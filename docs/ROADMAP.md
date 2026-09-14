@@ -35,7 +35,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 ## Phase 3 — Article CMS
 - ✅ `Article`, `ArticleTag`, `ArticleSource`, `ArticleProvider`, `ArticleCryptoAsset` models
 - ✅ `lib/articles/service.ts` — `getPublishedArticles`, `getArticleBySlug`, `getAdminArticles`
-- ✅ Public rendering at `/crypto/guides/[slug]` and `/news/[slug]`, both refusing to render non-`PUBLISHED` articles
+- ✅ Public rendering at `/guides/[slug]` and `/news/[slug]`, both refusing to render non-`PUBLISHED` articles
 - ✅ `/admin/articles` list view (real data, honest empty state)
 - 🟡 `/admin/articles/new` and `/admin/articles/[id]` are placeholders — no editor, no `createArticle()`/`updateArticle()`/`publishArticle()` server actions yet
 - ⬜ Markdown/MDX editor decision + implementation (see IMPLEMENTATION-PLAN §6 design notes)
@@ -45,7 +45,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 ## Phase 4 — Provider Domain
 - ✅ `Provider`, `ProviderFact`, `ProviderFee`, `ProviderFeature`, `ProviderSource` models with full provenance fields
 - ✅ `ProviderProsCon` model (this change) — sourced pros/limitations, same provenance shape (`sourceUrl`, `verificationStatus`, `verifiedAt`) as every other Provider fact, migration at `prisma/migrations/20260911050000_provider_profile_phase2/`
-- ✅ `lib/providers/service.ts` — `getProviderBySlug()` now includes `prosCons`; added `getRelatedContentForProvider()` (guides/news via the existing `ArticleProvider` join, split by `Article.category`, same convention `/crypto/guides` and `/news` already use)
+- ✅ `lib/providers/service.ts` — `getProviderBySlug()` now includes `prosCons`; added `getRelatedContentForProvider()` (guides/news via the existing `ArticleProvider` join, split by `Article.category`, same convention `/guides` and `/news` already use)
 - ✅ `lib/providers/features.ts` (this change) — groups the existing flat `ProviderFeature` list into `products` / `deposits` / `security` by `ProviderFeatureType`, so the profile page can render honest per-section cards without a schema change or duplicated data
 - ✅ `/crypto/exchanges` list + `/crypto/exchanges/[slug]` profile page (facts + fees rendered with verification badges)
 - ✅ Profile page (this change) — added **Products & trading**, **Deposits & withdrawals**, and **Security** sections (grouped `ProviderFeature` rows via `features.ts`), a **Pros & limitations** section (`components/providers/ProviderProsCons.tsx`, each item individually sourced/verification-badged), and **Related guides** / **Related news** sections (`components/guide/RelatedGuides.tsx` reused + new `components/providers/RelatedNews.tsx`) — closes the IMPLEMENTATION-PLAN §4 profile-layout gap
@@ -98,7 +98,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ✅ `src/lib/affiliates/service.ts` — `getActiveAffiliateLinksForProviderSlugs()`, a batched lookup for the guide's provider-discovery section
 - ✅ New `src/components/guide/*` — `GuideHeader`, `KeyTakeaways`, `GuideTableOfContents` (zero-JS, native `<details>`), `GuideSidebar`, `GuideSourceList`, `RelatedGuides`, `RelatedProviders` (safe non-superlative labels, affiliate CTA gated on a real ACTIVE link), `GuideNextSteps`
 - ✅ `AffiliateCTA` gains an optional `showDisclosure` prop so multi-provider sections show one disclosure, not one per card
-- ✅ `/crypto/guides/[slug]` rebuilt around all of the above; `generateMetadata()` emits `hreflang`/`x-default` only when real regional variants exist
+- ✅ `/guides/[slug]` rebuilt around all of the above; `generateMetadata()` emits `hreflang`/`x-default` only when real regional variants exist
 - ⬜ Admin authoring UI for the new fields (`keyTakeaways`, `searchIntent`, `region`, curated `ArticleRelated` rows) — still blocked on the Phase 3 article editor not existing yet
 - ⬜ No real guide content exists yet to verify the layout against beyond the seed data — do this before publishing
 

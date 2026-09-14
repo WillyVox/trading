@@ -83,7 +83,7 @@ An affiliate placement must represent a real commercial placement, not merely a 
 Audit whether the project currently uses:
 
 ```text
-/crypto/guides/[slug]
+/guides/[slug]
 ```
 
 If yes, preserve it unless there is a strong SEO or architecture reason to change it.
@@ -91,11 +91,11 @@ If yes, preserve it unless there is a strong SEO or architecture reason to chang
 Example:
 
 ```text
-/crypto/guides/how-to-trade-crypto
-/crypto/guides/how-to-buy-bitcoin-australia
-/crypto/guides/how-to-open-a-crypto-exchange-account
-/crypto/guides/binance-trading-guide
-/crypto/guides/crypto-trading-fees-explained
+/guides/how-to-trade-crypto
+/guides/how-to-buy-bitcoin-australia
+/guides/how-to-open-a-crypto-exchange-account
+/guides/binance-trading-guide
+/guides/crypto-trading-fees-explained
 ```
 
 URLs must be:
@@ -756,7 +756,7 @@ Kraken
 → /crypto/exchanges/kraken
 
 trading fees
-→ /crypto/guides/crypto-trading-fees
+→ /guides/crypto-trading-fees
 ```
 
 But do not overlink every occurrence.

@@ -49,7 +49,7 @@ sources:
 
 <p>Buying your first Bitcoin in Australia is mostly a matter of paperwork and patience rather than anything technical. Here's the process end to end.</p>
 <h2>1. Choose an exchange</h2>
-<p>You'll need an Australian-facing exchange that supports AUD deposits. CoinSpot and Swyftx are both commonly used by first-time Australian buyers for their AUD-first, beginner-oriented interfaces; see our fuller <a href="/crypto/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a> if you want to compare more broadly first. Whichever you pick, you can check its status on <a href="https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public">AUSTRAC's public VASP register</a> before signing up.</p>
+<p>You'll need an Australian-facing exchange that supports AUD deposits. CoinSpot and Swyftx are both commonly used by first-time Australian buyers for their AUD-first, beginner-oriented interfaces; see our fuller <a href="/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a> if you want to compare more broadly first. Whichever you pick, you can check its status on <a href="https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public">AUSTRAC's public VASP register</a> before signing up.</p>
 <h2>2. Verify your identity</h2>
 <p>Australian exchanges are required to verify who you are as part of their AML/CTF obligations. Expect to provide a form of photo ID and some basic personal details. This step can take anywhere from minutes to a day or two depending on the provider and how busy their verification queue is.</p>
 <h2>3. Fund your account with AUD</h2>
@@ -59,7 +59,7 @@ sources:
 <h2>5. Make your first purchase</h2>
 <p>Enter the AUD amount you want to spend (not a Bitcoin quantity — most platforms let you buy fractional Bitcoin, so you don't need a whole coin), review the quoted price and fee, and confirm. Take a screenshot or note the transaction details for your own records.</p>
 <h2>6. Decide where to keep it</h2>
-<p>You can leave Bitcoin on the exchange (convenient, but you're trusting the exchange's custody) or withdraw it to your own wallet (more control, but you become responsible for keeping your keys/seed phrase safe). Neither option is automatically "correct" — see our guide on <a href="/crypto/guides/crypto-wallet-vs-exchange-beginners">wallets vs exchanges</a> if you're unsure which suits you.</p>
+<p>You can leave Bitcoin on the exchange (convenient, but you're trusting the exchange's custody) or withdraw it to your own wallet (more control, but you become responsible for keeping your keys/seed phrase safe). Neither option is automatically "correct" — see our guide on <a href="/guides/crypto-wallet-vs-exchange-beginners">wallets vs exchanges</a> if you're unsure which suits you.</p>
 <h2>7. Secure the account</h2>
 <p>Turn on two-factor authentication (2FA) as one of your first actions after signing up, ideally before you deposit any funds. Use a unique password, and be wary of anyone contacting you claiming to be exchange support asking for your 2FA code or password — legitimate support will never ask for either.</p>
 <h2>A word on risk</h2>

@@ -20,7 +20,7 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "",
     "/crypto",
     "/crypto/exchanges",
-    "/crypto/guides",
+    "/guides",
     "/compare",
     "/compare/crypto-exchanges",
     "/news",
@@ -47,7 +47,7 @@ export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
     select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
-    url: absoluteUrl(`/crypto/guides/${a.slug}`),
+    url: absoluteUrl(`/guides/${a.slug}`),
     lastModified: a.lastReviewedAt ?? a.publishedAt ?? undefined,
   }));
 }

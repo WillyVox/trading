@@ -89,7 +89,7 @@ export const getArticleById = cache(async (id: string) => {
  * rules the old shared `getArticleBySlug` was missing: PUBLISHED-only, and
  * strict articleType isolation so a GUIDE can never resolve under
  * /news/[slug] and a NEWS article can never resolve under
- * /crypto/guides/[slug] — see docs/IMPLEMENTATION-PLAN.md Article CMS
+ * /guides/[slug] — see docs/IMPLEMENTATION-PLAN.md Article CMS
  * Block 1.
  */
 export const getPublishedArticleBySlugAndType = cache(async (slug: string, articleType: ArticleType) => {

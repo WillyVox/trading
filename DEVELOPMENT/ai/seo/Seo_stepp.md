@@ -137,8 +137,8 @@ The project already contains routes around:
 /
 /crypto
 /crypto/[slug]
-/crypto/guides
-/crypto/guides/[slug]
+/guides
+/guides/[slug]
 /crypto/exchanges
 /crypto/exchanges/[slug]
 /compare
@@ -766,11 +766,11 @@ Example Bitcoin cluster:
 ```text
 /crypto/bitcoin
 
-/crypto/guides/what-is-bitcoin
-/crypto/guides/how-to-buy-bitcoin-australia
-/crypto/guides/how-bitcoin-works
-/crypto/guides/bitcoin-wallets
-/crypto/guides/bitcoin-fees
+/guides/what-is-bitcoin
+/guides/how-to-buy-bitcoin-australia
+/guides/how-bitcoin-works
+/guides/bitcoin-wallets
+/guides/bitcoin-fees
 ```
 
 These pages should internally support one another.
@@ -1173,7 +1173,7 @@ Examples:
 ```text
 /crypto/bitcoin
 
-/crypto/guides/how-to-buy-bitcoin-australia
+/guides/how-to-buy-bitcoin-australia
 
 /crypto/exchanges/kraken
 
@@ -1571,7 +1571,7 @@ news
 For example, do not create:
 
 ```text
-/crypto/guides/kraken-review
+/guides/kraken-review
 ```
 
 and:

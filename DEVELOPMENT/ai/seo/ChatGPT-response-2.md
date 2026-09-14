@@ -249,7 +249,7 @@ It cannot only be applied to:
 because otherwise the article could leak through:
 
 /news
-/crypto/guides
+/guides
 sitemap
 related guides
 exchange pages
@@ -642,7 +642,7 @@ src/app/admin/articles/
 src/components/admin/article/
 
 src/app/news/
-src/app/crypto/guides/
+src/app/guides/
 
 src/components/guide/
 
@@ -1019,7 +1019,7 @@ Evaluate this carefully.
 Do not fix scheduled visibility only in:
 
 /news/[slug]
-/crypto/guides/[slug]
+/guides/[slug]
 
 That would be incomplete.
 
@@ -1142,7 +1142,7 @@ Public Article pages must clearly display the author.
 Examples:
 
 /news/[slug]
-/crypto/guides/[slug]
+/guides/[slug]
 
 Audit what currently happens.
 

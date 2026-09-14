@@ -7,7 +7,7 @@ import { NAV_ITEMS } from "@/lib/nav/config";
 
 // Deliberately NOT async / no auth() call here. Header is rendered from the
 // root layout on every route, including statically-generated content pages
-// (/crypto/guides/[slug], /news/[slug], /compare/*). Reading the session
+// (/guides/[slug], /news/[slug], /compare/*). Reading the session
 // server-side here would force those pages to opt out of static rendering.
 // AuthStatus fetches the session client-side instead (see AuthProvider /
 // SessionProvider in layout.tsx) so this component — and everything else —

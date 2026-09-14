@@ -77,5 +77,5 @@ sources:
 </table>
 <h2>How to actually compare two exchanges</h2>
 <p>Work out which product you'd realistically use — order book or instant-buy — and compare that specific fee, not whichever number is easiest to find. Add the AUD funding method you'd actually use. If you plan to withdraw crypto to your own wallet, factor in the network fee for that specific asset too. It's a few extra minutes of reading fee pages, but it's the only way to know what you'd actually pay.</p>
-<p>For a broader look at what else matters beyond cost, see our guide on <a href="/crypto/guides/how-to-choose-crypto-exchange-australia">choosing a crypto exchange in Australia</a>, or <a href="/compare/crypto-exchanges">compare exchanges directly</a>.</p>
+<p>For a broader look at what else matters beyond cost, see our guide on <a href="/guides/how-to-choose-crypto-exchange-australia">choosing a crypto exchange in Australia</a>, or <a href="/compare/crypto-exchanges">compare exchanges directly</a>.</p>
 <p>This is general information, not financial advice, and fee schedules can and do change — always check the provider's current page before relying on a figure.</p>

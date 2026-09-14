@@ -47,7 +47,7 @@ export function isValidArticleStatusTransition(
  * lookup (getPublishedArticleBySlugAndType in service.ts) is a thin
  * wrapper: fetch by slug, then ask this function whether the result is
  * eligible to render at all. A NEWS article must never resolve under
- * /crypto/guides/[slug] and a GUIDE must never resolve under /news/[slug].
+ * /guides/[slug] and a GUIDE must never resolve under /news/[slug].
  */
 export function isPubliclyVisibleArticle(
   article: { status: string; articleType: string } | null | undefined,

@@ -29,7 +29,7 @@ import {
  */
 
 function publicPathFor(articleType: ArticleType, slug: string): string {
-  return articleType === "GUIDE" ? `/crypto/guides/${slug}` : `/news/${slug}`;
+  return articleType === "GUIDE" ? `/guides/${slug}` : `/news/${slug}`;
 }
 
 function revalidateArticlePaths(opts: {
@@ -44,10 +44,10 @@ function revalidateArticlePaths(opts: {
   // silent no-op.
   revalidatePath(`/admin/articles/${opts.id}`);
   revalidatePath(`/admin/articles/${opts.id}/preview`);
-  revalidatePath(opts.after.articleType === "GUIDE" ? "/crypto/guides" : "/news");
+  revalidatePath(opts.after.articleType === "GUIDE" ? "/guides" : "/news");
   revalidatePath(publicPathFor(opts.after.articleType, opts.after.slug));
   if (opts.before && (opts.before.slug !== opts.after.slug || opts.before.articleType !== opts.after.articleType)) {
-    revalidatePath(opts.before.articleType === "GUIDE" ? "/crypto/guides" : "/news");
+    revalidatePath(opts.before.articleType === "GUIDE" ? "/guides" : "/news");
     revalidatePath(publicPathFor(opts.before.articleType, opts.before.slug));
   }
 }

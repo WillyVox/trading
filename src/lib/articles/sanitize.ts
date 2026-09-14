@@ -105,7 +105,7 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   // external links safely" and "render internal links" are listed as
   // separate renderer responsibilities): an absolute http(s) link whose
   // host differs from siteConfig's own domain opens in a new tab; a
-  // relative/internal link (e.g. "/crypto/guides/x") never does, since
+  // relative/internal link (e.g. "/guides/x") never does, since
   // sending a visitor away from an in-progress article read is only
   // warranted for genuinely external destinations (sources, regulators).
   transformTags: {

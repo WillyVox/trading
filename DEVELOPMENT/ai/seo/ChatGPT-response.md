@@ -201,7 +201,7 @@ malicious HTML gets sanitized
 public cannot see DRAFT
 public cannot see REVIEW
 GUIDE cannot resolve through /news
-NEWS cannot resolve through /crypto/guides
+NEWS cannot resolve through /guides
 
 The previous requirements explicitly called for public access/status and routing tests too.
 

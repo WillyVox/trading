@@ -3,7 +3,7 @@
 Answers to the two requirement docs, plus a concrete 5-block plan grounded in
 what's actually in `trading-guide.zip` (checked against
 `prisma/schema.prisma`, `src/lib/articles/*`, `src/app/admin/articles/*`,
-`src/app/news`/`src/app/crypto/guides`, and the importer).
+`src/app/news`/`src/app/guides`, and the importer).
 
 ---
 
@@ -16,7 +16,7 @@ These aren't rhetorical — they're decisions the plan below depends on.
    `article.updatedAt` for `modifiedTime`, and `service.ts` has a commented-out
    `orderBy: { updatedAt: "desc" }`. This is a live bug, not a hypothetical.
 2. **Is Guide/News route collision real?** Yes. Both `/news/[slug]` and
-   `/crypto/guides/[slug]` call the same `getArticleBySlug(slug)`, which only
+   `/guides/[slug]` call the same `getArticleBySlug(slug)`, which only
    checks `status === "PUBLISHED"` — nothing prevents a `category: "guide"`
    article resolving under `/news/*` or vice versa.
 3. **Do `/admin/articles/new` and `/admin/articles/[id]` exist?** Only as
@@ -52,12 +52,12 @@ These aren't rhetorical — they're decisions the plan below depends on.
 
 | Area | File | Status |
 |---|---|---|
-| `createdAt`/`updatedAt` | `prisma/schema.prisma` (`Article`) | Missing, but read in `crypto/guides/[slug]/page.tsx` and `news/[slug]/page.tsx` |
+| `createdAt`/`updatedAt` | `prisma/schema.prisma` (`Article`) | Missing, but read in `guides/[slug]/page.tsx` and `news/[slug]/page.tsx` |
 | `ArticleStatus` | schema | `DRAFT \| PUBLISHED \| ARCHIVED` — no `REVIEW` |
 | Article type | schema | Only a free-text `category` column |
 | Route isolation | `service.ts::getArticleBySlug` | No type filter at all |
 | Admin create/edit | `admin/articles/new`, `admin/articles/[id]` | Literal placeholder text, no form/action |
-| HTML sanitization | `news/[slug]/page.tsx`, `crypto/guides/[slug]/page.tsx` | Raw `dangerouslySetInnerHTML`, no `sanitize-html` usage despite it being installed |
+| HTML sanitization | `news/[slug]/page.tsx`, `guides/[slug]/page.tsx` | Raw `dangerouslySetInnerHTML`, no `sanitize-html` usage despite it being installed |
 | Embeds | — | Don't exist at all — `content.ts` only does heading-ID injection |
 | Importer | `import/importer.ts` | Solid two-pass/idempotent/DRAFT-only design; doesn't know about type, review, or embeds yet |
 | Admin auth pattern | `lib/auth/require-admin.ts` | `requireAdmin()` exists and is already the convention for mutations — reuse it, don't reinvent |
@@ -111,12 +111,12 @@ model Article {
   the column exists — delete the `// [TODO]` comment.
 
 ### Route fixes
-- `src/app/news/[slug]/page.tsx` and `src/app/crypto/guides/[slug]/page.tsx`
+- `src/app/news/[slug]/page.tsx` and `src/app/guides/[slug]/page.tsx`
   switch to `getPublishedArticleBySlugAndType(slug, "NEWS" | "GUIDE")`, `notFound()` on
   type mismatch exactly like a missing slug.
 
 ### Tests (`src/lib/articles/import/__tests__/`, matching existing convention)
-- NEWS article slug 404s under `/crypto/guides/[slug]`, and vice versa.
+- NEWS article slug 404s under `/guides/[slug]`, and vice versa.
 - `getAdminArticles` returns rows ordered by `updatedAt`.
 
 **Exit criteria:** `npx prisma validate && npx prisma generate && npm run build` all pass; existing Guide/News pages render unchanged for already-correct data; a same-slug cross-type article properly 404s.
@@ -207,7 +207,7 @@ in front of `prisma.article.*`). Flagging it here as a named gap rather than
 claiming coverage that isn't real; do not treat "tests pass" as covering
 this list until it's addressed.
 
-**Exit criteria:** an admin can create a GUIDE article with providers/tags/sources, save DRAFT, edit it, move DRAFT→REVIEW→PUBLISHED, and see it live at `/crypto/guides/[slug]`.
+**Exit criteria:** an admin can create a GUIDE article with providers/tags/sources, save DRAFT, edit it, move DRAFT→REVIEW→PUBLISHED, and see it live at `/guides/[slug]`.
 
 ---
 

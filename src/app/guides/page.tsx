@@ -6,14 +6,14 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 export const metadata = buildMetadata({
   title: "Crypto Guides Australia \u2014 How-To & Educational Articles",
   description: "Step-by-step crypto guides for Australians \u2014 buying, wallets, fees, and how exchanges work.",
-  path: "/crypto/guides",
+  path: "/guides",
 });
 
 export default async function GuidesPage() {
   const { items } = await getPublishedArticles({ articleType: "GUIDE" });
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },
-    { name: "Guides", path: "/crypto/guides" },
+    { name: "Guides", path: "/guides" },
   ]);
 
   return (
