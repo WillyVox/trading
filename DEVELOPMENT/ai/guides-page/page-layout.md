@@ -4,7 +4,7 @@ Your current Guides page is technically functional, but visually and strategical
 
 I reviewed the current approaches used by Canstar, Finder and CoinSpot. Canstar separates hand-picked “Useful Information” from “Latest in cryptocurrency”; Finder builds content around user intent such as beginner platforms, fees, risks and choosing providers; CoinSpot goes further with search, categories, difficulty levels, beginner learning paths and market updates. ([Canstar][1])
 
-Your platform shouldn't copy any one of them. I think we can combine the strongest ideas while making Aus Market more explicitly about **Australian trading education + platform comparison**.
+Your platform shouldn't copy any one of them. I think we can combine the strongest ideas while making Trading Guide more explicitly about **Australian trading education + platform comparison**.
 
 ## 1. The biggest problem with the current page
 
@@ -63,7 +63,7 @@ This immediately makes the page feel like a resource rather than an article arch
 
 CoinSpot already uses a prominent topic search and suggests terms such as Bitcoin, DeFi and Web3. ([CoinSpot][3])
 
-For Aus Market, search is potentially even more valuable because eventually you're going to cover considerably more than cryptocurrency.
+For Trading Guide, search is potentially even more valuable because eventually you're going to cover considerably more than cryptocurrency.
 
 ---
 
@@ -323,7 +323,7 @@ Spreads, markets, platforms and regulation
 
 Finder demonstrates why this connection is powerful: its informational pages naturally connect users into comparison journeys. Its comparison taxonomy includes trading platforms and cryptocurrency exchanges rather than treating editorial content as an isolated blog. ([finder.com.au][5])
 
-For **Aus Market**, that relationship is even more important because comparisons are closer to your monetisation funnel.
+For **Trading Guide**, that relationship is even more important because comparisons are closer to your monetisation funnel.
 
 ---
 
@@ -418,7 +418,7 @@ They communicate:
 
 Eventually I'd introduce small consistent labels:
 
-**Written by Aus Market Editorial**
+**Written by Trading Guide Editorial**
 
 **Reviewed / fact checked**
 
@@ -454,7 +454,7 @@ This is extremely valuable for your SEO strategy.
 
 # 13. Consider “Learning paths” later
 
-This is a feature I particularly like for Aus Market.
+This is a feature I particularly like for Trading Guide.
 
 Instead of only isolated articles:
 
@@ -603,7 +603,7 @@ I wouldn't necessarily build **all** of this in the first iteration. That's the 
 
 ## The visual direction I recommend
 
-I actually prefer your existing Aus Market typography and restrained cream/navy/gold palette over trying to make it look exactly like Canstar.
+I actually prefer your existing Trading Guide typography and restrained cream/navy/gold palette over trying to make it look exactly like Canstar.
 
 Your branding feels more editorial.
 
@@ -629,7 +629,7 @@ That distinction will become increasingly important when you add shares, ETFs, f
 
 Don't let `/guides` become `/guides/crypto`.
 
-The six articles in your screenshot are all cryptocurrency-related. That's understandable given the current phase, but the architecture should be designed **now** for the broader Aus Market mission.
+The six articles in your screenshot are all cryptocurrency-related. That's understandable given the current phase, but the architecture should be designed **now** for the broader Trading Guide mission.
 
 I'd make Crypto merely one content pillar:
 

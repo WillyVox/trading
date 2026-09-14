@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
   title: "Methodology \u2014 How We Verify Crypto Exchange Research",
-  description: "How AusMarket sources, verifies, and labels crypto exchange facts \u2014 evidence standards and editorial policy.",
+  description: "How Trading Guide sources, verifies, and labels crypto exchange facts \u2014 evidence standards and editorial policy.",
   path: "/methodology",
 });
 
@@ -29,7 +29,7 @@ export default function MethodologyPage() {
       <JsonLd data={breadcrumbSchema(trail)} />
       <Breadcrumbs items={trail} />
       <Eyebrow>Methodology</Eyebrow>
-      <h1 className="mt-4 font-display text-5xl font-extrabold text-navy">How AusMarket verifies research</h1>
+      <h1 className="mt-4 font-display text-5xl font-extrabold text-navy">How Trading Guide verifies research</h1>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {PRINCIPLES.map((p) => (

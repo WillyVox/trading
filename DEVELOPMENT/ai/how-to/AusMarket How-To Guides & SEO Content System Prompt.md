@@ -2,9 +2,9 @@
 
 Act as a **senior Australian fintech SEO strategist, crypto content strategist, technical SEO architect, UX/product designer, information architect, affiliate-business strategist, and senior Next.js/TypeScript engineer**.
 
-You are working on my existing **AusMarket** project.
+You are working on my existing **Trading Guide** project.
 
-AusMarket is an Australian-focused platform for:
+Trading Guide is an Australian-focused platform for:
 
 - crypto exchange research;
 - crypto exchange comparisons;
@@ -358,7 +358,7 @@ Use these classifications in your recommendations.
 
 # PART 4 — AUSTRALIAN-FIRST SEO
 
-AusMarket primarily serves Australians.
+Trading Guide primarily serves Australians.
 
 Therefore prioritise Australian intent where it naturally matters.
 
@@ -428,7 +428,7 @@ Look at:
 
 Create:
 
-| Feature | Competitor | What they do well | Weakness | What AusMarket should do |
+| Feature | Competitor | What they do well | Weakness | What Trading Guide should do |
 |---|---|---|---|---|
 
 Do not copy competitor wording.
@@ -439,7 +439,7 @@ Find opportunities where we can produce something substantially better.
 
 # PART 6 — DIFFERENTIATE AUSMARKET
 
-I do NOT want AusMarket to become another generic AI-generated crypto blog.
+I do NOT want Trading Guide to become another generic AI-generated crypto blog.
 
 Our How-To guides should differentiate themselves through useful features.
 
@@ -483,7 +483,7 @@ Contextually link to our exchange comparison system.
 
 ## Provider information
 
-Connect guides with structured exchange/provider data already maintained by AusMarket.
+Connect guides with structured exchange/provider data already maintained by Trading Guide.
 
 ## Fee information
 
@@ -667,7 +667,7 @@ and:
 
 ### Mobile.
 
-It must match our current AusMarket design system.
+It must match our current Trading Guide design system.
 
 Reuse our:
 

@@ -105,9 +105,9 @@ Affiliate
 
 Commercial relationships should not determine factual ranking.
 
-11. The strongest thing to borrow from AusMarket is trust-page structure
+11. The strongest thing to borrow from Trading Guide is trust-page structure
 
-Your AusMarket project already has routes like:
+Your Trading Guide project already has routes like:
 
 /editorial-policy
 /methodology
@@ -190,7 +190,7 @@ Your database already contains much of the structured data required to make such
 
 13. Add real data freshness indicators
 
-AusMarket currently has a nice pattern:
+Trading Guide currently has a nice pattern:
 
 Last verified: ...
 

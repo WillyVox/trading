@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "Editorial Policy — Sourcing, Review & Fact-Checking Standards",
   description:
-    "AusMarket's editorial standards: sourcing requirements, author and reviewer sign-off, fact-check review cycles, and how affiliate relationships are kept separate from coverage.",
+    "Trading Guide's editorial standards: sourcing requirements, author and reviewer sign-off, fact-check review cycles, and how affiliate relationships are kept separate from coverage.",
   path: "/methodology/editorial-policy",
 });
 
@@ -33,10 +33,6 @@ export const metadata = buildMetadata({
  * publish per-article scores, only the standards themselves here.
  */
 const STANDARDS = [
-  {
-    title: "Every article has a named author and reviewer",
-    body: "Guides and news content go through the same admin workflow, which tracks who wrote the piece and who reviewed it before it was marked ready to publish.",
-  },
   {
     title: "Fact-checks don't go stale",
     body: "Each article carries a last-reviewed date. Once a review is more than 180 days old, it's flagged internally for a fresh fact-check pass rather than being left to quietly age.",
@@ -67,7 +63,7 @@ export default function EditorialPolicyPage() {
       <Breadcrumbs items={trail} />
       <h1 className="font-display text-4xl font-extrabold text-navy">Editorial policy</h1>
       <p className="mt-3 text-muted">
-        The standards every guide and news article on AusMarket is checked against before it's
+        The standards every guide and news article on Trading Guide is checked against before it's
         published, and how we keep coverage independent of commercial relationships.
       </p>
 

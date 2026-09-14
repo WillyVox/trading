@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "How We Get Paid",
   description:
-    "AusMarket is currently self-funded and doesn't earn commissions from providers. Here's our current funding status and how we plan to monetize in future.",
+    "Trading Guide is currently self-funded and doesn't earn commissions from providers. Here's our current funding status and how we plan to monetize in future.",
   path: "/how-we-get-paid",
 });
 
@@ -63,7 +63,7 @@ export default function HowWeGetPaidPage() {
       <h2 className="mt-8 font-display text-lg font-bold text-navy">Current funding status</h2>
       <Card className="mt-3">
         <p className="text-sm leading-relaxed text-muted">
-          AusMarket is currently 100% self-funded. As of {EFFECTIVE_DATE}, we do not receive
+          Trading Guide is currently 100% self-funded. As of {EFFECTIVE_DATE}, we do not receive
           compensation, referral fees, or affiliate commissions from any providers featured on
           this platform. All product recommendations and comparisons are based solely on our
           objective methodology and market research.

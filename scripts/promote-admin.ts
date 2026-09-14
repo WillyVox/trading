@@ -14,7 +14,7 @@
  * --password / --name) to create one directly as ADMIN, e.g. for the very
  * first admin account before anyone has registered:
  *
- *   npm run promote:admin -- admin@ausmarket.example --create --password "Sup3r-Secret!" --name "Site Admin"
+ *   npm run promote:admin -- admin@tradingguide.example --create --password "Sup3r-Secret!" --name "Site Admin"
  *
  * To demote back to a regular user:
  *

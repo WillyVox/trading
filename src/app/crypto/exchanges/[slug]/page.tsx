@@ -131,7 +131,7 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
           page, so — unlike RelatedProviders/RelatedNews sections that render
           several cards under one shared <AffiliateDisclosure /> — it must
           carry its own disclosure rather than none at all. */}
-      {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} />}
+      {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} showDisclosure={false}/>}
 
       <RelatedGuides guides={relatedContent.guides} />
       <RelatedNews items={relatedContent.news} />

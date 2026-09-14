@@ -12,7 +12,7 @@ My website currently focuses on:
 
 > **Independent Australian crypto exchange research, comparisons, educational content, market information and affiliate/referral links.**
 
-The current brand in the project is **AusMarket Crypto / AusMarket**.
+The current brand in the project is **Trading Guide Crypto / Trading Guide**.
 
 The business may earn money when visitors click an affiliate/referral link and subsequently register, apply, deposit, trade, purchase a service or otherwise complete a qualifying action with a provider.
 
@@ -146,7 +146,7 @@ The result should:
 - separate editorial content from commercial arrangements;
 - support SEO and E-E-A-T;
 - work beautifully on desktop and mobile;
-- match the existing AusMarket design system;
+- match the existing Trading Guide design system;
 - avoid unnecessary pages;
 - avoid fake regulatory claims;
 - avoid duplicated disclaimers everywhere.
@@ -223,7 +223,7 @@ It should communicate, in concise plain English, concepts such as:
 
 ### Affiliate relationship
 
-AusMarket may receive a commission or referral payment when visitors use certain provider links.
+Trading Guide may receive a commission or referral payment when visitors use certain provider links.
 
 ### Independence
 
@@ -307,7 +307,7 @@ Some links are tracking/referral links provided by commercial partners.
 
 ### How we may earn money
 
-Depending on the commercial arrangement, AusMarket may receive compensation when a visitor:
+Depending on the commercial arrangement, Trading Guide may receive compensation when a visitor:
 
 - clicks;
 - registers;
@@ -1010,7 +1010,7 @@ Do not copy text.
 
 Produce a comparison table containing:
 
-| Area | AusMarket now | Competitor pattern | Adopt? | Reason |
+| Area | Trading Guide now | Competitor pattern | Adopt? | Reason |
 |---|---|---|---|---|
 
 ---

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
-  title: "AusMarket Crypto \u2014 Independent Crypto Exchange Research for Australia",
+  title: "Trading Guide Crypto \u2014 Independent Crypto Exchange Research for Australia",
   description:
     "Independent, source-linked crypto exchange comparisons and guides for Australia \u2014 verified facts and transparent fees, never a ranking influenced by commission.",
   path: "/",

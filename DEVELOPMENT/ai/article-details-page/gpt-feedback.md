@@ -1,4 +1,4 @@
-Yes. Looking at your current **Aus Market article detail page** beside the Canstar example, and comparing it with the current patterns used by Finder and CoinSpot, I think your underlying article architecture is actually heading in a good direction—but the **presentation layer is still one or two stages behind the quality of the content/model you are building**.
+Yes. Looking at your current **Trading Guide article detail page** beside the Canstar example, and comparing it with the current patterns used by Finder and CoinSpot, I think your underlying article architecture is actually heading in a good direction—but the **presentation layer is still one or two stages behind the quality of the content/model you are building**.
 
 The biggest issue is not that you lack content. It is that the page currently makes strong content **look like raw CMS output** rather than a finished financial publication.
 
@@ -32,7 +32,7 @@ You already have:
 
 That's a surprisingly solid foundation.
 
-Your AUSTRAC article is also **very well aligned with Aus Market's positioning** because it answers an Australian-specific question instead of producing generic cryptocurrency content.
+Your AUSTRAC article is also **very well aligned with Trading Guide's positioning** because it answers an Australian-specific question instead of producing generic cryptocurrency content.
 
 That is exactly the sort of content moat I would continue developing.
 
@@ -212,7 +212,7 @@ Chart or market graphic.
 
 Photography.
 
-That makes Aus Market feel more intentional than simply throwing a stock image onto every article.
+That makes Trading Guide feel more intentional than simply throwing a stock image onto every article.
 
 ---
 
@@ -304,7 +304,7 @@ Finder similarly uses an “In this guide” navigation structure for longer con
 
 # 7. Do not hide your strongest trust signals
 
-This is a major difference between Aus Market and Canstar.
+This is a major difference between Trading Guide and Canstar.
 
 Canstar prominently shows:
 
@@ -340,7 +340,7 @@ I would eventually move toward:
 
 ```text
 Written by
-Huy Vo / Aus Market Editorial
+Huy Vo / Trading Guide Editorial
 
 Reviewed by
 [Editor]
@@ -373,7 +373,7 @@ with:
 
 # 8. Your article should visually distinguish FACTS from INTERPRETATION
 
-This could become an Aus Market differentiator.
+This could become an Trading Guide differentiator.
 
 You already have concepts like factual/editorial content elsewhere in your project.
 
@@ -391,7 +391,7 @@ Or:
 
 Or:
 
-> **Aus Market explanation**
+> **Trading Guide explanation**
 >
 > Think of AUSTRAC registration as one checkbox rather than an overall provider score.
 
@@ -431,7 +431,7 @@ Then bottom references remain.
 
 That makes regulatory pages feel researched rather than generic AI-written content.
 
-This is particularly important for Aus Market because **trust will be one of the hardest things for a new comparison brand to establish**.
+This is particularly important for Trading Guide because **trust will be one of the hardest things for a new comparison brand to establish**.
 
 ---
 
@@ -547,7 +547,7 @@ This is where I wouldn't copy the worst practices of comparison websites.
 
 Finder's current Bitcoin article has multiple provider placements, top picks and commercial calls-to-action. It is commercially sophisticated, but it can also make an article feel substantially more transactional. Finder therefore has to spend considerable space explaining methodology, promoted picks and disclaimers. ([finder.com.au][2])
 
-For Aus Market I'd prefer:
+For Trading Guide I'd prefer:
 
 ### Education first
 
@@ -747,7 +747,7 @@ This encourages multi-page sessions.
 
 CoinSpot explicitly uses structured beginner learning sequences and recommended educational material for this purpose. ([CoinSpot][4])
 
-I think that model is very relevant to Aus Market.
+I think that model is very relevant to Trading Guide.
 
 ---
 
@@ -755,7 +755,7 @@ I think that model is very relevant to Aus Market.
 
 At the very bottom:
 
-> AusMarket may earn a commission...
+> Trading Guide may earn a commission...
 
 Correct direction.
 
@@ -763,7 +763,7 @@ But many people never reach the bottom.
 
 I would have a subtle disclosure near the article header:
 
-> **Affiliate disclosure:** Aus Market may receive commissions from providers we link to. This does not influence our editorial content or comparison methodology. **Learn more.**
+> **Affiliate disclosure:** Trading Guide may receive commissions from providers we link to. This does not influence our editorial content or comparison methodology. **Learn more.**
 
 Small.
 
@@ -836,7 +836,7 @@ About the author
 [photo]
 
 Huy Vo
-Founder / Editor, Aus Market
+Founder / Editor, Trading Guide
 
 Huy researches Australian trading platforms,
 cryptocurrency exchanges and financial technology,
@@ -930,11 +930,11 @@ Not randomly—maybe one significant visual element every 2–4 sections.
 
 ---
 
-# 26. Comparison: Aus Market vs Canstar vs Finder
+# 26. Comparison: Trading Guide vs Canstar vs Finder
 
 Here's how I currently see it.
 
-| Area                 | Aus Market now | Canstar     | Finder      | Recommended Aus Market   |
+| Area                 | Trading Guide now | Canstar     | Finder      | Recommended Trading Guide   |
 | -------------------- | -------------- | ----------- | ----------- | ------------------------ |
 | Article title        | ✅ Strong       | ✅           | ✅           | Keep                     |
 | Breadcrumbs          | ✅              | ✅           | ✅           | Keep                     |
@@ -1018,7 +1018,7 @@ I would borrow:
 
 But **not necessarily their quantity of commercial modules**.
 
-Aus Market can be cleaner.
+Trading Guide can be cleaner.
 
 ---
 
@@ -1045,7 +1045,7 @@ This is more interesting than simply catching up.
 
 Your underlying project already appears to be moving toward structured provider data, verification status, source tracking, effective dates and comparison relationships.
 
-If we expose those intelligently, Aus Market could eventually display something competitors often hide:
+If we expose those intelligently, Trading Guide could eventually display something competitors often hide:
 
 > ### Data behind this article
 >
@@ -1305,11 +1305,11 @@ The first six alone would produce a dramatic improvement.
 
 I wouldn't aim for:
 
-> **“Make Aus Market look like Canstar.”**
+> **“Make Trading Guide look like Canstar.”**
 
 I'd aim for:
 
-> **Canstar's editorial credibility + Finder's comparison funnel + modern structured data transparency + Aus Market's cleaner editorial design.**
+> **Canstar's editorial credibility + Finder's comparison funnel + modern structured data transparency + Trading Guide's cleaner editorial design.**
 
 Your current page already has the beginning of that architecture. The next stage should make every article answer four questions very clearly:
 
@@ -1325,7 +1325,7 @@ Related guides, learning paths and contextual comparisons.
 **4. How does this eventually generate revenue?**
 Relevant comparison journeys—not aggressive affiliate buttons scattered through educational copy.
 
-That combination would make the article experience much stronger than simply recreating the Canstar screenshot, while keeping it aligned with the larger Aus Market comparison/affiliate strategy you've been developing. ([finder.com.au][2])
+That combination would make the article experience much stronger than simply recreating the Canstar screenshot, while keeping it aligned with the larger Trading Guide comparison/affiliate strategy you've been developing. ([finder.com.au][2])
 
 [1]: https://www.canstar.com.au/cryptocurrency/how-to-buy-bitcoin/?utm_source=chatgpt.com "How to Buy Bitcoin in Australia 2025 | Canstar"
 [2]: https://www.finder.com.au/bitcoin/how-to-buy-bitcoin?utm_source=chatgpt.com "How to buy Bitcoin (BTC) in Australia 2025 | Finder"

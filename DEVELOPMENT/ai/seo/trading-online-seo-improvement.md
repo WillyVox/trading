@@ -74,8 +74,8 @@ P2	Author profile pages + author.url schema	Entity clarity
 P2	Page-level methodology summaries	UX/trust
 P2	Content completeness → index/noindex rules	Avoid thin pages
 P2	Better article image variants	Search presentation
-P3	Formal AusMarket scoring methodology	Only after enough data
-Avoid	Copying AusMarket root canonical	Potentially harmful
+P3	Formal Trading Guide scoring methodology	Only after enough data
+Avoid	Copying Trading Guide root canonical	Potentially harmful
 Avoid	SearchAction schema	Deprecated for Google's search box
 Avoid	Fake SEO scores	Misleading
 Avoid	Indexing every provider combination	Thin/scaled page risk

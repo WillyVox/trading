@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AuthStatus } from "./AuthStatus";
 import { MobileNav } from "./MobileNav";
+import TradingGuideLogo from "./HeaderLogo"
 
 const NAV = [
   { href: "/crypto", label: "Crypto" },
@@ -21,7 +22,8 @@ export function Header() {
     <header className="sticky top-0 z-20 border-b-2 border-navy bg-panel">
       <div className="mx-auto flex h-[72px] max-w-6xl items-center gap-7 px-4">
         <Link href="/" className="flex items-baseline gap-1 font-display text-xl font-extrabold text-navy">
-          Aus<span className="text-gold">Market</span>
+          {/* Trading<span className="text-gold">Guide</span> */}
+          <TradingGuideLogo/>
           </Link>
         <nav className="hidden flex-1 gap-6 md:flex">
           {NAV.map((item) => (

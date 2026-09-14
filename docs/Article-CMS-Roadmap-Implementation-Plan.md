@@ -1,7 +1,7 @@
 # Article CMS — Roadmap & Implementation Plan
 
 Answers to the two requirement docs, plus a concrete 5-block plan grounded in
-what's actually in `trading-online.zip` (checked against
+what's actually in `trading-guide.zip` (checked against
 `prisma/schema.prisma`, `src/lib/articles/*`, `src/app/admin/articles/*`,
 `src/app/news`/`src/app/crypto/guides`, and the importer).
 

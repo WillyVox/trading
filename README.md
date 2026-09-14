@@ -1,4 +1,4 @@
-# AusMarket Crypto
+# Trading Guide Crypto
 
 Next.js 16 (App Router) + React 19 + Tailwind v4 + Prisma (Postgres) + Auth.js
 v5 scaffold, built against `docs/IMPLEMENTATION-PLAN.md` and `docs/ROADMAP.md`.
@@ -41,10 +41,10 @@ time, since both are still beta.
 ## Setup
 0. Start Docker desktop
  ```Bash
-docker run --name trading-online-db \
+docker run --name trading-guide-db \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=password \
-  -e POSTGRES_DB=trading-online \
+  -e POSTGRES_DB=trading-guide \
   -p 5432:5432 \
   -v trading_pgdata:/var/lib/postgresql/data \
   -d postgres:16-alpine
@@ -52,7 +52,7 @@ docker run --name trading-online-db \
 Or use a local Postgres install, or a free hosted one (Supabase, Neon, Railway) if you'd rather not run Docker.
 
 Then in .env in the project root
-  `DATABASE_URL="postgresql://postgres:postgres@localhost:5432/trading-online"`
+  `DATABASE_URL="postgresql://postgres:postgres@localhost:5432/trading-guide"`
 1. `npm install`
 2. `cp .env.example .env` and point `DATABASE_URL` at a real Postgres instance
 3. `npm run db:migrate`

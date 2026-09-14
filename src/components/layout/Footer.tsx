@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { footerLinks } from "@/lib/config/footer";
 import { businessIdentity } from "@/lib/config/business";
+import TradingGuideLogo from "./HeaderLogo";
 
 // Computed once per server render. On a statically-generated page this
 // bakes in the build year rather than the visitor's current year -- fine
@@ -27,7 +28,8 @@ export function Footer() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <Link href="/" className="font-display text-lg font-extrabold">
-              Aus<span className="text-gold">Market</span>
+              {/* Aus<span className="text-gold">Market</span> */}
+              <TradingGuideLogo/>
             </Link>
             <p className="mt-1 text-xs text-background/60">
               Independent Australian crypto exchange research
@@ -39,7 +41,7 @@ export function Footer() {
               This renders just the trading name until then. */}
           <div className="text-right text-xs leading-relaxed text-background/70">
             <p>
-              {"\u00A9"} {YEAR} {businessIdentity.legalName ?? "AusMarket Crypto"}
+              {"\u00A9"} {YEAR} {businessIdentity.legalName ?? "Trading Guide Crypto"}
               {businessIdentity.abn ? ` \u00B7 ABN ${businessIdentity.abn}` : null}
             </p>
             {businessIdentity.businessAddress ? <p>{businessIdentity.businessAddress}</p> : null}
@@ -67,7 +69,7 @@ export function Footer() {
         {/* TODO(content-gap): this paragraph is a draft, not reviewed legal
             copy -- see docs/CONTENT-GAPS.md "Footer trust paragraph". */}
         <p className="mx-auto max-w-3xl text-center text-xs leading-relaxed text-background/60">
-          AusMarket is an independent comparison and research service {"\u2014"} we don&apos;t hold
+          Trading Guide is an independent comparison and research service {"\u2014"} we don&apos;t hold
           an Australian Financial Services Licence and don&apos;t provide financial advice. We&apos;re
           currently 100% self-funded and don&apos;t earn commissions from providers; in future we may
           earn a commission when you use a provider link on this site, at no extra cost to you and

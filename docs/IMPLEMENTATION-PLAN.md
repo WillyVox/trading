@@ -6,7 +6,7 @@
 
 ## 0. Open Question Before Anything Else
 
-The `index.html` reference is a general multi-asset "AusMarket" platform (Markets / Stocks / Forex / Crypto / News / Calendar / Compare / Research / Methodology), but the master prompt specifies a **crypto-only** MVP with exactly four public nav items (Crypto / Compare / Methodology / News). Confirm which is correct before Phase 1 UI work begins:
+The `index.html` reference is a general multi-asset "Trading Guide" platform (Markets / Stocks / Forex / Crypto / News / Calendar / Compare / Research / Methodology), but the master prompt specifies a **crypto-only** MVP with exactly four public nav items (Crypto / Compare / Methodology / News). Confirm which is correct before Phase 1 UI work begins:
 
 - **Option A:** Build strictly to the master prompt's crypto-only MVP scope; treat Markets/Stocks/Forex/Calendar as out of scope for now (recommended — matches the written brief).
 - **Option B:** The site is actually a broader multi-asset intelligence platform with crypto as the flagship vertical; the master prompt's IA needs to be widened to match the reference.

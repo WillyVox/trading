@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
   title: "Terms of Use",
-  description: "The terms that apply to using the AusMarket website.",
+  description: "The terms that apply to using the Trading Guide website.",
   path: "/terms",
 });
 
@@ -44,8 +44,8 @@ export default function TermsOfUsePage() {
         <section>
           <h2 className="mb-2 font-display text-lg font-bold text-navy">1. Acceptance of these terms</h2>
           <p>
-            By accessing or using this website ({businessIdentity.legalName ?? "AusMarket Crypto"},
-            &quot;AusMarket&quot;, &quot;we&quot;, &quot;us&quot;), you agree to these Terms of Use. If
+            By accessing or using this website ({businessIdentity.legalName ?? "Trading Guide Crypto"},
+            &quot;Trading Guide&quot;, &quot;we&quot;, &quot;us&quot;), you agree to these Terms of Use. If
             you don&apos;t agree, please don&apos;t use the site.
           </p>
         </section>
@@ -53,7 +53,7 @@ export default function TermsOfUsePage() {
         <section>
           <h2 className="mb-2 font-display text-lg font-bold text-navy">2. What this site is</h2>
           <p>
-            AusMarket publishes independent research, comparisons, and educational content about
+            Trading Guide publishes independent research, comparisons, and educational content about
             crypto exchanges available to Australians. We do not execute trades, hold customer funds,
             or act as a crypto exchange, broker, or financial product issuer.
           </p>
@@ -123,7 +123,7 @@ export default function TermsOfUsePage() {
         <section className="rounded-xl border border-gold-soft bg-panel-secondary p-4">
           <h2 className="mb-2 font-display text-lg font-bold text-navy">8. Limitation of liability</h2>
           <p>
-            To the extent permitted by law, AusMarket isn&apos;t liable for any loss or damage arising
+            To the extent permitted by law, Trading Guide isn&apos;t liable for any loss or damage arising
             from your use of this site or reliance on its content. Nothing in these terms excludes,
             restricts, or modifies any consumer guarantee, right, or remedy that can&apos;t lawfully be
             excluded under the Australian Consumer Law.

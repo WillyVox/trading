@@ -42,7 +42,7 @@ export default async function CompareCryptoExchangesPage() {
       <JsonLd data={breadcrumbSchema(trail)} />
       <Breadcrumbs items={trail} />
       <Eyebrow>Compare</Eyebrow>
-      <h1 className="mt-4 font-display text-4xl font-extrabold text-navy">All crypto exchanges compared</h1>
+      <h1 className="mt-4 font-display text-4xl font-extrabold text-navy">Crypto exchanges compared</h1>
       <p className="mt-3 max-w-2xl text-muted">
         Every crypto exchange in our Provider domain, side by side. Generated live from verified provider
         facts, fees, and features {"\u2014"} nothing here is duplicated or hand-maintained separately.

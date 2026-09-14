@@ -17,7 +17,7 @@ Act as a senior:
 
 You are reviewing my existing Australian financial comparison and market-intelligence project:
 
-> **AusMarket / trading-online**
+> **Trading Guide / trading-online**
 
 The website currently focuses on Australian crypto exchanges and will later expand into:
 
@@ -51,7 +51,7 @@ Before changing anything:
 3. inspect the admin article editor;
 4. inspect how editor content is stored;
 5. inspect how article content is rendered publicly;
-6. inspect the attached/current AusMarket article screenshot;
+6. inspect the attached/current Trading Guide article screenshot;
 7. research high-quality competitors;
 8. compare their article UX with ours;
 9. identify strengths and weaknesses;
@@ -66,7 +66,7 @@ Wait for my approval before modifying code.
 
 # CURRENT PROBLEM
 
-Our current article page looks approximately like the supplied AusMarket screenshot.
+Our current article page looks approximately like the supplied Trading Guide screenshot.
 
 Example article:
 
@@ -210,7 +210,7 @@ Create a comparison table.
 
 Example:
 
-| Feature | AusMarket | TradingGuide | Finder | Canstar | Investopedia | Recommendation |
+| Feature | Trading Guide | TradingGuide | Finder | Canstar | Investopedia | Recommendation |
 |---|---|---|---|---|---|---|
 
 ---
@@ -793,7 +793,7 @@ Analyse compliance implications.
 
 # PROBLEM 12 — SOURCES
 
-I want AusMarket to be **better than competitors at evidence**.
+I want Trading Guide to be **better than competitors at evidence**.
 
 Current source links at the bottom are useful but insufficient.
 
@@ -1299,7 +1299,7 @@ Comparing three Australian crypto exchanges
 A source-linked comparison of fees, AUD funding,
 asset selection and trading interfaces.
 
-By AusMarket Editorial Team
+By Trading Guide Editorial Team
 Updated 14 Sep 2026 • 8 min read
 
 ──────────────────────────────────────────────────────────
@@ -1517,7 +1517,7 @@ things they do imperfectly.
 
 > **AVOID**
 
-things that would weaken AusMarket.
+things that would weaken Trading Guide.
 
 Then identify:
 
@@ -1549,7 +1549,7 @@ Return the analysis in this order:
 
 ## 1. Executive assessment
 
-Give the current AusMarket article experience a score out of 10.
+Give the current Trading Guide article experience a score out of 10.
 
 Explain the largest problems.
 
@@ -1563,7 +1563,7 @@ Do not redesign good features unnecessarily.
 
 ## 3. Screenshot comparison
 
-AusMarket vs TradingGuide.
+Trading Guide vs TradingGuide.
 
 ---
 
@@ -1759,7 +1759,7 @@ I want to understand:
 > why it is wrong,
 > what competitors do better,
 > what competitors do worse,
-> what AusMarket should uniquely do,
+> what Trading Guide should uniquely do,
 > what architecture we should adopt,
 > and what the finished article should look like
 

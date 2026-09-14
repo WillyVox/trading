@@ -12,7 +12,7 @@ methodology
 
 Their page isn't isolated.
 
-Your relational architecture is actually better suited to this than AusMarket's current implementation.
+Your relational architecture is actually better suited to this than Trading Guide's current implementation.
 
 You already have:
 

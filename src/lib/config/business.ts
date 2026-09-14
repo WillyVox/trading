@@ -14,12 +14,12 @@
  * applicable") before production launch.
  */
 export interface BusinessIdentity {
-    /** Registered legal entity name, if different from the "AusMarket Crypto" trading name. */
+    /** Registered legal entity name, if different from the "Trading Guide Crypto" trading name. */
     legalName?: string;
     tradingName?: string;
     abn?: string;
     acn?: string;
-    /** Only set if AusMarket (or its operator) genuinely holds an AFSL. Do not set based on assumption. */
+    /** Only set if Trading Guide (or its operator) genuinely holds an AFSL. Do not set based on assumption. */
     afsl?: string;
     /** Only set if operating as an authorised representative of an AFSL holder. */
     authorisedRepresentativeNumber?: string;

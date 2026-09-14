@@ -12,7 +12,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "Affiliate & Advertiser Disclosure",
   description:
-    "AusMarket is currently self-funded and doesn't earn money from provider links. Here's our current funding status, our future affiliate plans, and what that will and won't affect on this site.",
+    "Trading Guide is currently self-funded and doesn't earn money from provider links. Here's our current funding status, our future affiliate plans, and what that will and won't affect on this site.",
   path: "/affiliate-disclosure",
 });
 
@@ -38,15 +38,15 @@ export const metadata = buildMetadata({
 const SECTIONS = [
   {
     title: "Our current funding status",
-    body: "AusMarket is currently 100% self-funded. We do not receive compensation, referral fees, or affiliate commissions from any providers featured on this platform. All product recommendations and comparisons are based solely on our objective methodology and market research.",
+    body: "Trading Guide is currently 100% self-funded. We do not receive compensation, referral fees, or affiliate commissions from any providers featured on this platform. All product recommendations and comparisons are based solely on our objective methodology and market research.",
   },
   {
     title: "What affiliate links will be",
-    body: "To keep this platform free for users, we plan to partner with select providers through commercial agreements. Once that's in place, some links on this site \u2014 including the \u201cVisit\u201d buttons on provider pages and links inside guides and news articles \u2014 will become tracking or referral links, taking you to the provider's own website through a link that identifies you as coming from AusMarket.",
+    body: "To keep this platform free for users, we plan to partner with select providers through commercial agreements. Once that's in place, some links on this site \u2014 including the \u201cVisit\u201d buttons on provider pages and links inside guides and news articles \u2014 will become tracking or referral links, taking you to the provider's own website through a link that identifies you as coming from Trading Guide.",
   },
   {
     title: "How we plan to earn money",
-    body: "Once partnerships are in place, AusMarket may receive a referral commission when you click a provider link and sign up or purchase a service. We won't have a commercial relationship with every provider we mention or compare, and we'll update this page before any partnership goes live.",
+    body: "Once partnerships are in place, Trading Guide may receive a referral commission when you click a provider link and sign up or purchase a service. We won't have a commercial relationship with every provider we mention or compare, and we'll update this page before any partnership goes live.",
   },
   {
     title: "Zero cost to you",
@@ -66,7 +66,7 @@ const SECTIONS = [
   },
   {
     title: "Dealing with the provider",
-    body: "Clicking a provider link takes you to a third-party website. From that point, you're dealing directly with that provider under their own terms, privacy practices, and fees \u2014 not with AusMarket.",
+    body: "Clicking a provider link takes you to a third-party website. From that point, you're dealing directly with that provider under their own terms, privacy practices, and fees \u2014 not with Trading Guide.",
   },
   {
     title: "This can change",
@@ -89,7 +89,7 @@ export default function AffiliateDisclosurePage() {
         Affiliate &amp; advertiser disclosure
       </h1>
       <p className="mt-3 text-muted">
-        A plain-English explanation of how AusMarket is funded today, how we plan to earn money in
+        A plain-English explanation of how Trading Guide is funded today, how we plan to earn money in
         future, and what that will and won&apos;t affect on this site.
       </p>
 

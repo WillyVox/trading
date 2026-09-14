@@ -4,7 +4,7 @@
     
 # Author profile
 Huy Vo
-Software engineer and AusMarket editor
+Software engineer and Trading Guide editor
 
 Research interests:
 Australian trading platforms

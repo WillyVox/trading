@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "Comparison Methodology — How We Build Comparison Tables",
   description:
-    "How AusMarket's comparison tables are generated from live provider records, what \u201cNot verified\u201d means, and how providers are ordered.",
+    "How Trading Guide's comparison tables are generated from live provider records, what \u201cNot verified\u201d means, and how providers are ordered.",
   path: "/methodology/comparisons",
 });
 
@@ -63,7 +63,7 @@ export default function ComparisonMethodologyPage() {
       <Breadcrumbs items={trail} />
       <h1 className="font-display text-4xl font-extrabold text-navy">Comparison methodology</h1>
       <p className="mt-3 text-muted">
-        How AusMarket turns verified provider facts into the comparison tables you see on the site
+        How Trading Guide turns verified provider facts into the comparison tables you see on the site
         — and what a missing or unverified value actually means when you see one.
       </p>
 
