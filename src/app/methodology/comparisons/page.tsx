@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Notice } from "@/components/ui/Notice";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
@@ -34,10 +34,6 @@ export const metadata = buildMetadata({
  */
 const PRINCIPLES = [
   {
-    title: "Built live, not copied",
-    body: "Every comparison table is generated at request time from each provider's current facts, fees, and features. There's no separate \u201ccomparison table\u201d database \u2014 when a provider's information changes, every comparison that includes it updates automatically.",
-  },
-  {
     title: "No fact is hidden to make a row line up",
     body: "If even one compared provider has a fact, that fact gets its own row for every provider in the table. Providers without that fact show a dash rather than the row being left out.",
   },
@@ -58,15 +54,16 @@ export default function ComparisonMethodologyPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <>
       <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
-      <h1 className="font-display text-4xl font-extrabold text-navy">Comparison methodology</h1>
-      <p className="mt-3 text-muted">
-        How Trading Guide turns verified provider facts into the comparison tables you see on the site
-        — and what a missing or unverified value actually means when you see one.
-      </p>
-
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Methodology"
+        title="How we build our comparisons"
+        subheading="How Trading Guide turns verified provider facts into the comparison tables you see on the site — and what a missing or unverified value actually means when you see one."
+        maxWidth="max-w-3xl"
+      />
+      <div className="mx-auto max-w-3xl px-4 py-12">
       <div className="mt-8 flex flex-col gap-4">
         {PRINCIPLES.map((p) => (
           <Card key={p.title}>
@@ -106,6 +103,7 @@ export default function ComparisonMethodologyPage() {
           See a live comparison
         </Link>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

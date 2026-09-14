@@ -1,13 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getCryptoAssetBySlug } from "@/lib/crypto/service";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { PageHero } from "@/components/layout/PageHero";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -34,13 +33,16 @@ export default async function CryptoAssetPage({ params }: { params: Promise<{ sl
   ]);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
+    <>
       <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
-      <Eyebrow>{asset.symbol}</Eyebrow>
-      <h1 className="mt-4 font-display text-4xl font-extrabold text-navy">{asset.name}</h1>
-      {asset.description && <p className="mt-2 max-w-2xl text-muted">{asset.description}</p>}
-
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow={asset.symbol}
+        title={asset.name}
+        subheading={asset.description ?? undefined}
+        maxWidth="max-w-4xl"
+      />
+      <div className="mx-auto max-w-4xl px-4 py-12">
       <Card className="mt-8">
         <h2 className="mb-4 font-display text-lg font-bold text-navy">Where to buy {asset.symbol} in Australia</h2>
         {asset.providers.length === 0 ? (
@@ -75,6 +77,7 @@ export default async function CryptoAssetPage({ params }: { params: Promise<{ sl
           </ul>
         </Card>
       )}
-    </div>
+      </div>
+    </>
   );
 }

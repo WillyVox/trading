@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Notice } from "@/components/ui/Notice";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Editorial Policy — Sourcing, Review & Fact-Checking Standards",
@@ -58,15 +59,16 @@ export default function EditorialPolicyPage() {
   ]);
 
   return (
+    <>
+     <JsonLd data={breadcrumbSchema(trail)} />
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Methodology"
+        title="Editorial policy"
+        subheading="How Trading Guide researches, verifies, writes and updates its content — and how we keep editorial decisions independent from commercial relationships."
+        maxWidth="max-w-3xl"
+      />
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
-      <h1 className="font-display text-4xl font-extrabold text-navy">Editorial policy</h1>
-      <p className="mt-3 text-muted">
-        The standards every guide and news article on Trading Guide is checked against before it's
-        published, and how we keep coverage independent of commercial relationships.
-      </p>
-
       <div className="mt-8 flex flex-col gap-4">
         {STANDARDS.map((s) => (
           <Card key={s.title}>
@@ -102,5 +104,6 @@ export default function EditorialPolicyPage() {
         </Notice>
       </div>
     </div>
+    </>
   );
 }

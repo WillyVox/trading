@@ -14,8 +14,7 @@ import { regionHreflang } from "@/lib/seo/canonical";
 import { absoluteUrl } from "@/lib/seo/config";
 import { renderArticleContent } from "@/lib/articles/renderer";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { GuideHeader } from "@/components/guide/GuideHeader";
+import { PageHero } from "@/components/layout/PageHero";
 import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
 import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
 import { GuideSidebar } from "@/components/guide/GuideSidebar";
@@ -23,6 +22,10 @@ import { GuideSourceList } from "@/components/guide/GuideSourceList";
 import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { RelatedProviders } from "@/components/guide/RelatedProviders";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
+
+function formatDate(date: Date | string) {
+  return new Date(date).toLocaleDateString("en-AU", { year: "numeric", month: "long", day: "numeric" });
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -108,8 +111,20 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
     { name: article.title, path: `/crypto/guides/${slug}` },
   ]);
 
+  // Same fields GuideHeader used to render inline — now the hero's
+  // eyebrow/meta line, per the category/H1/subheading field mapping
+  // (category -> eyebrow, title -> H1, excerpt -> subheading).
+  const lastUpdated = article.lastReviewedAt ?? article.updatedAt;
+  const metaItems = [
+    article.author ? `By ${article.author}` : null,
+    article.reviewer ? `Reviewed by ${article.reviewer}` : null,
+    article.publishedAt ? `Published ${formatDate(article.publishedAt)}` : null,
+    `Last updated ${formatDate(lastUpdated)}`,
+    readingMinutes > 0 ? `${readingMinutes} min read` : null,
+  ].filter(Boolean) as string[];
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <>
       <JsonLd
         data={articleSchema({
           headline: article.title,
@@ -122,7 +137,14 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         })}
       />
       <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow={article.category ? article.category.replace(/-/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase()) : undefined}
+        title={article.title}
+        subheading={article.excerpt ?? undefined}
+        meta={metaItems}
+      />
+      <div className="mx-auto max-w-6xl px-4 py-12">
 
       {otherRegions.length > 0 && (
         <p className="mb-4 text-xs text-muted">
@@ -140,18 +162,6 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
         <article className="min-w-0 max-w-3xl">
-          <GuideHeader
-            category={article.category}
-            title={article.title}
-            excerpt={article.excerpt}
-            author={article.author}
-            reviewer={article.reviewer}
-            publishedAt={article.publishedAt}
-            lastReviewedAt={article.lastReviewedAt}
-            updatedAt={article.updatedAt}
-            readingMinutes={readingMinutes}
-          />
-
           <KeyTakeaways items={article.keyTakeaways} />
 
           <div className="mt-6 lg:hidden">
@@ -168,6 +178,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
 
         <GuideSidebar headings={headings} category={article.category} readingMinutes={readingMinutes} />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

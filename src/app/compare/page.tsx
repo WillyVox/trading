@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { getProviders } from "@/lib/providers/service";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { CompareSelector } from "@/components/compare/CompareSelector";
+import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Compare Crypto Exchanges Australia \u2014 Fees & Features",
@@ -13,14 +14,17 @@ export const metadata = buildMetadata({
 
 export default async function ComparePage() {
   const { items } = await getProviders();
+  const trail = breadcrumbTrail([{ name: "Compare", path: "/compare" }]);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <Eyebrow>Compare</Eyebrow>
-      <h1 className="mt-4 font-display text-5xl font-extrabold text-navy">Compare Exchanges</h1>
-      <p className="mt-4 max-w-2xl text-lg text-muted">
-        Comparisons are generated live from the Provider domain — no data duplicated into
-        compare-specific tables.
-      </p>
+    <>
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Comparisons"
+        title="Compare providers side-by-side"
+        subheading="Live, data-driven comparisons — never a paid ranking."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-16">
 
       <Link
         href="/compare/crypto-exchanges"
@@ -58,6 +62,7 @@ export default async function ComparePage() {
       </div>
 
       <CompareSelector providers={items.map((p: any) => ({ id: p.id, slug: p.slug, name: p.name }))} />
-    </div>
+      </div>
+    </>
   );
 }

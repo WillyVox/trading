@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
 import { Notice } from "@/components/ui/Notice";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
@@ -25,12 +24,15 @@ export default function MethodologyPage() {
   const trail = breadcrumbTrail([{ name: "Methodology", path: "/methodology" }]);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
+    <>
       <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
-      <Eyebrow>Methodology</Eyebrow>
-      <h1 className="mt-4 font-display text-5xl font-extrabold text-navy">How Trading Guide verifies research</h1>
-
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Our standards"
+        title="How we research and verify facts"
+        subheading="Our sourcing, verification, and affiliate-disclosure standards."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-16">
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {PRINCIPLES.map((p) => (
           <Card key={p.title}>
@@ -51,6 +53,7 @@ export default function MethodologyPage() {
         <Link href="/methodology/comparisons" className="text-blue underline">Comparison methodology</Link>
         <Link href="/methodology/editorial-policy" className="text-blue underline">Editorial policy</Link>
        </div>
-    </div>
+      </div>
+    </>
   );
 }

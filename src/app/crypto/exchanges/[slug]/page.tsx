@@ -70,6 +70,7 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
       <div className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
           <ProviderLogo logo={provider.logo} name={provider.name} size="lg" />
+          <h2 className="truncate font-display text-lg font-bold text-navy">{provider.name}</h2>
         </div>
         <VerificationBadge status={provider.verificationStatus} />
       </div>

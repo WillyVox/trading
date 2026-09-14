@@ -3,13 +3,12 @@ import { getProvidersBySlugs } from "@/lib/providers/service";
 import { buildComparisonSections } from "@/lib/providers/compare";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { canonicalCompareSlugMulti } from "@/lib/seo/canonical";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { PageHero } from "@/components/layout/PageHero";
 
 /** Splits "a-vs-b-vs-c" into ["a","b","c"]. Supports any number of
  * providers (Phase 5: "3+-way comparison UI"), not just pairs. */
@@ -74,16 +73,15 @@ export default async function CompareDetailPage({ params }: { params: Promise<{ 
   ]);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
+    <>
       <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
-      <Eyebrow>Compare</Eyebrow>
-      <h1 className="mt-4 font-display text-4xl font-extrabold text-navy">{providers.map((p) => p.name).join(" vs ")}</h1>
-      <p className="mt-3 max-w-2xl text-muted">
-        Generated live from the Provider domain {"\u2014"} facts, fees, and features shown here update automatically when the
-        underlying provider data changes.
-      </p>
-
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Compare"
+        title={providers.map((p) => p.name).join(" vs ")}
+        subheading={`Generated live from the Provider domain \u2014 facts, fees, and features shown here update automatically when the underlying provider data changes.`}
+      />
+      <div className="mx-auto max-w-6xl px-4 py-16">
       {providers.length < 2 && (
         <p className="mt-3 text-sm text-muted">
           Only one exchange selected. Visit <a className="underline hover:text-navy" href="/compare">Compare</a> to add another.
@@ -94,6 +92,7 @@ export default async function CompareDetailPage({ params }: { params: Promise<{ 
         <CompareTable providers={providers as any} sections={sections} />
         <CompareMobileCards providers={providers as any} sections={sections} />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

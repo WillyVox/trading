@@ -1,8 +1,9 @@
 import { getPublishedArticles } from "@/lib/articles/service";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Notice } from "@/components/ui/Notice";
 import { Card } from "@/components/ui/Card";
+import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Crypto News Australia \u2014 Market & Regulatory Updates",
@@ -12,11 +13,17 @@ export const metadata = buildMetadata({
 
 export default async function NewsPage() {
   const { items } = await getPublishedArticles({ articleType: "NEWS" });
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <Eyebrow>News</Eyebrow>
-      <h1 className="mt-4 font-display text-5xl font-extrabold text-navy">Market News</h1>
+  const trail = breadcrumbTrail([{ name: "News", path: "/news" }]);
 
+  return (
+    <>
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="News"
+        title="Australian crypto news"
+        subheading="Regulatory updates and market news, source-linked."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-16">
       {items.length === 0 ? (
         <div className="mt-6">
           <Notice>
@@ -34,6 +41,7 @@ export default async function NewsPage() {
           ))}
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }
