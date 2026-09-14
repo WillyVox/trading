@@ -4,6 +4,7 @@ import { getProviderBySlug, getRelatedContentForProvider } from "@/lib/providers
 import { getActiveAffiliateLink } from "@/lib/affiliates/service";
 import { groupFeatures, type ProviderFeatureRow } from "@/lib/providers/features";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
 import { Card } from "@/components/ui/Card";
 import { ProviderFeatureSection } from "@/components/providers/ProviderFeatureSection";
@@ -54,8 +55,11 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
     <div className="mx-auto max-w-4xl px-4 py-12">
       <JsonLd data={breadcrumbSchema(trail)} />
       <Breadcrumbs items={trail} />
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-3xl font-extrabold text-navy">{provider.name}</h1>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-4">
+          <ProviderLogo logo={provider.logo} name={provider.name} size="lg" />
+          <h1 className="truncate font-display text-3xl font-extrabold text-navy">{provider.name}</h1>
+        </div>
         <VerificationBadge status={provider.verificationStatus} />
       </div>
       <p className="mt-2 text-muted">{provider.description}</p>

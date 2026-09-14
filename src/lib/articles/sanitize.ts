@@ -78,8 +78,16 @@ const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
   a: ["href", "title", "rel", "target"],
   // width/height "where known" per Req.md §18 — purely descriptive
   // (browser-side layout hint), not a styling escape hatch.
-  img: ["src", "alt", "title", "width", "height"],
+  // `data-align` is the one exception to "no class/style on img" above: it
+  // carries exactly one of three known values (validated by the transform
+  // below, never passed through free-form) and is interpreted only by
+  // CSS attribute selectors this codebase controls (globals.css), never
+  // by an inline `style` attribute — so it can't become an arbitrary CSS
+  // injection point the way a free-form `class` or `style` value could.
+  img: ["src", "alt", "title", "width", "height", "data-align"],
 };
+
+const ALLOWED_IMAGE_ALIGN = new Set(["left", "center", "right"]);
 
 export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   allowedTags: ALLOWED_TAGS,
@@ -111,6 +119,19 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
           rel: "noopener noreferrer",
           ...(isExternal ? { target: "_blank" } : {}),
         },
+      };
+    },
+    // Strips data-align entirely rather than passing an unrecognized value
+    // through — an editor/importer can never write e.g. data-align="1;
+    // </style>..." and have it survive to the database, and the CSS rules
+    // in globals.css only define behaviour for the three real values
+    // anyway, so an unrecognized value would be inert even if it slipped
+    // through.
+    img: (tagName, attribs) => {
+      const { "data-align": align, ...rest } = attribs;
+      return {
+        tagName,
+        attribs: align && ALLOWED_IMAGE_ALIGN.has(align) ? { ...rest, "data-align": align } : rest,
       };
     },
   },

@@ -14,6 +14,7 @@ import { ProviderRelationshipsPicker } from "@/components/admin/article/Provider
 import { SourcesEditor } from "@/components/admin/article/SourcesEditor";
 import { EditorialChecklistPanel } from "@/components/admin/article/EditorialChecklistPanel";
 import { PublishingPanel } from "@/components/admin/article/PublishingPanel";
+import { ArticleRichEditor } from "./ArticleRichEditor";
 
 /**
  * The article shape this form edits — a subset of what
@@ -177,6 +178,8 @@ export async function ArticleForm({
             (e.g. <code className="font-mono">{"{{provider-comparison:...}}"}</code>) can be typed in now — they'll show a
             "not yet available" note in Preview until that block type ships.
           </p>
+          <ArticleRichEditor name="content" initialHtml={article?.content ?? ""} />
+{/*           
           <textarea
             name="content"
             required
@@ -184,7 +187,7 @@ export async function ArticleForm({
             rows={20}
             className={`${inputClass} mt-3 w-full font-mono text-sm`}
             placeholder="<h2>Our top exchanges</h2>&#10;&#10;<p>...</p>"
-          />
+          /> */}
         </Card>
 
         <Card>

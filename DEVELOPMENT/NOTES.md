@@ -1,3 +1,7 @@
+# Test image
+    Link: https://picsum.photos/200/300
+
+    
 # Author profile
 Huy Vo
 Software engineer and AusMarket editor

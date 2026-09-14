@@ -1,15 +1,21 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /*
-  Theme reference: DomainEmpire.com listing page (light cream + navy + gold,
-  bold serif display headline, pill buttons/badges). Replaces the previous
-  dark navy theme from the AusMarket index.html reference.
+  Theme reference: DomainEmpire.com listing page (navy + gold accents,
+  bold serif display headline, pill buttons/badges), on a cooler neutral
+  blue-gray page background rather than the previous cream — a more
+  corporate, less "beige brochure" feel. Site-wide via these tokens:
+  every component reads --color-background / --color-panel-secondary /
+  --color-border through Tailwind's generated bg-background,
+  bg-panel-secondary and border-border utilities, so this single change
+  propagates everywhere without touching individual components.
 */
 @theme {
-  --color-background: #f5f2ea;
+  --color-background: #eef1f5;
   --color-panel: #ffffff;
-  --color-panel-secondary: #ece7db;
-  --color-border: #e1dbca;
+  --color-panel-secondary: #e4e9f0;
+  --color-border: #dde3ea;
   --color-navy: #1c2e4a;
   --color-navy-dark: #16233a;
   --color-text: #1c2230;
@@ -23,10 +29,113 @@
   --font-display: var(--next-font-display), Georgia, serif;
   --font-sans: var(--next-font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--next-font-mono), ui-monospace, monospace;
+
+  /*
+    Skins @tailwindcss/typography (the `prose` class) to the site's
+    existing navy/gold/cream palette above, instead of the plugin's
+    default grayscale. These are the plugin's own documented variable
+    names — no need to hand-roll heading/paragraph/list rules from
+    scratch, just point its palette at --color-navy etc. Article
+    templates already apply `prose-headings:font-display
+    prose-headings:text-navy` on top of this (see
+    src/app/crypto/guides/[slug]/page.tsx and src/app/news/[slug]/page.tsx)
+    for the serif display heading treatment.
+  */
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-navy);
+  --tw-prose-lead: var(--color-muted);
+  --tw-prose-links: var(--color-navy);
+  --tw-prose-bold: var(--color-navy);
+  --tw-prose-counters: var(--color-gold);
+  --tw-prose-bullets: var(--color-gold-soft);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-navy);
+  --tw-prose-quote-borders: var(--color-gold);
+  --tw-prose-captions: var(--color-muted);
+  --tw-prose-code: var(--color-navy);
+  --tw-prose-pre-code: var(--color-panel);
+  --tw-prose-pre-bg: var(--color-navy-dark);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
 }
 
 body {
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-sans);
+}
+
+/*
+  Article body image alignment. Deliberately a stylesheet rule keyed off
+  the `data-align` attribute (allowlisted + enum-validated in
+  src/lib/articles/sanitize.ts) rather than an inline `style` attribute —
+  article content never gets a `style` allowlist entry, so this is the one
+  place alignment is actually applied. Scoped to `.prose`, the wrapper
+  class both /crypto/guides/[slug] and /news/[slug] render article content
+  inside (see src/lib/articles/renderer.tsx usage sites).
+*/
+.prose img[data-align="left"] {
+  float: left;
+  margin: 0.25rem 1.5rem 1rem 0;
+}
+.prose img[data-align="right"] {
+  float: right;
+  margin: 0.25rem 0 1rem 1.5rem;
+}
+.prose img[data-align="center"] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+/* Headings clear any floated image above them so a left/right-aligned
+   image never runs into the next section heading. */
+.prose h2,
+.prose h3,
+.prose h4 {
+  clear: both;
+}
+
+/*
+  Comparison-table styling. `.article-table-wrap` is the scroll container
+  content.ts's wrapTables() already puts around every <table> (for mobile
+  overflow — see src/lib/articles/content.ts). @tailwindcss/typography
+  gives `.prose table` sensible baseline spacing, but this project's
+  tables are dense fee/feature comparison grids (see e.g. the CoinSpot vs
+  Swyftx vs Independent Reserve article), so they get an explicit header
+  row, zebra striping and a bounded card treatment on top of that
+  baseline rather than relying on the plugin's defaults alone.
+*/
+.article-table-wrap {
+  margin-top: 1.75em;
+  margin-bottom: 1.75em;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+}
+.article-table-wrap table {
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+.article-table-wrap th,
+.article-table-wrap td {
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+.article-table-wrap thead th {
+  background-color: var(--color-panel-secondary);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-navy);
+  white-space: nowrap;
+}
+.article-table-wrap tbody tr:nth-child(even) {
+  background-color: var(--color-background);
+}
+.article-table-wrap tbody tr:last-child th,
+.article-table-wrap tbody tr:last-child td {
+  border-bottom: none;
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getProviders } from "@/lib/providers/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { Card } from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -19,12 +20,17 @@ export default async function ExchangesPage() {
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         {items.map((p: any) => (
           <Link key={p.id} href={`/crypto/exchanges/${p.slug}`}>
-            <Card className="hover:border-gold-soft">
-              <div className="flex items-center justify-between">
-                <h2 className="font-display text-lg font-bold text-navy">{p.name}</h2>
-                <VerificationBadge status={p.verificationStatus} />
+            <Card className="h-full transition-colors hover:border-gold-soft">
+              <div className="flex items-start gap-4">
+                <ProviderLogo logo={p.logo} name={p.name} size="md" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <h2 className="truncate font-display text-lg font-bold text-navy">{p.name}</h2>
+                    <VerificationBadge status={p.verificationStatus} />
+                  </div>
+                  <p className="mt-2 line-clamp-3 text-sm text-muted">{p.description}</p>
+                </div>
               </div>
-              <p className="mt-2 text-sm text-muted">{p.description}</p>
             </Card>
           </Link>
         ))}

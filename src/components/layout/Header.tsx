@@ -22,8 +22,7 @@ export function Header() {
       <div className="mx-auto flex h-[72px] max-w-6xl items-center gap-7 px-4">
         <Link href="/" className="flex items-baseline gap-1 font-display text-xl font-extrabold text-navy">
           Aus<span className="text-gold">Market</span>
-          <span className="ml-2 hidden font-sans text-sm font-normal text-muted sm:inline">— crypto</span>
-        </Link>
+          </Link>
         <nav className="hidden flex-1 gap-6 md:flex">
           {NAV.map((item) => (
             <Link key={item.href} href={item.href} className="text-sm font-medium text-navy/80 transition-colors hover:text-navy">

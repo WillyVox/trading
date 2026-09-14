@@ -195,11 +195,13 @@ export const SEED_PROVIDERS = [
           verifiedAt: new Date("2026-09-11"),
         },
       ],
+      logo: "/images/providers/coinspot.svg"
     },
     {
       name: "Independent Reserve",
       slug: "independent-reserve",
       website: "https://www.independentreserve.com",
+      logo: "/images/providers/independent-reserve.svg",
       description:
         "Australian cryptocurrency exchange operating since 2013, offering a maker/taker order book, OTC-scale trading and dedicated SMSF account types, with core infrastructure hosted in Sydney.",
       providerType: ProviderType.CRYPTO_EXCHANGE,
@@ -350,6 +352,7 @@ export const SEED_PROVIDERS = [
       name: "Swyftx",
       slug: "swyftx",
       website: "https://swyftx.com",
+      logo: "/images/providers/swyftx.svg",
       description:
         "Australian cryptocurrency platform supporting AUD deposits and withdrawals, 410+ crypto assets, recurring purchases and tiered trading fees based on rolling 30-day trading volume.",
       providerType: ProviderType.CRYPTO_EXCHANGE,
@@ -671,11 +674,13 @@ export const SEED_PROVIDERS = [
           verifiedAt: new Date("2026-09-11"),
         },
       ],
+      logo: "/images/providers/btc-markets.svg"
     },
     {
       name: "Kraken",
       slug: "kraken",
       website: "https://www.kraken.com",
+      logo: "/images/providers/kraken.svg",
       description: "Global cryptocurrency exchange offering trading and custody, with an Australian-facing onramp.",
       providerType: ProviderType.CRYPTO_EXCHANGE,
       jurisdictions: ["AU"],
