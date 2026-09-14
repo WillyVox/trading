@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <>
       <PageHero
-        eyebrow="Independent crypto research · Australia"
+        eyebrow="Independent crypto & share trading research · Australia"
         title="Crypto exchanges, compared with evidence."
         subheading="One research platform for Australian crypto exchanges — verified facts and transparent fees, never a ranking influenced by commission."
         ctas={[

@@ -89,8 +89,7 @@ export default function AffiliateDisclosurePage() {
         Affiliate &amp; advertiser disclosure
       </h1>
       <p className="mt-3 text-muted">
-        A plain-English explanation of how Trading Guide is funded today, how we plan to earn money in
-        future, and what that will and won&apos;t affect on this site.
+        [TODO]
       </p>
 
       <div className="mt-8 flex flex-col gap-4">
