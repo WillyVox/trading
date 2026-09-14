@@ -89,7 +89,7 @@ export default async function GuidesPage({
             {items.map((a: any) => (
               <ArticleCard
                 key={a.id}
-                href={`/guides/${a.slug}`}
+                href={`/${a.slug}`}
                 title={a.title}
                 excerpt={a.excerpt}
                 featuredImage={a.featuredImage}
