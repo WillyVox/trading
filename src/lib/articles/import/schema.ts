@@ -57,6 +57,7 @@ const sourceField = z.object({
   label: z.string().trim().min(1, "source label is required"),
   url: urlField,
   type: z.string().trim().optional(),
+  sourceType: z.enum(SOURCE_TYPES).optional(),
 });
 
 const relatedProviderField = z.union([
@@ -66,6 +67,25 @@ const relatedProviderField = z.union([
     relationship: z.enum(RELATIONSHIP_TYPES).optional(),
   }),
 ]);
+
+/** Current-naming counterpart to `relatedProviderField` above — parser.ts merges both into
+ * one normalized list, preferring this key on a slug collision. */
+const providerRelationshipField = z.union([
+  z.string().trim().min(1),
+  z.object({
+    providerSlug: z.string().trim().min(1),
+    relationship: z.enum(RELATIONSHIP_TYPES).optional(),
+  }),
+]);
+
+/** Advisory timestamp fields (`scheduledAt`, `lastReviewedAt`) — validated as a parseable
+ * date/time string rather than coerced to a Date, since ArticleImportPayload carries them
+ * through as `string` (see types.ts) all the way to the importer. */
+const dateStringField = z
+  .string()
+  .trim()
+  .min(1)
+  .refine((value) => !Number.isNaN(Date.parse(value)), { message: "must be a valid date/time string" });
 
 /**
  * Raw frontmatter shape, before normalization. Mirrors docs/article-publishing-format.md.
@@ -85,12 +105,18 @@ export const articleFrontmatterSchema = z.object({
   seoDescription: z.string().trim().min(1).optional(),
   canonicalUrl: urlField.optional(),
   featuredImage: z.string().trim().min(1).optional(),
+  featuredImageAlt: z.string().trim().min(1).optional(),
   author: z.string().trim().min(1).optional(),
   reviewer: z.string().trim().min(1).optional(),
   noIndex: z.boolean().optional(),
+  affiliateDisclosureRequired: z.boolean().optional(),
+  scheduledAt: dateStringField.optional(),
+  lastReviewedAt: dateStringField.optional(),
   keyTakeaways: z.array(z.string().trim().min(1)).optional(),
   searchIntent: z.enum(SEARCH_INTENTS).optional(),
   relatedProviders: z.array(relatedProviderField).optional(),
+  providerRelationships: z.array(providerRelationshipField).optional(),
+  cryptoAssetSlugs: z.array(slugField).optional(),
   relatedGuides: z.array(slugField).optional(),
   sources: z.array(sourceField).optional(),
   affiliateProviders: z.array(z.string().trim().min(1)).optional(),

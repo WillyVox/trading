@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import type { ArticleType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl } from "./config";
 
@@ -47,7 +48,7 @@ export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
     select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
-    url: absoluteUrl(`/guides/${a.slug}`),
+    url: absoluteUrl(`/${a.slug}`),
     lastModified: a.lastReviewedAt ?? a.publishedAt ?? undefined,
   }));
 }
