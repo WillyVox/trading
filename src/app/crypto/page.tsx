@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
+import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Crypto Markets & Exchange Intelligence Australia",
@@ -11,14 +12,17 @@ export const metadata = buildMetadata({
 });
 
 export default function CryptoPage() {
+  const trail = breadcrumbTrail([{ name: "Crypto", path: "/crypto" }]);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <Eyebrow>Crypto · Deep research</Eyebrow>
-      <h1 className="mt-4 font-display text-5xl font-extrabold text-navy">Crypto Markets &amp; Exchange Intelligence</h1>
-      <p className="mt-4 max-w-2xl text-lg text-muted">
-        Source-linked exchange research, verification status, and comparisons — for the
-        Australian market only in this MVP.
-      </p>
+    <>
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Crypto education"
+        title="Understand crypto before you trade it"
+        subheading="Detailed explains on exchanges, wallets, and how Australian crypto actually works."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-16">
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         <Link href="/crypto/exchanges">
@@ -40,6 +44,7 @@ export default function CryptoPage() {
           </Card>
         </Link>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -15,7 +15,12 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { PageHero } from "@/components/layout/PageHero";
+
+function formatProviderType(type: string) {
+  const label = type.replace(/_/g, " ").toLowerCase();
+  return `${label.charAt(0).toUpperCase()}${label.slice(1)} profile`;
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -52,17 +57,22 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
   ]);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
+    <>
       <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow={formatProviderType(provider.providerType)}
+        title={`${provider.name} Australia review`}
+        subheading={provider.description ?? undefined}
+        maxWidth="max-w-4xl"
+      />
+      <div className="mx-auto max-w-4xl px-4 py-12">
       <div className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
           <ProviderLogo logo={provider.logo} name={provider.name} size="lg" />
-          <h1 className="truncate font-display text-3xl font-extrabold text-navy">{provider.name}</h1>
         </div>
         <VerificationBadge status={provider.verificationStatus} />
       </div>
-      <p className="mt-2 text-muted">{provider.description}</p>
 
       <Card className="mt-8">
         <h2 className="mb-4 font-display text-lg font-bold text-navy">Facts</h2>
@@ -135,6 +145,7 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
 
       <RelatedGuides guides={relatedContent.guides} />
       <RelatedNews items={relatedContent.news} />
-    </div>
+      </div>
+    </>
   );
 }

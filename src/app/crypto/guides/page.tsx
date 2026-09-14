@@ -1,5 +1,7 @@
 import { getPublishedArticles } from "@/lib/articles/service";
+import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Crypto Guides Australia \u2014 How-To & Educational Articles",
@@ -9,9 +11,20 @@ export const metadata = buildMetadata({
 
 export default async function GuidesPage() {
   const { items } = await getPublishedArticles({ articleType: "GUIDE" });
+  const trail = breadcrumbTrail([
+    { name: "Crypto", path: "/crypto" },
+    { name: "Guides", path: "/crypto/guides" },
+  ]);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="font-display text-3xl font-extrabold text-navy">Guides</h1>
+    <>
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Guides"
+        title="Step-by-step crypto guides for Australians"
+        subheading="How-to guides for buying, storing, and trading crypto safely."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-12">
       {items.length === 0 && <p className="mt-4 text-muted">No guides published yet.</p>}
       <ul className="mt-6 space-y-4">
         {items.map((a: any) => (
@@ -20,6 +33,7 @@ export default async function GuidesPage() {
             </li>
         ))}
       </ul>
-    </div>
+      </div>
+    </>
   );
 }

@@ -3,7 +3,9 @@ import { getProviders } from "@/lib/providers/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { Card } from "@/components/ui/Card";
+import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Crypto Exchanges in Australia \u2014 Compare Platforms",
@@ -13,9 +15,20 @@ export const metadata = buildMetadata({
 
 export default async function ExchangesPage() {
   const { items } = await getProviders();
+  const trail = breadcrumbTrail([
+    { name: "Crypto", path: "/crypto" },
+    { name: "Exchanges", path: "/crypto/exchanges" },
+  ]);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="font-display text-3xl font-extrabold text-navy">Crypto Exchanges</h1>
+    <>
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Exchange profiles"
+        title="Compare crypto exchanges in Australia"
+        subheading="Verified fees, features, and regulatory status for every exchange we cover."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-12">
       {items.length === 0 && <p className="mt-4 text-muted">No providers seeded yet.</p>}
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         {items.map((p: any) => (
@@ -35,6 +48,7 @@ export default async function ExchangesPage() {
           </Link>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

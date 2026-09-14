@@ -1,6 +1,6 @@
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
+import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
@@ -13,28 +13,16 @@ export const metadata = buildMetadata({
 export default function HomePage() {
   return (
     <>
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-          <Eyebrow>Independent crypto research · Australia</Eyebrow>
-
-          <h1 className="mt-6 max-w-3xl font-display text-5xl font-extrabold leading-[1.02] text-navy sm:text-6xl md:text-7xl">
-            Crypto exchanges, compared with evidence.
-          </h1>
-          <p className="mt-5 max-w-xl text-lg text-muted">
-            One research platform for Australian crypto exchanges — verified facts and
-            transparent fees, never a ranking influenced by commission.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/crypto/exchanges" variant="primary">Explore exchanges</Button>
-            <Button href="/methodology" variant="secondary">Read methodology</Button>
-          </div>
-
-          <p className="mt-4 text-sm text-muted">
-            Source-linked facts &middot; Independent editorial &middot; Direct provider comparisons
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Independent crypto research · Australia"
+        title="Crypto exchanges, compared with evidence."
+        subheading="One research platform for Australian crypto exchanges — verified facts and transparent fees, never a ranking influenced by commission."
+        ctas={[
+          { label: "Explore exchanges", href: "/crypto/exchanges", variant: "gold" },
+          { label: "Read methodology", href: "/methodology", variant: "outline" },
+        ]}
+        meta={["Source-linked facts", "Independent editorial", "Direct provider comparisons"]}
+      />
 
       <section className="mx-auto max-w-6xl px-4 py-14">
         <Eyebrow>Research standard</Eyebrow>
