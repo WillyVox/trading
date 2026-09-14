@@ -1,3 +1,43 @@
+
+# Supabase set up
+    # Project name: trading-guide
+    # Database password: @Lac84890123
+    # Region Asia-Pacific
+    Link: https://supabase.com/dashboard/project/zjxycmdiymdfwacpvwsj
+
+    * Get DB Connections (Project > Connect > ORM > Prisma)
+        ```bash
+            # Connect to Postgres via the shared transaction-mode pooler (IPv4-only)
+            DATABASE_URL="postgresql://postgres.zjxycmdiymdfwacpvwsj:@Lac84890123@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+            # Connect to Postgres via the shared session-mode pooler (used for migrations)
+            DIRECT_URL="postgresql://postgres.zjxycmdiymdfwacpvwsj:@Lac84890123@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres"
+       ```
+    * `[Password]` = Your password
+
+    Then:
+    1. in .evn paste   DATABASE_URL and DIRECT_URL
+    2. schema.prisma, update
+        datasource db {
+            provider  = "postgresql"
+            url       = env("DATABASE_URL")
+            directUrl = env("DIRECT_URL")
+        }
+    3. 
+    npx prisma generate
+    npx prisma migrate dev
+    4. For production
+        npx prisma migrate deploy
+
+    # Alrernative of Supabase
+        Neon is also excellent
+        Neon is especially good if you want:
+        pure serverless Postgres;
+        branching databases;
+        very easy Vercel integration;
+        fast setup.
+        Typical env:
+        DATABASE_URL="postgresql://USER:PASSWORD@HOST/neondb?sslmode=require"
+
 # Test image
     Link: https://picsum.photos/200/300
 
