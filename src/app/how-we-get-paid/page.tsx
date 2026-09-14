@@ -9,33 +9,37 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
   title: "How We Get Paid",
-  description: "The revenue models AusMarket actually uses today, and how that's kept separate from editorial content.",
+  description:
+    "AusMarket is currently self-funded and doesn't earn commissions from providers. Here's our current funding status and how we plan to monetize in future.",
   path: "/how-we-get-paid",
 });
 
 /**
  * Content status: DRAFT, not legal-reviewed -- see docs/CONTENT-GAPS.md
- * "How We Get Paid page". CURRENT list below is deliberately restricted to
- * the two CommissionType values the schema actually models today (CPA,
- * REVSHARE -- see prisma/schema.prisma AffiliateProgram.commissionType).
- * HYBRID exists in the enum but isn't confirmed as an active model, so it's
- * omitted here rather than guessed at; add it once confirmed. Nothing in
- * FUTURE is currently built -- do not present these as active revenue.
+ * "How We Get Paid page". Rewritten 2026-09-14 to match current reality:
+ * every AffiliateLink in the seed data is active: false with
+ * commissionType NONE and partnershipStatus PROSPECT (see
+ * prisma/seed.ts seedAffiliateLinks()) -- i.e. no commercial agreement is
+ * live today. FUTURE_PLAN describes the intended model once partnerships
+ * go live; nothing in it is active yet, so don't present it as current
+ * revenue. EFFECTIVE_DATE is a placeholder -- set it to the month this
+ * page is actually published, per the source brief ("As of [Month/Year]").
  */
-const CURRENT = [
-  {
-    title: "Referral / CPA commissions",
-    body: "A one-off payment from a provider when someone we refer completes a qualifying action, such as registering or making a first deposit.",
-  },
-  {
-    title: "Revenue share",
-    body: "An ongoing share of the revenue a provider earns from a customer we referred, for as long as our agreement with that provider is in place.",
-  },
-];
+const EFFECTIVE_DATE = "[Month/Year]"; // TODO(content-gap): set on publish
 
-const FUTURE = [
-  "Sponsored or promoted placements (not sold today \u2014 see Affiliate Disclosure)",
-  "Display advertising",
+const FUTURE_PLAN = [
+  {
+    title: "Affiliate links",
+    body: "If you click on a provider link on our site and sign up or purchase a service, the provider may pay us a small referral commission.",
+  },
+  {
+    title: "Zero cost to you",
+    body: "Clicking our links will never increase your price or alter the terms offered by the provider.",
+  },
+  {
+    title: "Neutral ranking guarantee",
+    body: "Provider partnerships will never dictate ranking order, star ratings, or eligibility for our top picks.",
+  },
 ];
 
 export default function HowWeGetPaidPage() {
@@ -51,35 +55,46 @@ export default function HowWeGetPaidPage() {
       <Eyebrow>Methodology</Eyebrow>
       <h1 className="mt-4 font-display text-4xl font-extrabold text-navy">How we get paid</h1>
       <p className="mt-3 text-muted">
-        AusMarket is free to use. Here&apos;s how we currently fund the research, and how that&apos;s
-        kept separate from what we write.
+        Our goal is to help you compare crypto exchanges transparently so you can make confident
+        decisions. Here&apos;s how we&apos;re funded today, and how we plan to fund the platform
+        going forward.
       </p>
 
-      <h2 className="mt-8 font-display text-lg font-bold text-navy">Current revenue</h2>
+      <h2 className="mt-8 font-display text-lg font-bold text-navy">Current funding status</h2>
+      <Card className="mt-3">
+        <p className="text-sm leading-relaxed text-muted">
+          AusMarket is currently 100% self-funded. As of {EFFECTIVE_DATE}, we do not receive
+          compensation, referral fees, or affiliate commissions from any providers featured on
+          this platform. All product recommendations and comparisons are based solely on our
+          objective methodology and market research.
+        </p>
+      </Card>
+
+      <h2 className="mt-8 font-display text-lg font-bold text-navy">How we plan to monetize in the future</h2>
+      <p className="mt-2 text-sm text-muted">
+        To keep our platform free for users, we plan to partner with select providers through
+        commercial agreements. Here&apos;s how that will work:
+      </p>
       <div className="mt-3 flex flex-col gap-4">
-        {CURRENT.map((c) => (
-          <Card key={c.title}>
-            <h3 className="mb-1.5 font-display font-bold text-navy">{c.title}</h3>
-            <p className="text-sm text-muted">{c.body}</p>
+        {FUTURE_PLAN.map((f) => (
+          <Card key={f.title}>
+            <h3 className="mb-1.5 font-display font-bold text-navy">{f.title}</h3>
+            <p className="text-sm text-muted">{f.body}</p>
           </Card>
         ))}
       </div>
 
-      <h2 className="mt-8 font-display text-lg font-bold text-navy">Not currently used</h2>
+      <h2 className="mt-8 font-display text-lg font-bold text-navy">Our commitment to transparency</h2>
       <p className="mt-2 text-sm text-muted">
-        These are common comparison-site revenue models we don&apos;t currently use. If that changes,
-        this page will be updated first.
+        If a provider sponsors a specific section or pays for an ad placement on our site in the
+        future, it will always be explicitly labelled as &ldquo;Sponsored&rdquo; or
+        &ldquo;Advertisement.&rdquo;
       </p>
-      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted">
-        {FUTURE.map((f) => (
-          <li key={f}>{f}</li>
-        ))}
-      </ul>
 
       <h2 className="mt-8 font-display text-lg font-bold text-navy">Kept separate from editorial content</h2>
       <p className="mt-2 text-sm text-muted">
-        Which providers we cover, what we write about them, and the (alphabetical) order they appear
-        in are not influenced by which providers pay us. See our{" "}
+        Which providers we cover, what we write about them, and the (alphabetical) order they
+        appear in are not influenced by which providers pay us, today or in future. See our{" "}
         <Link href="/methodology/editorial-policy" className="text-blue underline">
           editorial policy
         </Link>{" "}

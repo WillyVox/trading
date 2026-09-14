@@ -12,17 +12,20 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "Affiliate & Advertiser Disclosure",
   description:
-    "How AusMarket earns money from provider links, and what that does and doesn't affect on this site.",
+    "AusMarket is currently self-funded and doesn't earn money from provider links. Here's our current funding status, our future affiliate plans, and what that will and won't affect on this site.",
   path: "/affiliate-disclosure",
 });
 
 /**
- * Content status: DRAFT, not legal-reviewed. Written to match what the
- * codebase actually does today (see docs/CONTENT-GAPS.md "Affiliate
- * Disclosure page" for the specific claims that still need sign-off before
- * this is production-final):
- *  - "clicks, registers, deposits, trades" -- matches AffiliateProgram's
- *    CommissionType enum (CPA / REVSHARE / HYBRID), not invented.
+ * Content status: DRAFT, not legal-reviewed. Rewritten 2026-09-14 to match
+ * what the codebase actually does today (see docs/CONTENT-GAPS.md
+ * "Affiliate Disclosure page" for the specific claims that still need
+ * sign-off before this is production-final):
+ *  - Every AffiliateLink in the seed data is active: false with
+ *    commissionType NONE and partnershipStatus PROSPECT (see
+ *    prisma/seed.ts seedAffiliateLinks()) -- there is no live commercial
+ *    relationship with any provider yet, so this page describes affiliate
+ *    links as a planned future model, not a current one.
  *  - "alphabetical, not commercially weighted" -- verified true today
  *    against src/lib/providers/service.ts (orderBy: { name: "asc" }) and
  *    src/lib/providers/compare.ts (no scoring/weighting logic exists). If
@@ -34,26 +37,28 @@ export const metadata = buildMetadata({
  */
 const SECTIONS = [
   {
-    title: "What affiliate links are",
-    body: "Some links on this site \u2014 including the \u201cVisit\u201d buttons on provider pages and links inside guides and news articles \u2014 are tracking or referral links provided by our commercial partners. Clicking one takes you to the provider's own website through a link that identifies you as coming from AusMarket.",
+    title: "Our current funding status",
+    body: "AusMarket is currently 100% self-funded. We do not receive compensation, referral fees, or affiliate commissions from any providers featured on this platform. All product recommendations and comparisons are based solely on our objective methodology and market research.",
   },
   {
-    title: "How we may earn money",
-    body: "Depending on our agreement with a provider, AusMarket may receive a payment when you click a link, register, open an account, deposit, or trade with that provider. We don't have a commercial relationship with every provider we mention or compare.",
+    title: "What affiliate links will be",
+    body: "To keep this platform free for users, we plan to partner with select providers through commercial agreements. Once that's in place, some links on this site \u2014 including the \u201cVisit\u201d buttons on provider pages and links inside guides and news articles \u2014 will become tracking or referral links, taking you to the provider's own website through a link that identifies you as coming from AusMarket.",
   },
   {
-    title: "Does it cost you more?",
-    // TODO(content-gap): confirm against every current partner agreement
-    // before stating a blanket "no extra cost" claim -- see CONTENT-GAPS.md.
-    body: "Using a link on this site does not add a fee on top of what the provider would otherwise charge you, based on our current partner agreements. Always check the provider's own fee schedule before signing up, since fees and offers can change.",
+    title: "How we plan to earn money",
+    body: "Once partnerships are in place, AusMarket may receive a referral commission when you click a provider link and sign up or purchase a service. We won't have a commercial relationship with every provider we mention or compare, and we'll update this page before any partnership goes live.",
   },
   {
-    title: "Editorial independence",
-    body: "Commercial arrangements do not affect which providers we cover or the order they appear in. Provider listings and comparison tables are sorted alphabetically \u2014 not by whether a provider pays us, how much, or how recently.",
+    title: "Zero cost to you",
+    body: "Clicking our links will never increase your price or alter the terms offered by the provider, now or once partnerships are active. Always check the provider's own fee schedule before signing up, since fees and offers can change.",
+  },
+  {
+    title: "Neutral ranking guarantee",
+    body: "Provider partnerships will never dictate ranking order, star ratings, or eligibility for our top picks. Provider listings and comparison tables are sorted alphabetically \u2014 not by whether a provider pays us, how much, or how recently.",
   },
   {
     title: "Sponsored or promoted placements",
-    body: "We don't currently sell sponsored or promoted placements. If we introduce paid placements in future, they'll be clearly labelled \u201cSponsored\u201d or \u201cPromoted\u201d directly next to the placement, and this page will be updated first.",
+    body: "We don't currently sell sponsored or promoted placements. If a provider sponsors a specific section or pays for an ad placement in future, it will always be explicitly labelled \u201cSponsored\u201d or \u201cAdvertisement\u201d directly next to the placement, and this page will be updated first.",
   },
   {
     title: "Market coverage",
@@ -84,8 +89,8 @@ export default function AffiliateDisclosurePage() {
         Affiliate &amp; advertiser disclosure
       </h1>
       <p className="mt-3 text-muted">
-        A plain-English explanation of how AusMarket earns money, and what that does and doesn&apos;t
-        affect on this site.
+        A plain-English explanation of how AusMarket is funded today, how we plan to earn money in
+        future, and what that will and won&apos;t affect on this site.
       </p>
 
       <div className="mt-8 flex flex-col gap-4">

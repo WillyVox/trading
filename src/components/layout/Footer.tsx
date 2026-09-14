@@ -68,11 +68,13 @@ export function Footer() {
             copy -- see docs/CONTENT-GAPS.md "Footer trust paragraph". */}
         <p className="mx-auto max-w-3xl text-center text-xs leading-relaxed text-background/60">
           AusMarket is an independent comparison and research service {"\u2014"} we don&apos;t hold
-          an Australian Financial Services Licence and don&apos;t provide financial advice. We may
-          earn a commission when you use a provider link on this site; this doesn&apos;t affect the
-          alphabetical order providers appear in. We don&apos;t compare every provider available in
-          Australia, and provider fees, features and regulatory status can change {"\u2014"} always
-          verify directly with the provider. Crypto assets are volatile and can lose value.
+          an Australian Financial Services Licence and don&apos;t provide financial advice. We&apos;re
+          currently 100% self-funded and don&apos;t earn commissions from providers; in future we may
+          earn a commission when you use a provider link on this site, at no extra cost to you and
+          without affecting the alphabetical order providers appear in. We don&apos;t compare every
+          provider available in Australia, and provider fees, features and regulatory status can
+          change {"\u2014"} always verify directly with the provider. Crypto assets are volatile and
+          can lose value.
         </p>
       </div>
     </footer>
