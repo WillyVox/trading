@@ -4,6 +4,18 @@ export interface Heading {
   level: 2 | 3;
 }
 
+/**
+ * "beginner-guides" -> "Beginner Guides". `Article.category` is free text
+ * (no enum), and existing content is a mix of kebab-case
+ * ("beginner-guides") and already-Title-Case ("Crypto Trading") — this is
+ * a no-op on the latter, so it's safe to apply unconditionally. Was
+ * previously duplicated inline in GuideHeader and GuideSidebar; both now
+ * import this instead.
+ */
+export function formatCategoryLabel(category: string): string {
+  return category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Heading } from "@/lib/articles/content";
+import { formatCategoryLabel, type Heading } from "@/lib/articles/content";
 import { GuideTableOfContents } from "./GuideTableOfContents";
 
 export function GuideSidebar({
@@ -22,7 +22,7 @@ export function GuideSidebar({
             {category && (
               <div className="flex justify-between gap-2">
                 <dt>Category</dt>
-                <dd className="text-navy">{category.replace(/-/g, " ")}</dd>
+                <dd className="text-navy">{formatCategoryLabel(category)}</dd>
               </div>
             )}
             {readingMinutes > 0 && (

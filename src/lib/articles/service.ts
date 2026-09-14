@@ -25,6 +25,23 @@ export function getPublishedArticles(opts: { page?: number; pageSize?: number; a
 }
 
 /**
+ * Distinct, non-null categories in use among published articles of the
+ * given type — powers the category filter on /guides (and, if adopted
+ * later, /news). Reads live from the data rather than a hardcoded list,
+ * so a new category an editor starts using shows up automatically and a
+ * retired one disappears once nothing published still uses it.
+ */
+export async function getArticleCategories(articleType: ArticleType): Promise<string[]> {
+  const rows = await prisma.article.findMany({
+    where: { status: "PUBLISHED", articleType, category: { not: null } },
+    distinct: ["category"],
+    select: { category: true },
+    orderBy: { category: "asc" },
+  });
+  return rows.map((r) => r.category).filter((c): c is string => Boolean(c));
+}
+
+/**
  * Full family of regional variants for hreflang, regardless of whether the
  * given article is the global/default version or a regional variant
  * itself. Returns the global article plus every variant, each with its

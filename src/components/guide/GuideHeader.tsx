@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/Badge";
+import { formatCategoryLabel } from "@/lib/articles/content";
 
 function formatDate(date: Date | string) {
   return new Date(date).toLocaleDateString("en-AU", { year: "numeric", month: "long", day: "numeric" });
@@ -32,9 +33,7 @@ export function GuideHeader({
 
   return (
     <header>
-      {category && (
-        <Badge tone="gold">{category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}</Badge>
-      )}
+      {category && <Badge tone="gold">{formatCategoryLabel(category)}</Badge>}
       <h1 className="mt-3 font-display text-3xl font-extrabold text-navy sm:text-4xl">{title}</h1>
       {excerpt && <p className="mt-3 text-lg text-muted">{excerpt}</p>}
 
