@@ -1,8 +1,9 @@
 import { notFound, redirect } from "next/navigation";
-import { getProvidersBySlugs } from "@/lib/providers/service";
+import { getProviders, getProvidersBySlugs } from "@/lib/providers/service";
 import { buildComparisonSections } from "@/lib/providers/compare";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
+import { CompareSelector } from "@/components/compare/CompareSelector";
 import { canonicalCompareSlugMulti } from "@/lib/seo/canonical";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -65,6 +66,11 @@ export default async function CompareDetailPage({ params }: { params: Promise<{ 
   // 404 -- including when only some of several requested slugs exist.
   if (providers.length !== slugs.length) notFound();
 
+  // Full provider list for "Build your own comparison" below -- lets
+  // someone swap in a third exchange or replace one of these two without
+  // going back to /compare and re-picking from scratch.
+  const { items: allProviders } = await getProviders({ pageSize: 100 });
+
   const sections = buildComparisonSections(providers as any);
 
   const trail = breadcrumbTrail([
@@ -92,6 +98,11 @@ export default async function CompareDetailPage({ params }: { params: Promise<{ 
         <CompareTable providers={providers as any} sections={sections} />
         <CompareMobileCards providers={providers as any} sections={sections} />
       </div>
+
+      <CompareSelector
+        providers={allProviders.map((p: any) => ({ id: p.id, slug: p.slug, name: p.name }))}
+        initialSelected={slugs}
+      />
       </div>
     </>
   );

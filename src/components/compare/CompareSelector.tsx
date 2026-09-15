@@ -12,9 +12,19 @@ type SelectableProvider = { id: string; slug: string; name: string };
  * resulting slug order doesn't matter: /compare/[slug] canonicalizes and
  * redirects regardless (see src/lib/seo/canonical.ts).
  */
-export function CompareSelector({ providers }: { providers: SelectableProvider[] }) {
+export function CompareSelector({
+  providers,
+  initialSelected = [],
+}: {
+  providers: SelectableProvider[];
+  /** Slugs to pre-check on mount -- e.g. the providers already shown on
+   * the comparison page this selector is rendered on, so the user can
+   * add/swap a provider without re-ticking the ones they're already
+   * viewing. */
+  initialSelected?: string[];
+}) {
   const router = useRouter();
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>(initialSelected);
 
   function toggle(slug: string) {
     setSelected((prev) => (prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]));

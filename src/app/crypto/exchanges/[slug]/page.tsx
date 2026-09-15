@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getProviderBySlug, getRelatedContentForProvider } from "@/lib/providers/service";
+import { getProviderBySlug, getProviders, getRelatedContentForProvider } from "@/lib/providers/service";
 import { getActiveAffiliateLink } from "@/lib/affiliates/service";
 import { groupFeatures, type ProviderFeatureRow } from "@/lib/providers/features";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
+// import { CompareSelector } from "@/components/compare/CompareSelector";
 import { Card } from "@/components/ui/Card";
 import { ProviderFeatureSection } from "@/components/providers/ProviderFeatureSection";
 import { ProviderProsCons } from "@/components/providers/ProviderProsCons";
@@ -44,10 +45,18 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
   const { slug } = await params;
   const provider = await getProviderBySlug(slug);
   if (!provider) notFound();
-  const [link, relatedContent] = await Promise.all([
+  const [link, relatedContent, comparablesResult] = await Promise.all([
     getActiveAffiliateLink(slug),
     getRelatedContentForProvider(provider.id),
+    // Same providerType only, per product decision -- if this provider has
+    // no providerType set, getProviders() returns the unfiltered pool (see
+    // its opts.providerType ternary), so that edge case surfaces as "compare
+    // with everyone" rather than an empty list.
+    provider.providerType ? getProviders({ providerType: provider.providerType }) : getProviders(),
   ]);
+  const comparableProviders = comparablesResult.items
+    .filter((p: any) => p.slug !== slug)
+    .map((p: any) => ({ id: p.id, slug: p.slug, name: p.name }));
 
   const featureGroups = groupFeatures(provider.features as ProviderFeatureRow[]);
 
@@ -70,9 +79,12 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
       <div className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
           <ProviderLogo logo={provider.logo} name={provider.name} size="lg" />
-          <h2 className="truncate font-display text-lg font-bold text-navy">{provider.name}</h2>
+          <div className="min-w-0">
+            <h2 className="truncate font-display text-lg font-bold text-navy">{provider.name}</h2>
+            <VerificationBadge status={provider.verificationStatus} />
+          </div>
         </div>
-        <VerificationBadge status={provider.verificationStatus} />
+        {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} variant="compact" showDisclosure={false} />}
       </div>
 
       <Card className="mt-8">
@@ -138,11 +150,10 @@ export default async function ExchangeProfilePage({ params }: { params: Promise<
         </Card>
       )}
 
-      {/* showDisclosure defaults to true: this is the only AffiliateCTA on the
-          page, so — unlike RelatedProviders/RelatedNews sections that render
-          several cards under one shared <AffiliateDisclosure /> — it must
-          carry its own disclosure rather than none at all. */}
-      {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} showDisclosure={false}/>}
+      {/* The hero's compact AffiliateCTA above renders showDisclosure={false} --
+          this is the one AffiliateCTA on the page that actually shows the
+          disclosure, so it must stay true rather than false. */}
+      {/* {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} showDisclosure={true} />} */}
 
       <RelatedGuides guides={relatedContent.guides} />
       <RelatedNews items={relatedContent.news} />

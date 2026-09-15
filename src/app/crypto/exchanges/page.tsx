@@ -25,7 +25,7 @@ export default async function ExchangesPage() {
       <PageHero
         breadcrumbs={trail}
         eyebrow="Exchange profiles"
-        title="Compare crypto exchanges in Australia"
+        title="Cryptocurency exchanges in Australia"
         subheading="Verified fees, features, and regulatory status for every exchange we cover."
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
