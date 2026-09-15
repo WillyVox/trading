@@ -4,18 +4,21 @@ import { prisma } from "@/lib/prisma";
 import { scanArticleDirectory, ensureImportDirectories } from "@/lib/articles/import/scanner";
 import { parseArticleFile } from "@/lib/articles/import/parser";
 import { upsertArticleCore, previewOutcome } from "@/lib/articles/import/importer";
+import { resolveFallbackFeaturedImage } from "@/lib/articles/import/featured-image";
 import { resolveRelationships, previewRelationshipWarnings } from "@/lib/articles/import/relationships";
 import { moveToProcessed } from "@/lib/articles/import/file-mover";
 import { printHeader, printFileResult, printSummary } from "@/lib/articles/import/reporter";
 import type { ArticleImportPayload, ImportResult } from "@/lib/articles/import/types";
 
 const PUBLISH_DIR = path.resolve(process.cwd(), "publish_article");
+const PUBLIC_DIR = path.resolve(process.cwd(), "public");
 
 interface CliArgs {
   dryRun: boolean;
   file?: string;
   verbose: boolean;
   allowProduction: boolean;
+  noAutoImage: boolean;
 }
 
 function parseArgs(argv: string[]): CliArgs {
@@ -23,6 +26,7 @@ function parseArgs(argv: string[]): CliArgs {
     dryRun: argv.includes("--dry-run"),
     verbose: argv.includes("--verbose"),
     allowProduction: argv.includes("--allow-production"),
+    noAutoImage: argv.includes("--no-auto-image"),
     file: (() => {
       const idx = argv.indexOf("--file");
       return idx !== -1 ? argv[idx + 1] : undefined;
@@ -82,6 +86,14 @@ async function main() {
           dryRun: args.dryRun,
         });
         continue;
+      }
+
+      if (!args.noAutoImage) {
+        const imageWarning = await resolveFallbackFeaturedImage(parsed.payload, {
+          dryRun: args.dryRun,
+          publicDir: PUBLIC_DIR,
+        });
+        if (imageWarning) parsed.warnings.push(imageWarning);
       }
 
       if (args.verbose) {

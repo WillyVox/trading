@@ -22,6 +22,12 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/crypto",
     "/crypto/exchanges",
     "/guides",
+    // Statically-authored guides in app/(guides) — not DB-backed, so they
+    // aren't covered by guideEntries() below and need to be listed here
+    // like every other static route.
+    "/share-trading-for-beginners",
+    "/simple-steps-to-buy-cryptocurrency",
+    "/how-to-start-investing-in-crypto-for-beginners",
     "/compare",
     "/compare/crypto-exchanges",
     "/news",

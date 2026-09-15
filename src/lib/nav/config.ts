@@ -32,13 +32,9 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "Guides",
     children: [
-      { label: "How to buy Cryptocurrencies", href: "/guides/how-to-buy-bitcoin" },
-      // Closest existing match for a beginner "how to start investing"
-      // overview — there's no dedicated investing-101 guide yet.
-      { label: "How to Start Investing in Crypto for Beginners", href: "/guides/bitcoin-price-volatility-beginners-guide" },
-      // No share-trading content exists yet (crypto-only site today) —
-      // honest "coming soon" page rather than a dead link or thin filler.
-      { label: "Share trading for Beginners", href: "/guides/share-trading-for-beginners" },
+      { label: "5 Simple Steps to Buy Cryptocurrency", href: "/simple-steps-to-buy-cryptocurrency" },
+      { label: "How to Start Investing in Crypto for Beginners", href: "/how-to-start-investing-in-crypto-for-beginners" },
+      { label: "Share Trading for Beginners", href: "/share-trading-for-beginners" },
       { label: "View all guides →", href: "/guides" },
     ],
   },

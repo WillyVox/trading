@@ -105,9 +105,9 @@ as the primary educational hub.
 
 Examples:
 
-`/guides/how-to-buy-bitcoin-australia`
+`/how-to-buy-bitcoin-australia`
 
-`/guides/how-to-open-crypto-account-australia`
+`/how-to-open-crypto-account-australia`
 
 This avoids introducing another content system.
 

@@ -72,3 +72,52 @@ export function articleSchema(input: ArticleSchemaInput) {
 export function newsArticleSchema(input: ArticleSchemaInput) {
   return { ...articleSchema(input), "@type": "NewsArticle" };
 }
+
+/**
+ * FAQPage schema — only ever build this from question/answer pairs that
+ * are actually rendered as visible page copy (same rule as every other
+ * builder in this file: no fabricated content). `answer` should be plain
+ * text — strip any markup before passing it in.
+ */
+export function faqSchema(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+/**
+ * HowTo schema for numbered step-by-step guides (see the "simple steps to
+ * buy cryptocurrency" guide). `step.name` should mirror the on-page H2 for
+ * that step so the schema never claims more than the visible content.
+ */
+export function howToSchema(input: {
+  name: string;
+  description?: string | null;
+  image?: string | null;
+  totalTime?: string; // ISO 8601 duration, e.g. "PT10M"
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: input.name,
+    ...(input.description ? { description: input.description } : {}),
+    ...(input.image ? { image: [input.image.startsWith("http") ? input.image : absoluteUrl(input.image)] } : {}),
+    ...(input.totalTime ? { totalTime: input.totalTime } : {}),
+    step: input.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}

@@ -86,3 +86,13 @@ export function estimateReadingMinutes(html: string): number {
   if (words === 0) return 0;
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 }
+
+/**
+ * Rough reading-time estimate for statically-authored (non-HTML) guide
+ * copy, at the same ~200 wpm rate the DB-driven renderer uses. Pass plain
+ * text (e.g. every paragraph/heading string concatenated) — no markup to
+ * strip here since static guides are hand-written JSX, not sanitized HTML.
+ */
+export function estimateReadingMinutesByWordCount(wordCount: number): number {
+  return Math.max(1, Math.round(wordCount / 200));
+}
