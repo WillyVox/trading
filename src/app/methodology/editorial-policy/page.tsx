@@ -13,6 +13,7 @@ export const metadata = buildMetadata({
   description:
     "Trading Guide's editorial standards: sourcing requirements, author and reviewer sign-off, fact-check review cycles, and how affiliate relationships are kept separate from coverage.",
   path: "/methodology/editorial-policy",
+  image: "/images/og/editorial-policy.png",
 });
 
 /**

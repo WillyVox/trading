@@ -13,6 +13,7 @@ export const metadata = buildMetadata({
   description:
     "A single, always-current comparison of every crypto exchange in our Provider domain \u2014 fees, features, and verified facts side by side.",
   path: "/compare/crypto-exchanges",
+  image: "/images/og/compare-crypto-exchanges.png",
 });
 
 /**

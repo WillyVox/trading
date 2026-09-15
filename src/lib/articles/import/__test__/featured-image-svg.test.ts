@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { pickConcept, buildFeaturedImageSvg } from "../featured-image-svg";
+import { pickConcept, buildFeaturedImageSvg, buildBrandOgImage } from "../featured-image-svg";
 
 test("pickConcept prefers searchIntent over articleType", () => {
   assert.equal(pickConcept({ searchIntent: "HOW_TO", articleType: "NEWS" }), "steps");
@@ -43,4 +43,10 @@ test("buildFeaturedImageSvg never embeds a currency glyph, only A-Z monograms", 
   const svg = buildFeaturedImageSvg({ searchIntent: "HOW_TO", cryptoAssetSlugs: ["ethereum"] });
   assert.doesNotMatch(svg, /[\u20BF\u039E]/); // no ₿ (U+20BF) or Ξ (U+039E)
   assert.match(svg, />E<\/text>/);
+});
+test("buildBrandOgImage produces a well-formed SVG with no topic motif", () => {
+  const svg = buildBrandOgImage();
+  assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" width="1200" height="630"/);
+  assert.match(svg, /Trading Guide/);
+  assert.match(svg, /<\/svg>$/);
 });

@@ -9,6 +9,7 @@ export const metadata = buildMetadata({
   title: "Trading News | Educational Materials | Trading Guides - TradingGuide",
   description: "Current crypto market and regulatory news relevant to Australian users.",
   path: "/news",
+  image: "/images/og/news.png",
 });
 
 export default async function NewsPage() {

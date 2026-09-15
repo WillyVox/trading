@@ -12,6 +12,7 @@ export const metadata = buildMetadata({
   title: "Crypto Guides Australia \u2014 How-To & Educational Articles",
   description: "Step-by-step crypto guides for Australians \u2014 buying, wallets, fees, and how exchanges work.",
   path: "/guides",
+  image: "/images/og/guides.png",
 });
 
 export default async function GuidesPage({

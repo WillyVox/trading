@@ -209,3 +209,45 @@ export function buildFeaturedImageSvg(
   ${badge ? coinBadge(badge) : ""}
 </svg>`;
 }
+
+/**
+ * The sitewide `og-default.png` fallback (see buildMetadata in
+ * src/lib/seo/metadata.ts) — used only when a page sets no `image` at all.
+ * Deliberately just the logo mark, centered and large, rather than any of
+ * the 7 topic concepts above: a page generic enough to need the fallback
+ * (currently /terms and /privacy) shouldn't get a topic it isn't about.
+ * Mirrors public/header-logo.svg's icon proportions, scaled up.
+ */
+export function buildBrandOgImage(): string {
+  const iconScale = 4.4;
+  const barsLocal = [
+    { x: 0, y: 16, w: 9, h: 24, fill: GOLD },
+    { x: 13, y: 4, w: 9, h: 36, fill: CREAM },
+    { x: 26, y: 20, w: 9, h: 20, fill: GOLD },
+    { x: 39, y: -6, w: 9, h: 46, fill: CREAM },
+  ];
+  const iconWidth = 48 * iconScale;
+  const wordFontSize = 64;
+  // Rough Georgia-bold average-advance estimate, same purpose as the width
+  // guard in the header-logo generation scripts: just needs to be in the
+  // right neighborhood to center the lockup, not pixel-exact.
+  const wordWidth = "Trading Guide".length * wordFontSize * 0.52;
+  const gap = 28;
+  const lockupWidth = iconWidth + gap + wordWidth;
+  const iconX = (W - lockupWidth) / 2;
+  const wordX = iconX + iconWidth + gap;
+  const centerY = H / 2;
+
+  const bars = barsLocal
+    .map(
+      (b) =>
+        `<rect x="${iconX + b.x * iconScale}" y="${centerY - 23 * iconScale + b.y * iconScale}" width="${b.w * iconScale}" height="${b.h * iconScale}" fill="${b.fill}" />`
+    )
+    .join("\n");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <rect width="${W}" height="${H}" fill="${NAVY}" />
+  ${bars}
+  <text x="${wordX}" y="${centerY + wordFontSize * 0.32}" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="${wordFontSize}" fill="${CREAM}">Trading Guide</text>
+</svg>`;
+}

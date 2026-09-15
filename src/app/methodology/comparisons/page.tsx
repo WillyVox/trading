@@ -12,6 +12,7 @@ export const metadata = buildMetadata({
   description:
     "How Trading Guide's comparison tables are generated from live provider records, what \u201cNot verified\u201d means, and how providers are ordered.",
   path: "/methodology/comparisons",
+  image: "/images/og/methodology-comparisons.png",
 });
 
 /**

@@ -10,6 +10,7 @@ export const metadata = buildMetadata({
   title: "Compare Crypto Exchanges Australia \u2014 Fees & Features",
   description: "Side-by-side Australian crypto exchange comparisons, generated from verified provider data.",
   path: "/compare",
+  image: "/images/og/compare.png",
 });
 
 export const dynamic = "force-dynamic";

@@ -11,6 +11,7 @@ export const metadata = buildMetadata({
   title: "Methodology \u2014 How We Verify Crypto Exchange Research",
   description: "How Trading Guide sources, verifies, and labels crypto exchange facts \u2014 evidence standards and editorial policy.",
   path: "/methodology",
+  image: "/images/og/methodology.png",
 });
 
 const PRINCIPLES = [

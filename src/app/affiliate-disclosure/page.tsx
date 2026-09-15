@@ -14,6 +14,7 @@ export const metadata = buildMetadata({
   description:
     "Trading Guide is currently self-funded and doesn't earn money from provider links. Here's our current funding status, our future affiliate plans, and what that will and won't affect on this site.",
   path: "/affiliate-disclosure",
+  image: "/images/og/affiliate-disclosure.png",
 });
 
 /**

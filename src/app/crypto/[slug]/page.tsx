@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       asset.description ??
       `${asset.name} (${asset.symbol}) explained \u2014 how it works, where to buy it in Australia, and related guides.`,
     path: `/crypto/${slug}`,
+    image: "/images/og/crypto-asset.png",
   });
 }
 

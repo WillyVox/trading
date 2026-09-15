@@ -8,6 +8,7 @@ export const metadata = buildMetadata({
   description:
     "Independent, source-linked crypto exchange comparisons and guides for Australia \u2014 verified facts and transparent fees, never a ranking influenced by commission.",
   path: "/",
+  image: "/images/og/home.png",
 });
 
 export default function HomePage() {

@@ -9,6 +9,7 @@ export const metadata = buildMetadata({
   description:
     "Source-linked exchange research, verification status, and comparisons for the Australian crypto market.",
   path: "/crypto",
+  image: "/images/og/crypto.png",
 });
 
 export default function CryptoPage() {
