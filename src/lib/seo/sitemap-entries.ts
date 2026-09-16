@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import type { ArticleType } from "@prisma/client";
+import type { ArticleType, ProviderType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl } from "./config";
 
@@ -71,8 +71,15 @@ export async function newsEntries(): Promise<MetadataRoute.Sitemap> {
 }
 
 export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
+  // Hardcoded to /crypto/exchanges/ below, so this MUST stay scoped to
+  // CRYPTO_EXCHANGE providers only. Provider.providerType also has BROKER /
+  // MULTI_ASSET_BROKER / TRADING_PLATFORM values for the planned
+  // share-trading pillar — once a /share-trading/[slug] (or similar) route
+  // exists, add a sibling brokerEntries() with its own URL prefix rather
+  // than widening this filter, or every non-exchange provider will get a
+  // sitemap URL that 404s.
   const providers = await prisma.provider.findMany({
-    where: { noIndex: false },
+    where: { noIndex: false, providerType: "CRYPTO_EXCHANGE" satisfies ProviderType },
     select: { slug: true, updatedAt: true },
   });
   return providers.map((p) => ({

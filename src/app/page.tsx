@@ -5,19 +5,19 @@ import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
-  title: "Trading Guide \u2014 Independent Crypto Exchange & Trading Platform Research for Australia",
+  title: "Trading Guide \u2014 Independent Research for Australian Trading Platforms",
   description:
-    "Independent, source-linked crypto exchange comparisons and guides for Australia \u2014 verified facts and transparent fees, never a ranking influenced by commission.",
+    "Independent, source-linked research and comparisons for share trading and cryptocurrency platforms in Australia \u2014 verified facts and transparent fees.",
   path: "/",
 });
 
 const researchStandardLinks = [
   {
-    href: "/crypto/exchanges",
-    tagLabel: "EXCHANGES",
+    href: "/guides",
+    tagLabel: "GUIDES",
     tagClassName: "border-blue/30 bg-blue/10 text-blue",
-    title: "Provider profiles",
-    description: "Structured facts, fees, and sources per exchange.",
+    title: "Trading guides",
+    description: "Editorial content, kept structurally separate from affiliate data.",
   },
   {
     href: "/compare/crypto-exchanges",
@@ -27,11 +27,11 @@ const researchStandardLinks = [
     description: "Generated live from the same provider dataset.",
   },
   {
-    href: "/guides",
-    tagLabel: "GUIDES",
+    href: "/crypto/exchanges",
+    tagLabel: "EXCHANGES",
     tagClassName: "border-blue/30 bg-blue/10 text-blue",
-    title: "Guides & news",
-    description: "Editorial content, kept structurally separate from affiliate data.",
+    title: "Exchanges profiles",
+    description: "Structured facts, fees, and sources per exchange.",
   },
 ] as const;
 
@@ -39,11 +39,11 @@ export default function HomePage() {
   return (
     <>
       <PageHero
-        eyebrow="Independent crypto & share trading research · Australia"
-        title="Crypto exchanges, compared with evidence."
-        subheading="One research platform for Australian crypto exchanges — verified facts and transparent fees, never a ranking influenced by commission."
+        eyebrow="Independent trading research · Australia"
+        title="Understand trading before you choose a platform."
+        subheading="Beginner-friendly guides and source-linked research for share trading and cryptocurrency in Australia — verified facts and transparent fees."
         ctas={[
-          { label: "Explore exchanges", href: "/crypto/exchanges", variant: "gold" },
+          { label: "Explore crypto exchanges", href: "/crypto/exchanges", variant: "gold" },
           { label: "Read methodology", href: "/methodology", variant: "outline" },
         ]}
         meta={["Source-linked facts", "Independent editorial", "Direct provider comparisons"]}
