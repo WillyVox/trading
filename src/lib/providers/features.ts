@@ -51,3 +51,33 @@ export function groupFeatures(features: ProviderFeatureRow[]): Record<ProviderFe
   }
   return groups;
 }
+
+/**
+ * Human-readable label for a feature row. Prefers the admin-set `label`
+ * override (e.g. Swyftx's RECURRING_BUYS -> "Auto Invest" in the seed) --
+ * only falls back to formatting the raw enum name when no override is set.
+ */
+const FEATURE_TYPE_LABELS: Partial<Record<ProviderFeatureType, string>> = {
+  AUD_DEPOSITS: "AUD deposits",
+  AUD_WITHDRAWALS: "AUD withdrawals",
+  PAYID: "PayID",
+  BANK_TRANSFER: "Bank transfer",
+  CARD_DEPOSIT: "Card deposit",
+  MOBILE_APP: "Mobile app",
+  WEB_PLATFORM: "Web platform",
+  LIMIT_ORDERS: "Limit orders",
+  MARKET_ORDERS: "Market orders",
+  STOP_ORDERS: "Stop orders",
+  RECURRING_BUYS: "Recurring buys",
+  STAKING: "Staking",
+  API_ACCESS: "API access",
+  ADVANCED_CHARTING: "Advanced charting",
+  TWO_FACTOR_AUTH: "Two-factor auth",
+  COLD_STORAGE: "Cold storage",
+  SMSF_SUPPORT: "SMSF support",
+  OTC_DESK: "OTC desk",
+};
+
+export function formatFeatureLabel(featureType: ProviderFeatureType, label?: string | null): string {
+  return label || FEATURE_TYPE_LABELS[featureType] || featureType;
+}

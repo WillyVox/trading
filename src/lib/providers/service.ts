@@ -1,4 +1,5 @@
 import type { ProviderType } from "@prisma/client";
+import { ProviderType as ProviderTypeVal } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { providerRepository } from "@/lib/repository";
 
@@ -8,6 +9,33 @@ export function getProviders(opts: { page?: number; pageSize?: number; providerT
     orderBy: { name: "asc" },
     page: opts.page,
     pageSize: opts.pageSize,
+  });
+}
+
+/**
+ * Homepage "Featured providers" section. Deliberately narrow: only
+ * VERIFIED providers (not just any provider with noIndex: false), because
+ * this is the one place on the site making an implicit "we stand behind
+ * this" claim without a full fact/fee breakdown next to it. Unverified or
+ * placeholder providers (see prisma/seed-providers.ts, e.g. Kraken) should
+ * never surface here even once they're indexable elsewhere on the site.
+ */
+export async function getFeaturedProviders(limit = 3) {
+  return await providerRepository.findMany({
+    where: {
+      providerType: ProviderTypeVal.CRYPTO_EXCHANGE,
+      verificationStatus: "VERIFIED",
+      noIndex: false,
+    },
+    orderBy: { name: "asc" },
+    take: limit,
+    include: {
+      features: {
+        where: { available: true, verificationStatus: "VERIFIED" },
+        orderBy: { featureType: "asc" },
+        take: 2,
+      },
+    },
   });
 }
 
