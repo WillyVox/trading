@@ -1,0 +1,212 @@
+{
+  "name": "CoinSpot",
+  "slug": "coinspot",
+  "website": "https://www.coinspot.com.au",
+  "description": "Australian cryptocurrency platform offering Instant Buy/Sell/Swap, Markets and OTC trading, with AUD funding including PayID and Direct Deposit.",
+  "providerType": "CRYPTO_EXCHANGE",
+  "jurisdictions": ["AU"],
+  "verificationStatus": "VERIFIED",
+  "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+  "assetSymbols": ["BTC", "ETH", "SOL"],
+  "logo": "/images/providers/coinspot.svg",
+  "facts": [
+    {
+      "label": "Headquarters / Market",
+      "value": "Australia",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "label": "AUD Support",
+      "value": "Yes",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "label": "Platform Type",
+      "value": "Centralised cryptocurrency platform with instant trading, Markets and OTC",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "label": "Operating entity",
+      "value": "Casey Block Services Pty Ltd (ACN 619 574 186), trading as CoinSpot",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/public/CoinSpot%20Mastercard%20FSG.pdf?v=410",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ],
+  "fees": [
+    {
+      "feeType": "TRADING",
+      "label": "Markets order-book fee",
+      "valueType": "PERCENTAGE",
+      "percentage": 0.1,
+      "displayValue": "0.1%",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "feeType": "INSTANT_BUY",
+      "label": "Instant Buy / Sell / Swap fee",
+      "valueType": "PERCENTAGE",
+      "percentage": 1.0,
+      "displayValue": "1%",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "feeType": "OTHER",
+      "label": "OTC desk fee",
+      "valueType": "PERCENTAGE",
+      "percentage": 0.1,
+      "displayValue": "0.1%",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "feeType": "FIAT_DEPOSIT",
+      "label": "AUD PayID / Direct Deposit fee",
+      "valueType": "FREE",
+      "displayValue": "Free",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "feeType": "FIAT_DEPOSIT",
+      "label": "AUD card deposit fee",
+      "valueType": "PERCENTAGE",
+      "percentage": 1.22,
+      "displayValue": "1.22%",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "feeType": "WITHDRAWAL",
+      "label": "Crypto withdrawal fee",
+      "valueType": "VARIABLE",
+      "displayValue": "A flat transaction/mining fee applies; current amount is shown on the relevant wallet page",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ],
+  "features": [
+    {
+      "featureType": "AUD_DEPOSITS",
+      "available": true,
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "AUD_WITHDRAWALS",
+      "available": true,
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "PAYID",
+      "available": true,
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "BANK_TRANSFER",
+      "available": true,
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "RECURRING_BUYS",
+      "available": true,
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "OTC_DESK",
+      "available": true,
+      "sourceUrl": "https://www.coinspot.com.au/otc",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ],
+  "prosCons": [
+    {
+      "type": "PRO",
+      "label": "Markets and OTC trading are priced at 0.1%",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "type": "PRO",
+      "label": "PayID and Direct Deposit are fee-free and AUD bank withdrawals are free",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "type": "LIMITATION",
+      "label": "Instant Buy/Sell/Swap costs 1%, compared with 0.1% for Markets orders",
+      "sourceUrl": "https://www.coinspot.com.au/fees",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ],
+  "sources": [
+    {
+      "label": "Official website",
+      "url": "https://www.coinspot.com.au",
+      "sourceType": "OFFICIAL_WEBSITE"
+    },
+    {
+      "label": "Official fees",
+      "url": "https://www.coinspot.com.au/fees",
+      "sourceType": "OFFICIAL_FEES"
+    },
+    {
+      "label": "Official Financial Services Guide",
+      "url": "https://www.coinspot.com.au/public/CoinSpot%20Mastercard%20FSG.pdf?v=410",
+      "sourceType": "OFFICIAL_WEBSITE"
+    }
+  ],
+  "regulations": [
+    {
+      "jurisdiction": "AU",
+      "regulator": "AUSTRAC",
+      "status": "Registered Australian digital currency exchange / virtual asset service provider; verify current public-register wording before display",
+      "sourceUrl": "https://www.coinspot.com.au",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "jurisdiction": "AU",
+      "regulator": "ASIC",
+      "status": "Casey Block Services Pty Ltd holds AFSL 562554 for financial services described in CoinSpot's FSG; do not imply the AFSL covers all spot-crypto exchange services",
+      "sourceUrl": "https://www.coinspot.com.au/public/CoinSpot%20Mastercard%20FSG.pdf?v=410",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ]
+}

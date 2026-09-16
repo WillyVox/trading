@@ -1,0 +1,994 @@
+[
+  {
+    "name": "BTC Markets",
+    "slug": "btc-markets",
+    "website": "https://www.btcmarkets.net",
+    "description": "Australian cryptocurrency exchange offering Advanced Trade/order-book markets and Quick Buy/Sell, with AUD funding, mobile trading and API access.",
+    "providerType": "CRYPTO_EXCHANGE",
+    "jurisdictions": ["AU"],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
+    "logo": "/images/providers/btc-markets.svg",
+    "facts": [
+      {
+        "label": "Headquarters / Market",
+        "value": "Australia",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "AUD Support",
+        "value": "Yes",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Platform Type",
+        "value": "Centralised cryptocurrency exchange",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Trading interfaces",
+        "value": "Advanced Trade/order book and Quick Buy/Sell",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "fees": [
+      {
+        "feeType": "TRADING",
+        "label": "AUD/USDT exchange trading fee",
+        "valueType": "TIERED",
+        "percentage": 0.85,
+        "displayValue": "0.85% at the lowest volume tier, decreasing to 0.10% above $5m rolling 30-day volume",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "MAKER",
+        "label": "BTC-pair maker fee",
+        "valueType": "PERCENTAGE",
+        "percentage": -0.05,
+        "displayValue": "-0.05% maker rebate for supported BTC market pairs",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "TAKER",
+        "label": "BTC-pair taker fee",
+        "valueType": "PERCENTAGE",
+        "percentage": 0.2,
+        "displayValue": "0.20% for supported BTC market pairs",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "SPREAD",
+        "label": "Quick Buy/Sell spread",
+        "valueType": "VARIABLE",
+        "displayValue": "Variable spread included in quoted price; no additional Quick Buy/Sell trading fee",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "AUD_DEPOSITS",
+        "available": true,
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.btcmarkets.net",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "API_ACCESS",
+        "available": true,
+        "sourceUrl": "https://docs.btcmarkets.net/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "TWO_FACTOR_AUTH",
+        "available": true,
+        "sourceUrl": "https://www.btcmarkets.net",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "COLD_STORAGE",
+        "available": true,
+        "sourceUrl": "https://www.btcmarkets.net/institutional",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "Offers Advanced Trade/order-book trading plus simpler Quick Buy/Sell pricing",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Lowest-volume AUD/USDT exchange trading tier is 0.85%",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Quick Buy/Sell pricing includes a variable spread rather than using the Advanced Trade fee schedule",
+        "sourceUrl": "https://www.btcmarkets.net/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Official website",
+        "url": "https://www.btcmarkets.net",
+        "sourceType": "OFFICIAL_WEBSITE"
+      },
+      {
+        "label": "Official fee schedule",
+        "url": "https://www.btcmarkets.net/fees",
+        "sourceType": "OFFICIAL_FEES"
+      },
+      {
+        "label": "Official regulation information",
+        "url": "https://www.btcmarkets.net/regulation",
+        "sourceType": "OFFICIAL_WEBSITE"
+      }
+    ],
+    "regulations": [
+      {
+        "jurisdiction": "AU",
+        "regulator": "AUSTRAC",
+        "status": "Registered with AUSTRAC as a virtual asset service provider; BTC Markets also describes itself as a registered Digital Currency Exchange",
+        "sourceUrl": "https://www.btcmarkets.net/regulation",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "name": "CoinSpot",
+    "slug": "coinspot",
+    "website": "https://www.coinspot.com.au",
+    "description": "Australian cryptocurrency platform offering Instant Buy/Sell/Swap, Markets and OTC trading, with AUD funding including PayID and Direct Deposit.",
+    "providerType": "CRYPTO_EXCHANGE",
+    "jurisdictions": ["AU"],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "assetSymbols": ["BTC", "ETH", "SOL"],
+    "logo": "/images/providers/coinspot.svg",
+    "facts": [
+      {
+        "label": "Headquarters / Market",
+        "value": "Australia",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "AUD Support",
+        "value": "Yes",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Platform Type",
+        "value": "Centralised cryptocurrency platform with instant trading, Markets and OTC",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Operating entity",
+        "value": "Casey Block Services Pty Ltd (ACN 619 574 186), trading as CoinSpot",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/public/CoinSpot%20Mastercard%20FSG.pdf?v=410",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "fees": [
+      {
+        "feeType": "TRADING",
+        "label": "Markets order-book fee",
+        "valueType": "PERCENTAGE",
+        "percentage": 0.1,
+        "displayValue": "0.1%",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "INSTANT_BUY",
+        "label": "Instant Buy / Sell / Swap fee",
+        "valueType": "PERCENTAGE",
+        "percentage": 1.0,
+        "displayValue": "1%",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "OTHER",
+        "label": "OTC desk fee",
+        "valueType": "PERCENTAGE",
+        "percentage": 0.1,
+        "displayValue": "0.1%",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "FIAT_DEPOSIT",
+        "label": "AUD PayID / Direct Deposit fee",
+        "valueType": "FREE",
+        "displayValue": "Free",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "FIAT_DEPOSIT",
+        "label": "AUD card deposit fee",
+        "valueType": "PERCENTAGE",
+        "percentage": 1.22,
+        "displayValue": "1.22%",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "WITHDRAWAL",
+        "label": "Crypto withdrawal fee",
+        "valueType": "VARIABLE",
+        "displayValue": "A flat transaction/mining fee applies; current amount is shown on the relevant wallet page",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "AUD_DEPOSITS",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "AUD_WITHDRAWALS",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "PAYID",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "BANK_TRANSFER",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "RECURRING_BUYS",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "OTC_DESK",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/otc",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "Markets and OTC trading are priced at 0.1%",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "PayID and Direct Deposit are fee-free and AUD bank withdrawals are free",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Instant Buy/Sell/Swap costs 1%, compared with 0.1% for Markets orders",
+        "sourceUrl": "https://www.coinspot.com.au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Official website",
+        "url": "https://www.coinspot.com.au",
+        "sourceType": "OFFICIAL_WEBSITE"
+      },
+      {
+        "label": "Official fees",
+        "url": "https://www.coinspot.com.au/fees",
+        "sourceType": "OFFICIAL_FEES"
+      },
+      {
+        "label": "Official Financial Services Guide",
+        "url": "https://www.coinspot.com.au/public/CoinSpot%20Mastercard%20FSG.pdf?v=410",
+        "sourceType": "OFFICIAL_WEBSITE"
+      }
+    ],
+    "regulations": [
+      {
+        "jurisdiction": "AU",
+        "regulator": "AUSTRAC",
+        "status": "Registered Australian digital currency exchange / virtual asset service provider; verify current public-register wording before display",
+        "sourceUrl": "https://www.coinspot.com.au",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "jurisdiction": "AU",
+        "regulator": "ASIC",
+        "status": "Casey Block Services Pty Ltd holds AFSL 562554 for financial services described in CoinSpot's FSG; do not imply the AFSL covers all spot-crypto exchange services",
+        "sourceUrl": "https://www.coinspot.com.au/public/CoinSpot%20Mastercard%20FSG.pdf?v=410",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "name": "Kraken",
+    "slug": "kraken",
+    "website": "https://www.kraken.com",
+    "logo": "/images/providers/kraken.svg",
+    "description": "Global cryptocurrency platform with Australian operations through Bit Trade Pty Ltd, offering Kraken and Kraken Pro spot trading and AUD funding; other products are subject to eligibility.",
+    "providerType": "CRYPTO_EXCHANGE",
+    "jurisdictions": ["AU"],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
+    "facts": [
+      {
+        "label": "AUD Support",
+        "value": "Yes",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://support.kraken.com/au/articles/360045033231-how-do-i-deposit-aud-",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Platform Type",
+        "value": "Centralised cryptocurrency platform / exchange",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.kraken.com",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Australian operating entity",
+        "value": "Bit Trade Pty Ltd (ACN 163 237 634)",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Founded",
+        "value": "2011",
+        "sourceUrl": "https://support.kraken.com/au/articles/360046261932-australia-faq",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "fees": [
+      {
+        "feeType": "MAKER",
+        "label": "Kraken Pro standard spot maker fee",
+        "valueType": "TIERED",
+        "percentage": 0.4,
+        "displayValue": "0.40% at Tier 1, tiered down to 0% from Tier 12",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "TAKER",
+        "label": "Kraken Pro standard spot taker fee",
+        "valueType": "TIERED",
+        "percentage": 0.8,
+        "displayValue": "0.80% at Tier 1, tiered down to 0.05% at Pro 5",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "INSTANT_BUY",
+        "label": "Instant Buy/Sell trading fee",
+        "valueType": "PERCENTAGE",
+        "percentage": 1.0,
+        "displayValue": "1% trading fee; payment fees may also apply",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "AUD_DEPOSITS",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/au/articles/360045033231-how-do-i-deposit-aud-",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "PAYID",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "BANK_TRANSFER",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.kraken.com",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "API_ACCESS",
+        "available": true,
+        "sourceUrl": "https://docs.kraken.com",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "STAKING",
+        "available": null,
+        "sourceUrl": "https://support.kraken.com/au",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "Supports AUD funding including PayID and bank transfer/Osko",
+        "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "Kraken Pro standard spot fees decrease with qualifying spot volume or Assets on Platform",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Instant Buy/Sell uses a 1% trading fee and payment fees may also apply",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Official website",
+        "url": "https://www.kraken.com",
+        "sourceType": "OFFICIAL_WEBSITE"
+      },
+      {
+        "label": "Official fees",
+        "url": "https://www.kraken.com/features/fee-schedule",
+        "sourceType": "OFFICIAL_FEES"
+      },
+      {
+        "label": "Australian licensing and regulation",
+        "url": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "sourceType": "OFFICIAL_SUPPORT"
+      }
+    ],
+    "regulations": [
+      {
+        "jurisdiction": "AU",
+        "regulator": "AUSTRAC",
+        "status": "Bit Trade Pty Ltd (ACN 163 237 634) is registered as a Digital Currency Exchange and Independent Remittance Dealer",
+        "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "jurisdiction": "AU",
+        "regulator": "ASIC",
+        "status": "Kraken Derivatives are offered to eligible Australian wholesale clients through Beaufort Fiduciaries Pty Ltd (ACN 162 139 871), AFSL 545124",
+        "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "name": "Independent Reserve",
+    "slug": "independent-reserve",
+    "website": "https://www.independentreserve.com",
+    "logo": "/images/providers/independent-reserve.svg",
+    "description": "Australian cryptocurrency exchange established in 2013, offering transparent order-book trading, recurring buys, API access, OTC trading and SMSF/business account support.",
+    "providerType": "CRYPTO_EXCHANGE",
+    "jurisdictions": ["AU"],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
+    "facts": [
+      {
+        "label": "Headquarters / Market",
+        "value": "Australia",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Platform Type",
+        "value": "Centralised cryptocurrency exchange with transparent order book",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Founded",
+        "value": "2013",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Ownership",
+        "value": "IG Group completed its acquisition of Independent Reserve effective 30 January 2026",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/blog/news/announcement-ig-group-completes-acquisition-of-independent-reserve",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "fees": [
+      {
+        "feeType": "TRADING",
+        "label": "Trading fee",
+        "valueType": "TIERED",
+        "percentage": 0.5,
+        "displayValue": "0.50% starting fee, tiered down to 0.02% at AUD $200m rolling 30-day trading volume",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "FIAT_DEPOSIT",
+        "label": "AUD bank transfer deposit",
+        "valueType": "FREE",
+        "displayValue": "Free",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "FIAT_WITHDRAWAL",
+        "label": "AUD EFT withdrawal",
+        "valueType": "FREE",
+        "displayValue": "Free",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "FIAT_WITHDRAWAL",
+        "label": "AUD PayID/NPP instant withdrawal",
+        "valueType": "FIXED",
+        "fixedAmount": 1.5,
+        "currency": "AUD",
+        "displayValue": "AUD 1.50",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "WITHDRAWAL",
+        "label": "Bitcoin withdrawal",
+        "valueType": "FIXED",
+        "fixedAmount": 0.0001,
+        "currency": "BTC",
+        "displayValue": "0.0001 BTC",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "AUD_DEPOSITS",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "BANK_TRANSFER",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "API_ACCESS",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "SMSF_SUPPORT",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au/features/smsf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au/features/mobile-app",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "RECURRING_BUYS",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "OTC_DESK",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "COLD_STORAGE",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au/features/smsf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "TWO_FACTOR_AUTH",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/au/features/mobile-app",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "Trading fee decreases from 0.50% to 0.02% as rolling 30-day trading volume increases",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "AUD bank-transfer deposits and AUD EFT withdrawals are free",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "The starting trading fee is 0.50% before volume discounts",
+        "sourceUrl": "https://www.independentreserve.com/au/fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Official website",
+        "url": "https://www.independentreserve.com/au",
+        "sourceType": "OFFICIAL_WEBSITE"
+      },
+      {
+        "label": "Official fee schedule",
+        "url": "https://www.independentreserve.com/au/fees",
+        "sourceType": "OFFICIAL_FEES"
+      },
+      {
+        "label": "Official acquisition announcement",
+        "url": "https://www.independentreserve.com/blog/news/announcement-ig-group-completes-acquisition-of-independent-reserve",
+        "sourceType": "OFFICIAL_WEBSITE"
+      }
+    ],
+    "regulations": [
+      {
+        "jurisdiction": "AU",
+        "regulator": "AUSTRAC",
+        "status": "Registered Digital Currency Exchange (DCE), registration DCE-100461150-001",
+        "sourceUrl": "https://www.independentreserve.com/au",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "name": "Swyftx",
+    "slug": "swyftx",
+    "website": "https://swyftx.com",
+    "logo": "/images/providers/swyftx.svg",
+    "description": "Australian-owned and operated cryptocurrency platform supporting AUD funding, 410+ crypto assets, Auto Invest and tiered trading fees based on rolling 30-day trading volume.",
+    "providerType": "CRYPTO_EXCHANGE",
+    "jurisdictions": ["AU"],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
+    "facts": [
+      {
+        "label": "Headquarters",
+        "value": "Milton, Brisbane, Queensland, Australia",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Legal entity",
+        "value": "Swyftx Pty Ltd",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "ABN",
+        "value": "72 623 556 730",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "AUD Support",
+        "value": "Yes",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Platform Type",
+        "value": "Centralised cryptocurrency trading platform",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Advertised crypto assets",
+        "value": "410+",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "fees": [
+      {
+        "feeType": "TRADING",
+        "label": "Standard trading fee",
+        "valueType": "TIERED",
+        "percentage": 0.6,
+        "displayValue": "0.60% below AUD $100,000 rolling 30-day volume, tiered down to 0.10% at AUD $6m+",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://support.swyftx.com/en/articles/12005536-our-trading-fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "feeType": "SPREAD",
+        "label": "Trading spread",
+        "valueType": "VARIABLE",
+        "displayValue": "Variable by asset, liquidity and market conditions; separate from the trading fee",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "AUD_DEPOSITS",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "AUD_WITHDRAWALS",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "BANK_TRANSFER",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "CARD_DEPOSIT",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "RECURRING_BUYS",
+        "label": "Auto Invest",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "TWO_FACTOR_AUTH",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "COLD_STORAGE",
+        "available": true,
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "Trading fees decrease from 0.60% to 0.10% as rolling 30-day volume increases",
+        "sourceUrl": "https://support.swyftx.com/en/articles/12005536-our-trading-fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "Provider currently advertises more than 410 crypto assets",
+        "sourceUrl": "https://swyftx.com/au/features/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Crypto trades incur a variable spread in addition to the trading fee",
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "The 0.10% trading-fee tier requires at least AUD $6 million of rolling 30-day trading volume",
+        "sourceUrl": "https://support.swyftx.com/en/articles/12005536-our-trading-fees",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Official website",
+        "url": "https://swyftx.com",
+        "sourceType": "OFFICIAL_WEBSITE"
+      },
+      {
+        "label": "Official trading fees",
+        "url": "https://support.swyftx.com/en/articles/12005536-our-trading-fees",
+        "sourceType": "OFFICIAL_FEES"
+      },
+      {
+        "label": "Official platform facts",
+        "url": "https://swyftx.com/facts/",
+        "sourceType": "OFFICIAL_WEBSITE"
+      }
+    ],
+    "regulations": [
+      {
+        "jurisdiction": "AU",
+        "regulator": "AUSTRAC",
+        "status": "Swyftx Pty Ltd is registered as a Digital Currency Exchange Provider",
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "jurisdiction": "AU",
+        "regulator": "ASIC",
+        "status": "Swyftx Pty Ltd states it holds AFSL 568543; its disclosure separately states no AFSL for spot crypto, so licence scope must be displayed separately from spot-crypto services",
+        "sourceUrl": "https://swyftx.com/facts/",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  }
+]

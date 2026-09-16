@@ -1,0 +1,179 @@
+{
+  "name": "Kraken",
+  "slug": "kraken",
+  "website": "https://www.kraken.com",
+  "logo": "/images/providers/kraken.svg",
+  "description": "Global cryptocurrency platform with Australian operations through Bit Trade Pty Ltd, offering Kraken and Kraken Pro spot trading and AUD funding; other products are subject to eligibility.",
+  "providerType": "CRYPTO_EXCHANGE",
+  "jurisdictions": ["AU"],
+  "verificationStatus": "VERIFIED",
+  "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+  "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
+  "facts": [
+    {
+      "label": "AUD Support",
+      "value": "Yes",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://support.kraken.com/au/articles/360045033231-how-do-i-deposit-aud-",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "label": "Platform Type",
+      "value": "Centralised cryptocurrency platform / exchange",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.kraken.com",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "label": "Australian operating entity",
+      "value": "Bit Trade Pty Ltd (ACN 163 237 634)",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "label": "Founded",
+      "value": "2011",
+      "sourceUrl": "https://support.kraken.com/au/articles/360046261932-australia-faq",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ],
+  "fees": [
+    {
+      "feeType": "MAKER",
+      "label": "Kraken Pro standard spot maker fee",
+      "valueType": "TIERED",
+      "percentage": 0.4,
+      "displayValue": "0.40% at Tier 1, tiered down to 0% from Tier 12",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "feeType": "TAKER",
+      "label": "Kraken Pro standard spot taker fee",
+      "valueType": "TIERED",
+      "percentage": 0.8,
+      "displayValue": "0.80% at Tier 1, tiered down to 0.05% at Pro 5",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "feeType": "INSTANT_BUY",
+      "label": "Instant Buy/Sell trading fee",
+      "valueType": "PERCENTAGE",
+      "percentage": 1.0,
+      "displayValue": "1% trading fee; payment fees may also apply",
+      "jurisdiction": "AU",
+      "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ],
+  "features": [
+    {
+      "featureType": "AUD_DEPOSITS",
+      "available": true,
+      "sourceUrl": "https://support.kraken.com/au/articles/360045033231-how-do-i-deposit-aud-",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "PAYID",
+      "available": true,
+      "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "BANK_TRANSFER",
+      "available": true,
+      "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "MOBILE_APP",
+      "available": true,
+      "sourceUrl": "https://www.kraken.com",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "API_ACCESS",
+      "available": true,
+      "sourceUrl": "https://docs.kraken.com",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "featureType": "STAKING",
+      "available": null,
+      "sourceUrl": "https://support.kraken.com/au",
+      "verificationStatus": "UNVERIFIED"
+    }
+  ],
+  "prosCons": [
+    {
+      "type": "PRO",
+      "label": "Supports AUD funding including PayID and bank transfer/Osko",
+      "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "type": "PRO",
+      "label": "Kraken Pro standard spot fees decrease with qualifying spot volume or Assets on Platform",
+      "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "type": "LIMITATION",
+      "label": "Instant Buy/Sell uses a 1% trading fee and payment fees may also apply",
+      "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+      "verificationStatus": "VERIFIED",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ],
+  "sources": [
+    {
+      "label": "Official website",
+      "url": "https://www.kraken.com",
+      "sourceType": "OFFICIAL_WEBSITE"
+    },
+    {
+      "label": "Official fees",
+      "url": "https://www.kraken.com/features/fee-schedule",
+      "sourceType": "OFFICIAL_FEES"
+    },
+    {
+      "label": "Australian licensing and regulation",
+      "url": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+      "sourceType": "OFFICIAL_SUPPORT"
+    }
+  ],
+  "regulations": [
+    {
+      "jurisdiction": "AU",
+      "regulator": "AUSTRAC",
+      "status": "Bit Trade Pty Ltd (ACN 163 237 634) is registered as a Digital Currency Exchange and Independent Remittance Dealer",
+      "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    },
+    {
+      "jurisdiction": "AU",
+      "regulator": "ASIC",
+      "status": "Kraken Derivatives are offered to eligible Australian wholesale clients through Beaufort Fiduciaries Pty Ltd (ACN 162 139 871), AFSL 545124",
+      "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+      "verifiedAt": "2026-09-17T00:00:00.000Z"
+    }
+  ]
+}
