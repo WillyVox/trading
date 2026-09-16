@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import type { ArticleType, ProviderType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl } from "./config";
+import { STATIC_GUIDES } from "@/lib/guides/static-guides";
 
 /**
  * Note: /compare/[slug] is intentionally excluded from the sitemap for now
@@ -22,13 +23,6 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/crypto",
     "/crypto/exchanges",
     "/guides",
-    // Statically-authored guides in app/(guides) — not DB-backed, so they
-    // aren't covered by guideEntries() below and need to be listed here
-    // like every other static route.
-    "/share-trading-for-beginners",
-    "/simple-steps-to-buy-cryptocurrency",
-    "/how-to-start-investing-in-crypto-for-beginners",
-    "/top-cryptocurrency-exchanges-in-australia",
     "/compare",
     "/compare/crypto-exchanges",
     "/news",
@@ -40,7 +34,13 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/terms",
     "/privacy",
   ];
-  return paths.map((path) => ({ url: absoluteUrl(path) }));
+  return [
+    ...paths.map((path) => ({ url: absoluteUrl(path) })),
+    ...STATIC_GUIDES.map((guide) => ({
+      url: absoluteUrl(`/guides/${guide.slug}`),
+      lastModified: new Date(guide.updatedAt),
+    })),
+  ];
 }
 
 
@@ -51,11 +51,16 @@ export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
   // "guide" in, so filtering the sitemap on it silently dropped any guide
   // whose category was e.g. "how-to" or "crypto-exchanges".
   const articles = await prisma.article.findMany({
-    where: { status: "PUBLISHED", noIndex: false, articleType: "GUIDE" satisfies ArticleType },
+    where: {
+      status: "PUBLISHED",
+      noIndex: false,
+      articleType: "GUIDE" satisfies ArticleType,
+      slug: { notIn: STATIC_GUIDES.map((guide) => guide.slug) },
+    },
     select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
-    url: absoluteUrl(`/${a.slug}`),
+    url: absoluteUrl(`/guides/${a.slug}`),
     lastModified: a.lastReviewedAt ?? a.publishedAt ?? undefined,
   }));
 }

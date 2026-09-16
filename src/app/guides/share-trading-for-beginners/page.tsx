@@ -14,8 +14,11 @@ import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 import { CompareColumnsIllustration, GrowthTrendIllustration } from "@/components/guide/illustrations";
+import { getStaticGuideArticleHref, getStaticGuideArticleImage, STATIC_SLUG_IDS } from "@/lib/guides/static-article-slugs";
 
-const PATH = "/share-trading-for-beginners";
+const PATH = getStaticGuideArticleHref(STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS);
+const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO);
+const IMAGE = getStaticGuideArticleImage(STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS);
 const TITLE = "Share Trading for Beginners: How to Start Investing in Shares";
 const DESCRIPTION =
   "A plain-English guide to share trading for Australian beginners — how the share market works, what it costs, the risks to understand, and how to place your first trade.";
@@ -72,7 +75,7 @@ export const metadata = buildMetadata({
   title: TITLE,
   description: DESCRIPTION,
   path: PATH,
-  image: "/images/articles/share-trading-for-beginners.svg",
+  image: IMAGE,
   type: "article",
   publishedTime: "2026-09-15",
   modifiedTime: "2026-09-15",
@@ -98,7 +101,7 @@ export default function ShareTradingForBeginnersPage() {
         data={articleSchema({
           headline: TITLE,
           description: DESCRIPTION,
-          image: "/images/articles/share-trading-for-beginners.svg",
+          image: IMAGE,
           author: "Trading Guide Editorial Team",
           datePublished: "2026-09-15",
           dateModified: "2026-09-15",
@@ -317,11 +320,11 @@ export default function ShareTradingForBeginnersPage() {
                 Neither is inherently &quot;better&quot; — they&apos;re different tools for different
                 risk appetites, and some investors hold both. If you&apos;re specifically weighing up
                 crypto, our{" "}
-                <a href="/how-to-start-investing-in-crypto-for-beginners">
+                <a href={RELATED_PATH_START_INVESTING_IN_CRYPTO}>
                   guide to investing in crypto for beginners
                 </a>{" "}
                 covers the same ground for that asset class, and our{" "}
-                <a href="/simple-steps-to-buy-cryptocurrency">5 simple steps to buy cryptocurrency</a>{" "}
+                <a href={getStaticGuideArticleImage(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO)}>5 simple steps to buy cryptocurrency</a>{" "}
                 walks through opening an account on a crypto exchange.
               </p>
 
@@ -361,15 +364,15 @@ export default function ShareTradingForBeginnersPage() {
               guides={[
                 {
                   id: "how-to-start-investing-in-crypto",
-                  slug: "how-to-start-investing-in-crypto-for-beginners",
-                  href: "/how-to-start-investing-in-crypto-for-beginners",
+                  slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
+                  href: RELATED_PATH_START_INVESTING_IN_CRYPTO,
                   title: "How to Start Investing in Crypto for Beginners",
                   excerpt: "The same beginner-friendly grounding, applied to crypto assets.",
                 },
                 {
                   id: "simple-steps-to-buy-crypto",
-                  slug: "simple-steps-to-buy-cryptocurrency",
-                  href: "/simple-steps-to-buy-cryptocurrency",
+                  slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
+                  href: getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO),
                   title: "5 Simple Steps to Buy Cryptocurrency",
                   excerpt: "A short, practical walkthrough of opening an account and making your first purchase.",
                 },

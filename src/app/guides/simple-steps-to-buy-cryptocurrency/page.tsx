@@ -14,8 +14,12 @@ import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 import { StepsFlowIllustration, SecurityShieldIllustration, FeesBarIllustration } from "@/components/guide/illustrations";
+import { getStaticGuideArticleHref, getStaticGuideArticleImage, STATIC_SLUG_IDS } from "@/lib/guides/static-article-slugs";
 
-const PATH = "/simple-steps-to-buy-cryptocurrency";
+const PATH = getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO);
+const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO);
+const RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS = getStaticGuideArticleHref(STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS);
+
 const TITLE = "5 Simple Steps to Buy Cryptocurrency (Beginner's Guide)";
 const DESCRIPTION =
   "A clear, 5-step walkthrough for buying your first cryptocurrency in Australia — choosing an exchange, verifying your identity, funding your account, buying, and storing it safely.";
@@ -92,7 +96,7 @@ export const metadata = buildMetadata({
   title: TITLE,
   description: DESCRIPTION,
   path: PATH,
-  image: "/images/articles/simple-steps-to-buy-cryptocurrency.svg",
+  image: getStaticGuideArticleImage(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO),
   type: "article",
   publishedTime: "2026-09-15",
   modifiedTime: "2026-09-15",
@@ -118,7 +122,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
         data={articleSchema({
           headline: TITLE,
           description: DESCRIPTION,
-          image: "/images/articles/simple-steps-to-buy-cryptocurrency.svg",
+          image: getStaticGuideArticleImage(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO),
           author: "Trading Guide Editorial Team",
           datePublished: "2026-09-15",
           dateModified: "2026-09-15",
@@ -131,7 +135,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
         data={howToSchema({
           name: TITLE,
           description: DESCRIPTION,
-          image: "/images/articles/simple-steps-to-buy-cryptocurrency.svg",
+          image: getStaticGuideArticleImage(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO),
           totalTime: "PT15M",
           steps: STEPS,
         })}
@@ -283,15 +287,15 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
               guides={[
                 {
                   id: "how-to-start-investing-in-crypto",
-                  slug: "how-to-start-investing-in-crypto-for-beginners",
-                  href: "/how-to-start-investing-in-crypto-for-beginners",
+                  slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
+                  href: RELATED_PATH_START_INVESTING_IN_CRYPTO,
                   title: "How to Start Investing in Crypto for Beginners",
                   excerpt: "The bigger picture — risk, research, and building a long-term approach.",
                 },
                 {
                   id: "share-trading-for-beginners",
-                  slug: "share-trading-for-beginners",
-                  href: "/share-trading-for-beginners",
+                  slug: STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS,
+                  href: RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS,
                   title: "Share Trading for Beginners",
                   excerpt: "How buying shares compares to buying crypto, and how to place your first trade.",
                 },
@@ -310,7 +314,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
 
             <GuideNextSteps
               steps={[
-                { id: "investing-guide", slug: "how-to-start-investing-in-crypto-for-beginners", href: "/how-to-start-investing-in-crypto-for-beginners", title: "How to start investing in crypto for beginners" },
+                { id: "investing-guide", slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO, href: RELATED_PATH_START_INVESTING_IN_CRYPTO, title: "How to start investing in crypto for beginners" },
                 { id: "guides-home", slug: "guides", href: "/guides", title: "Browse all crypto guides" },
               ]}
             />

@@ -10,6 +10,8 @@
  * itself to also be clickable.
  */
 
+import { getStaticGuideArticleHref, STATIC_SLUG_IDS } from "../guides/static-article-slugs";
+
 export interface NavLink {
   label: string;
   href: string;
@@ -24,18 +26,18 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "Crypto",
     children: [
-      { label: "Exchanges compare", href: "/compare" },
-      { label: "Exchange reviews", href: "/crypto/exchanges" },
+      { label: "Compare Exchanges", href: "/compare" },
+      { label: "Exchange Review", href: "/crypto/exchanges" },
       { label: "Crypto guides", href: "/guides" },
     ],
   },
   {
     label: "Guides",
     children: [
-      { label: "5 Simple Steps to Buy Cryptocurrency", href: "/simple-steps-to-buy-cryptocurrency" },
-      { label: "How to Start Investing in Crypto for Beginners", href: "/how-to-start-investing-in-crypto-for-beginners" },
-      { label: "Top Cryptocurrency Exchanges in Australia", href: "/top-cryptocurrency-exchanges-in-australia" },
-      { label: "Share Trading for Beginners", href: "/share-trading-for-beginners" },
+      { label: "5 Simple Steps to Buy Cryptocurrency", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO) },
+      { label: "How to Start Investing in Crypto for Beginners", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO) },
+      { label: "Top Cryptocurrency Exchanges in Australia", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES) },
+      { label: "Share Trading for Beginners", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS) },
       { label: "View all guides →", href: "/guides" },
     ],
   },

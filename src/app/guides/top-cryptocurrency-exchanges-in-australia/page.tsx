@@ -14,8 +14,12 @@ import { GuideFigure } from "@/components/guide/GuideFigure";
 import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
+import { getStaticGuideArticleHref, getStaticGuideArticleImage, STATIC_SLUG_IDS, } from "@/lib/guides/static-article-slugs";
 
-const PATH = "/top-cryptocurrency-exchanges-in-australia";
+const PATH = getStaticGuideArticleHref(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES);
+const RELATED_PATH_STEPS_TO_BUY_CRYPTO = getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO);
+const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO);
+
 const TITLE = "Top Cryptocurrency Exchanges in Australia: What to Compare in 2026";
 const DESCRIPTION =
   "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.";
@@ -113,7 +117,7 @@ export const metadata = buildMetadata({
   title: "Cryptocurrency Exchanges in Australia: Compare Options (2026)",
   description: DESCRIPTION,
   path: PATH,
-  image: "/images/articles/top-cryptocurrency-exchanges-in-australia.svg",
+  image: getStaticGuideArticleImage(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES),
   type: "article",
   publishedTime: "2026-09-17",
   modifiedTime: "2026-09-17",
@@ -134,7 +138,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
         data={articleSchema({
           headline: TITLE,
           description: DESCRIPTION,
-          image: "/images/articles/top-cryptocurrency-exchanges-in-australia.svg",
+          image: getStaticGuideArticleImage(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES),
           author: "Trading Guide Editorial Team",
           datePublished: "2026-09-17",
           dateModified: "2026-09-17",
@@ -157,7 +161,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
           <article className="min-w-0 max-w-3xl">
             <GuideFigure caption="A cryptocurrency exchange connects Australian-dollar funding with digital-asset markets. Fees, funding methods, security controls and available assets differ between providers.">
               <Image
-                src="/images/articles/top-cryptocurrency-exchanges-in-australia.svg"
+                src={getStaticGuideArticleImage(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES)}
                 alt="Illustration comparing cryptocurrency exchanges in Australia by AUD funding, fees, security and digital assets"
                 width={1200}
                 height={630}
@@ -443,8 +447,8 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 assets are held, enable strong account security, and start with an amount small enough
                 to learn how deposits, orders and withdrawals work. If you are making your first
                 purchase, continue with our{" "}
-                <Link href="/simple-steps-to-buy-cryptocurrency">5 simple steps to buy cryptocurrency</Link>{" "}
-                or read <Link href="/how-to-start-investing-in-crypto-for-beginners">how to start investing in crypto for beginners</Link>.
+                <Link href={RELATED_PATH_STEPS_TO_BUY_CRYPTO}>5 simple steps to buy cryptocurrency</Link>{" "}
+                or read <Link href={RELATED_PATH_START_INVESTING_IN_CRYPTO}>how to start investing in crypto for beginners</Link>.
               </p>
             </div>
 
@@ -454,15 +458,15 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
               guides={[
                 {
                   id: "start-investing-crypto",
-                  slug: "how-to-start-investing-in-crypto-for-beginners",
-                  href: "/how-to-start-investing-in-crypto-for-beginners",
+                  slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
+                  href: RELATED_PATH_START_INVESTING_IN_CRYPTO,
                   title: "How to Start Investing in Crypto for Beginners",
                   excerpt: "Understand risk, research, storage and the decisions to make before putting money into crypto.",
                 },
                 {
                   id: "simple-steps-buy-crypto",
-                  slug: "simple-steps-to-buy-cryptocurrency",
-                  href: "/simple-steps-to-buy-cryptocurrency",
+                  slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
+                  href: RELATED_PATH_STEPS_TO_BUY_CRYPTO,
                   title: "5 Simple Steps to Buy Cryptocurrency",
                   excerpt: "A practical walkthrough from choosing an exchange to placing a first purchase.",
                 },
@@ -483,7 +487,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
             <GuideNextSteps
               steps={[
                 { id: "compare-exchanges", slug: "compare-crypto-exchanges", href: "/compare/crypto-exchanges", title: "Compare crypto exchanges side-by-side" },
-                { id: "buy-crypto", slug: "simple-steps-to-buy-cryptocurrency", href: "/simple-steps-to-buy-cryptocurrency", title: "Learn the 5 simple steps to buy cryptocurrency" },
+                { id: "buy-crypto", slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO, href: RELATED_PATH_STEPS_TO_BUY_CRYPTO, title: "Learn the 5 simple steps to buy cryptocurrency" },
               ]}
             />
           </article>

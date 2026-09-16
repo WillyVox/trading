@@ -14,9 +14,12 @@ import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 import { GrowthTrendIllustration, ResearchIllustration, SecurityShieldIllustration } from "@/components/guide/illustrations";
+import { getStaticGuideArticleHref, getStaticGuideArticleImage, STATIC_SLUG_IDS } from "@/lib/guides/static-article-slugs";
 
-const PATH = "/how-to-start-investing-in-crypto-for-beginners";
+const PATH = getStaticGuideArticleHref(STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO);
+const RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS = getStaticGuideArticleHref(STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS);
 const TITLE = "How to Start Investing in Crypto for Beginners";
+const IMAGE = getStaticGuideArticleImage(STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO);
 const DESCRIPTION =
   "A beginner's guide to investing in crypto responsibly — understanding the asset class, sizing your risk, researching before you buy, avoiding scams, and thinking about tax.";
 
@@ -71,7 +74,7 @@ export const metadata = buildMetadata({
   title: TITLE,
   description: DESCRIPTION,
   path: PATH,
-  image: "/images/articles/how-to-start-investing-in-crypto-for-beginners.svg",
+  image: IMAGE,
   type: "article",
   publishedTime: "2026-09-15",
   modifiedTime: "2026-09-15",
@@ -97,7 +100,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
         data={articleSchema({
           headline: TITLE,
           description: DESCRIPTION,
-          image: "/images/articles/how-to-start-investing-in-crypto-for-beginners.svg",
+          image: IMAGE,
           author: "Trading Guide Editorial Team",
           datePublished: "2026-09-15",
           dateModified: "2026-09-15",
@@ -133,7 +136,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 of how much you&apos;re putting in, over what timeframe, and why — versus reacting to
                 a headline or a friend&apos;s tip. If you&apos;re only after the mechanics of making a
                 first purchase, our{" "}
-                <a href="/simple-steps-to-buy-cryptocurrency">5 simple steps to buy cryptocurrency</a>{" "}
+                <a href={getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO)}>5 simple steps to buy cryptocurrency</a>{" "}
                 guide covers that. This guide is about the thinking that should happen before and
                 alongside that purchase.
               </p>
@@ -232,7 +235,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 Once you&apos;ve thought through your risk tolerance, roughly how much you&apos;re
                 comfortable allocating, and how you&apos;ll keep records, the practical next step is
                 opening an account on a regulated exchange and making a first, modest purchase. Our{" "}
-                <a href="/simple-steps-to-buy-cryptocurrency">5 simple steps to buy cryptocurrency</a>{" "}
+                <a href={getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO)}>5 simple steps to buy cryptocurrency</a>{" "}
                 guide walks through exactly that.
               </p>
             </div>
@@ -263,15 +266,15 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
               guides={[
                 {
                   id: "simple-steps-to-buy-crypto",
-                  slug: "simple-steps-to-buy-cryptocurrency",
-                  href: "/simple-steps-to-buy-cryptocurrency",
+                  slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
+                  href: getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO),
                   title: "5 Simple Steps to Buy Cryptocurrency",
                   excerpt: "The practical walkthrough — choosing an exchange, verifying, and placing your first order.",
                 },
                 {
                   id: "share-trading-for-beginners",
-                  slug: "share-trading-for-beginners",
-                  href: "/share-trading-for-beginners",
+                  slug: STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS,
+                  href: RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS,
                   title: "Share Trading for Beginners",
                   excerpt: "How a more regulated asset class compares, if you're weighing up both.",
                 },
@@ -290,7 +293,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
 
             <GuideNextSteps
               steps={[
-                { id: "buy-steps", slug: "simple-steps-to-buy-cryptocurrency", href: "/simple-steps-to-buy-cryptocurrency", title: "5 simple steps to buy cryptocurrency" },
+                { id: "buy-steps", slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO, href: getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO), title: "5 simple steps to buy cryptocurrency" },
                 { id: "compare-exchanges", slug: "compare", href: "/compare/crypto-exchanges", title: "Compare crypto exchanges side-by-side" },
               ]}
             />

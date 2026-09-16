@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { validateArticleForm, type ArticleFormInput } from "@/lib/articles/validation";
 import { sanitizeArticleContent } from "@/lib/articles/sanitize";
+import { isStaticGuideSlug } from "@/lib/guides/static-guides";
 import {
   isValidArticleStatusTransition,
   type ArticleLifecycleStatus,
@@ -151,7 +152,13 @@ function buildScalarData(data: ArticleFormInput) {
   };
 }
 
-async function assertSlugAvailable(slug: string, excludeArticleId?: string) {
+async function assertSlugAvailable(slug: string, articleType: ArticleType, excludeArticleId?: string) {
+  if (articleType === "GUIDE" && isStaticGuideSlug(slug)) {
+    throw new Error(
+      `Slug "${slug}" is reserved by a hand-authored static guide — choose a different slug.`
+    );
+  }
+
   const existing = await prisma.article.findUnique({ where: { slug }, select: { id: true } });
   if (existing && existing.id !== excludeArticleId) {
     throw new Error(`Slug "${slug}" is already used by another article — choose a different slug.`);
@@ -189,7 +196,7 @@ export async function createArticle(formData: FormData) {
   }
   const data = validation.data!;
 
-  await assertSlugAvailable(data.slug);
+  await assertSlugAvailable(data.slug, data.articleType);
 
   const created = await withFriendlySlugConflict(data.slug, () =>
     prisma.article.create({
@@ -247,7 +254,7 @@ export async function updateArticle(formData: FormData) {
   }
   const data = validation.data!;
 
-  await assertSlugAvailable(data.slug, id);
+  await assertSlugAvailable(data.slug, data.articleType, id);
 
   await withFriendlySlugConflict(data.slug, () => prisma.$transaction(async (tx) => {
     await tx.article.update({ where: { id }, data: buildScalarData(data) });

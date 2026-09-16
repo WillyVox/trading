@@ -1,6 +1,6 @@
 import Link from "next/link";
 import clsx from "clsx";
-import { getPublishedArticles, getArticleCategories } from "@/lib/articles/service";
+import { getPublicGuideCategories, getPublicGuides } from "@/lib/guides/service";
 import { formatCategoryLabel } from "@/lib/articles/content";
 import { PageHero } from "@/components/layout/PageHero";
 import { ArticleCard } from "@/components/article/ArticleCard";
@@ -9,8 +9,9 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
-  title: "Crypto Guides Australia \u2014 How-To & Educational Articles",
-  description: "Step-by-step crypto guides for Australians \u2014 buying, wallets, fees, and how exchanges work.",
+  title: "Trading & Crypto Guides Australia — Beginner Education",
+  description:
+    "Beginner-friendly Australian guides covering crypto exchanges, buying cryptocurrency, share trading, fees, security and how trading platforms work.",
   path: "/guides",
   image: "/images/og/guides.png",
 });
@@ -22,34 +23,24 @@ export default async function GuidesPage({
 }) {
   const { category: selectedCategory } = await searchParams;
 
-  const [{ items }, categories] = await Promise.all([
-    getPublishedArticles({ articleType: "GUIDE", category: selectedCategory, pageSize: 48 }),
-    getArticleCategories("GUIDE"),
+  const [items, categories] = await Promise.all([
+    getPublicGuides(selectedCategory),
+    getPublicGuideCategories(),
   ]);
 
-  const trail = breadcrumbTrail([
-    { name: "Crypto", path: "/crypto" },
-    { name: "Guides", path: "/guides" },
-  ]);
+  const trail = breadcrumbTrail([{ name: "Guides", path: "/guides" }]);
 
   return (
     <>
       <PageHero
         breadcrumbs={trail}
         eyebrow="Guides"
-        title="Step-by-step crypto guides for Australians"
-        subheading="How-to guides for buying, storing, and trading crypto safely."
+        title="Beginner-friendly trading and crypto guides for Australians"
+        subheading="Understand trading platforms, cryptocurrency exchanges, fees, security and investing concepts before you compare providers."
         graphic="guides"
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
         {categories.length > 0 && (
-          // Plain links (not a client-side <select>/tab component), so
-          // filtering works with JS disabled, is shareable/bookmarkable,
-          // and each category is crawlable — consistent with the "search
-          // dominance" goal. Canonical always points at the unfiltered
-          // /guides (buildMetadata's `path` above never varies with the
-          // query), so these read as views of one page rather than
-          // competing near-duplicate pages for SEO purposes.
           <nav aria-label="Filter guides by category" className="mb-8 flex flex-wrap gap-2">
             <Link
               href="/guides"
@@ -87,17 +78,17 @@ export default async function GuidesPage({
           </Notice>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((a: any) => (
+            {items.map((guide) => (
               <ArticleCard
-                key={a.id}
-                href={`/${a.slug}`}
-                title={a.title}
-                excerpt={a.excerpt}
-                featuredImage={a.featuredImage}
-                featuredImageAlt={a.featuredImageAlt}
-                category={a.category}
-                author={a.author}
-                publishedAt={a.publishedAt}
+                key={guide.id}
+                href={`/guides/${guide.slug}`}
+                title={guide.title}
+                excerpt={guide.excerpt}
+                featuredImage={guide.featuredImage}
+                featuredImageAlt={guide.featuredImageAlt}
+                category={guide.category}
+                author={guide.author}
+                publishedAt={guide.publishedAt}
               />
             ))}
           </div>
