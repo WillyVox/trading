@@ -1,3 +1,11 @@
+# 2026/09/16
+    ## make these three boxes to be clickable, navigate them to
+        provider review page
+        exchange compare page
+        and guides page
+        code clean, SEO perfectly config
+        return me file updated/added while you implementing
+        and return zip at the end
 
 # Supabase set up
     # Project name: trading-guide
