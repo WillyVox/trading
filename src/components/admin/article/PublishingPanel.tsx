@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
+import Link from 'next/link';
+import { Card } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
 import {
   submitArticleForReview,
   moveArticleBackToDraft,
@@ -8,20 +8,23 @@ import {
   unpublishArticle,
   archiveArticle,
   restoreArticleFromArchive,
-} from "@/lib/articles/actions";
+} from '@/lib/articles/actions';
 
-type Status = "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
+type Status = 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
 
-const STATUS_TONE: Record<Status, "muted" | "gold" | "green" | "red"> = {
-  DRAFT: "muted",
-  REVIEW: "gold",
-  PUBLISHED: "green",
-  ARCHIVED: "red",
+const STATUS_TONE: Record<Status, 'muted' | 'gold' | 'green' | 'red'> = {
+  DRAFT: 'muted',
+  REVIEW: 'gold',
+  PUBLISHED: 'green',
+  ARCHIVED: 'red',
 };
 
 function fmt(d: Date | null | undefined): string {
-  if (!d) return "—";
-  return new Date(d).toLocaleString("en-AU", { dateStyle: "medium", timeStyle: "short" });
+  if (!d) return '—';
+  return new Date(d).toLocaleString('en-AU', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
 }
 
 /**
@@ -47,7 +50,7 @@ export function PublishingPanel({
   return (
     <Card>
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-lg font-bold text-navy">Publishing</h2>
+        <h2 className="font-display text-navy text-lg font-bold">Publishing</h2>
         <Badge tone={STATUS_TONE[status]}>{status}</Badge>
       </div>
 
@@ -69,16 +72,19 @@ export function PublishingPanel({
       <div className="mt-5 flex flex-wrap items-center gap-2">
         <Link
           href={`/admin/articles/${articleId}/preview`}
-          className="rounded-full border border-border bg-panel-secondary px-4 py-2 text-sm font-semibold text-navy hover:bg-border"
+          className="border-border bg-panel-secondary text-navy hover:bg-border rounded-full border px-4 py-2 text-sm font-semibold"
         >
           Preview
         </Link>
 
-        {status === "DRAFT" && (
+        {status === 'DRAFT' && (
           <>
             <form action={submitArticleForReview}>
               <input type="hidden" name="id" value={articleId} />
-              <button type="submit" className="rounded-full bg-navy px-4 py-2 text-sm font-semibold text-background hover:bg-navy-dark">
+              <button
+                type="submit"
+                className="bg-navy text-background hover:bg-navy-dark rounded-full px-4 py-2 text-sm font-semibold"
+              >
                 Submit for review
               </button>
             </form>
@@ -86,17 +92,23 @@ export function PublishingPanel({
           </>
         )}
 
-        {status === "REVIEW" && (
+        {status === 'REVIEW' && (
           <>
             <form action={moveArticleBackToDraft}>
               <input type="hidden" name="id" value={articleId} />
-              <button type="submit" className="rounded-full border border-border bg-panel-secondary px-4 py-2 text-sm font-semibold text-navy hover:bg-border">
+              <button
+                type="submit"
+                className="border-border bg-panel-secondary text-navy hover:bg-border rounded-full border px-4 py-2 text-sm font-semibold"
+              >
                 Back to draft
               </button>
             </form>
             <form action={publishArticle}>
               <input type="hidden" name="id" value={articleId} />
-              <button type="submit" className="rounded-full bg-green px-4 py-2 text-sm font-semibold text-background hover:opacity-90">
+              <button
+                type="submit"
+                className="bg-green text-background rounded-full px-4 py-2 text-sm font-semibold hover:opacity-90"
+              >
                 Publish
               </button>
             </form>
@@ -104,11 +116,14 @@ export function PublishingPanel({
           </>
         )}
 
-        {status === "PUBLISHED" && (
+        {status === 'PUBLISHED' && (
           <>
             <form action={unpublishArticle}>
               <input type="hidden" name="id" value={articleId} />
-              <button type="submit" className="rounded-full border border-border bg-panel-secondary px-4 py-2 text-sm font-semibold text-navy hover:bg-border">
+              <button
+                type="submit"
+                className="border-border bg-panel-secondary text-navy hover:bg-border rounded-full border px-4 py-2 text-sm font-semibold"
+              >
                 Unpublish (back to draft)
               </button>
             </form>
@@ -116,10 +131,13 @@ export function PublishingPanel({
           </>
         )}
 
-        {status === "ARCHIVED" && (
+        {status === 'ARCHIVED' && (
           <form action={restoreArticleFromArchive}>
             <input type="hidden" name="id" value={articleId} />
-            <button type="submit" className="rounded-full border border-border bg-panel-secondary px-4 py-2 text-sm font-semibold text-navy hover:bg-border">
+            <button
+              type="submit"
+              className="border-border bg-panel-secondary text-navy hover:bg-border rounded-full border px-4 py-2 text-sm font-semibold"
+            >
               Restore to draft
             </button>
           </form>
@@ -133,7 +151,10 @@ function ArchiveButton({ articleId }: { articleId: string }) {
   return (
     <form action={archiveArticle}>
       <input type="hidden" name="id" value={articleId} />
-      <button type="submit" className="rounded-full border border-red/40 bg-red/10 px-4 py-2 text-sm font-semibold text-red hover:bg-red/20">
+      <button
+        type="submit"
+        className="border-red/40 bg-red/10 text-red hover:bg-red/20 rounded-full border px-4 py-2 text-sm font-semibold"
+      >
         Archive
       </button>
     </form>

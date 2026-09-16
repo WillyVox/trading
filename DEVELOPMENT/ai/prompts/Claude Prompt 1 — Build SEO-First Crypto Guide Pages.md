@@ -245,7 +245,7 @@ Each Guide page must use Next.js Metadata API correctly.
 Use:
 
 ```ts
-generateMetadata()
+generateMetadata();
 ```
 
 from actual article data.

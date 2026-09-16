@@ -1,9 +1,12 @@
-import Link from "next/link";
-import { getAffiliateClicksAdmin } from "@/lib/affiliates/service";
-import { Card } from "@/components/ui/Card";
+import Link from 'next/link';
+import { getAffiliateClicksAdmin } from '@/lib/affiliates/service';
+import { Card } from '@/components/ui/Card';
 
 function formatDate(d: Date) {
-  return new Intl.DateTimeFormat("en-AU", { dateStyle: "medium", timeStyle: "short" }).format(d);
+  return new Intl.DateTimeFormat('en-AU', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(d);
 }
 
 export default async function AdminAffiliateClicksPage({
@@ -18,16 +21,16 @@ export default async function AdminAffiliateClicksPage({
   return (
     <Card>
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-lg font-bold text-navy">Clicks</h2>
-        <p className="text-sm text-muted">{total} total</p>
+        <h2 className="font-display text-navy text-lg font-bold">Clicks</h2>
+        <p className="text-muted text-sm">{total} total</p>
       </div>
       {items.length === 0 ? (
-        <p className="mt-4 text-muted">No clicks recorded yet.</p>
+        <p className="text-muted mt-4">No clicks recorded yet.</p>
       ) : (
         <>
           <table className="mt-4 w-full text-sm">
             <thead>
-              <tr className="border-b border-border text-left text-muted">
+              <tr className="border-border text-muted border-b text-left">
                 <th className="py-2">Partner slug</th>
                 <th className="py-2">Source page</th>
                 <th className="py-2">Placement</th>
@@ -37,12 +40,16 @@ export default async function AdminAffiliateClicksPage({
             </thead>
             <tbody>
               {items.map((c) => (
-                <tr key={c.id} className="border-b border-border">
-                  <td className="py-2 font-mono text-xs">{c.link.partnerSlug}</td>
-                  <td className="max-w-[220px] truncate py-2 text-muted">{c.sourcePage ?? "\u2014"}</td>
-                  <td className="py-2">{c.placement ?? "\u2014"}</td>
-                  <td className="py-2">{c.campaign ?? "\u2014"}</td>
-                  <td className="py-2 text-muted">{formatDate(c.createdAt)}</td>
+                <tr key={c.id} className="border-border border-b">
+                  <td className="py-2 font-mono text-xs">
+                    {c.link.partnerSlug}
+                  </td>
+                  <td className="text-muted max-w-[220px] truncate py-2">
+                    {c.sourcePage ?? '\u2014'}
+                  </td>
+                  <td className="py-2">{c.placement ?? '\u2014'}</td>
+                  <td className="py-2">{c.campaign ?? '\u2014'}</td>
+                  <td className="text-muted py-2">{formatDate(c.createdAt)}</td>
                 </tr>
               ))}
             </tbody>
@@ -56,7 +63,7 @@ export default async function AdminAffiliateClicksPage({
                 {page > 1 && (
                   <Link
                     href={`/admin/affiliates/clicks?page=${page - 1}`}
-                    className="rounded-full border border-border px-3 py-1 text-navy hover:bg-panel-secondary"
+                    className="border-border text-navy hover:bg-panel-secondary rounded-full border px-3 py-1"
                   >
                     Previous
                   </Link>
@@ -64,7 +71,7 @@ export default async function AdminAffiliateClicksPage({
                 {page < pageCount && (
                   <Link
                     href={`/admin/affiliates/clicks?page=${page + 1}`}
-                    className="rounded-full border border-border px-3 py-1 text-navy hover:bg-panel-secondary"
+                    className="border-border text-navy hover:bg-panel-secondary rounded-full border px-3 py-1"
                   >
                     Next
                   </Link>

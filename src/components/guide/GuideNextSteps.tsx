@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/Card";
+import Link from 'next/link';
+import { Card } from '@/components/ui/Card';
 
 type NextStep = { id: string; slug: string; title: string; href?: string };
 
@@ -7,14 +7,19 @@ export function GuideNextSteps({ steps }: { steps: NextStep[] }) {
   if (steps.length === 0) return null;
 
   return (
-    <section className="mt-10 border-t border-border pt-6">
-      <h2 className="font-display text-lg font-bold text-navy">New to crypto?</h2>
+    <section className="border-border mt-10 border-t pt-6">
+      <h2 className="font-display text-navy text-lg font-bold">
+        New to crypto?
+      </h2>
       <Card className="mt-4">
         <ol className="space-y-2.5 text-sm">
           {steps.map((step, i) => (
             <li key={step.id} className="flex gap-3">
-              <span className="font-display font-bold text-gold">{i + 1}.</span>
-              <Link href={step.href ?? `/guides/${step.slug}`} className="text-navy hover:underline">
+              <span className="font-display text-gold font-bold">{i + 1}.</span>
+              <Link
+                href={step.href ?? `/guides/${step.slug}`}
+                className="text-navy hover:underline"
+              >
                 {step.title}
               </Link>
             </li>

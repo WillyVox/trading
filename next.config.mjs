@@ -2,7 +2,6 @@
 const nextConfig = {};
 export default nextConfig;
 
-
 /**
  * If after launching, and google already indexed your url, then you change the path,
  * you need to config as following to migrate the path.

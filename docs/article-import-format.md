@@ -21,11 +21,11 @@ This is the exact contract for files dropped into `/publish_article` and picked 
 
 ## Required fields
 
-| Field     | Type   | Rules |
-|-----------|--------|-------|
-| `title`   | string | 1–200 characters |
-| `slug`    | string | lowercase, hyphen-separated, URL-safe (e.g. `how-to-trade-crypto`). No spaces, punctuation, or slashes. |
-| *(body)*  | Markdown | must render to non-empty content |
+| Field    | Type     | Rules                                                                                                   |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| `title`  | string   | 1–200 characters                                                                                        |
+| `slug`   | string   | lowercase, hyphen-separated, URL-safe (e.g. `how-to-trade-crypto`). No spaces, punctuation, or slashes. |
+| _(body)_ | Markdown | must render to non-empty content                                                                        |
 
 ## Optional fields
 
@@ -34,43 +34,43 @@ editor's form schema (`src/lib/articles/validation.ts`) — the importer and the
 share one data model, so a value set here maps 1:1 onto the same column/relation an editor would
 set by hand in `/admin/articles`.
 
-| Field | Type | Notes |
-|---|---|---|
-| `articleType` | `NEWS` \| `GUIDE` | **Recommended, not required.** Determines whether the article can ever resolve under `/news/[slug]` (NEWS) or `/guides/[slug]` (GUIDE) — the two routes strictly enforce this and will 404 on a mismatch. Omitting it produces a warning and defaults to `GUIDE` **on create only**; re-importing an existing article without this field never changes its stored type (same safe-merge rule as every other optional field below). |
-| `excerpt` | string | Used as the fallback SEO description and card summary. |
-| `category` | string | Free text, matched against existing categories used elsewhere on the site. |
-| `tags` | string[] | Lowercased and de-duplicated on import. |
-| `region` | `GLOBAL` \| `AU` \| `US` \| `UK` \| `NZ` \| `SG` | Defaults to `GLOBAL`. See "Regional variants" below. |
-| `canonicalArticleSlug` | string | Only meaningful when `region` is not `GLOBAL` — see below. |
-| `seoTitle` | string | Recommended ≤ 60 chars (warning only, not enforced). |
-| `seoDescription` | string | Recommended ≤ 160 chars (warning only, not enforced). |
-| `canonicalUrl` | URL | Only set this if the canonical page genuinely lives at a different URL. |
-| `featuredImage` | string | Path or absolute URL. |
-| `featuredImageAlt` | string | Alt text for `featuredImage`. Nullable/additive — missing alt text is surfaced as a warning on the admin SEO checklist, not a hard import error, but should be filled in for accessibility and image SEO. |
-| `author` | string | |
-| `reviewer` | string | |
-| `noIndex` | boolean | |
-| `affiliateDisclosureRequired` | boolean | Whether the affiliate disclosure banner should show on this article. Independent of `affiliateProviders` below — set this explicitly rather than relying on it being inferred from having affiliate placements. |
-| `scheduledAt` | date/datetime string | Advisory only — nothing reads this to auto-publish. Purely an editor reminder (see docs/ROADMAP.md "Scheduling"). Invalid/unparseable dates are ignored rather than failing the import. |
-| `lastReviewedAt` | date/datetime string | Editorial "meaningfully reviewed" timestamp, shown on Guide pages as "Last updated" instead of the row's technical `updatedAt`. Invalid/unparseable dates are ignored rather than failing the import. |
-| `keyTakeaways` | string[] | Short bullet points shown near the top of the guide. |
-| `searchIntent` | one of: `LEARN`, `HOW_TO`, `BEGINNER`, `COMPARISON`, `PROVIDER_GUIDE`, `FEES`, `SECURITY`, `WALLET`, `REGULATION`, `MARKET_EDUCATION` | Drives related-content and CTA behavior on the guide template. |
-| `providerRelationships` | string[] or `{providerSlug, relationship}`[] | `relationship` is one of `MENTIONED` (default), `COMPARED`, `FEATURED`. Slugs are matched against existing `Provider.slug` — providers are never auto-created. |
-| `cryptoAssetSlugs` | string[] | Slugs of `CryptoAsset` rows this article is about (e.g. `bitcoin`), matched against existing `CryptoAsset.slug` — assets are never auto-created, same rule as `providerRelationships`. |
-| `relatedGuides` | string[] (article slugs) | Slugs of other articles. A missing slug produces a warning, not a failure — useful for batches where articles reference each other. |
-| `sources` | `{label, url, sourceType?}`[] | `sourceType` is one of `OFFICIAL_PROVIDER`, `REGULATOR`, `GOVERNMENT`, `OFFICIAL_DOCUMENTATION`, `NEWS`, `RESEARCH`, `OTHER` and is stored on `ArticleSource.sourceType`. |
-| `affiliateProviders` | string[] (provider slugs) | Declares that this article *may* show a contextual affiliate CTA for these providers, if an active affiliate link exists. Never accepts a raw affiliate URL — see "Affiliate resolution". |
-| `status` | string | **Ignored.** All imports are created as `DRAFT`; see "Status policy" below. |
+| Field                         | Type                                                                                                                                  | Notes                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `articleType`                 | `NEWS` \| `GUIDE`                                                                                                                     | **Recommended, not required.** Determines whether the article can ever resolve under `/news/[slug]` (NEWS) or `/guides/[slug]` (GUIDE) — the two routes strictly enforce this and will 404 on a mismatch. Omitting it produces a warning and defaults to `GUIDE` **on create only**; re-importing an existing article without this field never changes its stored type (same safe-merge rule as every other optional field below). |
+| `excerpt`                     | string                                                                                                                                | Used as the fallback SEO description and card summary.                                                                                                                                                                                                                                                                                                                                                                             |
+| `category`                    | string                                                                                                                                | Free text, matched against existing categories used elsewhere on the site.                                                                                                                                                                                                                                                                                                                                                         |
+| `tags`                        | string[]                                                                                                                              | Lowercased and de-duplicated on import.                                                                                                                                                                                                                                                                                                                                                                                            |
+| `region`                      | `GLOBAL` \| `AU` \| `US` \| `UK` \| `NZ` \| `SG`                                                                                      | Defaults to `GLOBAL`. See "Regional variants" below.                                                                                                                                                                                                                                                                                                                                                                               |
+| `canonicalArticleSlug`        | string                                                                                                                                | Only meaningful when `region` is not `GLOBAL` — see below.                                                                                                                                                                                                                                                                                                                                                                         |
+| `seoTitle`                    | string                                                                                                                                | Recommended ≤ 60 chars (warning only, not enforced).                                                                                                                                                                                                                                                                                                                                                                               |
+| `seoDescription`              | string                                                                                                                                | Recommended ≤ 160 chars (warning only, not enforced).                                                                                                                                                                                                                                                                                                                                                                              |
+| `canonicalUrl`                | URL                                                                                                                                   | Only set this if the canonical page genuinely lives at a different URL.                                                                                                                                                                                                                                                                                                                                                            |
+| `featuredImage`               | string                                                                                                                                | Path or absolute URL.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `featuredImageAlt`            | string                                                                                                                                | Alt text for `featuredImage`. Nullable/additive — missing alt text is surfaced as a warning on the admin SEO checklist, not a hard import error, but should be filled in for accessibility and image SEO.                                                                                                                                                                                                                          |
+| `author`                      | string                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `reviewer`                    | string                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `noIndex`                     | boolean                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `affiliateDisclosureRequired` | boolean                                                                                                                               | Whether the affiliate disclosure banner should show on this article. Independent of `affiliateProviders` below — set this explicitly rather than relying on it being inferred from having affiliate placements.                                                                                                                                                                                                                    |
+| `scheduledAt`                 | date/datetime string                                                                                                                  | Advisory only — nothing reads this to auto-publish. Purely an editor reminder (see docs/ROADMAP.md "Scheduling"). Invalid/unparseable dates are ignored rather than failing the import.                                                                                                                                                                                                                                            |
+| `lastReviewedAt`              | date/datetime string                                                                                                                  | Editorial "meaningfully reviewed" timestamp, shown on Guide pages as "Last updated" instead of the row's technical `updatedAt`. Invalid/unparseable dates are ignored rather than failing the import.                                                                                                                                                                                                                              |
+| `keyTakeaways`                | string[]                                                                                                                              | Short bullet points shown near the top of the guide.                                                                                                                                                                                                                                                                                                                                                                               |
+| `searchIntent`                | one of: `LEARN`, `HOW_TO`, `BEGINNER`, `COMPARISON`, `PROVIDER_GUIDE`, `FEES`, `SECURITY`, `WALLET`, `REGULATION`, `MARKET_EDUCATION` | Drives related-content and CTA behavior on the guide template.                                                                                                                                                                                                                                                                                                                                                                     |
+| `providerRelationships`       | string[] or `{providerSlug, relationship}`[]                                                                                          | `relationship` is one of `MENTIONED` (default), `COMPARED`, `FEATURED`. Slugs are matched against existing `Provider.slug` — providers are never auto-created.                                                                                                                                                                                                                                                                     |
+| `cryptoAssetSlugs`            | string[]                                                                                                                              | Slugs of `CryptoAsset` rows this article is about (e.g. `bitcoin`), matched against existing `CryptoAsset.slug` — assets are never auto-created, same rule as `providerRelationships`.                                                                                                                                                                                                                                             |
+| `relatedGuides`               | string[] (article slugs)                                                                                                              | Slugs of other articles. A missing slug produces a warning, not a failure — useful for batches where articles reference each other.                                                                                                                                                                                                                                                                                                |
+| `sources`                     | `{label, url, sourceType?}`[]                                                                                                         | `sourceType` is one of `OFFICIAL_PROVIDER`, `REGULATOR`, `GOVERNMENT`, `OFFICIAL_DOCUMENTATION`, `NEWS`, `RESEARCH`, `OTHER` and is stored on `ArticleSource.sourceType`.                                                                                                                                                                                                                                                          |
+| `affiliateProviders`          | string[] (provider slugs)                                                                                                             | Declares that this article _may_ show a contextual affiliate CTA for these providers, if an active affiliate link exists. Never accepts a raw affiliate URL — see "Affiliate resolution".                                                                                                                                                                                                                                          |
+| `status`                      | string                                                                                                                                | **Ignored.** All imports are created as `DRAFT`; see "Status policy" below.                                                                                                                                                                                                                                                                                                                                                        |
 
 ### Deprecated field names (still accepted)
 
 Files written against the older contract keep working — these are accepted as aliases, mapped
 onto the current field, and flagged with a warning so you know to update the file:
 
-| Deprecated | Use instead |
-|---|---|
+| Deprecated                                 | Use instead                                             |
+| ------------------------------------------ | ------------------------------------------------------- |
 | `relatedProviders: [{slug, relationship}]` | `providerRelationships: [{providerSlug, relationship}]` |
-| `sources[].type` | `sources[].sourceType` |
+| `sources[].type`                           | `sources[].sourceType`                                  |
 
 If both the deprecated and current field are present, the current one wins.
 
@@ -78,24 +78,24 @@ If both the deprecated and current field are present, the current one wins.
 
 ```md
 ---
-title: "How to Trade Crypto: A Beginner Guide"
-slug: "how-to-trade-crypto"
-articleType: "GUIDE"
-excerpt: "Learn how crypto trading works, including exchanges, order types, fees and major risks."
-category: "Crypto Trading"
+title: 'How to Trade Crypto: A Beginner Guide'
+slug: 'how-to-trade-crypto'
+articleType: 'GUIDE'
+excerpt: 'Learn how crypto trading works, including exchanges, order types, fees and major risks.'
+category: 'Crypto Trading'
 tags:
   - crypto-trading
   - beginners
-region: "GLOBAL"
-searchIntent: "BEGINNER"
-seoTitle: "How to Trade Crypto: Beginner Guide"
-seoDescription: "Learn how crypto trading works, how exchanges operate, common order types, fees and key risks."
-featuredImageAlt: "A beginner comparing order types on a crypto exchange screen"
-author: "Editorial Team"
+region: 'GLOBAL'
+searchIntent: 'BEGINNER'
+seoTitle: 'How to Trade Crypto: Beginner Guide'
+seoDescription: 'Learn how crypto trading works, how exchanges operate, common order types, fees and key risks.'
+featuredImageAlt: 'A beginner comparing order types on a crypto exchange screen'
+author: 'Editorial Team'
 affiliateDisclosureRequired: true
 keyTakeaways:
-  - "Exchanges differ in fees, supported assets and AUD support."
-  - "Market orders execute immediately; limit orders execute at your price or better."
+  - 'Exchanges differ in fees, supported assets and AUD support.'
+  - 'Market orders execute immediately; limit orders execute at your price or better.'
 providerRelationships:
   - kraken
   - providerSlug: binance
@@ -107,9 +107,9 @@ relatedGuides:
   - crypto-trading-fees
   - market-vs-limit-orders
 sources:
-  - label: "Example Source"
-    url: "https://example.com"
-    sourceType: "OFFICIAL_DOCUMENTATION"
+  - label: 'Example Source'
+    url: 'https://example.com'
+    sourceType: 'OFFICIAL_DOCUMENTATION'
 affiliateProviders:
   - kraken
 ---

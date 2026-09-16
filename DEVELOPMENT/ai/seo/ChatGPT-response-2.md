@@ -5,24 +5,24 @@ What you're describing now is no longer merely an Article CRUD feature.
 You're moving toward a proper editorial workflow system:
 
 EDITOR/MODERATOR
-      │
-      │ creates
-      ▼
-    DRAFT
-      │
-      │ submit
-      ▼
- UNDER REVIEW
-      │
-      │ ADMIN reviews
-      │
-      ├──────────────► ARCHIVED
-      │
-      ▼
-  PUBLISHED
-      │
-      │ scheduledAt reached
-      ▼
+│
+│ creates
+▼
+DRAFT
+│
+│ submit
+▼
+UNDER REVIEW
+│
+│ ADMIN reviews
+│
+├──────────────► ARCHIVED
+│
+▼
+PUBLISHED
+│
+│ scheduledAt reached
+▼
 PUBLICLY VISIBLE
 
 There are several design decisions I recommend making carefully before Claude writes any code.
@@ -38,9 +38,9 @@ because that is a verb.
 If you want that product concept, use:
 
 enum Role {
-  USER
-  MODERATOR
-  ADMIN
+USER
+MODERATOR
+ADMIN
 }
 
 However, given what this user actually does, I think EDITOR is semantically better.
@@ -57,9 +57,9 @@ They do not really "moderate" content.
 So I would lean toward:
 
 enum Role {
-  USER
-  EDITOR
-  ADMIN
+USER
+EDITOR
+ADMIN
 }
 
 Then:
@@ -81,7 +81,7 @@ This becomes one of the most important database changes.
 
 Currently you have:
 
-author   String?
+author String?
 reviewer String?
 
 That's fine when they're display labels.
@@ -105,19 +105,19 @@ You need real relations.
 Conceptually:
 
 model Article {
-  ...
+...
 
-  authorUserId   String?
-  reviewerUserId String?
+authorUserId String?
+reviewerUserId String?
 
-  authorUser User? @relation(...)
-  reviewerUser User? @relation(...)
+authorUser User? @relation(...)
+reviewerUser User? @relation(...)
 }
 
 Then you can query:
 
 where: {
-  authorUserId: session.user.id
+authorUserId: session.user.id
 }
 
 for "My articles".
@@ -125,8 +125,8 @@ for "My articles".
 And:
 
 where: {
-  reviewerUserId: session.user.id,
-  status: "REVIEW"
+reviewerUserId: session.user.id,
+status: "REVIEW"
 }
 
 for:
@@ -165,35 +165,35 @@ Then both UI and server actions consume the same business rules.
 For example:
 
 EDITOR
-Create own article           YES
-Edit own DRAFT               YES
-Preview own articles         YES
-Submit own DRAFT             YES
-Publish                      NO
-Archive REVIEW               NO
-Publish REVIEW               NO
-Edit another editor's work   NO
+Create own article YES
+Edit own DRAFT YES
+Preview own articles YES
+Submit own DRAFT YES
+Publish NO
+Archive REVIEW NO
+Publish REVIEW NO
+Edit another editor's work NO
 
 I would probably allow:
 
-Archive own DRAFT            YES
+Archive own DRAFT YES
 
 and optionally:
 
-Withdraw REVIEW → DRAFT      YES
+Withdraw REVIEW → DRAFT YES
 
 if nobody has published it yet.
 
 ADMIN
-Create                       YES
-Edit                         YES
-Review                       YES
-Assign reviewer              YES
-Return to draft              YES
-Publish                      YES
-Archive                      YES
-Restore                      YES
-See all articles             YES
+Create YES
+Edit YES
+Review YES
+Assign reviewer YES
+Return to draft YES
+Publish YES
+Archive YES
+Restore YES
+See all articles YES
 
 This deserves an explicit permission matrix before implementation.
 
@@ -224,8 +224,8 @@ But the public visibility predicate becomes:
 
 status === "PUBLISHED" &&
 (
-  scheduledAt === null ||
-  scheduledAt <= now
+scheduledAt === null ||
+scheduledAt <= now
 )
 
 Before 9 AM:
@@ -265,11 +265,11 @@ buildPublicArticleWhere(now)
 that always generates:
 
 {
-  status: "PUBLISHED",
-  OR: [
-    { scheduledAt: null },
-    { scheduledAt: { lte: now } }
-  ]
+status: "PUBLISHED",
+OR: [
+{ scheduledAt: null },
+{ scheduledAt: { lte: now } }
+]
 }
 
 and every public Article query uses it.
@@ -323,8 +323,8 @@ PUBLISHED + scheduledAt <= now
 
 So your Admin table might show:
 
-Status        Publication
-PUBLISHED     Scheduled for 14 Sep 2026, 09:00
+Status Publication
+PUBLISHED Scheduled for 14 Sep 2026, 09:00
 
 rather than creating another complicated state transition.
 
@@ -345,17 +345,17 @@ I would introduce one controlled view-tracking path.
 For example:
 
 Visitor opens article
-       ↓
+↓
 Article successfully renders
-       ↓
+↓
 small client ViewTracker executes
-       ↓
+↓
 POST /api/articles/[id]/view
-       ↓
+↓
 server validates article is publicly visible
-       ↓
+↓
 Article.update({
-  viewCount: { increment: 1 }
+viewCount: { increment: 1 }
 })
 
 This has a few advantages.
@@ -471,9 +471,9 @@ as six almost-identical implementations.
 I'd prefer something like:
 
 <ArticleManagementTable
-  scope="mine"
-  status="DRAFT"
-  ...
+scope="mine"
+status="DRAFT"
+...
 />
 
 or a reusable server-side query + display component.
@@ -500,8 +500,7 @@ Submitted
 
 And the final column becomes:
 
-Actions
-12. Action column should come from permissions, not status alone
+Actions 12. Action column should come from permissions, not status alone
 
 This is subtle but important.
 
@@ -513,12 +512,9 @@ Exactly.
 
 Eligibility depends on:
 
-role
-+
-ownership
-+
-review assignment
-+
+role +
+ownership +
+review assignment +
 status
 
 not only status.
@@ -581,15 +577,15 @@ Do not fetch every Article then paginate in React.
 For Editor:
 
 where: {
-  authorUserId: user.id,
-  status: ...
+authorUserId: user.id,
+status: ...
 }
 
 For assigned review:
 
 where: {
-  reviewerUserId: user.id,
-  status: "REVIEW"
+reviewerUserId: user.id,
+status: "REVIEW"
 }
 
 For all:
@@ -870,7 +866,7 @@ Study the current User and Article models and propose a proper relation.
 For example, evaluate something conceptually like:
 
 authorUserId String?
-authorUser   User? @relation(...)
+authorUser User? @relation(...)
 
 Do not blindly implement this exact schema.
 
@@ -891,7 +887,7 @@ cannot safely represent user assignment.
 Evaluate adding something conceptually like:
 
 reviewerUserId String?
-reviewerUser   User? @relation(...)
+reviewerUser User? @relation(...)
 
 Questions to answer:
 
@@ -959,11 +955,11 @@ A likely workflow is:
 EDITOR
 
 create
-  ↓
+↓
 DRAFT
-  ↓
+↓
 submit
-  ↓
+↓
 REVIEW
 
 Then:
@@ -971,9 +967,9 @@ Then:
 ADMIN
 
 REVIEW
-  ├── return to DRAFT
-  ├── ARCHIVE
-  └── PUBLISH
+├── return to DRAFT
+├── ARCHIVE
+└── PUBLISH
 
 But review the product requirements and recommend any important missing transition.
 
@@ -1047,8 +1043,7 @@ publicArticleWhere(now)
 
 that guarantees:
 
-PUBLISHED
-+
+PUBLISHED +
 scheduledAt <= now or null
 
 Every public query should use the same rule.
@@ -1181,13 +1176,13 @@ A page can be fetched multiple times internally by Next.js.
 Evaluate a flow similar to:
 
 visitor successfully renders public article
-          ↓
+↓
 ViewTracker
-          ↓
+↓
 POST route/controlled server endpoint
-          ↓
+↓
 verify Article is publicly visible
-          ↓
+↓
 atomic DB increment
 
 Determine whether this is appropriate for the current architecture.
@@ -1269,8 +1264,7 @@ My Articles
 Draft (12)
 Under Review (4)
 Published (28)
-Archived (3)
-20. EDITOR/MODERATOR ARTICLE SCOPE
+Archived (3) 20. EDITOR/MODERATOR ARTICLE SCOPE
 
 Every query must use real ownership.
 
@@ -1482,12 +1476,12 @@ I do not want reviewer assignment to feel cumbersome.
 One possible workflow:
 
 Editor submits article
-        ↓
+↓
 status = REVIEW
 reviewerUserId = null
-        ↓
+↓
 Admin sees it in review queue
-        ↓
+↓
 Admin assigns themselves or another Admin
 
 Evaluate whether this is better than requiring an assignment before submission.
@@ -1665,8 +1659,7 @@ Again:
 
 NO db push
 NO database reset
-NO destructive migration merely for convenience
-36. IMPORTER IMPACT
+NO destructive migration merely for convenience 36. IMPORTER IMPACT
 
 The project also has an Article import pipeline.
 

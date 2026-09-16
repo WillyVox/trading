@@ -1,8 +1,8 @@
-import type { MetadataRoute } from "next";
-import type { ArticleType, ProviderType } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { absoluteUrl } from "./config";
-import { STATIC_GUIDES } from "@/lib/guides/static-guides";
+import type { MetadataRoute } from 'next';
+import type { ArticleType, ProviderType } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { absoluteUrl } from './config';
+import { STATIC_GUIDES } from '@/lib/guides/static-guides';
 
 /**
  * Note: /compare/[slug] is intentionally excluded from the sitemap for now
@@ -19,20 +19,20 @@ import { STATIC_GUIDES } from "@/lib/guides/static-guides";
 
 export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
   const paths = [
-    "",
-    "/crypto",
-    "/crypto/exchanges",
-    "/guides",
-    "/compare",
-    "/compare/crypto-exchanges",
-    "/news",
-    "/methodology",
-    "/methodology/editorial-policy",
-    "/methodology/comparisons",
-    "/affiliate-disclosure",
-    "/how-we-get-paid",
-    "/terms",
-    "/privacy",
+    '',
+    '/crypto',
+    '/crypto/exchanges',
+    '/guides',
+    '/compare',
+    '/compare/crypto-exchanges',
+    '/news',
+    '/methodology',
+    '/methodology/editorial-policy',
+    '/methodology/comparisons',
+    '/affiliate-disclosure',
+    '/how-we-get-paid',
+    '/terms',
+    '/privacy',
   ];
   return [
     ...paths.map((path) => ({ url: absoluteUrl(path) })),
@@ -43,7 +43,6 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
   ];
 }
 
-
 export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
   // `articleType` (not `category`) is what actually scopes a listing to
   // guides — see lib/articles/service.ts. `category` is a free-text topic
@@ -52,9 +51,9 @@ export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
   // whose category was e.g. "how-to" or "crypto-exchanges".
   const articles = await prisma.article.findMany({
     where: {
-      status: "PUBLISHED",
+      status: 'PUBLISHED',
       noIndex: false,
-      articleType: "GUIDE" satisfies ArticleType,
+      articleType: 'GUIDE' satisfies ArticleType,
       slug: { notIn: STATIC_GUIDES.map((guide) => guide.slug) },
     },
     select: { slug: true, lastReviewedAt: true, publishedAt: true },
@@ -67,7 +66,11 @@ export async function guideEntries(): Promise<MetadataRoute.Sitemap> {
 
 export async function newsEntries(): Promise<MetadataRoute.Sitemap> {
   const articles = await prisma.article.findMany({
-    where: { status: "PUBLISHED", noIndex: false, articleType: "NEWS" satisfies ArticleType },
+    where: {
+      status: 'PUBLISHED',
+      noIndex: false,
+      articleType: 'NEWS' satisfies ArticleType,
+    },
     select: { slug: true, lastReviewedAt: true, publishedAt: true },
   });
   return articles.map((a) => ({
@@ -85,7 +88,10 @@ export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
   // than widening this filter, or every non-exchange provider will get a
   // sitemap URL that 404s.
   const providers = await prisma.provider.findMany({
-    where: { noIndex: false, providerType: "CRYPTO_EXCHANGE" satisfies ProviderType },
+    where: {
+      noIndex: false,
+      providerType: 'CRYPTO_EXCHANGE' satisfies ProviderType,
+    },
     select: { slug: true, updatedAt: true },
   });
   return providers.map((p) => ({

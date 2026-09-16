@@ -41,16 +41,16 @@ Google also strongly encourages accurate authorship information and bylines wher
 Once that author architecture exists:
 
 {
-  "@type": "Person",
-  "name": "Huy Vo",
-  "url": "https://.../authors/huy-vo"
+"@type": "Person",
+"name": "Huy Vo",
+"url": "https://.../authors/huy-vo"
 }
 
 would be better than only:
 
 {
-  "@type": "Person",
-  "name": "Huy Vo"
+"@type": "Person",
+"name": "Huy Vo"
 }
 
 Google specifically recommends an author URL where available because it helps identify the author.

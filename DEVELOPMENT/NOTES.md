@@ -1,4 +1,5 @@
 # 2026/09/16
+
     ## make these three boxes to be clickable, navigate them to
         provider review page
         exchange compare page
@@ -8,6 +9,7 @@
         and return zip at the end
 
 # Supabase set up
+
     # Project name: trading-guide
     # Database password: @Lac84890123
     # Region Asia-Pacific
@@ -30,7 +32,7 @@
             url       = env("DATABASE_URL")
             directUrl = env("DIRECT_URL")
         }
-    3. 
+    3.
     npx prisma generate
     npx prisma migrate dev
     4. For production
@@ -47,10 +49,12 @@
         DATABASE_URL="postgresql://USER:PASSWORD@HOST/neondb?sslmode=require"
 
 # Test image
+
     Link: https://picsum.photos/200/300
 
-    
+
 # Author profile
+
 Huy Vo
 Software engineer and Trading Guide editor
 
@@ -63,6 +67,7 @@ Articles are fact-checked using provider documentation,
 ASIC/AUSTRAC records and official fee schedules.
 
 # Methodology build
+
 19. "Who it may suit" requires care
 
 Finder and Canstar can do sophisticated user segmentation because they have extensive scoring methodologies.

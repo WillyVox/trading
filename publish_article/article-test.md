@@ -1,6 +1,6 @@
 ---
-title: "Broken Example Article"
-slug: "Broken Slug With Spaces"
+title: 'Broken Example Article'
+slug: 'Broken Slug With Spaces'
 ---
 
 This file exists to demonstrate what a validation failure looks like in the console output —

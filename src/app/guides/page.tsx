@@ -1,19 +1,22 @@
-import Link from "next/link";
-import clsx from "clsx";
-import { getPublicGuideCategories, getPublicGuides } from "@/lib/guides/service";
-import { formatCategoryLabel } from "@/lib/articles/content";
-import { PageHero } from "@/components/layout/PageHero";
-import { ArticleCard } from "@/components/article/ArticleCard";
-import { Notice } from "@/components/ui/Notice";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import Link from 'next/link';
+import clsx from 'clsx';
+import {
+  getPublicGuideCategories,
+  getPublicGuides,
+} from '@/lib/guides/service';
+import { formatCategoryLabel } from '@/lib/articles/content';
+import { PageHero } from '@/components/layout/PageHero';
+import { ArticleCard } from '@/components/article/ArticleCard';
+import { Notice } from '@/components/ui/Notice';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
 
 export const metadata = buildMetadata({
-  title: "Trading & Crypto Guides Australia — Beginner Education",
+  title: 'Trading & Crypto Guides Australia — Beginner Education',
   description:
-    "Beginner-friendly Australian guides covering crypto exchanges, buying cryptocurrency, share trading, fees, security and how trading platforms work.",
-  path: "/guides",
-  image: "/images/og/guides.png",
+    'Beginner-friendly Australian guides covering crypto exchanges, buying cryptocurrency, share trading, fees, security and how trading platforms work.',
+  path: '/guides',
+  image: '/images/og/guides.png',
 });
 
 export default async function GuidesPage({
@@ -28,7 +31,7 @@ export default async function GuidesPage({
     getPublicGuideCategories(),
   ]);
 
-  const trail = breadcrumbTrail([{ name: "Guides", path: "/guides" }]);
+  const trail = breadcrumbTrail([{ name: 'Guides', path: '/guides' }]);
 
   return (
     <>
@@ -41,14 +44,17 @@ export default async function GuidesPage({
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
         {categories.length > 0 && (
-          <nav aria-label="Filter guides by category" className="mb-8 flex flex-wrap gap-2">
+          <nav
+            aria-label="Filter guides by category"
+            className="mb-8 flex flex-wrap gap-2"
+          >
             <Link
               href="/guides"
               className={clsx(
-                "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
+                'rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors',
                 !selectedCategory
-                  ? "border-navy bg-navy text-background"
-                  : "border-border bg-panel text-muted hover:border-gold-soft hover:text-navy"
+                  ? 'border-navy bg-navy text-background'
+                  : 'border-border bg-panel text-muted hover:border-gold-soft hover:text-navy'
               )}
             >
               All guides
@@ -58,10 +64,10 @@ export default async function GuidesPage({
                 key={category}
                 href={`/guides?category=${encodeURIComponent(category)}`}
                 className={clsx(
-                  "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
+                  'rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors',
                   selectedCategory === category
-                    ? "border-navy bg-navy text-background"
-                    : "border-border bg-panel text-muted hover:border-gold-soft hover:text-navy"
+                    ? 'border-navy bg-navy text-background'
+                    : 'border-border bg-panel text-muted hover:border-gold-soft hover:text-navy'
                 )}
               >
                 {formatCategoryLabel(category)}
@@ -73,8 +79,8 @@ export default async function GuidesPage({
         {items.length === 0 ? (
           <Notice>
             {selectedCategory
-              ? "No guides published in this category yet."
-              : "No guides published yet."}
+              ? 'No guides published in this category yet.'
+              : 'No guides published yet.'}
           </Notice>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

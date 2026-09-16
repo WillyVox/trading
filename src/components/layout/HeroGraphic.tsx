@@ -1,15 +1,11 @@
-import type { JSX } from "react";
+import type { JSX } from 'react';
 
 export type HeroGraphicVariant =
-  | "home"
-  | "crypto"
-  | "guides"
-  | "compare"
-  | "methodology";
+  'home' | 'crypto' | 'guides' | 'compare' | 'methodology';
 
-const GOLD = "#c79a3d";
-const GOLD_SOFT = "#e8d9b5";
-const CREAM = "#f5f2ea";
+const GOLD = '#c79a3d';
+const GOLD_SOFT = '#e8d9b5';
+const CREAM = '#f5f2ea';
 
 function HomeGraphic() {
   return (
@@ -21,11 +17,47 @@ function HomeGraphic() {
         strokeOpacity={0.5}
         strokeWidth={1.5}
       />
-      <rect x="10" y="86" width="18" height="34" fill={GOLD_SOFT} fillOpacity={0.55} />
-      <rect x="50" y="66" width="18" height="54" fill={GOLD} fillOpacity={0.55} />
-      <rect x="90" y="46" width="18" height="74" fill={GOLD_SOFT} fillOpacity={0.55} />
-      <rect x="130" y="26" width="18" height="94" fill={GOLD} fillOpacity={0.7} />
-      <circle cx="150" cy="20" r="16" fill="none" stroke={GOLD} strokeWidth={1.5} strokeOpacity={0.8} />
+      <rect
+        x="10"
+        y="86"
+        width="18"
+        height="34"
+        fill={GOLD_SOFT}
+        fillOpacity={0.55}
+      />
+      <rect
+        x="50"
+        y="66"
+        width="18"
+        height="54"
+        fill={GOLD}
+        fillOpacity={0.55}
+      />
+      <rect
+        x="90"
+        y="46"
+        width="18"
+        height="74"
+        fill={GOLD_SOFT}
+        fillOpacity={0.55}
+      />
+      <rect
+        x="130"
+        y="26"
+        width="18"
+        height="94"
+        fill={GOLD}
+        fillOpacity={0.7}
+      />
+      <circle
+        cx="150"
+        cy="20"
+        r="16"
+        fill="none"
+        stroke={GOLD}
+        strokeWidth={1.5}
+        strokeOpacity={0.8}
+      />
       <path
         d="M143 20 L148 25 L158 12"
         fill="none"
@@ -42,11 +74,51 @@ function HomeGraphic() {
 function CryptoGraphic() {
   return (
     <>
-      <line x1="80" y1="40" x2="30" y2="86" stroke={CREAM} strokeOpacity={0.3} strokeWidth={1} />
-      <line x1="80" y1="40" x2="140" y2="70" stroke={CREAM} strokeOpacity={0.3} strokeWidth={1} />
-      <line x1="80" y1="40" x2="55" y2="112" stroke={CREAM} strokeOpacity={0.3} strokeWidth={1} />
-      <line x1="80" y1="40" x2="150" y2="118" stroke={CREAM} strokeOpacity={0.3} strokeWidth={1} />
-      <line x1="30" y1="86" x2="55" y2="112" stroke={CREAM} strokeOpacity={0.18} strokeWidth={1} />
+      <line
+        x1="80"
+        y1="40"
+        x2="30"
+        y2="86"
+        stroke={CREAM}
+        strokeOpacity={0.3}
+        strokeWidth={1}
+      />
+      <line
+        x1="80"
+        y1="40"
+        x2="140"
+        y2="70"
+        stroke={CREAM}
+        strokeOpacity={0.3}
+        strokeWidth={1}
+      />
+      <line
+        x1="80"
+        y1="40"
+        x2="55"
+        y2="112"
+        stroke={CREAM}
+        strokeOpacity={0.3}
+        strokeWidth={1}
+      />
+      <line
+        x1="80"
+        y1="40"
+        x2="150"
+        y2="118"
+        stroke={CREAM}
+        strokeOpacity={0.3}
+        strokeWidth={1}
+      />
+      <line
+        x1="30"
+        y1="86"
+        x2="55"
+        y2="112"
+        stroke={CREAM}
+        strokeOpacity={0.18}
+        strokeWidth={1}
+      />
       <circle cx="80" cy="40" r="13" fill={GOLD} fillOpacity={0.85} />
       <circle cx="30" cy="86" r="7" fill={GOLD_SOFT} fillOpacity={0.6} />
       <circle cx="140" cy="70" r="7" fill={GOLD_SOFT} fillOpacity={0.6} />
@@ -73,10 +145,39 @@ function GuidesGraphic() {
         strokeOpacity={0.55}
         strokeWidth={1.5}
       />
-      <line x1="60" y1="60" x2="60" y2="102" stroke={CREAM} strokeOpacity={0.55} strokeWidth={1.5} />
-      <rect x="120" y="82" width="24" height="18" fill={GOLD_SOFT} fillOpacity={0.55} />
-      <rect x="148" y="66" width="24" height="34" fill={GOLD} fillOpacity={0.6} />
-      <rect x="176" y="50" width="20" height="50" fill={GOLD} fillOpacity={0.75} />
+      <line
+        x1="60"
+        y1="60"
+        x2="60"
+        y2="102"
+        stroke={CREAM}
+        strokeOpacity={0.55}
+        strokeWidth={1.5}
+      />
+      <rect
+        x="120"
+        y="82"
+        width="24"
+        height="18"
+        fill={GOLD_SOFT}
+        fillOpacity={0.55}
+      />
+      <rect
+        x="148"
+        y="66"
+        width="24"
+        height="34"
+        fill={GOLD}
+        fillOpacity={0.6}
+      />
+      <rect
+        x="176"
+        y="50"
+        width="20"
+        height="50"
+        fill={GOLD}
+        fillOpacity={0.75}
+      />
     </>
   );
 }
@@ -94,9 +195,30 @@ function CompareGraphic() {
         strokeWidth={1}
         strokeDasharray="3,4"
       />
-      <rect x="40" y="52" width="26" height="58" fill={GOLD_SOFT} fillOpacity={0.55} />
-      <rect x="80" y="24" width="26" height="86" fill={GOLD} fillOpacity={0.7} />
-      <rect x="120" y="64" width="26" height="46" fill={GOLD_SOFT} fillOpacity={0.55} />
+      <rect
+        x="40"
+        y="52"
+        width="26"
+        height="58"
+        fill={GOLD_SOFT}
+        fillOpacity={0.55}
+      />
+      <rect
+        x="80"
+        y="24"
+        width="26"
+        height="86"
+        fill={GOLD}
+        fillOpacity={0.7}
+      />
+      <rect
+        x="120"
+        y="64"
+        width="26"
+        height="46"
+        fill={GOLD_SOFT}
+        fillOpacity={0.55}
+      />
       <circle cx="53" cy="44" r="2.5" fill={CREAM} fillOpacity={0.6} />
       <circle cx="93" cy="16" r="2.5" fill={CREAM} fillOpacity={0.6} />
       <circle cx="133" cy="56" r="2.5" fill={CREAM} fillOpacity={0.6} />
@@ -118,10 +240,42 @@ function MethodologyGraphic() {
         strokeOpacity={0.5}
         strokeWidth={1.5}
       />
-      <line x1="42" y1="40" x2="80" y2="40" stroke={CREAM} strokeOpacity={0.5} strokeWidth={1.5} />
-      <line x1="42" y1="54" x2="80" y2="54" stroke={CREAM} strokeOpacity={0.5} strokeWidth={1.5} />
-      <line x1="42" y1="68" x2="66" y2="68" stroke={CREAM} strokeOpacity={0.5} strokeWidth={1.5} />
-      <circle cx="138" cy="70" r="24" fill="none" stroke={GOLD} strokeWidth={3} strokeOpacity={0.85} />
+      <line
+        x1="42"
+        y1="40"
+        x2="80"
+        y2="40"
+        stroke={CREAM}
+        strokeOpacity={0.5}
+        strokeWidth={1.5}
+      />
+      <line
+        x1="42"
+        y1="54"
+        x2="80"
+        y2="54"
+        stroke={CREAM}
+        strokeOpacity={0.5}
+        strokeWidth={1.5}
+      />
+      <line
+        x1="42"
+        y1="68"
+        x2="66"
+        y2="68"
+        stroke={CREAM}
+        strokeOpacity={0.5}
+        strokeWidth={1.5}
+      />
+      <circle
+        cx="138"
+        cy="70"
+        r="24"
+        fill="none"
+        stroke={GOLD}
+        strokeWidth={3}
+        strokeOpacity={0.85}
+      />
       <line
         x1="156"
         y1="88"

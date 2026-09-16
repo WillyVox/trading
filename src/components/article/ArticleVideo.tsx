@@ -1,4 +1,4 @@
-export type VideoProvider = "youtube" | "vimeo";
+export type VideoProvider = 'youtube' | 'vimeo';
 
 const EMBED_SRC: Record<VideoProvider, (videoId: string) => string> = {
   // youtube-nocookie.com avoids setting tracking cookies until the visitor
@@ -28,17 +28,23 @@ export function ArticleVideo({
 
   return (
     <figure className="my-8">
-      <div className="relative aspect-video overflow-hidden rounded-2xl border border-border bg-navy-dark">
+      <div className="border-border bg-navy-dark relative aspect-video overflow-hidden rounded-2xl border">
         <iframe
           src={src}
-          title={caption ?? `${provider === "youtube" ? "YouTube" : "Vimeo"} video`}
+          title={
+            caption ?? `${provider === 'youtube' ? 'YouTube' : 'Vimeo'} video`
+          }
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           className="absolute inset-0 h-full w-full"
         />
       </div>
-      {caption && <figcaption className="mt-2 text-center text-sm text-muted">{caption}</figcaption>}
+      {caption && (
+        <figcaption className="text-muted mt-2 text-center text-sm">
+          {caption}
+        </figcaption>
+      )}
     </figure>
   );
 }

@@ -1,5 +1,5 @@
-import sanitizeHtml from "sanitize-html";
-import { siteConfig } from "@/lib/seo/config";
+import sanitizeHtml from 'sanitize-html';
+import { siteConfig } from '@/lib/seo/config';
 
 /**
  * The one HTML sanitization policy for article content — see
@@ -37,33 +37,33 @@ function isExternalHref(href: string): boolean {
 }
 
 const ALLOWED_TAGS = [
-  "h2",
-  "h3",
-  "h4",
-  "p",
-  "strong",
-  "em",
-  "ul",
-  "ol",
-  "li",
-  "a",
-  "blockquote",
-  "table",
-  "thead",
-  "tbody",
-  "tr",
-  "th",
-  "td",
-  "figure",
-  "figcaption",
-  "img",
-  "code",
-  "pre",
-  "hr",
-  "br",
+  'h2',
+  'h3',
+  'h4',
+  'p',
+  'strong',
+  'em',
+  'ul',
+  'ol',
+  'li',
+  'a',
+  'blockquote',
+  'table',
+  'thead',
+  'tbody',
+  'tr',
+  'th',
+  'td',
+  'figure',
+  'figcaption',
+  'img',
+  'code',
+  'pre',
+  'hr',
+  'br',
 ];
 
-const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
+const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions['allowedAttributes'] = {
   // No `class` on `a`/`img`/`*` — nothing in the spec calls for admins or
   // imported content to hand-author CSS classes into article body HTML;
   // dropping it removes surface area for no lost functionality.
@@ -75,7 +75,7 @@ const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
   // `target` is only ever set by the transform below (external links) —
   // nothing hand-authors it, but it must be allow-listed here for the same
   // reason `rel` is: allowedAttributes filtering runs after transformTags.
-  a: ["href", "title", "rel", "target"],
+  a: ['href', 'title', 'rel', 'target'],
   // width/height "where known" per Req.md §18 — purely descriptive
   // (browser-side layout hint), not a styling escape hatch.
   // `data-align` is the one exception to "no class/style on img" above: it
@@ -84,18 +84,18 @@ const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
   // CSS attribute selectors this codebase controls (globals.css), never
   // by an inline `style` attribute — so it can't become an arbitrary CSS
   // injection point the way a free-form `class` or `style` value could.
-  img: ["src", "alt", "title", "width", "height", "data-align"],
+  img: ['src', 'alt', 'title', 'width', 'height', 'data-align'],
 };
 
-const ALLOWED_IMAGE_ALIGN = new Set(["left", "center", "right"]);
+const ALLOWED_IMAGE_ALIGN = new Set(['left', 'center', 'right']);
 
 export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   allowedTags: ALLOWED_TAGS,
   allowedAttributes: ALLOWED_ATTRIBUTES,
-  allowedSchemes: ["http", "https", "mailto"],
+  allowedSchemes: ['http', 'https', 'mailto'],
   // Belt-and-braces on top of allowedTags: never let a script or arbitrary
   // iframe through even if the allowlist above is edited carelessly later.
-  disallowedTagsMode: "discard",
+  disallowedTagsMode: 'discard',
   allowProtocolRelative: false,
   // Applies to every path that uses this policy (admin save AND import) —
   // stops a linked page from controlling the referring tab via
@@ -110,14 +110,14 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   // warranted for genuinely external destinations (sources, regulators).
   transformTags: {
     a: (tagName, attribs) => {
-      const href = attribs.href ?? "";
+      const href = attribs.href ?? '';
       const isExternal = isExternalHref(href);
       return {
         tagName,
         attribs: {
           ...attribs,
-          rel: "noopener noreferrer",
-          ...(isExternal ? { target: "_blank" } : {}),
+          rel: 'noopener noreferrer',
+          ...(isExternal ? { target: '_blank' } : {}),
         },
       };
     },
@@ -128,10 +128,13 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
     // anyway, so an unrecognized value would be inert even if it slipped
     // through.
     img: (tagName, attribs) => {
-      const { "data-align": align, ...rest } = attribs;
+      const { 'data-align': align, ...rest } = attribs;
       return {
         tagName,
-        attribs: align && ALLOWED_IMAGE_ALIGN.has(align) ? { ...rest, "data-align": align } : rest,
+        attribs:
+          align && ALLOWED_IMAGE_ALIGN.has(align)
+            ? { ...rest, 'data-align': align }
+            : rest,
       };
     },
   },
@@ -139,5 +142,5 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
 
 /** Sanitizes article HTML — admin-authored or imported — before it's ever written to the database. */
 export function sanitizeArticleContent(html: string): string {
-  return sanitizeHtml(html ?? "", ARTICLE_SANITIZE_OPTIONS);
+  return sanitizeHtml(html ?? '', ARTICLE_SANITIZE_OPTIONS);
 }

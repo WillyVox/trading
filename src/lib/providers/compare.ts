@@ -1,5 +1,5 @@
-import type { ProviderFeatureType } from "@prisma/client";
-import { featureGroup, type ProviderFeatureGroup } from "./features";
+import type { ProviderFeatureType } from '@prisma/client';
+import { featureGroup, type ProviderFeatureGroup } from './features';
 
 /**
  * Shape the Comparison Engine (Phase 5) needs from each Provider --
@@ -14,10 +14,15 @@ export type ComparisonProvider = {
   id: string;
   slug: string;
   name: string;
-  verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
+  verificationStatus: 'VERIFIED' | 'UNVERIFIED' | 'STALE';
   facts: { label: string; value: string }[];
   fees: { label: string; displayValue: string | null }[];
-  features: { featureType: ProviderFeatureType; label: string | null; value: string | null; available: boolean | null }[];
+  features: {
+    featureType: ProviderFeatureType;
+    label: string | null;
+    value: string | null;
+    available: boolean | null;
+  }[];
 };
 
 export type ComparisonRow = {
@@ -33,7 +38,9 @@ export type ComparisonSection = {
 };
 
 /** Union of fact labels across all compared providers, in first-seen order, so a fact only one provider has still gets its own row (rendered "\u2014" for the rest) instead of being silently dropped. */
-export function buildFactRows(providers: ComparisonProvider[]): ComparisonRow[] {
+export function buildFactRows(
+  providers: ComparisonProvider[]
+): ComparisonRow[] {
   const labels: string[] = [];
   for (const p of providers) {
     for (const f of p.facts) {
@@ -43,7 +50,9 @@ export function buildFactRows(providers: ComparisonProvider[]): ComparisonRow[] 
   return labels.map((label) => ({
     key: `fact:${label}`,
     label,
-    values: providers.map((p) => p.facts.find((f) => f.label === label)?.value ?? null),
+    values: providers.map(
+      (p) => p.facts.find((f) => f.label === label)?.value ?? null
+    ),
   }));
 }
 
@@ -57,12 +66,17 @@ export function buildFeeRows(providers: ComparisonProvider[]): ComparisonRow[] {
   return labels.map((label) => ({
     key: `fee:${label}`,
     label,
-    values: providers.map((p) => p.fees.find((f) => f.label === label)?.displayValue ?? "Not verified"),
+    values: providers.map(
+      (p) =>
+        p.fees.find((f) => f.label === label)?.displayValue ?? 'Not verified'
+    ),
   }));
 }
 
 /** One row per ProviderFeatureType seen across the compared providers, split into the same products/deposits/security groups the exchange profile page uses (see src/lib/providers/features.ts) so the two views stay consistent. */
-export function buildFeatureSections(providers: ComparisonProvider[]): Record<ProviderFeatureGroup, ComparisonRow[]> {
+export function buildFeatureSections(
+  providers: ComparisonProvider[]
+): Record<ProviderFeatureGroup, ComparisonRow[]> {
   const types: ProviderFeatureType[] = [];
   for (const p of providers) {
     for (const f of p.features) {
@@ -70,18 +84,22 @@ export function buildFeatureSections(providers: ComparisonProvider[]): Record<Pr
     }
   }
 
-  const rows: Record<ProviderFeatureGroup, ComparisonRow[]> = { products: [], deposits: [], security: [] };
+  const rows: Record<ProviderFeatureGroup, ComparisonRow[]> = {
+    products: [],
+    deposits: [],
+    security: [],
+  };
   for (const type of types) {
     const row: ComparisonRow = {
       key: `feature:${type}`,
-      label: type.replace(/_/g, " "),
+      label: type.replace(/_/g, ' '),
       values: providers.map((p) => {
         const f = p.features.find((x) => x.featureType === type);
         if (!f) return null;
         if (f.value) return f.value;
-        if (f.available === true) return "\u2713";
-        if (f.available === false) return "\u2014";
-        return "?";
+        if (f.available === true) return '\u2713';
+        if (f.available === false) return '\u2014';
+        return '?';
       }),
     };
     rows[featureGroup(type)].push(row);
@@ -89,13 +107,15 @@ export function buildFeatureSections(providers: ComparisonProvider[]): Record<Pr
   return rows;
 }
 
-export function buildComparisonSections(providers: ComparisonProvider[]): ComparisonSection[] {
+export function buildComparisonSections(
+  providers: ComparisonProvider[]
+): ComparisonSection[] {
   const featureSections = buildFeatureSections(providers);
   return [
-    { title: "Facts", rows: buildFactRows(providers) },
-    { title: "Fees", rows: buildFeeRows(providers) },
-    { title: "Products & trading", rows: featureSections.products },
-    { title: "Deposits & withdrawals", rows: featureSections.deposits },
-    { title: "Security", rows: featureSections.security },
+    { title: 'Facts', rows: buildFactRows(providers) },
+    { title: 'Fees', rows: buildFeeRows(providers) },
+    { title: 'Products & trading', rows: featureSections.products },
+    { title: 'Deposits & withdrawals', rows: featureSections.deposits },
+    { title: 'Security', rows: featureSections.security },
   ].filter((section) => section.rows.length > 0);
 }

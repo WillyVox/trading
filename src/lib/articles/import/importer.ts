@@ -1,11 +1,11 @@
-import { prisma } from "@/lib/prisma";
-import { articleRepository } from "@/lib/repository";
-import type { ArticleImportPayload } from "./types";
-import { ArticleStatus, ArticleType, Prisma } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
+import { articleRepository } from '@/lib/repository';
+import type { ArticleImportPayload } from './types';
+import { ArticleStatus, ArticleType, Prisma } from '@prisma/client';
 
 export interface CoreUpsertResult {
   id: string;
-  outcome: "CREATED" | "UPDATED";
+  outcome: 'CREATED' | 'UPDATED';
 }
 
 /** Same `undefined`-or-invalid-string -> null rule as actions.ts's toDateOrNull, for the
@@ -28,7 +28,9 @@ function toDateOrUndefined(value: string | undefined): Date | undefined {
  * Mirrors buildScalarData() in src/lib/articles/actions.ts — same field set, same Article
  * model, just "undefined means leave untouched on UPDATE" here instead of "always sync".
  */
-function buildScalarData(payload: ArticleImportPayload): Prisma.ArticleUpdateInput {
+function buildScalarData(
+  payload: ArticleImportPayload
+): Prisma.ArticleUpdateInput {
   const data: Prisma.ArticleUpdateInput = {
     title: payload.title,
     content: payload.content,
@@ -38,17 +40,25 @@ function buildScalarData(payload: ArticleImportPayload): Prisma.ArticleUpdateInp
   if (payload.excerpt !== undefined) data.excerpt = payload.excerpt;
   if (payload.category !== undefined) data.category = payload.category;
   if (payload.seoTitle !== undefined) data.seoTitle = payload.seoTitle;
-  if (payload.seoDescription !== undefined) data.seoDescription = payload.seoDescription;
-  if (payload.canonicalUrl !== undefined) data.canonicalUrl = payload.canonicalUrl;
-  if (payload.featuredImage !== undefined) data.featuredImage = payload.featuredImage;
-  if (payload.featuredImageAlt !== undefined) data.featuredImageAlt = payload.featuredImageAlt;
+  if (payload.seoDescription !== undefined)
+    data.seoDescription = payload.seoDescription;
+  if (payload.canonicalUrl !== undefined)
+    data.canonicalUrl = payload.canonicalUrl;
+  if (payload.featuredImage !== undefined)
+    data.featuredImage = payload.featuredImage;
+  if (payload.featuredImageAlt !== undefined)
+    data.featuredImageAlt = payload.featuredImageAlt;
   if (payload.author !== undefined) data.author = payload.author;
   if (payload.reviewer !== undefined) data.reviewer = payload.reviewer;
   if (payload.noIndex !== undefined) data.noIndex = payload.noIndex;
-  if (payload.affiliateDisclosureRequired !== undefined) data.affiliateDisclosureRequired = payload.affiliateDisclosureRequired;
-  if (payload.keyTakeaways !== undefined) data.keyTakeaways = payload.keyTakeaways;
-  if (payload.searchIntent !== undefined) data.searchIntent = payload.searchIntent;
-  if (payload.region !== undefined) data.region = payload.region === "GLOBAL" ? null : payload.region;
+  if (payload.affiliateDisclosureRequired !== undefined)
+    data.affiliateDisclosureRequired = payload.affiliateDisclosureRequired;
+  if (payload.keyTakeaways !== undefined)
+    data.keyTakeaways = payload.keyTakeaways;
+  if (payload.searchIntent !== undefined)
+    data.searchIntent = payload.searchIntent;
+  if (payload.region !== undefined)
+    data.region = payload.region === 'GLOBAL' ? null : payload.region;
 
   const scheduledAt = toDateOrUndefined(payload.scheduledAt);
   if (scheduledAt !== undefined) data.scheduledAt = scheduledAt;
@@ -58,24 +68,35 @@ function buildScalarData(payload: ArticleImportPayload): Prisma.ArticleUpdateInp
   return data;
 }
 
-async function syncTags(tx: Prisma.TransactionClient, articleId: string, tags: string[] | undefined) {
+async function syncTags(
+  tx: Prisma.TransactionClient,
+  articleId: string,
+  tags: string[] | undefined
+) {
   if (tags === undefined) return; // not present in file — leave existing tags untouched
   await tx.articleTag.deleteMany({ where: { articleId } });
   if (tags.length > 0) {
-    await tx.articleTag.createMany({ data: tags.map((tag) => ({ articleId, tag })) });
+    await tx.articleTag.createMany({
+      data: tags.map((tag) => ({ articleId, tag })),
+    });
   }
 }
 
 async function syncSources(
   tx: Prisma.TransactionClient,
   articleId: string,
-  sources: ArticleImportPayload["sources"]
+  sources: ArticleImportPayload['sources']
 ) {
   if (sources === undefined) return; // not present in file — leave existing sources untouched
   await tx.articleSource.deleteMany({ where: { articleId } });
   if (sources.length > 0) {
     await tx.articleSource.createMany({
-      data: sources.map((s) => ({ articleId, label: s.label, url: s.url, sourceType: s.sourceType ?? null })),
+      data: sources.map((s) => ({
+        articleId,
+        label: s.label,
+        url: s.url,
+        sourceType: s.sourceType ?? null,
+      })),
     });
   }
 }
@@ -93,18 +114,26 @@ async function syncSources(
  * `status` in its data at all, so an already-PUBLISHED article can never be
  * silently unpublished by a re-import (spec §12).
  */
-export async function upsertArticleCore(payload: ArticleImportPayload): Promise<CoreUpsertResult> {
+export async function upsertArticleCore(
+  payload: ArticleImportPayload
+): Promise<CoreUpsertResult> {
   return prisma.$transaction(async (tx) => {
-    const existing = await tx.article.findUnique({ where: { slug: payload.slug }, select: { id: true } });
+    const existing = await tx.article.findUnique({
+      where: { slug: payload.slug },
+      select: { id: true },
+    });
     const scalarData = buildScalarData(payload);
 
     let id: string;
-    let outcome: CoreUpsertResult["outcome"];
+    let outcome: CoreUpsertResult['outcome'];
 
     if (existing) {
-      const updated = await tx.article.update({ where: { id: existing.id }, data: scalarData });
+      const updated = await tx.article.update({
+        where: { id: existing.id },
+        data: scalarData,
+      });
       id = updated.id;
-      outcome = "UPDATED";
+      outcome = 'UPDATED';
     } else {
       const created = await tx.article.create({
         data: {
@@ -115,10 +144,10 @@ export async function upsertArticleCore(payload: ArticleImportPayload): Promise<
           // above -- see the articleType comment in types.ts. GUIDE is the
           // safer default (see the migration's backfill note).
           articleType: payload.articleType ?? ArticleType.GUIDE,
-        }
+        },
       });
       id = created.id;
-      outcome = "CREATED";
+      outcome = 'CREATED';
     }
 
     await syncTags(tx, id, payload.tags);
@@ -129,7 +158,11 @@ export async function upsertArticleCore(payload: ArticleImportPayload): Promise<
 }
 
 /** Read-only lookup used by --dry-run to report CREATE vs UPDATE without writing anything. */
-export async function previewOutcome(slug: string): Promise<"CREATED" | "UPDATED"> {
-  const existing = await articleRepository.findBySlug(slug, { select: { id: true } });
-  return existing ? "UPDATED" : "CREATED";
+export async function previewOutcome(
+  slug: string
+): Promise<'CREATED' | 'UPDATED'> {
+  const existing = await articleRepository.findBySlug(slug, {
+    select: { id: true },
+  });
+  return existing ? 'UPDATED' : 'CREATED';
 }

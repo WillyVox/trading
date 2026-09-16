@@ -1,15 +1,15 @@
 import {
   getArticleCategories,
   getPublishedArticles,
-} from "@/lib/articles/service";
+} from '@/lib/articles/service';
 
 import {
   getStaticGuideCategories,
   getStaticGuides,
   isStaticGuideSlug,
-} from "./static-guides";
+} from './static-guides';
 
-import type { GuideSummary } from "./types";
+import type { GuideSummary } from './types';
 
 /**
  * Infer the individual database guide type directly from
@@ -18,11 +18,9 @@ import type { GuideSummary } from "./types";
  * This keeps this service aligned with the article service if its
  * return type changes later.
  */
-type PublishedArticlesResult = Awaited<
-  ReturnType<typeof getPublishedArticles>
->;
+type PublishedArticlesResult = Awaited<ReturnType<typeof getPublishedArticles>>;
 
-type DatabaseGuide = PublishedArticlesResult["items"][number];
+type DatabaseGuide = PublishedArticlesResult['items'][number];
 
 /**
  * Unified discovery layer for /guides.
@@ -36,11 +34,11 @@ type DatabaseGuide = PublishedArticlesResult["items"][number];
  * for static and database-backed guides.
  */
 export async function getPublicGuides(
-  category?: string,
+  category?: string
 ): Promise<GuideSummary[]> {
   const [{ items: databaseGuides }, staticGuides] = await Promise.all([
     getPublishedArticles({
-      articleType: "GUIDE",
+      articleType: 'GUIDE',
       category,
       pageSize: 48,
     }),
@@ -60,33 +58,25 @@ export async function getPublicGuides(
    * reserved-slug validation prevents new collisions from being created.
    */
   const normalizedDatabase: GuideSummary[] = databaseGuides
-    .filter(
-      (guide: DatabaseGuide) => !isStaticGuideSlug(guide.slug),
-    )
-    .map(
-      (guide: DatabaseGuide): GuideSummary => ({
-        id: guide.id,
-        slug: guide.slug,
-        title: guide.title,
-        excerpt: guide.excerpt,
-        category: guide.category,
-        featuredImage: guide.featuredImage,
-        featuredImageAlt: guide.featuredImageAlt,
-        author: guide.author,
-        publishedAt: guide.publishedAt,
-        updatedAt: guide.updatedAt,
-        source: "DATABASE",
-      }),
-    );
+    .filter((guide: DatabaseGuide) => !isStaticGuideSlug(guide.slug))
+    .map((guide: DatabaseGuide): GuideSummary => ({
+      id: guide.id,
+      slug: guide.slug,
+      title: guide.title,
+      excerpt: guide.excerpt,
+      category: guide.category,
+      featuredImage: guide.featuredImage,
+      featuredImageAlt: guide.featuredImageAlt,
+      author: guide.author,
+      publishedAt: guide.publishedAt,
+      updatedAt: guide.updatedAt,
+      source: 'DATABASE',
+    }));
 
   return [...normalizedStatic, ...normalizedDatabase].sort((a, b) => {
-    const aTime = a.publishedAt
-      ? new Date(a.publishedAt).getTime()
-      : 0;
+    const aTime = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
 
-    const bTime = b.publishedAt
-      ? new Date(b.publishedAt).getTime()
-      : 0;
+    const bTime = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
 
     return bTime - aTime || a.title.localeCompare(b.title);
   });
@@ -94,11 +84,9 @@ export async function getPublicGuides(
 
 export async function getPublicGuideCategories(): Promise<string[]> {
   const [databaseCategories, staticCategories] = await Promise.all([
-    getArticleCategories("GUIDE"),
+    getArticleCategories('GUIDE'),
     Promise.resolve(getStaticGuideCategories()),
   ]);
 
-  return [
-    ...new Set([...databaseCategories, ...staticCategories]),
-  ].sort();
+  return [...new Set([...databaseCategories, ...staticCategories])].sort();
 }

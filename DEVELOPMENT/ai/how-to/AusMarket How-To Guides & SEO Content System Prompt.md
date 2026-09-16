@@ -429,7 +429,7 @@ Look at:
 Create:
 
 | Feature | Competitor | What they do well | Weakness | What Trading Guide should do |
-|---|---|---|---|---|
+| ------- | ---------- | ----------------- | -------- | ---------------------------- |
 
 Do not copy competitor wording.
 
@@ -509,7 +509,7 @@ Design a reusable How-To guide template.
 
 Consider this architecture:
 
---------------------------------------------------
+---
 
 Breadcrumb
 
@@ -525,21 +525,21 @@ Reviewed/verified: [when genuine]
 
 [Author information]
 
---------------------------------------------------
+---
 
 IMPORTANT INFORMATION / DISCLOSURE
 
 Short, non-intrusive financial-information and
 affiliate disclosure where appropriate.
 
---------------------------------------------------
+---
 
 QUICK ANSWER
 
 A concise 50–100 word summary answering the
 search intent immediately.
 
---------------------------------------------------
+---
 
 ON THIS PAGE
 
@@ -554,7 +554,7 @@ ON THIS PAGE
 9. Common mistakes
 10. Next steps
 
---------------------------------------------------
+---
 
 WHAT YOU'LL NEED
 
@@ -565,7 +565,7 @@ WHAT YOU'LL NEED
 
 Only show requirements supported by research.
 
---------------------------------------------------
+---
 
 HOW TO BUY BITCOIN
 
@@ -607,7 +607,7 @@ Review storage/security
 
 Explanation...
 
---------------------------------------------------
+---
 
 FEES TO CONSIDER
 
@@ -619,7 +619,7 @@ Network fee
 
 [Compare exchange fees →]
 
---------------------------------------------------
+---
 
 COMMON MISTAKES
 
@@ -628,13 +628,13 @@ COMMON MISTAKES
 ! Weak account security
 ...
 
---------------------------------------------------
+---
 
 SAFETY / REGULATION
 
 Relevant Australian information.
 
---------------------------------------------------
+---
 
 RELATED GUIDES
 
@@ -642,7 +642,7 @@ RELATED GUIDES
 [How to transfer crypto]
 [How to secure your account]
 
---------------------------------------------------
+---
 
 SOURCES
 
@@ -651,7 +651,7 @@ ASIC/Moneysmart
 Provider documentation
 etc.
 
---------------------------------------------------
+---
 
 Return your improved version of this design.
 

@@ -4,78 +4,99 @@ import {
   ArticleType,
   CommissionType,
   AffiliatePartnerStatus,
-} from "@prisma/client";
-import { SEED_PROVIDERS } from "./seed-providers";
+} from '@prisma/client';
+import { SEED_PROVIDERS } from './seed-providers';
 
 const prisma = new PrismaClient();
 
-
 const cryptoAssets = [
-  { symbol: "BTC", name: "Bitcoin", slug: "bitcoin", description: "The original decentralised cryptocurrency, launched in 2009." },
-  { symbol: "ETH", name: "Ethereum", slug: "ethereum", description: "A programmable blockchain supporting smart contracts." },
-  { symbol: "SOL", name: "Solana", slug: "solana", description: "A high-throughput blockchain used for trading and applications." },
-  { symbol: "XRP", name: "XRP", slug: "xrp", description: "A digital asset associated with the XRP Ledger, used for payments." },
+  {
+    symbol: 'BTC',
+    name: 'Bitcoin',
+    slug: 'bitcoin',
+    description: 'The original decentralised cryptocurrency, launched in 2009.',
+  },
+  {
+    symbol: 'ETH',
+    name: 'Ethereum',
+    slug: 'ethereum',
+    description: 'A programmable blockchain supporting smart contracts.',
+  },
+  {
+    symbol: 'SOL',
+    name: 'Solana',
+    slug: 'solana',
+    description:
+      'A high-throughput blockchain used for trading and applications.',
+  },
+  {
+    symbol: 'XRP',
+    name: 'XRP',
+    slug: 'xrp',
+    description:
+      'A digital asset associated with the XRP Ledger, used for payments.',
+  },
 ];
 async function seedAffiliateLinks() {
   const affiliateSeeds = [
     {
-      providerSlug: "coinspot",
-      partnerSlug: "coinspot",
-      approvedUrl: "https://www.coinspot.com.au",
-      placement: "PROVIDER_PROFILE",
-      campaign: "default",
+      providerSlug: 'coinspot',
+      partnerSlug: 'coinspot',
+      approvedUrl: 'https://www.coinspot.com.au',
+      placement: 'PROVIDER_PROFILE',
+      campaign: 'default',
       commissionType: CommissionType.NONE,
       partnershipStatus: AffiliatePartnerStatus.PROSPECT,
       notes:
-        "Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.",
+        'Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.',
+      active: true, // [TODO] WHEN REAL PARTNER, this should be false as default, only paid/sponsored partners must be true
+    },
+    {
+      providerSlug: 'kraken',
+      partnerSlug: 'kraken',
+      approvedUrl: 'https://www.kraken.com',
+      placement: 'PROVIDER_PROFILE',
+      campaign: 'default',
+      commissionType: CommissionType.NONE,
+      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
+      notes:
+        'Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.',
       active: false,
     },
     {
-      providerSlug: "kraken",
-      partnerSlug: "kraken",
-      approvedUrl: "https://www.kraken.com",
-      placement: "PROVIDER_PROFILE",
-      campaign: "default",
+      providerSlug: 'independent-reserve',
+      partnerSlug: 'independent-reserve',
+      approvedUrl: 'https://www.independentreserve.com',
+      placement: 'PROVIDER_PROFILE',
+      campaign: 'default',
       commissionType: CommissionType.NONE,
       partnershipStatus: AffiliatePartnerStatus.PROSPECT,
       notes:
-        "Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.",
+        'Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.',
       active: false,
     },
     {
-      providerSlug: "independent-reserve",
-      partnerSlug: "independent-reserve",
-      approvedUrl: "https://www.independentreserve.com",
-      placement: "PROVIDER_PROFILE",
-      campaign: "default",
+      providerSlug: 'swyftx',
+      partnerSlug: 'swyftx',
+      approvedUrl: 'https://swyftx.com',
+      placement: 'PROVIDER_PROFILE',
+      campaign: 'default',
       commissionType: CommissionType.NONE,
       partnershipStatus: AffiliatePartnerStatus.PROSPECT,
       notes:
-        "Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.",
+        'Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.',
       active: false,
     },
     {
-      providerSlug: "swyftx",
-      partnerSlug: "swyftx",
-      approvedUrl: "https://swyftx.com",
-      placement: "PROVIDER_PROFILE",
-      campaign: "default",
+      providerSlug: 'btc-markets',
+      partnerSlug: 'btc-markets',
+      approvedUrl: 'https://www.btcmarkets.net',
+      placement: 'PROVIDER_PROFILE',
+      campaign: 'default',
       commissionType: CommissionType.NONE,
       partnershipStatus: AffiliatePartnerStatus.PROSPECT,
       notes:
-        "Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.",
-      active: false,
-    },
-    {
-      providerSlug: "btc-markets",
-      partnerSlug: "btc-markets",
-      approvedUrl: "https://www.btcmarkets.net",
-      placement: "PROVIDER_PROFILE",
-      campaign: "default",
-      commissionType: CommissionType.NONE,
-      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
-      notes:
-        "Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.",
+        'Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.',
       active: false,
     },
   ];
@@ -89,7 +110,7 @@ async function seedAffiliateLinks() {
 
     if (!provider) {
       console.warn(
-        `Affiliate seed skipped: provider "${seed.providerSlug}" does not exist.`,
+        `Affiliate seed skipped: provider "${seed.providerSlug}" does not exist.`
       );
       continue;
     }
@@ -153,18 +174,31 @@ async function seedAffiliateLinks() {
     });
 
     console.log(
-      `Seeded affiliate link for ${provider.name} (${seed.partnerSlug})`,
+      `Seeded affiliate link for ${provider.name} (${seed.partnerSlug})`
     );
   }
 }
 
 async function main() {
   for (const asset of cryptoAssets) {
-    await prisma.cryptoAsset.upsert({ where: { slug: asset.slug }, update: asset, create: asset });
+    await prisma.cryptoAsset.upsert({
+      where: { slug: asset.slug },
+      update: asset,
+      create: asset,
+    });
   }
 
   for (const p of SEED_PROVIDERS as any[]) {
-    const { facts, fees, features, prosCons, sources, regulations, assetSymbols, ...providerData } = p;
+    const {
+      facts,
+      fees,
+      features,
+      prosCons,
+      sources,
+      regulations,
+      assetSymbols,
+      ...providerData
+    } = p;
 
     const provider = await prisma.provider.upsert({
       where: { slug: providerData.slug },
@@ -188,14 +222,17 @@ async function main() {
       },
     });
 
-    await prisma.providerAsset.deleteMany({ where: { providerId: provider.id } });
+    await prisma.providerAsset.deleteMany({
+      where: { providerId: provider.id },
+    });
     for (const symbol of assetSymbols) {
       const asset = await prisma.cryptoAsset.findUnique({ where: { symbol } });
       if (!asset) continue;
-      await prisma.providerAsset.create({ data: { providerId: provider.id, assetId: asset.id } });
+      await prisma.providerAsset.create({
+        data: { providerId: provider.id, assetId: asset.id },
+      });
     }
   }
-
 
   // ---------------------------------------
   // Seed affiliate partnerships/programs/links
@@ -205,31 +242,39 @@ async function main() {
 
   // One sample guide, linked to Bitcoin, so /crypto/bitcoin's "related
   // guides" section has something real to show rather than an empty state.
-  const bitcoin = await prisma.cryptoAsset.findUnique({ where: { slug: "bitcoin" } });
+  const bitcoin = await prisma.cryptoAsset.findUnique({
+    where: { slug: 'bitcoin' },
+  });
   if (bitcoin) {
     const guide = await prisma.article.upsert({
-      where: { slug: "what-is-bitcoin" },
+      where: { slug: 'what-is-bitcoin' },
       update: {},
       create: {
         title: "What Is Bitcoin? A Beginner's Guide for Australians",
-        slug: "what-is-bitcoin",
-        excerpt: "An introduction to how Bitcoin works and how Australians can access it.",
-        content: "<p>Placeholder guide content -- replace before publication.</p>",
+        slug: 'what-is-bitcoin',
+        excerpt:
+          'An introduction to how Bitcoin works and how Australians can access it.',
+        content:
+          '<p>Placeholder guide content -- replace before publication.</p>',
         status: ArticleStatus.DRAFT,
         articleType: ArticleType.GUIDE,
-        category: "guide",
+        category: 'guide',
       },
     });
     await prisma.articleCryptoAsset.upsert({
-      where: { articleId_assetId: { articleId: guide.id, assetId: bitcoin.id } },
+      where: {
+        articleId_assetId: { articleId: guide.id, assetId: bitcoin.id },
+      },
       update: {},
       create: { articleId: guide.id, assetId: bitcoin.id },
     });
   }
 
-  console.log("Seeded crypto assets and five providers with structured facts/fees/features/prosCons/sources.");
   console.log(
-    "CoinSpot, Independent Reserve, Swyftx and BTC Markets carry researched Australian data as of 11 Sep 2026 -- Kraken remains an UNVERIFIED placeholder. Re-verify time-sensitive fees, regulatory facts and product availability before publishing.",
+    'Seeded crypto assets and five providers with structured facts/fees/features/prosCons/sources.'
+  );
+  console.log(
+    'CoinSpot, Independent Reserve, Swyftx and BTC Markets carry researched Australian data as of 11 Sep 2026 -- Kraken remains an UNVERIFIED placeholder. Re-verify time-sensitive fees, regulatory facts and product availability before publishing.'
   );
 }
 

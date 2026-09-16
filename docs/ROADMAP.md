@@ -8,10 +8,12 @@ Legend: ✅ done in this scaffold · 🟡 stub/placeholder (compiles, no real lo
 ---
 
 ## Phase 0 — Existing Project Audit
+
 **Status: N/A (no existing project supplied — this is a greenfield scaffold).**
 If you're dropping this into an existing codebase instead of starting fresh, run the audit checklist in `docs/IMPLEMENTATION-PLAN.md` §1 before merging anything here.
 
 ## Phase 1 — Public Foundation
+
 - ✅ Design tokens (`globals.css` `@theme`, Tailwind v4) matching the reference palette
 - ✅ `Header`, `Footer`, `MobileNav` — real Next.js `<Link>` routing, no hash routing
 - ✅ Four top-level shells: `/crypto`, `/compare`, `/methodology`, `/news`
@@ -22,6 +24,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 **Phase 1 status: complete.**
 
 ## Phase 2 — Authentication + Admin Foundation
+
 - ✅ Prisma `User`/`Role` model + Auth.js (NextAuth v5) adapter models (`Account`, `Session`, `VerificationToken`)
 - ✅ `src/middleware.ts` — server-side `/admin/*` protection (redirects unauthenticated → `/login`, non-admin → `/403`)
 - ✅ `requireAdmin()` helper for guarding server actions/mutations independently of the middleware
@@ -33,6 +36,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ⬜ No password-reset / forgot-password flow yet
 
 ## Phase 3 — Article CMS
+
 - ✅ `Article`, `ArticleTag`, `ArticleSource`, `ArticleProvider`, `ArticleCryptoAsset` models
 - ✅ `lib/articles/service.ts` — `getPublishedArticles`, `getArticleBySlug`, `getAdminArticles`
 - ✅ Public rendering at `/guides/[slug]` and `/news/[slug]`, both refusing to render non-`PUBLISHED` articles
@@ -43,6 +47,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ⬜ Media integration
 
 ## Phase 4 — Provider Domain
+
 - ✅ `Provider`, `ProviderFact`, `ProviderFee`, `ProviderFeature`, `ProviderSource` models with full provenance fields
 - ✅ `ProviderProsCon` model (this change) — sourced pros/limitations, same provenance shape (`sourceUrl`, `verificationStatus`, `verifiedAt`) as every other Provider fact, migration at `prisma/migrations/20260911050000_provider_profile_phase2/`
 - ✅ `lib/providers/service.ts` — `getProviderBySlug()` now includes `prosCons`; added `getRelatedContentForProvider()` (guides/news via the existing `ArticleProvider` join, split by `Article.category`, same convention `/guides` and `/news` already use)
@@ -57,6 +62,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ⬜ Still to do before public launch: real sourcing for Kraken (or drop it in favour of a third genuinely AU-first exchange, e.g. Swyftx/CoinJar/Coinstash, following the same pattern), and an admin UI to edit these facts without touching the seed script (tracked in Phase 9).
 
 ## Phase 5 — Comparison Engine
+
 - ✅ `/compare` index (provider list + new `CompareSelector` to pick 2+ exchanges without hand-typing a slug), `/compare/[slug]` (now parses **any number** of `-vs-` segments, not just pairs), and `/compare/crypto-exchanges` (this change — dedicated, always-complete route)
 - ✅ Comparison data pulled live from the Provider domain, not duplicated — `lib/providers/compare.ts` (this change) builds Facts/Fees/Products & trading/Deposits & withdrawals/Security rows from `getProvidersBySlugs()`'s live query, reusing the same `featureGroup()` split the exchange profile page uses so the two views never disagree
 - ✅ Real comparison table (this change) — `components/compare/CompareTable.tsx` renders one column per provider with actual facts/fees/features (not just names), horizontally scrollable so it supports any number of providers
@@ -66,6 +72,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ⬜ `/compare/[slug]` indexing policy for arbitrary provider combinations is still an open SEO decision, deliberately left `noIndex: true` pending Phase 8 review rather than indexing every possible pair/triple
 
 ## Phase 6 — Affiliate Domain
+
 - ✅ Full schema: `AffiliatePartnership`, `AffiliateProgram`, `AffiliateLink`, `AffiliateClick`, `AffiliateConversion` (no separate `AffiliatePlacement` model — placement is a string field on `AffiliateLink`/`AffiliateClick` instead; see IMPLEMENTATION-PLAN §4 vs. the actual schema)
 - ✅ `lib/affiliates/service.ts` — `getActiveAffiliateLink`, `getActiveAffiliateLinksForProviderSlugs`, `recordAffiliateClick`, plus (this change) the admin read queries `getPartnershipsAdmin`, `getProvidersForPartnershipForm`, `getPartnershipsForLinkForm`, `getAffiliateLinksAdmin`, `getAffiliateClicksAdmin`
 - ✅ `/go/[partner]` route handler — redirects only to a stored `approvedUrl` on an ACTIVE link, 404s otherwise, records a click first (open-redirect-safe by construction)
@@ -80,18 +87,22 @@ If you're dropping this into an existing codebase instead of starting fresh, run
   - Ending/pausing a partnership only changes its own status — it never deletes an `AffiliateLink` or touches the `Provider` row; a link's own `active` flag is what controls whether `getActiveAffiliateLink()` returns it publicly
 
 ## Phase 7 — Affiliate Analytics
+
 - ✅ `/admin/affiliates` overview reads real click counts per link
 - ⬜ Aggregated reporting by article/comparison/placement/campaign/date
 - ⬜ Conversion/revenue import (schema exists via `AffiliateConversion`, nothing populates it — by design)
 
 ## Phase 8 — SEO Growth
+
 - ✅ `sitemap.ts`, `robots.ts` (dynamic, DB-backed)
 - ✅ Per-article/provider `generateMetadata` with `noIndex` support
 - ⬜ JSON-LD structured data components (`components/seo/JsonLd.tsx` folder exists, empty)
 - ⬜ Content clusters, internal linking engine, category pages, site search
 
 ## Guide Phase 1 — Guide Article Template (this change)
+
 **Status: implemented, pending `npm install` / `prisma migrate` / lint-typecheck-build in a real environment — this sandbox has no package registry or database access.**
+
 - ✅ `Article` gains `keyTakeaways String[]`, `lastReviewedAt`, `searchIntent` (`ArticleSearchIntent` enum), `region`/`canonicalArticleId` self-relation, and a curated `ArticleRelated` join table — all additive, migration at `prisma/migrations/20260910090000_guide_phase_1/`
 - ✅ `src/lib/articles/content.ts` — heading extraction (anchors ids for TOC) + reading-time estimate, both derived from real content, nothing fabricated
 - ✅ `src/lib/articles/service.ts` — `getRelatedGuides()` (curated → category/intent → tags → recent, per the priority chain in the spec), `getNextSteps()` (only for BEGINNER/LEARN intent, only when curated), `getRegionalFamily()` for hreflang, all wrapped in React `cache()` to dedupe within a request
@@ -103,9 +114,11 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ⬜ No real guide content exists yet to verify the layout against beyond the seed data — do this before publishing
 
 ## Phase 9 — Provider Admin
+
 - ⬜ Not started — Providers are seeded via `prisma/seed.ts` only, as intended for this phase
 
 ## Phase 10 — Production Hardening
+
 - ⬜ Not started — do this last, against a real deployment target
 
 ---

@@ -1,51 +1,54 @@
 ---
-title: "Crypto Wallet vs Exchange: Where Should Beginners Keep Their Crypto?"
-slug: "crypto-wallet-vs-exchange-beginners"
-articleType: "GUIDE"
-excerpt: "Leaving crypto on an exchange and moving it to your own wallet are genuinely different trade-offs,\
+title: 'Crypto Wallet vs Exchange: Where Should Beginners Keep Their Crypto?'
+slug: 'crypto-wallet-vs-exchange-beginners'
+articleType: 'GUIDE'
+excerpt:
+  "Leaving crypto on an exchange and moving it to your own wallet are genuinely different trade-offs,\
   \ not a simple 'better vs worse' choice. Here's how to think about it."
-category: "crypto-security"
+category: 'crypto-security'
 tags:
-- "Crypto Wallets"
-- "Crypto Security"
-- "Beginners"
-- "Bitcoin"
-seoTitle: "Crypto Wallet vs Exchange: What Should Beginners Use?"
-seoDescription: "Understand the real difference between keeping crypto on an exchange and moving it to\
+  - 'Crypto Wallets'
+  - 'Crypto Security'
+  - 'Beginners'
+  - 'Bitcoin'
+seoTitle: 'Crypto Wallet vs Exchange: What Should Beginners Use?'
+seoDescription:
+  "Understand the real difference between keeping crypto on an exchange and moving it to\
   \ your own wallet, and which situations suit each approach."
-featuredImageAlt: "A side-by-side illustration comparing a crypto exchange app and a personal hardware\
+featuredImageAlt:
+  "A side-by-side illustration comparing a crypto exchange app and a personal hardware\
   \ wallet"
-author: "Editorial Team"
+author: 'Editorial Team'
 noIndex: false
 affiliateDisclosureRequired: false
 keyTakeaways:
-- "Keeping crypto on an exchange means trusting that exchange's custody and security practices instead\
-  \ of your own."
-- "Moving crypto to your own wallet gives you more control, but you become fully responsible for keeping\
-  \ your keys or seed phrase safe."
-- "There's no universally correct choice — small, active balances and large, long-term holdings often\
-  \ call for different approaches."
-- "A 'hot' wallet (connected to the internet) and a 'cold' wallet (offline) trade convenience for security\
-  \ in opposite directions."
-- "Losing a seed phrase with no backup usually means losing the crypto permanently — there's no password\
-  \ reset."
-searchIntent: "WALLET"
+  - "Keeping crypto on an exchange means trusting that exchange's custody and security practices instead\
+    \ of your own."
+  - "Moving crypto to your own wallet gives you more control, but you become fully responsible for keeping\
+    \ your keys or seed phrase safe."
+  - "There's no universally correct choice — small, active balances and large, long-term holdings often\
+    \ call for different approaches."
+  - "A 'hot' wallet (connected to the internet) and a 'cold' wallet (offline) trade convenience for security\
+    \ in opposite directions."
+  - "Losing a seed phrase with no backup usually means losing the crypto permanently — there's no password\
+    \ reset."
+searchIntent: 'WALLET'
 providerRelationships:
-- providerSlug: "coinspot"
-  relationship: "MENTIONED"
+  - providerSlug: 'coinspot'
+    relationship: 'MENTIONED'
 cryptoAssetSlugs:
-- "bitcoin"
-- "ethereum"
+  - 'bitcoin'
+  - 'ethereum'
 relatedGuides:
-- "how-to-buy-bitcoin-australia"
-- "safest-crypto-exchanges-australia-explained"
+  - 'how-to-buy-bitcoin-australia'
+  - 'safest-crypto-exchanges-australia-explained'
 sources:
-- label: "ASIC Moneysmart — Cryptocurrency"
-  url: "https://moneysmart.gov.au"
-  sourceType: "GOVERNMENT"
-- label: "CoinSpot — Official fee schedule and account features"
-  url: "https://www.coinspot.com.au/fees"
-  sourceType: "OFFICIAL_PROVIDER"
+  - label: 'ASIC Moneysmart — Cryptocurrency'
+    url: 'https://moneysmart.gov.au'
+    sourceType: 'GOVERNMENT'
+  - label: 'CoinSpot — Official fee schedule and account features'
+    url: 'https://www.coinspot.com.au/fees'
+    sourceType: 'OFFICIAL_PROVIDER'
 ---
 
 <p>Once you've bought some crypto, a second, less obvious decision follows the first: do you leave it where you bought it, or move it somewhere you control yourself? Both are legitimate — they just carry different kinds of risk.</p>

@@ -1,6 +1,10 @@
-import { prisma } from "@/lib/prisma";
-import { articleRepository, providerRepository, cryptoAssetRepository } from "@/lib/repository";
-import type { ArticleImportPayload } from "./types";
+import { prisma } from '@/lib/prisma';
+import {
+  articleRepository,
+  providerRepository,
+  cryptoAssetRepository,
+} from '@/lib/repository';
+import type { ArticleImportPayload } from './types';
 
 export interface RelationshipResult {
   warnings: string[];
@@ -9,7 +13,7 @@ export interface RelationshipResult {
 interface ResolvedProvider {
   providerId: string;
   slug: string;
-  relationship: "MENTIONED" | "COMPARED" | "FEATURED";
+  relationship: 'MENTIONED' | 'COMPARED' | 'FEATURED';
 }
 
 /**
@@ -37,19 +41,23 @@ async function resolveProviders(
 
   if (relatedEntries === undefined && affiliateSlugs.length === 0) return;
 
-  const bySlug = new Map<string, ResolvedProvider["relationship"]>();
+  const bySlug = new Map<string, ResolvedProvider['relationship']>();
   for (const entry of relatedEntries ?? []) {
     bySlug.set(entry.providerSlug, entry.relationship);
   }
   for (const slug of affiliateSlugs) {
-    if (!bySlug.has(slug)) bySlug.set(slug, "MENTIONED");
+    if (!bySlug.has(slug)) bySlug.set(slug, 'MENTIONED');
   }
 
   const resolved: ResolvedProvider[] = [];
   for (const [slug, relationship] of bySlug) {
-    const provider = await providerRepository.findBySlug(slug, { select: { id: true } });
+    const provider = await providerRepository.findBySlug(slug, {
+      select: { id: true },
+    });
     if (!provider) {
-      warnings.push(`Provider "${slug}" not found — no relationship was created`);
+      warnings.push(
+        `Provider "${slug}" not found — no relationship was created`
+      );
       continue;
     }
     resolved.push({ providerId: provider.id, slug, relationship });
@@ -59,13 +67,17 @@ async function resolveProviders(
     // providerRelationships is the authoritative full list — drop anything
     // no longer mentioned. affiliateProviders-only slugs are exempt (additive).
     const affiliateOnlySlugs = new Set(
-      affiliateSlugs.filter((s) => !relatedEntries.some((e) => e.providerSlug === s))
+      affiliateSlugs.filter(
+        (s) => !relatedEntries.some((e) => e.providerSlug === s)
+      )
     );
     const keepProviderIds = resolved.map((r) => r.providerId);
     await prisma.articleProvider.deleteMany({
       where: {
         articleId,
-        providerId: { notIn: keepProviderIds.length > 0 ? keepProviderIds : ["__none__"] },
+        providerId: {
+          notIn: keepProviderIds.length > 0 ? keepProviderIds : ['__none__'],
+        },
         // Never delete a row we're about to keep purely because it came in
         // via affiliateProviders rather than providerRelationships this run.
         NOT: { provider: { slug: { in: Array.from(affiliateOnlySlugs) } } },
@@ -75,8 +87,14 @@ async function resolveProviders(
 
   for (const entry of resolved) {
     await prisma.articleProvider.upsert({
-      where: { articleId_providerId: { articleId, providerId: entry.providerId } },
-      create: { articleId, providerId: entry.providerId, relationshipType: entry.relationship },
+      where: {
+        articleId_providerId: { articleId, providerId: entry.providerId },
+      },
+      create: {
+        articleId,
+        providerId: entry.providerId,
+        relationshipType: entry.relationship,
+      },
       update: { relationshipType: entry.relationship },
     });
   }
@@ -115,12 +133,18 @@ async function resolveRelatedGuides(
   for (let i = 0; i < payload.relatedGuides.length; i++) {
     const slug = payload.relatedGuides[i];
     if (slug === payload.slug) {
-      warnings.push(`related article "${slug}" is this article itself — skipped`);
+      warnings.push(
+        `related article "${slug}" is this article itself — skipped`
+      );
       continue;
     }
-    const related = await articleRepository.findBySlug(slug, { select: { id: true } });
+    const related = await articleRepository.findBySlug(slug, {
+      select: { id: true },
+    });
     if (!related) {
-      warnings.push(`related article "${slug}" does not exist yet — skipped (will not block this import)`);
+      warnings.push(
+        `related article "${slug}" does not exist yet — skipped (will not block this import)`
+      );
       continue;
     }
     resolved.push({ relatedArticleId: related.id, position: i });
@@ -128,13 +152,25 @@ async function resolveRelatedGuides(
 
   const keepIds = resolved.map((r) => r.relatedArticleId);
   await prisma.articleRelated.deleteMany({
-    where: { articleId, relatedArticleId: { notIn: keepIds.length > 0 ? keepIds : ["__none__"] } },
+    where: {
+      articleId,
+      relatedArticleId: { notIn: keepIds.length > 0 ? keepIds : ['__none__'] },
+    },
   });
 
   for (const entry of resolved) {
     await prisma.articleRelated.upsert({
-      where: { articleId_relatedArticleId: { articleId, relatedArticleId: entry.relatedArticleId } },
-      create: { articleId, relatedArticleId: entry.relatedArticleId, position: entry.position },
+      where: {
+        articleId_relatedArticleId: {
+          articleId,
+          relatedArticleId: entry.relatedArticleId,
+        },
+      },
+      create: {
+        articleId,
+        relatedArticleId: entry.relatedArticleId,
+        position: entry.position,
+      },
       update: { position: entry.position },
     });
   }
@@ -158,16 +194,23 @@ async function resolveCryptoAssets(
 
   const resolvedIds: string[] = [];
   for (const slug of payload.cryptoAssetSlugs) {
-    const asset = await cryptoAssetRepository.findBySlug(slug, { select: { id: true } });
+    const asset = await cryptoAssetRepository.findBySlug(slug, {
+      select: { id: true },
+    });
     if (!asset) {
-      warnings.push(`Crypto asset "${slug}" not found — no relationship was created`);
+      warnings.push(
+        `Crypto asset "${slug}" not found — no relationship was created`
+      );
       continue;
     }
     resolvedIds.push(asset.id);
   }
 
   await prisma.articleCryptoAsset.deleteMany({
-    where: { articleId, assetId: { notIn: resolvedIds.length > 0 ? resolvedIds : ["__none__"] } },
+    where: {
+      articleId,
+      assetId: { notIn: resolvedIds.length > 0 ? resolvedIds : ['__none__'] },
+    },
   });
 
   for (const assetId of resolvedIds) {
@@ -189,11 +232,14 @@ async function resolveCanonicalArticle(
   payload: ArticleImportPayload,
   warnings: string[]
 ): Promise<void> {
-  const isRegionalVariant = payload.region !== undefined && payload.region !== "GLOBAL";
+  const isRegionalVariant =
+    payload.region !== undefined && payload.region !== 'GLOBAL';
 
   if (!isRegionalVariant) {
     if (payload.canonicalArticleSlug) {
-      warnings.push(`canonicalArticleSlug was set but region is GLOBAL — ignored`);
+      warnings.push(
+        `canonicalArticleSlug was set but region is GLOBAL — ignored`
+      );
     }
     return;
   }
@@ -203,7 +249,10 @@ async function resolveCanonicalArticle(
     return;
   }
 
-  const canonical = await articleRepository.findBySlug(payload.canonicalArticleSlug, { select: { id: true } });
+  const canonical = await articleRepository.findBySlug(
+    payload.canonicalArticleSlug,
+    { select: { id: true } }
+  );
   if (!canonical) {
     warnings.push(
       `canonicalArticleSlug "${payload.canonicalArticleSlug}" does not exist yet — regional link was not created`
@@ -211,11 +260,16 @@ async function resolveCanonicalArticle(
     return;
   }
   if (canonical.id === articleId) {
-    warnings.push(`canonicalArticleSlug "${payload.canonicalArticleSlug}" refers to this article itself — ignored`);
+    warnings.push(
+      `canonicalArticleSlug "${payload.canonicalArticleSlug}" refers to this article itself — ignored`
+    );
     return;
   }
 
-  await prisma.article.update({ where: { id: articleId }, data: { canonicalArticleId: canonical.id } });
+  await prisma.article.update({
+    where: { id: articleId },
+    data: { canonicalArticleId: canonical.id },
+  });
 }
 
 /**
@@ -224,7 +278,10 @@ async function resolveCanonicalArticle(
  * Article row has already been committed (PASS 1), so cross-references
  * within a batch resolve regardless of file order.
  */
-export async function resolveRelationships(articleId: string, payload: ArticleImportPayload): Promise<RelationshipResult> {
+export async function resolveRelationships(
+  articleId: string,
+  payload: ArticleImportPayload
+): Promise<RelationshipResult> {
   const warnings: string[] = [];
   await resolveProviders(articleId, payload, warnings);
   await resolveCryptoAssets(articleId, payload, warnings);
@@ -243,7 +300,9 @@ export async function resolveRelationships(articleId: string, payload: ArticleIm
  * the article those checks would find (spec §15 two-pass ordering only
  * applies once PASS 1 has actually written something).
  */
-export async function previewRelationshipWarnings(payload: ArticleImportPayload): Promise<string[]> {
+export async function previewRelationshipWarnings(
+  payload: ArticleImportPayload
+): Promise<string[]> {
   const warnings: string[] = [];
 
   const providerSlugs = new Set<string>([
@@ -251,30 +310,53 @@ export async function previewRelationshipWarnings(payload: ArticleImportPayload)
     ...(payload.affiliateProviders ?? []),
   ]);
   for (const slug of providerSlugs) {
-    const provider = await providerRepository.findBySlug(slug, { select: { id: true } });
-    if (!provider) warnings.push(`Provider "${slug}" not found — no relationship will be created`);
+    const provider = await providerRepository.findBySlug(slug, {
+      select: { id: true },
+    });
+    if (!provider)
+      warnings.push(
+        `Provider "${slug}" not found — no relationship will be created`
+      );
   }
 
   for (const slug of payload.cryptoAssetSlugs ?? []) {
-    const asset = await cryptoAssetRepository.findBySlug(slug, { select: { id: true } });
-    if (!asset) warnings.push(`Crypto asset "${slug}" not found — no relationship will be created`);
+    const asset = await cryptoAssetRepository.findBySlug(slug, {
+      select: { id: true },
+    });
+    if (!asset)
+      warnings.push(
+        `Crypto asset "${slug}" not found — no relationship will be created`
+      );
   }
 
   for (const slug of payload.relatedGuides ?? []) {
     if (slug === payload.slug) {
-      warnings.push(`related article "${slug}" is this article itself — will be skipped`);
+      warnings.push(
+        `related article "${slug}" is this article itself — will be skipped`
+      );
       continue;
     }
-    const related = await articleRepository.findBySlug(slug, { select: { id: true } });
+    const related = await articleRepository.findBySlug(slug, {
+      select: { id: true },
+    });
     if (!related) warnings.push(`related article "${slug}" does not exist yet`);
   }
 
-  const isRegionalVariant = payload.region !== undefined && payload.region !== "GLOBAL";
+  const isRegionalVariant =
+    payload.region !== undefined && payload.region !== 'GLOBAL';
   if (isRegionalVariant && payload.canonicalArticleSlug) {
-    const canonical = await articleRepository.findBySlug(payload.canonicalArticleSlug, { select: { id: true } });
-    if (!canonical) warnings.push(`canonicalArticleSlug "${payload.canonicalArticleSlug}" does not exist yet`);
+    const canonical = await articleRepository.findBySlug(
+      payload.canonicalArticleSlug,
+      { select: { id: true } }
+    );
+    if (!canonical)
+      warnings.push(
+        `canonicalArticleSlug "${payload.canonicalArticleSlug}" does not exist yet`
+      );
   } else if (!isRegionalVariant && payload.canonicalArticleSlug) {
-    warnings.push(`canonicalArticleSlug was set but region is GLOBAL — would be ignored`);
+    warnings.push(
+      `canonicalArticleSlug was set but region is GLOBAL — would be ignored`
+    );
   }
 
   if (payload.affiliateProviders && payload.affiliateProviders.length > 0) {
@@ -285,7 +367,9 @@ export async function previewRelationshipWarnings(payload: ArticleImportPayload)
     const activeSlugSet = new Set(activeLinks.map((l) => l.partnerSlug));
     for (const slug of payload.affiliateProviders) {
       if (!activeSlugSet.has(slug)) {
-        warnings.push(`"${slug}" requested as affiliate placement, but no ACTIVE affiliate link exists`);
+        warnings.push(
+          `"${slug}" requested as affiliate placement, but no ACTIVE affiliate link exists`
+        );
       }
     }
   }

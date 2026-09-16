@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { formatCategoryLabel, type Heading } from "@/lib/articles/content";
-import { GuideTableOfContents } from "./GuideTableOfContents";
+import Link from 'next/link';
+import { formatCategoryLabel, type Heading } from '@/lib/articles/content';
+import { GuideTableOfContents } from './GuideTableOfContents';
 
 export function GuideSidebar({
   headings,
@@ -16,9 +16,11 @@ export function GuideSidebar({
       <div className="space-y-4">
         <GuideTableOfContents headings={headings} />
 
-        <div className="rounded-2xl border border-border bg-panel p-4 text-sm">
-          <p className="font-display text-sm font-bold uppercase tracking-wide text-navy">Article details</p>
-          <dl className="mt-3 space-y-1.5 text-muted">
+        <div className="border-border bg-panel rounded-2xl border p-4 text-sm">
+          <p className="font-display text-navy text-sm font-bold tracking-wide uppercase">
+            Article details
+          </p>
+          <dl className="text-muted mt-3 space-y-1.5">
             {category && (
               <div className="flex justify-between gap-2">
                 <dt>Category</dt>
@@ -36,7 +38,7 @@ export function GuideSidebar({
 
         <Link
           href="/compare"
-          className="block rounded-2xl border border-border bg-panel-secondary p-4 text-center text-sm font-semibold text-navy hover:border-gold-soft"
+          className="border-border bg-panel-secondary text-navy hover:border-gold-soft block rounded-2xl border p-4 text-center text-sm font-semibold"
         >
           Compare crypto exchanges
         </Link>

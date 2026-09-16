@@ -1,16 +1,16 @@
 # My proposed 10-guide content plan
 
-Priority	Draft article/title	Search intent	Why I want it
-1 ★	How to Buy Crypto in Australia for Beginners (2026)	how to buy crypto Australia	Your cornerstone beginner article
-2 ★	How to Choose a Crypto Exchange in Australia (2026)	best/choose crypto exchange Australia	Direct bridge into your comparison product
-3 ★	How to Start Crypto With $100 in Australia	invest $100 crypto Australia	Very approachable for younger/new investors
-4 ★	Crypto Trading Fees Explained: What Australians Actually Pay	crypto fees Australia	High commercial intent + provider data
-5 ★	How to Check if a Crypto Exchange Is Legit in Australia	safe/legit crypto exchange Australia	Extremely timely because of the new AUSTRAC register
-6	How to Buy Bitcoin in Australia: Step-by-Step for Beginners	how to buy Bitcoin Australia	Strong evergreen search intent
-7	Crypto Wallet vs Exchange: Where Should Beginners Keep Crypto?	crypto wallet vs exchange	Natural next question after first purchase
-8	How to Sell Crypto and Withdraw AUD to Your Bank Account	sell crypto Australia / withdraw crypto AUD	Completes the beginner journey
-9	Crypto Tax in Australia: What Beginners Need to Know in 2026	crypto tax Australia	High-value Australian-specific content
-10	Crypto Scams in Australia: 10 Checks Before You Deposit Money	crypto scams Australia / is exchange safe	Current, shareable, trust-building content
+Priority Draft article/title Search intent Why I want it
+1 ★ How to Buy Crypto in Australia for Beginners (2026) how to buy crypto Australia Your cornerstone beginner article
+2 ★ How to Choose a Crypto Exchange in Australia (2026) best/choose crypto exchange Australia Direct bridge into your comparison product
+3 ★ How to Start Crypto With $100 in Australia	invest $100 crypto Australia Very approachable for younger/new investors
+4 ★ Crypto Trading Fees Explained: What Australians Actually Pay crypto fees Australia High commercial intent + provider data
+5 ★ How to Check if a Crypto Exchange Is Legit in Australia safe/legit crypto exchange Australia Extremely timely because of the new AUSTRAC register
+6 How to Buy Bitcoin in Australia: Step-by-Step for Beginners how to buy Bitcoin Australia Strong evergreen search intent
+7 Crypto Wallet vs Exchange: Where Should Beginners Keep Crypto? crypto wallet vs exchange Natural next question after first purchase
+8 How to Sell Crypto and Withdraw AUD to Your Bank Account sell crypto Australia / withdraw crypto AUD Completes the beginner journey
+9 Crypto Tax in Australia: What Beginners Need to Know in 2026 crypto tax Australia High-value Australian-specific content
+10 Crypto Scams in Australia: 10 Checks Before You Deposit Money crypto scams Australia / is exchange safe Current, shareable, trust-building content
 
 I wouldn't publish them randomly. They form a deliberate journey:
 
@@ -33,19 +33,19 @@ What you need → Choose an exchange → Check the provider → Create an accoun
 Include a simple visual:
 
 $ AUD
-  ↓
+↓
 Choose exchange
-  ↓
+↓
 Create account
-  ↓
+↓
 Deposit AUD
-  ↓
+↓
 Choose crypto
-  ↓
+↓
 Review fee
-  ↓
+↓
 Buy
-  ↓
+↓
 Secure/store
 
 And naturally connect it to:
@@ -109,14 +109,14 @@ I'd explain an example rather than tell them what to buy:
 
 Example only
 
-Starting amount                 $100
+Starting amount $100
 Deposit fee                     $0
-Trading/instant-buy cost        depends on platform
-Amount actually invested        $XX
-Price rises/falls               ...
-Selling cost                    ...
-Withdrawal                      ...
-Tax records                     required
+Trading/instant-buy cost depends on platform
+Amount actually invested $XX
+Price rises/falls ...
+Selling cost ...
+Withdrawal ...
+Tax records required
 
 This lets you teach an important concept:
 
@@ -154,9 +154,10 @@ Eventually your article could embed your database-powered component:
 Compare current fees
 
               Trading      Instant Buy     AUD Deposit
-CoinSpot      ...
-Swyftx        ...
-Kraken        ...
+
+CoinSpot ...
+Swyftx ...
+Kraken ...
 ...
 
 with:
@@ -251,13 +252,13 @@ This is surprisingly useful because most beginner guides obsess over buying.
 I'd explicitly walk through:
 
 BTC/ETH/etc.
-    ↓
+↓
 Sell
-    ↓
+↓
 AUD balance
-    ↓
+↓
 Check withdrawal method
-    ↓
+↓
 Australian bank account
 
 Then explain:
@@ -344,19 +345,19 @@ START HERE
 New to crypto?
 
 ① Understand crypto
-        ↓
+↓
 ② Choose an exchange
-        ↓
+↓
 ③ Start with a small amount
-        ↓
+↓
 ④ Make your first purchase
-        ↓
+↓
 ⑤ Understand your fees
-        ↓
+↓
 ⑥ Keep crypto secure
-        ↓
+↓
 ⑦ Sell and withdraw
-        ↓
+↓
 ⑧ Understand tax
 
 Below that:

@@ -109,24 +109,24 @@ For MVP I prefer the simplest secure and maintainable approach.
 Example conceptual frontmatter:
 
 ```yaml
-title: "How to Trade Crypto: Beginner Guide"
-slug: "how-to-trade-crypto"
-excerpt: "..."
-category: "Crypto Trading"
+title: 'How to Trade Crypto: Beginner Guide'
+slug: 'how-to-trade-crypto'
+excerpt: '...'
+category: 'Crypto Trading'
 
-status: "DRAFT"
+status: 'DRAFT'
 
 region:
-  type: "GLOBAL"
+  type: 'GLOBAL'
   countries: []
 
 seo:
-  title: "How to Trade Crypto: Beginner Guide | Brand"
-  description: "..."
+  title: 'How to Trade Crypto: Beginner Guide | Brand'
+  description: '...'
   index: true
 
 authors:
-  - "..."
+  - '...'
 
 tags:
   - crypto-trading
@@ -141,12 +141,12 @@ relatedProviders:
   - binance
 
 sources:
-  - label: "..."
-    url: "..."
+  - label: '...'
+    url: '...'
 
 affiliatePlacements:
-  - providerSlug: "kraken"
-    placement: "ARTICLE_FOOTER"
+  - providerSlug: 'kraken'
+    placement: 'ARTICLE_FOOTER'
 ```
 
 This is conceptual.
@@ -328,8 +328,8 @@ AI may SUGGEST:
 
 ```yaml
 affiliatePlacements:
-  - providerSlug: "kraken"
-    placement: "ARTICLE_FOOTER"
+  - providerSlug: 'kraken'
+    placement: 'ARTICLE_FOOTER'
 ```
 
 but AI must never supply the final external affiliate URL.
@@ -366,9 +366,9 @@ For example:
 
 ```yaml
 sources:
-  - label: "Kraken fee schedule"
-    url: "..."
-    sourceType: "OFFICIAL_PROVIDER"
+  - label: 'Kraken fee schedule'
+    url: '...'
+    sourceType: 'OFFICIAL_PROVIDER'
 ```
 
 Validate URL syntax.

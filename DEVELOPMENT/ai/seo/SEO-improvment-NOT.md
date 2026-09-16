@@ -173,6 +173,7 @@ How we evaluate crypto exchanges
 Then state:
 
 Information sources:
+
 - provider fee schedules
 - provider legal documents
 - ASIC

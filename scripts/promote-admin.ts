@@ -20,9 +20,9 @@
  *
  *   npm run promote:admin -- user@example.com --demote
  */
-import { prisma } from "@/lib/prisma";
-import { hashPassword, isPasswordAcceptable } from "@/lib/auth/password";
-import { Role } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
+import { hashPassword, isPasswordAcceptable } from '@/lib/auth/password';
+import { Role } from '@prisma/client';
 
 interface CliArgs {
   email?: string;
@@ -34,19 +34,19 @@ interface CliArgs {
 
 function parseArgs(argv: string[]): CliArgs {
   const args: CliArgs = { create: false, demote: false };
-  const VALUE_FLAGS = new Set(["--password", "--name"]);
+  const VALUE_FLAGS = new Set(['--password', '--name']);
 
   for (let i = 0; i < argv.length; i++) {
     const token = argv[i];
-    if (token === "--create") {
+    if (token === '--create') {
       args.create = true;
-    } else if (token === "--demote") {
+    } else if (token === '--demote') {
       args.demote = true;
-    } else if (token === "--password") {
+    } else if (token === '--password') {
       args.password = argv[++i];
-    } else if (token === "--name") {
+    } else if (token === '--name') {
       args.name = argv[++i];
-    } else if (!token.startsWith("--") && !args.email) {
+    } else if (!token.startsWith('--') && !args.email) {
       args.email = token;
     }
   }
@@ -58,7 +58,9 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
 
   if (!args.email) {
-    console.error("Usage: npm run promote:admin -- <email> [--create --password <pw> --name <name>] [--demote]");
+    console.error(
+      'Usage: npm run promote:admin -- <email> [--create --password <pw> --name <name>] [--demote]'
+    );
     process.exitCode = 1;
     return;
   }
@@ -74,12 +76,16 @@ async function main() {
 
   if (!existing) {
     if (!args.create) {
-      console.error(`No user found with email "${email}". Pass --create to create a new ADMIN account.`);
+      console.error(
+        `No user found with email "${email}". Pass --create to create a new ADMIN account.`
+      );
       process.exitCode = 1;
       return;
     }
     if (!args.password || !isPasswordAcceptable(args.password)) {
-      console.error("--password is required with --create and must be at least 8 characters.");
+      console.error(
+        '--password is required with --create and must be at least 8 characters.'
+      );
       process.exitCode = 1;
       return;
     }

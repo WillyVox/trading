@@ -11,7 +11,7 @@ separate system that covers static hub/legal pages, see
 ## How it decides whether to generate one
 
 `src/lib/articles/import/featured-image.ts` — `resolveFallbackFeaturedImage()`
-runs for every file during `npm run import:article`, and only ever *adds*
+runs for every file during `npm run import:article`, and only ever _adds_
 a value the file didn't specify:
 
 - If the file's frontmatter sets `featuredImage`, that value always wins —
@@ -24,7 +24,7 @@ a value the file didn't specify:
   `featuredImageAlt`, if that's also missing) is set on the payload before
   it's saved.
 
-Dry runs (`--dry-run`) never write a file — they only report what *would*
+Dry runs (`--dry-run`) never write a file — they only report what _would_
 happen, in the warnings list.
 
 ## Why PNG, not SVG
@@ -42,21 +42,21 @@ the templates themselves are built as SVG strings first.
 `searchIntent` (the most content-meaningful field available without
 reading the body) to one of 7 templates:
 
-| searchIntent                    | concept    |
-| -------------------------------- | ---------- |
-| `HOW_TO`, `BEGINNER`             | `steps`    |
-| `COMPARISON`, `PROVIDER_GUIDE`   | `compare`  |
-| `FEES`                           | `fees`     |
-| `SECURITY`, `WALLET`             | `security` |
-| `REGULATION`                     | `verify`   |
-| `LEARN`, `MARKET_EDUCATION`      | `learn`    |
-| *(not set)*                      | `news` if `articleType: NEWS`, else `steps` |
+| searchIntent                   | concept                                     |
+| ------------------------------ | ------------------------------------------- |
+| `HOW_TO`, `BEGINNER`           | `steps`                                     |
+| `COMPARISON`, `PROVIDER_GUIDE` | `compare`                                   |
+| `FEES`                         | `fees`                                      |
+| `SECURITY`, `WALLET`           | `security`                                  |
+| `REGULATION`                   | `verify`                                    |
+| `LEARN`, `MARKET_EDUCATION`    | `learn`                                     |
+| _(not set)_                    | `news` if `articleType: NEWS`, else `steps` |
 
 If the article's `cryptoAssetSlugs` includes a recognized asset (bitcoin,
 ethereum, litecoin, dogecoin, cardano, solana, ripple/xrp), a small coin
 badge with a plain A-Z monogram is added — deliberately never a currency
 glyph like ₿ or Ξ, since sharp's SVG rasterizer depends on whatever fonts
-the *server* has installed, which is a much smaller, less predictable set
+the _server_ has installed, which is a much smaller, less predictable set
 than a workstation (especially in minimal Docker/serverless images). A-Z
 always renders on any fallback font.
 

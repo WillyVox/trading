@@ -10,7 +10,10 @@
  * itself to also be clickable.
  */
 
-import { getStaticGuideArticleHref, STATIC_SLUG_IDS } from "../guides/static-article-slugs";
+import {
+  getStaticGuideArticleHref,
+  STATIC_SLUG_IDS,
+} from '../guides/static-article-slugs';
 
 export interface NavLink {
   label: string;
@@ -24,22 +27,38 @@ export interface NavItem extends Partial<NavLink> {
 
 export const NAV_ITEMS: NavItem[] = [
   {
-    label: "Crypto",
+    label: 'Crypto',
     children: [
-      { label: "Compare Exchanges", href: "/compare" },
-      { label: "Exchange Review", href: "/crypto/exchanges" },
-      { label: "Crypto guides", href: "/guides" },
+      { label: 'Compare Exchanges', href: '/compare' },
+      { label: 'Exchange Review', href: '/crypto/exchanges' },
+      { label: 'Crypto guides', href: '/guides' },
     ],
   },
   {
-    label: "Guides",
+    label: 'Guides',
     children: [
-      { label: "5 Simple Steps to Buy Cryptocurrency", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO) },
-      { label: "How to Start Investing in Crypto for Beginners", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO) },
-      { label: "Top Cryptocurrency Exchanges in Australia", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES) },
-      { label: "Share Trading for Beginners", href: getStaticGuideArticleHref(STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS) },
-      { label: "View all guides →", href: "/guides" },
+      {
+        label: '5 Simple Steps to Buy Cryptocurrency',
+        href: getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO),
+      },
+      {
+        label: 'How to Start Investing in Crypto for Beginners',
+        href: getStaticGuideArticleHref(
+          STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
+        ),
+      },
+      {
+        label: 'Top Cryptocurrency Exchanges in Australia',
+        href: getStaticGuideArticleHref(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES),
+      },
+      {
+        label: 'Share Trading for Beginners',
+        href: getStaticGuideArticleHref(
+          STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS
+        ),
+      },
+      { label: 'View all guides →', href: '/guides' },
     ],
   },
-  { label: "News", href: "/news" },
+  { label: 'News', href: '/news' },
 ];

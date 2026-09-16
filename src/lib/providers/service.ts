@@ -1,11 +1,13 @@
-import { Prisma, ProviderType } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { providerRepository } from "@/lib/repository";
+import { Prisma, ProviderType } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { providerRepository } from '@/lib/repository';
 
-export function getProviders(opts: { page?: number; pageSize?: number; providerType?: ProviderType } = {}) {
+export function getProviders(
+  opts: { page?: number; pageSize?: number; providerType?: ProviderType } = {}
+) {
   return providerRepository.paginate({
     where: opts.providerType ? { providerType: opts.providerType } : undefined,
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
     page: opts.page,
     pageSize: opts.pageSize,
   });
@@ -13,13 +15,15 @@ export function getProviders(opts: { page?: number; pageSize?: number; providerT
 
 const FEATURED_PROVIDER_INCLUDE = {
   features: {
-    where: { available: true, verificationStatus: "VERIFIED" as const },
-    orderBy: { featureType: "asc" as const },
+    where: { available: true, verificationStatus: 'VERIFIED' as const },
+    orderBy: { featureType: 'asc' as const },
     take: 2,
   },
 } satisfies Prisma.ProviderInclude;
 
-export type FeaturedProvider = Prisma.ProviderGetPayload<{ include: typeof FEATURED_PROVIDER_INCLUDE }>;
+export type FeaturedProvider = Prisma.ProviderGetPayload<{
+  include: typeof FEATURED_PROVIDER_INCLUDE;
+}>;
 
 /**
  * Homepage "Featured providers" section. Deliberately narrow: only
@@ -36,14 +40,16 @@ export type FeaturedProvider = Prisma.ProviderGetPayload<{ include: typeof FEATU
  * features.ts for the same issue on getProviderBySlug(). Same fix here:
  * explicit payload type + cast at the call site.
  */
-export async function getFeaturedProviders(limit = 3): Promise<FeaturedProvider[]> {
+export async function getFeaturedProviders(
+  limit = 3
+): Promise<FeaturedProvider[]> {
   const rows = await providerRepository.findMany({
     where: {
       providerType: ProviderType.CRYPTO_EXCHANGE,
-      verificationStatus: "VERIFIED",
+      verificationStatus: 'VERIFIED',
       noIndex: false,
     },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
     take: limit,
     include: FEATURED_PROVIDER_INCLUDE,
   });
@@ -60,7 +66,7 @@ export function getProviderBySlug(slug: string) {
   return providerRepository.findBySlug(slug, {
     include: {
       ...COMPARISON_INCLUDE,
-      prosCons: { orderBy: { position: "asc" } },
+      prosCons: { orderBy: { position: 'asc' } },
       sources: true,
       regulations: true,
       assets: { include: { asset: true } },
@@ -84,13 +90,15 @@ export async function getProvidersBySlugs(slugs: string[]) {
     include: COMPARISON_INCLUDE,
   });
   const bySlug = new Map(rows.map((r) => [r.slug, r]));
-  return slugs.map((s) => bySlug.get(s)).filter((r): r is NonNullable<typeof r> => Boolean(r));
+  return slugs
+    .map((s) => bySlug.get(s))
+    .filter((r): r is NonNullable<typeof r> => Boolean(r));
 }
 
 export function getProvidersForAsset(assetSlug: string) {
   return providerRepository.findMany({
     where: { assets: { some: { asset: { slug: assetSlug } } } },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
   });
 }
 
@@ -104,24 +112,34 @@ export function getProvidersForAsset(assetSlug: string) {
  * domain -- pulled live, per the Phase 5 rule that comparisons/related
  * content read from source domains rather than copies.
  */
-export async function getRelatedContentForProvider(providerId: string, limit = 4) {
+export async function getRelatedContentForProvider(
+  providerId: string,
+  limit = 4
+) {
   const links = await prisma.articleProvider.findMany({
-    where: { providerId, article: { status: "PUBLISHED", noIndex: false } },
+    where: { providerId, article: { status: 'PUBLISHED', noIndex: false } },
     include: {
       article: {
-        select: { id: true, slug: true, title: true, excerpt: true, articleType: true, publishedAt: true },
+        select: {
+          id: true,
+          slug: true,
+          title: true,
+          excerpt: true,
+          articleType: true,
+          publishedAt: true,
+        },
       },
     },
-    orderBy: { article: { publishedAt: "desc" } },
+    orderBy: { article: { publishedAt: 'desc' } },
   });
 
   const guides = links
     .map((l) => l.article)
-    .filter((a) => a.articleType === "GUIDE")
+    .filter((a) => a.articleType === 'GUIDE')
     .slice(0, limit);
   const news = links
     .map((l) => l.article)
-    .filter((a) => a.articleType === "NEWS")
+    .filter((a) => a.articleType === 'NEWS')
     .slice(0, limit);
 
   return { guides, news };

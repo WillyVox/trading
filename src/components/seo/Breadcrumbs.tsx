@@ -1,9 +1,9 @@
-import Link from "next/link";
-import type { BreadcrumbItem } from "@/lib/seo/types";
+import Link from 'next/link';
+import type { BreadcrumbItem } from '@/lib/seo/types';
 
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted">
+    <nav aria-label="Breadcrumb" className="text-muted mb-4 text-sm">
       <ol className="flex flex-wrap items-center gap-1.5">
         {items.map((item, i) => (
           <li key={item.path} className="flex items-center gap-1.5">

@@ -1,7 +1,11 @@
-import { requireAdmin } from "@/lib/auth/require-admin";
-import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { requireAdmin } from '@/lib/auth/require-admin';
+import { AdminSidebar } from '@/components/admin/AdminSidebar';
 
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   // Middleware already blocks non-admins from reaching here; this is the
   // independent server-side check for the layout's own data access.
   await requireAdmin();

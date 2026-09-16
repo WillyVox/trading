@@ -1,56 +1,58 @@
 ---
-title: "CoinSpot vs Swyftx vs Independent Reserve: Comparing Three Australian Exchanges"
-slug: "coinspot-vs-swyftx-vs-independent-reserve"
-articleType: "GUIDE"
-excerpt: "Three well-known Australian exchanges, three different approaches to fees and interface. Here's\
+title: 'CoinSpot vs Swyftx vs Independent Reserve: Comparing Three Australian Exchanges'
+slug: 'coinspot-vs-swyftx-vs-independent-reserve'
+articleType: 'GUIDE'
+excerpt:
+  "Three well-known Australian exchanges, three different approaches to fees and interface. Here's\
   \ how CoinSpot, Swyftx and Independent Reserve actually differ."
-category: "crypto-exchanges"
+category: 'crypto-exchanges'
 tags:
-- "Crypto Exchanges"
-- "Australia"
-- "Comparison"
-- "Beginners"
-seoTitle: "CoinSpot vs Swyftx vs Independent Reserve (2026)"
-seoDescription: "A neutral comparison of CoinSpot, Swyftx and Independent Reserve — fees, AUD funding,\
+  - 'Crypto Exchanges'
+  - 'Australia'
+  - 'Comparison'
+  - 'Beginners'
+seoTitle: 'CoinSpot vs Swyftx vs Independent Reserve (2026)'
+seoDescription:
+  "A neutral comparison of CoinSpot, Swyftx and Independent Reserve — fees, AUD funding,\
   \ interface style and who each tends to suit."
-featuredImageAlt: "Three exchange app logos arranged side by side for comparison"
-author: "Editorial Team"
+featuredImageAlt: 'Three exchange app logos arranged side by side for comparison'
+author: 'Editorial Team'
 noIndex: false
 affiliateDisclosureRequired: true
 keyTakeaways:
-- "CoinSpot's order-book fee (0.1%) is materially cheaper than its own Instant Buy/Sell/Swap fee (1% plus\
-  \ spread) — the two products aren't directly comparable."
-- "Swyftx's single tiered trading fee runs from 0.6% down to 0.1%, reaching the lowest tier only at high\
-  \ trading volume, plus a separate spread."
-- "Independent Reserve offers a narrower coin selection than CoinSpot or Swyftx, with an order-book-first\
-  \ interface."
-- "All three support AUD funding, but the exact fee-free methods differ by provider."
-- "The 'better' choice depends on whether you value a simple interface, the widest coin selection, or\
-  \ the lowest achievable trading fee."
-searchIntent: "COMPARISON"
+  - "CoinSpot's order-book fee (0.1%) is materially cheaper than its own Instant Buy/Sell/Swap fee (1% plus\
+    \ spread) — the two products aren't directly comparable."
+  - "Swyftx's single tiered trading fee runs from 0.6% down to 0.1%, reaching the lowest tier only at high\
+    \ trading volume, plus a separate spread."
+  - "Independent Reserve offers a narrower coin selection than CoinSpot or Swyftx, with an order-book-first\
+    \ interface."
+  - 'All three support AUD funding, but the exact fee-free methods differ by provider.'
+  - "The 'better' choice depends on whether you value a simple interface, the widest coin selection, or\
+    \ the lowest achievable trading fee."
+searchIntent: 'COMPARISON'
 providerRelationships:
-- providerSlug: "coinspot"
-  relationship: "COMPARED"
-- providerSlug: "swyftx"
-  relationship: "COMPARED"
-- providerSlug: "independent-reserve"
-  relationship: "COMPARED"
+  - providerSlug: 'coinspot'
+    relationship: 'COMPARED'
+  - providerSlug: 'swyftx'
+    relationship: 'COMPARED'
+  - providerSlug: 'independent-reserve'
+    relationship: 'COMPARED'
 cryptoAssetSlugs:
-- "bitcoin"
-- "ethereum"
+  - 'bitcoin'
+  - 'ethereum'
 relatedGuides:
-- "how-to-choose-crypto-exchange-australia"
-- "crypto-exchange-fees-australia-explained"
+  - 'how-to-choose-crypto-exchange-australia'
+  - 'crypto-exchange-fees-australia-explained'
 sources:
-- label: "CoinSpot — Official fee schedule"
-  url: "https://www.coinspot.com.au/fees"
-  sourceType: "OFFICIAL_PROVIDER"
-- label: "Swyftx — Official facts page"
-  url: "https://swyftx.com/facts/"
-  sourceType: "OFFICIAL_PROVIDER"
-- label: "Independent Reserve — Official FAQ"
-  url: "https://www.independentreserve.com/help/faq"
-  sourceType: "OFFICIAL_PROVIDER"
+  - label: 'CoinSpot — Official fee schedule'
+    url: 'https://www.coinspot.com.au/fees'
+    sourceType: 'OFFICIAL_PROVIDER'
+  - label: 'Swyftx — Official facts page'
+    url: 'https://swyftx.com/facts/'
+    sourceType: 'OFFICIAL_PROVIDER'
+  - label: 'Independent Reserve — Official FAQ'
+    url: 'https://www.independentreserve.com/help/faq'
+    sourceType: 'OFFICIAL_PROVIDER'
 ---
 
 <p>CoinSpot, Swyftx and Independent Reserve are three of the more commonly used exchanges among Australian beginners, but they're built around genuinely different trade-offs. Here's how they actually compare, without picking an overall "winner."</p>

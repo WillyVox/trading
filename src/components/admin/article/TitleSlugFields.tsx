@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { slugify } from "@/lib/articles/slug";
-import { Notice } from "@/components/ui/Notice";
+import { useState } from 'react';
+import { slugify } from '@/lib/articles/slug';
+import { Notice } from '@/components/ui/Notice';
 
 /**
  * The only reason this pair needs to be a Client Component (Req.md §6 —
@@ -27,7 +27,7 @@ export function TitleSlugFields({
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <label className="flex flex-col text-sm sm:col-span-2">
-        <span className="mb-1 font-medium text-navy">Title</span>
+        <span className="text-navy mb-1 font-medium">Title</span>
         <input
           name="title"
           required
@@ -38,13 +38,13 @@ export function TitleSlugFields({
             setTitle(next);
             if (!slugTouched) setSlug(slugify(next));
           }}
-          className="rounded-lg border border-border bg-panel-secondary px-3 py-2 text-navy"
+          className="border-border bg-panel-secondary text-navy rounded-lg border px-3 py-2"
           placeholder="5 Best Crypto Exchanges in Australia in 2026"
         />
       </label>
 
       <label className="flex flex-col text-sm sm:col-span-2">
-        <span className="mb-1 font-medium text-navy">Slug</span>
+        <span className="text-navy mb-1 font-medium">Slug</span>
         <input
           name="slug"
           required
@@ -55,16 +55,20 @@ export function TitleSlugFields({
             setSlug(e.target.value);
           }}
           pattern="[a-z0-9]+(-[a-z0-9]+)*"
-          className="rounded-lg border border-border bg-panel-secondary px-3 py-2 font-mono text-sm text-navy"
+          className="border-border bg-panel-secondary text-navy rounded-lg border px-3 py-2 font-mono text-sm"
         />
-        <span className="mt-1 text-xs text-muted">Lowercase, hyphen-separated. Auto-fills from the title until you edit it.</span>
+        <span className="text-muted mt-1 text-xs">
+          Lowercase, hyphen-separated. Auto-fills from the title until you edit
+          it.
+        </span>
       </label>
 
       {isPublished && slug !== initialSlug && (
         <div className="sm:col-span-2">
           <Notice>
-            This article is currently PUBLISHED at the old slug. Changing it will make the old URL 404 — there is no
-            redirect in place. Only change this if you understand the SEO impact.
+            This article is currently PUBLISHED at the old slug. Changing it
+            will make the old URL 404 — there is no redirect in place. Only
+            change this if you understand the SEO impact.
           </Notice>
         </div>
       )}

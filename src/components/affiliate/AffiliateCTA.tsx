@@ -1,11 +1,11 @@
-import { AffiliateDisclosure } from "./AffiliateDisclosure";
+import { AffiliateDisclosure } from './AffiliateDisclosure';
 
 export function AffiliateCTA({
   partnerSlug,
   providerName,
-  variant = "default",
+  variant = 'default',
   showDisclosure = true,
-  isNewTab = true
+  isNewTab = true,
 }: {
   partnerSlug: string;
   providerName: string;
@@ -17,25 +17,25 @@ export function AffiliateCTA({
    * "Visit site" since naming the provider right next to its own logo is
    * redundant.
    */
-  variant?: "default" | "compact";
+  variant?: 'default' | 'compact';
   /** Set false when the caller renders one shared AffiliateDisclosure for a whole section (e.g. several provider cards, or another AffiliateCTA lower on the same page) instead of per-card. */
   showDisclosure?: boolean;
   isNewTab?: boolean;
 }) {
-  const label = variant === "compact" ? "Visit site" : `Visit ${providerName}`;
+  const label = variant === 'compact' ? 'Visit site' : `Visit ${providerName}`;
 
   const link = (
     <a
-      target={isNewTab ? "_blank" : "_self"}
-      rel={isNewTab ? "noopener noreferrer" : undefined}
+      target={isNewTab ? '_blank' : '_self'}
+      rel={isNewTab ? 'noopener noreferrer' : undefined}
       href={`/go/${partnerSlug}`} // [TODO] should append our referred Id here to send to partner
-      className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-background hover:bg-navy-dark"
+      className="bg-navy text-background hover:bg-navy-dark inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold"
     >
       {label}
     </a>
   );
 
-  if (variant === "compact") {
+  if (variant === 'compact') {
     return (
       <>
         {link}
@@ -45,7 +45,7 @@ export function AffiliateCTA({
   }
 
   return (
-    <div className="mt-6 rounded-2xl border border-gold-soft bg-panel-secondary p-4">
+    <div className="border-gold-soft bg-panel-secondary mt-6 rounded-2xl border p-4">
       {link}
       {showDisclosure && <AffiliateDisclosure />}
     </div>

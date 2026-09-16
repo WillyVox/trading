@@ -1,46 +1,48 @@
 ---
-title: "Bitcoin Price Volatility: What Beginners Should Understand Before Buying"
-slug: "bitcoin-price-volatility-beginners-guide"
-articleType: "GUIDE"
-excerpt: "Bitcoin's price moves more than most beginners expect, in both directions. Here's what actually\
+title: 'Bitcoin Price Volatility: What Beginners Should Understand Before Buying'
+slug: 'bitcoin-price-volatility-beginners-guide'
+articleType: 'GUIDE'
+excerpt:
+  "Bitcoin's price moves more than most beginners expect, in both directions. Here's what actually\
   \ drives that volatility and how to think about it before you buy."
-category: "crypto-education"
+category: 'crypto-education'
 tags:
-- "Bitcoin"
-- "Beginners"
-- "Market Education"
-- "Australia"
-seoTitle: "Bitcoin Price Volatility Explained for Beginners (2026)"
-seoDescription: "Why Bitcoin's price swings so much, what drives that volatility, and how beginners can\
+  - 'Bitcoin'
+  - 'Beginners'
+  - 'Market Education'
+  - 'Australia'
+seoTitle: 'Bitcoin Price Volatility Explained for Beginners (2026)'
+seoDescription:
+  "Why Bitcoin's price swings so much, what drives that volatility, and how beginners can\
   \ think about risk before buying — without price predictions."
 featuredImageAlt: "A volatile stock-style price chart representing Bitcoin's price swings over time"
-author: "Editorial Team"
+author: 'Editorial Team'
 noIndex: false
 affiliateDisclosureRequired: false
 keyTakeaways:
-- "Bitcoin has historically moved by large percentages within days or weeks, in both directions — this\
-  \ isn't unusual behaviour for the asset."
-- "Investor sentiment, liquidity conditions, leveraged trading positions and macroeconomic news all contribute\
-  \ to short-term price swings."
-- "Long-term price direction and short-term volatility are separate questions — an asset can be volatile\
-  \ regardless of its longer-term trend."
-- "Only ever put in money you could afford to lose entirely, given how genuinely unpredictable short-term\
-  \ moves are."
-- "This article doesn't predict where the price is headed — nobody can reliably do that, and be wary of\
-  \ anyone who claims otherwise."
-searchIntent: "MARKET_EDUCATION"
+  - "Bitcoin has historically moved by large percentages within days or weeks, in both directions — this\
+    \ isn't unusual behaviour for the asset."
+  - "Investor sentiment, liquidity conditions, leveraged trading positions and macroeconomic news all contribute\
+    \ to short-term price swings."
+  - "Long-term price direction and short-term volatility are separate questions — an asset can be volatile\
+    \ regardless of its longer-term trend."
+  - "Only ever put in money you could afford to lose entirely, given how genuinely unpredictable short-term\
+    \ moves are."
+  - "This article doesn't predict where the price is headed — nobody can reliably do that, and be wary of\
+    \ anyone who claims otherwise."
+searchIntent: 'MARKET_EDUCATION'
 cryptoAssetSlugs:
-- "bitcoin"
+  - 'bitcoin'
 relatedGuides:
-- "how-to-buy-bitcoin-australia"
-- "crypto-wallet-vs-exchange-beginners"
+  - 'how-to-buy-bitcoin-australia'
+  - 'crypto-wallet-vs-exchange-beginners'
 sources:
-- label: "ASIC Moneysmart — Cryptocurrency"
-  url: "https://moneysmart.gov.au"
-  sourceType: "GOVERNMENT"
-- label: "Fortune — Current price of Bitcoin for September 2026 (daily price report)"
-  url: "https://fortune.com/article/price-of-bitcoin-09-03-2026/"
-  sourceType: "NEWS"
+  - label: 'ASIC Moneysmart — Cryptocurrency'
+    url: 'https://moneysmart.gov.au'
+    sourceType: 'GOVERNMENT'
+  - label: 'Fortune — Current price of Bitcoin for September 2026 (daily price report)'
+    url: 'https://fortune.com/article/price-of-bitcoin-09-03-2026/'
+    sourceType: 'NEWS'
 ---
 
 <p>Anyone new to Bitcoin is usually warned it's "volatile" — but that word undersells how large and how fast the swings can actually be. Understanding what actually drives that movement is more useful than any single price figure.</p>

@@ -1,15 +1,15 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/Card";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
-import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import Link from 'next/link';
+import { Card } from '@/components/ui/Card';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import { AffiliateCTA } from '@/components/affiliate/AffiliateCTA';
+import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure';
 
 type GuideProvider = {
   id: string;
   slug: string;
   name: string;
   description: string | null;
-  verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
+  verificationStatus: 'VERIFIED' | 'UNVERIFIED' | 'STALE';
   activeLink: boolean;
 };
 
@@ -21,30 +21,45 @@ type GuideProvider = {
  * the caller must have derived from a real ACTIVE AffiliateLink lookup —
  * never fabricated here.
  */
-export function RelatedProviders({ providers }: { providers: GuideProvider[] }) {
+export function RelatedProviders({
+  providers,
+}: {
+  providers: GuideProvider[];
+}) {
   if (providers.length === 0) return null;
 
   const anyAffiliate = providers.some((p) => p.activeLink);
 
   return (
-    <section className="mt-10 border-t border-border pt-6">
-      <h2 className="font-display text-lg font-bold text-navy">Providers mentioned in this guide</h2>
+    <section className="border-border mt-10 border-t pt-6">
+      <h2 className="font-display text-navy text-lg font-bold">
+        Providers mentioned in this guide
+      </h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {providers.map((p) => (
           <Card key={p.id}>
             <div className="flex items-center justify-between">
-              <Link href={`/crypto/exchanges/${p.slug}`} className="font-display font-semibold text-navy hover:underline">
+              <Link
+                href={`/crypto/exchanges/${p.slug}`}
+                className="font-display text-navy font-semibold hover:underline"
+              >
                 {p.name}
               </Link>
               <VerificationBadge status={p.verificationStatus} />
             </div>
-            {p.description && <p className="mt-1.5 text-sm text-muted">{p.description}</p>}
+            {p.description && (
+              <p className="text-muted mt-1.5 text-sm">{p.description}</p>
+            )}
             {p.activeLink ? (
-              <AffiliateCTA partnerSlug={p.slug} providerName={p.name} showDisclosure={false} />
+              <AffiliateCTA
+                partnerSlug={p.slug}
+                providerName={p.name}
+                showDisclosure={false}
+              />
             ) : (
               <Link
                 href={`/crypto/exchanges/${p.slug}`}
-                className="mt-4 inline-flex items-center justify-center rounded-full border border-border px-4 py-2 text-sm font-semibold text-navy hover:bg-panel-secondary"
+                className="border-border text-navy hover:bg-panel-secondary mt-4 inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold"
               >
                 View profile
               </Link>

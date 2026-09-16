@@ -1,13 +1,13 @@
-import { Card } from "@/components/ui/Card";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { Card } from '@/components/ui/Card';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
 
 type ProsCon = {
   id: string;
-  type: "PRO" | "LIMITATION";
+  type: 'PRO' | 'LIMITATION';
   label: string;
   detail: string | null;
   sourceUrl: string | null;
-  verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
+  verificationStatus: 'VERIFIED' | 'UNVERIFIED' | 'STALE';
 };
 
 /**
@@ -18,31 +18,41 @@ type ProsCon = {
  * tone imply certainty the sourcing doesn't support).
  */
 export function ProviderProsCons({ items }: { items: ProsCon[] }) {
-  const pros = items.filter((i) => i.type === "PRO");
-  const limitations = items.filter((i) => i.type === "LIMITATION");
+  const pros = items.filter((i) => i.type === 'PRO');
+  const limitations = items.filter((i) => i.type === 'LIMITATION');
 
   if (pros.length === 0 && limitations.length === 0) return null;
 
   return (
     <Card className="mt-4">
-      <h2 className="mb-4 font-display text-lg font-bold text-navy">Pros &amp; limitations</h2>
+      <h2 className="font-display text-navy mb-4 text-lg font-bold">
+        Pros &amp; limitations
+      </h2>
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-green">Pros</h3>
+          <h3 className="text-green text-xs font-semibold tracking-wide uppercase">
+            Pros
+          </h3>
           <ul className="mt-2 space-y-3 text-sm">
             {pros.map((p) => (
               <ProsConItem key={p.id} item={p} />
             ))}
-            {pros.length === 0 && <li className="text-muted">None recorded yet.</li>}
+            {pros.length === 0 && (
+              <li className="text-muted">None recorded yet.</li>
+            )}
           </ul>
         </div>
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-red">Limitations</h3>
+          <h3 className="text-red text-xs font-semibold tracking-wide uppercase">
+            Limitations
+          </h3>
           <ul className="mt-2 space-y-3 text-sm">
             {limitations.map((l) => (
               <ProsConItem key={l.id} item={l} />
             ))}
-            {limitations.length === 0 && <li className="text-muted">None recorded yet.</li>}
+            {limitations.length === 0 && (
+              <li className="text-muted">None recorded yet.</li>
+            )}
           </ul>
         </div>
       </div>
@@ -57,7 +67,7 @@ function ProsConItem({ item }: { item: ProsCon }) {
         <span>{item.label}</span>
         <VerificationBadge status={item.verificationStatus} />
       </div>
-      {item.detail && <p className="mt-1 text-xs text-muted">{item.detail}</p>}
+      {item.detail && <p className="text-muted mt-1 text-xs">{item.detail}</p>}
     </div>
   );
 
@@ -65,7 +75,12 @@ function ProsConItem({ item }: { item: ProsCon }) {
 
   return (
     <li>
-      <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+      <a
+        href={item.sourceUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline"
+      >
         {content}
       </a>
     </li>

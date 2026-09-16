@@ -55,12 +55,12 @@ per-article images. Run it whenever you:
 - Tweak one of the concept templates in `featured-image-svg.ts` and want
   every page using it to pick up the change.
 
-**What this script does *not* cover:** CMS articles (`guides/[slug]`,
+**What this script does _not_ cover:** CMS articles (`guides/[slug]`,
 `news/[slug]`) already get a real, article-specific image at import time
 (see `src/lib/articles/import/featured-image.ts`) or a genuinely custom
 one a human supplied — this script never touches those. Per-instance
 dynamic pages (a specific crypto asset page, a specific exchange profile)
-intentionally share one image per *route type* here (e.g. every
+intentionally share one image per _route type_ here (e.g. every
 `/crypto/[slug]` page uses the same `images/og/crypto-asset.png`) rather
 than a unique image per slug — doing that properly would mean generating
 from the database per-slug, which is a bigger feature than this fix called

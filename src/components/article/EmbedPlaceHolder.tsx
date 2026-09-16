@@ -9,33 +9,35 @@
  * public page").
  */
 export function EmbedPlaceholder({
-    type,
-    argsRaw,
-    invalid = false,
-  }: {
-    type: string;
-    argsRaw: string;
-    invalid?: boolean;
-  }) {
-    const marker = `{{${type}${argsRaw ? `:${argsRaw}` : ""}}}`;
-  
-    return (
-      <div
-        className={
-          invalid
-            ? "my-6 rounded-xl border border-red/30 bg-red/10 p-4 text-sm text-navy"
-            : "my-6 rounded-xl border border-dashed border-gold-soft bg-panel-secondary p-4 text-sm text-navy"
-        }
-      >
-        <p className="font-semibold">
-          {invalid ? "Invalid embed configuration: " : "Embed not yet available: "}
-          <code className="font-mono">{marker}</code>
-        </p>
-        <p className="mt-1 text-muted">
-          {invalid
-            ? "This marker's arguments couldn't be validated, so nothing will render here on the public page."
-            : "This block type isn't implemented yet. It won't render on the public page until it is."}
-        </p>
-      </div>
-    );
-  }
+  type,
+  argsRaw,
+  invalid = false,
+}: {
+  type: string;
+  argsRaw: string;
+  invalid?: boolean;
+}) {
+  const marker = `{{${type}${argsRaw ? `:${argsRaw}` : ''}}}`;
+
+  return (
+    <div
+      className={
+        invalid
+          ? 'border-red/30 bg-red/10 text-navy my-6 rounded-xl border p-4 text-sm'
+          : 'border-gold-soft bg-panel-secondary text-navy my-6 rounded-xl border border-dashed p-4 text-sm'
+      }
+    >
+      <p className="font-semibold">
+        {invalid
+          ? 'Invalid embed configuration: '
+          : 'Embed not yet available: '}
+        <code className="font-mono">{marker}</code>
+      </p>
+      <p className="text-muted mt-1">
+        {invalid
+          ? "This marker's arguments couldn't be validated, so nothing will render here on the public page."
+          : "This block type isn't implemented yet. It won't render on the public page until it is."}
+      </p>
+    </div>
+  );
+}

@@ -221,13 +221,13 @@ Conceptually:
 
 ```ts
 export const siteConfig = {
-  name: "...",
-  domain: "...",
-  description: "...",
-  locale: "en_AU",
-  language: "en-AU",
-  country: "AU"
-}
+  name: '...',
+  domain: '...',
+  description: '...',
+  locale: 'en_AU',
+  language: 'en-AU',
+  country: 'AU',
+};
 ```
 
 It should support:
@@ -260,7 +260,7 @@ Use the current Next.js App Router Metadata API correctly.
 Implement dynamic metadata using:
 
 ```ts
-generateMetadata()
+generateMetadata();
 ```
 
 where appropriate.

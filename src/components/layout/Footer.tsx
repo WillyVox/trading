@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { footerLinks } from "@/lib/config/footer";
-import { businessIdentity } from "@/lib/config/business";
-import { siteConfig } from "@/lib/seo/config";
-import TradingGuideLogo from "./HeaderLogo";
+import Link from 'next/link';
+import { footerLinks } from '@/lib/config/footer';
+import { businessIdentity } from '@/lib/config/business';
+import { siteConfig } from '@/lib/seo/config';
+import TradingGuideLogo from './HeaderLogo';
 
 // Computed once per server render. On a statically-generated page this
 // bakes in the build year rather than the visitor's current year -- fine
@@ -24,15 +24,15 @@ const YEAR = new Date().getFullYear();
 export function Footer() {
   return (
     <footer className="bg-navy-dark text-background">
-      <div className="h-1 bg-gold" />
+      <div className="bg-gold h-1" />
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <Link href="/" className="font-display text-lg font-extrabold">
               {/* Aus<span className="text-gold">Market</span> */}
-              <TradingGuideLogo/>
+              <TradingGuideLogo />
             </Link>
-            <p className="mt-1 text-xs text-background/60">
+            <p className="text-background/60 mt-1 text-xs">
               Independent Australian trading research — crypto and beyond
             </p>
           </div>
@@ -40,44 +40,54 @@ export function Footer() {
           {/* legalName/abn/businessAddress are unset until real values are
               supplied (src/lib/config/business.ts) -- never fabricate them.
               This renders just the trading name until then. */}
-          <div className="text-right text-xs leading-relaxed text-background/70">
+          <div className="text-background/70 text-right text-xs leading-relaxed">
             <p>
-              {"\u00A9"} {YEAR} {businessIdentity.legalName ?? siteConfig.shortName}
-              {businessIdentity.abn ? ` \u00B7 ABN ${businessIdentity.abn}` : null}
+              {'\u00A9'} {YEAR}{' '}
+              {businessIdentity.legalName ?? siteConfig.shortName}
+              {businessIdentity.abn
+                ? ` \u00B7 ABN ${businessIdentity.abn}`
+                : null}
             </p>
-            {businessIdentity.businessAddress ? <p>{businessIdentity.businessAddress}</p> : null}
+            {businessIdentity.businessAddress ? (
+              <p>{businessIdentity.businessAddress}</p>
+            ) : null}
           </div>
         </div>
 
-        <div className="my-6 border-t border-background/15" />
+        <div className="border-background/15 my-6 border-t" />
 
-        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-center text-sm">
+        <nav
+          aria-label="Footer"
+          className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-center text-sm"
+        >
           {footerLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              target={link.newTab ? "_blank" : undefined}
-              rel={link.newTab ? "noopener noreferrer" : undefined}
-              className="text-background/85 transition-colors hover:text-gold-soft"
+              target={link.newTab ? '_blank' : undefined}
+              rel={link.newTab ? 'noopener noreferrer' : undefined}
+              className="text-background/85 hover:text-gold-soft transition-colors"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="my-6 border-t border-background/15" />
+        <div className="border-background/15 my-6 border-t" />
 
         {/* TODO(content-gap): this paragraph is a draft, not reviewed legal
             copy -- see docs/CONTENT-GAPS.md "Footer trust paragraph". */}
-        <p className="mx-auto max-w-3xl text-center text-xs leading-relaxed text-background/60">
-          Trading Guide is an independent comparison and research service {"\u2014"} we don&apos;t hold
-          an Australian Financial Services Licence and don&apos;t provide financial advice. We&apos;re
-          currently 100% self-funded and don&apos;t earn commissions from providers; in future we may
-          earn a commission when you use a provider link on this site, at no extra cost to you and
-          without affecting the alphabetical order providers appear in. We don&apos;t compare every
-          provider available in Australia, and provider fees, features and regulatory status can
-          change {"\u2014"} always verify directly with the provider. Crypto assets are volatile and
-          can lose value.
+        <p className="text-background/60 mx-auto max-w-3xl text-center text-xs leading-relaxed">
+          Trading Guide is an independent comparison and research service{' '}
+          {'\u2014'} we don&apos;t hold an Australian Financial Services Licence
+          and don&apos;t provide financial advice. We&apos;re currently 100%
+          self-funded and don&apos;t earn commissions from providers; in future
+          we may earn a commission when you use a provider link on this site, at
+          no extra cost to you and without affecting the alphabetical order
+          providers appear in. We don&apos;t compare every provider available in
+          Australia, and provider fees, features and regulatory status can
+          change {'\u2014'} always verify directly with the provider. Crypto
+          assets are volatile and can lose value.
         </p>
       </div>
     </footer>

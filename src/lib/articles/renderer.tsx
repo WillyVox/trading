@@ -1,9 +1,17 @@
-import type { ReactNode } from "react";
-import { sanitizeArticleContent } from "@/lib/articles/sanitize";
-import { extractHeadings, estimateReadingMinutes, wrapTables, type Heading } from "@/lib/articles/content";
-import { parseEmbedMarkers } from "@/lib/articles/embeds";
-import { ArticleVideo, type VideoProvider } from "@/components/article/ArticleVideo";
-import { EmbedPlaceholder } from "@/components/article/EmbedPlaceHolder";
+import type { ReactNode } from 'react';
+import { sanitizeArticleContent } from '@/lib/articles/sanitize';
+import {
+  extractHeadings,
+  estimateReadingMinutes,
+  wrapTables,
+  type Heading,
+} from '@/lib/articles/content';
+import { parseEmbedMarkers } from '@/lib/articles/embeds';
+import {
+  ArticleVideo,
+  type VideoProvider,
+} from '@/components/article/ArticleVideo';
+import { EmbedPlaceholder } from '@/components/article/EmbedPlaceHolder';
 
 export interface RenderedArticleContent {
   content: ReactNode;
@@ -19,14 +27,16 @@ export interface RenderArticleContentOptions {
    * instead, so an editor can see exactly what will (or won't) appear
    * before publishing. See EmbedPlaceholder.
    */
-  context?: "public" | "preview";
+  context?: 'public' | 'preview';
 }
 
-const VIDEO_PROVIDERS = new Set<VideoProvider>(["youtube", "vimeo"]);
+const VIDEO_PROVIDERS = new Set<VideoProvider>(['youtube', 'vimeo']);
 const VIDEO_ID_PATTERN = /^[a-zA-Z0-9_-]{4,32}$/;
 
-function parseVideoArgs(argsRaw: string): { provider: VideoProvider; videoId: string; caption?: string } | null {
-  const firstColon = argsRaw.indexOf(":");
+function parseVideoArgs(
+  argsRaw: string
+): { provider: VideoProvider; videoId: string; caption?: string } | null {
+  const firstColon = argsRaw.indexOf(':');
   if (firstColon === -1) return null;
 
   const providerRaw = argsRaw.slice(0, firstColon).trim().toLowerCase();
@@ -34,9 +44,14 @@ function parseVideoArgs(argsRaw: string): { provider: VideoProvider; videoId: st
   const provider = providerRaw as VideoProvider;
 
   const rest = argsRaw.slice(firstColon + 1);
-  const secondColon = rest.indexOf(":");
-  const videoId = (secondColon === -1 ? rest : rest.slice(0, secondColon)).trim();
-  const caption = secondColon === -1 ? undefined : rest.slice(secondColon + 1).trim() || undefined;
+  const secondColon = rest.indexOf(':');
+  const videoId = (
+    secondColon === -1 ? rest : rest.slice(0, secondColon)
+  ).trim();
+  const caption =
+    secondColon === -1
+      ? undefined
+      : rest.slice(secondColon + 1).trim() || undefined;
 
   if (!VIDEO_ID_PATTERN.test(videoId)) return null;
   return { provider, videoId, caption };
@@ -78,32 +93,47 @@ export function renderArticleContent(
   rawHtml: string,
   options: RenderArticleContentOptions = {}
 ): RenderedArticleContent {
-  const context = options.context ?? "public";
+  const context = options.context ?? 'public';
 
-  const sanitized = sanitizeArticleContent(rawHtml ?? "");
+  const sanitized = sanitizeArticleContent(rawHtml ?? '');
   const readingMinutes = estimateReadingMinutes(sanitized);
   const { html: withHeadingIds, headings } = extractHeadings(sanitized);
   const wrapped = wrapTables(withHeadingIds);
   const segments = parseEmbedMarkers(wrapped);
 
   const nodes: ReactNode[] = segments.map((segment, i) => {
-    if (segment.kind === "html") {
+    if (segment.kind === 'html') {
       if (!segment.html.trim()) return null;
       return (
         // eslint-disable-next-line react/no-danger
-        <div key={`html-${i}`} dangerouslySetInnerHTML={{ __html: segment.html }} />
+        <div
+          key={`html-${i}`}
+          dangerouslySetInnerHTML={{ __html: segment.html }}
+        />
       );
     }
 
-    if (segment.type === "video") {
+    if (segment.type === 'video') {
       const video = parseVideoArgs(segment.argsRaw);
       if (video) {
         return (
-          <ArticleVideo key={`embed-${i}`} provider={video.provider} videoId={video.videoId} caption={video.caption} />
+          <ArticleVideo
+            key={`embed-${i}`}
+            provider={video.provider}
+            videoId={video.videoId}
+            caption={video.caption}
+          />
         );
       }
-      if (context === "preview") {
-        return <EmbedPlaceholder key={`embed-${i}`} type={segment.type} argsRaw={segment.argsRaw} invalid />;
+      if (context === 'preview') {
+        return (
+          <EmbedPlaceholder
+            key={`embed-${i}`}
+            type={segment.type}
+            argsRaw={segment.argsRaw}
+            invalid
+          />
+        );
       }
       return null;
     }
@@ -111,8 +141,14 @@ export function renderArticleContent(
     // Unknown/future embed type — Block 4 will register real renderers for
     // these (provider-comparison, provider-card, provider-fees,
     // affiliate-cta). Until then: inert on public pages, visible in preview.
-    if (context === "preview") {
-      return <EmbedPlaceholder key={`embed-${i}`} type={segment.type} argsRaw={segment.argsRaw} />;
+    if (context === 'preview') {
+      return (
+        <EmbedPlaceholder
+          key={`embed-${i}`}
+          type={segment.type}
+          argsRaw={segment.argsRaw}
+        />
+      );
     }
     return null;
   });

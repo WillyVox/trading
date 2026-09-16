@@ -846,9 +846,9 @@ Prefer:
 Consider creating structured configuration such as:
 
 ```ts
-footerSections
-legalLinks
-companyConfig
+footerSections;
+legalLinks;
+companyConfig;
 ```
 
 if it reduces duplication.
@@ -862,16 +862,16 @@ Do not over-engineer.
 Create a single source of truth if one does not already exist for optional business details such as:
 
 ```ts
-legalName
-tradingName
-abn
-acn
-afsl
-authorisedRepresentativeNumber
-supportEmail
-privacyEmail
-complaintsEmail
-businessAddress
+legalName;
+tradingName;
+abn;
+acn;
+afsl;
+authorisedRepresentativeNumber;
+supportEmail;
+privacyEmail;
+complaintsEmail;
+businessAddress;
 ```
 
 However:
@@ -1011,7 +1011,7 @@ Do not copy text.
 Produce a comparison table containing:
 
 | Area | Trading Guide now | Competitor pattern | Adopt? | Reason |
-|---|---|---|---|---|
+| ---- | ----------------- | ------------------ | ------ | ------ |
 
 ---
 
@@ -1020,7 +1020,7 @@ Produce a comparison table containing:
 Before implementation provide a table with:
 
 | Requirement | Mandatory before production? | Conditional? | Strongly recommended? | Reason | Action |
-|---|---|---|---|---|---|
+| ----------- | ---------------------------- | ------------ | --------------------- | ------ | ------ |
 
 Include at least:
 

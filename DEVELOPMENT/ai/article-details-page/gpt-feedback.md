@@ -14,21 +14,21 @@ There are several things in your page that I actually prefer over blindly copyin
 
 You already have:
 
-* Breadcrumbs
-* Category label
-* H1
-* Summary/deck
-* Author
-* Published date
-* Updated date
-* Reading time
-* Table of contents
-* Key takeaways
-* Article details
-* Sources
-* Related guides
-* Contextual comparison CTA
-* Affiliate disclosure
+- Breadcrumbs
+- Category label
+- H1
+- Summary/deck
+- Author
+- Published date
+- Updated date
+- Reading time
+- Table of contents
+- Key takeaways
+- Article details
+- Sources
+- Related guides
+- Contextual comparison CTA
+- Affiliate disclosure
 
 That's a surprisingly solid foundation.
 
@@ -163,23 +163,23 @@ I would absolutely introduce a **featured article image**.
 
 Not because images are inherently better for SEO, but because they provide:
 
-* editorial identity
-* visual break
-* social-sharing imagery
-* Open Graph content
-* Google Discover compatibility
-* visual recognition
-* stronger perceived editorial quality
+- editorial identity
+- visual break
+- social-sharing imagery
+- Open Graph content
+- Google Discover compatibility
+- visual recognition
+- stronger perceived editorial quality
 
 Canstar also attributes its image source, which is a useful editorial practice. ([Canstar][1])
 
 For your CMS, eventually something like:
 
 ```ts
-featuredImage
-featuredImageAlt
-featuredImageCaption
-featuredImageCredit
+featuredImage;
+featuredImageAlt;
+featuredImageCaption;
+featuredImageCredit;
 ```
 
 would be useful.
@@ -362,12 +362,12 @@ Eventually, clicking an author should lead to:
 
 with:
 
-* biography
-* expertise
-* credentials
-* articles
-* LinkedIn if appropriate
-* editorial role
+- biography
+- expertise
+- credentials
+- articles
+- LinkedIn if appropriate
+- editorial role
 
 ---
 
@@ -916,15 +916,15 @@ which makes it visually monotonous.
 
 I'd create rhythm with:
 
-* white article cards selectively
-* pale navy/blue information boxes
-* gold callouts
-* charts
-* images
-* tables
-* dividers
-* pull quotes
-* data modules
+- white article cards selectively
+- pale navy/blue information boxes
+- gold callouts
+- charts
+- images
+- tables
+- dividers
+- pull quotes
+- data modules
 
 Not randomly—maybe one significant visual element every 2–4 sections.
 
@@ -934,28 +934,28 @@ Not randomly—maybe one significant visual element every 2–4 sections.
 
 Here's how I currently see it.
 
-| Area                 | Trading Guide now | Canstar     | Finder      | Recommended Trading Guide   |
-| -------------------- | -------------- | ----------- | ----------- | ------------------------ |
-| Article title        | ✅ Strong       | ✅           | ✅           | Keep                     |
-| Breadcrumbs          | ✅              | ✅           | ✅           | Keep                     |
-| Hero image           | ❌              | ✅           | Variable    | Add                      |
-| Author identity      | ⚠️ Generic     | ✅ Strong    | ✅ Strong    | Improve                  |
-| Editor/reviewer      | ❌              | ✅           | ✅           | Add gradually            |
-| Updated date         | ✅              | ✅           | ✅           | Keep                     |
-| Fact checked         | ❌              | ✅           | ✅           | Add                      |
-| Reading time         | ✅              | Not central | Useful      | Keep                     |
-| Key takeaways        | ✅              | Some        | ✅ Strong    | Keep/improve             |
-| TOC                  | ✅              | ✅           | ✅           | Make sticky              |
-| Body typography      | ❌ Weak         | ✅           | ✅           | High priority            |
-| Data tables          | Limited        | ✅           | ✅ Strong    | Add                      |
-| Inline comparisons   | Limited        | ✅           | ✅ Strong    | Add selectively          |
-| Sources              | ✅              | ✅           | ✅           | Improve citations        |
-| Related content      | ✅              | ✅           | ✅           | Add images               |
-| Regulatory context   | ✅ Strong       | Good        | Good        | Potential differentiator |
-| CTA architecture     | ⚠️ Basic       | Strong      | Very strong | Improve                  |
-| Commercial intensity | Low            | Medium      | High        | Stay medium              |
-| Trust infrastructure | ⚠️ Early       | Strong      | Strong      | Build                    |
-| Visual polish        | ⚠️ Early       | Mature      | Mature      | Improve substantially    |
+| Area                 | Trading Guide now | Canstar     | Finder      | Recommended Trading Guide |
+| -------------------- | ----------------- | ----------- | ----------- | ------------------------- |
+| Article title        | ✅ Strong         | ✅          | ✅          | Keep                      |
+| Breadcrumbs          | ✅                | ✅          | ✅          | Keep                      |
+| Hero image           | ❌                | ✅          | Variable    | Add                       |
+| Author identity      | ⚠️ Generic        | ✅ Strong   | ✅ Strong   | Improve                   |
+| Editor/reviewer      | ❌                | ✅          | ✅          | Add gradually             |
+| Updated date         | ✅                | ✅          | ✅          | Keep                      |
+| Fact checked         | ❌                | ✅          | ✅          | Add                       |
+| Reading time         | ✅                | Not central | Useful      | Keep                      |
+| Key takeaways        | ✅                | Some        | ✅ Strong   | Keep/improve              |
+| TOC                  | ✅                | ✅          | ✅          | Make sticky               |
+| Body typography      | ❌ Weak           | ✅          | ✅          | High priority             |
+| Data tables          | Limited           | ✅          | ✅ Strong   | Add                       |
+| Inline comparisons   | Limited           | ✅          | ✅ Strong   | Add selectively           |
+| Sources              | ✅                | ✅          | ✅          | Improve citations         |
+| Related content      | ✅                | ✅          | ✅          | Add images                |
+| Regulatory context   | ✅ Strong         | Good        | Good        | Potential differentiator  |
+| CTA architecture     | ⚠️ Basic          | Strong      | Very strong | Improve                   |
+| Commercial intensity | Low               | Medium      | High        | Stay medium               |
+| Trust infrastructure | ⚠️ Early          | Strong      | Strong      | Build                     |
+| Visual polish        | ⚠️ Early          | Mature      | Mature      | Improve substantially     |
 
 ---
 
@@ -1009,12 +1009,12 @@ That's a highly developed content-commerce funnel. ([finder.com.au][2])
 
 I would borrow:
 
-* user-intent structure
-* relevant comparison blocks
-* transparent methodology links
-* strong key takeaways
-* sources
-* provider-data integration
+- user-intent structure
+- relevant comparison blocks
+- transparent methodology links
+- strong key takeaways
+- sources
+- provider-data integration
 
 But **not necessarily their quantity of commercial modules**.
 
@@ -1028,10 +1028,10 @@ Not much for direct comparison because CoinSpot is itself a provider rather than
 
 But I like its:
 
-* beginner/intermediate/advanced taxonomy
-* learning progression
-* related education
-* category navigation
+- beginner/intermediate/advanced taxonomy
+- learning progression
+- related education
+- category navigation
 
 CoinSpot's Learn hub explicitly segments by difficulty and creates beginner learning pathways. ([CoinSpot][4])
 
@@ -1327,8 +1327,8 @@ Relevant comparison journeys—not aggressive affiliate buttons scattered throug
 
 That combination would make the article experience much stronger than simply recreating the Canstar screenshot, while keeping it aligned with the larger Trading Guide comparison/affiliate strategy you've been developing. ([finder.com.au][2])
 
-[1]: https://www.canstar.com.au/cryptocurrency/how-to-buy-bitcoin/?utm_source=chatgpt.com "How to Buy Bitcoin in Australia 2025 | Canstar"
-[2]: https://www.finder.com.au/bitcoin/how-to-buy-bitcoin?utm_source=chatgpt.com "How to buy Bitcoin (BTC) in Australia 2025 | Finder"
-[3]: https://www.finder.com.au/cryptocurrency/how-to-buy-cryptocurrency?utm_source=chatgpt.com "How to buy cryptocurrency: A beginner’s guide | Finder"
-[4]: https://www.coinspot.com.au/learn?level=Beginner&utm_source=chatgpt.com "Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot"
-[5]: https://www.canstar.com.au/cryptocurrency/?utm_source=chatgpt.com "Cryptocurrency Exchanges & Wallets | Canstar"
+[1]: https://www.canstar.com.au/cryptocurrency/how-to-buy-bitcoin/?utm_source=chatgpt.com 'How to Buy Bitcoin in Australia 2025 | Canstar'
+[2]: https://www.finder.com.au/bitcoin/how-to-buy-bitcoin?utm_source=chatgpt.com 'How to buy Bitcoin (BTC) in Australia 2025 | Finder'
+[3]: https://www.finder.com.au/cryptocurrency/how-to-buy-cryptocurrency?utm_source=chatgpt.com 'How to buy cryptocurrency: A beginner’s guide | Finder'
+[4]: https://www.coinspot.com.au/learn?level=Beginner&utm_source=chatgpt.com 'Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot'
+[5]: https://www.canstar.com.au/cryptocurrency/?utm_source=chatgpt.com 'Cryptocurrency Exchanges & Wallets | Canstar'

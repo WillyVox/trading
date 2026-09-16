@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma';
 
 export function getCryptoAssets() {
-  return prisma.cryptoAsset.findMany({ orderBy: { name: "asc" } });
+  return prisma.cryptoAsset.findMany({ orderBy: { name: 'asc' } });
 }
 
 export async function getCryptoAssetBySlug(slug: string) {

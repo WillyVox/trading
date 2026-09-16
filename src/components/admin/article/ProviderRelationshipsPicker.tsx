@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { PROVIDER_RELATIONSHIPS } from "@/lib/articles/validation";
+import { useState } from 'react';
+import { PROVIDER_RELATIONSHIPS } from '@/lib/articles/validation';
 
 type Relationship = (typeof PROVIDER_RELATIONSHIPS)[number];
 interface Row {
@@ -31,28 +31,42 @@ export function ProviderRelationshipsPicker({
   const [rows, setRows] = useState<Row[]>(initialValue);
 
   if (providers.length === 0) {
-    return <p className="text-sm text-muted">No providers exist yet — seed or add one before linking articles to them.</p>;
+    return (
+      <p className="text-muted text-sm">
+        No providers exist yet — seed or add one before linking articles to
+        them.
+      </p>
+    );
   }
 
   function updateRow(index: number, patch: Partial<Row>) {
-    setRows((prev) => prev.map((r, i) => (i === index ? { ...r, ...patch } : r)));
+    setRows((prev) =>
+      prev.map((r, i) => (i === index ? { ...r, ...patch } : r))
+    );
   }
   function removeRow(index: number) {
     setRows((prev) => prev.filter((_, i) => i !== index));
   }
   function addRow() {
-    setRows((prev) => [...prev, { providerId: providers[0].id, relationship: "MENTIONED" }]);
+    setRows((prev) => [
+      ...prev,
+      { providerId: providers[0].id, relationship: 'MENTIONED' },
+    ]);
   }
 
   return (
     <div className="space-y-2">
-      <input type="hidden" name="providerRelationshipsJson" value={JSON.stringify(rows)} />
+      <input
+        type="hidden"
+        name="providerRelationshipsJson"
+        value={JSON.stringify(rows)}
+      />
       {rows.map((row, i) => (
         <div key={i} className="flex flex-wrap items-center gap-2">
           <select
             value={row.providerId}
             onChange={(e) => updateRow(i, { providerId: e.target.value })}
-            className="min-w-[200px] rounded-lg border border-border bg-panel-secondary px-3 py-1.5 text-sm text-navy"
+            className="border-border bg-panel-secondary text-navy min-w-[200px] rounded-lg border px-3 py-1.5 text-sm"
           >
             {providers.map((p) => (
               <option key={p.id} value={p.id}>
@@ -62,8 +76,10 @@ export function ProviderRelationshipsPicker({
           </select>
           <select
             value={row.relationship}
-            onChange={(e) => updateRow(i, { relationship: e.target.value as Relationship })}
-            className="rounded-lg border border-border bg-panel-secondary px-3 py-1.5 text-sm text-navy"
+            onChange={(e) =>
+              updateRow(i, { relationship: e.target.value as Relationship })
+            }
+            className="border-border bg-panel-secondary text-navy rounded-lg border px-3 py-1.5 text-sm"
           >
             {PROVIDER_RELATIONSHIPS.map((r) => (
               <option key={r} value={r}>
@@ -74,7 +90,7 @@ export function ProviderRelationshipsPicker({
           <button
             type="button"
             onClick={() => removeRow(i)}
-            className="rounded-full border border-border px-3 py-1 text-xs font-semibold text-navy hover:bg-panel-secondary"
+            className="border-border text-navy hover:bg-panel-secondary rounded-full border px-3 py-1 text-xs font-semibold"
           >
             Remove
           </button>
@@ -83,7 +99,7 @@ export function ProviderRelationshipsPicker({
       <button
         type="button"
         onClick={addRow}
-        className="rounded-full border border-border px-4 py-1.5 text-xs font-semibold text-navy hover:bg-panel-secondary"
+        className="border-border text-navy hover:bg-panel-secondary rounded-full border px-4 py-1.5 text-xs font-semibold"
       >
         + Add provider relationship
       </button>

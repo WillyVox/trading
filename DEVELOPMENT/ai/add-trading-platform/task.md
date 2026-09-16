@@ -88,13 +88,13 @@ forces you to select one identity when several are true.
 
 More importantly, different offerings belonging to the same provider can have:
 
-* different fees;
-* different asset classes;
-* different licences;
-* different legal entities;
-* different custody arrangements;
-* different market access;
-* different terms.
+- different fees;
+- different asset classes;
+- different licences;
+- different legal entities;
+- different custody arrangements;
+- different market access;
+- different terms.
 
 That means I would **not simply add more values to `ProviderType`**.
 
@@ -1122,8 +1122,8 @@ You already support:
 
 ```ts
 getProviders({
-  providerType
-})
+  providerType,
+});
 ```
 
 which is good.
@@ -1131,7 +1131,7 @@ which is good.
 But `/compare/page.tsx` currently calls:
 
 ```ts
-getProviders()
+getProviders();
 ```
 
 with no filtering.
@@ -1182,14 +1182,13 @@ before provider selection.
 Your current `siteConfig` is:
 
 ```ts
-name: "Trading Guide"
+name: 'Trading Guide';
 ```
 
 and:
 
 ```ts
-description:
-  "Independent, source-linked crypto exchange comparisons and guides for Australia."
+description: 'Independent, source-linked crypto exchange comparisons and guides for Australia.';
 ```
 
 I would change the brand layer eventually to:
@@ -1473,7 +1472,7 @@ That's much safer than designing the schema abstractly and finding six months la
 1. **Domain model validation against real brokers**
 2. Finalise URL taxonomy
 3. Finalise Prisma architecture
-4. Add new schema *additively*
+4. Add new schema _additively_
 5. Seed 5–8 trading platforms from primary sources
 6. Build `/share-trading`
 7. Build `/share-trading/platforms`
@@ -1487,8 +1486,8 @@ That's much safer than designing the schema abstractly and finding six months la
 
 The **Prisma/domain model should come before homepage/header implementation**, because navigation should reflect the product structure, and the product structure should reflect the actual data model—not the other way around.
 
-[1]: https://www.finder.com.au/share-trading?utm_source=chatgpt.com "Online Stock Brokers 2026: 30+ Platforms, From $0 | Finder"
-[2]: https://www.canstar.com.au/online-trading/?utm_source=chatgpt.com "Compare Online Share Trading Platforms | Canstar"
-[3]: https://www.asx.com.au/investors/start-investing/find-a-broker-adviser?utm_source=chatgpt.com "Find a stock broker or adviser | ASX"
-[4]: https://moneysmart.gov.au/shares/how-to-buy-and-sell-shares?utm_source=chatgpt.com "How to buy and sell shares - Moneysmart.gov.au"
-[5]: https://www.finder.com.au/share-trading/best-online-share-trading-platforms?utm_source=chatgpt.com "6 Best trading platforms in Australia 2026 | Finder"
+[1]: https://www.finder.com.au/share-trading?utm_source=chatgpt.com 'Online Stock Brokers 2026: 30+ Platforms, From $0 | Finder'
+[2]: https://www.canstar.com.au/online-trading/?utm_source=chatgpt.com 'Compare Online Share Trading Platforms | Canstar'
+[3]: https://www.asx.com.au/investors/start-investing/find-a-broker-adviser?utm_source=chatgpt.com 'Find a stock broker or adviser | ASX'
+[4]: https://moneysmart.gov.au/shares/how-to-buy-and-sell-shares?utm_source=chatgpt.com 'How to buy and sell shares - Moneysmart.gov.au'
+[5]: https://www.finder.com.au/share-trading/best-online-share-trading-platforms?utm_source=chatgpt.com '6 Best trading platforms in Australia 2026 | Finder'

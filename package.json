@@ -14,7 +14,9 @@
     "generate:og-images": "tsx scripts/generate-page-og-images.ts",
     "promote:admin": "tsx scripts/promote-admin.ts",
     "studio": "npx prisma studio",
-    "test": "tsx --test src/lib/articles/import/__test__/*.test.ts src/lib/articles/__test__/*.test.ts"
+    "test": "tsx --test src/lib/articles/import/__test__/*.test.ts src/lib/articles/__test__/*.test.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
@@ -43,7 +45,10 @@
     "@types/sanitize-html": "^2.13.0",
     "eslint": "^9.16.0",
     "eslint-config-next": "^16.0.0",
+    "eslint-config-prettier": "^10.1.8",
     "gray-matter": "^4.0.3",
+    "prettier": "^3.9.7",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "prisma": "^5.19.1",
     "tailwindcss": "^4.0.0",
     "tsx": "^4.16.5",

@@ -1,7 +1,11 @@
-import matter from "gray-matter";
-import { validateFrontmatter, SOURCE_TYPES } from "./schema";
-import { markdownToSafeHtml } from "./markdown";
-import type { ArticleImportPayload, ImportRegion, ImportSourceType } from "./types";
+import matter from 'gray-matter';
+import { validateFrontmatter, SOURCE_TYPES } from './schema';
+import { markdownToSafeHtml } from './markdown';
+import type {
+  ArticleImportPayload,
+  ImportRegion,
+  ImportSourceType,
+} from './types';
 
 export interface ParseSuccess {
   ok: true;
@@ -31,12 +35,20 @@ export function parseArticleFile(rawText: string): ParseResult {
     frontmatter = parsed.data;
     body = parsed.content.trim();
   } catch (err) {
-    return { ok: false, errors: [`malformed frontmatter: ${(err as Error).message}`], warnings: [] };
+    return {
+      ok: false,
+      errors: [`malformed frontmatter: ${(err as Error).message}`],
+      warnings: [],
+    };
   }
 
   const validation = validateFrontmatter(frontmatter, body);
   if (!validation.ok || !validation.data) {
-    return { ok: false, errors: validation.errors, warnings: validation.warnings };
+    return {
+      ok: false,
+      errors: validation.errors,
+      warnings: validation.warnings,
+    };
   }
 
   const data = validation.data;
@@ -44,7 +56,9 @@ export function parseArticleFile(rawText: string): ParseResult {
   if (html.length === 0) {
     return {
       ok: false,
-      errors: ["content: body produced no renderable content after sanitization"],
+      errors: [
+        'content: body produced no renderable content after sanitization',
+      ],
       warnings: validation.warnings,
     };
   }
@@ -53,20 +67,33 @@ export function parseArticleFile(rawText: string): ParseResult {
   // `relatedProviders` alias into one normalized list, keyed by provider
   // slug. `providerRelationships` wins on a slug collision — validation.ts
   // already warned about the deprecated key being present at all.
-  const providerRelationshipsBySlug = new Map<string, "MENTIONED" | "COMPARED" | "FEATURED">();
+  const providerRelationshipsBySlug = new Map<
+    string,
+    'MENTIONED' | 'COMPARED' | 'FEATURED'
+  >();
   for (const entry of data.relatedProviders ?? []) {
-    const slug = typeof entry === "string" ? entry : entry.slug;
-    const relationship = typeof entry === "string" ? "MENTIONED" : entry.relationship ?? "MENTIONED";
+    const slug = typeof entry === 'string' ? entry : entry.slug;
+    const relationship =
+      typeof entry === 'string'
+        ? 'MENTIONED'
+        : (entry.relationship ?? 'MENTIONED');
     providerRelationshipsBySlug.set(slug, relationship);
   }
   for (const entry of data.providerRelationships ?? []) {
-    const slug = typeof entry === "string" ? entry : entry.providerSlug;
-    const relationship = typeof entry === "string" ? "MENTIONED" : entry.relationship ?? "MENTIONED";
+    const slug = typeof entry === 'string' ? entry : entry.providerSlug;
+    const relationship =
+      typeof entry === 'string'
+        ? 'MENTIONED'
+        : (entry.relationship ?? 'MENTIONED');
     providerRelationshipsBySlug.set(slug, relationship);
   }
   const providerRelationships =
-    data.relatedProviders !== undefined || data.providerRelationships !== undefined
-      ? Array.from(providerRelationshipsBySlug, ([providerSlug, relationship]) => ({ providerSlug, relationship }))
+    data.relatedProviders !== undefined ||
+    data.providerRelationships !== undefined
+      ? Array.from(
+          providerRelationshipsBySlug,
+          ([providerSlug, relationship]) => ({ providerSlug, relationship })
+        )
       : undefined;
 
   // Same merge for `sources[].sourceType` vs the deprecated `sources[].type`
@@ -91,11 +118,13 @@ export function parseArticleFile(rawText: string): ParseResult {
     // apart from "explicitly GUIDE" -- an update must never silently flip
     // an existing article's type. importer.ts defaults to GUIDE only on
     // CREATE, mirroring how `status` is only ever set on CREATE.
-    articleType: data.articleType as ArticleImportPayload["articleType"],
+    articleType: data.articleType as ArticleImportPayload['articleType'],
     content: html,
     excerpt: data.excerpt,
     category: data.category,
-    tags: data.tags ? Array.from(new Set(data.tags.map((t) => t.toLowerCase()))) : undefined,
+    tags: data.tags
+      ? Array.from(new Set(data.tags.map((t) => t.toLowerCase())))
+      : undefined,
     region: data.region as ImportRegion | undefined,
     canonicalArticleSlug: data.canonicalArticleSlug,
     seoTitle: data.seoTitle,
@@ -110,7 +139,7 @@ export function parseArticleFile(rawText: string): ParseResult {
     scheduledAt: data.scheduledAt,
     lastReviewedAt: data.lastReviewedAt,
     keyTakeaways: data.keyTakeaways,
-    searchIntent: data.searchIntent as ArticleImportPayload["searchIntent"],
+    searchIntent: data.searchIntent as ArticleImportPayload['searchIntent'],
     providerRelationships,
     cryptoAssetSlugs: data.cryptoAssetSlugs,
     relatedGuides: data.relatedGuides,

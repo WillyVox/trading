@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type { NavItem } from "@/lib/nav/config";
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { NavItem } from '@/lib/nav/config';
 
 /**
  * One top-level header menu entry, desktop variant. Renders a plain link
@@ -33,19 +33,22 @@ export function NavMenuItem({ item }: { item: NavItem }) {
     if (!open) return;
 
     function handlePointerDown(event: PointerEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     }
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === 'Escape') setOpen(false);
     }
 
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [open]);
 
@@ -54,7 +57,10 @@ export function NavMenuItem({ item }: { item: NavItem }) {
 
   if (!hasDropdown) {
     return (
-      <Link href={item.href ?? "#"} className="text-sm font-medium text-navy/80 transition-colors hover:text-navy">
+      <Link
+        href={item.href ?? '#'}
+        className="text-navy/80 hover:text-navy text-sm font-medium transition-colors"
+      >
         {item.label}
       </Link>
     );
@@ -67,19 +73,32 @@ export function NavMenuItem({ item }: { item: NavItem }) {
         aria-expanded={open}
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 text-sm font-medium text-navy/80 transition-colors hover:text-navy"
+        className="text-navy/80 hover:text-navy flex items-center gap-1.5 text-sm font-medium transition-colors"
       >
         {item.label}
-        <svg aria-hidden viewBox="0 0 12 12" className={`h-3 w-3 transition-transform duration-150 ${open ? "rotate-180" : ""}`}>
-          <path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          aria-hidden
+          viewBox="0 0 12 12"
+          className={`h-3 w-3 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+        >
+          <path
+            d="M2 4l4 4 4-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
       <div
         role="menu"
         aria-label={item.label}
-        className={`absolute left-0 top-full z-30 mt-3 w-64 rounded-2xl border border-border bg-panel p-2 shadow-lg transition-all duration-150 ${
-          open ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
+        className={`border-border bg-panel absolute top-full left-0 z-30 mt-3 w-64 rounded-2xl border p-2 shadow-lg transition-all duration-150 ${
+          open
+            ? 'pointer-events-auto translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-1 opacity-0'
         }`}
       >
         {children.map((child) => (
@@ -87,7 +106,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
             key={child.href}
             href={child.href}
             role="menuitem"
-            className="block rounded-xl px-3 py-2.5 text-sm font-medium text-navy/80 transition-colors hover:bg-panel-secondary hover:text-navy"
+            className="text-navy/80 hover:bg-panel-secondary hover:text-navy block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors"
           >
             {child.label}
           </Link>

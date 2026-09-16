@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/prisma";
-import { requireAdmin } from "@/lib/auth/require-admin";
-import type { AffiliatePartnerStatus, CommissionType } from "@prisma/client";
+import { revalidatePath } from 'next/cache';
+import { prisma } from '@/lib/prisma';
+import { requireAdmin } from '@/lib/auth/require-admin';
+import type { AffiliatePartnerStatus, CommissionType } from '@prisma/client';
 
 /**
  * Phase 6 admin mutations for AffiliatePartnership / AffiliateProgram /
@@ -22,24 +22,26 @@ const PARTNER_SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 export async function createPartnership(formData: FormData) {
   await requireAdmin();
 
-  const providerId = String(formData.get("providerId") ?? "");
-  const status = String(formData.get("status") ?? "PROSPECT") as AffiliatePartnerStatus;
-  if (!providerId) throw new Error("providerId is required");
+  const providerId = String(formData.get('providerId') ?? '');
+  const status = String(
+    formData.get('status') ?? 'PROSPECT'
+  ) as AffiliatePartnerStatus;
+  if (!providerId) throw new Error('providerId is required');
 
   await prisma.affiliatePartnership.create({
     data: { providerId, status },
   });
 
-  revalidatePath("/admin/affiliates/partners");
-  revalidatePath("/admin/affiliates/links");
+  revalidatePath('/admin/affiliates/partners');
+  revalidatePath('/admin/affiliates/links');
 }
 
 export async function updatePartnershipStatus(formData: FormData) {
   await requireAdmin();
 
-  const id = String(formData.get("id") ?? "");
-  const status = String(formData.get("status") ?? "") as AffiliatePartnerStatus;
-  if (!id || !status) throw new Error("id and status are required");
+  const id = String(formData.get('id') ?? '');
+  const status = String(formData.get('status') ?? '') as AffiliatePartnerStatus;
+  if (!id || !status) throw new Error('id and status are required');
 
   await prisma.affiliatePartnership.update({
     where: { id },
@@ -50,8 +52,8 @@ export async function updatePartnershipStatus(formData: FormData) {
   // any AffiliateLink — links are hidden from the public site by their own
   // `active` flag (see getActiveAffiliateLink), not by partnership status.
   // Provider profiles/comparisons stay fully intact either way.
-  revalidatePath("/admin/affiliates/partners");
-  revalidatePath("/admin/affiliates/links");
+  revalidatePath('/admin/affiliates/partners');
+  revalidatePath('/admin/affiliates/links');
 }
 
 /**
@@ -64,25 +66,33 @@ export async function updatePartnershipStatus(formData: FormData) {
 export async function createAffiliateLink(formData: FormData) {
   await requireAdmin();
 
-  const partnershipId = String(formData.get("partnershipId") ?? "");
-  const commissionType = String(formData.get("commissionType") ?? "NONE") as CommissionType;
-  const partnerSlug = String(formData.get("partnerSlug") ?? "").trim().toLowerCase();
-  const approvedUrl = String(formData.get("approvedUrl") ?? "").trim();
-  const placement = String(formData.get("placement") ?? "").trim() || null;
-  const campaign = String(formData.get("campaign") ?? "").trim() || null;
+  const partnershipId = String(formData.get('partnershipId') ?? '');
+  const commissionType = String(
+    formData.get('commissionType') ?? 'NONE'
+  ) as CommissionType;
+  const partnerSlug = String(formData.get('partnerSlug') ?? '')
+    .trim()
+    .toLowerCase();
+  const approvedUrl = String(formData.get('approvedUrl') ?? '').trim();
+  const placement = String(formData.get('placement') ?? '').trim() || null;
+  const campaign = String(formData.get('campaign') ?? '').trim() || null;
 
-  if (!partnershipId) throw new Error("partnershipId is required");
+  if (!partnershipId) throw new Error('partnershipId is required');
   if (!PARTNER_SLUG_PATTERN.test(partnerSlug)) {
-    throw new Error("partnerSlug must be lowercase letters/numbers separated by hyphens");
+    throw new Error(
+      'partnerSlug must be lowercase letters/numbers separated by hyphens'
+    );
   }
   let approvedUrlParsed: URL;
   try {
     approvedUrlParsed = new URL(approvedUrl);
   } catch {
-    throw new Error("approvedUrl must be a full, valid URL (https://...)");
+    throw new Error('approvedUrl must be a full, valid URL (https://...)');
   }
-  if (approvedUrlParsed.protocol !== "https:") {
-    throw new Error("approvedUrl must use https — /go/[partner] only redirects to trusted, stored URLs");
+  if (approvedUrlParsed.protocol !== 'https:') {
+    throw new Error(
+      'approvedUrl must use https — /go/[partner] only redirects to trusted, stored URLs'
+    );
   }
 
   await prisma.$transaction(async (tx) => {
@@ -105,24 +115,27 @@ export async function createAffiliateLink(formData: FormData) {
     });
   });
 
-  revalidatePath("/admin/affiliates/links");
-  revalidatePath("/admin/affiliates");
+  revalidatePath('/admin/affiliates/links');
+  revalidatePath('/admin/affiliates');
 }
 
 export async function toggleAffiliateLinkActive(formData: FormData) {
   await requireAdmin();
 
-  const id = String(formData.get("id") ?? "");
-  if (!id) throw new Error("id is required");
+  const id = String(formData.get('id') ?? '');
+  if (!id) throw new Error('id is required');
 
-  const link = await prisma.affiliateLink.findUnique({ where: { id }, select: { active: true } });
-  if (!link) throw new Error("Link not found");
+  const link = await prisma.affiliateLink.findUnique({
+    where: { id },
+    select: { active: true },
+  });
+  if (!link) throw new Error('Link not found');
 
   await prisma.affiliateLink.update({
     where: { id },
     data: { active: !link.active },
   });
 
-  revalidatePath("/admin/affiliates/links");
-  revalidatePath("/admin/affiliates");
+  revalidatePath('/admin/affiliates/links');
+  revalidatePath('/admin/affiliates');
 }

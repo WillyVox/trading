@@ -17,8 +17,8 @@
  */
 
 export type ArticleContentSegment =
-  | { kind: "html"; html: string }
-  | { kind: "embed"; type: string; argsRaw: string };
+  | { kind: 'html'; html: string }
+  | { kind: 'embed'; type: string; argsRaw: string };
 
 const EMBED_MARKER_RE = /\{\{\s*([a-z0-9][a-z0-9-]*)\s*(?::([^}]*))?\s*\}\}/gi;
 
@@ -30,13 +30,17 @@ export function parseEmbedMarkers(html: string): ArticleContentSegment[] {
   EMBED_MARKER_RE.lastIndex = 0;
   while ((match = EMBED_MARKER_RE.exec(html)) !== null) {
     if (match.index > lastIndex) {
-      segments.push({ kind: "html", html: html.slice(lastIndex, match.index) });
+      segments.push({ kind: 'html', html: html.slice(lastIndex, match.index) });
     }
-    segments.push({ kind: "embed", type: match[1].toLowerCase(), argsRaw: (match[2] ?? "").trim() });
+    segments.push({
+      kind: 'embed',
+      type: match[1].toLowerCase(),
+      argsRaw: (match[2] ?? '').trim(),
+    });
     lastIndex = EMBED_MARKER_RE.lastIndex;
   }
   if (lastIndex < html.length) {
-    segments.push({ kind: "html", html: html.slice(lastIndex) });
+    segments.push({ kind: 'html', html: html.slice(lastIndex) });
   }
   return segments;
 }

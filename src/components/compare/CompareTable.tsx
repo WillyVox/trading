@@ -1,7 +1,10 @@
-import Link from "next/link";
-import { Fragment } from "react";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import type { ComparisonProvider, ComparisonSection } from "@/lib/providers/compare";
+import Link from 'next/link';
+import { Fragment } from 'react';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import type {
+  ComparisonProvider,
+  ComparisonSection,
+} from '@/lib/providers/compare';
 
 /**
  * Desktop/tablet comparison table -- one column per provider, one row per
@@ -19,14 +22,19 @@ export function CompareTable({
   sections: ComparisonSection[];
 }) {
   return (
-    <div className="hidden overflow-x-auto rounded-2xl border border-border bg-panel shadow-sm md:block">
+    <div className="border-border bg-panel hidden overflow-x-auto rounded-2xl border shadow-sm md:block">
       <table className="w-full min-w-[640px] border-collapse text-sm">
         <thead>
-          <tr className="border-b border-border bg-panel-secondary text-left text-muted">
-            <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide">&nbsp;</th>
+          <tr className="border-border bg-panel-secondary text-muted border-b text-left">
+            <th className="px-4 py-3 text-xs font-semibold tracking-wide uppercase">
+              &nbsp;
+            </th>
             {providers.map((p) => (
               <th key={p.id} className="px-4 py-3 align-bottom">
-                <Link href={`/crypto/exchanges/${p.slug}`} className="font-display text-base font-bold text-navy hover:underline">
+                <Link
+                  href={`/crypto/exchanges/${p.slug}`}
+                  className="font-display text-navy text-base font-bold hover:underline"
+                >
                   {p.name}
                 </Link>
                 <div className="mt-1">
@@ -39,20 +47,26 @@ export function CompareTable({
         <tbody>
           {sections.map((section) => (
             <Fragment key={section.title}>
-              <tr className="border-b border-border bg-panel-secondary/60">
+              <tr className="border-border bg-panel-secondary/60 border-b">
                 <th
                   colSpan={providers.length + 1}
-                  className="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-muted"
+                  className="text-muted px-4 py-2 text-left text-xs font-semibold tracking-wide uppercase"
                 >
                   {section.title}
                 </th>
               </tr>
               {section.rows.map((row) => (
-                <tr key={row.key} className="border-b border-border last:border-0">
-                  <td className="px-4 py-3 text-muted">{row.label}</td>
+                <tr
+                  key={row.key}
+                  className="border-border border-b last:border-0"
+                >
+                  <td className="text-muted px-4 py-3">{row.label}</td>
                   {row.values.map((value, i) => (
-                    <td key={providers[i]?.id ?? i} className="px-4 py-3 text-navy">
-                      {value ?? "\u2014"}
+                    <td
+                      key={providers[i]?.id ?? i}
+                      className="text-navy px-4 py-3"
+                    >
+                      {value ?? '\u2014'}
                     </td>
                   ))}
                 </tr>
@@ -61,8 +75,12 @@ export function CompareTable({
           ))}
           {sections.length === 0 && (
             <tr>
-              <td colSpan={providers.length + 1} className="px-4 py-6 text-center text-muted">
-                No comparable facts, fees, or features recorded yet for {providers.map((p) => p.name).join(", ")}.
+              <td
+                colSpan={providers.length + 1}
+                className="text-muted px-4 py-6 text-center"
+              >
+                No comparable facts, fees, or features recorded yet for{' '}
+                {providers.map((p) => p.name).join(', ')}.
               </td>
             </tr>
           )}

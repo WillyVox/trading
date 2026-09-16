@@ -50,17 +50,17 @@ These aren't rhetorical — they're decisions the plan below depends on.
 
 ## Grounding: what's actually broken/missing today
 
-| Area | File | Status |
-|---|---|---|
-| `createdAt`/`updatedAt` | `prisma/schema.prisma` (`Article`) | Missing, but read in `guides/[slug]/page.tsx` and `news/[slug]/page.tsx` |
-| `ArticleStatus` | schema | `DRAFT \| PUBLISHED \| ARCHIVED` — no `REVIEW` |
-| Article type | schema | Only a free-text `category` column |
-| Route isolation | `service.ts::getArticleBySlug` | No type filter at all |
-| Admin create/edit | `admin/articles/new`, `admin/articles/[id]` | Literal placeholder text, no form/action |
-| HTML sanitization | `news/[slug]/page.tsx`, `guides/[slug]/page.tsx` | Raw `dangerouslySetInnerHTML`, no `sanitize-html` usage despite it being installed |
-| Embeds | — | Don't exist at all — `content.ts` only does heading-ID injection |
-| Importer | `import/importer.ts` | Solid two-pass/idempotent/DRAFT-only design; doesn't know about type, review, or embeds yet |
-| Admin auth pattern | `lib/auth/require-admin.ts` | `requireAdmin()` exists and is already the convention for mutations — reuse it, don't reinvent |
+| Area                    | File                                             | Status                                                                                         |
+| ----------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `createdAt`/`updatedAt` | `prisma/schema.prisma` (`Article`)               | Missing, but read in `guides/[slug]/page.tsx` and `news/[slug]/page.tsx`                       |
+| `ArticleStatus`         | schema                                           | `DRAFT \| PUBLISHED \| ARCHIVED` — no `REVIEW`                                                 |
+| Article type            | schema                                           | Only a free-text `category` column                                                             |
+| Route isolation         | `service.ts::getArticleBySlug`                   | No type filter at all                                                                          |
+| Admin create/edit       | `admin/articles/new`, `admin/articles/[id]`      | Literal placeholder text, no form/action                                                       |
+| HTML sanitization       | `news/[slug]/page.tsx`, `guides/[slug]/page.tsx` | Raw `dangerouslySetInnerHTML`, no `sanitize-html` usage despite it being installed             |
+| Embeds                  | —                                                | Don't exist at all — `content.ts` only does heading-ID injection                               |
+| Importer                | `import/importer.ts`                             | Solid two-pass/idempotent/DRAFT-only design; doesn't know about type, review, or embeds yet    |
+| Admin auth pattern      | `lib/auth/require-admin.ts`                      | `requireAdmin()` exists and is already the convention for mutations — reuse it, don't reinvent |
 
 ---
 
@@ -69,6 +69,7 @@ These aren't rhetorical — they're decisions the plan below depends on.
 **Goal:** correct schema + safe queries, no UI yet. Everything downstream depends on this being right.
 
 ### Schema changes (`prisma/schema.prisma`)
+
 ```prisma
 enum ArticleStatus {
   DRAFT
@@ -95,7 +96,7 @@ model Article {
 - Migration file: `npx prisma migrate dev --name article_domain_foundation`.
 - **Backfill strategy for `articleType`:** add the column nullable first,
   backfill deterministically from `category` (`category ILIKE '%guide%' →
-  GUIDE`, `category ILIKE '%news%' → NEWS`), then a second migration makes it
+GUIDE`, `category ILIKE '%news%' → NEWS`), then a second migration makes it
   `NOT NULL` with a documented manual-review list for rows that didn't match
   either pattern (set to `GUIDE` as the safer default, flagged in
   `docs/article-import-format.md` for editor follow-up). No `db push`, no
@@ -103,6 +104,7 @@ model Article {
 - No `AuthorProfile`, no `ArticleFaq`, no `ArticleEmbed` yet — that's Block 4.
 
 ### Service layer (`src/lib/articles/service.ts`)
+
 - Add `getPublishedArticleBySlugAndType(slug, type: "NEWS" | "GUIDE")` —
   filters on `status: "PUBLISHED"` **and** `articleType`. Keep
   `getArticleBySlug` for admin/preview use only (rename usage sites so public
@@ -111,11 +113,13 @@ model Article {
   the column exists — delete the `// [TODO]` comment.
 
 ### Route fixes
+
 - `src/app/news/[slug]/page.tsx` and `src/app/guides/[slug]/page.tsx`
   switch to `getPublishedArticleBySlugAndType(slug, "NEWS" | "GUIDE")`, `notFound()` on
   type mismatch exactly like a missing slug.
 
 ### Tests (`src/lib/articles/import/__tests__/`, matching existing convention)
+
 - NEWS article slug 404s under `/guides/[slug]`, and vice versa.
 - `getAdminArticles` returns rows ordered by `updatedAt`.
 
@@ -128,6 +132,7 @@ model Article {
 **Goal:** `/admin/articles/new` and `/admin/articles/[id]` become an actual editor, per Req2 §7–§9, §43.
 
 ### Server actions (new file: `src/lib/articles/actions.ts`, alongside the existing `src/lib/affiliates/actions.ts` convention)
+
 ```
 createArticle
 updateArticle
@@ -137,14 +142,17 @@ publishArticle    (REVIEW -> PUBLISHED, sets publishedAt if unset)
 unpublishArticle  (PUBLISHED -> DRAFT)
 archiveArticle    (-> ARCHIVED)
 ```
+
 Every action: `await requireAdmin()` first line (matching the existing
 affiliate-actions pattern), Zod-validated input, transaction for multi-table
 writes (relationships), `revalidatePath` on affected public routes.
 
 ### Form (`/admin/articles/new`, `/admin/articles/[id]`)
+
 Server Component shell + Client Component for the interactive editor,
 matching Req2 §6's "Server Components by default, `"use client"` only for
 interactive bits" rule. Sections, per Req2 §16:
+
 - Basic info (title, slug w/ auto-generate + uniqueness check, articleType, category, excerpt)
 - Content (HTML textarea/editor — plain textarea is fine for Block 2; a rich
   editor is explicitly Req2's Block D/renderer concern, not CRUD)
@@ -155,13 +163,17 @@ interactive bits" rule. Sections, per Req2 §16:
 - Publishing (status actions, `lastReviewedAt` display, timestamps)
 
 ### Slug handling
+
 Auto-generate from title on creation, editable, uniqueness-checked server-side (`@unique` will throw — catch and surface a friendly error), warn client-side before editing an already-published slug (no redirect table yet — Req2 explicitly says don't over-engineer this).
 
 ### List page (`/admin/articles`)
+
 Extend the existing table: columns for Type / Status / Updated / Published; filters for status and type; Edit/Preview/Publish row actions wired to the new actions.
 
 ### Testing status
+
 **Covered — pure logic, no database required, runs today via `npm test`:**
+
 - Status-transition legality: every legal edge in `DRAFT → REVIEW → PUBLISHED`,
   `→ ARCHIVED`, and the `ARCHIVED → DRAFT` restore path succeeds; every
   illegal jump (`DRAFT → PUBLISHED`, `ARCHIVED → PUBLISHED`,
@@ -188,6 +200,7 @@ Extend the existing table: columns for Type / Status / Updated / Published; filt
 **NOT covered — genuinely needs a database, and no test-DB infrastructure
 exists yet (no docker-compose, no `.env.example`, no test-DB convention
 anywhere in the repo):**
+
 - `requireAdmin()` actually rejecting a non-admin/unauthenticated session on
   every mutation (currently exercised only by code review, not a test).
 - The duplicate-slug race between `assertSlugAvailable`'s pre-check and
@@ -216,9 +229,10 @@ this list until it's addressed.
 **Goal:** one rendering pipeline for public Guide, public News, and admin preview — replacing the two raw `dangerouslySetInnerHTML` call sites.
 
 ### `src/lib/articles/renderer.tsx` (or `render/` dir if it grows)
+
 - Sanitize with the **already-installed** `sanitize-html` — define one
   allowlist (elements: `h2–h4, p, strong, em, ul, ol, li, a, blockquote,
-  table/thead/tbody/tr/th/td, figure, figcaption, img, code, pre, hr`;
+table/thead/tbody/tr/th/td, figure, figcaption, img, code, pre, hr`;
   attributes: `href, src, alt, title, class` scoped per tag; protocols:
   `http, https, mailto`; no `<script>`, no inline event handlers, no
   `javascript:` URLs) used by admin save, importer, and render — Req2 §17's
@@ -226,7 +240,7 @@ this list until it's addressed.
 - Reuse `extractHeadings`/`estimateReadingMinutes` from `content.ts` rather
   than rewriting them — they already work and aren't broken.
 - Split content on embed markers (see Block 4) and render each segment:
-  sanitized-HTML segments via `dangerouslySetInnerHTML` on the *sanitized*
+  sanitized-HTML segments via `dangerouslySetInnerHTML` on the _sanitized_
   output only, embed segments via typed React components.
 - Images: wrap in `<figure>` with caption support; enforce `alt` is present
   (warn, don't block, per the SEO panel philosophy in Req2 §12).
@@ -235,12 +249,13 @@ this list until it's addressed.
   stored iframe string.
 
 ### Wire-up
+
 - `GuidePage` and `NewsPage` both call `<ArticleRenderer article={article} />`
   instead of raw `dangerouslySetInnerHTML`.
 - New `/admin/articles/[id]/preview` route: `requireAdmin()`, fetches by
   `id` (not slug/type — this is the one place that legitimately needs
   the unfiltered `getArticleBySlug`-equivalent lookup), renders through the
-  *same* `ArticleRenderer`, sets `noindex` + `Cache-Control: no-store`.
+  _same_ `ArticleRenderer`, sets `noindex` + `Cache-Control: no-store`.
 
 **Exit criteria:** DRAFT/REVIEW articles are visible only at the preview
 route; malicious HTML pasted into the admin editor is stripped on save (not
@@ -255,6 +270,7 @@ existing safe content.
 **Goal:** `{{provider-comparison:...}}`-style controlled blocks, per Req2 §20–§23.
 
 ### Schema addition
+
 ```prisma
 enum ArticleEmbedType {
   PROVIDER_COMPARISON
@@ -274,6 +290,7 @@ model ArticleEmbed {
   @@index([articleId])
 }
 ```
+
 Content keeps the human-editable marker syntax
 (`{{provider-comparison:coinspot,kraken}}`); the renderer parses markers,
 validates each against `Provider`/`AffiliateLink` at render time (not by
@@ -285,6 +302,7 @@ minimal: don't build a drag-and-drop block picker in this pass — a simple
 that writes the marker text is enough (Req2 §58 explicitly permits this).
 
 ### The four embeds, each reusing existing data/components — never duplicating facts:
+
 - `PROVIDER_COMPARISON` → reuses whatever comparison component already
   backs `/compare/[slug]`, fed `Provider` + `ProviderFee`/`ProviderFeature`.
 - `PROVIDER_CARD` → reuses the exchange-profile summary component.
@@ -297,6 +315,7 @@ that writes the marker text is enough (Req2 §58 explicitly permits this).
   Req2 §29. Never accepts a raw URL from embed config.
 
 ### Validation
+
 Unknown embed type, unresolvable provider slug, or inactive affiliate link →
 render nothing + log/flag for the admin SEO panel ("Article references an
 unknown provider" / "Affiliate CTA exists but link is inactive") — never a
@@ -314,21 +333,24 @@ edit required.
 **Goal:** everything built in 1–4 actually surfaces where Req1/Req2 want it, and the importer stops being a second content system.
 
 ### Exchange pages (`/crypto/exchanges/[slug]`)
+
 Add a query using the existing `ArticleProvider` relation: published articles
 for this provider, ordered `FEATURED → COMPARED → MENTIONED → recency`.
 Render as "Guides" / "Comparisons" / "News" sections — **only when non-empty**
 (Req2 §47 explicitly forbids empty placeholder sections).
 
 ### Comparison pages (`/compare/[slug]`)
+
 Derive relevant articles from `ArticleProvider.relationshipType = COMPARED`
 matched against the comparison's provider set — no hardcoded article IDs, no
 new polymorphic table (Req2 §26 explicitly asks to avoid this if the existing
 relation suffices, and it does for pairwise/small-set comparisons).
 
 ### Importer (`src/lib/articles/import/*`)
+
 - `types.ts`/`schema.ts`: extend `ArticleImportPayload` with `articleType`
   (required), `relatedProviders: {slug, relationship}[]`, `cryptoAssets:
-  string[]`, `relatedGuides: string[]` — all resolved in the existing PASS 2
+string[]`, `relatedGuides: string[]` — all resolved in the existing PASS 2
   (`relationships.ts`) two-pass structure, not a new import path.
 - `importer.ts::buildScalarData`: add `articleType` to the scalar set;
   **status stays exactly as-is** — never included in update data, always
@@ -343,14 +365,16 @@ relation suffices, and it does for pairwise/small-set comparisons).
   no markdown parsing (Req2 §41).
 
 ### Sitemap / metadata / revalidation
+
 - `src/lib/seo/sitemap-entries.ts`: filter on `status: PUBLISHED &&
-  articleType` explicitly (it likely already filters on `PUBLISHED` — extend,
+articleType` explicitly (it likely already filters on `PUBLISHED` — extend,
   don't rewrite) so REVIEW/DRAFT never leak into the sitemap.
 - Revalidate on publish/unpublish/archive/relationship-change: the specific
   article's route, its provider's exchange page(s), and any comparison pages
   it's newly relevant to — not a blanket revalidation.
 
 ### Docs
+
 Update `docs/ROADMAP.md`, `docs/IMPLEMENTATION-PLAN.md`,
 `docs/article-import-format.md` with: new statuses, `articleType`, embed
 syntax + approved list, sanitization policy, preview route, and the explicit
@@ -369,45 +393,49 @@ domain fixes + the complete admin editor) — that's the natural review unit,
 since Block 2 can't be tested without Block 1's foundation, and splitting
 them further just means reviewing half-working CRUD. Blocks 3–5 are each
 independently shippable after that. Validate after every block with:
+
 ```
 npx prisma validate && npx prisma generate
 npm test
 npm run build
 npm run lint
 ```
+
 per Req2 §66 — don't defer this to the end.
 
 ## Explicitly out of scope for this pass (flagged, not forgotten)
+
 - `AuthorProfile` structured model (Req2 §13) — strings stay for now.
 - `ArticleFaq` structured table (Req2 §15).
 - Expanded `ArticleSource` (sourceType/publisher/accessedAt) (Req2 §14).
 - Article revision history (Req2 §59).
 - Automated scheduled publishing (Req2 §45) — no job runner exists; `scheduledAt` remains manual/advisory and this is documented, not silently ignored.
 
-
 # Block 2 — where it stands now
-Item	Status
-createArticle / updateArticle	Already solid (verified by reading, not just trusting the earlier review)
-Status lifecycle (DRAFT→REVIEW→PUBLISHED→ARCHIVED, restore)	Already solid, now backed by one shared rule table + 21 transition tests
-Preview route, admin auth	Already solid
-/admin/articles list/filter/pagination/actions	Fixed this session — was title+status only, now full filters/search/pagination/row actions
-revalidatePath slug/id bug	Fixed this session
-Lifecycle/validation/sanitization tests	Added this session — 33 new pure-logic tests, plus caught and fixed a real rel="noopener noreferrer" sanitization bug in the process
-DB-integration test gap	Documented this session, not silently claimed as covered
-Migration safety	Parked at your request — the rewritten safe migration is sitting in the working copy but I haven't re-surfaced it or asked about it again
+
+Item Status
+createArticle / updateArticle Already solid (verified by reading, not just trusting the earlier review)
+Status lifecycle (DRAFT→REVIEW→PUBLISHED→ARCHIVED, restore) Already solid, now backed by one shared rule table + 21 transition tests
+Preview route, admin auth Already solid
+/admin/articles list/filter/pagination/actions Fixed this session — was title+status only, now full filters/search/pagination/row actions
+revalidatePath slug/id bug Fixed this session
+Lifecycle/validation/sanitization tests Added this session — 33 new pure-logic tests, plus caught and fixed a real rel="noopener noreferrer" sanitization bug in the process
+DB-integration test gap Documented this session, not silently claimed as covered
+Migration safety Parked at your request — the rewritten safe migration is sitting in the working copy but I haven't re-surfaced it or asked about it again
 
 # Block 3 — where it stands now
-Item	Status
-Shared `renderArticleContent()` (`src/lib/articles/renderer.tsx`)	Implemented — one pipeline used identically by Guide, News, and admin preview
-Re-sanitization at render time	Added — belt-and-braces on top of write-time sanitization (Req.md §17)
-Table wrapping for mobile	Added (`wrapTables()` in `content.ts`)
-Embed marker parser (`{{type:args}}`)	Implemented (`src/lib/articles/embeds.ts`) — generic, not tied to any specific embed type
-`video` embed (YouTube/Vimeo)	Implemented — the only working embed type in this block; builds its own embed URL from a validated provider+id, never trusts stored iframe HTML
-Other embed types (`provider-comparison`, `affiliate-cta`, etc.)	Recognized by the parser but inert on public pages; shown as an explicit "not yet available" notice only in admin preview — this is Block 4's job
-External vs internal link handling	Added — external absolute links get `target="_blank"`, internal links stay same-tab; both keep `rel="noopener noreferrer"`
-News page	Was raw unsanitized `dangerouslySetInnerHTML` with no headings/byline/sources; now uses the shared renderer and shows author/reviewer/dates/reading time/sources/TOC, matching Guide's trust signals (Req.md §30/§35)
-Admin preview `no-store` header	Fixed a real gap found while reading `proxy.ts` — the header was documented in a comment but never actually set; now set in `src/proxy.ts` for `/admin/articles/*/preview`
-Tests	`src/lib/articles/__test__/renderer.test.ts` (new) covers re-sanitization, heading ids, table wrapping, reading-time scaling, valid/invalid video markers, unknown-embed behavior in both contexts, external/internal link handling, and public/preview parity for non-embed content. `sanitize.test.ts` extended with two link-target cases.
-Verification	Not run in the authoring sandbox — no network access, so `npm install`/`npm test`/`npm run build`/`prisma validate` could not be executed there. Needs a real run in your environment; see the manual verification steps for exact commands.
-Rich block-based content editor	Still a plain textarea (unchanged) — Req2 explicitly treats this as a later pass, and Block 3 is about the render path, not the authoring UI, beyond a one-line hint about the `video` marker syntax
-Featured image in article body	Still not rendered anywhere (Guide or News) — only used for `og:image`/JSON-LD `image`. Pre-existing gap, not introduced by this block; flagging as a candidate for a future small pass, not fixed here since it wasn't part of the agreed Block 3 scope
+
+Item Status
+Shared `renderArticleContent()` (`src/lib/articles/renderer.tsx`) Implemented — one pipeline used identically by Guide, News, and admin preview
+Re-sanitization at render time Added — belt-and-braces on top of write-time sanitization (Req.md §17)
+Table wrapping for mobile Added (`wrapTables()` in `content.ts`)
+Embed marker parser (`{{type:args}}`) Implemented (`src/lib/articles/embeds.ts`) — generic, not tied to any specific embed type
+`video` embed (YouTube/Vimeo) Implemented — the only working embed type in this block; builds its own embed URL from a validated provider+id, never trusts stored iframe HTML
+Other embed types (`provider-comparison`, `affiliate-cta`, etc.) Recognized by the parser but inert on public pages; shown as an explicit "not yet available" notice only in admin preview — this is Block 4's job
+External vs internal link handling Added — external absolute links get `target="_blank"`, internal links stay same-tab; both keep `rel="noopener noreferrer"`
+News page Was raw unsanitized `dangerouslySetInnerHTML` with no headings/byline/sources; now uses the shared renderer and shows author/reviewer/dates/reading time/sources/TOC, matching Guide's trust signals (Req.md §30/§35)
+Admin preview `no-store` header Fixed a real gap found while reading `proxy.ts` — the header was documented in a comment but never actually set; now set in `src/proxy.ts` for `/admin/articles/*/preview`
+Tests `src/lib/articles/__test__/renderer.test.ts` (new) covers re-sanitization, heading ids, table wrapping, reading-time scaling, valid/invalid video markers, unknown-embed behavior in both contexts, external/internal link handling, and public/preview parity for non-embed content. `sanitize.test.ts` extended with two link-target cases.
+Verification Not run in the authoring sandbox — no network access, so `npm install`/`npm test`/`npm run build`/`prisma validate` could not be executed there. Needs a real run in your environment; see the manual verification steps for exact commands.
+Rich block-based content editor Still a plain textarea (unchanged) — Req2 explicitly treats this as a later pass, and Block 3 is about the render path, not the authoring UI, beyond a one-line hint about the `video` marker syntax
+Featured image in article body Still not rendered anywhere (Guide or News) — only used for `og:image`/JSON-LD `image`. Pre-existing gap, not introduced by this block; flagging as a candidate for a future small pass, not fixed here since it wasn't part of the agreed Block 3 scope

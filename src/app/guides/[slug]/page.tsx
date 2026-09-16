@@ -1,37 +1,50 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import {
   getPublishedArticleBySlugAndType,
   getRelatedGuides,
   getNextSteps,
   getRegionalFamily,
-} from "@/lib/articles/service";
-import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { regionHreflang } from "@/lib/seo/canonical";
-import { absoluteUrl } from "@/lib/seo/config";
-import { renderArticleContent } from "@/lib/articles/renderer";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/layout/PageHero";
-import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
-import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
-import { GuideSidebar } from "@/components/guide/GuideSidebar";
-import { GuideSourceList } from "@/components/guide/GuideSourceList";
-import { RelatedGuides } from "@/components/guide/RelatedGuides";
-import { RelatedProviders } from "@/components/guide/RelatedProviders";
-import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
+} from '@/lib/articles/service';
+import { getActiveAffiliateLinksForProviderSlugs } from '@/lib/affiliates/service';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { articleSchema, breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { regionHreflang } from '@/lib/seo/canonical';
+import { absoluteUrl } from '@/lib/seo/config';
+import { renderArticleContent } from '@/lib/articles/renderer';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PageHero } from '@/components/layout/PageHero';
+import { KeyTakeaways } from '@/components/guide/KeyTakeaways';
+import { GuideTableOfContents } from '@/components/guide/GuideTableOfContents';
+import { GuideSidebar } from '@/components/guide/GuideSidebar';
+import { GuideSourceList } from '@/components/guide/GuideSourceList';
+import { RelatedGuides } from '@/components/guide/RelatedGuides';
+import { RelatedProviders } from '@/components/guide/RelatedProviders';
+import { GuideNextSteps } from '@/components/guide/GuideNextSteps';
 
 function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString("en-AU", { year: "numeric", month: "long", day: "numeric" });
+  return new Date(date).toLocaleDateString('en-AU', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
+  const article = await getPublishedArticleBySlugAndType(slug, 'GUIDE');
   if (!article) {
-    return buildMetadata({ title: "Guide not found", description: "", path: `/guides/${slug}`, noIndex: true });
+    return buildMetadata({
+      title: 'Guide not found',
+      description: '',
+      path: `/guides/${slug}`,
+      noIndex: true,
+    });
   }
 
   const metadata = buildMetadata({
@@ -39,7 +52,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: article.excerpt ?? article.title,
     path: `/guides/${slug}`,
     image: article.featuredImage,
-    type: "article",
+    type: 'article',
     publishedTime: article.publishedAt,
     modifiedTime: article.updatedAt,
     authors: article.author ? [article.author] : undefined,
@@ -51,16 +64,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   // hreflang — only emitted when real regional variants exist (see Guide
   // spec §7: never fabricate duplicate pages for identical content).
-  const family = await getRegionalFamily(article.id, article.canonicalArticleId);
+  const family = await getRegionalFamily(
+    article.id,
+    article.canonicalArticleId
+  );
   if (family.length > 1) {
     const globalMember = family.find((m) => !m.region);
     const languages: Record<string, string> = {};
     for (const member of family) {
       if (!member.region) continue;
-      languages[regionHreflang(member.region)] = absoluteUrl(`/guides/${member.slug}`);
+      languages[regionHreflang(member.region)] = absoluteUrl(
+        `/guides/${member.slug}`
+      );
     }
     if (globalMember) {
-      languages["x-default"] = absoluteUrl(`/guides/${globalMember.slug}`);
+      languages['x-default'] = absoluteUrl(`/guides/${globalMember.slug}`);
     }
     metadata.alternates = { ...metadata.alternates, languages };
   }
@@ -68,12 +86,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return metadata;
 }
 
-export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function GuidePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
+  const article = await getPublishedArticleBySlugAndType(slug, 'GUIDE');
   if (!article) notFound();
 
-  const { content, headings, readingMinutes } = renderArticleContent(article.content);
+  const { content, headings, readingMinutes } = renderArticleContent(
+    article.content
+  );
 
   const [relatedGuides, nextSteps, regionalFamily] = await Promise.all([
     getRelatedGuides(article),
@@ -85,7 +109,8 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
   const providerSlugs = article.providers.map(
     (ap: { provider: { slug: string } }) => ap.provider.slug
   );
-  const activeLinks = await getActiveAffiliateLinksForProviderSlugs(providerSlugs);
+  const activeLinks =
+    await getActiveAffiliateLinksForProviderSlugs(providerSlugs);
   const guideProviders = article.providers.map(
     (ap: {
       provider: {
@@ -106,8 +131,8 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
   );
 
   const trail = breadcrumbTrail([
-    { name: "Crypto", path: "/crypto" },
-    { name: "Guides", path: "/guides" },
+    { name: 'Crypto', path: '/crypto' },
+    { name: 'Guides', path: '/guides' },
     { name: article.title, path: `/guides/${slug}` },
   ]);
 
@@ -139,45 +164,59 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
       <JsonLd data={breadcrumbSchema(trail)} />
       <PageHero
         breadcrumbs={trail}
-        eyebrow={article.category ? article.category.replace(/-/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase()) : undefined}
+        eyebrow={
+          article.category
+            ? article.category
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, (c: string) => c.toUpperCase())
+            : undefined
+        }
         title={article.title}
         subheading={article.excerpt ?? undefined}
         meta={metaItems}
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
+        {otherRegions.length > 0 && (
+          <p className="text-muted mb-4 text-xs">
+            Also available for:{' '}
+            {otherRegions.map((m, i) => (
+              <span key={m.id}>
+                {i > 0 && ', '}
+                <Link
+                  href={`/guides/${m.slug}`}
+                  className="hover:text-navy underline"
+                >
+                  {m.region ?? 'Global'}
+                </Link>
+              </span>
+            ))}
+          </p>
+        )}
 
-      {otherRegions.length > 0 && (
-        <p className="mb-4 text-xs text-muted">
-          Also available for:{" "}
-          {otherRegions.map((m, i) => (
-            <span key={m.id}>
-              {i > 0 && ", "}
-              <Link href={`/guides/${m.slug}`} className="underline hover:text-navy">
-                {m.region ?? "Global"}
-              </Link>
-            </span>
-          ))}
-        </p>
-      )}
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <article className="max-w-3xl min-w-0">
+            <KeyTakeaways items={article.keyTakeaways} />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <article className="min-w-0 max-w-3xl">
-          <KeyTakeaways items={article.keyTakeaways} />
+            <div className="mt-6 lg:hidden">
+              <GuideTableOfContents headings={headings} />
+            </div>
 
-          <div className="mt-6 lg:hidden">
-            <GuideTableOfContents headings={headings} />
-          </div>
+            <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none">
+              {content}
+            </div>
 
-          <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none">{content}</div>
+            <GuideSourceList sources={article.sources} />
+            <RelatedProviders providers={guideProviders} />
+            <RelatedGuides guides={relatedGuides} />
+            <GuideNextSteps steps={nextSteps} />
+          </article>
 
-          <GuideSourceList sources={article.sources} />
-          <RelatedProviders providers={guideProviders} />
-          <RelatedGuides guides={relatedGuides} />
-          <GuideNextSteps steps={nextSteps} />
-        </article>
-
-        <GuideSidebar headings={headings} category={article.category} readingMinutes={readingMinutes} />
-      </div>
+          <GuideSidebar
+            headings={headings}
+            category={article.category}
+            readingMinutes={readingMinutes}
+          />
+        </div>
       </div>
     </>
   );

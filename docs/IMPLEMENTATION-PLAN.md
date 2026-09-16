@@ -96,6 +96,7 @@ Nav stays flat and small for MVP: **Dashboard, Articles, Affiliates, Media, Sett
 Three domains, kept structurally separate, connected only via explicit join/relation models:
 
 ### Article domain
+
 ```
 Article
   id, title, slug, excerpt, content, status (ArticleStatus),
@@ -111,6 +112,7 @@ ArticleTag
 ```
 
 ### Provider domain (factual, no commercial data)
+
 ```
 Provider
   id, name, slug, logo, website, description, providerType,
@@ -125,6 +127,7 @@ ProviderSource
 ```
 
 ### Affiliate domain (commercial relationship only)
+
 ```
 AffiliatePartnership (Provider -> partnership; status: PROSPECT|APPLIED|APPROVED|ACTIVE|PAUSED|REJECTED|ENDED)
 AffiliateProgram
@@ -139,6 +142,7 @@ AffiliatePlacement    (Article/Provider/Compare -> which surface a CTA appears o
 ```
 
 ### Shared/auth
+
 ```
 User (existing — extend, don't duplicate)
 Role: USER | ADMIN
@@ -182,10 +186,10 @@ The `trust/` components (VerificationBadge, SourceBadge, LastVerified) are the o
 --border: #223243;
 --text: #f4f1e8;
 --muted: #9aa8b6;
---gold: #d6b46a;      /* accent, used sparingly */
---green: #48c995;     /* verified / positive */
---red: #ef7777;       /* warnings / negative */
---blue: #70a8ff;      /* informational */
+--gold: #d6b46a; /* accent, used sparingly */
+--green: #48c995; /* verified / positive */
+--red: #ef7777; /* warnings / negative */
+--blue: #70a8ff; /* informational */
 ```
 
 Typography: serif/editorial display font for H1/H2 (reference used Georgia — evaluate a licensed equivalent via `next/font`), clean sans-serif for UI/body (reference used Inter). Convert into Tailwind tokens (`bg-background`, `bg-panel`, `text-muted`, etc.) rather than repeating hex values in components.
@@ -199,48 +203,59 @@ Typography: serif/editorial display font for H1/H2 (reference used Georgia — e
 Each phase ends with: lint → typecheck → tests → build → fix regressions → summarize changed files → explain DB migrations → explain manual verification steps → **stop for approval** before the next phase.
 
 ### Phase 0 — Audit (see Section 1 above)
+
 **Goal:** Understand existing project before touching it. **Output:** architecture summary, risks, Phase 1 file list.
 
 ### Phase 1 — Public Foundation
+
 **Goal:** Header, footer, responsive nav (real Next.js routes, no hash routing), design system tokens, and the four top-level shells (`/crypto`, `/compare`, `/methodology`, `/news`) with placeholder/static content only.
 **DB changes:** none required yet.
 **Validation:** all four routes render, nav is keyboard-navigable and collapses to a drawer on mobile, no console/hydration errors.
 
 ### Phase 2 — Authentication + Admin Foundation
+
 **Goal:** `Role.USER` / `Role.ADMIN` enforced server-side; `/admin` shell with Dashboard/Articles/Affiliates/Media/Settings nav (empty states only).
 **DB changes:** extend User with Role if not already present.
 **Validation:** non-admin users get a 403 on `/admin/*` at the server layer, not just a hidden link.
 
 ### Phase 3 — Article CMS
+
 **Goal:** Article model, admin CRUD (create/upload/edit/preview/publish/unpublish/archive), SEO fields, categories/tags, media integration, related-providers/related-crypto linking, sources. Published articles render on public routes via a shared renderer (same renderer for admin preview and public page).
 **DB changes:** `Article`, `ArticleProvider`, `ArticleTag`, `ArticleSource`, `ArticleStatus` enum.
 **Validation:** create → draft → preview → publish → visible at `/guides/[slug]` or `/news/[slug]`; unpublished content returns 404/noindex to the public.
 
 ### Phase 4 — Provider Domain
+
 **Goal:** Structured, database-backed provider data (no hard-coded provider names in components). Build `/crypto/exchanges` and `/crypto/exchanges/[slug]` with full profile layout (facts, fees, products, security, regulatory info, sources, verification date). No Provider Admin UI yet — seed via migration/script.
 **DB changes:** `Provider`, `ProviderFact`, `ProviderFee`, `ProviderFeature`, `ProviderSource`, `VerificationStatus` enum.
 **Validation:** at least 2–3 real (or clearly-labeled placeholder) Australian providers render correctly with unverified/variable states shown honestly, not guessed.
 
 ### Phase 5 — Comparison Engine
+
 **Goal:** `/compare`, `/compare/crypto-exchanges`, `/compare/[slug]`, `/compare/[a]-vs-[b]`, all sourced from the Provider domain — no data duplicated into compare-specific tables.
 **Validation:** comparison table degrades to stacked cards on mobile; changing a Provider fact updates the comparison without code changes.
 
 ### Phase 6 — Affiliate Domain
+
 **Goal:** `AffiliatePartnership`, `AffiliateProgram`, `AffiliateLink`, `AffiliateCampaign`, `AffiliateClick` as a fully separate domain; `/admin/affiliates/*`; `/go/[partnerSlug]` server-side redirect that validates against an approved-URL allowlist (never redirects to arbitrary user-supplied URLs) and records a click before redirecting.
 **DB changes:** affiliate tables + `AffiliatePartnerStatus`, `CommissionType` enums.
 **Validation:** a Provider with an ACTIVE partnership shows a "Visit Provider" CTA + disclosure; ending the partnership removes the CTA but the Provider profile and comparisons remain fully intact.
 
 ### Phase 7 — Affiliate Analytics
+
 **Goal:** Aggregated (not raw-event-by-default) reporting by partner/article/provider/comparison/placement/campaign/date. Prepare schema for future conversion/revenue import — never fabricate numbers in the meantime.
 **Validation:** dashboard numbers trace back to real `AffiliateClick` rows; zero-data states say "No data yet," not `0` dressed up as a trend.
 
 ### Phase 8 — SEO Growth
+
 **Goal:** Content clusters, internal linking engine, structured data (JSON-LD), sitemap generation, category pages, canonical rules, basic search (Postgres full-text is sufficient initially) across Crypto/Provider/Guide/News/Comparison content types.
 
 ### Phase 9 — Provider Admin
+
 **Goal:** `/admin/providers`, `/admin/providers/new`, `/admin/providers/[id]` — non-developer editing of provider facts/fees/features without changing the underlying schema from Phase 4.
 
 ### Phase 10 — Production Hardening
+
 **Goal:** Security review, authorization re-check, upload validation, open-redirect prevention on `/go/[partner]`, SEO audit, mobile/accessibility pass, DB indexes, broken-link check, full `lint`/`typecheck`/`test`/`build` pass.
 
 ---

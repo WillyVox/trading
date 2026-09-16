@@ -21,11 +21,11 @@ and it independently requires admin authorization. It also sets noindex, and the
 The status workflow is substantially implemented:
 
 DRAFT
-  ↓
+↓
 REVIEW
-  ↓
+↓
 PUBLISHED
-  ↓
+↓
 ARCHIVED
 
 You currently have:
@@ -55,10 +55,10 @@ and restoring an archived article goes back to Draft rather than directly to Pub
 
 So, specifically for your three questions:
 
-Requirement	Current state
-Create article	✅ Implemented well
-Archive article	✅ Implemented well
-Publish article	✅ Implemented, correctly requires REVIEW first
+Requirement Current state
+Create article ✅ Implemented well
+Archive article ✅ Implemented well
+Publish article ✅ Implemented, correctly requires REVIEW first
 
 However, several things prevent me from saying Block 2 = 100% complete.
 
@@ -67,22 +67,22 @@ The biggest remaining Block 2 problem: /admin/articles is still too primitive
 Your service layer already supports:
 
 getAdminArticles({
-  page,
-  pageSize,
-  status,
-  articleType,
-  category,
-  search
+page,
+pageSize,
+status,
+articleType,
+category,
+search
 })
 
 and your repository already returns:
 
 {
-  items,
-  total,
-  page,
-  pageSize,
-  pageCount
+items,
+total,
+page,
+pageSize,
+pageCount
 }
 
 So the backend is actually ready for pagination.
@@ -180,7 +180,7 @@ Automated tests are another gap
 
 Your current test command only targets:
 
-src/lib/articles/import/__test__/*.test.ts
+src/lib/articles/import/**test**/*.test.ts
 
 I do not see serious tests covering the new administrative lifecycle.
 

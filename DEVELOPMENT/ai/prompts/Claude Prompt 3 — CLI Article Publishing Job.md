@@ -181,24 +181,24 @@ Example:
 
 ```md
 ---
-title: "How to Trade Crypto: A Beginner Guide"
-slug: "how-to-trade-crypto"
+title: 'How to Trade Crypto: A Beginner Guide'
+slug: 'how-to-trade-crypto'
 
-excerpt: "Learn how crypto trading works, including exchanges, order types, fees and major risks."
+excerpt: 'Learn how crypto trading works, including exchanges, order types, fees and major risks.'
 
-category: "Crypto Trading"
+category: 'Crypto Trading'
 
 tags:
   - crypto-trading
   - beginners
   - exchanges
 
-region: "GLOBAL"
+region: 'GLOBAL'
 
-seoTitle: "How to Trade Crypto: Beginner Guide"
-seoDescription: "Learn how crypto trading works, how exchanges operate, common order types, fees and key risks."
+seoTitle: 'How to Trade Crypto: Beginner Guide'
+seoDescription: 'Learn how crypto trading works, how exchanges operate, common order types, fees and key risks.'
 
-author: "Editorial Team"
+author: 'Editorial Team'
 
 relatedProviders:
   - kraken
@@ -209,13 +209,13 @@ relatedGuides:
   - market-vs-limit-orders
 
 sources:
-  - label: "Example Source"
-    url: "https://example.com"
+  - label: 'Example Source'
+    url: 'https://example.com'
 
 affiliateProviders:
   - kraken
 
-status: "DRAFT"
+status: 'DRAFT'
 ---
 
 # How to Trade Crypto
@@ -681,7 +681,7 @@ Placement was not created.
 Never accept this:
 
 ```yaml
-affiliateUrl: "https://random-site.com/ref=..."
+affiliateUrl: 'https://random-site.com/ref=...'
 ```
 
 from AI article files as a trusted destination.
@@ -707,13 +707,13 @@ Example:
 
 ```yaml
 sources:
-  - label: "Kraken Spot Crypto Fee Schedule"
-    url: "https://..."
-    type: "OFFICIAL_PROVIDER"
+  - label: 'Kraken Spot Crypto Fee Schedule'
+    url: 'https://...'
+    type: 'OFFICIAL_PROVIDER'
 
-  - label: "Australian regulator"
-    url: "https://..."
-    type: "REGULATOR"
+  - label: 'Australian regulator'
+    url: 'https://...'
+    type: 'REGULATOR'
 ```
 
 Validate:
@@ -772,8 +772,8 @@ The file itself represents an intentional regional article.
 Support fields such as:
 
 ```yaml
-seoTitle: "How to Buy Bitcoin in Australia"
-seoDescription: "..."
+seoTitle: 'How to Buy Bitcoin in Australia'
+seoDescription: '...'
 ```
 
 If omitted:

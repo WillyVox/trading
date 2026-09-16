@@ -13,26 +13,30 @@ export function GuideFAQ({ items }: { items: FaqItem[] }) {
   if (items.length === 0) return null;
 
   return (
-    <section className="mt-10 border-t border-border pt-6">
-      <h2 className="font-display text-lg font-bold text-navy">Frequently asked questions</h2>
+    <section className="border-border mt-10 border-t pt-6">
+      <h2 className="font-display text-navy text-lg font-bold">
+        Frequently asked questions
+      </h2>
       <div className="mt-4 space-y-3">
         {items.map((item, i) => (
           <details
             key={i}
-            className="group rounded-xl border border-border bg-panel p-4 open:border-gold-soft"
+            className="group border-border bg-panel open:border-gold-soft rounded-xl border p-4"
           >
-            <summary className="cursor-pointer list-none font-display text-sm font-semibold text-navy marker:content-none">
+            <summary className="font-display text-navy cursor-pointer list-none text-sm font-semibold marker:content-none">
               <span className="flex items-center justify-between gap-3">
                 {item.question}
                 <span
                   aria-hidden="true"
-                  className="shrink-0 text-gold transition-transform group-open:rotate-45"
+                  className="text-gold shrink-0 transition-transform group-open:rotate-45"
                 >
                   +
                 </span>
               </span>
             </summary>
-            <p className="mt-2.5 text-sm leading-relaxed text-muted">{item.answer}</p>
+            <p className="text-muted mt-2.5 text-sm leading-relaxed">
+              {item.answer}
+            </p>
           </details>
         ))}
       </div>

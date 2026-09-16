@@ -1,35 +1,36 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
-import { Button } from "@/components/ui/Button";
+import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/Button';
 
 type AuthStatusProps = {
   /** "desktop" renders inline in the header bar; "mobile" renders stacked inside the nav drawer. */
-  variant: "desktop" | "mobile";
+  variant: 'desktop' | 'mobile';
   /** Mobile drawer closes itself on nav — let it close on sign-in/out too. */
   onNavigate?: () => void;
 };
 
 export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
   const { data: session, status } = useSession();
-  const user = session?.user as { name?: string | null; email?: string | null; role?: string } | undefined;
+  const user = session?.user as
+    { name?: string | null; email?: string | null; role?: string } | undefined;
 
-  if (status === "loading") {
+  if (status === 'loading') {
     // Fixed-size skeleton so there's no layout shift once the real session resolves.
     return (
       <div
         aria-hidden
         className={
-          variant === "desktop"
-            ? "h-9 w-20 animate-pulse rounded-full bg-panel-secondary"
-            : "h-11 w-full animate-pulse rounded-full bg-panel-secondary"
+          variant === 'desktop'
+            ? 'bg-panel-secondary h-9 w-20 animate-pulse rounded-full'
+            : 'bg-panel-secondary h-11 w-full animate-pulse rounded-full'
         }
       />
     );
   }
 
-  if (variant === "desktop") {
+  if (variant === 'desktop') {
     if (!user) {
       return (
         <Button href="/login" variant="secondary">
@@ -39,12 +40,18 @@ export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
     }
     return (
       <div className="flex items-center gap-3">
-        {user.role === "ADMIN" && (
-          <Link href="/admin" className="text-sm font-medium text-navy/80 transition-colors hover:text-navy">
+        {user.role === 'ADMIN' && (
+          <Link
+            href="/admin"
+            className="text-navy/80 hover:text-navy text-sm font-medium transition-colors"
+          >
             Admin
           </Link>
         )}
-        <span className="max-w-[160px] truncate text-sm text-muted" title={user.name ?? user.email ?? undefined}>
+        <span
+          className="text-muted max-w-[160px] truncate text-sm"
+          title={user.name ?? user.email ?? undefined}
+        >
           {user.name || user.email}
         </span>
         <Button variant="secondary" onClick={() => signOut()}>
@@ -60,7 +67,7 @@ export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
       <Link
         href="/login"
         onClick={onNavigate}
-        className="block w-full rounded-full bg-navy px-4 py-2.5 text-center text-sm font-semibold text-background transition-colors hover:bg-navy-dark"
+        className="bg-navy text-background hover:bg-navy-dark block w-full rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-colors"
       >
         Sign in
       </Link>
@@ -68,16 +75,19 @@ export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
   }
   return (
     <div className="flex flex-col gap-3">
-      {user.role === "ADMIN" && (
+      {user.role === 'ADMIN' && (
         <Link
           href="/admin"
           onClick={onNavigate}
-          className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-panel-secondary hover:text-navy"
+          className="text-muted hover:bg-panel-secondary hover:text-navy rounded-xl px-3 py-2.5 text-sm font-medium transition-colors"
         >
           Admin
         </Link>
       )}
-      <div className="truncate px-3 text-sm text-muted" title={user.name ?? user.email ?? undefined}>
+      <div
+        className="text-muted truncate px-3 text-sm"
+        title={user.name ?? user.email ?? undefined}
+      >
         Signed in as {user.name || user.email}
       </div>
       <button
@@ -86,7 +96,7 @@ export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
           onNavigate?.();
           signOut();
         }}
-        className="w-full rounded-full border border-border bg-panel-secondary px-4 py-2.5 text-sm font-medium text-navy transition-colors hover:bg-border"
+        className="border-border bg-panel-secondary text-navy hover:bg-border w-full rounded-full border px-4 py-2.5 text-sm font-medium transition-colors"
       >
         Sign out
       </button>

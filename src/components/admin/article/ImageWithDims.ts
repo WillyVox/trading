@@ -1,4 +1,4 @@
-import Image from "@tiptap/extension-image";
+import Image from '@tiptap/extension-image';
 
 /**
  * Extends Tiptap's stock Image extension with `width`/`height` attributes
@@ -17,13 +17,15 @@ export const ImageWithDims = Image.extend({
       ...this.parent?.(),
       width: {
         default: null,
-        parseHTML: (element) => element.getAttribute("width"),
-        renderHTML: (attributes) => (attributes.width ? { width: attributes.width } : {}),
+        parseHTML: (element) => element.getAttribute('width'),
+        renderHTML: (attributes) =>
+          attributes.width ? { width: attributes.width } : {},
       },
       height: {
         default: null,
-        parseHTML: (element) => element.getAttribute("height"),
-        renderHTML: (attributes) => (attributes.height ? { height: attributes.height } : {}),
+        parseHTML: (element) => element.getAttribute('height'),
+        renderHTML: (attributes) =>
+          attributes.height ? { height: attributes.height } : {},
       },
       // Mirrors sanitize.ts's ALLOWED_IMAGE_ALIGN — "left" | "center" | "right".
       // Rendered as `data-align`; globals.css turns that into the actual
@@ -31,9 +33,11 @@ export const ImageWithDims = Image.extend({
       // inserted image (see addImage() in ArticleRichEditor.tsx) always
       // has an explicit, sanitizer-valid value rather than none at all.
       align: {
-        default: "center",
-        parseHTML: (element) => element.getAttribute("data-align") ?? "center",
-        renderHTML: (attributes) => ({ "data-align": attributes.align ?? "center" }),
+        default: 'center',
+        parseHTML: (element) => element.getAttribute('data-align') ?? 'center',
+        renderHTML: (attributes) => ({
+          'data-align': attributes.align ?? 'center',
+        }),
       },
     };
   },

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 /**
  * Wraps a topic-relevant visual (inline SVG, or a raster <img>) inside
@@ -8,11 +8,17 @@ import type { ReactNode } from "react";
  * project's "no undocumented visuals" convention (see PageHero, which
  * makes the same tradeoff for the hero itself).
  */
-export function GuideFigure({ children, caption }: { children: ReactNode; caption: string }) {
+export function GuideFigure({
+  children,
+  caption,
+}: {
+  children: ReactNode;
+  caption: string;
+}) {
   return (
-    <figure className="not-prose my-8 overflow-hidden rounded-2xl border border-border bg-panel">
+    <figure className="not-prose border-border bg-panel my-8 overflow-hidden rounded-2xl border">
       <div className="bg-navy">{children}</div>
-      <figcaption className="border-t border-border bg-panel-secondary px-4 py-2.5 text-center text-xs text-muted">
+      <figcaption className="border-border bg-panel-secondary text-muted border-t px-4 py-2.5 text-center text-xs">
         {caption}
       </figcaption>
     </figure>

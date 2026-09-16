@@ -1,17 +1,20 @@
-"use server";
+'use server';
 
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
-import { Prisma, ArticleType } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { requireAdmin } from "@/lib/auth/require-admin";
-import { validateArticleForm, type ArticleFormInput } from "@/lib/articles/validation";
-import { sanitizeArticleContent } from "@/lib/articles/sanitize";
-import { isStaticGuideSlug } from "@/lib/guides/static-guides";
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import { Prisma, ArticleType } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { requireAdmin } from '@/lib/auth/require-admin';
+import {
+  validateArticleForm,
+  type ArticleFormInput,
+} from '@/lib/articles/validation';
+import { sanitizeArticleContent } from '@/lib/articles/sanitize';
+import { isStaticGuideSlug } from '@/lib/guides/static-guides';
 import {
   isValidArticleStatusTransition,
   type ArticleLifecycleStatus,
-} from "@/lib/articles/status-transitions";
+} from '@/lib/articles/status-transitions';
 
 /**
  * Block 2 admin mutations for the Article domain. Every action
@@ -30,7 +33,7 @@ import {
  */
 
 function publicPathFor(articleType: ArticleType, slug: string): string {
-  return articleType === "GUIDE" ? `/guides/${slug}` : `/news/${slug}`;
+  return articleType === 'GUIDE' ? `/guides/${slug}` : `/news/${slug}`;
 }
 
 function revalidateArticlePaths(opts: {
@@ -38,17 +41,21 @@ function revalidateArticlePaths(opts: {
   before?: { articleType: ArticleType; slug: string } | null;
   after: { articleType: ArticleType; slug: string };
 }) {
-  revalidatePath("/admin/articles");
+  revalidatePath('/admin/articles');
   // Admin edit route is /admin/articles/[id] -- the id, not the slug, is
   // what the route actually keys on. Previously this revalidated
   // `/admin/articles/${slug}`, which never matches that route and was a
   // silent no-op.
   revalidatePath(`/admin/articles/${opts.id}`);
   revalidatePath(`/admin/articles/${opts.id}/preview`);
-  revalidatePath(opts.after.articleType === "GUIDE" ? "/guides" : "/news");
+  revalidatePath(opts.after.articleType === 'GUIDE' ? '/guides' : '/news');
   revalidatePath(publicPathFor(opts.after.articleType, opts.after.slug));
-  if (opts.before && (opts.before.slug !== opts.after.slug || opts.before.articleType !== opts.after.articleType)) {
-    revalidatePath(opts.before.articleType === "GUIDE" ? "/guides" : "/news");
+  if (
+    opts.before &&
+    (opts.before.slug !== opts.after.slug ||
+      opts.before.articleType !== opts.after.articleType)
+  ) {
+    revalidatePath(opts.before.articleType === 'GUIDE' ? '/guides' : '/news');
     revalidatePath(publicPathFor(opts.before.articleType, opts.before.slug));
   }
 }
@@ -57,29 +64,30 @@ function revalidateArticlePaths(opts: {
 function parseArticleFormData(formData: FormData): unknown {
   const str = (key: string): string | undefined => {
     const v = formData.get(key);
-    return typeof v === "string" && v.trim() !== "" ? v : undefined;
+    return typeof v === 'string' && v.trim() !== '' ? v : undefined;
   };
-  const bool = (key: string): boolean => formData.get(key) === "on" || formData.get(key) === "true";
+  const bool = (key: string): boolean =>
+    formData.get(key) === 'on' || formData.get(key) === 'true';
   const linesToList = (key: string): string[] | undefined => {
     const raw = formData.get(key);
-    if (typeof raw !== "string") return undefined;
+    if (typeof raw !== 'string') return undefined;
     const items = raw
-      .split("\n")
+      .split('\n')
       .map((s) => s.trim())
       .filter(Boolean);
     return items;
   };
   const csvToList = (key: string): string[] | undefined => {
     const raw = formData.get(key);
-    if (typeof raw !== "string") return undefined;
+    if (typeof raw !== 'string') return undefined;
     return raw
-      .split(",")
+      .split(',')
       .map((s) => s.trim())
       .filter(Boolean);
   };
   const json = (key: string): unknown => {
     const raw = formData.get(key);
-    if (typeof raw !== "string" || raw.trim() === "") return undefined;
+    if (typeof raw !== 'string' || raw.trim() === '') return undefined;
     try {
       return JSON.parse(raw);
     } catch {
@@ -88,32 +96,36 @@ function parseArticleFormData(formData: FormData): unknown {
   };
 
   return {
-    title: str("title") ?? "",
-    slug: str("slug") ?? "",
-    articleType: str("articleType"),
-    category: str("category"),
-    excerpt: str("excerpt"),
-    content: str("content") ?? "",
-    author: str("author"),
-    reviewer: str("reviewer"),
-    lastReviewedAt: str("lastReviewedAt"),
-    keyTakeaways: linesToList("keyTakeaways"),
-    tags: csvToList("tags"),
-    searchIntent: str("searchIntent"),
-    seoTitle: str("seoTitle"),
-    seoDescription: str("seoDescription"),
-    canonicalUrl: str("canonicalUrl"),
-    featuredImage: str("featuredImage"),
-    featuredImageAlt: str("featuredImageAlt"),
-    noIndex: bool("noIndex"),
-    affiliateDisclosureRequired: bool("affiliateDisclosureRequired"),
-    region: str("region"),
-    canonicalArticleId: str("canonicalArticleId"),
-    scheduledAt: str("scheduledAt"),
-    providerRelationships: json("providerRelationshipsJson") ?? [],
-    cryptoAssetIds: formData.getAll("cryptoAssetIds").filter((v): v is string => typeof v === "string"),
-    relatedGuideIds: formData.getAll("relatedGuideIds").filter((v): v is string => typeof v === "string"),
-    sources: json("sourcesJson") ?? [],
+    title: str('title') ?? '',
+    slug: str('slug') ?? '',
+    articleType: str('articleType'),
+    category: str('category'),
+    excerpt: str('excerpt'),
+    content: str('content') ?? '',
+    author: str('author'),
+    reviewer: str('reviewer'),
+    lastReviewedAt: str('lastReviewedAt'),
+    keyTakeaways: linesToList('keyTakeaways'),
+    tags: csvToList('tags'),
+    searchIntent: str('searchIntent'),
+    seoTitle: str('seoTitle'),
+    seoDescription: str('seoDescription'),
+    canonicalUrl: str('canonicalUrl'),
+    featuredImage: str('featuredImage'),
+    featuredImageAlt: str('featuredImageAlt'),
+    noIndex: bool('noIndex'),
+    affiliateDisclosureRequired: bool('affiliateDisclosureRequired'),
+    region: str('region'),
+    canonicalArticleId: str('canonicalArticleId'),
+    scheduledAt: str('scheduledAt'),
+    providerRelationships: json('providerRelationshipsJson') ?? [],
+    cryptoAssetIds: formData
+      .getAll('cryptoAssetIds')
+      .filter((v): v is string => typeof v === 'string'),
+    relatedGuideIds: formData
+      .getAll('relatedGuideIds')
+      .filter((v): v is string => typeof v === 'string'),
+    sources: json('sourcesJson') ?? [],
   };
 }
 
@@ -144,7 +156,7 @@ function buildScalarData(data: ArticleFormInput) {
     featuredImageAlt: data.featuredImageAlt ?? null,
     noIndex: data.noIndex ?? false,
     affiliateDisclosureRequired: data.affiliateDisclosureRequired ?? false,
-    region: !data.region || data.region === "GLOBAL" ? null : data.region,
+    region: !data.region || data.region === 'GLOBAL' ? null : data.region,
     canonicalArticleId: data.canonicalArticleId || null,
     // Advisory only — see docs/ROADMAP.md "Scheduling": nothing reads this
     // to auto-publish. It exists purely as an editor reminder.
@@ -152,16 +164,25 @@ function buildScalarData(data: ArticleFormInput) {
   };
 }
 
-async function assertSlugAvailable(slug: string, articleType: ArticleType, excludeArticleId?: string) {
-  if (articleType === "GUIDE" && isStaticGuideSlug(slug)) {
+async function assertSlugAvailable(
+  slug: string,
+  articleType: ArticleType,
+  excludeArticleId?: string
+) {
+  if (articleType === 'GUIDE' && isStaticGuideSlug(slug)) {
     throw new Error(
       `Slug "${slug}" is reserved by a hand-authored static guide — choose a different slug.`
     );
   }
 
-  const existing = await prisma.article.findUnique({ where: { slug }, select: { id: true } });
+  const existing = await prisma.article.findUnique({
+    where: { slug },
+    select: { id: true },
+  });
   if (existing && existing.id !== excludeArticleId) {
-    throw new Error(`Slug "${slug}" is already used by another article — choose a different slug.`);
+    throw new Error(
+      `Slug "${slug}" is already used by another article — choose a different slug.`
+    );
   }
 }
 
@@ -175,12 +196,20 @@ async function assertSlugAvailable(slug: string, articleType: ArticleType, exclu
  * assertSlugAvailable gives in the common (non-race) case. Wrap any
  * article write that can hit the slug unique constraint in this.
  */
-async function withFriendlySlugConflict<T>(slug: string, write: () => Promise<T>): Promise<T> {
+async function withFriendlySlugConflict<T>(
+  slug: string,
+  write: () => Promise<T>
+): Promise<T> {
   try {
     return await write();
   } catch (err) {
-    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
-      throw new Error(`Slug "${slug}" is already used by another article — choose a different slug.`);
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === 'P2002'
+    ) {
+      throw new Error(
+        `Slug "${slug}" is already used by another article — choose a different slug.`
+      );
     }
     throw err;
   }
@@ -192,7 +221,7 @@ export async function createArticle(formData: FormData) {
   const raw = parseArticleFormData(formData);
   const validation = validateArticleForm(raw);
   if (!validation.ok) {
-    throw new Error(`Could not save article: ${validation.errors.join("; ")}`);
+    throw new Error(`Could not save article: ${validation.errors.join('; ')}`);
   }
   const data = validation.data!;
 
@@ -202,7 +231,7 @@ export async function createArticle(formData: FormData) {
     prisma.article.create({
       data: {
         ...buildScalarData(data),
-        status: "DRAFT", // always DRAFT on create, regardless of what the form contains — see Req.md §40 (DRAFT-only ingestion applies to admin create too)
+        status: 'DRAFT', // always DRAFT on create, regardless of what the form contains — see Req.md §40 (DRAFT-only ingestion applies to admin create too)
         tags: { create: (data.tags ?? []).map((tag) => ({ tag })) },
         sources: {
           create: (data.sources ?? []).map((s) => ({
@@ -221,97 +250,137 @@ export async function createArticle(formData: FormData) {
           create: (data.cryptoAssetIds ?? []).map((assetId) => ({ assetId })),
         },
         relatedFrom: {
-          create: (data.relatedGuideIds ?? []).map((relatedArticleId, position) => ({
-            relatedArticleId,
-            position,
-          })),
+          create: (data.relatedGuideIds ?? []).map(
+            (relatedArticleId, position) => ({
+              relatedArticleId,
+              position,
+            })
+          ),
         },
       },
       select: { id: true },
     })
   );
 
-  revalidatePath("/admin/articles");
+  revalidatePath('/admin/articles');
   redirect(`/admin/articles/${created.id}`);
 }
 
 export async function updateArticle(formData: FormData) {
   await requireAdmin();
 
-  const id = String(formData.get("id") ?? "");
-  if (!id) throw new Error("id is required");
+  const id = String(formData.get('id') ?? '');
+  if (!id) throw new Error('id is required');
 
   const existing = await prisma.article.findUnique({
     where: { id },
     select: { slug: true, articleType: true, status: true },
   });
-  if (!existing) throw new Error("Article not found");
+  if (!existing) throw new Error('Article not found');
 
   const raw = parseArticleFormData(formData);
   const validation = validateArticleForm(raw);
   if (!validation.ok) {
-    throw new Error(`Could not save article: ${validation.errors.join("; ")}`);
+    throw new Error(`Could not save article: ${validation.errors.join('; ')}`);
   }
   const data = validation.data!;
 
   await assertSlugAvailable(data.slug, data.articleType, id);
 
-  await withFriendlySlugConflict(data.slug, () => prisma.$transaction(async (tx) => {
-    await tx.article.update({ where: { id }, data: buildScalarData(data) });
+  await withFriendlySlugConflict(data.slug, () =>
+    prisma.$transaction(async (tx) => {
+      await tx.article.update({ where: { id }, data: buildScalarData(data) });
 
-    await tx.articleTag.deleteMany({ where: { articleId: id } });
-    if ((data.tags ?? []).length > 0) {
-      await tx.articleTag.createMany({ data: data.tags!.map((tag) => ({ articleId: id, tag })) });
-    }
+      await tx.articleTag.deleteMany({ where: { articleId: id } });
+      if ((data.tags ?? []).length > 0) {
+        await tx.articleTag.createMany({
+          data: data.tags!.map((tag) => ({ articleId: id, tag })),
+        });
+      }
 
-    await tx.articleSource.deleteMany({ where: { articleId: id } });
-    if ((data.sources ?? []).length > 0) {
-      await tx.articleSource.createMany({
-        data: data.sources!.map((s) => ({
+      await tx.articleSource.deleteMany({ where: { articleId: id } });
+      if ((data.sources ?? []).length > 0) {
+        await tx.articleSource.createMany({
+          data: data.sources!.map((s) => ({
+            articleId: id,
+            label: s.label,
+            url: s.url,
+            sourceType: s.sourceType ?? null,
+          })),
+        });
+      }
+
+      const keepProviderIds = (data.providerRelationships ?? []).map(
+        (p) => p.providerId
+      );
+      await tx.articleProvider.deleteMany({
+        where: {
           articleId: id,
-          label: s.label,
-          url: s.url,
-          sourceType: s.sourceType ?? null,
-        })),
+          providerId: {
+            notIn: keepProviderIds.length > 0 ? keepProviderIds : ['__none__'],
+          },
+        },
       });
-    }
+      for (const p of data.providerRelationships ?? []) {
+        await tx.articleProvider.upsert({
+          where: {
+            articleId_providerId: { articleId: id, providerId: p.providerId },
+          },
+          create: {
+            articleId: id,
+            providerId: p.providerId,
+            relationshipType: p.relationship,
+          },
+          update: { relationshipType: p.relationship },
+        });
+      }
 
-    const keepProviderIds = (data.providerRelationships ?? []).map((p) => p.providerId);
-    await tx.articleProvider.deleteMany({
-      where: { articleId: id, providerId: { notIn: keepProviderIds.length > 0 ? keepProviderIds : ["__none__"] } },
-    });
-    for (const p of data.providerRelationships ?? []) {
-      await tx.articleProvider.upsert({
-        where: { articleId_providerId: { articleId: id, providerId: p.providerId } },
-        create: { articleId: id, providerId: p.providerId, relationshipType: p.relationship },
-        update: { relationshipType: p.relationship },
+      const keepAssetIds = data.cryptoAssetIds ?? [];
+      await tx.articleCryptoAsset.deleteMany({
+        where: {
+          articleId: id,
+          assetId: {
+            notIn: keepAssetIds.length > 0 ? keepAssetIds : ['__none__'],
+          },
+        },
       });
-    }
+      for (const assetId of keepAssetIds) {
+        await tx.articleCryptoAsset.upsert({
+          where: { articleId_assetId: { articleId: id, assetId } },
+          create: { articleId: id, assetId },
+          update: {},
+        });
+      }
 
-    const keepAssetIds = data.cryptoAssetIds ?? [];
-    await tx.articleCryptoAsset.deleteMany({
-      where: { articleId: id, assetId: { notIn: keepAssetIds.length > 0 ? keepAssetIds : ["__none__"] } },
-    });
-    for (const assetId of keepAssetIds) {
-      await tx.articleCryptoAsset.upsert({
-        where: { articleId_assetId: { articleId: id, assetId } },
-        create: { articleId: id, assetId },
-        update: {},
+      const keepRelatedIds = (data.relatedGuideIds ?? []).filter(
+        (relatedId) => relatedId !== id
+      );
+      await tx.articleRelated.deleteMany({
+        where: {
+          articleId: id,
+          relatedArticleId: {
+            notIn: keepRelatedIds.length > 0 ? keepRelatedIds : ['__none__'],
+          },
+        },
       });
-    }
-
-    const keepRelatedIds = (data.relatedGuideIds ?? []).filter((relatedId) => relatedId !== id);
-    await tx.articleRelated.deleteMany({
-      where: { articleId: id, relatedArticleId: { notIn: keepRelatedIds.length > 0 ? keepRelatedIds : ["__none__"] } },
-    });
-    for (let i = 0; i < keepRelatedIds.length; i++) {
-      await tx.articleRelated.upsert({
-        where: { articleId_relatedArticleId: { articleId: id, relatedArticleId: keepRelatedIds[i] } },
-        create: { articleId: id, relatedArticleId: keepRelatedIds[i], position: i },
-        update: { position: i },
-      });
-    }
-  }));
+      for (let i = 0; i < keepRelatedIds.length; i++) {
+        await tx.articleRelated.upsert({
+          where: {
+            articleId_relatedArticleId: {
+              articleId: id,
+              relatedArticleId: keepRelatedIds[i],
+            },
+          },
+          create: {
+            articleId: id,
+            relatedArticleId: keepRelatedIds[i],
+            position: i,
+          },
+          update: { position: i },
+        });
+      }
+    })
+  );
 
   revalidateArticlePaths({
     id,
@@ -336,14 +405,14 @@ async function assertPublishable(articleId: string) {
     where: { id: articleId },
     select: { title: true, slug: true, content: true, articleType: true },
   });
-  if (!article) throw new Error("Article not found");
+  if (!article) throw new Error('Article not found');
   const problems: string[] = [];
-  if (!article.title.trim()) problems.push("title is empty");
-  if (!article.slug.trim()) problems.push("slug is empty");
-  if (!article.content.trim()) problems.push("content is empty");
-  if (!article.articleType) problems.push("article type is not set");
+  if (!article.title.trim()) problems.push('title is empty');
+  if (!article.slug.trim()) problems.push('slug is empty');
+  if (!article.content.trim()) problems.push('content is empty');
+  if (!article.articleType) problems.push('article type is not set');
   if (problems.length > 0) {
-    throw new Error(`Cannot publish: ${problems.join("; ")}`);
+    throw new Error(`Cannot publish: ${problems.join('; ')}`);
   }
   return article;
 }
@@ -352,32 +421,39 @@ async function transitionStatus(
   formData: FormData,
   opts: {
     to: ArticleLifecycleStatus;
-    extraData?: (article: { publishedAt: Date | null }) => Prisma.ArticleUpdateInput;
+    extraData?: (article: {
+      publishedAt: Date | null;
+    }) => Prisma.ArticleUpdateInput;
   }
 ) {
   await requireAdmin();
-  const id = String(formData.get("id") ?? "");
-  if (!id) throw new Error("id is required");
+  const id = String(formData.get('id') ?? '');
+  if (!id) throw new Error('id is required');
 
   const existing = await prisma.article.findUnique({
     where: { id },
     select: { status: true, slug: true, articleType: true, publishedAt: true },
   });
-  if (!existing) throw new Error("Article not found");
+  if (!existing) throw new Error('Article not found');
   // Single source of truth for legal transitions -- see
   // src/lib/articles/status-transitions.ts. Previously each exported
   // action below repeated its own `from` array; that's now generated from
   // (and tested against) one shared table instead of six parallel copies.
   if (!isValidArticleStatusTransition(existing.status, opts.to)) {
-    throw new Error(`Cannot move from ${existing.status} to ${opts.to} directly.`);
+    throw new Error(
+      `Cannot move from ${existing.status} to ${opts.to} directly.`
+    );
   }
 
-  if (opts.to === "PUBLISHED") {
+  if (opts.to === 'PUBLISHED') {
     await assertPublishable(id);
   }
 
   const extra = opts.extraData ? opts.extraData(existing) : {};
-  await prisma.article.update({ where: { id }, data: { status: opts.to, ...extra } });
+  await prisma.article.update({
+    where: { id },
+    data: { status: opts.to, ...extra },
+  });
 
   revalidateArticlePaths({
     id,
@@ -387,26 +463,27 @@ async function transitionStatus(
 }
 
 export async function submitArticleForReview(formData: FormData) {
-  await transitionStatus(formData, { to: "REVIEW" });
+  await transitionStatus(formData, { to: 'REVIEW' });
 }
 
 export async function moveArticleBackToDraft(formData: FormData) {
-  await transitionStatus(formData, { to: "DRAFT" });
+  await transitionStatus(formData, { to: 'DRAFT' });
 }
 
 export async function publishArticle(formData: FormData) {
   await transitionStatus(formData, {
-    to: "PUBLISHED",
-    extraData: (article) => (article.publishedAt ? {} : { publishedAt: new Date() }),
+    to: 'PUBLISHED',
+    extraData: (article) =>
+      article.publishedAt ? {} : { publishedAt: new Date() },
   });
 }
 
 export async function unpublishArticle(formData: FormData) {
-  await transitionStatus(formData, { to: "DRAFT" });
+  await transitionStatus(formData, { to: 'DRAFT' });
 }
 
 export async function archiveArticle(formData: FormData) {
-  await transitionStatus(formData, { to: "ARCHIVED" });
+  await transitionStatus(formData, { to: 'ARCHIVED' });
 }
 
 /**
@@ -418,5 +495,5 @@ export async function archiveArticle(formData: FormData) {
  * goes through review again.
  */
 export async function restoreArticleFromArchive(formData: FormData) {
-  await transitionStatus(formData, { to: "DRAFT" });
+  await transitionStatus(formData, { to: 'DRAFT' });
 }

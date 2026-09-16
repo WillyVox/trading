@@ -95,9 +95,7 @@
           "relationship": "MENTIONED"
         }
       ],
-      "cryptoAssetSlugs": [
-        "bitcoin"
-      ],
+      "cryptoAssetSlugs": ["bitcoin"],
       "suggestedRelatedSlugs": [
         "crypto-exchange-fees-australia-explained",
         "austrac-registration-crypto-exchanges-explained",
@@ -132,12 +130,7 @@
         "Crypto withdrawal (network) fees are usually separate from the exchange's own trading fees.",
         "Always check the provider's current fee page — schedules change and are not something we can promise are still accurate by the time you read this."
       ],
-      "tags": [
-        "Crypto Fees",
-        "Crypto Exchanges",
-        "Australia",
-        "Beginners"
-      ],
+      "tags": ["Crypto Fees", "Crypto Exchanges", "Australia", "Beginners"],
       "sources": [
         {
           "label": "CoinSpot — Official fee schedule",
@@ -174,9 +167,7 @@
           "relationship": "COMPARED"
         }
       ],
-      "cryptoAssetSlugs": [
-        "bitcoin"
-      ],
+      "cryptoAssetSlugs": ["bitcoin"],
       "suggestedRelatedSlugs": [
         "how-to-choose-crypto-exchange-australia",
         "how-to-buy-bitcoin-australia"
@@ -210,12 +201,7 @@
         "Decide early whether you'll leave Bitcoin on the exchange or withdraw it to your own wallet.",
         "Enable 2FA before you fund the account, not after."
       ],
-      "tags": [
-        "Bitcoin",
-        "Beginners",
-        "How to Buy Crypto",
-        "Australia"
-      ],
+      "tags": ["Bitcoin", "Beginners", "How to Buy Crypto", "Australia"],
       "sources": [
         {
           "label": "CoinSpot — Official fee schedule",
@@ -243,9 +229,7 @@
           "relationship": "MENTIONED"
         }
       ],
-      "cryptoAssetSlugs": [
-        "bitcoin"
-      ],
+      "cryptoAssetSlugs": ["bitcoin"],
       "suggestedRelatedSlugs": [
         "how-to-choose-crypto-exchange-australia",
         "crypto-wallet-vs-exchange-beginners"
@@ -279,12 +263,7 @@
         "Registration does not mean a platform is safe, well-run, or endorsed by the government.",
         "ASIC licensing (where it applies) is a separate process from AUSTRAC registration, covering different obligations."
       ],
-      "tags": [
-        "AUSTRAC",
-        "Regulation",
-        "Australia",
-        "Crypto Security"
-      ],
+      "tags": ["AUSTRAC", "Regulation", "Australia", "Crypto Security"],
       "sources": [
         {
           "label": "AUSTRAC — Virtual asset service provider register goes public",

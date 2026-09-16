@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { AuthStatus } from "./AuthStatus";
-import { MobileNav } from "./MobileNav";
-import { NavMenuItem } from "./NavMenuItem";
-import TradingGuideLogo from "./HeaderLogo"
-import { NAV_ITEMS } from "@/lib/nav/config";
+import Link from 'next/link';
+import { AuthStatus } from './AuthStatus';
+import { MobileNav } from './MobileNav';
+import { NavMenuItem } from './NavMenuItem';
+import TradingGuideLogo from './HeaderLogo';
+import { NAV_ITEMS } from '@/lib/nav/config';
 
 // Deliberately NOT async / no auth() call here. Header is rendered from the
 // root layout on every route, including statically-generated content pages
@@ -14,12 +14,15 @@ import { NAV_ITEMS } from "@/lib/nav/config";
 // stays static.
 export function Header() {
   return (
-    <header className="sticky top-0 z-20 border-b-2 border-navy bg-panel">
+    <header className="border-navy bg-panel sticky top-0 z-20 border-b-2">
       <div className="mx-auto flex h-[72px] max-w-6xl items-center gap-7 px-4">
-        <Link href="/" className="flex items-baseline gap-1 font-display text-xl font-extrabold text-navy">
+        <Link
+          href="/"
+          className="font-display text-navy flex items-baseline gap-1 text-xl font-extrabold"
+        >
           {/* Trading<span className="text-gold">Guide</span> */}
-          <TradingGuideLogo/>
-          </Link>
+          <TradingGuideLogo />
+        </Link>
         <nav className="hidden flex-1 items-center gap-6 md:flex">
           {NAV_ITEMS.map((item) => (
             <NavMenuItem key={item.label} item={item} />

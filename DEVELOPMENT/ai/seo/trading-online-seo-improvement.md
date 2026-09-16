@@ -5,25 +5,25 @@ I would keep your technical stack approximately like this:
 SEO CORE
 │
 ├── config.ts
-│   ├── domain
-│   ├── brand
-│   ├── locale
-│   └── default metadata
+│ ├── domain
+│ ├── brand
+│ ├── locale
+│ └── default metadata
 │
 ├── metadata.ts
-│   └── buildMetadata()
+│ └── buildMetadata()
 │
 ├── canonical.ts
-│   ├── canonical URL
-│   ├── comparison canonicalization
-│   └── hreflang
+│ ├── canonical URL
+│ ├── comparison canonicalization
+│ └── hreflang
 │
 ├── schema.ts
-│   ├── Organization
-│   ├── WebSite
-│   ├── Article
-│   ├── NewsArticle
-│   └── BreadcrumbList
+│ ├── Organization
+│ ├── WebSite
+│ ├── Article
+│ ├── NewsArticle
+│ └── BreadcrumbList
 │
 ├── breadcrumbs.ts
 │
@@ -61,24 +61,24 @@ I would not start by rewriting SEO configuration. Your current trading-online SE
 
 I'd approach improvements in this order:
 
-Priority	Work	Reason
-P0	Fix sitemap to use ArticleType + scheduled visibility	Correctness
-P0	Ensure missing-DB fallback doesn't break sitemap/SEO routes	Deployment reliability
-P0	Preserve buildMetadata() + canonical architecture	Already strong
-P1	Author/reviewer User relationships and public bylines	YMYL trust
-P1	Strong comparison methodology	Major trust + differentiation
-P1	Provider lastVerifiedAt / source freshness	Financial-data trust
-P1	Consistent article author/reviewer/date display	Content credibility
-P1	Provider/comparison internal content clusters	SEO architecture
-P2	Author profile pages + author.url schema	Entity clarity
-P2	Page-level methodology summaries	UX/trust
-P2	Content completeness → index/noindex rules	Avoid thin pages
-P2	Better article image variants	Search presentation
-P3	Formal Trading Guide scoring methodology	Only after enough data
-Avoid	Copying Trading Guide root canonical	Potentially harmful
-Avoid	SearchAction schema	Deprecated for Google's search box
-Avoid	Fake SEO scores	Misleading
-Avoid	Indexing every provider combination	Thin/scaled page risk
+Priority Work Reason
+P0 Fix sitemap to use ArticleType + scheduled visibility Correctness
+P0 Ensure missing-DB fallback doesn't break sitemap/SEO routes Deployment reliability
+P0 Preserve buildMetadata() + canonical architecture Already strong
+P1 Author/reviewer User relationships and public bylines YMYL trust
+P1 Strong comparison methodology Major trust + differentiation
+P1 Provider lastVerifiedAt / source freshness Financial-data trust
+P1 Consistent article author/reviewer/date display Content credibility
+P1 Provider/comparison internal content clusters SEO architecture
+P2 Author profile pages + author.url schema Entity clarity
+P2 Page-level methodology summaries UX/trust
+P2 Content completeness → index/noindex rules Avoid thin pages
+P2 Better article image variants Search presentation
+P3 Formal Trading Guide scoring methodology Only after enough data
+Avoid Copying Trading Guide root canonical Potentially harmful
+Avoid SearchAction schema Deprecated for Google's search box
+Avoid Fake SEO scores Misleading
+Avoid Indexing every provider combination Thin/scaled page risk
 The direction I would choose
 
 If the goal is to make this a serious Australian market/trading affiliate platform, I would evolve it toward:

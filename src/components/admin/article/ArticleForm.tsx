@@ -1,20 +1,24 @@
-import { createArticle, updateArticle } from "@/lib/articles/actions";
+import { createArticle, updateArticle } from '@/lib/articles/actions';
 import {
   getProvidersForArticleForm,
   getCryptoAssetsForArticleForm,
   getArticlesForRelatedPicker,
-} from "@/lib/articles/service";
-import { ARTICLE_TYPES, SEARCH_INTENTS, SOURCE_TYPES } from "@/lib/articles/validation";
-import { IMPORT_REGIONS } from "@/lib/articles/import/types";
-import { buildEditorialChecklist } from "@/lib/articles/editorial-checklist";
-import { Card } from "@/components/ui/Card";
-import { Notice } from "@/components/ui/Notice";
-import { TitleSlugFields } from "@/components/admin/article/TitleSlugFields";
-import { ProviderRelationshipsPicker } from "@/components/admin/article/ProviderRelationshipsPicker";
-import { SourcesEditor } from "@/components/admin/article/SourcesEditor";
-import { EditorialChecklistPanel } from "@/components/admin/article/EditorialChecklistPanel";
-import { PublishingPanel } from "@/components/admin/article/PublishingPanel";
-import { ArticleRichEditor } from "./ArticleRichEditor";
+} from '@/lib/articles/service';
+import {
+  ARTICLE_TYPES,
+  SEARCH_INTENTS,
+  SOURCE_TYPES,
+} from '@/lib/articles/validation';
+import { IMPORT_REGIONS } from '@/lib/articles/import/types';
+import { buildEditorialChecklist } from '@/lib/articles/editorial-checklist';
+import { Card } from '@/components/ui/Card';
+import { Notice } from '@/components/ui/Notice';
+import { TitleSlugFields } from '@/components/admin/article/TitleSlugFields';
+import { ProviderRelationshipsPicker } from '@/components/admin/article/ProviderRelationshipsPicker';
+import { SourcesEditor } from '@/components/admin/article/SourcesEditor';
+import { EditorialChecklistPanel } from '@/components/admin/article/EditorialChecklistPanel';
+import { PublishingPanel } from '@/components/admin/article/PublishingPanel';
+import { ArticleRichEditor } from './ArticleRichEditor';
 
 /**
  * The article shape this form edits — a subset of what
@@ -26,7 +30,7 @@ interface ArticleFormData {
   id: string;
   title: string;
   slug: string;
-  articleType: "NEWS" | "GUIDE";
+  articleType: 'NEWS' | 'GUIDE';
   category: string | null;
   excerpt: string | null;
   content: string;
@@ -45,37 +49,44 @@ interface ArticleFormData {
   region: string | null;
   canonicalArticleId: string | null;
   scheduledAt: Date | null;
-  status: "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
+  status: 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
   tags: { tag: string }[];
-  sources: { label: string; url: string; sourceType: (typeof SOURCE_TYPES)[number] | null }[];
-  providers: { providerId: string; relationshipType: "MENTIONED" | "COMPARED" | "FEATURED" }[];
+  sources: {
+    label: string;
+    url: string;
+    sourceType: (typeof SOURCE_TYPES)[number] | null;
+  }[];
+  providers: {
+    providerId: string;
+    relationshipType: 'MENTIONED' | 'COMPARED' | 'FEATURED';
+  }[];
   cryptoAssets: { assetId: string }[];
   relatedFrom: { relatedArticleId: string }[];
 }
 
 function toDateInputValue(d: Date | null | undefined): string {
-  if (!d) return "";
+  if (!d) return '';
   return d.toISOString().slice(0, 10); // yyyy-mm-dd for <input type="date">
 }
 
 function toDateTimeInputValue(d: Date | null | undefined): string {
-  if (!d) return "";
+  if (!d) return '';
   return d.toISOString().slice(0, 16); // yyyy-MM-ddTHH:mm for <input type="datetime-local">
 }
 
 const inputClass =
-  "rounded-lg border border-border bg-panel-secondary px-3 py-2 text-navy placeholder:text-muted";
-const labelClass = "flex flex-col text-sm";
-const labelSpanClass = "mb-1 font-medium text-navy";
+  'rounded-lg border border-border bg-panel-secondary px-3 py-2 text-navy placeholder:text-muted';
+const labelClass = 'flex flex-col text-sm';
+const labelSpanClass = 'mb-1 font-medium text-navy';
 
 export async function ArticleForm({
   mode,
   article,
 }: {
-  mode: "create" | "edit";
+  mode: 'create' | 'edit';
   article?: ArticleFormData;
 }) {
   const [providers, cryptoAssets, relatedCandidates] = await Promise.all([
@@ -85,13 +96,25 @@ export async function ArticleForm({
   ]);
 
   const selectedProviderRelationships =
-    article?.providers.map((p) => ({ providerId: p.providerId, relationship: p.relationshipType })) ?? [];
-  const selectedSources = article?.sources.map((s) => ({ label: s.label, url: s.url, sourceType: s.sourceType ?? undefined })) ?? [];
-  const selectedAssetIds = new Set(article?.cryptoAssets.map((a) => a.assetId) ?? []);
-  const selectedRelatedIds = new Set(article?.relatedFrom.map((r) => r.relatedArticleId) ?? []);
+    article?.providers.map((p) => ({
+      providerId: p.providerId,
+      relationship: p.relationshipType,
+    })) ?? [];
+  const selectedSources =
+    article?.sources.map((s) => ({
+      label: s.label,
+      url: s.url,
+      sourceType: s.sourceType ?? undefined,
+    })) ?? [];
+  const selectedAssetIds = new Set(
+    article?.cryptoAssets.map((a) => a.assetId) ?? []
+  );
+  const selectedRelatedIds = new Set(
+    article?.relatedFrom.map((r) => r.relatedArticleId) ?? []
+  );
 
   const checklist =
-    mode === "edit" && article
+    mode === 'edit' && article
       ? buildEditorialChecklist({
           title: article.title,
           excerpt: article.excerpt,
@@ -105,32 +128,43 @@ export async function ArticleForm({
           lastReviewedAt: article.lastReviewedAt,
           keyTakeaways: article.keyTakeaways,
           sourceCount: article.sources.length,
-          providerRelationships: article.providers.map((p) => ({ relationship: p.relationshipType })),
+          providerRelationships: article.providers.map((p) => ({
+            relationship: p.relationshipType,
+          })),
           cryptoAssetCount: article.cryptoAssets.length,
           noIndex: article.noIndex,
           affiliateDisclosureRequired: article.affiliateDisclosureRequired,
         })
       : null;
 
-  const action = mode === "create" ? createArticle : updateArticle;
+  const action = mode === 'create' ? createArticle : updateArticle;
 
   return (
     <div className="space-y-6">
       <form action={action} className="space-y-6">
-        {mode === "edit" && article && <input type="hidden" name="id" value={article.id} />}
+        {mode === 'edit' && article && (
+          <input type="hidden" name="id" value={article.id} />
+        )}
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Basic information</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Basic information
+          </h2>
           <div className="mt-4 space-y-4">
             <TitleSlugFields
-              initialTitle={article?.title ?? ""}
-              initialSlug={article?.slug ?? ""}
-              isPublished={article?.status === "PUBLISHED"}
+              initialTitle={article?.title ?? ''}
+              initialSlug={article?.slug ?? ''}
+              isPublished={article?.status === 'PUBLISHED'}
             />
             <div className="grid gap-4 sm:grid-cols-2">
               <label className={labelClass}>
                 <span className={labelSpanClass}>Article type</span>
-                <select name="articleType" required defaultValue={article?.articleType ?? ""} className={inputClass}>
+                <select
+                  name="articleType"
+                  required
+                  defaultValue={article?.articleType ?? ''}
+                  className={inputClass}
+                >
                   <option value="" disabled>
                     Select a type…
                   </option>
@@ -145,18 +179,20 @@ export async function ArticleForm({
                 <span className={labelSpanClass}>Category</span>
                 <input
                   name="category"
-                  defaultValue={article?.category ?? ""}
+                  defaultValue={article?.category ?? ''}
                   placeholder="crypto-exchanges"
                   className={inputClass}
                 />
-                <span className="mt-1 text-xs text-muted">A topic, not the content type — e.g. "Bitcoin", "Regulation".</span>
+                <span className="text-muted mt-1 text-xs">
+                  A topic, not the content type — e.g. "Bitcoin", "Regulation".
+                </span>
               </label>
             </div>
             <label className={labelClass}>
               <span className={labelSpanClass}>Excerpt</span>
               <textarea
                 name="excerpt"
-                defaultValue={article?.excerpt ?? ""}
+                defaultValue={article?.excerpt ?? ''}
                 rows={2}
                 maxLength={500}
                 placeholder="Shown in listings and used as a fallback meta description."
@@ -167,19 +203,28 @@ export async function ArticleForm({
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Content</h2>
-          <p className="mt-1 text-xs text-muted">
-            HTML content. A rich block-based editor is planned for a later pass — this is deliberately a plain
-            textarea for now; content is sanitized on save regardless of what's pasted in here.
+          <h2 className="font-display text-navy text-lg font-bold">Content</h2>
+          <p className="text-muted mt-1 text-xs">
+            HTML content. A rich block-based editor is planned for a later pass
+            — this is deliberately a plain textarea for now; content is
+            sanitized on save regardless of what's pasted in here.
           </p>
-          <p className="mt-1 text-xs text-muted">
-            Video embeds are supported: <code className="font-mono">{"{{video:youtube:VIDEO_ID:Optional caption}}"}</code>{" "}
-            or <code className="font-mono">{"{{video:vimeo:VIDEO_ID}}"}</code>, on their own line. Other embed markers
-            (e.g. <code className="font-mono">{"{{provider-comparison:...}}"}</code>) can be typed in now — they'll show a
-            "not yet available" note in Preview until that block type ships.
+          <p className="text-muted mt-1 text-xs">
+            Video embeds are supported:{' '}
+            <code className="font-mono">
+              {'{{video:youtube:VIDEO_ID:Optional caption}}'}
+            </code>{' '}
+            or <code className="font-mono">{'{{video:vimeo:VIDEO_ID}}'}</code>,
+            on their own line. Other embed markers (e.g.{' '}
+            <code className="font-mono">{'{{provider-comparison:...}}'}</code>)
+            can be typed in now — they'll show a "not yet available" note in
+            Preview until that block type ships.
           </p>
-          <ArticleRichEditor name="content" initialHtml={article?.content ?? ""} />
-{/*           
+          <ArticleRichEditor
+            name="content"
+            initialHtml={article?.content ?? ''}
+          />
+          {/*           
           <textarea
             name="content"
             required
@@ -191,15 +236,19 @@ export async function ArticleForm({
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Key takeaways &amp; tags</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Key takeaways &amp; tags
+          </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className={labelClass}>
               <span className={labelSpanClass}>Key takeaways</span>
               <textarea
                 name="keyTakeaways"
-                defaultValue={(article?.keyTakeaways ?? []).join("\n")}
+                defaultValue={(article?.keyTakeaways ?? []).join('\n')}
                 rows={5}
-                placeholder={"One takeaway per line\ne.g. CoinSpot has the lowest AUD deposit fees of the three"}
+                placeholder={
+                  'One takeaway per line\ne.g. CoinSpot has the lowest AUD deposit fees of the three'
+                }
                 className={inputClass}
               />
             </label>
@@ -207,74 +256,116 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Tags</span>
               <textarea
                 name="tags"
-                defaultValue={(article?.tags ?? []).map((t) => t.tag).join(", ")}
+                defaultValue={(article?.tags ?? [])
+                  .map((t) => t.tag)
+                  .join(', ')}
                 rows={5}
                 placeholder="crypto, exchanges, australia, beginner"
                 className={inputClass}
               />
-              <span className="mt-1 text-xs text-muted">Comma-separated.</span>
+              <span className="text-muted mt-1 text-xs">Comma-separated.</span>
             </label>
           </div>
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Relationships</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Relationships
+          </h2>
           <div className="mt-4 space-y-6">
             <div>
-              <h3 className="text-sm font-semibold text-navy">Providers</h3>
-              <p className="mt-1 text-xs text-muted">
-                Drives exchange-page/comparison-page article surfacing (later block) — never influenced by
-                affiliate commission.
+              <h3 className="text-navy text-sm font-semibold">Providers</h3>
+              <p className="text-muted mt-1 text-xs">
+                Drives exchange-page/comparison-page article surfacing (later
+                block) — never influenced by affiliate commission.
               </p>
               <div className="mt-2">
-                <ProviderRelationshipsPicker providers={providers} initialValue={selectedProviderRelationships} />
+                <ProviderRelationshipsPicker
+                  providers={providers}
+                  initialValue={selectedProviderRelationships}
+                />
               </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <label className={labelClass}>
                 <span className={labelSpanClass}>Crypto assets</span>
-                <select name="cryptoAssetIds" multiple size={6} className={`${inputClass}`}>
+                <select
+                  name="cryptoAssetIds"
+                  multiple
+                  size={6}
+                  className={`${inputClass}`}
+                >
                   {cryptoAssets.map((a) => (
-                    <option key={a.id} value={a.id} selected={selectedAssetIds.has(a.id)}>
+                    <option
+                      key={a.id}
+                      value={a.id}
+                      selected={selectedAssetIds.has(a.id)}
+                    >
                       {a.name} ({a.symbol})
                     </option>
                   ))}
                 </select>
-                <span className="mt-1 text-xs text-muted">Ctrl/Cmd-click to select multiple.</span>
+                <span className="text-muted mt-1 text-xs">
+                  Ctrl/Cmd-click to select multiple.
+                </span>
               </label>
               <label className={labelClass}>
                 <span className={labelSpanClass}>Related guides</span>
-                <select name="relatedGuideIds" multiple size={6} className={`${inputClass}`}>
+                <select
+                  name="relatedGuideIds"
+                  multiple
+                  size={6}
+                  className={`${inputClass}`}
+                >
                   {relatedCandidates.map((a) => (
-                    <option key={a.id} value={a.id} selected={selectedRelatedIds.has(a.id)}>
+                    <option
+                      key={a.id}
+                      value={a.id}
+                      selected={selectedRelatedIds.has(a.id)}
+                    >
                       {a.title} · {a.articleType} · {a.status}
                     </option>
                   ))}
                 </select>
-                <span className="mt-1 text-xs text-muted">Curated related content — takes priority over automatic relevance.</span>
+                <span className="text-muted mt-1 text-xs">
+                  Curated related content — takes priority over automatic
+                  relevance.
+                </span>
               </label>
             </div>
           </div>
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Sources &amp; evidence</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Sources &amp; evidence
+          </h2>
           <div className="mt-4">
             <SourcesEditor initialValue={selectedSources} />
           </div>
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Editorial trust</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Editorial trust
+          </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             <label className={labelClass}>
               <span className={labelSpanClass}>Author</span>
-              <input name="author" defaultValue={article?.author ?? ""} className={inputClass} />
+              <input
+                name="author"
+                defaultValue={article?.author ?? ''}
+                className={inputClass}
+              />
             </label>
             <label className={labelClass}>
               <span className={labelSpanClass}>Reviewer</span>
-              <input name="reviewer" defaultValue={article?.reviewer ?? ""} className={inputClass} />
+              <input
+                name="reviewer"
+                defaultValue={article?.reviewer ?? ''}
+                className={inputClass}
+              />
             </label>
             <label className={labelClass}>
               <span className={labelSpanClass}>Last reviewed</span>
@@ -284,22 +375,34 @@ export async function ArticleForm({
                 defaultValue={toDateInputValue(article?.lastReviewedAt)}
                 className={inputClass}
               />
-              <span className="mt-1 text-xs text-muted">Meaningfully fact-checked, not just edited — distinct from "updated".</span>
+              <span className="text-muted mt-1 text-xs">
+                Meaningfully fact-checked, not just edited — distinct from
+                "updated".
+              </span>
             </label>
           </div>
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">SEO</h2>
+          <h2 className="font-display text-navy text-lg font-bold">SEO</h2>
           <div className="mt-4 space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <label className={labelClass}>
                 <span className={labelSpanClass}>SEO title</span>
-                <input name="seoTitle" defaultValue={article?.seoTitle ?? ""} maxLength={70} className={inputClass} />
+                <input
+                  name="seoTitle"
+                  defaultValue={article?.seoTitle ?? ''}
+                  maxLength={70}
+                  className={inputClass}
+                />
               </label>
               <label className={labelClass}>
                 <span className={labelSpanClass}>Search intent</span>
-                <select name="searchIntent" defaultValue={article?.searchIntent ?? ""} className={inputClass}>
+                <select
+                  name="searchIntent"
+                  defaultValue={article?.searchIntent ?? ''}
+                  className={inputClass}
+                >
                   <option value="">Unset</option>
                   {SEARCH_INTENTS.map((s) => (
                     <option key={s} value={s}>
@@ -313,7 +416,7 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Meta description</span>
               <textarea
                 name="seoDescription"
-                defaultValue={article?.seoDescription ?? ""}
+                defaultValue={article?.seoDescription ?? ''}
                 rows={2}
                 maxLength={200}
                 className={inputClass}
@@ -322,23 +425,36 @@ export async function ArticleForm({
             <div className="grid gap-4 sm:grid-cols-2">
               <label className={labelClass}>
                 <span className={labelSpanClass}>Canonical URL</span>
-                <input name="canonicalUrl" defaultValue={article?.canonicalUrl ?? ""} className={inputClass} />
+                <input
+                  name="canonicalUrl"
+                  defaultValue={article?.canonicalUrl ?? ''}
+                  className={inputClass}
+                />
               </label>
               <label className="flex items-center gap-2 text-sm">
-                <input type="checkbox" name="noIndex" defaultChecked={article?.noIndex ?? false} className="h-4 w-4" />
-                <span className="font-medium text-navy">Noindex</span>
+                <input
+                  type="checkbox"
+                  name="noIndex"
+                  defaultChecked={article?.noIndex ?? false}
+                  className="h-4 w-4"
+                />
+                <span className="text-navy font-medium">Noindex</span>
               </label>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className={labelClass}>
                 <span className={labelSpanClass}>Featured image URL</span>
-                <input name="featuredImage" defaultValue={article?.featuredImage ?? ""} className={inputClass} />
+                <input
+                  name="featuredImage"
+                  defaultValue={article?.featuredImage ?? ''}
+                  className={inputClass}
+                />
               </label>
               <label className={labelClass}>
                 <span className={labelSpanClass}>Featured image alt text</span>
                 <input
                   name="featuredImageAlt"
-                  defaultValue={article?.featuredImageAlt ?? ""}
+                  defaultValue={article?.featuredImageAlt ?? ''}
                   placeholder="Describe the image — not keywords"
                   className={inputClass}
                 />
@@ -348,7 +464,9 @@ export async function ArticleForm({
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Affiliate configuration</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Affiliate configuration
+          </h2>
           <label className="mt-3 flex items-center gap-2 text-sm">
             <input
               type="checkbox"
@@ -356,20 +474,29 @@ export async function ArticleForm({
               defaultChecked={article?.affiliateDisclosureRequired ?? false}
               className="h-4 w-4"
             />
-            <span className="font-medium text-navy">Affiliate disclosure required</span>
+            <span className="text-navy font-medium">
+              Affiliate disclosure required
+            </span>
           </label>
-          <p className="mt-1 text-xs text-muted">
-            Enable this whenever the article features/compares a provider with an affiliate relationship — the
-            editorial checklist below warns if this looks mismatched.
+          <p className="text-muted mt-1 text-xs">
+            Enable this whenever the article features/compares a provider with
+            an affiliate relationship — the editorial checklist below warns if
+            this looks mismatched.
           </p>
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Regional variant</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Regional variant
+          </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className={labelClass}>
               <span className={labelSpanClass}>Region</span>
-              <select name="region" defaultValue={article?.region ?? "GLOBAL"} className={inputClass}>
+              <select
+                name="region"
+                defaultValue={article?.region ?? 'GLOBAL'}
+                className={inputClass}
+              >
                 {IMPORT_REGIONS.map((r) => (
                   <option key={r} value={r}>
                     {r}
@@ -378,9 +505,17 @@ export async function ArticleForm({
               </select>
             </label>
             <label className={labelClass}>
-              <span className={labelSpanClass}>Canonical article (if this is a regional variant)</span>
-              <select name="canonicalArticleId" defaultValue={article?.canonicalArticleId ?? ""} className={inputClass}>
-                <option value="">None — this is the global/default article</option>
+              <span className={labelSpanClass}>
+                Canonical article (if this is a regional variant)
+              </span>
+              <select
+                name="canonicalArticleId"
+                defaultValue={article?.canonicalArticleId ?? ''}
+                className={inputClass}
+              >
+                <option value="">
+                  None — this is the global/default article
+                </option>
                 {relatedCandidates.map((a) => (
                   <option key={a.id} value={a.id}>
                     {a.title} · {a.articleType} · {a.status}
@@ -392,7 +527,9 @@ export async function ArticleForm({
         </Card>
 
         <Card>
-          <h2 className="font-display text-lg font-bold text-navy">Scheduling</h2>
+          <h2 className="font-display text-navy text-lg font-bold">
+            Scheduling
+          </h2>
           <label className={labelClass}>
             <span className={labelSpanClass}>Scheduled at</span>
             <input
@@ -404,8 +541,9 @@ export async function ArticleForm({
           </label>
           <div className="mt-3">
             <Notice>
-              Advisory only — nothing in this project automatically publishes at this time. Treat it as a personal
-              reminder; publishing always remains an explicit action below.
+              Advisory only — nothing in this project automatically publishes at
+              this time. Treat it as a personal reminder; publishing always
+              remains an explicit action below.
             </Notice>
           </div>
         </Card>
@@ -413,14 +551,14 @@ export async function ArticleForm({
         <div className="flex justify-end">
           <button
             type="submit"
-            className="rounded-full bg-navy px-6 py-2.5 text-sm font-semibold text-background hover:bg-navy-dark"
+            className="bg-navy text-background hover:bg-navy-dark rounded-full px-6 py-2.5 text-sm font-semibold"
           >
-            {mode === "create" ? "Save as draft" : "Save changes"}
+            {mode === 'create' ? 'Save as draft' : 'Save changes'}
           </button>
         </div>
       </form>
 
-      {mode === "edit" && article && (
+      {mode === 'edit' && article && (
         <>
           {checklist && <EditorialChecklistPanel items={checklist} />}
           <PublishingPanel

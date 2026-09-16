@@ -1,9 +1,13 @@
-import Link from "next/link";
-import { Badge } from "@/components/ui/Badge";
-import { formatCategoryLabel } from "@/lib/articles/content";
+import Link from 'next/link';
+import { Badge } from '@/components/ui/Badge';
+import { formatCategoryLabel } from '@/lib/articles/content';
 
 function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString("en-AU", { year: "numeric", month: "short", day: "numeric" });
+  return new Date(date).toLocaleDateString('en-AU', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 interface ArticleCardProps {
@@ -51,21 +55,23 @@ export function ArticleCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-panel shadow-sm transition-colors hover:border-gold-soft"
+      className="group border-border bg-panel hover:border-gold-soft flex h-full flex-col overflow-hidden rounded-2xl border shadow-sm transition-colors"
     >
-      <div className="aspect-video w-full shrink-0 overflow-hidden bg-navy">
+      <div className="bg-navy aspect-video w-full shrink-0 overflow-hidden">
         {featuredImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={featuredImage}
-            alt={featuredImageAlt ?? ""}
+            alt={featuredImageAlt ?? ''}
             loading="lazy"
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-navy to-navy-dark">
-            <span className="font-display text-lg font-bold text-gold-soft/70">Trading Guide</span>
+          <div className="from-navy to-navy-dark flex h-full w-full items-center justify-center bg-gradient-to-br">
+            <span className="font-display text-gold-soft/70 text-lg font-bold">
+              Trading Guide
+            </span>
           </div>
         )}
       </div>
@@ -76,15 +82,21 @@ export function ArticleCard({
             <Badge tone="gold">{formatCategoryLabel(category)}</Badge>
           </div>
         )}
-        <h3 className="font-display text-lg font-bold leading-snug text-navy">{title}</h3>
-        {excerpt && <p className="mt-2 line-clamp-3 text-sm text-muted">{excerpt}</p>}
+        <h3 className="font-display text-navy text-lg leading-snug font-bold">
+          {title}
+        </h3>
+        {excerpt && (
+          <p className="text-muted mt-2 line-clamp-3 text-sm">{excerpt}</p>
+        )}
 
         {metaParts.length > 0 && (
-          <div className="mt-auto flex flex-wrap gap-x-2 gap-y-1 border-t border-border pt-3 text-xs text-muted">
+          <div className="border-border text-muted mt-auto flex flex-wrap gap-x-2 gap-y-1 border-t pt-3 text-xs">
             {metaParts.map((part, i) => (
               <span key={i}>
                 {part}
-                {i < metaParts.length - 1 && <span className="ml-2 text-border">·</span>}
+                {i < metaParts.length - 1 && (
+                  <span className="text-border ml-2">·</span>
+                )}
               </span>
             ))}
           </div>

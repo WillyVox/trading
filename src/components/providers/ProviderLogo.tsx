@@ -1,9 +1,9 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 const SIZE_CLASSES = {
-  sm: "h-10 w-10 rounded-lg",
-  md: "h-14 w-14 rounded-xl",
-  lg: "h-20 w-20 rounded-2xl",
+  sm: 'h-10 w-10 rounded-lg',
+  md: 'h-14 w-14 rounded-xl',
+  lg: 'h-20 w-20 rounded-2xl',
 } as const;
 
 interface ProviderLogoProps {
@@ -28,16 +28,21 @@ interface ProviderLogoProps {
  * provider in the current seed has no logo yet, so this fallback is what
  * the listing actually renders today, not an edge case.
  */
-export function ProviderLogo({ logo, name, size = "md", className }: ProviderLogoProps) {
+export function ProviderLogo({
+  logo,
+  name,
+  size = 'md',
+  className,
+}: ProviderLogoProps) {
   const sizeClass = SIZE_CLASSES[size];
 
   if (!logo) {
     return (
       <div
         className={clsx(
-          "flex shrink-0 items-center justify-center border border-border bg-navy font-display font-bold text-gold-soft",
+          'border-border bg-navy font-display text-gold-soft flex shrink-0 items-center justify-center border font-bold',
           sizeClass,
-          className,
+          className
         )}
         aria-hidden
       >
@@ -48,20 +53,30 @@ export function ProviderLogo({ logo, name, size = "md", className }: ProviderLog
 
   return (
     <div
-      className={clsx("flex shrink-0 items-center justify-center overflow-hidden border border-border bg-white p-2", sizeClass, className)}
+      className={clsx(
+        'border-border flex shrink-0 items-center justify-center overflow-hidden border bg-white p-2',
+        sizeClass,
+        className
+      )}
     >
       {/* Decorative: the provider's name is always rendered as visible
           text right next to this logo, so an announced alt would just be
           a duplicate — same convention as a wordmark next to a heading. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={logo} alt={name} className="h-full w-full object-contain" loading="lazy" decoding="async" />
+      <img
+        src={logo}
+        alt={name}
+        className="h-full w-full object-contain"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   );
 }
 
 function initials(name: string): string {
   const words = name.trim().split(/\s+/).filter(Boolean);
-  if (words.length === 0) return "?";
+  if (words.length === 0) return '?';
   if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
   return (words[0][0] + words[1][0]).toUpperCase();
 }

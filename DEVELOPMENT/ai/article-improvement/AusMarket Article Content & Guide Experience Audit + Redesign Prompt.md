@@ -211,7 +211,7 @@ Create a comparison table.
 Example:
 
 | Feature | Trading Guide | TradingGuide | Finder | Canstar | Investopedia | Recommendation |
-|---|---|---|---|---|---|---|
+| ------- | ------------- | ------------ | ------ | ------- | ------------ | -------------- |
 
 ---
 
@@ -504,13 +504,13 @@ Redesign tables as a reusable financial-comparison component.
 
 Example:
 
-| Feature | CoinSpot | Swyftx | Independent Reserve |
-|---|---:|---:|---:|
-| Order-book fee | 0.10% | 0.10–0.60% | Tiered |
-| Instant buy | 1% + spread | fee + spread | — |
-| AUD funding | ✓ | ✓ | ✓ |
-| Assets | 470+ | 410+ | narrower |
-| Interface | Beginner | Beginner | Advanced |
+| Feature        |    CoinSpot |       Swyftx | Independent Reserve |
+| -------------- | ----------: | -----------: | ------------------: |
+| Order-book fee |       0.10% |   0.10–0.60% |              Tiered |
+| Instant buy    | 1% + spread | fee + spread |                   — |
+| AUD funding    |           ✓ |            ✓ |                   ✓ |
+| Assets         |        470+ |         410+ |            narrower |
+| Interface      |    Beginner |     Beginner |            Advanced |
 
 Consider:
 
@@ -1695,6 +1695,7 @@ Do NOT migrate anything.
 For example:
 
 ### Phase 1 — Article typography and renderer
+
 High impact / low risk
 
 ### Phase 2 — Rich semantic blocks

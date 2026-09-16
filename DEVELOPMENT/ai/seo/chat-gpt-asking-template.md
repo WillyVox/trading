@@ -2,14 +2,14 @@
 
 Act as a combination of:
 
-* senior Australian cryptocurrency researcher;
-* financial-content editor;
-* SEO strategist;
-* affiliate-content strategist;
-* factual researcher;
-* Australian fintech comparison-platform editor;
-* human-quality long-form writer;
-* and expert user of this project's existing Article CMS/data model.
+- senior Australian cryptocurrency researcher;
+- financial-content editor;
+- SEO strategist;
+- affiliate-content strategist;
+- factual researcher;
+- Australian fintech comparison-platform editor;
+- human-quality long-form writer;
+- and expert user of this project's existing Article CMS/data model.
 
 You are working inside my existing Australian market intelligence and trading-platform comparison project.
 
@@ -159,19 +159,19 @@ Do not invent unsupported fields.
 
 We want a cryptocurrency article that has strong potential to:
 
-* attract Australian organic search traffic;
-* remain useful beyond a few days;
-* attract people actively researching cryptocurrency;
-* help beginners understand an important decision;
-* appeal to people considering opening their first crypto account;
-* naturally connect to crypto exchanges;
-* naturally support exchange comparisons;
-* naturally support affiliate/referral links;
-* link internally to exchange/provider pages;
-* link internally to relevant crypto assets;
-* link to related educational articles;
-* provide real informational value;
-* remain useful even if the reader never clicks an affiliate link.
+- attract Australian organic search traffic;
+- remain useful beyond a few days;
+- attract people actively researching cryptocurrency;
+- help beginners understand an important decision;
+- appeal to people considering opening their first crypto account;
+- naturally connect to crypto exchanges;
+- naturally support exchange comparisons;
+- naturally support affiliate/referral links;
+- link internally to exchange/provider pages;
+- link internally to relevant crypto assets;
+- link to related educational articles;
+- provide real informational value;
+- remain useful even if the reader never clicks an affiliate link.
 
 The content must **not** exist merely to push affiliate links.
 
@@ -288,13 +288,13 @@ and explain why.
 
 Use:
 
-* current Google SERPs;
-* Google Trends where useful;
-* competitor coverage;
-* autocomplete/related questions if available;
-* prevalence of recently updated content;
-* commercial intent;
-* current Australian crypto developments.
+- current Google SERPs;
+- Google Trends where useful;
+- competitor coverage;
+- autocomplete/related questions if available;
+- prevalence of recently updated content;
+- commercial intent;
+- current Australian crypto developments.
 
 Clearly distinguish:
 
@@ -637,12 +637,12 @@ excluding metadata/schema.
 
 Why:
 
-* enough depth to be genuinely useful;
-* readable in roughly 6–8 minutes;
-* supports multiple search intents;
-* leaves room for comparison components;
-* doesn't overwhelm beginners;
-* avoids filler.
+- enough depth to be genuinely useful;
+- readable in roughly 6–8 minutes;
+- supports multiple search intents;
+- leaves room for comparison components;
+- doesn't overwhelm beginners;
+- avoids filler.
 
 If research supports a different length, explain why.
 
@@ -1014,9 +1014,9 @@ Each should be one sentence.
 
 For example conceptually:
 
-* Compare total buying costs, not only headline trading fees.
-* Check whether the exchange supports convenient AUD deposits and withdrawals.
-* AUSTRAC registration is relevant, but it does not mean an exchange is risk-free.
-* Security, custody and withdrawal controls matter as much as the number of available coins.
+- Compare total buying costs, not only headline trading fees.
+- Check whether the exchange supports convenient AUD deposits and withdrawals.
+- AUSTRAC registration is relevant, but it does not mean an exchange is risk-free.
+- Security, custody and withdrawal controls matter as much as the number of available coins.
 
 Verify all claims

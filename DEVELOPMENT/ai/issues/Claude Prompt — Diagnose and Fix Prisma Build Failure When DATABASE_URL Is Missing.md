@@ -520,7 +520,7 @@ already exist.
 Do NOT add:
 
 ```ts
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 ```
 
 just to make the build pass without considering runtime behaviour.
@@ -872,7 +872,7 @@ or introduce nullable chaos.
 Create reusable helpers if useful, for example conceptually:
 
 ```ts
-emptyPaginatedResult<T>(page, pageSize)
+emptyPaginatedResult<T>(page, pageSize);
 ```
 
 but only if multiple domains genuinely need it.

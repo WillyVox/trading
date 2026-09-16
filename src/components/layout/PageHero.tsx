@@ -1,14 +1,17 @@
-import type { ReactNode } from "react";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Button } from "@/components/ui/Button";
-import { HeroGraphic, type HeroGraphicVariant } from "@/components/layout/HeroGraphic";
-import type { BreadcrumbItem } from "@/lib/seo/types";
+import type { ReactNode } from 'react';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { Button } from '@/components/ui/Button';
+import {
+  HeroGraphic,
+  type HeroGraphicVariant,
+} from '@/components/layout/HeroGraphic';
+import type { BreadcrumbItem } from '@/lib/seo/types';
 
 type HeroCta = {
   label: string;
   href: string;
-  variant?: "gold" | "outline";
+  variant?: 'gold' | 'outline';
 };
 
 /**
@@ -36,7 +39,7 @@ export function PageHero({
   subheading,
   meta,
   ctas,
-  maxWidth = "max-w-6xl",
+  maxWidth = 'max-w-6xl',
   graphic,
 }: {
   breadcrumbs?: BreadcrumbItem[];
@@ -49,22 +52,26 @@ export function PageHero({
   graphic?: HeroGraphicVariant;
 }) {
   return (
-    <div className="border-b-4 border-gold bg-navy">
+    <div className="border-gold bg-navy border-b-4">
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <div className="border-b border-white/10 bg-panel-secondary">
+        <div className="bg-panel-secondary border-b border-white/10">
           <div className={`mx-auto ${maxWidth} px-4 py-3`}>
             <Breadcrumbs items={breadcrumbs} />
           </div>
         </div>
       )}
 
-      <div className={`relative mx-auto ${maxWidth} overflow-hidden px-4 py-12 md:py-16`}>
+      <div
+        className={`relative mx-auto ${maxWidth} overflow-hidden px-4 py-12 md:py-16`}
+      >
         {graphic && (
           <div
             className="pointer-events-none absolute inset-y-0 right-0 hidden w-[200px] md:block lg:w-[280px]"
             style={{
-              maskImage: "linear-gradient(to left, black 60%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to left, black 60%, transparent 100%)",
+              maskImage:
+                'linear-gradient(to left, black 60%, transparent 100%)',
+              WebkitMaskImage:
+                'linear-gradient(to left, black 60%, transparent 100%)',
             }}
           >
             <HeroGraphic variant={graphic} />
@@ -74,7 +81,7 @@ export function PageHero({
         <div className="relative">
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
 
-          <h1 className="mt-5 max-w-3xl font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl">
+          <h1 className="font-display mt-5 max-w-3xl text-4xl leading-[1.05] font-extrabold text-white sm:text-5xl md:text-6xl">
             {title}
           </h1>
 
@@ -85,7 +92,11 @@ export function PageHero({
           {ctas && ctas.length > 0 && (
             <div className="mt-8 flex flex-wrap gap-3">
               {ctas.map((cta) => (
-                <Button key={cta.href} href={cta.href} variant={cta.variant ?? "gold"}>
+                <Button
+                  key={cta.href}
+                  href={cta.href}
+                  variant={cta.variant ?? 'gold'}
+                >
                   {cta.label}
                 </Button>
               ))}
@@ -93,7 +104,7 @@ export function PageHero({
           )}
 
           {meta && meta.length > 0 && (
-            <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-wide text-white/55">
+            <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-wide text-white/55 uppercase">
               {meta.map((item, i) => (
                 <span key={i} className="flex items-center gap-3">
                   {i > 0 && (
