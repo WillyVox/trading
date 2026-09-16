@@ -1,5 +1,4 @@
-import type { ProviderType } from "@prisma/client";
-import { ProviderType as ProviderTypeVal } from "@prisma/client";
+import { Prisma, ProviderType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { providerRepository } from "@/lib/repository";
 
@@ -12,6 +11,16 @@ export function getProviders(opts: { page?: number; pageSize?: number; providerT
   });
 }
 
+const FEATURED_PROVIDER_INCLUDE = {
+  features: {
+    where: { available: true, verificationStatus: "VERIFIED" as const },
+    orderBy: { featureType: "asc" as const },
+    take: 2,
+  },
+} satisfies Prisma.ProviderInclude;
+
+export type FeaturedProvider = Prisma.ProviderGetPayload<{ include: typeof FEATURED_PROVIDER_INCLUDE }>;
+
 /**
  * Homepage "Featured providers" section. Deliberately narrow: only
  * VERIFIED providers (not just any provider with noIndex: false), because
@@ -19,24 +28,26 @@ export function getProviders(opts: { page?: number; pageSize?: number; providerT
  * this" claim without a full fact/fee breakdown next to it. Unverified or
  * placeholder providers (see prisma/seed-providers.ts, e.g. Kraken) should
  * never surface here even once they're indexable elsewhere on the site.
+ *
+ * Return type is annotated explicitly (rather than inferred through
+ * providerRepository.findMany) because the repository wrapper's generic
+ * `args?: Parameters<Delegate["findMany"]>[0]` parameter loses Prisma's
+ * literal-include type inference -- see the ProviderFeatureRow comment in
+ * features.ts for the same issue on getProviderBySlug(). Same fix here:
+ * explicit payload type + cast at the call site.
  */
-export async function getFeaturedProviders(limit = 3) {
-  return await providerRepository.findMany({
+export async function getFeaturedProviders(limit = 3): Promise<FeaturedProvider[]> {
+  const rows = await providerRepository.findMany({
     where: {
-      providerType: ProviderTypeVal.CRYPTO_EXCHANGE,
+      providerType: ProviderType.CRYPTO_EXCHANGE,
       verificationStatus: "VERIFIED",
       noIndex: false,
     },
     orderBy: { name: "asc" },
     take: limit,
-    include: {
-      features: {
-        where: { available: true, verificationStatus: "VERIFIED" },
-        orderBy: { featureType: "asc" },
-        take: 2,
-      },
-    },
+    include: FEATURED_PROVIDER_INCLUDE,
   });
+  return rows as FeaturedProvider[];
 }
 
 const COMPARISON_INCLUDE = {
