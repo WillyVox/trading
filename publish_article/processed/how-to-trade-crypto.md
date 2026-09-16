@@ -1,32 +1,32 @@
 ---
-title: 'How to Trade Crypto: A Beginner Guide'
-slug: 'how-to-trade-crypto'
-articleType: 'GUIDE'
-excerpt: 'Learn how crypto trading works, including exchanges, order types, fees and major risks.'
-category: 'Crypto Trading'
+title: "How to Trade Crypto: A Beginner Guide"
+slug: "how-to-trade-crypto"
+articleType: "GUIDE"
+excerpt: "Learn how crypto trading works, including exchanges, order types, fees and major risks."
+category: "Crypto Trading"
 tags:
   - crypto-trading
   - beginners
-region: 'GLOBAL'
-searchIntent: 'BEGINNER'
-seoTitle: 'How to Trade Crypto: Beginner Guide'
-seoDescription: 'Learn how crypto trading works, how exchanges operate, common order types, fees and key risks.'
-author: 'Editorial Team'
+region: "GLOBAL"
+searchIntent: "BEGINNER"
+seoTitle: "How to Trade Crypto: Beginner Guide"
+seoDescription: "Learn how crypto trading works, how exchanges operate, common order types, fees and key risks."
+author: "Editorial Team"
 keyTakeaways:
-  - 'Exchanges differ in fees, supported assets and AUD support.'
-  - 'Market orders execute immediately; limit orders execute at your price or better.'
+  - "Exchanges differ in fees, supported assets and AUD support."
+  - "Market orders execute immediately; limit orders execute at your price or better."
 providerRelationships:
   - kraken
   - binance
 cryptoAssetSlugs:
   - bitcoin
 sources:
-  - label: 'Example Source'
-    url: 'https://example.com'
-    sourceType: 'OFFICIAL_DOCUMENTATION'
+  - label: "Example Source"
+    url: "https://example.com"
+    sourceType: "OFFICIAL_DOCUMENTATION"
 affiliateProviders:
   - kraken
-status: 'DRAFT'
+status: "DRAFT"
 ---
 
 # How to Trade Crypto

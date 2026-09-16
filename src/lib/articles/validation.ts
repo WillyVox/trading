@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { SLUG_PATTERN } from '@/lib/articles/slug';
+import { z } from "zod";
+import { SLUG_PATTERN } from "@/lib/articles/slug";
 import {
   urlField,
   SOURCE_TYPES,
   RELATIONSHIP_TYPES,
-} from '@/lib/articles/import/schema';
-import { IMPORT_REGIONS } from '@/lib/articles/import/types';
+} from "@/lib/articles/import/schema";
+import { IMPORT_REGIONS } from "@/lib/articles/import/types";
 
 /**
  * Zod schemas backing the admin article editor's server actions
@@ -15,19 +15,19 @@ import { IMPORT_REGIONS } from '@/lib/articles/import/types';
  * Article domain — see Req.md §2 "reuse these systems, don't duplicate."
  */
 
-export const ARTICLE_TYPES = ['NEWS', 'GUIDE'] as const;
+export const ARTICLE_TYPES = ["NEWS", "GUIDE"] as const;
 
 export const SEARCH_INTENTS = [
-  'LEARN',
-  'HOW_TO',
-  'BEGINNER',
-  'COMPARISON',
-  'PROVIDER_GUIDE',
-  'FEES',
-  'SECURITY',
-  'WALLET',
-  'REGULATION',
-  'MARKET_EDUCATION',
+  "LEARN",
+  "HOW_TO",
+  "BEGINNER",
+  "COMPARISON",
+  "PROVIDER_GUIDE",
+  "FEES",
+  "SECURITY",
+  "WALLET",
+  "REGULATION",
+  "MARKET_EDUCATION",
 ] as const;
 
 /** Re-exported so existing imports of PROVIDER_RELATIONSHIPS/SOURCE_TYPES from this module keep
@@ -39,7 +39,7 @@ export { SOURCE_TYPES };
 const slugField = z
   .string()
   .trim()
-  .min(1, 'Slug is required')
+  .min(1, "Slug is required")
   .max(200)
   .regex(
     SLUG_PATTERN,
@@ -52,7 +52,7 @@ export const providerRelationshipField = z.object({
 });
 
 export const sourceEntryField = z.object({
-  label: z.string().trim().min(1, 'Source label is required'),
+  label: z.string().trim().min(1, "Source label is required"),
   url: urlField,
   sourceType: z.enum(SOURCE_TYPES).optional(),
 });
@@ -68,13 +68,13 @@ export const articleFormSchema = z.object({
   title: z
     .string()
     .trim()
-    .min(1, 'Title is required')
-    .max(200, 'Title should be under 200 characters'),
+    .min(1, "Title is required")
+    .max(200, "Title should be under 200 characters"),
   slug: slugField,
-  articleType: z.enum(ARTICLE_TYPES, { message: 'Choose NEWS or GUIDE' }),
+  articleType: z.enum(ARTICLE_TYPES, { message: "Choose NEWS or GUIDE" }),
   category: z.string().trim().max(120).optional(),
   excerpt: z.string().trim().max(500).optional(),
-  content: z.string().trim().min(1, 'Content is required'),
+  content: z.string().trim().min(1, "Content is required"),
 
   author: z.string().trim().max(120).optional(),
   reviewer: z.string().trim().max(120).optional(),
@@ -118,7 +118,7 @@ export function validateArticleForm(raw: unknown): ArticleFormValidation {
   const result = articleFormSchema.safeParse(raw);
   if (!result.success) {
     const errors = result.error.issues.map((issue) => {
-      const path = issue.path.join('.') || '(root)';
+      const path = issue.path.join(".") || "(root)";
       return `${path}: ${issue.message}`;
     });
     return { ok: false, errors };

@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/Card';
-import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import Link from "next/link";
+import { Card } from "@/components/ui/Card";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import type {
   ComparisonProvider,
   ComparisonSection,
-} from '@/lib/providers/compare';
+} from "@/lib/providers/compare";
 
 /**
  * Small-screen counterpart to CompareTable -- a wide comparison table
@@ -46,7 +46,7 @@ export function CompareMobileCards({
                   >
                     <span className="text-muted">{row.label}</span>
                     <span className="text-navy">
-                      {row.values[i] ?? '\u2014'}
+                      {row.values[i] ?? "\u2014"}
                     </span>
                   </li>
                 ))}

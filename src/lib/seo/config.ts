@@ -17,13 +17,13 @@
 function resolveDomain(): string {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXTAUTH_URL;
   if (explicit) return explicit;
-  if (process.env.NODE_ENV === 'production' && process.env.VERCEL) {
+  if (process.env.NODE_ENV === "production" && process.env.VERCEL) {
     throw new Error(
       "NEXT_PUBLIC_SITE_URL (or NEXTAUTH_URL) is not set in this deployment's environment variables. " +
-        'Set it in the Vercel project settings — without it, absoluteUrl() would silently fall back to localhost.'
+        "Set it in the Vercel project settings — without it, absoluteUrl() would silently fall back to localhost."
     );
   }
-  return 'http://localhost:3000';
+  return "http://localhost:3000";
 }
 
 export const siteConfig = {
@@ -33,24 +33,24 @@ export const siteConfig = {
   // not just crypto-specific ones. Crypto-specific pages (e.g.
   // /guides) still say "crypto" in their own page-level title —
   // only the shared site-wide identity was generalized here.
-  name: 'Trading Guide',
-  shortName: 'Trading Guide',
+  name: "Trading Guide",
+  shortName: "Trading Guide",
   domain: resolveDomain(),
   description:
-    'Independent, source-linked comparisons and guides for crypto and trading platforms in Australia.',
-  locale: 'en_AU',
-  language: 'en-AU',
-  country: 'AU',
-  titleTemplate: '%s | Trading Guide',
+    "Independent, source-linked comparisons and guides for crypto and trading platforms in Australia.",
+  locale: "en_AU",
+  language: "en-AU",
+  country: "AU",
+  titleTemplate: "%s | Trading Guide",
   defaultTitle:
-    'Trading Guide — Independent Research for Australian Trading Platforms',
+    "Trading Guide — Independent Research for Australian Trading Platforms",
   // No real social profiles exist yet — never fabricate sameAs entries.
   sameAs: [] as string[],
 } as const;
 
 /** Build an absolute URL from a site-relative path using siteConfig.domain. */
-export function absoluteUrl(path: string = '/'): string {
-  const base = siteConfig.domain.replace(/\/$/, '');
-  const clean = path.startsWith('/') ? path : `/${path}`;
+export function absoluteUrl(path: string = "/"): string {
+  const base = siteConfig.domain.replace(/\/$/, "");
+  const clean = path.startsWith("/") ? path : `/${path}`;
   return `${base}${clean}`;
 }

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 /**
  * Wraps a topic-relevant visual (inline SVG, or a raster <img>) inside

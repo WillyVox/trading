@@ -1327,8 +1327,8 @@ Relevant comparison journeys—not aggressive affiliate buttons scattered throug
 
 That combination would make the article experience much stronger than simply recreating the Canstar screenshot, while keeping it aligned with the larger Trading Guide comparison/affiliate strategy you've been developing. ([finder.com.au][2])
 
-[1]: https://www.canstar.com.au/cryptocurrency/how-to-buy-bitcoin/?utm_source=chatgpt.com 'How to Buy Bitcoin in Australia 2025 | Canstar'
-[2]: https://www.finder.com.au/bitcoin/how-to-buy-bitcoin?utm_source=chatgpt.com 'How to buy Bitcoin (BTC) in Australia 2025 | Finder'
-[3]: https://www.finder.com.au/cryptocurrency/how-to-buy-cryptocurrency?utm_source=chatgpt.com 'How to buy cryptocurrency: A beginner’s guide | Finder'
-[4]: https://www.coinspot.com.au/learn?level=Beginner&utm_source=chatgpt.com 'Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot'
-[5]: https://www.canstar.com.au/cryptocurrency/?utm_source=chatgpt.com 'Cryptocurrency Exchanges & Wallets | Canstar'
+[1]: https://www.canstar.com.au/cryptocurrency/how-to-buy-bitcoin/?utm_source=chatgpt.com "How to Buy Bitcoin in Australia 2025 | Canstar"
+[2]: https://www.finder.com.au/bitcoin/how-to-buy-bitcoin?utm_source=chatgpt.com "How to buy Bitcoin (BTC) in Australia 2025 | Finder"
+[3]: https://www.finder.com.au/cryptocurrency/how-to-buy-cryptocurrency?utm_source=chatgpt.com "How to buy cryptocurrency: A beginner’s guide | Finder"
+[4]: https://www.coinspot.com.au/learn?level=Beginner&utm_source=chatgpt.com "Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot"
+[5]: https://www.canstar.com.au/cryptocurrency/?utm_source=chatgpt.com "Cryptocurrency Exchanges & Wallets | Canstar"

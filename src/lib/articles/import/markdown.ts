@@ -1,6 +1,6 @@
-import { marked } from 'marked';
-import sanitizeHtml from 'sanitize-html';
-import { ARTICLE_SANITIZE_OPTIONS } from '@/lib/articles/sanitize';
+import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
+import { ARTICLE_SANITIZE_OPTIONS } from "@/lib/articles/sanitize";
 
 marked.setOptions({ gfm: true, breaks: false });
 

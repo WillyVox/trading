@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import { footerLinks } from '@/lib/config/footer';
-import { businessIdentity } from '@/lib/config/business';
-import { siteConfig } from '@/lib/seo/config';
-import TradingGuideLogo from './HeaderLogo';
+import Link from "next/link";
+import { footerLinks } from "@/lib/config/footer";
+import { businessIdentity } from "@/lib/config/business";
+import { siteConfig } from "@/lib/seo/config";
+import TradingGuideLogo from "./HeaderLogo";
 
 // Computed once per server render. On a statically-generated page this
 // bakes in the build year rather than the visitor's current year -- fine
@@ -42,7 +42,7 @@ export function Footer() {
               This renders just the trading name until then. */}
           <div className="text-background/70 text-right text-xs leading-relaxed">
             <p>
-              {'\u00A9'} {YEAR}{' '}
+              {"\u00A9"} {YEAR}{" "}
               {businessIdentity.legalName ?? siteConfig.shortName}
               {businessIdentity.abn
                 ? ` \u00B7 ABN ${businessIdentity.abn}`
@@ -64,8 +64,8 @@ export function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              target={link.newTab ? '_blank' : undefined}
-              rel={link.newTab ? 'noopener noreferrer' : undefined}
+              target={link.newTab ? "_blank" : undefined}
+              rel={link.newTab ? "noopener noreferrer" : undefined}
               className="text-background/85 hover:text-gold-soft transition-colors"
             >
               {link.label}
@@ -78,15 +78,15 @@ export function Footer() {
         {/* TODO(content-gap): this paragraph is a draft, not reviewed legal
             copy -- see docs/CONTENT-GAPS.md "Footer trust paragraph". */}
         <p className="text-background/60 mx-auto max-w-3xl text-center text-xs leading-relaxed">
-          Trading Guide is an independent comparison and research service{' '}
-          {'\u2014'} we don&apos;t hold an Australian Financial Services Licence
+          Trading Guide is an independent comparison and research service{" "}
+          {"\u2014"} we don&apos;t hold an Australian Financial Services Licence
           and don&apos;t provide financial advice. We&apos;re currently 100%
           self-funded and don&apos;t earn commissions from providers; in future
           we may earn a commission when you use a provider link on this site, at
           no extra cost to you and without affecting the alphabetical order
           providers appear in. We don&apos;t compare every provider available in
           Australia, and provider fees, features and regulatory status can
-          change {'\u2014'} always verify directly with the provider. Crypto
+          change {"\u2014"} always verify directly with the provider. Crypto
           assets are volatile and can lose value.
         </p>
       </div>

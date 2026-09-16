@@ -1,33 +1,33 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
+import { notFound } from "next/navigation";
+import Link from "next/link";
 import {
   getPublishedArticleBySlugAndType,
   getRelatedGuides,
   getNextSteps,
   getRegionalFamily,
-} from '@/lib/articles/service';
-import { getActiveAffiliateLinksForProviderSlugs } from '@/lib/affiliates/service';
-import { buildMetadata } from '@/lib/seo/metadata';
-import { articleSchema, breadcrumbSchema } from '@/lib/seo/schema';
-import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
-import { regionHreflang } from '@/lib/seo/canonical';
-import { absoluteUrl } from '@/lib/seo/config';
-import { renderArticleContent } from '@/lib/articles/renderer';
-import { JsonLd } from '@/components/seo/JsonLd';
-import { PageHero } from '@/components/layout/PageHero';
-import { KeyTakeaways } from '@/components/guide/KeyTakeaways';
-import { GuideTableOfContents } from '@/components/guide/GuideTableOfContents';
-import { GuideSidebar } from '@/components/guide/GuideSidebar';
-import { GuideSourceList } from '@/components/guide/GuideSourceList';
-import { RelatedGuides } from '@/components/guide/RelatedGuides';
-import { RelatedProviders } from '@/components/guide/RelatedProviders';
-import { GuideNextSteps } from '@/components/guide/GuideNextSteps';
+} from "@/lib/articles/service";
+import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { regionHreflang } from "@/lib/seo/canonical";
+import { absoluteUrl } from "@/lib/seo/config";
+import { renderArticleContent } from "@/lib/articles/renderer";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PageHero } from "@/components/layout/PageHero";
+import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
+import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
+import { GuideSidebar } from "@/components/guide/GuideSidebar";
+import { GuideSourceList } from "@/components/guide/GuideSourceList";
+import { RelatedGuides } from "@/components/guide/RelatedGuides";
+import { RelatedProviders } from "@/components/guide/RelatedProviders";
+import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 
 function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString('en-AU', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return new Date(date).toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
@@ -37,11 +37,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, 'GUIDE');
+  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
   if (!article) {
     return buildMetadata({
-      title: 'Guide not found',
-      description: '',
+      title: "Guide not found",
+      description: "",
       path: `/guides/${slug}`,
       noIndex: true,
     });
@@ -52,7 +52,7 @@ export async function generateMetadata({
     description: article.excerpt ?? article.title,
     path: `/guides/${slug}`,
     image: article.featuredImage,
-    type: 'article',
+    type: "article",
     publishedTime: article.publishedAt,
     modifiedTime: article.updatedAt,
     authors: article.author ? [article.author] : undefined,
@@ -78,7 +78,7 @@ export async function generateMetadata({
       );
     }
     if (globalMember) {
-      languages['x-default'] = absoluteUrl(`/guides/${globalMember.slug}`);
+      languages["x-default"] = absoluteUrl(`/guides/${globalMember.slug}`);
     }
     metadata.alternates = { ...metadata.alternates, languages };
   }
@@ -92,7 +92,7 @@ export default async function GuidePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, 'GUIDE');
+  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
   if (!article) notFound();
 
   const { content, headings, readingMinutes } = renderArticleContent(
@@ -131,8 +131,8 @@ export default async function GuidePage({
   );
 
   const trail = breadcrumbTrail([
-    { name: 'Crypto', path: '/crypto' },
-    { name: 'Guides', path: '/guides' },
+    { name: "Crypto", path: "/crypto" },
+    { name: "Guides", path: "/guides" },
     { name: article.title, path: `/guides/${slug}` },
   ]);
 
@@ -167,7 +167,7 @@ export default async function GuidePage({
         eyebrow={
           article.category
             ? article.category
-                .replace(/-/g, ' ')
+                .replace(/-/g, " ")
                 .replace(/\b\w/g, (c: string) => c.toUpperCase())
             : undefined
         }
@@ -178,15 +178,15 @@ export default async function GuidePage({
       <div className="mx-auto max-w-6xl px-4 py-12">
         {otherRegions.length > 0 && (
           <p className="text-muted mb-4 text-xs">
-            Also available for:{' '}
+            Also available for:{" "}
             {otherRegions.map((m, i) => (
               <span key={m.id}>
-                {i > 0 && ', '}
+                {i > 0 && ", "}
                 <Link
                   href={`/guides/${m.slug}`}
                   className="hover:text-navy underline"
                 >
-                  {m.region ?? 'Global'}
+                  {m.region ?? "Global"}
                 </Link>
               </span>
             ))}

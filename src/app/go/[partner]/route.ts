@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import {
   getActiveAffiliateLink,
   recordAffiliateClick,
-} from '@/lib/affiliates/service';
+} from "@/lib/affiliates/service";
 
 /**
  * Server-side affiliate redirect. Never redirects to an arbitrary
@@ -16,11 +16,11 @@ export async function GET(
   const { partner } = await params;
   const link = await getActiveAffiliateLink(partner);
   if (!link) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
   await recordAffiliateClick(link.id, {
-    sourcePage: req.headers.get('referer') ?? undefined,
+    sourcePage: req.headers.get("referer") ?? undefined,
     placement: link.placement ?? undefined,
     campaign: link.campaign ?? undefined,
   });

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { AuthStatus } from './AuthStatus';
-import { NAV_ITEMS } from '@/lib/nav/config';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { AuthStatus } from "./AuthStatus";
+import { NAV_ITEMS } from "@/lib/nav/config";
 
 /** Exact match for "/", startsWith for everything else — otherwise "/" would match every route. */
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
-  return href === '/' ? pathname === '/' : pathname.startsWith(href);
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
 export function MobileNav() {
@@ -26,9 +26,9 @@ export function MobileNav() {
     setExpandedLabel(null);
   }, [pathname]);
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [open]);
 
@@ -38,11 +38,11 @@ export function MobileNav() {
         type="button"
         aria-expanded={open}
         aria-controls="mobile-nav-drawer"
-        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen((v) => !v)}
         className="border-border bg-panel-secondary text-navy rounded-full border px-3.5 py-2 text-sm font-medium"
       >
-        {open ? 'Close' : 'Menu'}
+        {open ? "Close" : "Menu"}
       </button>
 
       {/* Overlay */}
@@ -51,8 +51,8 @@ export function MobileNav() {
         onClick={() => setOpen(false)}
         className={`bg-navy-dark/40 fixed inset-0 z-30 backdrop-blur-sm transition-opacity duration-200 ${
           open
-            ? 'pointer-events-auto opacity-100'
-            : 'pointer-events-none opacity-0'
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
       />
 
@@ -62,7 +62,7 @@ export function MobileNav() {
         role="dialog"
         aria-modal="true"
         className={`border-border bg-panel fixed inset-y-0 right-0 z-40 w-72 max-w-[80vw] transform border-l p-6 shadow-xl transition-transform duration-200 ease-out ${
-          open ? 'translate-x-0' : 'translate-x-full'
+          open ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between">
@@ -81,7 +81,7 @@ export function MobileNav() {
             const children = item.children ?? [];
 
             if (children.length === 0) {
-              const href = item.href ?? '#';
+              const href = item.href ?? "#";
               const active = isActive(pathname, href);
               return (
                 <Link
@@ -89,8 +89,8 @@ export function MobileNav() {
                   href={href}
                   className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                     active
-                      ? 'bg-panel-secondary text-navy'
-                      : 'text-muted hover:bg-panel-secondary hover:text-navy'
+                      ? "bg-panel-secondary text-navy"
+                      : "text-muted hover:bg-panel-secondary hover:text-navy"
                   }`}
                 >
                   {item.label}
@@ -111,7 +111,7 @@ export function MobileNav() {
                   <svg
                     aria-hidden
                     viewBox="0 0 12 12"
-                    className={`h-3 w-3 shrink-0 transition-transform duration-150 ${expanded ? 'rotate-180' : ''}`}
+                    className={`h-3 w-3 shrink-0 transition-transform duration-150 ${expanded ? "rotate-180" : ""}`}
                   >
                     <path
                       d="M2 4l4 4 4-4"
@@ -131,8 +131,8 @@ export function MobileNav() {
                         href={child.href}
                         className={`rounded-xl px-3 py-2 text-sm transition-colors ${
                           isActive(pathname, child.href)
-                            ? 'bg-panel-secondary text-navy'
-                            : 'text-muted hover:bg-panel-secondary hover:text-navy'
+                            ? "bg-panel-secondary text-navy"
+                            : "text-muted hover:bg-panel-secondary hover:text-navy"
                         }`}
                       >
                         {child.label}

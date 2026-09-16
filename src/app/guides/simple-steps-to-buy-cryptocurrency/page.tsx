@@ -1,33 +1,33 @@
-import { buildMetadata } from '@/lib/seo/metadata';
-import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import {
   articleSchema,
   breadcrumbSchema,
   faqSchema,
   howToSchema,
-} from '@/lib/seo/schema';
-import { estimateReadingMinutesByWordCount } from '@/lib/articles/content';
-import { JsonLd } from '@/components/seo/JsonLd';
-import { PageHero } from '@/components/layout/PageHero';
-import { KeyTakeaways } from '@/components/guide/KeyTakeaways';
-import { GuideTableOfContents } from '@/components/guide/GuideTableOfContents';
-import { GuideSidebar } from '@/components/guide/GuideSidebar';
-import { GuideSourceList } from '@/components/guide/GuideSourceList';
-import { GuideFAQ } from '@/components/guide/GuideFAQ';
-import { GuideFigure } from '@/components/guide/GuideFigure';
-import { RelatedGuides } from '@/components/guide/RelatedGuides';
-import { GuideProviderLinks } from '@/components/guide/GuideProviderLinks';
-import { GuideNextSteps } from '@/components/guide/GuideNextSteps';
+} from "@/lib/seo/schema";
+import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PageHero } from "@/components/layout/PageHero";
+import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
+import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
+import { GuideSidebar } from "@/components/guide/GuideSidebar";
+import { GuideSourceList } from "@/components/guide/GuideSourceList";
+import { GuideFAQ } from "@/components/guide/GuideFAQ";
+import { GuideFigure } from "@/components/guide/GuideFigure";
+import { RelatedGuides } from "@/components/guide/RelatedGuides";
+import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
+import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 import {
   StepsFlowIllustration,
   SecurityShieldIllustration,
   FeesBarIllustration,
-} from '@/components/guide/illustrations';
+} from "@/components/guide/illustrations";
 import {
   getStaticGuideArticleHref,
   getStaticGuideArticleImage,
   STATIC_SLUG_IDS,
-} from '@/lib/guides/static-article-slugs';
+} from "@/lib/guides/static-article-slugs";
 
 const PATH = getStaticGuideArticleHref(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO);
 const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(
@@ -39,31 +39,31 @@ const RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS = getStaticGuideArticleHref(
 
 const TITLE = "5 Simple Steps to Buy Cryptocurrency (Beginner's Guide)";
 const DESCRIPTION =
-  'A clear, 5-step walkthrough for buying your first cryptocurrency in Australia — choosing an exchange, verifying your identity, funding your account, buying, and storing it safely.';
+  "A clear, 5-step walkthrough for buying your first cryptocurrency in Australia — choosing an exchange, verifying your identity, funding your account, buying, and storing it safely.";
 
 const HEADINGS = [
-  { id: 'before-you-start', text: 'Before you start', level: 2 as const },
+  { id: "before-you-start", text: "Before you start", level: 2 as const },
   {
-    id: 'step-1',
-    text: 'Step 1: Choose a regulated exchange',
+    id: "step-1",
+    text: "Step 1: Choose a regulated exchange",
     level: 2 as const,
   },
   {
-    id: 'step-2',
-    text: 'Step 2: Create and verify your account',
+    id: "step-2",
+    text: "Step 2: Create and verify your account",
     level: 2 as const,
   },
-  { id: 'step-3', text: 'Step 3: Deposit funds', level: 2 as const },
+  { id: "step-3", text: "Step 3: Deposit funds", level: 2 as const },
   {
-    id: 'step-4',
-    text: 'Step 4: Place your first buy order',
+    id: "step-4",
+    text: "Step 4: Place your first buy order",
     level: 2 as const,
   },
-  { id: 'step-5', text: 'Step 5: Secure your crypto', level: 2 as const },
-  { id: 'fees-to-expect', text: 'Fees to expect', level: 2 as const },
+  { id: "step-5", text: "Step 5: Secure your crypto", level: 2 as const },
+  { id: "fees-to-expect", text: "Fees to expect", level: 2 as const },
   {
-    id: 'safety-tips',
-    text: 'Safety tips for first-time buyers',
+    id: "safety-tips",
+    text: "Safety tips for first-time buyers",
     level: 2 as const,
   },
 ];
@@ -73,45 +73,45 @@ const READING_MINUTES = estimateReadingMinutesByWordCount(WORD_COUNT);
 
 const STEPS = [
   {
-    name: 'Choose a regulated exchange',
-    text: 'Compare Australian crypto exchanges on fees, the coins they list, and how they handle account security, then pick one that suits how you plan to use it.',
+    name: "Choose a regulated exchange",
+    text: "Compare Australian crypto exchanges on fees, the coins they list, and how they handle account security, then pick one that suits how you plan to use it.",
   },
   {
-    name: 'Create and verify your account',
+    name: "Create and verify your account",
     text: "Sign up with your email, then complete identity verification (KYC) with a driver's licence or passport, as required under Australian anti-money-laundering law.",
   },
   {
-    name: 'Deposit funds',
-    text: 'Fund your account via bank transfer, PayID/OSKO, or card, keeping in mind that card deposits are usually faster but carry a higher fee.',
+    name: "Deposit funds",
+    text: "Fund your account via bank transfer, PayID/OSKO, or card, keeping in mind that card deposits are usually faster but carry a higher fee.",
   },
   {
-    name: 'Place your first buy order',
-    text: 'Choose the asset and amount, decide between a market order (instant, at the current price) or a limit order (executes only at a price you set), and confirm.',
+    name: "Place your first buy order",
+    text: "Choose the asset and amount, decide between a market order (instant, at the current price) or a limit order (executes only at a price you set), and confirm.",
   },
   {
-    name: 'Secure your crypto',
-    text: 'Decide whether to leave a small amount on the exchange for convenience, or move it to a personal wallet you control for longer-term holding.',
+    name: "Secure your crypto",
+    text: "Decide whether to leave a small amount on the exchange for convenience, or move it to a personal wallet you control for longer-term holding.",
   },
 ];
 
 const KEY_TAKEAWAYS = [
-  'Buying crypto in Australia takes five practical steps: pick an exchange, verify your identity, deposit funds, place your order, then secure the asset.',
+  "Buying crypto in Australia takes five practical steps: pick an exchange, verify your identity, deposit funds, place your order, then secure the asset.",
   "Identity verification (KYC) is a legal requirement on regulated exchanges, not a red flag — expect to provide a driver's licence or passport.",
-  'A market order buys instantly at the current price; a limit order only executes at the price you choose.',
-  'Exchange fees, deposit fees, and the bid-ask spread all affect what you actually pay — compare the total cost, not just the headline trading fee.',
+  "A market order buys instantly at the current price; a limit order only executes at the price you choose.",
+  "Exchange fees, deposit fees, and the bid-ask spread all affect what you actually pay — compare the total cost, not just the headline trading fee.",
   "Crypto held on an exchange is convenient but relies on that exchange's security; a personal wallet gives you direct control of your private keys.",
 ];
 
 const FAQS = [
   {
-    question: 'How long does it take to buy crypto for the first time?',
+    question: "How long does it take to buy crypto for the first time?",
     answer:
-      'Account creation takes a few minutes. Identity verification can be instant or take up to a day or two depending on the exchange and how busy their verification queue is. Once verified, deposits and purchases are usually fast — bank transfers can take minutes to a business day, while card payments are typically instant.',
+      "Account creation takes a few minutes. Identity verification can be instant or take up to a day or two depending on the exchange and how busy their verification queue is. Once verified, deposits and purchases are usually fast — bank transfers can take minutes to a business day, while card payments are typically instant.",
   },
   {
-    question: 'Do I need a separate wallet to buy crypto?',
+    question: "Do I need a separate wallet to buy crypto?",
     answer:
-      'No — every exchange gives you a built-in wallet as part of your account, which is fine for small amounts or active trading. A separate personal wallet (hardware or software) becomes more important as your holdings grow, since it puts you in control of the private keys rather than relying on the exchange.',
+      "No — every exchange gives you a built-in wallet as part of your account, which is fine for small amounts or active trading. A separate personal wallet (hardware or software) becomes more important as your holdings grow, since it puts you in control of the private keys rather than relying on the exchange.",
   },
   {
     question: "What's the minimum amount of crypto I can buy?",
@@ -119,7 +119,7 @@ const FAQS = [
       "Most Australian exchanges let you buy fractions of a coin, often starting from as little as $10–$20, so you don't need to buy a whole Bitcoin or Ethereum to get started.",
   },
   {
-    question: 'Is it safe to buy crypto on an Australian exchange?',
+    question: "Is it safe to buy crypto on an Australian exchange?",
     answer:
       "Using a regulated, AUSTRAC-registered exchange with strong account security (two-factor authentication, withdrawal whitelisting) reduces — but doesn't eliminate — risk. Crypto assets themselves remain volatile and are not covered by the same investor protections as bank deposits or ASX-listed shares.",
   },
@@ -130,24 +130,24 @@ export const metadata = buildMetadata({
   description: DESCRIPTION,
   path: PATH,
   image: getStaticGuideArticleImage(STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO),
-  type: 'article',
-  publishedTime: '2026-09-15',
-  modifiedTime: '2026-09-15',
-  authors: ['Trading Guide Editorial Team'],
-  seoTitle: '5 Simple Steps to Buy Cryptocurrency in Australia (2026)',
+  type: "article",
+  publishedTime: "2026-09-15",
+  modifiedTime: "2026-09-15",
+  authors: ["Trading Guide Editorial Team"],
+  seoTitle: "5 Simple Steps to Buy Cryptocurrency in Australia (2026)",
   seoDescription:
     "Buying your first crypto doesn't have to be confusing. Follow these 5 steps — choose an exchange, verify, deposit, buy, and store it safely.",
 });
 
 export default function SimpleStepsToBuyCryptocurrencyPage() {
   const trail = breadcrumbTrail([
-    { name: '5 Simple Steps to Buy Cryptocurrency', path: PATH },
+    { name: "5 Simple Steps to Buy Cryptocurrency", path: PATH },
   ]);
 
   const metaItems = [
-    'By Trading Guide Editorial Team',
+    "By Trading Guide Editorial Team",
     // "Published 15 September 2026",
-    'Last updated 15 September 2026',
+    "Last updated 15 September 2026",
     `${READING_MINUTES} min read`,
   ];
 
@@ -160,9 +160,9 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
           image: getStaticGuideArticleImage(
             STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
           ),
-          author: 'Trading Guide Editorial Team',
-          datePublished: '2026-09-15',
-          dateModified: '2026-09-15',
+          author: "Trading Guide Editorial Team",
+          datePublished: "2026-09-15",
+          dateModified: "2026-09-15",
           path: PATH,
         })}
       />
@@ -175,7 +175,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
           image: getStaticGuideArticleImage(
             STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
           ),
-          totalTime: 'PT15M',
+          totalTime: "PT15M",
           steps: STEPS,
         })}
       />
@@ -221,10 +221,10 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                 regulator). Look at the coins each one lists, its trading and
                 withdrawal fees, its deposit methods, and how it explains its
                 security practices — two-factor authentication and cold storage
-                of customer funds are good signs. Our{' '}
+                of customer funds are good signs. Our{" "}
                 <a href="/compare/crypto-exchanges">
                   crypto exchange comparison
-                </a>{' '}
+                </a>{" "}
                 lines up fees and features from Australian exchanges
                 side-by-side.
               </p>
@@ -344,15 +344,15 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
             <GuideSourceList
               sources={[
                 {
-                  id: 'moneysmart-crypto-assets',
+                  id: "moneysmart-crypto-assets",
                   label:
-                    'Moneysmart — Crypto assets (how they work and their risks)',
-                  url: 'https://moneysmart.gov.au/investment-warnings/crypto-assets',
+                    "Moneysmart — Crypto assets (how they work and their risks)",
+                  url: "https://moneysmart.gov.au/investment-warnings/crypto-assets",
                 },
                 {
-                  id: 'moneysmart-crypto-scams',
-                  label: 'Moneysmart — Crypto scams',
-                  url: 'https://moneysmart.gov.au/investment-warnings/crypto-scams',
+                  id: "moneysmart-crypto-scams",
+                  label: "Moneysmart — Crypto scams",
+                  url: "https://moneysmart.gov.au/investment-warnings/crypto-scams",
                 },
               ]}
             />
@@ -360,20 +360,20 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
             <RelatedGuides
               guides={[
                 {
-                  id: 'how-to-start-investing-in-crypto',
+                  id: "how-to-start-investing-in-crypto",
                   slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
                   href: RELATED_PATH_START_INVESTING_IN_CRYPTO,
-                  title: 'How to Start Investing in Crypto for Beginners',
+                  title: "How to Start Investing in Crypto for Beginners",
                   excerpt:
-                    'The bigger picture — risk, research, and building a long-term approach.',
+                    "The bigger picture — risk, research, and building a long-term approach.",
                 },
                 {
-                  id: 'share-trading-for-beginners',
+                  id: "share-trading-for-beginners",
                   slug: STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS,
                   href: RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS,
-                  title: 'Share Trading for Beginners',
+                  title: "Share Trading for Beginners",
                   excerpt:
-                    'How buying shares compares to buying crypto, and how to place your first trade.',
+                    "How buying shares compares to buying crypto, and how to place your first trade.",
                 },
               ]}
             />
@@ -382,26 +382,26 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
               heading="Exchanges to buy from"
               providers={[
                 {
-                  slug: 'coinspot',
-                  name: 'CoinSpot',
-                  description: 'Beginner-friendly Australian crypto exchange.',
+                  slug: "coinspot",
+                  name: "CoinSpot",
+                  description: "Beginner-friendly Australian crypto exchange.",
                 },
                 {
-                  slug: 'swyftx',
-                  name: 'Swyftx',
+                  slug: "swyftx",
+                  name: "Swyftx",
                   description:
-                    'Australian exchange with a broad range of listed assets.',
+                    "Australian exchange with a broad range of listed assets.",
                 },
                 {
-                  slug: 'btc-markets',
-                  name: 'BTC Markets',
-                  description: 'Australian-regulated crypto trading platform.',
+                  slug: "btc-markets",
+                  name: "BTC Markets",
+                  description: "Australian-regulated crypto trading platform.",
                 },
                 {
-                  slug: 'kraken',
-                  name: 'Kraken',
+                  slug: "kraken",
+                  name: "Kraken",
                   description:
-                    'Global exchange with an Australian-facing service.',
+                    "Global exchange with an Australian-facing service.",
                 },
               ]}
             />
@@ -409,16 +409,16 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
             <GuideNextSteps
               steps={[
                 {
-                  id: 'investing-guide',
+                  id: "investing-guide",
                   slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
                   href: RELATED_PATH_START_INVESTING_IN_CRYPTO,
-                  title: 'How to start investing in crypto for beginners',
+                  title: "How to start investing in crypto for beginners",
                 },
                 {
-                  id: 'guides-home',
-                  slug: 'guides',
-                  href: '/guides',
-                  title: 'Browse all crypto guides',
+                  id: "guides-home",
+                  slug: "guides",
+                  href: "/guides",
+                  title: "Browse all crypto guides",
                 },
               ]}
             />

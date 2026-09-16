@@ -13,21 +13,21 @@ export interface Heading {
  * import this instead.
  */
 export function formatCategoryLabel(category: string): string {
-  return category.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+  return category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function stripTags(html: string): string {
   return html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
 function slugify(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-+|-+$)/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-+|-+$)/g, "");
 }
 
 /**
@@ -47,7 +47,7 @@ export function extractHeadings(html: string): {
   const annotated = html.replace(
     /<(h[23])([^>]*)>([\s\S]*?)<\/\1>/gi,
     (full: string, tag: string, attrs: string, inner: string) => {
-      const level = tag.toLowerCase() === 'h2' ? 2 : 3;
+      const level = tag.toLowerCase() === "h2" ? 2 : 3;
       const text = stripTags(inner);
       if (!text) return full;
 

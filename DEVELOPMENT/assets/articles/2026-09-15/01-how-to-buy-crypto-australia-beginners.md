@@ -35,18 +35,18 @@ relatedGuides:
   - crypto-exchange-fees-australia-explained
   - check-crypto-exchange-legit-australia
 searchIntent: HOW_TO
-seoDescription: 'Learn how to buy crypto in Australia in 2026: compare
+seoDescription: "Learn how to buy crypto in Australia in 2026: compare
   exchanges, verify a provider, deposit AUD, understand fees, place your
-  first order and stay safer.'
+  first order and stay safer."
 seoTitle: How to Buy Crypto in Australia for Beginners (2026)
 slug: how-to-buy-crypto-australia-beginners
 sources:
   - label: ASIC Moneysmart --- Crypto assets
     sourceType: GOVERNMENT
-    url: 'https://moneysmart.gov.au/complex-investment-products/crypto-assets'
+    url: "https://moneysmart.gov.au/complex-investment-products/crypto-assets"
   - label: AUSTRAC --- VASP register goes public
     sourceType: REGULATOR
-    url: 'https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public'
+    url: "https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public"
 tags:
   - Crypto
   - Beginners

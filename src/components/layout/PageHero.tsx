@@ -1,17 +1,17 @@
-import type { ReactNode } from 'react';
-import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
-import { Eyebrow } from '@/components/ui/Eyebrow';
-import { Button } from '@/components/ui/Button';
+import type { ReactNode } from "react";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Button } from "@/components/ui/Button";
 import {
   HeroGraphic,
   type HeroGraphicVariant,
-} from '@/components/layout/HeroGraphic';
-import type { BreadcrumbItem } from '@/lib/seo/types';
+} from "@/components/layout/HeroGraphic";
+import type { BreadcrumbItem } from "@/lib/seo/types";
 
 type HeroCta = {
   label: string;
   href: string;
-  variant?: 'gold' | 'outline';
+  variant?: "gold" | "outline";
 };
 
 /**
@@ -39,7 +39,7 @@ export function PageHero({
   subheading,
   meta,
   ctas,
-  maxWidth = 'max-w-6xl',
+  maxWidth = "max-w-6xl",
   graphic,
 }: {
   breadcrumbs?: BreadcrumbItem[];
@@ -69,9 +69,9 @@ export function PageHero({
             className="pointer-events-none absolute inset-y-0 right-0 hidden w-[200px] md:block lg:w-[280px]"
             style={{
               maskImage:
-                'linear-gradient(to left, black 60%, transparent 100%)',
+                "linear-gradient(to left, black 60%, transparent 100%)",
               WebkitMaskImage:
-                'linear-gradient(to left, black 60%, transparent 100%)',
+                "linear-gradient(to left, black 60%, transparent 100%)",
             }}
           >
             <HeroGraphic variant={graphic} />
@@ -95,7 +95,7 @@ export function PageHero({
                 <Button
                   key={cta.href}
                   href={cta.href}
-                  variant={cta.variant ?? 'gold'}
+                  variant={cta.variant ?? "gold"}
                 >
                   {cta.label}
                 </Button>

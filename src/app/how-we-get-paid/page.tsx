@@ -1,18 +1,18 @@
-import Link from 'next/link';
-import { Eyebrow } from '@/components/ui/Eyebrow';
-import { Card } from '@/components/ui/Card';
-import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
-import { JsonLd } from '@/components/seo/JsonLd';
-import { breadcrumbSchema } from '@/lib/seo/schema';
-import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
-import { buildMetadata } from '@/lib/seo/metadata';
+import Link from "next/link";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Card } from "@/components/ui/Card";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
-  title: 'How We Get Paid',
+  title: "How We Get Paid",
   description:
     "Trading Guide is currently self-funded and doesn't earn commissions from providers. Here's our current funding status and how we plan to monetize in future.",
-  path: '/how-we-get-paid',
-  image: '/images/og/how-we-get-paid.png',
+  path: "/how-we-get-paid",
+  image: "/images/og/how-we-get-paid.png",
 });
 
 /**
@@ -26,27 +26,27 @@ export const metadata = buildMetadata({
  * revenue. EFFECTIVE_DATE is a placeholder -- set it to the month this
  * page is actually published, per the source brief ("As of [Month/Year]").
  */
-const EFFECTIVE_DATE = '[Month/Year]'; // TODO(content-gap): set on publish
+const EFFECTIVE_DATE = "[Month/Year]"; // TODO(content-gap): set on publish
 
 const FUTURE_PLAN = [
   {
-    title: 'Affiliate links',
-    body: 'If you click on a provider link on our site and sign up or purchase a service, the provider may pay us a small referral commission.',
+    title: "Affiliate links",
+    body: "If you click on a provider link on our site and sign up or purchase a service, the provider may pay us a small referral commission.",
   },
   {
-    title: 'Zero cost to you',
-    body: 'Clicking our links will never increase your price or alter the terms offered by the provider.',
+    title: "Zero cost to you",
+    body: "Clicking our links will never increase your price or alter the terms offered by the provider.",
   },
   {
-    title: 'Neutral ranking guarantee',
-    body: 'Provider partnerships will never dictate ranking order, star ratings, or eligibility for our top picks.',
+    title: "Neutral ranking guarantee",
+    body: "Provider partnerships will never dictate ranking order, star ratings, or eligibility for our top picks.",
   },
 ];
 
 export default function HowWeGetPaidPage() {
   const trail = breadcrumbTrail([
-    { name: 'Methodology', path: '/methodology' },
-    { name: 'How We Get Paid', path: '/how-we-get-paid' },
+    { name: "Methodology", path: "/methodology" },
+    { name: "How We Get Paid", path: "/how-we-get-paid" },
   ]);
 
   return (
@@ -109,13 +109,13 @@ export default function HowWeGetPaidPage() {
       <p className="text-muted mt-2 text-sm">
         Which providers we cover, what we write about them, and the
         (alphabetical) order they appear in are not influenced by which
-        providers pay us, today or in future. See our{' '}
+        providers pay us, today or in future. See our{" "}
         <Link
           href="/methodology/editorial-policy"
           className="text-blue underline"
         >
           editorial policy
-        </Link>{' '}
+        </Link>{" "}
         for how that separation works in practice.
       </p>
 

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import {
   submitArticleForReview,
   moveArticleBackToDraft,
@@ -6,18 +6,18 @@ import {
   unpublishArticle,
   archiveArticle,
   restoreArticleFromArchive,
-} from '@/lib/articles/actions';
+} from "@/lib/articles/actions";
 
-type Status = 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
+type Status = "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
 
 const BTN =
-  'rounded-full border border-border bg-panel-secondary px-3 py-1 text-xs font-semibold text-navy hover:bg-border';
+  "rounded-full border border-border bg-panel-secondary px-3 py-1 text-xs font-semibold text-navy hover:bg-border";
 const BTN_PRIMARY =
-  'rounded-full bg-navy px-3 py-1 text-xs font-semibold text-background hover:bg-navy-dark';
+  "rounded-full bg-navy px-3 py-1 text-xs font-semibold text-background hover:bg-navy-dark";
 const BTN_GREEN =
-  'rounded-full bg-green px-3 py-1 text-xs font-semibold text-background hover:opacity-90';
+  "rounded-full bg-green px-3 py-1 text-xs font-semibold text-background hover:opacity-90";
 const BTN_RED =
-  'rounded-full border border-red/40 bg-red/10 px-3 py-1 text-xs font-semibold text-red hover:bg-red/20';
+  "rounded-full border border-red/40 bg-red/10 px-3 py-1 text-xs font-semibold text-red hover:bg-red/20";
 
 /**
  * Same server actions PublishingPanel uses on the full editor page — this
@@ -42,7 +42,7 @@ export function ArticleRowActions({
         Preview
       </Link>
 
-      {status === 'DRAFT' && (
+      {status === "DRAFT" && (
         <>
           <form action={submitArticleForReview}>
             <input type="hidden" name="id" value={articleId} />
@@ -54,7 +54,7 @@ export function ArticleRowActions({
         </>
       )}
 
-      {status === 'REVIEW' && (
+      {status === "REVIEW" && (
         <>
           <form action={moveArticleBackToDraft}>
             <input type="hidden" name="id" value={articleId} />
@@ -72,7 +72,7 @@ export function ArticleRowActions({
         </>
       )}
 
-      {status === 'PUBLISHED' && (
+      {status === "PUBLISHED" && (
         <>
           <form action={unpublishArticle}>
             <input type="hidden" name="id" value={articleId} />
@@ -84,7 +84,7 @@ export function ArticleRowActions({
         </>
       )}
 
-      {status === 'ARCHIVED' && (
+      {status === "ARCHIVED" && (
         <form action={restoreArticleFromArchive}>
           <input type="hidden" name="id" value={articleId} />
           <button type="submit" className={BTN}>

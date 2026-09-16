@@ -1,9 +1,9 @@
-import { BtcMarkets } from './btc-markets';
-import { CoinJar } from './coinjar';
-import { CoinSpot } from './coinspot';
-import { IndependentReserve } from './independent-reserve';
-import { Kraken } from './kraken';
-import { Swyftx } from './swyftx';
+import { BtcMarkets } from "./btc-markets";
+import { CoinJar } from "./coinjar";
+import { CoinSpot } from "./coinspot";
+import { IndependentReserve } from "./independent-reserve";
+import { Kraken } from "./kraken";
+import { Swyftx } from "./swyftx";
 
 // Seed only facts that have actually been researched. Anything not
 // independently verified stays UNVERIFIED with a sourceUrl attached so an

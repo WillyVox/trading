@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type SelectableProvider = { id: string; slug: string; name: string };
 
@@ -34,7 +34,7 @@ export function CompareSelector({
 
   function goToComparison() {
     if (selected.length < 2) return;
-    router.push(`/compare/${selected.join('-vs-')}`);
+    router.push(`/compare/${selected.join("-vs-")}`);
   }
 
   return (
@@ -58,8 +58,8 @@ export function CompareSelector({
               aria-pressed={active}
               className={
                 active
-                  ? 'border-gold-soft bg-panel-secondary text-navy rounded-full border px-3 py-1.5 text-sm font-medium'
-                  : 'border-border text-muted hover:border-gold-soft rounded-full border px-3 py-1.5 text-sm'
+                  ? "border-gold-soft bg-panel-secondary text-navy rounded-full border px-3 py-1.5 text-sm font-medium"
+                  : "border-border text-muted hover:border-gold-soft rounded-full border px-3 py-1.5 text-sm"
               }
             >
               {p.name}
@@ -77,7 +77,7 @@ export function CompareSelector({
         disabled={selected.length < 2}
         className="bg-navy text-background hover:bg-navy-dark mt-4 rounded-full px-5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
       >
-        Compare selected{selected.length > 0 ? ` (${selected.length})` : ''}
+        Compare selected{selected.length > 0 ? ` (${selected.length})` : ""}
       </button>
     </div>
   );

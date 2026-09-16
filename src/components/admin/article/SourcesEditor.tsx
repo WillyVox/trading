@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { SOURCE_TYPES } from '@/lib/articles/validation';
+import { useState } from "react";
+import { SOURCE_TYPES } from "@/lib/articles/validation";
 
 type SourceType = (typeof SOURCE_TYPES)[number];
 
@@ -29,7 +29,7 @@ export function SourcesEditor({ initialValue }: { initialValue: Row[] }) {
     setRows((prev) => prev.filter((_, i) => i !== index));
   }
   function addRow() {
-    setRows((prev) => [...prev, { label: '', url: '', sourceType: undefined }]);
+    setRows((prev) => [...prev, { label: "", url: "", sourceType: undefined }]);
   }
 
   return (
@@ -61,7 +61,7 @@ export function SourcesEditor({ initialValue }: { initialValue: Row[] }) {
           <label className="flex flex-col text-xs">
             <span className="text-muted mb-1">Source type</span>
             <select
-              value={row.sourceType ?? ''}
+              value={row.sourceType ?? ""}
               onChange={(e) =>
                 updateRow(i, {
                   sourceType: (e.target.value || undefined) as

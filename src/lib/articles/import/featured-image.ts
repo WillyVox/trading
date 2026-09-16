@@ -1,8 +1,8 @@
-import path from 'node:path';
-import { promises as fs } from 'node:fs';
-import sharp from 'sharp';
-import type { ArticleImportPayload } from './types';
-import { pickConcept, buildFeaturedImageSvg } from './featured-image-svg';
+import path from "node:path";
+import { promises as fs } from "node:fs";
+import sharp from "sharp";
+import type { ArticleImportPayload } from "./types";
+import { pickConcept, buildFeaturedImageSvg } from "./featured-image-svg";
 
 export interface FallbackImageOptions {
   dryRun: boolean;
@@ -56,7 +56,7 @@ export async function resolveFallbackFeaturedImage(
   }
 
   const svg = buildFeaturedImageSvg(payload, concept);
-  const outputDir = path.join(options.publicDir, 'images', 'articles');
+  const outputDir = path.join(options.publicDir, "images", "articles");
   await fs.mkdir(outputDir, { recursive: true });
   await fs.writeFile(
     path.join(outputDir, `${payload.slug}.png`),

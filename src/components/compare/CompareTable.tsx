@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { Fragment } from 'react';
-import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import Link from "next/link";
+import { Fragment } from "react";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import type {
   ComparisonProvider,
   ComparisonSection,
-} from '@/lib/providers/compare';
+} from "@/lib/providers/compare";
 
 /**
  * Desktop/tablet comparison table -- one column per provider, one row per
@@ -66,7 +66,7 @@ export function CompareTable({
                       key={providers[i]?.id ?? i}
                       className="text-navy px-4 py-3"
                     >
-                      {value ?? '\u2014'}
+                      {value ?? "\u2014"}
                     </td>
                   ))}
                 </tr>
@@ -79,8 +79,8 @@ export function CompareTable({
                 colSpan={providers.length + 1}
                 className="text-muted px-4 py-6 text-center"
               >
-                No comparable facts, fees, or features recorded yet for{' '}
-                {providers.map((p) => p.name).join(', ')}.
+                No comparable facts, fees, or features recorded yet for{" "}
+                {providers.map((p) => p.name).join(", ")}.
               </td>
             </tr>
           )}

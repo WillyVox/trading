@@ -1,35 +1,35 @@
-import { PrismaClient, ArticleStatus, ArticleType } from '@prisma/client';
-import { SEED_PROVIDERS } from './providers/seed-providers';
-import { affiliateSeeds } from './affiliate-links';
+import { PrismaClient, ArticleStatus, ArticleType } from "@prisma/client";
+import { SEED_PROVIDERS } from "./providers/seed-providers";
+import { affiliateSeeds } from "./affiliate-links";
 
 const prisma = new PrismaClient();
 
 const cryptoAssets = [
   {
-    symbol: 'BTC',
-    name: 'Bitcoin',
-    slug: 'bitcoin',
-    description: 'The original decentralised cryptocurrency, launched in 2009.',
+    symbol: "BTC",
+    name: "Bitcoin",
+    slug: "bitcoin",
+    description: "The original decentralised cryptocurrency, launched in 2009.",
   },
   {
-    symbol: 'ETH',
-    name: 'Ethereum',
-    slug: 'ethereum',
-    description: 'A programmable blockchain supporting smart contracts.',
+    symbol: "ETH",
+    name: "Ethereum",
+    slug: "ethereum",
+    description: "A programmable blockchain supporting smart contracts.",
   },
   {
-    symbol: 'SOL',
-    name: 'Solana',
-    slug: 'solana',
+    symbol: "SOL",
+    name: "Solana",
+    slug: "solana",
     description:
-      'A high-throughput blockchain used for trading and applications.',
+      "A high-throughput blockchain used for trading and applications.",
   },
   {
-    symbol: 'XRP',
-    name: 'XRP',
-    slug: 'xrp',
+    symbol: "XRP",
+    name: "XRP",
+    slug: "xrp",
     description:
-      'A digital asset associated with the XRP Ledger, used for payments.',
+      "A digital asset associated with the XRP Ledger, used for payments.",
   },
 ];
 async function seedAffiliateLinks() {
@@ -175,22 +175,22 @@ async function main() {
   // One sample guide, linked to Bitcoin, so /crypto/bitcoin's "related
   // guides" section has something real to show rather than an empty state.
   const bitcoin = await prisma.cryptoAsset.findUnique({
-    where: { slug: 'bitcoin' },
+    where: { slug: "bitcoin" },
   });
   if (bitcoin) {
     const guide = await prisma.article.upsert({
-      where: { slug: 'what-is-bitcoin' },
+      where: { slug: "what-is-bitcoin" },
       update: {},
       create: {
         title: "What Is Bitcoin? A Beginner's Guide for Australians",
-        slug: 'what-is-bitcoin',
+        slug: "what-is-bitcoin",
         excerpt:
-          'An introduction to how Bitcoin works and how Australians can access it.',
+          "An introduction to how Bitcoin works and how Australians can access it.",
         content:
-          '<p>Placeholder guide content -- replace before publication.</p>',
+          "<p>Placeholder guide content -- replace before publication.</p>",
         status: ArticleStatus.DRAFT,
         articleType: ArticleType.GUIDE,
-        category: 'guide',
+        category: "guide",
       },
     });
     await prisma.articleCryptoAsset.upsert({
@@ -203,10 +203,10 @@ async function main() {
   }
 
   console.log(
-    'Seeded crypto assets and 6 providers with structured facts/fees/features/prosCons/sources.'
+    "Seeded crypto assets and 6 providers with structured facts/fees/features/prosCons/sources."
   );
   console.log(
-    'CoinSpot, Independent Reserve, Swyftx and BTC Markets carry researched Australian data as of 11 Sep 2026 -- Kraken remains an UNVERIFIED placeholder. Re-verify time-sensitive fees, regulatory facts and product availability before publishing.'
+    "CoinSpot, Independent Reserve, Swyftx and BTC Markets carry researched Australian data as of 11 Sep 2026 -- Kraken remains an UNVERIFIED placeholder. Re-verify time-sensitive fees, regulatory facts and product availability before publishing."
   );
 }
 

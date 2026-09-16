@@ -1,10 +1,10 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { requireAdmin } from '@/lib/auth/require-admin';
-import { getArticleById } from '@/lib/articles/service';
-import { renderArticleContent } from '@/lib/articles/renderer';
-import { Badge } from '@/components/ui/Badge';
-import { Notice } from '@/components/ui/Notice';
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { requireAdmin } from "@/lib/auth/require-admin";
+import { getArticleById } from "@/lib/articles/service";
+import { renderArticleContent } from "@/lib/articles/renderer";
+import { Badge } from "@/components/ui/Badge";
+import { Notice } from "@/components/ui/Notice";
 
 /**
  * Admin-only preview — Req.md §42. Now uses the same shared
@@ -32,7 +32,7 @@ export async function generateMetadata({
   const { id } = await params;
   const article = await getArticleById(id);
   return {
-    title: article ? `Preview — ${article.title}` : 'Preview not found',
+    title: article ? `Preview — ${article.title}` : "Preview not found",
     robots: { index: false, follow: false },
   };
 }
@@ -49,10 +49,10 @@ export default async function ArticlePreviewPage({
 
   const { content, headings, readingMinutes } = renderArticleContent(
     article.content,
-    { context: 'preview' }
+    { context: "preview" }
   );
   const publicPath =
-    article.articleType === 'GUIDE'
+    article.articleType === "GUIDE"
       ? `/guides/${article.slug}`
       : `/news/${article.slug}`;
 
@@ -77,7 +77,7 @@ export default async function ArticlePreviewPage({
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="blue">{article.articleType}</Badge>
           {article.category && <Badge>{article.category}</Badge>}
-          {article.status === 'PUBLISHED' && (
+          {article.status === "PUBLISHED" && (
             <Link
               href={publicPath}
               className="text-navy text-xs font-semibold underline"
@@ -88,7 +88,7 @@ export default async function ArticlePreviewPage({
         </div>
 
         <h1 className="font-display text-navy mt-3 text-3xl font-extrabold">
-          {article.title || '(untitled)'}
+          {article.title || "(untitled)"}
         </h1>
         {article.excerpt && (
           <p className="text-muted mt-3 text-lg">{article.excerpt}</p>
@@ -99,14 +99,14 @@ export default async function ArticlePreviewPage({
           {article.reviewer && <span>Reviewed by {article.reviewer}</span>}
           {article.publishedAt && (
             <span>
-              Published{' '}
-              {new Date(article.publishedAt).toLocaleDateString('en-AU')}
+              Published{" "}
+              {new Date(article.publishedAt).toLocaleDateString("en-AU")}
             </span>
           )}
           {article.lastReviewedAt && (
             <span>
-              Last reviewed{' '}
-              {new Date(article.lastReviewedAt).toLocaleDateString('en-AU')}
+              Last reviewed{" "}
+              {new Date(article.lastReviewedAt).toLocaleDateString("en-AU")}
             </span>
           )}
           <span>~{readingMinutes} min read</span>
@@ -128,7 +128,7 @@ export default async function ArticlePreviewPage({
             <h2 className="text-navy font-bold">On this page</h2>
             <ul className="mt-2 space-y-1">
               {headings.map((h) => (
-                <li key={h.id} className={h.level === 3 ? 'ml-4' : undefined}>
+                <li key={h.id} className={h.level === 3 ? "ml-4" : undefined}>
                   <a href={`#${h.id}`} className="text-navy underline">
                     {h.text}
                   </a>
@@ -150,7 +150,7 @@ export default async function ArticlePreviewPage({
             <ul className="mt-2 space-y-1 text-sm">
               {article.providers.map((p) => (
                 <li key={p.providerId}>
-                  {p.provider.name} —{' '}
+                  {p.provider.name} —{" "}
                   <span className="text-muted">{p.relationshipType}</span>
                 </li>
               ))}

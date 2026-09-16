@@ -1,15 +1,15 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/Card';
-import { VerificationBadge } from '@/components/trust/VerificationBadge';
-import { AffiliateCTA } from '@/components/affiliate/AffiliateCTA';
-import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure';
+import Link from "next/link";
+import { Card } from "@/components/ui/Card";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 type GuideProvider = {
   id: string;
   slug: string;
   name: string;
   description: string | null;
-  verificationStatus: 'VERIFIED' | 'UNVERIFIED' | 'STALE';
+  verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
   activeLink: boolean;
 };
 

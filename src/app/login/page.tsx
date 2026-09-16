@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
-import { Card } from '@/components/ui/Card';
-import { LoginForm } from '@/components/auth/LoginForm';
+import type { Metadata } from "next";
+import { Card } from "@/components/ui/Card";
+import { LoginForm } from "@/components/auth/LoginForm";
 
 export const metadata: Metadata = {
-  title: 'Sign in',
+  title: "Sign in",
   robots: { index: false, follow: false },
 };
 

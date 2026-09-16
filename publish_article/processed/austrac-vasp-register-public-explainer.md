@@ -1,16 +1,16 @@
 ---
 title: "AUSTRAC's Crypto Register Is Now Public: How to Check an Exchange"
-slug: 'austrac-vasp-register-public-explainer'
-articleType: 'NEWS'
+slug: "austrac-vasp-register-public-explainer"
+articleType: "NEWS"
 excerpt:
   "AUSTRAC made its virtual asset service provider register publicly searchable in mid-2026. Here's\
   \ what it shows, and how to actually use it before signing up to an exchange."
-category: 'regulation'
+category: "regulation"
 tags:
-  - 'AUSTRAC'
-  - 'Regulation'
-  - 'Australia'
-  - 'Crypto Security'
+  - "AUSTRAC"
+  - "Regulation"
+  - "Australia"
+  - "Crypto Security"
 seoTitle: "AUSTRAC's VASP Register Is Public: How to Use It"
 seoDescription:
   "AUSTRAC's virtual asset service provider register is now publicly searchable. Here's\
@@ -18,35 +18,35 @@ seoDescription:
 featuredImageAlt:
   "A person searching a public government register on a laptop before signing up to a\
   \ crypto exchange"
-author: 'Editorial Team'
+author: "Editorial Team"
 noIndex: false
 affiliateDisclosureRequired: false
 keyTakeaways:
-  - 'AUSTRAC made its virtual asset service provider (VASP) register publicly searchable on 30 June 2026.'
+  - "AUSTRAC made its virtual asset service provider (VASP) register publicly searchable on 30 June 2026."
   - "The register lets anyone verify whether a crypto business is currently registered under Australia's\
     \ AML/CTF regime."
   - "Being on the register is an AML/CTF compliance status — it doesn't certify safety, financial soundness\
     \ or government endorsement."
   - "Check the register directly rather than relying on a badge or claim on a provider's own website."
-  - 'This complements, rather than replaces, the other factors covered in our exchange-selection guide.'
-searchIntent: 'REGULATION'
+  - "This complements, rather than replaces, the other factors covered in our exchange-selection guide."
+searchIntent: "REGULATION"
 providerRelationships:
-  - providerSlug: 'coinspot'
-    relationship: 'MENTIONED'
-  - providerSlug: 'swyftx'
-    relationship: 'MENTIONED'
-  - providerSlug: 'independent-reserve'
-    relationship: 'MENTIONED'
-  - providerSlug: 'btc-markets'
-    relationship: 'MENTIONED'
+  - providerSlug: "coinspot"
+    relationship: "MENTIONED"
+  - providerSlug: "swyftx"
+    relationship: "MENTIONED"
+  - providerSlug: "independent-reserve"
+    relationship: "MENTIONED"
+  - providerSlug: "btc-markets"
+    relationship: "MENTIONED"
 relatedGuides:
-  - 'austrac-registration-crypto-exchanges-explained'
-  - 'asic-digital-asset-licensing-deadline-2026'
-  - 'how-to-choose-crypto-exchange-australia'
+  - "austrac-registration-crypto-exchanges-explained"
+  - "asic-digital-asset-licensing-deadline-2026"
+  - "how-to-choose-crypto-exchange-australia"
 sources:
-  - label: 'AUSTRAC — Virtual asset service provider register goes public'
-    url: 'https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public'
-    sourceType: 'REGULATOR'
+  - label: "AUSTRAC — Virtual asset service provider register goes public"
+    url: "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public"
+    sourceType: "REGULATOR"
 ---
 
 <p>AUSTRAC made a genuinely useful change for everyday crypto users this year: its register of virtual asset service providers (VASPs) — the businesses registered under Australia's anti-money-laundering and counter-terrorism-financing rules — became publicly searchable on 30 June 2026.</p>

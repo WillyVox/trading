@@ -1,47 +1,47 @@
-import { z } from 'zod';
-import { IMPORT_REGIONS } from './types';
-import { SLUG_PATTERN } from '@/lib/articles/slug';
+import { z } from "zod";
+import { IMPORT_REGIONS } from "./types";
+import { SLUG_PATTERN } from "@/lib/articles/slug";
 
 /** Mirrors the Prisma `ArticleSearchIntent` enum — see prisma/schema.prisma. Kept as a plain
  * literal list (not imported from @prisma/client) so this module stays usable before `prisma
  * generate` has run, e.g. in Phase 1 dry-runs against a fresh checkout. */
 const SEARCH_INTENTS = [
-  'LEARN',
-  'HOW_TO',
-  'BEGINNER',
-  'COMPARISON',
-  'PROVIDER_GUIDE',
-  'FEES',
-  'SECURITY',
-  'WALLET',
-  'REGULATION',
-  'MARKET_EDUCATION',
+  "LEARN",
+  "HOW_TO",
+  "BEGINNER",
+  "COMPARISON",
+  "PROVIDER_GUIDE",
+  "FEES",
+  "SECURITY",
+  "WALLET",
+  "REGULATION",
+  "MARKET_EDUCATION",
 ] as const;
 
 export const RELATIONSHIP_TYPES = [
-  'MENTIONED',
-  'COMPARED',
-  'FEATURED',
+  "MENTIONED",
+  "COMPARED",
+  "FEATURED",
 ] as const;
 
 export const SOURCE_TYPES = [
-  'OFFICIAL_PROVIDER',
-  'REGULATOR',
-  'GOVERNMENT',
-  'OFFICIAL_DOCUMENTATION',
-  'NEWS',
-  'RESEARCH',
-  'OTHER',
+  "OFFICIAL_PROVIDER",
+  "REGULATOR",
+  "GOVERNMENT",
+  "OFFICIAL_DOCUMENTATION",
+  "NEWS",
+  "RESEARCH",
+  "OTHER",
 ] as const;
 
 /** Mirrors the Prisma `ArticleType` enum — see prisma/schema.prisma. Kept as a plain literal
  * list for the same pre-`prisma generate` reason as SEARCH_INTENTS above. */
-const ARTICLE_TYPES = ['NEWS', 'GUIDE'] as const;
+const ARTICLE_TYPES = ["NEWS", "GUIDE"] as const;
 
 const slugField = z
   .string()
   .trim()
-  .min(1, 'slug is required')
+  .min(1, "slug is required")
   .regex(
     SLUG_PATTERN,
     'slug must be lowercase, URL-safe, hyphen-separated (e.g. "how-to-trade-crypto")'
@@ -55,16 +55,16 @@ export const urlField = z
     (value) => {
       try {
         const url = new URL(value);
-        return url.protocol === 'http:' || url.protocol === 'https:';
+        return url.protocol === "http:" || url.protocol === "https:";
       } catch {
         return false;
       }
     },
-    { message: 'must be a valid http(s) URL' }
+    { message: "must be a valid http(s) URL" }
   );
 
 const sourceField = z.object({
-  label: z.string().trim().min(1, 'source label is required'),
+  label: z.string().trim().min(1, "source label is required"),
   url: urlField,
   type: z.string().trim().optional(),
   sourceType: z.enum(SOURCE_TYPES).optional(),
@@ -96,7 +96,7 @@ const dateStringField = z
   .trim()
   .min(1)
   .refine((value) => !Number.isNaN(Date.parse(value)), {
-    message: 'must be a valid date/time string',
+    message: "must be a valid date/time string",
   });
 
 /**
@@ -108,8 +108,8 @@ export const articleFrontmatterSchema = z.object({
   title: z
     .string()
     .trim()
-    .min(1, 'title is required')
-    .max(200, 'title should be under 200 characters'),
+    .min(1, "title is required")
+    .max(200, "title should be under 200 characters"),
   slug: slugField,
   articleType: z.enum(ARTICLE_TYPES).optional(),
   excerpt: z.string().trim().min(1).optional(),
@@ -164,7 +164,7 @@ export function validateFrontmatter(
   const result = articleFrontmatterSchema.safeParse(raw);
   if (!result.success) {
     for (const issue of result.error.issues) {
-      const path = issue.path.join('.') || '(root)';
+      const path = issue.path.join(".") || "(root)";
       errors.push(`${path}: ${issue.message}`);
     }
     return { ok: false, errors, warnings };
@@ -173,10 +173,10 @@ export function validateFrontmatter(
   const data = result.data;
 
   if (!body || body.trim().length === 0) {
-    errors.push('content: body must not be empty');
+    errors.push("content: body must not be empty");
   }
 
-  if (data.status && data.status.toUpperCase() !== 'DRAFT') {
+  if (data.status && data.status.toUpperCase() !== "DRAFT") {
     warnings.push(
       `status "${data.status}" was ignored — imports are always created as DRAFT`
     );
@@ -209,7 +209,7 @@ export function validateFrontmatter(
     }
   }
 
-  if (data.region && data.region !== 'GLOBAL' && !data.canonicalArticleSlug) {
+  if (data.region && data.region !== "GLOBAL" && !data.canonicalArticleSlug) {
     warnings.push(
       `region "${data.region}" set without canonicalArticleSlug — this will import as a standalone article, not a regional variant`
     );
