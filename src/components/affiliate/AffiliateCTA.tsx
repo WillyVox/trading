@@ -4,7 +4,7 @@ export function AffiliateCTA({
   partnerSlug,
   providerName,
   variant = "default",
-  showDisclosure = true,
+  showDisclosure = false,
   isNewTab = true,
 }: {
   partnerSlug: string;
