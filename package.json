@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prettier --check . && next build",
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "tsx prisma/seed.ts",
+    "db:seed": "tsx prisma/seeds/seed.ts",
     "postinstall": "prisma generate",
     "import:article": "tsx scripts/import-articles.ts",
     "generate:og-images": "tsx scripts/generate-page-og-images.ts",

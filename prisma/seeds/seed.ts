@@ -1,11 +1,6 @@
-import {
-  PrismaClient,
-  ArticleStatus,
-  ArticleType,
-  CommissionType,
-  AffiliatePartnerStatus,
-} from '@prisma/client';
-import { SEED_PROVIDERS } from './seed-providers';
+import { PrismaClient, ArticleStatus, ArticleType } from '@prisma/client';
+import { SEED_PROVIDERS } from './providers/seed-providers';
+import { affiliateSeeds } from './affiliate-links';
 
 const prisma = new PrismaClient();
 
@@ -38,69 +33,6 @@ const cryptoAssets = [
   },
 ];
 async function seedAffiliateLinks() {
-  const affiliateSeeds = [
-    {
-      providerSlug: 'coinspot',
-      partnerSlug: 'coinspot',
-      approvedUrl: 'https://www.coinspot.com.au',
-      placement: 'PROVIDER_PROFILE',
-      campaign: 'default',
-      commissionType: CommissionType.NONE,
-      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
-      notes:
-        'Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.',
-      active: true, // [TODO] WHEN REAL PARTNER, this should be false as default, only paid/sponsored partners must be true
-    },
-    {
-      providerSlug: 'kraken',
-      partnerSlug: 'kraken',
-      approvedUrl: 'https://www.kraken.com',
-      placement: 'PROVIDER_PROFILE',
-      campaign: 'default',
-      commissionType: CommissionType.NONE,
-      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
-      notes:
-        'Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.',
-      active: false,
-    },
-    {
-      providerSlug: 'independent-reserve',
-      partnerSlug: 'independent-reserve',
-      approvedUrl: 'https://www.independentreserve.com',
-      placement: 'PROVIDER_PROFILE',
-      campaign: 'default',
-      commissionType: CommissionType.NONE,
-      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
-      notes:
-        'Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.',
-      active: false,
-    },
-    {
-      providerSlug: 'swyftx',
-      partnerSlug: 'swyftx',
-      approvedUrl: 'https://swyftx.com',
-      placement: 'PROVIDER_PROFILE',
-      campaign: 'default',
-      commissionType: CommissionType.NONE,
-      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
-      notes:
-        'Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.',
-      active: false,
-    },
-    {
-      providerSlug: 'btc-markets',
-      partnerSlug: 'btc-markets',
-      approvedUrl: 'https://www.btcmarkets.net',
-      placement: 'PROVIDER_PROFILE',
-      campaign: 'default',
-      commissionType: CommissionType.NONE,
-      partnershipStatus: AffiliatePartnerStatus.PROSPECT,
-      notes:
-        'Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.',
-      active: false,
-    },
-  ];
-
   for (const seed of affiliateSeeds) {
     const provider = await prisma.provider.findUnique({
       where: {
@@ -271,7 +203,7 @@ async function main() {
   }
 
   console.log(
-    'Seeded crypto assets and five providers with structured facts/fees/features/prosCons/sources.'
+    'Seeded crypto assets and 6 providers with structured facts/fees/features/prosCons/sources.'
   );
   console.log(
     'CoinSpot, Independent Reserve, Swyftx and BTC Markets carry researched Australian data as of 11 Sep 2026 -- Kraken remains an UNVERIFIED placeholder. Re-verify time-sensitive fees, regulatory facts and product availability before publishing.'

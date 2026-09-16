@@ -8,7 +8,7 @@ import {
   VerificationStatus,
 } from '@prisma/client';
 
-export const COINJAR = {
+export const CoinJar = {
   name: 'CoinJar',
   slug: 'coinjar',
   website: 'https://www.coinjar.com/au',

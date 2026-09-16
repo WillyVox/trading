@@ -52,7 +52,6 @@
 
     Link: https://picsum.photos/200/300
 
-
 # Author profile
 
 Huy Vo
