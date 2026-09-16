@@ -34,6 +34,7 @@ export const NAV_ITEMS: NavItem[] = [
     children: [
       { label: "5 Simple Steps to Buy Cryptocurrency", href: "/simple-steps-to-buy-cryptocurrency" },
       { label: "How to Start Investing in Crypto for Beginners", href: "/how-to-start-investing-in-crypto-for-beginners" },
+      { label: "Top Cryptocurrency Exchanges in Australia", href: "/top-cryptocurrency-exchanges-in-australia" },
       { label: "Share Trading for Beginners", href: "/share-trading-for-beginners" },
       { label: "View all guides →", href: "/guides" },
     ],

@@ -28,6 +28,7 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/share-trading-for-beginners",
     "/simple-steps-to-buy-cryptocurrency",
     "/how-to-start-investing-in-crypto-for-beginners",
+    "/top-cryptocurrency-exchanges-in-australia",
     "/compare",
     "/compare/crypto-exchanges",
     "/news",
