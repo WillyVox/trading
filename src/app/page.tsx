@@ -94,7 +94,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-6xl px-4 py-14">
         <Eyebrow>How this site works</Eyebrow>
-        <h2 className="mt-4 font-display text-3xl font-bold text-navy">Three steps to a platform you trust.</h2>
+        <h2 className="mt-4 font-display text-3xl font-bold text-navy">Three steps to start investing in cryptocurrencies.</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {howItWorksSteps.map((step) => (
             <Link
@@ -102,7 +102,7 @@ export default function HomePage() {
               href={step.href}
               className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-soft focus-visible:ring-offset-2 rounded-2xl"
             >
-              <Card className="h-full transition-colors hover:border-gold-soft">
+              <Card className="h-full transition-colors hover:border-gold-soft hover:bg-panel-secondary">
                 <span className="mb-3 flex h-8 w-8 items-center justify-center rounded-full border border-gold-soft bg-panel-secondary font-mono text-sm font-semibold text-navy">
                   {step.number}
                 </span>

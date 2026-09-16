@@ -31,6 +31,8 @@ Eliminated Redundancies: Grouped repeating points about SEO, content quality, an
 
 Clear Terminology: Replaced "AI wordings" and "AI styling" with "clear, natural language" and "jargon-free content" to clearly articulate editorial standards.
 
+# 3. remember do your research, analyzy and understand first, then give me your feedback, concerns, any ideas, then outline your plans, solutions, approaches, what would change, pros and cons, before i decide when we change the code.
+
 
 
 ### 
