@@ -5,6 +5,7 @@ import {
   newsEntries,
   providerEntries,
   cryptoAssetEntries,
+  offeringEntries,
 } from "@/lib/seo/sitemap-entries";
 
 // Force this to run at request time (ISR-style, cached for an hour) rather
@@ -17,13 +18,22 @@ import {
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [statics, guides, news, providers, cryptoAssets] = await Promise.all([
-    staticEntries(),
-    guideEntries(),
-    newsEntries(),
-    providerEntries(),
-    cryptoAssetEntries(),
-  ]);
+  const [statics, guides, news, providers, cryptoAssets, offerings] =
+    await Promise.all([
+      staticEntries(),
+      guideEntries(),
+      newsEntries(),
+      providerEntries(),
+      cryptoAssetEntries(),
+      offeringEntries(),
+    ]);
 
-  return [...statics, ...guides, ...news, ...providers, ...cryptoAssets];
+  return [
+    ...statics,
+    ...guides,
+    ...news,
+    ...providers,
+    ...cryptoAssets,
+    ...offerings,
+  ];
 }

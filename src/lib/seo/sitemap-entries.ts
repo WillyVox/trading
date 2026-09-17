@@ -15,6 +15,10 @@ import { STATIC_GUIDES } from "@/lib/guides/static-guides";
  * audit rule §34).
  *
  * /crypto/[slug] is now backed by the CryptoAsset model (see cryptoAssetEntries).
+ *
+ * /share-trading/[slug] (offering foundation, Milestone 1) is the sibling
+ * this file's own comment anticipated on providerEntries() below -- see
+ * offeringEntries().
  */
 
 export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
@@ -25,6 +29,7 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/guides",
     "/compare",
     "/compare/crypto-exchanges",
+    "/share-trading",
     "/news",
     "/methodology",
     "/methodology/editorial-policy",
@@ -82,11 +87,9 @@ export async function newsEntries(): Promise<MetadataRoute.Sitemap> {
 export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
   // Hardcoded to /crypto/exchanges/ below, so this MUST stay scoped to
   // CRYPTO_EXCHANGE providers only. Provider.providerType also has BROKER /
-  // MULTI_ASSET_BROKER / TRADING_PLATFORM values for the planned
-  // share-trading pillar — once a /share-trading/[slug] (or similar) route
-  // exists, add a sibling brokerEntries() with its own URL prefix rather
-  // than widening this filter, or every non-exchange provider will get a
-  // sitemap URL that 404s.
+  // MULTI_ASSET_BROKER / TRADING_PLATFORM values — those brands' actual
+  // comparable pages live under /share-trading/[slug] via ProviderOffering
+  // (see offeringEntries() below), not here. Do not widen this filter.
   const providers = await prisma.provider.findMany({
     where: {
       noIndex: false,
@@ -97,6 +100,23 @@ export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
   return providers.map((p) => ({
     url: absoluteUrl(`/crypto/exchanges/${p.slug}`),
     lastModified: p.updatedAt,
+  }));
+}
+
+/**
+ * Share trading platform profiles (offering foundation, Milestone 1) — the
+ * sibling this file used to anticipate as a TODO on providerEntries()
+ * above. Only active, indexable offerings, mirroring providerEntries()'s
+ * noIndex filter.
+ */
+export async function offeringEntries(): Promise<MetadataRoute.Sitemap> {
+  const offerings = await prisma.providerOffering.findMany({
+    where: { active: true, noIndex: false },
+    select: { slug: true, updatedAt: true },
+  });
+  return offerings.map((o) => ({
+    url: absoluteUrl(`/share-trading/${o.slug}`),
+    lastModified: o.updatedAt,
   }));
 }
 

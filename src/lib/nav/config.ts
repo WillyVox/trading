@@ -60,5 +60,6 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "View all guides →", href: "/guides" },
     ],
   },
+  { label: "Share Trading", href: "/share-trading" },
   { label: "News", href: "/news" },
 ];

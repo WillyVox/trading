@@ -59,8 +59,8 @@ Then in .env in the project root
 
 1. `npm install`
 2. `cp .env.example .env` and point `DATABASE_URL` at a real Postgres instance
-3. `npm run db:migrate`
-4. `npm run db:seed`
+3. `npm run db:migrate` to create the schema
+4. `npm run db:seed` to import init data
 5. Wire a real Auth.js provider in `src/lib/auth/config.ts`, then promote a
    user to `ADMIN` via `prisma studio` or a script
 6. `npm run dev`

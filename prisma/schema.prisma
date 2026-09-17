@@ -312,6 +312,197 @@ enum ProviderSourceType {
   OTHER
 }
 
+// ---------- Share trading platform domain (Offering foundation) ----------
+// See docs/IMPLEMENTATION-PLAN.md and the 2026-09-17 offering-architecture
+// analysis: a flattened Provider record (the crypto shape above) can't
+// represent a broker whose comparable facts vary by market and product
+// (CommSec's ASX brokerage is tiered and different again for international
+// shares; CHESS applies to ASX holdings but not international ones at the
+// same broker). ProviderOffering is the thing users actually compare;
+// Provider stays the brand/legal-entity row for both domains.
+//
+// Deliberately excluded from Milestone 1 (see ROADMAP.md): OfferingFee
+// (tiered/conditional pricing is its own migration per the master prompt's
+// own "fees are Phase Two" sequencing), OfferingOrderType, OfferingFeature.
+// Also deliberately NOT modelled yet: a separate FinancialEntity/
+// service-role layer for AFSL holder vs. executing broker vs. custodian --
+// `custodianName` below is a plain string for now; that's the documented
+// seam where future normalization would attach, not an oversight.
+enum OfferingType {
+  SHARE_TRADING
+  CFD
+  MANAGED_FUND
+  SUPERANNUATION
+  OTHER
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  UNAVAILABLE
+  CONDITIONAL
+  LIMITED
+  UNKNOWN
+}
+
+enum InvestmentProductType {
+  AU_SHARES
+  INTERNATIONAL_SHARES
+  ETF
+  OPTIONS
+  BONDS
+  MANAGED_FUNDS
+  FUTURES
+  WARRANTS
+  FOREX
+  CFD
+  OTHER
+}
+
+enum CustodyType {
+  CHESS_SPONSORED
+  ISSUER_SPONSORED
+  CUSTODIAL
+  DIRECT_REGISTRATION
+  OMNIBUS
+  MIXED
+  OTHER
+  UNKNOWN
+}
+
+enum AccountType {
+  INDIVIDUAL
+  JOINT
+  COMPANY
+  TRUST
+  SMSF
+  MINOR
+  ADVISER
+  PROFESSIONAL
+  OTHER
+}
+
+model Market {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  countryCode String?
+  exchangeCode String?
+  currency    String?
+  region      String?
+  active      Boolean  @default(true)
+
+  offerings OfferingMarket[]
+  custody   OfferingCustody[]
+}
+
+model ProviderOffering {
+  id                 String              @id @default(cuid())
+  providerId         String
+  name               String
+  slug               String              @unique
+  logo               String?
+  website            String?
+  description        String?             @db.Text
+  offeringType       OfferingType?
+  jurisdiction       String?
+  active             Boolean             @default(true)
+  verificationStatus VerificationStatus  @default(UNVERIFIED)
+  lastVerifiedAt     DateTime?
+  seoTitle           String?
+  seoDescription     String?
+  noIndex            Boolean             @default(false)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  provider     Provider               @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  markets      OfferingMarket[]
+  products     OfferingProduct[]
+  custody      OfferingCustody[]
+  accountTypes OfferingAccountType[]
+
+  @@index([providerId])
+}
+
+model OfferingMarket {
+  id           String             @id @default(cuid())
+  offeringId   String
+  marketId     String
+  availability AvailabilityStatus @default(UNKNOWN)
+  notes        String?            @db.Text
+
+  sourceUrl          String?
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  offering ProviderOffering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  market   Market           @relation(fields: [marketId], references: [id], onDelete: Cascade)
+
+  @@unique([offeringId, marketId])
+  @@index([offeringId])
+  @@index([marketId])
+}
+
+model OfferingProduct {
+  id           String                @id @default(cuid())
+  offeringId   String
+  productType  InvestmentProductType
+  availability AvailabilityStatus    @default(UNKNOWN)
+  notes        String?               @db.Text
+
+  sourceUrl          String?
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  offering ProviderOffering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+
+  @@unique([offeringId, productType])
+  @@index([offeringId])
+}
+
+// Nullable `marketId` = applies offering-wide; set = a market-specific
+// override (e.g. CommSec's ASX holdings are CHESS-sponsored but its
+// international holdings are custodial -- see docs/IMPLEMENTATION-PLAN.md
+// Section 14). Milestone 1's seed always sets marketId explicitly rather
+// than relying on the offering-wide null case, since both seeded brokers
+// genuinely differ by market -- the null case remains for a future,
+// simpler broker where one custody arrangement really does apply everywhere.
+model OfferingCustody {
+  id             String      @id @default(cuid())
+  offeringId     String
+  marketId       String?
+  custodyType    CustodyType
+  hinSupported   Boolean?
+  custodianName  String?
+  description    String?     @db.Text
+
+  sourceUrl          String?
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  offering ProviderOffering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  market   Market?          @relation(fields: [marketId], references: [id], onDelete: SetNull)
+
+  @@index([offeringId])
+  @@index([marketId])
+}
+
+model OfferingAccountType {
+  id           String             @id @default(cuid())
+  offeringId   String
+  accountType  AccountType
+  availability AvailabilityStatus @default(UNKNOWN)
+  notes        String?            @db.Text
+
+  sourceUrl          String?
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  offering ProviderOffering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+
+  @@unique([offeringId, accountType])
+  @@index([offeringId])
+}
+
 model Provider {
   id                 String              @id @default(cuid())
   name               String
@@ -340,6 +531,7 @@ model Provider {
   assets       ProviderAsset[]
   articles     ArticleProvider[]
   partnerships AffiliatePartnership[]
+  offerings    ProviderOffering[]
 }
 
 model ProviderFact {
