@@ -1,5 +1,12 @@
 import type { ProviderFeatureType } from "@prisma/client";
 import { featureGroup, type ProviderFeatureGroup } from "./features";
+import type {
+  ComparisonRow,
+  ComparisonSection,
+  ComparisonSubject,
+} from "@/lib/compare/types";
+
+export type { ComparisonRow, ComparisonSection };
 
 /**
  * Shape the Comparison Engine (Phase 5) needs from each Provider --
@@ -9,6 +16,11 @@ import { featureGroup, type ProviderFeatureGroup } from "./features";
  * docs/IMPLEMENTATION-PLAN.md §4/§7: comparisons never duplicate Provider
  * data into compare-specific tables, so changing a fact/fee/feature updates
  * every comparison automatically.
+ *
+ * ComparisonRow/ComparisonSection now live in src/lib/compare/types.ts
+ * (shared with the offering domain's compare engine, see
+ * src/lib/offerings/compare.ts) -- re-exported here so existing imports
+ * from this module keep working.
  */
 export type ComparisonProvider = {
   id: string;
@@ -25,17 +37,20 @@ export type ComparisonProvider = {
   }[];
 };
 
-export type ComparisonRow = {
-  key: string;
-  label: string;
-  /** One cell per provider, aligned to the same index/order as the ComparisonProvider[] passed in. `null` means "no data for this provider". */
-  values: (string | null)[];
-};
-
-export type ComparisonSection = {
-  title: string;
-  rows: ComparisonRow[];
-};
+/** Maps ComparisonProvider rows to the domain-agnostic ComparisonSubject
+ * shape CompareTable/CompareMobileCards render -- the one place that knows
+ * a crypto exchange's profile lives at /crypto/exchanges/[slug]. */
+export function toComparisonSubjects(
+  providers: ComparisonProvider[]
+): ComparisonSubject[] {
+  return providers.map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    name: p.name,
+    verificationStatus: p.verificationStatus,
+    profileHref: `/crypto/exchanges/${p.slug}`,
+  }));
+}
 
 /** Union of fact labels across all compared providers, in first-seen order, so a fact only one provider has still gets its own row (rendered "\u2014" for the rest) instead of being silently dropped. */
 export function buildFactRows(

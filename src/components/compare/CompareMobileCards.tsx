@@ -1,36 +1,34 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import type {
-  ComparisonProvider,
-  ComparisonSection,
-} from "@/lib/providers/compare";
+import type { ComparisonSection, ComparisonSubject } from "@/lib/compare/types";
 
 /**
  * Small-screen counterpart to CompareTable -- a wide comparison table
- * degrades badly below `md`, so each provider gets its own scrollable card
- * with the same fact/fee/feature rows instead (see docs/IMPLEMENTATION-PLAN.md
- * §6, "mobile-card fallback pattern"). Hidden at `md` and above.
+ * degrades badly below `md`, so each subject gets its own scrollable card
+ * with the same rows instead. Domain-agnostic for the same reason
+ * CompareTable is -- see src/lib/compare/types.ts. Hidden at `md` and
+ * above.
  */
 export function CompareMobileCards({
-  providers,
+  subjects,
   sections,
 }: {
-  providers: ComparisonProvider[];
+  subjects: ComparisonSubject[];
   sections: ComparisonSection[];
 }) {
   return (
     <div className="space-y-4 md:hidden">
-      {providers.map((p, i) => (
-        <Card key={p.id}>
+      {subjects.map((s, i) => (
+        <Card key={s.id}>
           <div className="flex items-center justify-between">
             <Link
-              href={`/crypto/exchanges/${p.slug}`}
+              href={s.profileHref}
               className="font-display text-navy text-lg font-bold hover:underline"
             >
-              {p.name}
+              {s.name}
             </Link>
-            <VerificationBadge status={p.verificationStatus} />
+            <VerificationBadge status={s.verificationStatus} />
           </div>
 
           {sections.map((section) => (

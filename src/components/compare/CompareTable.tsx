@@ -1,24 +1,24 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import type {
-  ComparisonProvider,
-  ComparisonSection,
-} from "@/lib/providers/compare";
+import type { ComparisonSection, ComparisonSubject } from "@/lib/compare/types";
 
 /**
- * Desktop/tablet comparison table -- one column per provider, one row per
- * fact/fee/feature. Hidden below the `md` breakpoint; CompareMobileCards
- * renders the same data as stacked per-provider cards for small screens
- * (see docs/IMPLEMENTATION-PLAN.md §6/Phase 5: "mobile-card fallback
- * pattern"). Horizontally scrollable so a 3+-way comparison never breaks
- * the page layout instead of capping how many providers can be compared.
+ * Desktop/tablet comparison table -- one column per subject, one row per
+ * fact/fee/feature (crypto) or market/product/custody/account type (share
+ * trading). Domain-agnostic: takes ComparisonSubject[] rather than a raw
+ * Provider[], so it doesn't need to know which domain it's rendering --
+ * see src/lib/compare/types.ts and the compare-engine-unification
+ * analysis. Hidden below the `md` breakpoint; CompareMobileCards renders
+ * the same data as stacked per-subject cards for small screens.
+ * Horizontally scrollable so a 3+-way comparison never breaks the page
+ * layout instead of capping how many subjects can be compared.
  */
 export function CompareTable({
-  providers,
+  subjects,
   sections,
 }: {
-  providers: ComparisonProvider[];
+  subjects: ComparisonSubject[];
   sections: ComparisonSection[];
 }) {
   return (
@@ -29,16 +29,16 @@ export function CompareTable({
             <th className="px-4 py-3 text-xs font-semibold tracking-wide uppercase">
               &nbsp;
             </th>
-            {providers.map((p) => (
-              <th key={p.id} className="px-4 py-3 align-bottom">
+            {subjects.map((s) => (
+              <th key={s.id} className="px-4 py-3 align-bottom">
                 <Link
-                  href={`/crypto/exchanges/${p.slug}`}
+                  href={s.profileHref}
                   className="font-display text-navy text-base font-bold hover:underline"
                 >
-                  {p.name}
+                  {s.name}
                 </Link>
                 <div className="mt-1">
-                  <VerificationBadge status={p.verificationStatus} />
+                  <VerificationBadge status={s.verificationStatus} />
                 </div>
               </th>
             ))}
@@ -49,7 +49,7 @@ export function CompareTable({
             <Fragment key={section.title}>
               <tr className="border-border bg-panel-secondary/60 border-b">
                 <th
-                  colSpan={providers.length + 1}
+                  colSpan={subjects.length + 1}
                   className="text-muted px-4 py-2 text-left text-xs font-semibold tracking-wide uppercase"
                 >
                   {section.title}
@@ -63,7 +63,7 @@ export function CompareTable({
                   <td className="text-muted px-4 py-3">{row.label}</td>
                   {row.values.map((value, i) => (
                     <td
-                      key={providers[i]?.id ?? i}
+                      key={subjects[i]?.id ?? i}
                       className="text-navy px-4 py-3"
                     >
                       {value ?? "\u2014"}
@@ -76,11 +76,11 @@ export function CompareTable({
           {sections.length === 0 && (
             <tr>
               <td
-                colSpan={providers.length + 1}
+                colSpan={subjects.length + 1}
                 className="text-muted px-4 py-6 text-center"
               >
                 No comparable facts, fees, or features recorded yet for{" "}
-                {providers.map((p) => p.name).join(", ")}.
+                {subjects.map((s) => s.name).join(", ")}.
               </td>
             </tr>
           )}

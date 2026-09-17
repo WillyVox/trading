@@ -1,5 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import { buildComparisonSections } from "@/lib/providers/compare";
+import {
+  buildComparisonSections,
+  toComparisonSubjects,
+  type ComparisonProvider,
+} from "@/lib/providers/compare";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
 import { PageHero } from "@/components/layout/PageHero";
@@ -30,7 +34,9 @@ export default async function CompareCryptoExchangesPage() {
     include: { facts: true, fees: true, features: true },
   });
 
-  const sections = buildComparisonSections(providers as any);
+  const rows = providers as unknown as ComparisonProvider[];
+  const subjects = toComparisonSubjects(rows);
+  const sections = buildComparisonSections(rows);
 
   const trail = breadcrumbTrail([
     { name: "Compare", path: "/compare" },
@@ -53,11 +59,8 @@ export default async function CompareCryptoExchangesPage() {
           </p>
         ) : (
           <div className="mt-8">
-            <CompareTable providers={providers as any} sections={sections} />
-            <CompareMobileCards
-              providers={providers as any}
-              sections={sections}
-            />
+            <CompareTable subjects={subjects} sections={sections} />
+            <CompareMobileCards subjects={subjects} sections={sections} />
           </div>
         )}
       </div>

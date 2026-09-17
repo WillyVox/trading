@@ -18,9 +18,7 @@ export type OfferingListItem = Prisma.ProviderOfferingGetPayload<{
   include: typeof OFFERING_LIST_INCLUDE;
 }>;
 
-export function getOfferings(
-  opts: { page?: number; pageSize?: number } = {}
-) {
+export function getOfferings(opts: { page?: number; pageSize?: number } = {}) {
   return providerOfferingRepository.paginate({
     where: { active: true },
     orderBy: { name: "asc" },

@@ -23,6 +23,21 @@ export function canonicalCompareSlugMulti(slugs: string[]): string {
   return [...slugs].sort((a, b) => a.localeCompare(b)).join("-vs-");
 }
 
+/**
+ * Splits "a-vs-b-vs-c" into ["a","b","c"]. Supports any number of subjects
+ * (Phase 5: "3+-way comparison UI"), not just pairs.
+ *
+ * Deduplicates: "coinspot-vs-coinspot" is one subject, not two. Previously
+ * the /compare/[slug] page split without deduping, so a repeated slug
+ * rendered the same subject twice -- duplicate React keys in the table
+ * header, and a `results.length === slugs.length` existence check that
+ * passed on a list it shouldn't have. Deduping here means the canonical
+ * redirect collapses it to the single-subject URL instead.
+ */
+export function parseCompareSlugs(slug: string): string[] {
+  return Array.from(new Set(slug.split("-vs-").filter(Boolean)));
+}
+
 /** @deprecated kept for two-way call sites; prefer canonicalCompareSlugMulti. */
 export function canonicalCompareSlug(slugA: string, slugB: string): string {
   return canonicalCompareSlugMulti([slugA, slugB]);
