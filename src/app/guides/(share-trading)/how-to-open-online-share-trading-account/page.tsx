@@ -122,8 +122,7 @@ export const metadata = buildMetadata({
   publishedTime: "2026-09-18",
   modifiedTime: "2026-09-18",
   authors: ["Trading Guide Editorial Team"],
-  seoTitle:
-    "How to Open an Online Share Trading Account in Australia (2026)",
+  seoTitle: "How to Open an Online Share Trading Account in Australia (2026)",
   seoDescription: DESCRIPTION,
 });
 
@@ -176,8 +175,8 @@ export default function OpenShareTradingAccountPage() {
             <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none">
               <h2 id="what-you-need">What you need before you start</h2>
               <p>
-                Before opening an account, gather three things: a form of
-                photo ID (driver&apos;s licence or passport), your{" "}
+                Before opening an account, gather three things: a form of photo
+                ID (driver&apos;s licence or passport), your{" "}
                 <strong>Tax File Number (TFN)</strong>, and your bank account
                 details for linking. A TFN isn&apos;t compulsory to open an
                 account, but skipping it means tax is withheld at the top
@@ -187,9 +186,9 @@ export default function OpenShareTradingAccountPage() {
               <p>
                 Most Australian brokers also ask for your residential address
                 history and employment details as part of standard
-                anti-money-laundering and counter-terrorism financing
-                (AML/CTF) checks — this is a legal obligation for the broker,
-                not something specific to you, so expect the same questions
+                anti-money-laundering and counter-terrorism financing (AML/CTF)
+                checks — this is a legal obligation for the broker, not
+                something specific to you, so expect the same questions
                 regardless of which platform you choose.
               </p>
 
@@ -199,19 +198,19 @@ export default function OpenShareTradingAccountPage() {
               <p>
                 Individual, joint, company, trust, or self-managed super fund
                 (SMSF) — most beginners open an <strong>individual</strong>{" "}
-                account in their own name, which is the simplest option and
-                the quickest to verify. A joint account works well for shared
+                account in their own name, which is the simplest option and the
+                quickest to verify. A joint account works well for shared
                 investing with a partner, but both parties typically need to
                 consent to trades and account changes.
               </p>
               <p>
                 Company, trust and SMSF accounts involve extra documentation —
-                trust deeds, company extracts, and sometimes a certified
-                copy of a fund&apos;s trust deed — and are usually set up with
-                guidance from an accountant rather than through a
-                self-service online form. Unless you already have a specific
-                reason to use one of these structures, an individual account
-                is the practical starting point.
+                trust deeds, company extracts, and sometimes a certified copy of
+                a fund&apos;s trust deed — and are usually set up with guidance
+                from an accountant rather than through a self-service online
+                form. Unless you already have a specific reason to use one of
+                these structures, an individual account is the practical
+                starting point.
               </p>
 
               <GuideFigure caption="HIN (CHESS-sponsored) vs custodian model — where your shares are actually registered.">
@@ -230,47 +229,41 @@ export default function OpenShareTradingAccountPage() {
                 Number) means the shares sit directly in your name on the
                 ASX&apos;s CHESS register — you get a HIN and can move those
                 holdings to another broker relatively freely, because the
-                ASX&apos;s own record shows you, not the broker, as the
-                holder.
+                ASX&apos;s own record shows you, not the broker, as the holder.
               </p>
               <p>
-                A <strong>custodian model</strong> pools client shares under
-                the broker&apos;s own name or HIN, which is often cheaper or
-                fee-free to run, but means you don&apos;t hold a HIN
-                yourself — moving providers later can be more involved,
-                since the broker (not the ASX register) is the one who has
-                to action the transfer. Neither model is &quot;wrong,&quot;
-                but it&apos;s worth knowing which one you&apos;re signing up
-                for before you commit, especially if portability between
-                brokers matters to you.
+                A <strong>custodian model</strong> pools client shares under the
+                broker&apos;s own name or HIN, which is often cheaper or
+                fee-free to run, but means you don&apos;t hold a HIN yourself —
+                moving providers later can be more involved, since the broker
+                (not the ASX register) is the one who has to action the
+                transfer. Neither model is &quot;wrong,&quot; but it&apos;s
+                worth knowing which one you&apos;re signing up for before you
+                commit, especially if portability between brokers matters to
+                you.
               </p>
 
               <GuideFigure caption="The typical seven-step flow for opening an online share trading account.">
                 <StepsFlowIllustration title="The seven-step flow for opening an online share trading account" />
               </GuideFigure>
 
-              <h2 id="step-by-step">
-                Step-by-step: opening the account
-              </h2>
+              <h2 id="step-by-step">Step-by-step: opening the account</h2>
               <ol>
                 <li>Pick a broker and compare fees and account type</li>
                 <li>Start the online application (10–15 minutes)</li>
                 <li>Enter personal and tax details (TFN optional)</li>
-                <li>
-                  Choose an individual, joint, company or trust structure
-                </li>
+                <li>Choose an individual, joint, company or trust structure</li>
                 <li>Upload ID for verification</li>
                 <li>Link and verify your bank account</li>
                 <li>
-                  Wait for approval (often same-day, up to a few business
-                  days)
+                  Wait for approval (often same-day, up to a few business days)
                 </li>
               </ol>
               <p>
                 Most of the time in this flow is spent on step two — the
-                application form itself — rather than waiting. Have your ID
-                and bank details ready before you start and the whole
-                process rarely takes more than 20 minutes of active time.
+                application form itself — rather than waiting. Have your ID and
+                bank details ready before you start and the whole process rarely
+                takes more than 20 minutes of active time.
               </p>
 
               <h2 id="linking-funding">
@@ -279,16 +272,16 @@ export default function OpenShareTradingAccountPage() {
               <p>
                 Most brokers use a small deposit or verification step — or
                 direct bank-feed matching — to confirm the linked account
-                actually belongs to you before your first trade can settle.
-                This protects both you and the broker from funds being sent
-                to or from an account that isn&apos;t yours.
+                actually belongs to you before your first trade can settle. This
+                protects both you and the broker from funds being sent to or
+                from an account that isn&apos;t yours.
               </p>
               <p>
                 Funding methods vary by platform: BPAY and direct debit are
-                widely supported and typically take one to two business days
-                to clear, while PayID or OSKO transfers can land in your
-                trading account almost instantly, which matters if you want
-                to place a trade the same day you fund the account.
+                widely supported and typically take one to two business days to
+                clear, while PayID or OSKO transfers can land in your trading
+                account almost instantly, which matters if you want to place a
+                trade the same day you fund the account.
               </p>
 
               <h2 id="verifying-identity">Verifying your identity</h2>
@@ -296,35 +289,33 @@ export default function OpenShareTradingAccountPage() {
                 Australian brokers are bound by AML/CTF obligations, so ID
                 verification is mandatory, not optional, regardless of which
                 platform you choose. Most brokers now use instant digital
-                verification — matching your ID against government
-                databases — rather than requiring certified paper copies
-                sent by mail.
+                verification — matching your ID against government databases —
+                rather than requiring certified paper copies sent by mail.
               </p>
               <p>
-                Expect this step to be near-instant for most applicants,
-                with manual review only kicking in if something
-                doesn&apos;t match automatically — a changed address that
-                hasn&apos;t been updated on your licence, for example, or a
-                name that doesn&apos;t exactly match across documents. If
-                you&apos;re asked for manual review, it doesn&apos;t
-                necessarily mean anything is wrong; it just means a human
-                needs to check the details a computer couldn&apos;t confirm.
+                Expect this step to be near-instant for most applicants, with
+                manual review only kicking in if something doesn&apos;t match
+                automatically — a changed address that hasn&apos;t been updated
+                on your licence, for example, or a name that doesn&apos;t
+                exactly match across documents. If you&apos;re asked for manual
+                review, it doesn&apos;t necessarily mean anything is wrong; it
+                just means a human needs to check the details a computer
+                couldn&apos;t confirm.
               </p>
 
               <h2 id="first-trade">Placing your first trade</h2>
               <p>
                 Once approved and funded, you can place a{" "}
-                <strong>market order</strong> (executes at the current
-                price) or a <strong>limit order</strong> (executes only at
-                your specified price or better). For a first trade, many
-                beginners use a limit order to avoid unexpected slippage on
-                a volatile stock — you set the maximum price you&apos;re
-                willing to pay, and the order simply won&apos;t fill above
-                it.
+                <strong>market order</strong> (executes at the current price) or
+                a <strong>limit order</strong> (executes only at your specified
+                price or better). For a first trade, many beginners use a limit
+                order to avoid unexpected slippage on a volatile stock — you set
+                the maximum price you&apos;re willing to pay, and the order
+                simply won&apos;t fill above it.
               </p>
               <p>
-                If you&apos;re still deciding what to actually buy — an ETF,
-                an individual company, or a mix of both — our{" "}
+                If you&apos;re still deciding what to actually buy — an ETF, an
+                individual company, or a mix of both — our{" "}
                 <a href={RELATED_PATH_STEPS_TO_START_INVESTING}>
                   guide to the steps for starting to invest in shares
                 </a>{" "}
@@ -342,12 +333,12 @@ export default function OpenShareTradingAccountPage() {
                   dividends later.
                 </li>
                 <li>
-                  Not checking whether the account uses a HIN or custodian
-                  model before committing.
+                  Not checking whether the account uses a HIN or custodian model
+                  before committing.
                 </li>
                 <li>
-                  Comparing headline brokerage only, while ignoring
-                  inactivity or account-keeping fees.
+                  Comparing headline brokerage only, while ignoring inactivity
+                  or account-keeping fees.
                 </li>
               </ul>
             </div>

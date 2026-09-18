@@ -183,20 +183,19 @@ export default function StepsToStartInvestingInSharesPage() {
             <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none">
               <h2 id="set-goal">Step 1: Set your goal and time horizon</h2>
               <p>
-                Are you investing for a house deposit in three years,
-                retirement in thirty, or just to learn how markets work?
-                Your timeframe shapes almost everything else that follows.
-                Shorter horizons generally call for more caution, since
-                there&apos;s less time to ride out a downturn, while longer
-                horizons can absorb more short-term volatility in exchange
-                for potentially higher long-term returns.
+                Are you investing for a house deposit in three years, retirement
+                in thirty, or just to learn how markets work? Your timeframe
+                shapes almost everything else that follows. Shorter horizons
+                generally call for more caution, since there&apos;s less time to
+                ride out a downturn, while longer horizons can absorb more
+                short-term volatility in exchange for potentially higher
+                long-term returns.
               </p>
               <p>
                 Writing your goal down — even just a sentence — makes the
-                choices in the rest of this guide easier, because
-                &quot;what should I buy&quot; is really a downstream question
-                of &quot;what am I investing for and when do I need the
-                money.&quot;
+                choices in the rest of this guide easier, because &quot;what
+                should I buy&quot; is really a downstream question of &quot;what
+                am I investing for and when do I need the money.&quot;
               </p>
 
               <GuideFigure caption="Hands-on stock-picking vs a diversified, lower-maintenance approach — both are valid starting points.">
@@ -207,40 +206,38 @@ export default function StepsToStartInvestingInSharesPage() {
                 Step 2: Decide how hands-on you want to be
               </h2>
               <p>
-                Some investors want to research and pick individual
-                companies — reading annual reports, comparing sectors, and
-                deciding when to buy and sell. Others prefer a diversified
-                ETF that tracks an index, like the ASX 200, with far less
-                ongoing decision-making once the initial purchase is made.
+                Some investors want to research and pick individual companies —
+                reading annual reports, comparing sectors, and deciding when to
+                buy and sell. Others prefer a diversified ETF that tracks an
+                index, like the ASX 200, with far less ongoing decision-making
+                once the initial purchase is made.
               </p>
               <p>
-                Neither approach is inherently &quot;better&quot; — they
-                suit different amounts of time, interest, and appetite for
-                researching individual companies. Many beginners start with
-                the lower-maintenance option and add individual shares later
-                once they&apos;re more comfortable with how the market
-                behaves.
+                Neither approach is inherently &quot;better&quot; — they suit
+                different amounts of time, interest, and appetite for
+                researching individual companies. Many beginners start with the
+                lower-maintenance option and add individual shares later once
+                they&apos;re more comfortable with how the market behaves.
               </p>
 
               <h2 id="choose-broker">
                 Step 3: Choose a broker or micro-investing app
               </h2>
               <p>
-                Full-service online brokers, like CommSec and CMC Invest,
-                suit investors who want direct share ownership and control
-                over every trade — you choose exactly what to buy, when, and
-                at what price. Micro-investing apps automate smaller,
-                regular contributions into a pooled portfolio instead,
-                which is convenient but usually comes with less
-                individual-stock control and ongoing management fees on top
-                of any brokerage.
+                Full-service online brokers, like CommSec and CMC Invest, suit
+                investors who want direct share ownership and control over every
+                trade — you choose exactly what to buy, when, and at what price.
+                Micro-investing apps automate smaller, regular contributions
+                into a pooled portfolio instead, which is convenient but usually
+                comes with less individual-stock control and ongoing management
+                fees on top of any brokerage.
               </p>
               <p>
                 If you already know you want to hold specific companies
                 directly, a full-service broker is the more natural fit; if
                 you&apos;d rather automate small, regular contributions and
-                worry less about individual stock selection, a
-                micro-investing app may suit you better.
+                worry less about individual stock selection, a micro-investing
+                app may suit you better.
               </p>
 
               <h2 id="open-fund">Step 4: Open and fund your account</h2>
@@ -250,21 +247,21 @@ export default function StepsToStartInvestingInSharesPage() {
                 <a href={RELATED_PATH_OPEN_ACCOUNT}>
                   how to open an online share trading account
                 </a>{" "}
-                — which walks through ID verification, linking a bank
-                account, and choosing between a HIN and custodian model. It
-                typically takes 10–20 minutes to apply, with verification
-                completed anywhere from the same day to a few business days.
+                — which walks through ID verification, linking a bank account,
+                and choosing between a HIN and custodian model. It typically
+                takes 10–20 minutes to apply, with verification completed
+                anywhere from the same day to a few business days.
               </p>
 
               <h2 id="first-purchase">Step 5: Make your first purchase</h2>
               <p>
-                Start with an amount you&apos;re comfortable holding through
-                a downturn, not the maximum you can afford — the goal of a
-                first trade is to get comfortable with the mechanics, not to
-                maximise your initial position. Many beginners start with a
-                broad ETF as their first purchase, then add individual
-                shares once they&apos;re comfortable placing orders and
-                watching prices move.
+                Start with an amount you&apos;re comfortable holding through a
+                downturn, not the maximum you can afford — the goal of a first
+                trade is to get comfortable with the mechanics, not to maximise
+                your initial position. Many beginners start with a broad ETF as
+                their first purchase, then add individual shares once
+                they&apos;re comfortable placing orders and watching prices
+                move.
               </p>
 
               <GuideFigure caption="Spreading investment across companies and sectors reduces the impact of any single one underperforming.">
@@ -279,13 +276,12 @@ export default function StepsToStartInvestingInSharesPage() {
                 Step 6: Diversify instead of picking one stock
               </h2>
               <p>
-                Putting your entire balance into one company concentrates
-                your risk on that one company&apos;s fortunes — if it has a
-                bad quarter, cuts its dividend, or underperforms its sector,
-                your whole portfolio feels it. Spreading across sectors, or
-                holding a diversified ETF, smooths out those bumps without
-                requiring you to predict which individual company will
-                perform best.
+                Putting your entire balance into one company concentrates your
+                risk on that one company&apos;s fortunes — if it has a bad
+                quarter, cuts its dividend, or underperforms its sector, your
+                whole portfolio feels it. Spreading across sectors, or holding a
+                diversified ETF, smooths out those bumps without requiring you
+                to predict which individual company will perform best.
               </p>
 
               <GuideFigure caption="Regular, smaller contributions over time (dollar-cost averaging) smooth out the effect of short-term price swings.">
@@ -298,31 +294,28 @@ export default function StepsToStartInvestingInSharesPage() {
               <p>
                 Investing a fixed amount on a regular schedule — weekly,
                 fortnightly, or monthly — is known as{" "}
-                <strong>dollar-cost averaging</strong>. It removes the
-                pressure of trying to &quot;time&quot; the market, since
-                you&apos;re buying at whatever the price happens to be each
-                time, and builds a habit that compounds over years rather
-                than depending on a single well-timed lump sum.
+                <strong>dollar-cost averaging</strong>. It removes the pressure
+                of trying to &quot;time&quot; the market, since you&apos;re
+                buying at whatever the price happens to be each time, and builds
+                a habit that compounds over years rather than depending on a
+                single well-timed lump sum.
               </p>
 
-              <h2 id="tax-basics">
-                Tax basics every new investor should know
-              </h2>
+              <h2 id="tax-basics">Tax basics every new investor should know</h2>
               <p>
                 Selling shares for a profit triggers{" "}
-                <strong>capital gains tax (CGT)</strong>. Hold an asset for
-                more than 12 months before selling and individuals generally
-                qualify for a 50% CGT discount on the gain, which makes
-                holding period a genuinely important decision, not just a
-                technicality.
+                <strong>capital gains tax (CGT)</strong>. Hold an asset for more
+                than 12 months before selling and individuals generally qualify
+                for a 50% CGT discount on the gain, which makes holding period a
+                genuinely important decision, not just a technicality.
               </p>
               <p>
-                Franked dividends also carry franking credits, which can
-                reduce your overall tax bill because the company has
-                already paid tax on that portion of its profit. Both of
-                these are worth understanding before you start actively
-                trading, not after you&apos;ve already triggered a tax event
-                you weren&apos;t expecting.
+                Franked dividends also carry franking credits, which can reduce
+                your overall tax bill because the company has already paid tax
+                on that portion of its profit. Both of these are worth
+                understanding before you start actively trading, not after
+                you&apos;ve already triggered a tax event you weren&apos;t
+                expecting.
               </p>
             </div>
 

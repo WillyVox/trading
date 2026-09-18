@@ -58,17 +58,17 @@ always return me draft ideas on how you gonna do, then i will decide next steps
 
 # 4 Build me a better not found page:
 
-
 - Contents must be
-+ Consitently across pages.
-+ Informative, effective and useful
-+ Attracts more people to read the contents
-+ Layout displays perfectly, beautfully and mordenly
-+ SEO configurations, good SEO
-+ Design is consistent across the app
-+ Append/update sitemap, robot if necessary
-+ Display perfectly on desktop and mobile
- 
+
+* Consitently across pages.
+* Informative, effective and useful
+* Attracts more people to read the contents
+* Layout displays perfectly, beautfully and mordenly
+* SEO configurations, good SEO
+* Design is consistent across the app
+* Append/update sitemap, robot if necessary
+* Display perfectly on desktop and mobile
+
 Analyze, explore to understand the requirements, feel free to give back your feedback, concerns, outline the ideas, approaches, pros and cons, suggestions, recommendations.
 provide me a mockup layout, design
 
