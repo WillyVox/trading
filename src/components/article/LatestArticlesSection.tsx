@@ -106,7 +106,9 @@ export function LatestArticlesSection({
           </div>
           <div className="flex flex-1 flex-col gap-2.5 p-5">
             {featured.category && (
-              <Badge tone="gold">{formatCategoryLabel(featured.category)}</Badge>
+              <Badge tone="gold">
+                {formatCategoryLabel(featured.category)}
+              </Badge>
             )}
             <h3 className="font-display text-lg leading-snug font-bold">
               {featured.title}
@@ -116,7 +118,10 @@ export function LatestArticlesSection({
                 {featured.excerpt}
               </p>
             )}
-            <Byline author={featured.author} publishedAt={featured.publishedAt} />
+            <Byline
+              author={featured.author}
+              publishedAt={featured.publishedAt}
+            />
           </div>
         </Link>
 

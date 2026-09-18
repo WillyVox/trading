@@ -56,15 +56,14 @@ feel free to give feedback, ideas before trying to do
 
 always return me draft ideas on how you gonna do, then i will decide next steps
 
-
 # 4
 
 - Contents must be
-+ Informative, effective and useful
-+ Attracts more people to read the contents
-+ Layout displays perfectly, beautfully and mordenly
-+ SEO configurations, good SEO
-+ Design is consistent across the app
-+ Append/update sitemap, robot if necessary
-+ Display perfectly on desktop and mobile
- 
+
+* Informative, effective and useful
+* Attracts more people to read the contents
+* Layout displays perfectly, beautfully and mordenly
+* SEO configurations, good SEO
+* Design is consistent across the app
+* Append/update sitemap, robot if necessary
+* Display perfectly on desktop and mobile

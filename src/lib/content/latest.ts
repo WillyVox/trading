@@ -42,34 +42,30 @@ export async function getLatestArticlesForCategory(
   ]);
 
   const combined: LatestArticleSummary[] = [
-    ...guides.map(
-      (guide): LatestArticleSummary => ({
-        id: guide.id,
-        href: `/guides/${guide.slug}`,
-        title: guide.title,
-        excerpt: guide.excerpt,
-        category: guide.category,
-        articleType: "GUIDE",
-        featuredImage: guide.featuredImage,
-        featuredImageAlt: guide.featuredImageAlt,
-        author: guide.author,
-        publishedAt: guide.publishedAt,
-      })
-    ),
-    ...newsResult.items.map(
-      (article: any): LatestArticleSummary => ({
-        id: article.id,
-        href: `/news/${article.slug}`,
-        title: article.title,
-        excerpt: article.excerpt,
-        category: article.category,
-        articleType: "NEWS",
-        featuredImage: article.featuredImage,
-        featuredImageAlt: article.featuredImageAlt,
-        author: article.author,
-        publishedAt: article.publishedAt,
-      })
-    ),
+    ...guides.map((guide): LatestArticleSummary => ({
+      id: guide.id,
+      href: `/guides/${guide.slug}`,
+      title: guide.title,
+      excerpt: guide.excerpt,
+      category: guide.category,
+      articleType: "GUIDE",
+      featuredImage: guide.featuredImage,
+      featuredImageAlt: guide.featuredImageAlt,
+      author: guide.author,
+      publishedAt: guide.publishedAt,
+    })),
+    ...newsResult.items.map((article: any): LatestArticleSummary => ({
+      id: article.id,
+      href: `/news/${article.slug}`,
+      title: article.title,
+      excerpt: article.excerpt,
+      category: article.category,
+      articleType: "NEWS",
+      featuredImage: article.featuredImage,
+      featuredImageAlt: article.featuredImageAlt,
+      author: article.author,
+      publishedAt: article.publishedAt,
+    })),
   ];
 
   return combined

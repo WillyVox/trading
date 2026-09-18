@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AuthStatus } from "./AuthStatus";
-import { NAV_ITEMS } from "@/lib/nav/config";
+import { NAV_ITEMS, type NavLink } from "@/lib/nav/config";
+
+/** A flattened mobile-accordion entry: either a real link, or a
+ *  non-interactive column-heading label used when an item's dropdown is
+ *  defined as multi-column `columns` (e.g. "Guides") rather than a flat
+ *  `children` list. */
+type MobileNavEntry = NavLink | { heading: string };
 
 /** Exact match for "/", startsWith for everything else — otherwise "/" would match every route. */
 function isActive(pathname: string | null, href: string): boolean {
@@ -78,7 +84,23 @@ export function MobileNav() {
         </div>
         <nav className="mt-6 flex flex-col gap-1">
           {NAV_ITEMS.map((item) => {
-            const children = item.children ?? [];
+            // Hover dropdowns (NavMenuItem, desktop) don't translate to
+            // touch, so items with `children` or `columns` get an
+            // expand/collapse section here instead. A `columns` item
+            // (e.g. "Guides") is flattened into one list, with each
+            // column's heading shown as a small non-interactive group
+            // label so the grouping isn't lost on mobile.
+            const children: MobileNavEntry[] =
+              item.children ??
+              (item.columns
+                ? [
+                    ...item.columns.flatMap((column) => [
+                      { heading: column.heading },
+                      ...column.links,
+                    ]),
+                    ...(item.footerLink ? [item.footerLink] : []),
+                  ]
+                : []);
 
             if (children.length === 0) {
               const href = item.href ?? "#";
@@ -125,19 +147,28 @@ export function MobileNav() {
                 </button>
                 {expanded && (
                   <div className="border-border mt-1 ml-3 flex flex-col gap-1 border-l pl-3">
-                    {children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className={`rounded-xl px-3 py-2 text-sm transition-colors ${
-                          isActive(pathname, child.href)
-                            ? "bg-panel-secondary text-navy"
-                            : "text-muted hover:bg-panel-secondary hover:text-navy"
-                        }`}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                    {children.map((child) =>
+                      "heading" in child ? (
+                        <div
+                          key={child.heading}
+                          className="text-muted mt-2 px-3 text-[11px] font-bold tracking-wider uppercase first:mt-0"
+                        >
+                          {child.heading}
+                        </div>
+                      ) : (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={`rounded-xl px-3 py-2 text-sm transition-colors ${
+                            isActive(pathname, child.href)
+                              ? "bg-panel-secondary text-navy"
+                              : "text-muted hover:bg-panel-secondary hover:text-navy"
+                          }`}
+                        >
+                          {child.label}
+                        </Link>
+                      )
+                    )}
                   </div>
                 )}
               </div>
