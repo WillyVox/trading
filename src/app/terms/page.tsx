@@ -64,9 +64,10 @@ export default function TermsOfUsePage() {
           </h2>
           <p>
             Trading Guide publishes independent research, comparisons, and
-            educational content about crypto exchanges available to Australians.
-            We do not execute trades, hold customer funds, or act as a crypto
-            exchange, broker, or financial product issuer.
+            educational content about share trading platforms and crypto
+            exchanges available to Australians. We do not execute trades, hold
+            customer funds, or act as a broker, crypto exchange, or financial
+            product issuer.
           </p>
         </section>
 
@@ -99,9 +100,11 @@ export default function TermsOfUsePage() {
             general in nature and doesn&apos;t take into account your
             objectives, financial situation, or needs. Consider seeking
             independent financial, legal, or tax advice before making a
-            decision. Crypto assets are volatile and can lose value, including
-            all of your investment; past performance doesn&apos;t predict future
-            results.
+            decision. All investing carries risk, including the risk of losing
+            your entire investment — this applies to listed shares and other
+            exchange-traded products as well as crypto assets, which are
+            typically more volatile. Past performance doesn&apos;t predict
+            future results.
           </p>
           {/* \u26A0\uFE0F LEGAL REVIEW REQUIRED: confirm this framing (factual/
               educational information vs. anything that could constitute

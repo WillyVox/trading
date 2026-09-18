@@ -8,9 +8,9 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
-  title: "Methodology \u2014 How We Verify Crypto Exchange Research",
+  title: "Methodology \u2014 How We Verify Trading Platform & Crypto Research",
   description:
-    "How Trading Guide sources, verifies, and labels crypto exchange facts \u2014 evidence standards and editorial policy.",
+    "How Trading Guide sources, verifies, and labels facts about share trading platforms and crypto exchanges \u2014 evidence standards and editorial policy.",
   path: "/methodology",
   image: "/images/og/methodology.png",
 });

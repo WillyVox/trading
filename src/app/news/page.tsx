@@ -8,7 +8,7 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 export const metadata = buildMetadata({
   title: "Trading News | Educational Materials | Trading Guides - TradingGuide",
   description:
-    "Current crypto market and regulatory news relevant to Australian users.",
+    "Current share trading and crypto market news and regulatory updates relevant to Australian users.",
   path: "/news",
   image: "/images/og/news.png",
 });
@@ -22,8 +22,8 @@ export default async function NewsPage() {
       <PageHero
         breadcrumbs={trail}
         eyebrow="News"
-        title="Australian crypto news"
-        subheading="Regulatory updates and market news, source-linked."
+        title="Australian trading & crypto news"
+        subheading="Regulatory updates and market news for share trading and crypto, source-linked."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
         {items.length === 0 ? (

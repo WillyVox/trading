@@ -13,7 +13,8 @@ export interface FooterLink {
  * entries by design.
  */
 export const footerLinks: FooterLink[] = [
-  { label: "Compare exchanges", href: "/compare/crypto-exchanges" },
+  { label: "Compare trading platforms", href: "/compare/trading-platforms" },
+  { label: "Compare crypto exchanges", href: "/compare/crypto-exchanges" },
   { label: "Guides", href: "/guides" },
   {
     label: "Affiliate disclosure",

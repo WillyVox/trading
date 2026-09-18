@@ -495,29 +495,22 @@ export default function ShareTradingForBeginnersPage() {
             />
 
             <GuideProviderLinks
-              heading="Looking to trade crypto instead? Compare exchanges"
+              heading="Ready to open an account? Compare share trading platforms"
+              basePath="/share-trading"
+              compareHref="/compare/trading-platforms"
+              compareLabel="Compare all trading platforms side-by-side"
               providers={[
                 {
-                  slug: "coinspot",
-                  name: "CoinSpot",
-                  description: "Beginner-friendly Australian crypto exchange.",
-                },
-                {
-                  slug: "swyftx",
-                  name: "Swyftx",
+                  slug: "commsec",
+                  name: "CommSec",
                   description:
-                    "Australian exchange with a broad range of listed assets.",
+                    "Commonwealth Bank's CHESS-sponsored share trading platform for Australian and international shares, ETFs, and exchange-traded options.",
                 },
                 {
-                  slug: "btc-markets",
-                  name: "BTC Markets",
-                  description: "Australian-regulated crypto trading platform.",
-                },
-                {
-                  slug: "independent-reserve",
-                  name: "Independent Reserve",
+                  slug: "cmc-invest",
+                  name: "CMC Invest",
                   description:
-                    "Australian exchange for individuals and businesses.",
+                    "CMC Markets' CHESS-sponsored share investing platform for Australian and international shares and ETFs.",
                 },
               ]}
             />
@@ -528,13 +521,13 @@ export default function ShareTradingForBeginnersPage() {
                   id: "guides-home",
                   slug: "guides",
                   href: "/guides",
-                  title: "Browse all crypto guides",
+                  title: "Browse all share trading guides",
                 },
                 {
-                  id: "compare-exchanges",
+                  id: "compare-trading-platforms",
                   slug: "compare",
-                  href: "/compare/crypto-exchanges",
-                  title: "Compare crypto exchanges side-by-side",
+                  href: "/compare/trading-platforms",
+                  title: "Compare share trading platforms side-by-side",
                 },
               ]}
             />
@@ -544,6 +537,8 @@ export default function ShareTradingForBeginnersPage() {
             headings={HEADINGS}
             category="beginner-guides"
             readingMinutes={READING_MINUTES}
+            compareHref="/compare/trading-platforms"
+            compareLabel="Compare trading platforms"
           />
         </div>
       </div>

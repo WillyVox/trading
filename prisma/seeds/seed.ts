@@ -11,12 +11,12 @@ async function main() {
   // Crypto assets
   // ---------------------------------------
 
-  seedCryptoAssets();
+  await seedCryptoAssets();
   console.log("Several cryptos are seeded.");
   // ---------------------------------------
   // Crypto providers
   // ---------------------------------------
-  seedProviders();
+  await seedProviders();
   console.log(
     "CoinSpot, Independent Reserve, Swyftx and BTC Markets Kraken and CoinJar exchanges are seeded."
   );

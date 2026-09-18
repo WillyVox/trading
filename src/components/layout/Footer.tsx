@@ -33,7 +33,7 @@ export function Footer() {
               <TradingGuideLogoWhite />
             </Link>
             <p className="text-background/60 mt-1 text-xs">
-              Independent Australian trading research — crypto and beyond
+              Independent Australian trading research — share trading and crypto
             </p>
           </div>
 
@@ -86,8 +86,10 @@ export function Footer() {
           no extra cost to you and without affecting the alphabetical order
           providers appear in. We don&apos;t compare every provider available in
           Australia, and provider fees, features and regulatory status can
-          change {"\u2014"} always verify directly with the provider. Crypto
-          assets are volatile and can lose value.
+          change {"\u2014"} always verify directly with the provider. All
+          investing carries risk, including the risk of losing your entire
+          investment; crypto assets are typically more volatile than listed
+          shares.
         </p>
       </div>
     </footer>
