@@ -1,22 +1,34 @@
-Build and generate me three static pages,
+app/guides/simple-steps-to-buy-cryptocurrency (5 steps)
+app/guides/how-to-start-investing-in-crypto-for-beginners
 
-app/share-trading-for-beginners
-app/simple-steps-to-buy-cryptocurrency (5 steps)
-app/how-to-start-investing-in-crypto-for-beginners
+app/guides/share-trading-for-beginners
 
-These will be located in app/(static-guides) folder
+## Request
+
+Build and generate me static pages,
+
+app/guides/how-to-open-online-share-trading-account
+app/guides/steps-to-start-investing-in-share-in-australia
+
+These will be located in app/guides folder
 
 Which include:
 
 - clear contents
 - include images related to the topic, content, with full details for SEO
 - impelementing SEO Perfectly and Smartly
-- link/navigates to other working pages in my app
-  - Crypto exchange: providers, compares, review [YES]
-  - Trading platform: [NO]
+- link/navigate to other working pages in my app
+  - if it is a cryptocurrency or exchanges related article, then link/navigate to other cryptocurrency or exchanges sections, for example featured exchanges, related articles, etc
+  - if it is a share/stock trading related article, then link/navigate to other share trading sections, for example featured online share trading platforms, related articles, etc
+  
 - clear and smart instructions
 - follow the layout of current article details page (or can be improved to be better look and feel) you can provide suggessions
-- be a smart and most beautiful doc/guide to help people learn trading
+- be a smart and most beautiful doc/guide to help people learn trading.
+- be consistent with other articles, and pages across the app
+- Ultimate contents and SEO goals of my side are TradingGuide, an Australian topical authority that owns hundreds of high-intent searches around brokers, trading platforms, fees, comparisons and investing education.
+
+return me the mockup contents first before i decide when to start coding.
+
 
 # 1. Working Directive & Analysis Protocol
 
@@ -51,3 +63,4 @@ Search Dominance: Optimize every page, guide, and review for search engines with
 Eliminated Redundancies: Grouped repeating points about SEO, content quality, and human writing into distinct operational pillars.
 
 Clear Terminology: Replaced "AI wordings" and "AI styling" with "clear, natural language" and "jargon-free content" to clearly articulate editorial standards.
+

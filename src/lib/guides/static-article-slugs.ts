@@ -7,6 +7,9 @@ export const STATIC_SLUG_IDS = {
   STEPS_TO_BUY_CRYPTO: "simple-steps-to-buy-cryptocurrency",
   START_INVESTING_IN_CRYPTO: "how-to-start-investing-in-crypto-for-beginners",
   SHARE_TRADING_FOR_BEGINNERS: "share-trading-for-beginners",
+  OPEN_SHARE_TRADING_ACCOUNT: "how-to-open-online-share-trading-account",
+  STEPS_TO_START_INVESTING_IN_SHARES:
+    "steps-to-start-investing-in-share-in-australia",
 };
 
 /**

@@ -60,6 +60,18 @@ export const NAV_ITEMS: NavItem[] = [
               STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS
             ),
           },
+          {
+            label: "Steps to Start Investing in Shares in Australia",
+            href: getStaticGuideArticleHref(
+              STATIC_SLUG_IDS.STEPS_TO_START_INVESTING_IN_SHARES
+            ),
+          },
+          {
+            label: "How to Open an Online Share Trading Account",
+            href: getStaticGuideArticleHref(
+              STATIC_SLUG_IDS.OPEN_SHARE_TRADING_ACCOUNT
+            ),
+          },
         ],
       },
       {

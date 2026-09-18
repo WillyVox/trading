@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#16233f" />
+  <line x1="80" y1="200" x2="1120" y2="200" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+  <line x1="80" y1="280" x2="1120" y2="280" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+  <line x1="80" y1="360" x2="1120" y2="360" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+  <line x1="80" y1="440" x2="1120" y2="440" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+
+  <!-- account "form" card with a checklist, standing in for the application flow -->
+  <rect x="330" y="150" width="300" height="360" rx="14" fill="none" stroke="#e8d9b5" stroke-opacity="0.7" stroke-width="3" />
+  <line x1="360" y1="200" x2="560" y2="200" stroke="#e8d9b5" stroke-opacity="0.5" stroke-width="3" />
+  <line x1="360" y1="200" x2="560" y2="200" stroke="#e8d9b5" stroke-opacity="0.5" stroke-width="3" />
+
+  <g>
+    <circle cx="372" cy="250" r="12" fill="#c79a3d" />
+    <path d="M366 250 L370 254 L379 244" fill="none" stroke="#16233f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <line x1="396" y1="250" x2="560" y2="250" stroke="#f5f2ea" stroke-opacity="0.7" stroke-width="3" />
+  </g>
+  <g>
+    <circle cx="372" cy="300" r="12" fill="#c79a3d" />
+    <path d="M366 300 L370 304 L379 294" fill="none" stroke="#16233f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <line x1="396" y1="300" x2="560" y2="300" stroke="#f5f2ea" stroke-opacity="0.7" stroke-width="3" />
+  </g>
+  <g>
+    <circle cx="372" cy="350" r="12" fill="none" stroke="#e8d9b5" stroke-width="3" />
+    <line x1="396" y1="350" x2="560" y2="350" stroke="#f5f2ea" stroke-opacity="0.4" stroke-width="3" />
+  </g>
+  <g>
+    <circle cx="372" cy="400" r="12" fill="none" stroke="#e8d9b5" stroke-width="3" />
+    <line x1="396" y1="400" x2="560" y2="400" stroke="#f5f2ea" stroke-opacity="0.4" stroke-width="3" />
+  </g>
+
+  <rect x="360" y="440" width="240" height="40" rx="20" fill="#c79a3d" />
+  <text x="480" y="466" text-anchor="middle" font-family="'DejaVu Sans', Arial, sans-serif" font-weight="700" font-size="16" fill="#16233f">SUBMIT APPLICATION</text>
+
+  <circle cx="1040" cy="150" r="70" fill="#c79a3d" stroke="#16233f" stroke-width="4" />
+  <text x="1040" y="178" text-anchor="middle" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="72" fill="#16233f">A</text>
+
+  <rect x="80" y="500" width="230" height="46" rx="23" fill="none" stroke="#c79a3d" stroke-width="3" />
+  <text x="112" y="530" font-family="'DejaVu Sans', Arial, sans-serif" font-weight="700" font-size="22" fill="#f5f2ea">GUIDES</text>
+
+  <text x="80" y="120" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="46" fill="#f5f2ea">Opening an Online</text>
+  <text x="80" y="170" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="46" fill="#f5f2ea">Share Trading Account</text>
+</svg>

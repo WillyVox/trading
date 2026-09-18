@@ -6,10 +6,16 @@ export function GuideSidebar({
   headings,
   category,
   readingMinutes,
+  compareHref = "/compare",
+  compareLabel = "Compare crypto exchanges",
 }: {
   headings: Heading[];
   category?: string | null;
   readingMinutes: number;
+  /** Defaults preserve existing crypto-guide behaviour; other guide
+   * topics (e.g. share trading) should pass their own compare route. */
+  compareHref?: string;
+  compareLabel?: string;
 }) {
   return (
     <aside className="hidden lg:block">
@@ -37,10 +43,10 @@ export function GuideSidebar({
         </div>
 
         <Link
-          href="/compare"
+          href={compareHref}
           className="border-border bg-panel-secondary text-navy hover:border-gold-soft block rounded-2xl border p-4 text-center text-sm font-semibold"
         >
-          Compare crypto exchanges
+          {compareLabel}
         </Link>
       </div>
     </aside>

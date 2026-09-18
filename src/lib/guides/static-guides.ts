@@ -89,6 +89,38 @@ export const STATIC_GUIDES = [
     updatedAt: "2026-09-15",
     source: "STATIC",
   },
+  {
+    slug: STATIC_SLUG_IDS.OPEN_SHARE_TRADING_ACCOUNT,
+    title: "How to Open an Online Share Trading Account in Australia",
+    excerpt:
+      "The step-by-step process for opening an online share trading account — ID verification, choosing between a HIN and a custodian model, linking your bank account, and placing your first trade.",
+    category: "share-trading",
+    featuredImage: getStaticGuideArticleImage(
+      STATIC_SLUG_IDS.OPEN_SHARE_TRADING_ACCOUNT
+    ),
+    featuredImageAlt:
+      "Step-by-step process for opening an online share trading account in Australia",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-19",
+    updatedAt: "2026-09-19",
+    source: "STATIC",
+  },
+  {
+    slug: STATIC_SLUG_IDS.STEPS_TO_START_INVESTING_IN_SHARES,
+    title: "Steps to Start Investing in Shares in Australia",
+    excerpt:
+      "The full path to investing in Australian shares — setting your goal, choosing a broker, making your first purchase, diversifying, and building a regular investing habit.",
+    category: "share-trading",
+    featuredImage: getStaticGuideArticleImage(
+      STATIC_SLUG_IDS.STEPS_TO_START_INVESTING_IN_SHARES
+    ),
+    featuredImageAlt:
+      "The steps a beginner follows to start investing in shares in Australia",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-19",
+    updatedAt: "2026-09-19",
+    source: "STATIC",
+  },
 ] as const satisfies readonly StaticGuideSummary[];
 
 export const STATIC_GUIDE_SLUGS = new Set<string>(

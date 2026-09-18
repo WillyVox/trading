@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#16233f" />
+  <line x1="80" y1="200" x2="1120" y2="200" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+  <line x1="80" y1="280" x2="1120" y2="280" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+  <line x1="80" y1="360" x2="1120" y2="360" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+  <line x1="80" y1="440" x2="1120" y2="440" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+
+  <!-- numbered step path leading into an upward growth line -->
+  <line x1="120" y1="420" x2="640" y2="420" stroke="#f5f2ea" stroke-opacity="0.2" stroke-width="2" />
+  <circle cx="160" cy="420" r="30" fill="none" stroke="#c79a3d" stroke-width="3" />
+  <text x="160" y="430" text-anchor="middle" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="26" fill="#e8d9b5">1</text>
+  <circle cx="300" cy="420" r="30" fill="none" stroke="#c79a3d" stroke-width="3" />
+  <text x="300" y="430" text-anchor="middle" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="26" fill="#e8d9b5">2</text>
+  <circle cx="440" cy="420" r="30" fill="none" stroke="#c79a3d" stroke-width="3" />
+  <text x="440" y="430" text-anchor="middle" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="26" fill="#e8d9b5">3</text>
+  <circle cx="580" cy="420" r="30" fill="#c79a3d" />
+  <text x="580" y="430" text-anchor="middle" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="26" fill="#16233f">4</text>
+
+  <polyline points="580,390 660,340 740,300 820,240 900,180" fill="none" stroke="#c79a3d" stroke-width="4" stroke-linecap="round" />
+  <circle cx="660" cy="340" r="6" fill="#f5f2ea" />
+  <circle cx="740" cy="300" r="6" fill="#f5f2ea" />
+  <circle cx="820" cy="240" r="6" fill="#f5f2ea" />
+  <circle cx="900" cy="180" r="7" fill="#e8d9b5" />
+
+  <circle cx="1040" cy="150" r="70" fill="#c79a3d" stroke="#16233f" stroke-width="4" />
+  <text x="1040" y="178" text-anchor="middle" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="72" fill="#16233f">S</text>
+
+  <rect x="80" y="500" width="230" height="46" rx="23" fill="none" stroke="#c79a3d" stroke-width="3" />
+  <text x="112" y="530" font-family="'DejaVu Sans', Arial, sans-serif" font-weight="700" font-size="22" fill="#f5f2ea">GUIDES</text>
+
+  <text x="80" y="120" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="46" fill="#f5f2ea">Steps to Start Investing</text>
+  <text x="80" y="170" font-family="Georgia, 'DejaVu Serif', serif" font-weight="700" font-size="46" fill="#f5f2ea">in Shares in Australia</text>
+</svg>
