@@ -1,17 +1,39 @@
+// src/app/share-trading/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { FeeCategory } from "@prisma/client";
 import { getOfferingBySlug } from "@/lib/offerings/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { Card } from "@/components/ui/Card";
 import { OfferingAvailabilitySection } from "@/components/offerings/OfferingAvailabilitySection";
 import { OfferingCustodySection } from "@/components/offerings/OfferingCustodySection";
-import { formatProductType, formatAccountType } from "@/lib/offerings/labels";
+import {
+  OfferingFeeSection,
+  type PromotionRow,
+} from "@/components/offerings/OfferingSection";
+import type { FeeRowData } from "@/components/offerings/FeeDisplay";
+import {
+  formatProductType,
+  formatAccountType,
+  formatFeeValue,
+} from "@/lib/offerings/labels";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
+
+/** Matches the "1 Oct 2026" style used elsewhere for guide/article dates
+ *  (see GuideHeader's local formatDate) -- short form suits a promo's
+ *  validFrom/validTo range better than the long "17 September 2026" form. */
+function formatPromoDate(date: Date) {
+  return date.toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
 
 export async function generateMetadata({
   params,
@@ -83,6 +105,52 @@ export default async function ShareTradingOfferingPage({
     verificationStatus: c.verificationStatus,
   }));
 
+  // Standing (non-promotional) fees, grouped/rendered by OfferingFeeSection;
+  // promotional rows are split out below instead, per the "never fold a
+  // promo into the standing schedule" rule (see OfferingFeeSection's
+  // comment and buildFeeRows() in offerings/compare.ts, which excludes
+  // promotional rows from the compare table for the same reason).
+  const feeRows: (FeeRowData & { category: FeeCategory })[] = offering.fees
+    .filter((f) => !f.isPromotional)
+    .map((f) => ({
+      id: f.id,
+      category: f.feeCategory,
+      label: f.label,
+      calculationBasis: f.calculationBasis,
+      flatAmount: f.flatAmount != null ? Number(f.flatAmount) : null,
+      percentage: f.percentage != null ? Number(f.percentage) : null,
+      currency: f.currency,
+      displayValue: f.displayValue,
+      notes: f.notes,
+      sourceUrl: f.sourceUrl,
+      tiers: f.tiers.map((t) => ({
+        id: t.id,
+        minAmount: Number(t.minAmount),
+        maxAmount: t.maxAmount != null ? Number(t.maxAmount) : null,
+        flatAmount: t.flatAmount != null ? Number(t.flatAmount) : null,
+        percentage: t.percentage != null ? Number(t.percentage) : null,
+      })),
+    }));
+
+  const promotionRows: PromotionRow[] = offering.fees
+    .filter((f) => f.isPromotional)
+    .map((f) => ({
+      id: f.id,
+      label: f.label,
+      value: formatFeeValue({
+        calculationBasis: f.calculationBasis,
+        flatAmount: f.flatAmount,
+        percentage: f.percentage,
+        currency: f.currency,
+        displayValue: f.displayValue,
+        notes: f.notes,
+        tiers: f.tiers,
+      }),
+      validFrom: f.validFrom ? formatPromoDate(f.validFrom) : "\u2014",
+      validTo: f.validTo ? formatPromoDate(f.validTo) : "\u2014",
+      terms: f.promotionalTerms,
+    }));
+
   return (
     <>
       <JsonLd data={breadcrumbSchema(trail)} />
@@ -136,10 +204,12 @@ export default async function ShareTradingOfferingPage({
           rows={accountTypeRows}
         />
 
+        <OfferingFeeSection fees={feeRows} promotions={promotionRows} />
+
         <Card className="mt-4">
           <p className="text-muted text-xs">
-            Fees, order types, and platform features for share trading platforms
-            are still being researched and aren&apos;t shown yet &mdash; see{" "}
+            Order types and platform features for share trading platforms are
+            still being researched and aren&apos;t shown yet &mdash; see{" "}
             <Link href="/methodology" className="underline">
               our methodology
             </Link>{" "}
