@@ -19,10 +19,10 @@ export default function TradingGuideLogoWhite(props: SVGProps<SVGSVGElement>) {
       <text
         x="270"
         y="38"
-        text-anchor="end"
-        font-family="Georgia, 'Times New Roman', serif"
-        font-weight="700"
-        font-size="26"
+        textAnchor="end"
+        fontFamily="Georgia, 'Times New Roman', serif"
+        fontWeight="700"
+        fontSize="26"
         fill="#ffffff"
       >
         Trading Guide
@@ -30,10 +30,10 @@ export default function TradingGuideLogoWhite(props: SVGProps<SVGSVGElement>) {
       <text
         x="270"
         y="60"
-        text-anchor="end"
-        font-family="Georgia, 'Times New Roman', serif"
-        font-size="14"
-        letter-spacing="1.5"
+        textAnchor="end"
+        fontFamily="Georgia, 'Times New Roman', serif"
+        fontSize="14"
+        letterSpacing="1.5"
         fill="#ffffff"
       >
         .com.au

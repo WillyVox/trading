@@ -19,9 +19,9 @@ export default function TradingGuideLogoDrak(props: SVGProps<SVGSVGElement>) {
       <text
         x="62"
         y="38"
-        font-family="Georgia, 'Times New Roman', serif"
-        font-weight="700"
-        font-size="26"
+        fontFamily="Georgia, 'Times New Roman', serif"
+        fontWeight="700"
+        fontSize="26"
         fill="#16233f"
       >
         Trading Guide
@@ -29,10 +29,10 @@ export default function TradingGuideLogoDrak(props: SVGProps<SVGSVGElement>) {
       <text
         x="254"
         y="55"
-        text-anchor="end"
-        font-family="Georgia, 'Times New Roman', serif"
-        font-size="14"
-        letter-spacing="1.5"
+        textAnchor="end"
+        fontFamily="Georgia, 'Times New Roman', serif"
+        fontSize="14"
+        letterSpacing="1.5"
         fill="#8a8577"
       >
         .com.au
