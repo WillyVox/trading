@@ -15,6 +15,7 @@ type SelectableProvider = { id: string; slug: string; name: string };
 export function CompareSelector({
   providers,
   initialSelected = [],
+  noun = "options",
 }: {
   providers: SelectableProvider[];
   /** Slugs to pre-check on mount -- e.g. the providers already shown on
@@ -22,6 +23,11 @@ export function CompareSelector({
    * add/swap a provider without re-ticking the ones they're already
    * viewing. */
   initialSelected?: string[];
+  /** Plural noun for what's in the pool -- "exchanges" on a crypto
+   * comparison, "platforms" on a share trading one. The pool itself is
+   * always domain-scoped by the caller (see getComparisonPool), so this
+   * only affects copy, not behaviour. */
+  noun?: string;
 }) {
   const router = useRouter();
   const [selected, setSelected] = useState<string[]>(initialSelected);
@@ -38,13 +44,15 @@ export function CompareSelector({
   }
 
   return (
-    <div className="border-border bg-panel mt-8 rounded-2xl border p-6 shadow-sm">
+    <div
+      id="build-your-own"
+      className="border-border bg-panel mt-8 scroll-mt-20 rounded-2xl border p-6 shadow-sm"
+    >
       <h2 className="font-display text-navy text-lg font-bold">
         Build your own comparison
       </h2>
       <p className="text-muted mt-1 text-sm">
-        Pick 2 or more exchanges to compare fees, features, and verified facts
-        side by side.
+        Pick 2 or more {noun} to compare them side by side.
       </p>
 
       <div className="mt-4 flex flex-wrap gap-2">
@@ -67,7 +75,7 @@ export function CompareSelector({
           );
         })}
         {providers.length === 0 && (
-          <p className="text-muted text-sm">No providers seeded yet.</p>
+          <p className="text-muted text-sm">No {noun} seeded yet.</p>
         )}
       </div>
 

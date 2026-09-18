@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
 import { CompareSelector } from "@/components/compare/CompareSelector";
+import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import {
   DOMAIN_COPY,
   getComparisonPool,
@@ -94,6 +95,7 @@ export default async function CompareDetailPage({
 
   const { domain, subjects, sections } = resolved;
   const copy = DOMAIN_COPY[domain];
+  const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 
   // Pool for "Build your own comparison" below -- scoped to the resolved
   // domain so the chips can't suggest a cross-domain pairing that 404s.
@@ -128,8 +130,16 @@ export default async function CompareDetailPage({
         )}
 
         <div className="mt-8">
-          <CompareTable subjects={subjects} sections={sections} />
-          <CompareMobileCards subjects={subjects} sections={sections} />
+          <CompareTable
+            subjects={subjects}
+            sections={sections}
+            buildYourOwnHref="#build-your-own"
+          />
+          <CompareMobileCards
+            subjects={subjects}
+            sections={sections}
+            buildYourOwnHref="#build-your-own"
+          />
         </div>
 
         <CompareSelector
@@ -138,6 +148,7 @@ export default async function CompareDetailPage({
           noun={copy.noun}
         />
       </div>
+      {hasAffiliateCta && <SectionAffiliateDisclosure />}
     </>
   );
 }

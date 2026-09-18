@@ -30,6 +30,18 @@ export type ComparisonSubject = {
    * CompareTable/CompareMobileCards link out without knowing which
    * domain they're rendering. */
   profileHref: string;
+  /** Raw logo URL from the subject's own record, or null when unset (the
+   * common case today -- see ProviderLogo's own comment). Rendering is
+   * ProviderLogo's job; this is just plumbing. */
+  logo: string | null;
+  /** Where the "Visit site" button in the header points, or null when
+   * neither an affiliate link nor a plain website is on record -- in
+   * which case CompareTable/CompareMobileCards render no button at all
+   * rather than a dead one. `isAffiliate` decides `rel` (sponsored vs
+   * nofollow) and whether AffiliateDisclosure applies. Resolution order
+   * (affiliate link, then website, then null) lives in each domain's
+   * compare.ts, not here -- this type only carries the result. */
+  cta: { href: string; isAffiliate: boolean } | null;
 };
 
 /**

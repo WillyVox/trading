@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { getProviders, getProvidersBySlugs } from "@/lib/providers/service";
+import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
 import {
   buildComparisonSections,
   toComparisonSubjects as toProviderSubjects,
@@ -89,11 +90,16 @@ export const resolveComparison = cache(
     ]);
 
     if (providers.length === slugs.length) {
-      const subjects = providers as unknown as ComparisonProvider[];
+      const rows = providers as unknown as ComparisonProvider[];
+      // One batched query for every subject in this comparison, not one
+      // per subject -- see getActiveAffiliateLinksForProviderSlugs.
+      const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
+        rows.map((p) => p.slug)
+      );
       return {
         domain: "crypto-exchange",
-        subjects: toProviderSubjects(subjects),
-        sections: buildComparisonSections(subjects),
+        subjects: toProviderSubjects(rows, affiliateLinks),
+        sections: buildComparisonSections(rows),
       };
     }
 
@@ -108,6 +114,25 @@ export const resolveComparison = cache(
     return null;
   }
 );
+
+/**
+ * URL for removing one subject from the current comparison -- what each
+ * column's "x" links to. Built from the already-resolved subject list
+ * (not re-parsed from the raw slug) so a duplicate-slug URL like
+ * "coinspot-vs-coinspot" removes the one column, not both. Doesn't
+ * pre-canonicalize the order: /compare/[slug] already redirects a
+ * non-canonical slug list to the sorted URL, so this can stay a plain
+ * join and let that redirect do its job.
+ */
+export function compareHrefWithout(
+  subjects: ComparisonSubject[],
+  slugToRemove: string
+): string {
+  const remaining = subjects
+    .map((s) => s.slug)
+    .filter((slug) => slug !== slugToRemove);
+  return `/compare/${remaining.join("-vs-")}`;
+}
 
 /**
  * The pool of subjects the "add another" chips offer, scoped to the domain

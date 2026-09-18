@@ -28,6 +28,15 @@ import {
  * unresolved boolean.
  */
 
+/**
+ * `cta` here is website-only -- there's no affiliate tier the way
+ * src/lib/providers/compare.ts has one. AffiliateLink.partnerSlug matches
+ * Provider.slug by convention (see src/lib/affiliates/service.ts); an
+ * offering isn't a Provider, so it isn't in that namespace and can't be
+ * looked up the same way. That's a deliberate scope boundary, not a
+ * missing feature -- if share trading platforms get their own affiliate
+ * program later, this is where the second tier would go.
+ */
 export function toComparisonSubjects(
   offerings: OfferingDetail[]
 ): ComparisonSubject[] {
@@ -37,6 +46,8 @@ export function toComparisonSubjects(
     name: o.name,
     verificationStatus: o.verificationStatus,
     profileHref: `/share-trading/${o.slug}`,
+    logo: o.logo,
+    cta: o.website ? { href: o.website, isAffiliate: false } : null,
   }));
 }
 

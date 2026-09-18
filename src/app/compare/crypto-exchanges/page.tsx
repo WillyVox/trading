@@ -4,8 +4,10 @@ import {
   toComparisonSubjects,
   type ComparisonProvider,
 } from "@/lib/providers/compare";
+import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
+import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -35,8 +37,12 @@ export default async function CompareCryptoExchangesPage() {
   });
 
   const rows = providers as unknown as ComparisonProvider[];
-  const subjects = toComparisonSubjects(rows);
+  const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
+    rows.map((p) => p.slug)
+  );
+  const subjects = toComparisonSubjects(rows, affiliateLinks);
   const sections = buildComparisonSections(rows);
+  const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 
   const trail = breadcrumbTrail([
     { name: "Compare", path: "/compare" },
@@ -61,6 +67,7 @@ export default async function CompareCryptoExchangesPage() {
           <div className="mt-8">
             <CompareTable subjects={subjects} sections={sections} />
             <CompareMobileCards subjects={subjects} sections={sections} />
+            {hasAffiliateCta && <SectionAffiliateDisclosure />}
           </div>
         )}
       </div>

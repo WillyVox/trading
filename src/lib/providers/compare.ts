@@ -27,6 +27,8 @@ export type ComparisonProvider = {
   slug: string;
   name: string;
   verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
+  logo: string | null;
+  website: string | null;
   facts: { label: string; value: string }[];
   fees: { label: string; displayValue: string | null }[];
   features: {
@@ -37,19 +39,47 @@ export type ComparisonProvider = {
   }[];
 };
 
-/** Maps ComparisonProvider rows to the domain-agnostic ComparisonSubject
+/** Minimal shape toComparisonSubjects needs from an affiliate link -- see
+ * getActiveAffiliateLinksForProviderSlugs, whose Map is keyed by
+ * Provider.slug (== AffiliateLink.partnerSlug by convention). */
+type AffiliateLinkLookup = Map<string, { partnerSlug: string }>;
+
+/**
+ * Maps ComparisonProvider rows to the domain-agnostic ComparisonSubject
  * shape CompareTable/CompareMobileCards render -- the one place that knows
- * a crypto exchange's profile lives at /crypto/exchanges/[slug]. */
+ * a crypto exchange's profile lives at /crypto/exchanges/[slug].
+ *
+ * `cta` resolves in two tiers: an active AffiliateLink for this provider's
+ * slug (routed through /go/[partner] so the click is recorded) wins;
+ * otherwise the provider's own `website` is used directly; otherwise no
+ * button renders at all -- see ComparisonSubject's comment on why a null
+ * cta is preferred over a dead one. Takes the affiliate map as a separate
+ * argument rather than looking it up here because that lookup is async
+ * (getActiveAffiliateLinksForProviderSlugs hits the DB) and this function
+ * stays sync and pure; callers fetch the map once and pass it in.
+ */
 export function toComparisonSubjects(
-  providers: ComparisonProvider[]
+  providers: ComparisonProvider[],
+  affiliateLinks?: AffiliateLinkLookup
 ): ComparisonSubject[] {
-  return providers.map((p) => ({
-    id: p.id,
-    slug: p.slug,
-    name: p.name,
-    verificationStatus: p.verificationStatus,
-    profileHref: `/crypto/exchanges/${p.slug}`,
-  }));
+  return providers.map((p) => {
+    const affiliateLink = affiliateLinks?.get(p.slug);
+    const cta = affiliateLink
+      ? { href: `/go/${p.slug}?placement=compare`, isAffiliate: true }
+      : p.website
+        ? { href: p.website, isAffiliate: false }
+        : null;
+
+    return {
+      id: p.id,
+      slug: p.slug,
+      name: p.name,
+      verificationStatus: p.verificationStatus,
+      profileHref: `/crypto/exchanges/${p.slug}`,
+      logo: p.logo,
+      cta,
+    };
+  });
 }
 
 /** Union of fact labels across all compared providers, in first-seen order, so a fact only one provider has still gets its own row (rendered "\u2014" for the rest) instead of being silently dropped. */
