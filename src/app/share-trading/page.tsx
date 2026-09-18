@@ -1,10 +1,18 @@
 import { getOfferings } from "@/lib/offerings/service";
 import { OfferingListCard } from "@/components/offerings/OfferingListCard";
+import { LatestArticlesSection } from "@/components/article/LatestArticlesSection";
+import { getLatestArticlesForCategory } from "@/lib/content/latest";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, itemListSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+
+// Matches the STATIC_GUIDES category already used by
+// /guides/share-trading-for-beginners -- see src/lib/guides/static-guides.ts.
+// Reuse this exact value when tagging future DB-backed guides/news so they
+// surface in this module too.
+const SHARE_TRADING_CATEGORY = "share-trading";
 
 export const metadata = buildMetadata({
   title: "Share Trading Platforms in Australia — Compare Brokers",
@@ -14,7 +22,10 @@ export const metadata = buildMetadata({
 });
 
 export default async function ShareTradingPage() {
-  const { items } = await getOfferings();
+  const [{ items }, latestArticles] = await Promise.all([
+    getOfferings(),
+    getLatestArticlesForCategory(SHARE_TRADING_CATEGORY),
+  ]);
   const trail = breadcrumbTrail([
     { name: "Share trading", path: "/share-trading" },
   ]);
@@ -47,6 +58,13 @@ export default async function ShareTradingPage() {
             <OfferingListCard key={offering.id} offering={offering} />
           ))}
         </div>
+
+        <LatestArticlesSection
+          title="Latest in share trading"
+          viewAllHref={`/guides?category=${SHARE_TRADING_CATEGORY}`}
+          viewAllLabel="View all guides"
+          items={latestArticles}
+        />
       </div>
     </>
   );
