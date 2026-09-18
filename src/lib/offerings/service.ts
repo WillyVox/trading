@@ -12,6 +12,19 @@ import { providerOfferingRepository } from "@/lib/repository";
 
 const OFFERING_LIST_INCLUDE = {
   provider: { select: { id: true, name: true, slug: true } },
+  // Widened from a provider-only include so the list page's row cards can
+  // show market/product/custody/account-type chips without a second query
+  // per offering. Mirrors OFFERING_DETAIL_INCLUDE below; kept as a
+  // separate constant (rather than reusing it) in case the list view ever
+  // needs to diverge again (e.g. a lighter include for a future infinite
+  // scroll).
+  markets: {
+    include: { market: true },
+    orderBy: { market: { name: "asc" as const } },
+  },
+  products: { orderBy: { productType: "asc" as const } },
+  custody: { include: { market: true } },
+  accountTypes: { orderBy: { accountType: "asc" as const } },
 } satisfies Prisma.ProviderOfferingInclude;
 
 export type OfferingListItem = Prisma.ProviderOfferingGetPayload<{

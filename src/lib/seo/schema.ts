@@ -39,6 +39,27 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
   };
 }
 
+/**
+ * For listing pages like /share-trading: an ItemList of the profiles
+ * actually rendered on the page, each pointing at its own profile URL.
+ * No rating/price/offer fields -- those would be Product/Offer schema
+ * backed by data we don't have (see the "no fake Review/AggregateRating"
+ * rule this file's top comment references); this only describes the list
+ * structure itself.
+ */
+export function itemListSchema(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      url: absoluteUrl(item.path),
+    })),
+  };
+}
+
 interface ArticleSchemaInput {
   headline: string;
   description?: string | null;

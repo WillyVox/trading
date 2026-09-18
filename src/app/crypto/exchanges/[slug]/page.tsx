@@ -24,6 +24,7 @@ import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
+import { VisitSite } from "@/components/affiliate/VisitSite";
 
 function formatProviderType(type: string) {
   const label = type.replace(/_/g, " ").toLowerCase();
@@ -110,14 +111,7 @@ export default async function ExchangeProfilePage({
               <VerificationBadge status={provider.verificationStatus} />
             </div>
           </div>
-          {link && (
-            <AffiliateCTA
-              partnerSlug={slug}
-              providerName={provider.name}
-              variant="compact"
-              showDisclosure={false}
-            />
-          )}
+          {link && <VisitSite partnerSlug={slug} placement="Exchange" />}
         </div>
 
         <Card className="mt-8">

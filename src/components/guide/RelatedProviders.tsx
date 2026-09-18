@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { VisitSite } from "../affiliate/VisitSite";
 
 type GuideProvider = {
   id: string;
@@ -50,20 +51,18 @@ export function RelatedProviders({
             {p.description && (
               <p className="text-muted mt-1.5 text-sm">{p.description}</p>
             )}
-            {p.activeLink ? (
-              <AffiliateCTA
-                partnerSlug={p.slug}
-                providerName={p.name}
-                showDisclosure={false}
-              />
-            ) : (
-              <Link
-                href={`/crypto/exchanges/${p.slug}`}
-                className="border-border text-navy hover:bg-panel-secondary mt-4 inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold"
-              >
-                View profile
-              </Link>
-            )}
+            <div className="pt-4">
+              {p.activeLink ? (
+                <VisitSite partnerSlug={p.slug} placement="ArticleDetails" />
+              ) : (
+                <Link
+                  href={`/crypto/exchanges/${p.slug}`}
+                  className="border-border text-navy hover:bg-panel-secondary mt-4 inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold"
+                >
+                  View profile
+                </Link>
+              )}
+            </div>
           </Card>
         ))}
       </div>
