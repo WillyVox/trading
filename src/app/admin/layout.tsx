@@ -1,5 +1,5 @@
-import { requireAdmin } from '@/lib/auth/require-admin';
-import { AdminSidebar } from '@/components/admin/AdminSidebar';
+import { requireAdmin } from "@/lib/auth/require-admin";
+import { AdminSidebar } from "@/components/admin/AdminSidebar";
 
 export default async function AdminLayout({
   children,

@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { Fragment } from 'react';
-import { VerificationBadge } from '@/components/trust/VerificationBadge';
-import { ProviderLogo } from '@/components/providers/ProviderLogo';
-import { compareHrefWithout } from '@/lib/compare/resolve';
-import type { ComparisonSection, ComparisonSubject } from '@/lib/compare/types';
+import Link from "next/link";
+import { Fragment } from "react";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { ProviderLogo } from "@/components/providers/ProviderLogo";
+import { compareHrefWithout } from "@/lib/compare/resolve";
+import type { ComparisonSection, ComparisonSubject } from "@/lib/compare/types";
 
 /**
  * Desktop/tablet comparison table -- one column per subject, one row per
@@ -42,7 +42,7 @@ export function CompareTable({
     <div className="border-border bg-panel hidden overflow-x-auto rounded-2xl border shadow-sm md:block">
       <table className="w-full min-w-[640px] border-collapse text-sm">
         <caption className="sr-only">
-          Comparison of {subjects.map((s) => s.name).join(', ')}: facts, fees,
+          Comparison of {subjects.map((s) => s.name).join(", ")}: facts, fees,
           and features side by side.
         </caption>
         <thead>
@@ -101,8 +101,8 @@ export function CompareTable({
                       target="_blank"
                       rel={
                         s.cta.isAffiliate
-                          ? 'sponsored noopener'
-                          : 'nofollow noopener'
+                          ? "sponsored noopener"
+                          : "nofollow noopener"
                       }
                       className="bg-navy text-background hover:bg-navy-dark inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold"
                     >
@@ -179,7 +179,7 @@ export function CompareTable({
                       key={subjects[i]?.id ?? i}
                       className="text-navy px-4 py-3"
                     >
-                      {value ?? '\u2014'}
+                      {value ?? "\u2014"}
                     </td>
                   ))}
                   {buildYourOwnHref && <td />}
@@ -193,8 +193,8 @@ export function CompareTable({
                 colSpan={colCount}
                 className="text-muted px-4 py-6 text-center"
               >
-                No comparable facts, fees, or features recorded yet for{' '}
-                {subjects.map((s) => s.name).join(', ')}.
+                No comparable facts, fees, or features recorded yet for{" "}
+                {subjects.map((s) => s.name).join(", ")}.
               </td>
             </tr>
           )}

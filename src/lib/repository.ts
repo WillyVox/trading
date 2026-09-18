@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 
 /**
  * Shared, generic data-access layer. Domain services (articles, providers,
@@ -17,17 +17,17 @@ export function createRepository<
   },
 >(delegate: Delegate) {
   return {
-    findMany: (args?: Parameters<Delegate['findMany']>[0]) =>
+    findMany: (args?: Parameters<Delegate["findMany"]>[0]) =>
       delegate.findMany(args),
     findFirst: (args?: any) => delegate.findFirst?.(args),
-    findUnique: (args: Parameters<Delegate['findUnique']>[0]) =>
+    findUnique: (args: Parameters<Delegate["findUnique"]>[0]) =>
       delegate.findUnique(args),
     findBySlug: (slug: string, extra?: Record<string, unknown>) =>
       delegate.findUnique({ where: { slug }, ...extra }),
-    count: (args?: Parameters<Delegate['count']>[0]) => delegate.count(args),
-    create: (args: Parameters<Delegate['create']>[0]) => delegate.create(args),
-    update: (args: Parameters<Delegate['update']>[0]) => delegate.update(args),
-    remove: (args: Parameters<Delegate['delete']>[0]) => delegate.delete(args),
+    count: (args?: Parameters<Delegate["count"]>[0]) => delegate.count(args),
+    create: (args: Parameters<Delegate["create"]>[0]) => delegate.create(args),
+    update: (args: Parameters<Delegate["update"]>[0]) => delegate.update(args),
+    remove: (args: Parameters<Delegate["delete"]>[0]) => delegate.delete(args),
     async paginate(args: {
       where?: Record<string, unknown>;
       orderBy?: Record<string, unknown>;

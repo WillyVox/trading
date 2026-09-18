@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import clsx from "clsx";
 
 export function Card({
   children,
@@ -10,7 +10,7 @@ export function Card({
   return (
     <div
       className={clsx(
-        'border-border bg-panel rounded-2xl border p-6 shadow-sm',
+        "border-border bg-panel rounded-2xl border p-6 shadow-sm",
         className
       )}
     >

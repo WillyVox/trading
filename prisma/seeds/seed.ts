@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client';
-import { seedOfferings } from './offerings/prisma-client';
-import { seedProviders } from './providers/prisma-client';
-import { seedCryptoAssets } from './crypto-assets/prisma-client';
-import { seedAffiliateLinks } from './affiliate-links/prisma-client';
+import { PrismaClient } from "@prisma/client";
+import { seedOfferings } from "./offerings/prisma-client";
+import { seedProviders } from "./providers/prisma-client";
+import { seedCryptoAssets } from "./crypto-assets/prisma-client";
+import { seedAffiliateLinks } from "./affiliate-links/prisma-client";
 
 const prisma = new PrismaClient();
 
@@ -12,13 +12,13 @@ async function main() {
   // ---------------------------------------
 
   seedCryptoAssets();
-  console.log('Several cryptos are seeded.');
+  console.log("Several cryptos are seeded.");
   // ---------------------------------------
   // Crypto providers
   // ---------------------------------------
   seedProviders();
   console.log(
-    'CoinSpot, Independent Reserve, Swyftx and BTC Markets Kraken and CoinJar exchanges are seeded.'
+    "CoinSpot, Independent Reserve, Swyftx and BTC Markets Kraken and CoinJar exchanges are seeded."
   );
 
   // ---------------------------------------
@@ -27,7 +27,7 @@ async function main() {
 
   await seedOfferings();
 
-  console.log('Seeded seedOfferings, share trading providers and offerings');
+  console.log("Seeded seedOfferings, share trading providers and offerings");
 
   // ---------------------------------------
   // Seed affiliate partnerships/programs/links
@@ -36,7 +36,7 @@ async function main() {
   await seedAffiliateLinks();
 
   console.log(
-    'Seeded affiliateLinks, default are true to all crypto providers....'
+    "Seeded affiliateLinks, default are true to all crypto providers...."
   );
 }
 

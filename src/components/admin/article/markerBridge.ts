@@ -21,7 +21,7 @@
  */
 
 const VIDEO_MARKER_RE = /\{\{\s*video\s*:([^}]*)\}\}/gi;
-export const VIDEO_EMBED_TAG_NAME = 'video-embed';
+export const VIDEO_EMBED_TAG_NAME = "video-embed";
 
 interface VideoMarkerArgs {
   provider: string;
@@ -30,17 +30,17 @@ interface VideoMarkerArgs {
 }
 
 function parseVideoMarkerArgs(argsRaw: string): VideoMarkerArgs | null {
-  const [provider, videoId, ...rest] = argsRaw.split(':').map((s) => s.trim());
+  const [provider, videoId, ...rest] = argsRaw.split(":").map((s) => s.trim());
   if (!provider || !videoId) return null;
-  return { provider, videoId, caption: rest.join(':').trim() };
+  return { provider, videoId, caption: rest.join(":").trim() };
 }
 
 function escapeAttr(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 }
 
 function unescapeAttr(s: string): string {
-  return s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+  return s.replace(/&quot;/g, '"').replace(/&amp;/g, "&");
 }
 
 /**
@@ -63,7 +63,7 @@ export function markersToEditorHtml(html: string): string {
 
 const OPEN_TAG_RE = new RegExp(
   `<${VIDEO_EMBED_TAG_NAME}\\s+([^>]*)>\\s*</${VIDEO_EMBED_TAG_NAME}>`,
-  'gi'
+  "gi"
 );
 const ATTR_RE = /([a-z-]+)="([^"]*)"/gi;
 
@@ -82,10 +82,10 @@ export function editorHtmlToMarkers(html: string): string {
     while ((m = ATTR_RE.exec(attrsRaw))) {
       attrs[m[1]] = unescapeAttr(m[2]);
     }
-    if (!attrs.provider || !attrs['video-id']) return '';
+    if (!attrs.provider || !attrs["video-id"]) return "";
     const caption = attrs.caption?.trim();
     return caption
-      ? `{{video:${attrs.provider}:${attrs['video-id']}:${caption}}}`
-      : `{{video:${attrs.provider}:${attrs['video-id']}}}`;
+      ? `{{video:${attrs.provider}:${attrs["video-id"]}:${caption}}}`
+      : `{{video:${attrs.provider}:${attrs["video-id"]}}}`;
   });
 }

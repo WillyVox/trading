@@ -1,16 +1,16 @@
-const GOLD = '#c79a3d';
-const GOLD_SOFT = '#e8d9b5';
-const CREAM = '#f5f2ea';
+const GOLD = "#c79a3d";
+const GOLD_SOFT = "#e8d9b5";
+const CREAM = "#f5f2ea";
 
 const BASE_SVG_PROPS = {
-  viewBox: '0 0 800 360',
-  className: 'h-auto w-full',
+  viewBox: "0 0 800 360",
+  className: "h-auto w-full",
   focusable: false,
 } as const;
 
 /** Five-step numbered pathway — used in the "simple steps to buy crypto" guide. */
 export function StepsFlowIllustration({ title }: { title: string }) {
-  const steps = ['1', '2', '3', '4', '5'];
+  const steps = ["1", "2", "3", "4", "5"];
   return (
     <svg {...BASE_SVG_PROPS} role="img" aria-label={title}>
       <title>{title}</title>
@@ -31,7 +31,7 @@ export function StepsFlowIllustration({ title }: { title: string }) {
               cx={x}
               cy={180}
               r={34}
-              fill={i === steps.length - 1 ? GOLD : 'none'}
+              fill={i === steps.length - 1 ? GOLD : "none"}
               stroke={GOLD}
               strokeWidth={3}
             />
@@ -42,7 +42,7 @@ export function StepsFlowIllustration({ title }: { title: string }) {
               fontFamily="Georgia, 'DejaVu Serif', serif"
               fontWeight={700}
               fontSize={30}
-              fill={i === steps.length - 1 ? '#16233f' : CREAM}
+              fill={i === steps.length - 1 ? "#16233f" : CREAM}
             >
               {n}
             </text>
@@ -56,10 +56,10 @@ export function StepsFlowIllustration({ title }: { title: string }) {
 /** Bar chart comparing "market order vs limit order" style cost/fee concepts. */
 export function FeesBarIllustration({ title }: { title: string }) {
   const bars = [
-    { label: 'Maker fee', h: 60, color: GOLD_SOFT },
-    { label: 'Taker fee', h: 100, color: GOLD },
-    { label: 'Withdrawal', h: 40, color: GOLD_SOFT },
-    { label: 'Spread', h: 130, color: GOLD },
+    { label: "Maker fee", h: 60, color: GOLD_SOFT },
+    { label: "Taker fee", h: 100, color: GOLD },
+    { label: "Withdrawal", h: 40, color: GOLD_SOFT },
+    { label: "Spread", h: 130, color: GOLD },
   ];
   return (
     <svg {...BASE_SVG_PROPS} role="img" aria-label={title}>

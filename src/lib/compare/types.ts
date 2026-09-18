@@ -1,4 +1,4 @@
-import type { VerificationStatus } from '@prisma/client';
+import type { VerificationStatus } from "@prisma/client";
 
 /**
  * Domain-agnostic compare engine (see the 2026-09-17 compare-engine-
@@ -17,7 +17,7 @@ import type { VerificationStatus } from '@prisma/client';
  * resolution), not the dimension vocabulary.
  */
 
-export type ComparisonDomain = 'crypto-exchange' | 'share-trading';
+export type ComparisonDomain = "crypto-exchange" | "share-trading";
 
 /** One column in a comparison — the thing being compared, not a fact about it. */
 export type ComparisonSubject = {

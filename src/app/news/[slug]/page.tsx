@@ -1,13 +1,13 @@
-import { notFound } from 'next/navigation';
-import { getPublishedArticleBySlugAndType } from '@/lib/articles/service';
-import { buildMetadata } from '@/lib/seo/metadata';
-import { newsArticleSchema, breadcrumbSchema } from '@/lib/seo/schema';
-import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
-import { renderArticleContent } from '@/lib/articles/renderer';
-import { JsonLd } from '@/components/seo/JsonLd';
-import { PageHero } from '@/components/layout/PageHero';
-import { GuideTableOfContents } from '@/components/guide/GuideTableOfContents';
-import { GuideSourceList } from '@/components/guide/GuideSourceList';
+import { notFound } from "next/navigation";
+import { getPublishedArticleBySlugAndType } from "@/lib/articles/service";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { newsArticleSchema, breadcrumbSchema } from "@/lib/seo/schema";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { renderArticleContent } from "@/lib/articles/renderer";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PageHero } from "@/components/layout/PageHero";
+import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
+import { GuideSourceList } from "@/components/guide/GuideSourceList";
 
 export async function generateMetadata({
   params,
@@ -15,11 +15,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, 'NEWS');
+  const article = await getPublishedArticleBySlugAndType(slug, "NEWS");
   if (!article)
     return buildMetadata({
-      title: 'News not found',
-      description: '',
+      title: "News not found",
+      description: "",
       path: `/news/${slug}`,
       noIndex: true,
     });
@@ -29,7 +29,7 @@ export async function generateMetadata({
     description: article.excerpt ?? article.title,
     path: `/news/${slug}`,
     image: article.featuredImage,
-    type: 'article',
+    type: "article",
     publishedTime: article.publishedAt,
     modifiedTime: article.updatedAt,
     authors: article.author ? [article.author] : undefined,
@@ -41,10 +41,10 @@ export async function generateMetadata({
 }
 
 function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString('en-AU', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return new Date(date).toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
@@ -54,7 +54,7 @@ export default async function NewsArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, 'NEWS');
+  const article = await getPublishedArticleBySlugAndType(slug, "NEWS");
   if (!article) notFound();
 
   // Same shared renderer as Guide/admin preview (Block 3) — sanitized on
@@ -66,7 +66,7 @@ export default async function NewsArticlePage({
   );
 
   const trail = breadcrumbTrail([
-    { name: 'News', path: '/news' },
+    { name: "News", path: "/news" },
     { name: article.title, path: `/news/${slug}` },
   ]);
 

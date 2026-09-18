@@ -1,19 +1,19 @@
-import type { ArticleSearchIntent, ArticleType } from '@prisma/client';
+import type { ArticleSearchIntent, ArticleType } from "@prisma/client";
 
 /** Region codes the site currently knows how to serve. "GLOBAL" is stored as `region: null`. */
-export const IMPORT_REGIONS = ['GLOBAL', 'AU', 'US', 'UK', 'NZ', 'SG'] as const;
+export const IMPORT_REGIONS = ["GLOBAL", "AU", "US", "UK", "NZ", "SG"] as const;
 export type ImportRegion = (typeof IMPORT_REGIONS)[number];
 
 /** Mirrors the Prisma `ArticleSourceType` enum — kept as a type alias (not imported from
  * @prisma/client) for the same pre-`prisma generate` reason as ImportRegion below. */
 export type ImportSourceType =
-  | 'OFFICIAL_PROVIDER'
-  | 'REGULATOR'
-  | 'GOVERNMENT'
-  | 'OFFICIAL_DOCUMENTATION'
-  | 'NEWS'
-  | 'RESEARCH'
-  | 'OTHER';
+  | "OFFICIAL_PROVIDER"
+  | "REGULATOR"
+  | "GOVERNMENT"
+  | "OFFICIAL_DOCUMENTATION"
+  | "NEWS"
+  | "RESEARCH"
+  | "OTHER";
 
 export interface ImportSource {
   label: string;
@@ -27,7 +27,7 @@ export type ProviderRelationshipInput =
   | string
   | {
       providerSlug: string;
-      relationship?: 'MENTIONED' | 'COMPARED' | 'FEATURED';
+      relationship?: "MENTIONED" | "COMPARED" | "FEATURED";
     };
 
 /**
@@ -74,7 +74,7 @@ export interface ArticleImportPayload {
   searchIntent?: ArticleSearchIntent;
   providerRelationships?: {
     providerSlug: string;
-    relationship: 'MENTIONED' | 'COMPARED' | 'FEATURED';
+    relationship: "MENTIONED" | "COMPARED" | "FEATURED";
   }[];
   /** Slugs of `CryptoAsset` rows this article is about — matched against `CryptoAsset.slug`,
    * never auto-created (same rule as `providerRelationships`/`relatedGuides`). */
@@ -90,7 +90,7 @@ export interface ParsedFile {
   fileName: string;
 }
 
-export type ImportOutcome = 'CREATED' | 'UPDATED' | 'SKIPPED' | 'FAILED';
+export type ImportOutcome = "CREATED" | "UPDATED" | "SKIPPED" | "FAILED";
 
 export interface ImportWarning {
   message: string;

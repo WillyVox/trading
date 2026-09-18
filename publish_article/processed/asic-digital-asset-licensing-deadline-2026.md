@@ -1,23 +1,23 @@
 ---
 title: "ASIC's Digital Asset Licensing Deadline: What the 30 September 2026 Cut-off Means"
-slug: 'asic-digital-asset-licensing-deadline-2026'
-articleType: 'NEWS'
+slug: "asic-digital-asset-licensing-deadline-2026"
+articleType: "NEWS"
 excerpt:
   "ASIC's extended no-action position for digital asset businesses expires 30 September 2026. Here's\
   \ what the deadline covers and what it could mean for everyday crypto users."
-category: 'regulation'
+category: "regulation"
 tags:
-  - 'Regulation'
-  - 'Australia'
-  - 'ASIC'
-  - 'Crypto Exchanges'
-  - 'AUSTRAC'
+  - "Regulation"
+  - "Australia"
+  - "ASIC"
+  - "Crypto Exchanges"
+  - "AUSTRAC"
 seoTitle: "ASIC's Crypto Licensing Deadline: 30 September 2026"
 seoDescription:
   "ASIC's sector-wide no-action position for digital asset businesses ends 30 September\
   \ 2026. What the AFS licensing deadline means and why it matters to users."
-featuredImageAlt: 'A calendar highlighting 30 September 2026 next to a regulatory document icon'
-author: 'Editorial Team'
+featuredImageAlt: "A calendar highlighting 30 September 2026 next to a regulatory document icon"
+author: "Editorial Team"
 noIndex: false
 affiliateDisclosureRequired: false
 keyTakeaways:
@@ -31,28 +31,28 @@ keyTakeaways:
     \ licensed afterward is worth watching."
   - "This is a fast-moving, time-sensitive topic — check ASIC's own announcements for the latest status\
     \ before relying on this article after the deadline has passed."
-searchIntent: 'REGULATION'
+searchIntent: "REGULATION"
 providerRelationships:
-  - providerSlug: 'coinspot'
-    relationship: 'MENTIONED'
-  - providerSlug: 'swyftx'
-    relationship: 'MENTIONED'
-  - providerSlug: 'independent-reserve'
-    relationship: 'MENTIONED'
-  - providerSlug: 'btc-markets'
-    relationship: 'MENTIONED'
-  - providerSlug: 'kraken'
-    relationship: 'MENTIONED'
+  - providerSlug: "coinspot"
+    relationship: "MENTIONED"
+  - providerSlug: "swyftx"
+    relationship: "MENTIONED"
+  - providerSlug: "independent-reserve"
+    relationship: "MENTIONED"
+  - providerSlug: "btc-markets"
+    relationship: "MENTIONED"
+  - providerSlug: "kraken"
+    relationship: "MENTIONED"
 relatedGuides:
-  - 'austrac-registration-crypto-exchanges-explained'
-  - 'austrac-vasp-register-public-explainer'
+  - "austrac-registration-crypto-exchanges-explained"
+  - "austrac-vasp-register-public-explainer"
 sources:
   - label: "ASIC — Final call for firms to act before ASIC's digital asset licensing deadline"
-    url: 'https://www.asic.gov.au/about-asic/news-centre/news-items/final-call-for-firms-to-act-before-asic-s-digital-asset-licensing-deadline'
-    sourceType: 'REGULATOR'
-  - label: 'ASIC — ASIC extends no-action position for digital asset businesses to 30 September 2026'
-    url: 'https://www.asic.gov.au/about-asic/news-centre/news-items/asic-extends-no-action-position-for-digital-asset-businesses-to-30-september-2026/'
-    sourceType: 'REGULATOR'
+    url: "https://www.asic.gov.au/about-asic/news-centre/news-items/final-call-for-firms-to-act-before-asic-s-digital-asset-licensing-deadline"
+    sourceType: "REGULATOR"
+  - label: "ASIC — ASIC extends no-action position for digital asset businesses to 30 September 2026"
+    url: "https://www.asic.gov.au/about-asic/news-centre/news-items/asic-extends-no-action-position-for-digital-asset-businesses-to-30-september-2026/"
+    sourceType: "REGULATOR"
 ---
 
 <p>Australian digital asset businesses are approaching a real regulatory deadline: ASIC's sector-wide "no-action" position for firms providing financial services involving digital assets expires on 30 September 2026. Here's what that actually covers.</p>

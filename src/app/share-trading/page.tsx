@@ -1,24 +1,24 @@
-import { getOfferings } from '@/lib/offerings/service';
-import { OfferingListCard } from '@/components/offerings/OfferingListCard';
-import { LatestArticlesSection } from '@/components/article/LatestArticlesSection';
-import { getLatestArticlesForCategory } from '@/lib/content/latest';
-import { PageHero } from '@/components/layout/PageHero';
-import { JsonLd } from '@/components/seo/JsonLd';
-import { buildMetadata } from '@/lib/seo/metadata';
-import { breadcrumbSchema, itemListSchema } from '@/lib/seo/schema';
-import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { getOfferings } from "@/lib/offerings/service";
+import { OfferingListCard } from "@/components/offerings/OfferingListCard";
+import { LatestArticlesSection } from "@/components/article/LatestArticlesSection";
+import { getLatestArticlesForCategory } from "@/lib/content/latest";
+import { PageHero } from "@/components/layout/PageHero";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema, itemListSchema } from "@/lib/seo/schema";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 // Matches the STATIC_GUIDES category already used by
 // /guides/share-trading-for-beginners -- see src/lib/guides/static-guides.ts.
 // Reuse this exact value when tagging future DB-backed guides/news so they
 // surface in this module too.
-const SHARE_TRADING_CATEGORY = 'share-trading';
+const SHARE_TRADING_CATEGORY = "share-trading";
 
 export const metadata = buildMetadata({
-  title: 'Share Trading Platforms in Australia — Compare Brokers',
+  title: "Share Trading Platforms in Australia — Compare Brokers",
   description:
-    'Browse Australian share trading platform profiles with verified market access, ownership structures, and sources.',
-  path: '/share-trading',
+    "Browse Australian share trading platform profiles with verified market access, ownership structures, and sources.",
+  path: "/share-trading",
 });
 
 export default async function ShareTradingPage() {
@@ -27,7 +27,7 @@ export default async function ShareTradingPage() {
     getLatestArticlesForCategory(SHARE_TRADING_CATEGORY),
   ]);
   const trail = breadcrumbTrail([
-    { name: 'Share trading', path: '/share-trading' },
+    { name: "Share trading", path: "/share-trading" },
   ]);
 
   return (

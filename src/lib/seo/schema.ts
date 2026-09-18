@@ -1,5 +1,5 @@
-import { siteConfig, absoluteUrl } from './config';
-import type { BreadcrumbItem } from './types';
+import { siteConfig, absoluteUrl } from "./config";
+import type { BreadcrumbItem } from "./types";
 
 /**
  * All builders here only emit schema for information that is actually
@@ -9,29 +9,29 @@ import type { BreadcrumbItem } from './types';
 
 export function organizationSchema() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
+    "@context": "https://schema.org",
+    "@type": "Organization",
     name: siteConfig.name,
-    url: absoluteUrl('/'),
+    url: absoluteUrl("/"),
     ...(siteConfig.sameAs.length ? { sameAs: siteConfig.sameAs } : {}),
   };
 }
 
 export function websiteSchema() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
     name: siteConfig.name,
-    url: absoluteUrl('/'),
+    url: absoluteUrl("/"),
   };
 }
 
 export function breadcrumbSchema(items: BreadcrumbItem[]) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: i + 1,
       name: item.name,
       item: absoluteUrl(item.path),
@@ -49,10 +49,10 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
  */
 export function itemListSchema(items: { name: string; path: string }[]) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
+    "@context": "https://schema.org",
+    "@type": "ItemList",
     itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: i + 1,
       name: item.name,
       url: absoluteUrl(item.path),
@@ -72,21 +72,21 @@ interface ArticleSchemaInput {
 
 export function articleSchema(input: ArticleSchemaInput) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+    "@context": "https://schema.org",
+    "@type": "Article",
     headline: input.headline,
     ...(input.description ? { description: input.description } : {}),
     ...(input.image
       ? {
           image: [
-            input.image.startsWith('http')
+            input.image.startsWith("http")
               ? input.image
               : absoluteUrl(input.image),
           ],
         }
       : {}),
     ...(input.author
-      ? { author: { '@type': 'Person', name: input.author } }
+      ? { author: { "@type": "Person", name: input.author } }
       : {}),
     ...(input.datePublished
       ? { datePublished: new Date(input.datePublished).toISOString() }
@@ -94,14 +94,14 @@ export function articleSchema(input: ArticleSchemaInput) {
     ...(input.dateModified
       ? { dateModified: new Date(input.dateModified).toISOString() }
       : {}),
-    publisher: { '@type': 'Organization', name: siteConfig.name },
+    publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: absoluteUrl(input.path),
   };
 }
 
 /** Only use for content that genuinely qualifies as news (see audit §O). */
 export function newsArticleSchema(input: ArticleSchemaInput) {
-  return { ...articleSchema(input), '@type': 'NewsArticle' };
+  return { ...articleSchema(input), "@type": "NewsArticle" };
 }
 
 /**
@@ -112,13 +112,13 @@ export function newsArticleSchema(input: ArticleSchemaInput) {
  */
 export function faqSchema(items: { question: string; answer: string }[]) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
     mainEntity: items.map((item) => ({
-      '@type': 'Question',
+      "@type": "Question",
       name: item.question,
       acceptedAnswer: {
-        '@type': 'Answer',
+        "@type": "Answer",
         text: item.answer,
       },
     })),
@@ -138,14 +138,14 @@ export function howToSchema(input: {
   steps: { name: string; text: string }[];
 }) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'HowTo',
+    "@context": "https://schema.org",
+    "@type": "HowTo",
     name: input.name,
     ...(input.description ? { description: input.description } : {}),
     ...(input.image
       ? {
           image: [
-            input.image.startsWith('http')
+            input.image.startsWith("http")
               ? input.image
               : absoluteUrl(input.image),
           ],
@@ -153,7 +153,7 @@ export function howToSchema(input: {
       : {}),
     ...(input.totalTime ? { totalTime: input.totalTime } : {}),
     step: input.steps.map((s, i) => ({
-      '@type': 'HowToStep',
+      "@type": "HowToStep",
       position: i + 1,
       name: s.name,
       text: s.text,

@@ -1,6 +1,6 @@
-import { Card } from '@/components/ui/Card';
-import { AvailabilityBadge } from '@/components/offerings/AvailabilityBadge';
-import type { AvailabilityStatus } from '@prisma/client';
+import { Card } from "@/components/ui/Card";
+import { AvailabilityBadge } from "@/components/offerings/AvailabilityBadge";
+import type { AvailabilityStatus } from "@prisma/client";
 
 export type AvailabilityRow = {
   id: string;

@@ -1,67 +1,67 @@
-import Link from 'next/link';
-import { Eyebrow } from '@/components/ui/Eyebrow';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { PageHero } from '@/components/layout/PageHero';
-import { ProviderLogo } from '@/components/providers/ProviderLogo';
-import { buildMetadata } from '@/lib/seo/metadata';
-import { getFeaturedProviders } from '@/lib/providers/service';
-import { formatFeatureLabel } from '@/lib/providers/features';
+import Link from "next/link";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { PageHero } from "@/components/layout/PageHero";
+import { ProviderLogo } from "@/components/providers/ProviderLogo";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { getFeaturedProviders } from "@/lib/providers/service";
+import { formatFeatureLabel } from "@/lib/providers/features";
 
 export const metadata = buildMetadata({
   title:
-    'Trading Guide \u2014 Independent Research for Cryptocurrencies and Trading Platforms in Australia',
+    "Trading Guide \u2014 Independent Research for Cryptocurrencies and Trading Platforms in Australia",
   description:
-    'Independent, source-linked research and comparisons for share trading and cryptocurrency platforms in Australia \u2014 verified facts and transparent fees.',
-  path: '/',
+    "Independent, source-linked research and comparisons for share trading and cryptocurrency platforms in Australia \u2014 verified facts and transparent fees.",
+  path: "/",
 });
 
 const howItWorksSteps = [
   {
-    number: '1',
-    href: '/guides',
-    title: 'Learn the basics',
+    number: "1",
+    href: "/guides",
+    title: "Learn the basics",
     description:
-      'Start with beginner guides on share trading and crypto — no jargon, no assumed experience.',
+      "Start with beginner guides on share trading and crypto — no jargon, no assumed experience.",
   },
   {
-    number: '2',
-    href: '/crypto/exchanges',
-    title: 'Research the providers',
+    number: "2",
+    href: "/crypto/exchanges",
+    title: "Research the providers",
     description:
-      'Read structured, source-linked profiles — fees, features, and provenance for each one.',
+      "Read structured, source-linked profiles — fees, features, and provenance for each one.",
   },
   {
-    number: '3',
-    href: '/compare/crypto-exchanges',
-    title: 'Compare side by side',
+    number: "3",
+    href: "/compare/crypto-exchanges",
+    title: "Compare side by side",
     description:
-      'See providers against each other on the same facts before you choose one.',
+      "See providers against each other on the same facts before you choose one.",
   },
 ] as const;
 
 const researchStandardLinks = [
   {
-    href: '/crypto/exchanges',
-    tagLabel: 'EXCHANGES',
-    tagClassName: 'border-blue/30 bg-blue/10 text-blue',
-    title: 'Provider profiles',
-    description: 'Structured facts, fees, and sources per exchange.',
+    href: "/crypto/exchanges",
+    tagLabel: "EXCHANGES",
+    tagClassName: "border-blue/30 bg-blue/10 text-blue",
+    title: "Provider profiles",
+    description: "Structured facts, fees, and sources per exchange.",
   },
   {
-    href: '/compare/crypto-exchanges',
-    tagLabel: 'COMPARE',
-    tagClassName: 'border-green/30 bg-green/10 text-green',
-    title: 'Side-by-side comparisons',
-    description: 'Generated live from the same provider dataset.',
+    href: "/compare/crypto-exchanges",
+    tagLabel: "COMPARE",
+    tagClassName: "border-green/30 bg-green/10 text-green",
+    title: "Side-by-side comparisons",
+    description: "Generated live from the same provider dataset.",
   },
   {
-    href: '/guides',
-    tagLabel: 'GUIDES',
-    tagClassName: 'border-blue/30 bg-blue/10 text-blue',
-    title: 'Guides & news',
+    href: "/guides",
+    tagLabel: "GUIDES",
+    tagClassName: "border-blue/30 bg-blue/10 text-blue",
+    title: "Guides & news",
     description:
-      'Editorial content, kept structurally separate from affiliate data.',
+      "Editorial content, kept structurally separate from affiliate data.",
   },
 ] as const;
 
@@ -76,20 +76,20 @@ export default async function HomePage() {
         subheading="Beginner-friendly guides and source-linked research for share trading and cryptocurrency in Australia — verified facts and transparent fees."
         ctas={[
           {
-            label: 'Explore crypto exchanges',
-            href: '/crypto/exchanges',
-            variant: 'gold',
+            label: "Explore crypto exchanges",
+            href: "/crypto/exchanges",
+            variant: "gold",
           },
           {
-            label: 'Read methodology',
-            href: '/methodology',
-            variant: 'outline',
+            label: "Read methodology",
+            href: "/methodology",
+            variant: "outline",
           },
         ]}
         meta={[
-          'Source-linked facts',
-          'Independent editorial',
-          'Direct provider comparisons',
+          "Source-linked facts",
+          "Independent editorial",
+          "Direct provider comparisons",
         ]}
         graphic="home"
       />

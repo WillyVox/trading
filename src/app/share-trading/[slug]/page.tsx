@@ -1,17 +1,17 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { getOfferingBySlug } from '@/lib/offerings/service';
-import { VerificationBadge } from '@/components/trust/VerificationBadge';
-import { ProviderLogo } from '@/components/providers/ProviderLogo';
-import { Card } from '@/components/ui/Card';
-import { OfferingAvailabilitySection } from '@/components/offerings/OfferingAvailabilitySection';
-import { OfferingCustodySection } from '@/components/offerings/OfferingCustodySection';
-import { formatProductType, formatAccountType } from '@/lib/offerings/labels';
-import { buildMetadata } from '@/lib/seo/metadata';
-import { breadcrumbSchema } from '@/lib/seo/schema';
-import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
-import { JsonLd } from '@/components/seo/JsonLd';
-import { PageHero } from '@/components/layout/PageHero';
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { getOfferingBySlug } from "@/lib/offerings/service";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { ProviderLogo } from "@/components/providers/ProviderLogo";
+import { Card } from "@/components/ui/Card";
+import { OfferingAvailabilitySection } from "@/components/offerings/OfferingAvailabilitySection";
+import { OfferingCustodySection } from "@/components/offerings/OfferingCustodySection";
+import { formatProductType, formatAccountType } from "@/lib/offerings/labels";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PageHero } from "@/components/layout/PageHero";
 
 export async function generateMetadata({
   params,
@@ -22,8 +22,8 @@ export async function generateMetadata({
   const offering = await getOfferingBySlug(slug);
   if (!offering)
     return buildMetadata({
-      title: 'Platform not found',
-      description: '',
+      title: "Platform not found",
+      description: "",
       path: `/share-trading/${slug}`,
       noIndex: true,
     });
@@ -50,7 +50,7 @@ export default async function ShareTradingOfferingPage({
   if (!offering) notFound();
 
   const trail = breadcrumbTrail([
-    { name: 'Share trading', path: '/share-trading' },
+    { name: "Share trading", path: "/share-trading" },
     { name: offering.name, path: `/share-trading/${slug}` },
   ]);
 
@@ -111,7 +111,7 @@ export default async function ShareTradingOfferingPage({
             {offering.provider.name}
           </h2>
           <p className="text-muted text-sm">
-            {offering.name} is a share trading product offered by{' '}
+            {offering.name} is a share trading product offered by{" "}
             {offering.provider.name}.
           </p>
         </Card>
@@ -139,10 +139,10 @@ export default async function ShareTradingOfferingPage({
         <Card className="mt-4">
           <p className="text-muted text-xs">
             Fees, order types, and platform features for share trading platforms
-            are still being researched and aren&apos;t shown yet &mdash; see{' '}
+            are still being researched and aren&apos;t shown yet &mdash; see{" "}
             <Link href="/methodology" className="underline">
               our methodology
-            </Link>{' '}
+            </Link>{" "}
             for how we verify facts before publishing them.
           </p>
         </Card>

@@ -1,53 +1,53 @@
 ---
 title: "How to Buy Bitcoin in Australia: A Beginner's Step-by-Step Guide"
-slug: 'how-to-buy-bitcoin-australia'
-articleType: 'GUIDE'
+slug: "how-to-buy-bitcoin-australia"
+articleType: "GUIDE"
 excerpt:
   "From choosing an exchange to making your first purchase, here's a practical, step-by-step walkthrough\
   \ for buying Bitcoin in Australia for the first time."
-category: 'beginner-guides'
+category: "beginner-guides"
 tags:
-  - 'Bitcoin'
-  - 'Beginners'
-  - 'How to Buy Crypto'
-  - 'Australia'
-seoTitle: 'How to Buy Bitcoin in Australia (2026 Beginner Guide)'
+  - "Bitcoin"
+  - "Beginners"
+  - "How to Buy Crypto"
+  - "Australia"
+seoTitle: "How to Buy Bitcoin in Australia (2026 Beginner Guide)"
 seoDescription:
   "A step-by-step guide to buying Bitcoin in Australia — verifying an exchange, funding\
   \ with AUD, making your first purchase and keeping it secure."
 featuredImageAlt:
   "A step-by-step illustration of opening an account and buying Bitcoin with AUD on a\
   \ laptop"
-author: 'Editorial Team'
+author: "Editorial Team"
 noIndex: false
 affiliateDisclosureRequired: true
 keyTakeaways:
   - "You'll need ID verification, an AUD funding method and a chosen exchange before you can buy."
-  - 'Instant-buy screens are the simplest way to start but usually cost more than an order-book trade.'
+  - "Instant-buy screens are the simplest way to start but usually cost more than an order-book trade."
   - "Only buy an amount you could afford to lose — Bitcoin's price is genuinely volatile."
   - "Decide early whether you'll leave Bitcoin on the exchange or withdraw it to your own wallet."
-  - 'Enable 2FA before you fund the account, not after.'
-searchIntent: 'HOW_TO'
+  - "Enable 2FA before you fund the account, not after."
+searchIntent: "HOW_TO"
 providerRelationships:
-  - providerSlug: 'coinspot'
-    relationship: 'FEATURED'
-  - providerSlug: 'swyftx'
-    relationship: 'MENTIONED'
+  - providerSlug: "coinspot"
+    relationship: "FEATURED"
+  - providerSlug: "swyftx"
+    relationship: "MENTIONED"
 cryptoAssetSlugs:
-  - 'bitcoin'
+  - "bitcoin"
 relatedGuides:
-  - 'how-to-choose-crypto-exchange-australia'
-  - 'crypto-wallet-vs-exchange-beginners'
+  - "how-to-choose-crypto-exchange-australia"
+  - "crypto-wallet-vs-exchange-beginners"
 sources:
-  - label: 'CoinSpot — Official fee schedule'
-    url: 'https://www.coinspot.com.au/fees'
-    sourceType: 'OFFICIAL_PROVIDER'
-  - label: 'AUSTRAC — Virtual asset service provider register goes public'
-    url: 'https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public'
-    sourceType: 'REGULATOR'
-  - label: 'ASIC Moneysmart — Cryptocurrency'
-    url: 'https://moneysmart.gov.au'
-    sourceType: 'GOVERNMENT'
+  - label: "CoinSpot — Official fee schedule"
+    url: "https://www.coinspot.com.au/fees"
+    sourceType: "OFFICIAL_PROVIDER"
+  - label: "AUSTRAC — Virtual asset service provider register goes public"
+    url: "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public"
+    sourceType: "REGULATOR"
+  - label: "ASIC Moneysmart — Cryptocurrency"
+    url: "https://moneysmart.gov.au"
+    sourceType: "GOVERNMENT"
 ---
 
 <p>Buying your first Bitcoin in Australia is mostly a matter of paperwork and patience rather than anything technical. Here's the process end to end.</p>

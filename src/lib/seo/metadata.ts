@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
-import { siteConfig, absoluteUrl } from './config';
-import { canonicalUrl } from './canonical';
-import type { SeoOverrides } from './types';
+import type { Metadata } from "next";
+import { siteConfig, absoluteUrl } from "./config";
+import { canonicalUrl } from "./canonical";
+import type { SeoOverrides } from "./types";
 
 interface BuildMetadataInput extends SeoOverrides {
   /** Fallback title, used when no seoTitle override is present. */
@@ -11,7 +11,7 @@ interface BuildMetadataInput extends SeoOverrides {
   /** Site-relative path, e.g. "/crypto/how-to-buy-bitcoin-australia" */
   path: string;
   image?: string | null;
-  type?: 'website' | 'article';
+  type?: "website" | "article";
   publishedTime?: string | Date | null;
   modifiedTime?: string | Date | null;
   authors?: string[];
@@ -29,10 +29,10 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
   const url = canonicalUrl(input.path, input.canonicalUrl);
   const noIndex = Boolean(input.noIndex);
   const image = input.image
-    ? input.image.startsWith('http')
+    ? input.image.startsWith("http")
       ? input.image
       : absoluteUrl(input.image)
-    : absoluteUrl('/og-default.png');
+    : absoluteUrl("/og-default.png");
 
   const openGraphBase = {
     title,
@@ -44,10 +44,10 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
   };
 
   const openGraph =
-    input.type === 'article'
+    input.type === "article"
       ? {
           ...openGraphBase,
-          type: 'article' as const,
+          type: "article" as const,
           publishedTime: input.publishedTime
             ? new Date(input.publishedTime).toISOString()
             : undefined,
@@ -56,7 +56,7 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
             : undefined,
           authors: input.authors,
         }
-      : { ...openGraphBase, type: 'website' as const };
+      : { ...openGraphBase, type: "website" as const };
 
   return {
     title,
@@ -67,7 +67,7 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
       : { index: true, follow: true },
     openGraph,
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: [image],

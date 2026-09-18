@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /*
   Theme reference: DomainEmpire.com listing page (navy + gold accents,
@@ -74,15 +74,15 @@ body {
   class both /guides/[slug] and /news/[slug] render article content
   inside (see src/lib/articles/renderer.tsx usage sites).
 */
-.prose img[data-align='left'] {
+.prose img[data-align="left"] {
   float: left;
   margin: 0.25rem 1.5rem 1rem 0;
 }
-.prose img[data-align='right'] {
+.prose img[data-align="right"] {
   float: right;
   margin: 0.25rem 0 1rem 1.5rem;
 }
-.prose img[data-align='center'] {
+.prose img[data-align="center"] {
   display: block;
   margin-left: auto;
   margin-right: auto;

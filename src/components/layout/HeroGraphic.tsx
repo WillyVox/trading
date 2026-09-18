@@ -1,11 +1,11 @@
-import type { JSX } from 'react';
+import type { JSX } from "react";
 
 export type HeroGraphicVariant =
-  'home' | 'crypto' | 'guides' | 'compare' | 'methodology';
+  "home" | "crypto" | "guides" | "compare" | "methodology";
 
-const GOLD = '#c79a3d';
-const GOLD_SOFT = '#e8d9b5';
-const CREAM = '#f5f2ea';
+const GOLD = "#c79a3d";
+const GOLD_SOFT = "#e8d9b5";
+const CREAM = "#f5f2ea";
 
 function HomeGraphic() {
   return (

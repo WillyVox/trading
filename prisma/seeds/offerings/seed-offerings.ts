@@ -9,7 +9,7 @@
  * seeding every AU broker at once. Stake and Interactive Brokers Australia
  * are the next two per the master prompt's own initial validation set.
  */
-import { CmcInvest } from './cmc-invest';
-import { CommSec } from './commsec';
+import { CmcInvest } from "./cmc-invest";
+import { CommSec } from "./commsec";
 
 export const SEED_OFFERINGS = [CmcInvest, CommSec];

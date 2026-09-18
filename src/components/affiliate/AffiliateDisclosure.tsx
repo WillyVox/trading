@@ -24,7 +24,7 @@ export function SectionAffiliateDisclosure() {
       </span>
       <p>
         Some links on this site are affiliate links. They never affect which
-        providers appear here or how they&apos;re ordered.{' '}
+        providers appear here or how they&apos;re ordered.{" "}
         <a href="/how-we-get-paid" className="text-navy underline">
           How we get paid
         </a>

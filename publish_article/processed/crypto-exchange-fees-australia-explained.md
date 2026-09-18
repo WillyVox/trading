@@ -1,22 +1,22 @@
 ---
-title: 'Crypto Exchange Fees in Australia Explained'
-slug: 'crypto-exchange-fees-australia-explained'
-articleType: 'GUIDE'
+title: "Crypto Exchange Fees in Australia Explained"
+slug: "crypto-exchange-fees-australia-explained"
+articleType: "GUIDE"
 excerpt:
   "Trading fee, spread, instant-buy premium, deposit and withdrawal costs — the real price of buying\
   \ crypto is rarely just one number. Here's how to read a fee page properly."
-category: 'crypto-fees'
+category: "crypto-fees"
 tags:
-  - 'Crypto Fees'
-  - 'Crypto Exchanges'
-  - 'Australia'
-  - 'Beginners'
-seoTitle: 'Crypto Exchange Fees in Australia Explained (2026)'
+  - "Crypto Fees"
+  - "Crypto Exchanges"
+  - "Australia"
+  - "Beginners"
+seoTitle: "Crypto Exchange Fees in Australia Explained (2026)"
 seoDescription:
   "Maker/taker fees, spreads, instant-buy premiums and withdrawal costs explained, with\
   \ real examples from Australian exchanges. A practical fee-reading guide."
-featuredImageAlt: 'A simplified breakdown of the different fee types charged when buying crypto in Australia'
-author: 'Editorial Team'
+featuredImageAlt: "A simplified breakdown of the different fee types charged when buying crypto in Australia"
+author: "Editorial Team"
 noIndex: false
 affiliateDisclosureRequired: true
 keyTakeaways:
@@ -24,36 +24,36 @@ keyTakeaways:
     \ more."
   - "The same exchange can charge very different amounts depending on whether you use its order book or\
     \ its simple/instant screen."
-  - 'AUD deposit and withdrawal fees vary by method (PayID, bank transfer, card) and by provider.'
+  - "AUD deposit and withdrawal fees vary by method (PayID, bank transfer, card) and by provider."
   - "Crypto withdrawal (network) fees are usually separate from the exchange's own trading fees."
   - "Always check the provider's current fee page — schedules change and are not something we can promise\
     \ are still accurate by the time you read this."
-searchIntent: 'FEES'
+searchIntent: "FEES"
 providerRelationships:
-  - providerSlug: 'coinspot'
-    relationship: 'COMPARED'
-  - providerSlug: 'swyftx'
-    relationship: 'COMPARED'
-  - providerSlug: 'btc-markets'
-    relationship: 'COMPARED'
+  - providerSlug: "coinspot"
+    relationship: "COMPARED"
+  - providerSlug: "swyftx"
+    relationship: "COMPARED"
+  - providerSlug: "btc-markets"
+    relationship: "COMPARED"
 cryptoAssetSlugs:
-  - 'bitcoin'
+  - "bitcoin"
 relatedGuides:
-  - 'how-to-choose-crypto-exchange-australia'
-  - 'how-to-buy-bitcoin-australia'
+  - "how-to-choose-crypto-exchange-australia"
+  - "how-to-buy-bitcoin-australia"
 sources:
-  - label: 'CoinSpot — Official fee schedule'
-    url: 'https://www.coinspot.com.au/fees'
-    sourceType: 'OFFICIAL_PROVIDER'
-  - label: 'Swyftx — Fees for deposits and withdrawals'
-    url: 'https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals'
-    sourceType: 'OFFICIAL_PROVIDER'
-  - label: 'BTC Markets — Official fee schedule'
-    url: 'https://www.btcmarkets.net/fees'
-    sourceType: 'OFFICIAL_PROVIDER'
-  - label: 'ASIC Moneysmart — Cryptocurrency'
-    url: 'https://moneysmart.gov.au'
-    sourceType: 'GOVERNMENT'
+  - label: "CoinSpot — Official fee schedule"
+    url: "https://www.coinspot.com.au/fees"
+    sourceType: "OFFICIAL_PROVIDER"
+  - label: "Swyftx — Fees for deposits and withdrawals"
+    url: "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals"
+    sourceType: "OFFICIAL_PROVIDER"
+  - label: "BTC Markets — Official fee schedule"
+    url: "https://www.btcmarkets.net/fees"
+    sourceType: "OFFICIAL_PROVIDER"
+  - label: "ASIC Moneysmart — Cryptocurrency"
+    url: "https://moneysmart.gov.au"
+    sourceType: "GOVERNMENT"
 ---
 
 <p>Ask three different Australians what a given exchange "charges" and you may get three different answers — because most exchanges charge in more than one way, and it's easy to compare the wrong two numbers. This guide breaks the real cost of buying crypto into its actual parts.</p>

@@ -1,30 +1,30 @@
-import Link from 'next/link';
-import type { Article } from '@prisma/client';
+import Link from "next/link";
+import type { Article } from "@prisma/client";
 import {
   getAdminArticles,
   getAdminArticleCategories,
-} from '@/lib/articles/service';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { ArticleRowActions } from '@/components/admin/article/ArticleRowActions';
+} from "@/lib/articles/service";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { ArticleRowActions } from "@/components/admin/article/ArticleRowActions";
 
-type Status = 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
+type Status = "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
 
-const STATUS_OPTIONS: Status[] = ['DRAFT', 'REVIEW', 'PUBLISHED', 'ARCHIVED'];
-const TYPE_OPTIONS = ['NEWS', 'GUIDE'] as const;
+const STATUS_OPTIONS: Status[] = ["DRAFT", "REVIEW", "PUBLISHED", "ARCHIVED"];
+const TYPE_OPTIONS = ["NEWS", "GUIDE"] as const;
 
-const STATUS_TONE: Record<Status, 'muted' | 'gold' | 'green' | 'red'> = {
-  DRAFT: 'muted',
-  REVIEW: 'gold',
-  PUBLISHED: 'green',
-  ARCHIVED: 'red',
+const STATUS_TONE: Record<Status, "muted" | "gold" | "green" | "red"> = {
+  DRAFT: "muted",
+  REVIEW: "gold",
+  PUBLISHED: "green",
+  ARCHIVED: "red",
 };
 
 function fmt(d: Date | null | undefined): string {
-  if (!d) return '\u2014';
-  return new Intl.DateTimeFormat('en-AU', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
+  if (!d) return "\u2014";
+  return new Intl.DateTimeFormat("en-AU", {
+    dateStyle: "medium",
+    timeStyle: "short",
   }).format(new Date(d));
 }
 
@@ -34,13 +34,13 @@ function pageHref(
   page: number
 ): string {
   const usp = new URLSearchParams();
-  if (params.status) usp.set('status', params.status);
-  if (params.articleType) usp.set('articleType', params.articleType);
-  if (params.category) usp.set('category', params.category);
-  if (params.search) usp.set('search', params.search);
-  if (page > 1) usp.set('page', String(page));
+  if (params.status) usp.set("status", params.status);
+  if (params.articleType) usp.set("articleType", params.articleType);
+  if (params.category) usp.set("category", params.category);
+  if (params.search) usp.set("search", params.search);
+  if (page > 1) usp.set("page", String(page));
   const qs = usp.toString();
-  return qs ? `/admin/articles?${qs}` : '/admin/articles';
+  return qs ? `/admin/articles?${qs}` : "/admin/articles";
 }
 
 export default async function AdminArticlesPage({
@@ -56,11 +56,11 @@ export default async function AdminArticlesPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, Number(sp.page) || 1);
-  const status = (STATUS_OPTIONS as readonly string[]).includes(sp.status ?? '')
+  const status = (STATUS_OPTIONS as readonly string[]).includes(sp.status ?? "")
     ? (sp.status as Status)
     : undefined;
   const articleType = (TYPE_OPTIONS as readonly string[]).includes(
-    sp.articleType ?? ''
+    sp.articleType ?? ""
   )
     ? (sp.articleType as (typeof TYPE_OPTIONS)[number])
     : undefined;
@@ -93,7 +93,7 @@ export default async function AdminArticlesPage({
             <span className="text-muted mb-1">Status</span>
             <select
               name="status"
-              defaultValue={status ?? ''}
+              defaultValue={status ?? ""}
               className="border-border bg-panel-secondary text-navy min-w-[140px] rounded-lg border px-3 py-2"
             >
               <option value="">All statuses</option>
@@ -109,7 +109,7 @@ export default async function AdminArticlesPage({
             <span className="text-muted mb-1">Type</span>
             <select
               name="articleType"
-              defaultValue={articleType ?? ''}
+              defaultValue={articleType ?? ""}
               className="border-border bg-panel-secondary text-navy min-w-[140px] rounded-lg border px-3 py-2"
             >
               <option value="">All types</option>
@@ -125,7 +125,7 @@ export default async function AdminArticlesPage({
             <span className="text-muted mb-1">Category</span>
             <select
               name="category"
-              defaultValue={category ?? ''}
+              defaultValue={category ?? ""}
               className="border-border bg-panel-secondary text-navy min-w-[160px] rounded-lg border px-3 py-2"
             >
               <option value="">All categories</option>
@@ -142,7 +142,7 @@ export default async function AdminArticlesPage({
             <input
               type="text"
               name="search"
-              defaultValue={search ?? ''}
+              defaultValue={search ?? ""}
               placeholder="Title or slug"
               className="border-border bg-panel-secondary text-navy min-w-[200px] rounded-lg border px-3 py-2"
             />
@@ -166,13 +166,13 @@ export default async function AdminArticlesPage({
       </Card>
 
       <p className="text-muted mt-4 text-sm">
-        {total} article{total === 1 ? '' : 's'}
-        {hasFilters ? ' matching these filters' : ''}
+        {total} article{total === 1 ? "" : "s"}
+        {hasFilters ? " matching these filters" : ""}
       </p>
 
       {items.length === 0 ? (
         <p className="text-muted mt-2">
-          {hasFilters ? 'No articles match these filters.' : 'No articles yet.'}
+          {hasFilters ? "No articles match these filters." : "No articles yet."}
         </p>
       ) : (
         <Card className="mt-2 overflow-x-auto">
@@ -207,7 +207,7 @@ export default async function AdminArticlesPage({
                     </Badge>
                   </td>
                   <td className="text-muted py-2 pr-4">
-                    {a.category ?? '\u2014'}
+                    {a.category ?? "\u2014"}
                   </td>
                   <td className="text-muted py-2 pr-4">{fmt(a.updatedAt)}</td>
                   <td className="text-muted py-2 pr-4">{fmt(a.publishedAt)}</td>

@@ -1,4 +1,4 @@
-import type { ArticleImportPayload } from './types';
+import type { ArticleImportPayload } from "./types";
 
 /**
  * Visual templates for auto-generated fallback featured images (see
@@ -16,21 +16,21 @@ import type { ArticleImportPayload } from './types';
  */
 
 export const FEATURED_IMAGE_CONCEPTS = [
-  'steps',
-  'compare',
-  'fees',
-  'security',
-  'verify',
-  'learn',
-  'news',
+  "steps",
+  "compare",
+  "fees",
+  "security",
+  "verify",
+  "learn",
+  "news",
 ] as const;
 
 export type FeaturedImageConcept = (typeof FEATURED_IMAGE_CONCEPTS)[number];
 
-const NAVY = '#16233f';
-const GOLD = '#c79a3d';
-const GOLD_SOFT = '#e8d9b5';
-const CREAM = '#f5f2ea';
+const NAVY = "#16233f";
+const GOLD = "#c79a3d";
+const GOLD_SOFT = "#e8d9b5";
+const CREAM = "#f5f2ea";
 
 const W = 1200;
 const H = 630;
@@ -42,16 +42,16 @@ const H = 630;
  * skip searchIntent entirely — see pickConcept.
  */
 const SEARCH_INTENT_CONCEPTS: Record<string, FeaturedImageConcept> = {
-  HOW_TO: 'steps',
-  BEGINNER: 'steps',
-  COMPARISON: 'compare',
-  PROVIDER_GUIDE: 'compare',
-  FEES: 'fees',
-  SECURITY: 'security',
-  WALLET: 'security',
-  REGULATION: 'verify',
-  LEARN: 'learn',
-  MARKET_EDUCATION: 'learn',
+  HOW_TO: "steps",
+  BEGINNER: "steps",
+  COMPARISON: "compare",
+  PROVIDER_GUIDE: "compare",
+  FEES: "fees",
+  SECURITY: "security",
+  WALLET: "security",
+  REGULATION: "verify",
+  LEARN: "learn",
+  MARKET_EDUCATION: "learn",
 };
 
 /**
@@ -63,29 +63,29 @@ const SEARCH_INTENT_CONCEPTS: Record<string, FeaturedImageConcept> = {
  * production footgun. A-Z always renders on any fallback sans/serif font.
  */
 const ASSET_MONOGRAMS: Record<string, string> = {
-  bitcoin: 'B',
-  ethereum: 'E',
-  litecoin: 'L',
-  dogecoin: 'D',
-  cardano: 'A',
-  solana: 'S',
-  ripple: 'X',
-  xrp: 'X',
+  bitcoin: "B",
+  ethereum: "E",
+  litecoin: "L",
+  dogecoin: "D",
+  cardano: "A",
+  solana: "S",
+  ripple: "X",
+  xrp: "X",
 };
 
 export function pickConcept(
-  payload: Pick<ArticleImportPayload, 'searchIntent' | 'articleType'>
+  payload: Pick<ArticleImportPayload, "searchIntent" | "articleType">
 ): FeaturedImageConcept {
   const bySearchIntent = payload.searchIntent
     ? SEARCH_INTENT_CONCEPTS[payload.searchIntent]
     : undefined;
   if (bySearchIntent) return bySearchIntent;
-  if (payload.articleType === 'NEWS') return 'news';
-  return 'steps'; // generic default — matches the most common GUIDE shape
+  if (payload.articleType === "NEWS") return "news";
+  return "steps"; // generic default — matches the most common GUIDE shape
 }
 
 function assetMonogram(
-  payload: Pick<ArticleImportPayload, 'cryptoAssetSlugs'>
+  payload: Pick<ArticleImportPayload, "cryptoAssetSlugs">
 ): string | null {
   for (const slug of payload.cryptoAssetSlugs ?? []) {
     const letter = ASSET_MONOGRAMS[slug.toLowerCase()];
@@ -100,7 +100,7 @@ function ledgerLines(): string {
       (y) =>
         `<line x1="80" y1="${y}" x2="1120" y2="${y}" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />`
     )
-    .join('\n');
+    .join("\n");
 }
 
 function coinBadge(letter: string): string {
@@ -207,7 +207,7 @@ const CONCEPT_SHAPES: Record<FeaturedImageConcept, () => string> = {
 export function buildFeaturedImageSvg(
   payload: Pick<
     ArticleImportPayload,
-    'searchIntent' | 'articleType' | 'cryptoAssetSlugs'
+    "searchIntent" | "articleType" | "cryptoAssetSlugs"
   >,
   concept: FeaturedImageConcept = pickConcept(payload)
 ): string {
@@ -216,7 +216,7 @@ export function buildFeaturedImageSvg(
   <rect width="${W}" height="${H}" fill="${NAVY}" />
   ${ledgerLines()}
   ${CONCEPT_SHAPES[concept]()}
-  ${badge ? coinBadge(badge) : ''}
+  ${badge ? coinBadge(badge) : ""}
 </svg>`;
 }
 
@@ -241,7 +241,7 @@ export function buildBrandOgImage(): string {
   // Rough Georgia-bold average-advance estimate, same purpose as the width
   // guard in the header-logo generation scripts: just needs to be in the
   // right neighborhood to center the lockup, not pixel-exact.
-  const wordWidth = 'Trading Guide'.length * wordFontSize * 0.52;
+  const wordWidth = "Trading Guide".length * wordFontSize * 0.52;
   const gap = 28;
   const lockupWidth = iconWidth + gap + wordWidth;
   const iconX = (W - lockupWidth) / 2;
@@ -253,7 +253,7 @@ export function buildBrandOgImage(): string {
       (b) =>
         `<rect x="${iconX + b.x * iconScale}" y="${centerY - 23 * iconScale + b.y * iconScale}" width="${b.w * iconScale}" height="${b.h * iconScale}" fill="${b.fill}" />`
     )
-    .join('\n');
+    .join("\n");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${NAVY}" />

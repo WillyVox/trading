@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import { Badge } from '@/components/ui/Badge';
-import { formatCategoryLabel } from '@/lib/articles/content';
+import Link from "next/link";
+import { Badge } from "@/components/ui/Badge";
+import { formatCategoryLabel } from "@/lib/articles/content";
 
 function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString('en-AU', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+  return new Date(date).toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   });
 }
 
@@ -62,7 +62,7 @@ export function ArticleCard({
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={featuredImage}
-            alt={featuredImageAlt ?? ''}
+            alt={featuredImageAlt ?? ""}
             loading="lazy"
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"

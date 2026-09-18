@@ -1,4 +1,4 @@
-import { absoluteUrl } from './config';
+import { absoluteUrl } from "./config";
 
 /**
  * Resolve the canonical URL for a page. Respects an admin-provided override
@@ -7,7 +7,7 @@ import { absoluteUrl } from './config';
  */
 export function canonicalUrl(path: string, override?: string | null): string {
   if (override && override.trim().length > 0) {
-    return override.startsWith('http') ? override : absoluteUrl(override);
+    return override.startsWith("http") ? override : absoluteUrl(override);
   }
   return absoluteUrl(path);
 }
@@ -20,7 +20,7 @@ export function canonicalUrl(path: string, override?: string | null): string {
  * Phase 5 to support 3+-way comparisons).
  */
 export function canonicalCompareSlugMulti(slugs: string[]): string {
-  return [...slugs].sort((a, b) => a.localeCompare(b)).join('-vs-');
+  return [...slugs].sort((a, b) => a.localeCompare(b)).join("-vs-");
 }
 
 /**
@@ -35,7 +35,7 @@ export function canonicalCompareSlugMulti(slugs: string[]): string {
  * redirect collapses it to the single-subject URL instead.
  */
 export function parseCompareSlugs(slug: string): string[] {
-  return Array.from(new Set(slug.split('-vs-').filter(Boolean)));
+  return Array.from(new Set(slug.split("-vs-").filter(Boolean)));
 }
 
 /** @deprecated kept for two-way call sites; prefer canonicalCompareSlugMulti. */
@@ -44,17 +44,17 @@ export function canonicalCompareSlug(slugA: string, slugB: string): string {
 }
 
 export function isCanonicalCompareSlug(slug: string): boolean {
-  const parts = slug.split('-vs-').filter(Boolean);
+  const parts = slug.split("-vs-").filter(Boolean);
   if (parts.length < 2) return true; // not a multi-provider slug — nothing to canonicalize
   return canonicalCompareSlugMulti(parts) === slug;
 }
 
 const REGION_HREFLANG: Record<string, string> = {
-  AU: 'en-AU',
-  UK: 'en-GB',
-  US: 'en-US',
-  NZ: 'en-NZ',
-  SG: 'en-SG',
+  AU: "en-AU",
+  UK: "en-GB",
+  US: "en-US",
+  NZ: "en-NZ",
+  SG: "en-SG",
 };
 
 /** Region code (e.g. "AU") -> hreflang tag. Falls back to the bare code for regions not yet in the map, rather than guessing. */

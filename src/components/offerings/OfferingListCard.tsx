@@ -1,14 +1,14 @@
-import Link from 'next/link';
-import { ProviderLogo } from '@/components/providers/ProviderLogo';
-import { VerificationBadge } from '@/components/trust/VerificationBadge';
-import { Badge } from '@/components/ui/Badge';
+import Link from "next/link";
+import { ProviderLogo } from "@/components/providers/ProviderLogo";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { Badge } from "@/components/ui/Badge";
 import {
   formatProductType,
   formatAccountType,
   custodyTypeCopy,
-} from '@/lib/offerings/labels';
-import type { OfferingListItem } from '@/lib/offerings/service';
-import { VisitSite } from '@/components/affiliate/VisitSite';
+} from "@/lib/offerings/labels";
+import type { OfferingListItem } from "@/lib/offerings/service";
+import { VisitSite } from "@/components/affiliate/VisitSite";
 
 /**
  * Dense row layout for /share-trading (Option B from the redesign mockup,
@@ -29,7 +29,7 @@ export function OfferingListCard({ offering }: { offering: OfferingListItem }) {
   // over an arbitrary first entry; international custody differences are
   // still covered on the full profile page.
   const primaryCustody =
-    offering.custody.find((c) => c.market?.code === 'ASX') ??
+    offering.custody.find((c) => c.market?.code === "ASX") ??
     offering.custody[0] ??
     null;
 
@@ -97,7 +97,7 @@ export function OfferingListCard({ offering }: { offering: OfferingListItem }) {
       <div className="flex flex-row items-center gap-3 md:flex-col md:items-end">
         <VisitSite
           partnerSlug={offering.slug}
-          href={offering.website ?? ''}
+          href={offering.website ?? ""}
           placement="share-trading"
         />
         <Link

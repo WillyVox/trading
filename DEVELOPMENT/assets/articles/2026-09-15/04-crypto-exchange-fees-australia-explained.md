@@ -42,16 +42,16 @@ slug: crypto-exchange-fees-australia-explained
 sources:
   - label: CoinSpot --- Official fee schedule
     sourceType: OFFICIAL_PROVIDER
-    url: 'https://www.coinspot.com.au/fees'
+    url: "https://www.coinspot.com.au/fees"
   - label: Swyftx --- Fees for deposits and withdrawals
     sourceType: OFFICIAL_PROVIDER
-    url: 'https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals'
+    url: "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals"
   - label: BTC Markets --- Official fee schedule
     sourceType: OFFICIAL_PROVIDER
-    url: 'https://www.btcmarkets.net/fees'
+    url: "https://www.btcmarkets.net/fees"
   - label: ASIC Moneysmart --- Cryptocurrency
     sourceType: GOVERNMENT
-    url: 'https://moneysmart.gov.au'
+    url: "https://moneysmart.gov.au"
 tags:
   - Crypto Fees
   - Crypto Exchanges

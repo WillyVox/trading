@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/Card';
-import { VerificationBadge } from '@/components/trust/VerificationBadge';
-import { ProviderLogo } from '@/components/providers/ProviderLogo';
-import { compareHrefWithout } from '@/lib/compare/resolve';
-import type { ComparisonSection, ComparisonSubject } from '@/lib/compare/types';
+import Link from "next/link";
+import { Card } from "@/components/ui/Card";
+import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { ProviderLogo } from "@/components/providers/ProviderLogo";
+import { compareHrefWithout } from "@/lib/compare/resolve";
+import type { ComparisonSection, ComparisonSubject } from "@/lib/compare/types";
 
 /**
  * Small-screen counterpart to CompareTable -- a wide comparison table
@@ -75,7 +75,7 @@ export function CompareMobileCards({
                 href={s.cta.href}
                 target="_blank"
                 rel={
-                  s.cta.isAffiliate ? 'sponsored noopener' : 'nofollow noopener'
+                  s.cta.isAffiliate ? "sponsored noopener" : "nofollow noopener"
                 }
                 className="bg-navy text-background hover:bg-navy-dark flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold"
               >
@@ -103,7 +103,7 @@ export function CompareMobileCards({
                   >
                     <span className="text-muted">{row.label}</span>
                     <span className="text-navy">
-                      {row.values[i] ?? '\u2014'}
+                      {row.values[i] ?? "\u2014"}
                     </span>
                   </li>
                 ))}

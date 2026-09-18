@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { cryptoAssets } from './crypto-assets';
+import { PrismaClient } from "@prisma/client";
+import { cryptoAssets } from "./crypto-assets";
 
 const prisma = new PrismaClient();
 

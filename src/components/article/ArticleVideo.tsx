@@ -1,4 +1,4 @@
-export type VideoProvider = 'youtube' | 'vimeo';
+export type VideoProvider = "youtube" | "vimeo";
 
 const EMBED_SRC: Record<VideoProvider, (videoId: string) => string> = {
   // youtube-nocookie.com avoids setting tracking cookies until the visitor
@@ -32,7 +32,7 @@ export function ArticleVideo({
         <iframe
           src={src}
           title={
-            caption ?? `${provider === 'youtube' ? 'YouTube' : 'Vimeo'} video`
+            caption ?? `${provider === "youtube" ? "YouTube" : "Vimeo"} video`
           }
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

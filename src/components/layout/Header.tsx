@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { AuthStatus } from './AuthStatus';
-import { MobileNav } from './MobileNav';
-import { NavMenuItem } from './NavMenuItem';
-import TradingGuideLogo from './HeaderLogo';
-import { NAV_ITEMS } from '@/lib/nav/config';
+import Link from "next/link";
+import { AuthStatus } from "./AuthStatus";
+import { MobileNav } from "./MobileNav";
+import { NavMenuItem } from "./NavMenuItem";
+import TradingGuideLogo from "./HeaderLogo";
+import { NAV_ITEMS } from "@/lib/nav/config";
 
 // Deliberately NOT async / no auth() call here. Header is rendered from the
 // root layout on every route, including statically-generated content pages
