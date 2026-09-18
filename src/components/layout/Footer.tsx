@@ -2,7 +2,7 @@ import Link from "next/link";
 import { footerLinks } from "@/lib/config/footer";
 import { businessIdentity } from "@/lib/config/business";
 import { siteConfig } from "@/lib/seo/config";
-import TradingGuideLogo from "./HeaderLogo";
+import TradingGuideLogoWhite from "./LogoWhite";
 
 // Computed once per server render. On a statically-generated page this
 // bakes in the build year rather than the visitor's current year -- fine
@@ -30,7 +30,7 @@ export function Footer() {
           <div>
             <Link href="/" className="font-display text-lg font-extrabold">
               {/* Aus<span className="text-gold">Market</span> */}
-              <TradingGuideLogo />
+              <TradingGuideLogoWhite />
             </Link>
             <p className="text-background/60 mt-1 text-xs">
               Independent Australian trading research — crypto and beyond

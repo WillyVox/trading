@@ -2,7 +2,9 @@ import Link from "next/link";
 import { AuthStatus } from "./AuthStatus";
 import { MobileNav } from "./MobileNav";
 import { NavMenuItem } from "./NavMenuItem";
-import TradingGuideLogo from "./HeaderLogo";
+import HeaderLogo from "./HeaderLogo";
+
+import LogoDark from "./LogoDark";
 import { NAV_ITEMS } from "@/lib/nav/config";
 
 // Deliberately NOT async / no auth() call here. Header is rendered from the
@@ -21,7 +23,9 @@ export function Header() {
           className="font-display text-navy flex items-baseline gap-1 text-xl font-extrabold"
         >
           {/* Trading<span className="text-gold">Guide</span> */}
-          <TradingGuideLogo />
+          {/* <HeaderLogo /> */}
+
+          <LogoDark />
         </Link>
         <nav className="hidden flex-1 items-center gap-6 md:flex">
           {NAV_ITEMS.map((item) => (

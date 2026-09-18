@@ -12,7 +12,8 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export const metadata = buildMetadata({
-  title: "Trading & Crypto Guides Australia — Beginner Education",
+  title:
+    "Online Share Trading & Crypto Exchanges Guides Australia — Beginner Education",
   description:
     "Beginner-friendly Australian guides covering crypto exchanges, buying cryptocurrency, share trading, fees, security and how trading platforms work.",
   path: "/guides",
@@ -38,7 +39,7 @@ export default async function GuidesPage({
       <PageHero
         breadcrumbs={trail}
         eyebrow="Guides"
-        title="Beginner-friendly trading and crypto guides for Australians"
+        title="Beginner-friendly share trading and crypto guides for Australians"
         subheading="Understand trading platforms, cryptocurrency exchanges, fees, security and investing concepts before you compare providers."
         graphic="guides"
       />

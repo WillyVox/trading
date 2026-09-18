@@ -1,6 +1,7 @@
 import type { SVGProps } from "react";
 
-export default function HeaderLogo(props: SVGProps<SVGSVGElement>) {
+// TradingGui.com.au
+export default function TradingGuideLogoDrak(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,12 +19,23 @@ export default function HeaderLogo(props: SVGProps<SVGSVGElement>) {
       <text
         x="62"
         y="38"
-        fontFamily="Georgia, 'Times New Roman', serif"
-        fontWeight={700}
-        fontSize={26}
+        font-family="Georgia, 'Times New Roman', serif"
+        font-weight="700"
+        font-size="26"
         fill="#16233f"
       >
         Trading Guide
+      </text>
+      <text
+        x="254"
+        y="55"
+        text-anchor="end"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="14"
+        letter-spacing="1.5"
+        fill="#8a8577"
+      >
+        .com.au
       </text>
     </svg>
   );
