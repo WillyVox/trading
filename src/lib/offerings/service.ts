@@ -25,6 +25,18 @@ const OFFERING_LIST_INCLUDE = {
   products: { orderBy: { productType: "asc" as const } },
   custody: { include: { market: true } },
   accountTypes: { orderBy: { accountType: "asc" as const } },
+  // Phase 2 step 6: OfferingListCard's headline brokerage chip needs this.
+  // Same shape as OFFERING_DETAIL_INCLUDE's fees block (deliberately, so
+  // pickHeadlineFee()/formatFeeValue() work unchanged against either) --
+  // not trimmed down further since an offering has at most a handful of
+  // fee rows, so the extra payload per list row is negligible.
+  fees: {
+    include: {
+      market: true,
+      tiers: { orderBy: { position: "asc" as const } },
+    },
+    orderBy: { feeCategory: "asc" as const },
+  },
 } satisfies Prisma.ProviderOfferingInclude;
 
 export type OfferingListItem = Prisma.ProviderOfferingGetPayload<{
@@ -56,6 +68,18 @@ const OFFERING_DETAIL_INCLUDE = {
   products: { orderBy: { productType: "asc" as const } },
   custody: { include: { market: true } },
   accountTypes: { orderBy: { accountType: "asc" as const } },
+  // Phase 2 (fees). `market` is included per-fee so a market-scoped fee
+  // (e.g. ASX brokerage) can show its market name without a second query;
+  // a null here means an offering-wide fee (e.g. FX conversion). Tiers are
+  // ordered by `position`, which the seed sets to array index -- see the
+  // OfferingFeeTier schema comment and prisma-client.ts's seeding loop.
+  fees: {
+    include: {
+      market: true,
+      tiers: { orderBy: { position: "asc" as const } },
+    },
+    orderBy: { feeCategory: "asc" as const },
+  },
 } satisfies Prisma.ProviderOfferingInclude;
 
 export type OfferingDetail = Prisma.ProviderOfferingGetPayload<{

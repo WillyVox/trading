@@ -8,6 +8,9 @@ import {
   formatAvailability,
   formatProductType,
   formatAccountType,
+  formatFeeCategory,
+  formatFeeValue,
+  pickHeadlineFee,
   custodyTypeCopy,
 } from "./labels";
 
@@ -137,6 +140,59 @@ export function buildCustodyRows(offerings: OfferingDetail[]): ComparisonRow[] {
   }));
 }
 
+type OfferingFeeRow = OfferingDetail["fees"][number];
+
+/**
+ * One row per (feeCategory, market) combination seen across offerings --
+ * same "seen ordered" pattern as buildMarketRows/buildProductRows above,
+ * bucketed like buildCustodyRows (market-scoped facts use the market as
+ * part of the key, "_all" for an offering-wide fee like FX conversion).
+ *
+ * Promotional fees (isPromotional: true) are excluded entirely, not just
+ * de-prioritized: a time-boxed new-customer offer isn't a standing cost to
+ * compare providers on, and showing it here risks exactly the "headline $0
+ * hides the real cost" trap the fee-schema proposal warned about. The
+ * standing schedule is what belongs in a comparison; the promotion itself
+ * is a profile-page detail (OfferingFeeSection, Phase 2 step 6/7).
+ */
+export function buildFeeRows(offerings: OfferingDetail[]): ComparisonRow[] {
+  const standingFees = offerings.map((o) =>
+    o.fees.filter((f) => !f.isPromotional)
+  );
+
+  const seen = new Map<
+    string,
+    { category: OfferingFeeRow["feeCategory"]; marketName: string | null }
+  >();
+  for (const fees of standingFees) {
+    for (const fee of fees) {
+      const bucketKey = `${fee.feeCategory}:${fee.market?.code ?? "_all"}`;
+      if (!seen.has(bucketKey)) {
+        seen.set(bucketKey, {
+          category: fee.feeCategory,
+          marketName: fee.market?.name ?? null,
+        });
+      }
+    }
+  }
+
+  return Array.from(seen.entries()).map(
+    ([bucketKey, { category, marketName }]) => ({
+      key: `fee:${bucketKey}`,
+      label: marketName
+        ? `${formatFeeCategory(category)} \u2014 ${marketName}`
+        : formatFeeCategory(category),
+      values: standingFees.map((fees) => {
+        const candidates = fees.filter(
+          (f) => `${f.feeCategory}:${f.market?.code ?? "_all"}` === bucketKey
+        );
+        const headline = pickHeadlineFee(candidates);
+        return headline ? formatFeeValue(headline) : null;
+      }),
+    })
+  );
+}
+
 export function buildOfferingComparisonSections(
   offerings: OfferingDetail[]
 ): ComparisonSection[] {
@@ -145,5 +201,6 @@ export function buildOfferingComparisonSections(
     { title: "Products", rows: buildProductRows(offerings) },
     { title: "Custody & ownership", rows: buildCustodyRows(offerings) },
     { title: "Account types", rows: buildAccountTypeRows(offerings) },
+    { title: "Costs", rows: buildFeeRows(offerings) },
   ].filter((section) => section.rows.length > 0);
 }

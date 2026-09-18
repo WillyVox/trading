@@ -6,17 +6,18 @@ import {
   formatProductType,
   formatAccountType,
   custodyTypeCopy,
+  pickHeadlineFee,
+  formatHeadlineFee,
 } from "@/lib/offerings/labels";
 import type { OfferingListItem } from "@/lib/offerings/service";
 import { VisitSite } from "@/components/affiliate/VisitSite";
 
 /**
  * Dense row layout for /share-trading (Option B from the redesign mockup,
- * chosen over the wider card grid). Deliberately only surfaces facts the
- * Offering domain actually has today -- markets, products, custody,
- * account types, verification status, and `website` -- rather than fee /
- * minimum-trade / star-rating fields that don't exist on ProviderOffering
- * yet (see docs/ROADMAP.md: Milestone 1 excludes OfferingFee, and
+ * chosen over the wider card grid). Surfaces markets, products, custody,
+ * account types, verification status, `website`, and — since Phase 2 — a
+ * headline ASX brokerage figure. Still deliberately no star rating or
+ * AggregateRating: that's a real absence, not a layout omission (see
  * src/lib/seo/schema.ts's "no fake Review/AggregateRating" rule).
  */
 export function OfferingListCard({ offering }: { offering: OfferingListItem }) {
@@ -32,6 +33,21 @@ export function OfferingListCard({ offering }: { offering: OfferingListItem }) {
     offering.custody.find((c) => c.market?.code === "ASX") ??
     offering.custody[0] ??
     null;
+
+  // Same "home market first" reasoning as primaryCustody above: ASX
+  // brokerage is the one number almost every visitor is comparing on,
+  // regardless of what other markets an offering covers. Promotional fees
+  // are excluded here too (see buildFeeRows in offerings/compare.ts) --
+  // a chip is even less room than a compare row to add the "conditions
+  // apply" context a promo needs, so it stays a profile-page detail.
+  const asxBrokerageFees = offering.fees.filter(
+    (f) =>
+      !f.isPromotional &&
+      f.feeCategory === "BROKERAGE" &&
+      f.market?.code === "ASX"
+  );
+  const headlineFee = pickHeadlineFee(asxBrokerageFees);
+  const headline = headlineFee ? formatHeadlineFee(headlineFee) : null;
 
   const productLabels = offering.products.map((p) =>
     formatProductType(p.productType)
@@ -78,19 +94,32 @@ export function OfferingListCard({ offering }: { offering: OfferingListItem }) {
         ))}
       </div>
 
-      {/* Products */}
-      <div className="flex flex-wrap content-start gap-1.5">
-        {productLabels.length === 0 && (
-          <span className="text-muted text-xs">No product data yet</span>
+      {/* Products (+ headline brokerage fee) */}
+      <div className="flex flex-col gap-1.5">
+        {headline && (
+          <p className="text-navy text-xs font-semibold">
+            AU brokerage {headline.value}
+            {headline.hasCaveat && (
+              <span className="text-muted font-normal">
+                {" "}
+                * tiered by trade value, see profile
+              </span>
+            )}
+          </p>
         )}
-        {productLabels.map((label) => (
-          <span
-            key={label}
-            className="border-border bg-panel-secondary text-text rounded-md border px-2 py-0.5 text-xs font-semibold"
-          >
-            {label}
-          </span>
-        ))}
+        <div className="flex flex-wrap content-start gap-1.5">
+          {productLabels.length === 0 && (
+            <span className="text-muted text-xs">No product data yet</span>
+          )}
+          {productLabels.map((label) => (
+            <span
+              key={label}
+              className="border-border bg-panel-secondary text-text rounded-md border px-2 py-0.5 text-xs font-semibold"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Actions */}
