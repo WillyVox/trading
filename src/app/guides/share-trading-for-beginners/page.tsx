@@ -1,27 +1,27 @@
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
-import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/layout/PageHero";
-import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
-import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
-import { GuideSidebar } from "@/components/guide/GuideSidebar";
-import { GuideSourceList } from "@/components/guide/GuideSourceList";
-import { GuideFAQ } from "@/components/guide/GuideFAQ";
-import { GuideFigure } from "@/components/guide/GuideFigure";
-import { RelatedGuides } from "@/components/guide/RelatedGuides";
-import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
-import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { articleSchema, breadcrumbSchema, faqSchema } from '@/lib/seo/schema';
+import { estimateReadingMinutesByWordCount } from '@/lib/articles/content';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PageHero } from '@/components/layout/PageHero';
+import { KeyTakeaways } from '@/components/guide/KeyTakeaways';
+import { GuideTableOfContents } from '@/components/guide/GuideTableOfContents';
+import { GuideSidebar } from '@/components/guide/GuideSidebar';
+import { GuideSourceList } from '@/components/guide/GuideSourceList';
+import { GuideFAQ } from '@/components/guide/GuideFAQ';
+import { GuideFigure } from '@/components/guide/GuideFigure';
+import { RelatedGuides } from '@/components/guide/RelatedGuides';
+import { GuideProviderLinks } from '@/components/guide/GuideProviderLinks';
+import { GuideNextSteps } from '@/components/guide/GuideNextSteps';
 import {
   CompareColumnsIllustration,
   GrowthTrendIllustration,
-} from "@/components/guide/illustrations";
+} from '@/components/guide/illustrations';
 import {
   getStaticGuideArticleHref,
   getStaticGuideArticleImage,
   STATIC_SLUG_IDS,
-} from "@/lib/guides/static-article-slugs";
+} from '@/lib/guides/static-article-slugs';
 
 const PATH = getStaticGuideArticleHref(
   STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS
@@ -32,52 +32,52 @@ const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(
 const IMAGE = getStaticGuideArticleImage(
   STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS
 );
-const TITLE = "Share Trading for Beginners: How to Start Investing in Shares";
+const TITLE = 'Share Trading for Beginners: How to Start Investing in Shares';
 const DESCRIPTION =
-  "A plain-English guide to share trading for Australian beginners — how the share market works, what it costs, the risks to understand, and how to place your first trade.";
+  'A plain-English guide to share trading for Australian beginners — how the share market works, what it costs, the risks to understand, and how to place your first trade.';
 
 const HEADINGS = [
   {
-    id: "what-is-share-trading",
-    text: "What is share trading?",
+    id: 'what-is-share-trading',
+    text: 'What is share trading?',
     level: 2 as const,
   },
   {
-    id: "how-it-works",
-    text: "How share trading actually works",
+    id: 'how-it-works',
+    text: 'How share trading actually works',
     level: 2 as const,
   },
   {
-    id: "ways-to-buy-shares",
-    text: "Ways to buy shares in Australia",
+    id: 'ways-to-buy-shares',
+    text: 'Ways to buy shares in Australia',
     level: 2 as const,
   },
   {
-    id: "direct-ownership",
-    text: "Buying shares directly (the ASX)",
+    id: 'direct-ownership',
+    text: 'Buying shares directly (the ASX)',
     level: 3 as const,
   },
-  { id: "managed-and-etfs", text: "Managed funds and ETFs", level: 3 as const },
+  { id: 'managed-and-etfs', text: 'Managed funds and ETFs', level: 3 as const },
   {
-    id: "cfds-warning",
-    text: "CFDs and leveraged trading (higher risk)",
+    id: 'cfds-warning',
+    text: 'CFDs and leveraged trading (higher risk)',
     level: 3 as const,
   },
   {
-    id: "how-to-start",
-    text: "How to start share trading in 6 steps",
+    id: 'how-to-start',
+    text: 'How to start share trading in 6 steps',
     level: 2 as const,
   },
-  { id: "costs-and-fees", text: "Costs and fees to expect", level: 2 as const },
+  { id: 'costs-and-fees', text: 'Costs and fees to expect', level: 2 as const },
   {
-    id: "risks",
-    text: "Risks every beginner should understand",
+    id: 'risks',
+    text: 'Risks every beginner should understand',
     level: 2 as const,
   },
-  { id: "mistakes", text: "Common mistakes beginners make", level: 2 as const },
+  { id: 'mistakes', text: 'Common mistakes beginners make', level: 2 as const },
   {
-    id: "shares-vs-crypto",
-    text: "Share trading vs crypto trading",
+    id: 'shares-vs-crypto',
+    text: 'Share trading vs crypto trading',
     level: 2 as const,
   },
 ];
@@ -86,33 +86,33 @@ const WORD_COUNT = 1750;
 const READING_MINUTES = estimateReadingMinutesByWordCount(WORD_COUNT);
 
 const KEY_TAKEAWAYS = [
-  "Share trading means buying and selling small ownership stakes (shares) in listed companies, most commonly through the ASX.",
+  'Share trading means buying and selling small ownership stakes (shares) in listed companies, most commonly through the ASX.',
   "You'll need a broker to trade — either an online broker for direct ownership, or a micro-investing app for smaller, automated amounts.",
-  "Brokerage fees, the bid-ask spread, and (for managed products) ongoing management fees all eat into returns — compare them before you pick a broker.",
-  "Diversifying across companies and sectors, and investing for the long term, are the two most reliable ways beginners reduce risk.",
-  "CFDs and other leveraged products can amplify losses beyond your original stake — most beginners are better off starting with direct share ownership.",
+  'Brokerage fees, the bid-ask spread, and (for managed products) ongoing management fees all eat into returns — compare them before you pick a broker.',
+  'Diversifying across companies and sectors, and investing for the long term, are the two most reliable ways beginners reduce risk.',
+  'CFDs and other leveraged products can amplify losses beyond your original stake — most beginners are better off starting with direct share ownership.',
 ];
 
 const FAQS = [
   {
-    question: "How much money do I need to start share trading?",
+    question: 'How much money do I need to start share trading?',
     answer:
       "There's no fixed minimum in Australia, but most online brokers set a practical floor of around $50–$500 per trade once brokerage fees are factored in. Micro-investing apps let you start with smaller amounts by pooling your money into fractional shares or ETFs.",
   },
   {
-    question: "Is share trading better than crypto trading for beginners?",
+    question: 'Is share trading better than crypto trading for beginners?',
     answer:
       "They're different asset classes with different risk profiles. Shares represent ownership in a regulated company with earnings and disclosure obligations; crypto assets are unregulated and typically far more volatile. Many beginners start with shares or ETFs for exposure to more established markets, then decide separately whether crypto fits their risk tolerance.",
   },
   {
-    question: "Do I need a license to trade shares in Australia?",
+    question: 'Do I need a license to trade shares in Australia?',
     answer:
       "No — individuals don't need a licence to buy and sell shares for themselves. Brokers and financial advisers who provide services to you do need to hold an Australian Financial Services Licence (AFSL), which is worth checking before you sign up.",
   },
   {
     question: "What's the difference between a broker and a trading platform?",
     answer:
-      "In practice the terms overlap. A broker is the entity licensed to execute your buy and sell orders on the exchange; the trading platform is the app or website you use to place those orders. Some brokers offer both a simple app and a more advanced desktop platform under the same account.",
+      'In practice the terms overlap. A broker is the entity licensed to execute your buy and sell orders on the exchange; the trading platform is the app or website you use to place those orders. Some brokers offer both a simple app and a more advanced desktop platform under the same account.',
   },
 ];
 
@@ -121,25 +121,25 @@ export const metadata = buildMetadata({
   description: DESCRIPTION,
   path: PATH,
   image: IMAGE,
-  type: "article",
-  publishedTime: "2026-09-15",
-  modifiedTime: "2026-09-15",
-  authors: ["Trading Guide Editorial Team"],
+  type: 'article',
+  publishedTime: '2026-09-15',
+  modifiedTime: '2026-09-15',
+  authors: ['Trading Guide Editorial Team'],
   seoTitle:
-    "Share Trading for Beginners (2026) — How to Start Investing in Shares",
+    'Share Trading for Beginners (2026) — How to Start Investing in Shares',
   seoDescription:
-    "New to the share market? Learn how share trading works, what it costs, the risks to watch for, and the 6 steps to place your first trade in Australia.",
+    'New to the share market? Learn how share trading works, what it costs, the risks to watch for, and the 6 steps to place your first trade in Australia.',
 });
 
 export default function ShareTradingForBeginnersPage() {
   const trail = breadcrumbTrail([
-    { name: "Share trading for beginners", path: PATH },
+    { name: 'Share trading for beginners', path: PATH },
   ]);
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
-    "Published 15 September 2026",
-    "Last updated 15 September 2026",
+    'By Trading Guide Editorial Team',
+    'Published 15 September 2026',
+    'Last updated 15 September 2026',
     `${READING_MINUTES} min read`,
   ];
 
@@ -150,9 +150,9 @@ export default function ShareTradingForBeginnersPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
-          datePublished: "2026-09-15",
-          dateModified: "2026-09-15",
+          author: 'Trading Guide Editorial Team',
+          datePublished: '2026-09-15',
+          dateModified: '2026-09-15',
           path: PATH,
         })}
       />
@@ -185,7 +185,7 @@ export default function ShareTradingForBeginnersPage() {
                 share, you own a proportional slice of that company: its
                 profits, its losses, and (for some companies) a share of the
                 dividends it pays out. In Australia, the vast majority of share
-                trading happens on the{" "}
+                trading happens on the{' '}
                 <strong>Australian Securities Exchange (ASX)</strong>, the
                 country&apos;s main public market for listed companies.
               </p>
@@ -239,7 +239,7 @@ export default function ShareTradingForBeginnersPage() {
               <h3 id="managed-and-etfs">Managed funds and ETFs</h3>
               <p>
                 Instead of picking individual companies, you can buy a single
-                unit that gives you exposure to a whole basket of shares. An{" "}
+                unit that gives you exposure to a whole basket of shares. An{' '}
                 <strong>Exchange Traded Fund (ETF)</strong> tracks an index
                 (like the ASX 200) or a theme, and trades on the exchange just
                 like an ordinary share. This spreads your risk across many
@@ -297,7 +297,7 @@ export default function ShareTradingForBeginnersPage() {
                   disclosure statement before committing money.
                 </li>
                 <li>
-                  <strong>Place your first order</strong> — either a{" "}
+                  <strong>Place your first order</strong> — either a{' '}
                   <em>market order</em> (executes immediately at the current
                   price) or a <em>limit order</em> (only executes at a price you
                   set), then monitor your holdings over time rather than
@@ -423,18 +423,18 @@ export default function ShareTradingForBeginnersPage() {
               <p>
                 Neither is inherently &quot;better&quot; — they&apos;re
                 different tools for different risk appetites, and some investors
-                hold both. If you&apos;re specifically weighing up crypto, our{" "}
+                hold both. If you&apos;re specifically weighing up crypto, our{' '}
                 <a href={RELATED_PATH_START_INVESTING_IN_CRYPTO}>
                   guide to investing in crypto for beginners
-                </a>{" "}
-                covers the same ground for that asset class, and our{" "}
+                </a>{' '}
+                covers the same ground for that asset class, and our{' '}
                 <a
                   href={getStaticGuideArticleImage(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   )}
                 >
                   5 simple steps to buy cryptocurrency
-                </a>{" "}
+                </a>{' '}
                 walks through opening an account on a crypto exchange.
               </p>
 
@@ -448,25 +448,25 @@ export default function ShareTradingForBeginnersPage() {
             <GuideSourceList
               sources={[
                 {
-                  id: "moneysmart-how-to-buy-sell-shares",
-                  label: "Moneysmart — How to buy and sell shares",
-                  url: "https://moneysmart.gov.au/shares/how-to-buy-and-sell-shares",
+                  id: 'moneysmart-how-to-buy-sell-shares',
+                  label: 'Moneysmart — How to buy and sell shares',
+                  url: 'https://moneysmart.gov.au/shares/how-to-buy-and-sell-shares',
                 },
                 {
-                  id: "moneysmart-choosing-shares",
-                  label: "Moneysmart — Choosing shares to buy",
-                  url: "https://moneysmart.gov.au/shares/choosing-shares-to-buy",
+                  id: 'moneysmart-choosing-shares',
+                  label: 'Moneysmart — Choosing shares to buy',
+                  url: 'https://moneysmart.gov.au/shares/choosing-shares-to-buy',
                 },
                 {
-                  id: "moneysmart-choose-investments",
-                  label: "Moneysmart — Choose your investments",
-                  url: "https://moneysmart.gov.au/how-to-invest/choose-your-investments",
+                  id: 'moneysmart-choose-investments',
+                  label: 'Moneysmart — Choose your investments',
+                  url: 'https://moneysmart.gov.au/how-to-invest/choose-your-investments',
                 },
                 {
-                  id: "moneysmart-investment-warnings",
+                  id: 'moneysmart-investment-warnings',
                   label:
-                    "Moneysmart — Investment warnings (CFDs, high-risk products)",
-                  url: "https://moneysmart.gov.au/investment-warnings",
+                    'Moneysmart — Investment warnings (CFDs, high-risk products)',
+                  url: 'https://moneysmart.gov.au/investment-warnings',
                 },
               ]}
             />
@@ -474,22 +474,22 @@ export default function ShareTradingForBeginnersPage() {
             <RelatedGuides
               guides={[
                 {
-                  id: "how-to-start-investing-in-crypto",
+                  id: 'how-to-start-investing-in-crypto',
                   slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
                   href: RELATED_PATH_START_INVESTING_IN_CRYPTO,
-                  title: "How to Start Investing in Crypto for Beginners",
+                  title: 'How to Start Investing in Crypto for Beginners',
                   excerpt:
-                    "The same beginner-friendly grounding, applied to crypto assets.",
+                    'The same beginner-friendly grounding, applied to crypto assets.',
                 },
                 {
-                  id: "simple-steps-to-buy-crypto",
+                  id: 'simple-steps-to-buy-crypto',
                   slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
                   href: getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   ),
-                  title: "5 Simple Steps to Buy Cryptocurrency",
+                  title: '5 Simple Steps to Buy Cryptocurrency',
                   excerpt:
-                    "A short, practical walkthrough of opening an account and making your first purchase.",
+                    'A short, practical walkthrough of opening an account and making your first purchase.',
                 },
               ]}
             />
@@ -498,26 +498,26 @@ export default function ShareTradingForBeginnersPage() {
               heading="Looking to trade crypto instead? Compare exchanges"
               providers={[
                 {
-                  slug: "coinspot",
-                  name: "CoinSpot",
-                  description: "Beginner-friendly Australian crypto exchange.",
+                  slug: 'coinspot',
+                  name: 'CoinSpot',
+                  description: 'Beginner-friendly Australian crypto exchange.',
                 },
                 {
-                  slug: "swyftx",
-                  name: "Swyftx",
+                  slug: 'swyftx',
+                  name: 'Swyftx',
                   description:
-                    "Australian exchange with a broad range of listed assets.",
+                    'Australian exchange with a broad range of listed assets.',
                 },
                 {
-                  slug: "btc-markets",
-                  name: "BTC Markets",
-                  description: "Australian-regulated crypto trading platform.",
+                  slug: 'btc-markets',
+                  name: 'BTC Markets',
+                  description: 'Australian-regulated crypto trading platform.',
                 },
                 {
-                  slug: "independent-reserve",
-                  name: "Independent Reserve",
+                  slug: 'independent-reserve',
+                  name: 'Independent Reserve',
                   description:
-                    "Australian exchange for individuals and businesses.",
+                    'Australian exchange for individuals and businesses.',
                 },
               ]}
             />
@@ -525,16 +525,16 @@ export default function ShareTradingForBeginnersPage() {
             <GuideNextSteps
               steps={[
                 {
-                  id: "guides-home",
-                  slug: "guides",
-                  href: "/guides",
-                  title: "Browse all crypto guides",
+                  id: 'guides-home',
+                  slug: 'guides',
+                  href: '/guides',
+                  title: 'Browse all crypto guides',
                 },
                 {
-                  id: "compare-exchanges",
-                  slug: "compare",
-                  href: "/compare/crypto-exchanges",
-                  title: "Compare crypto exchanges side-by-side",
+                  id: 'compare-exchanges',
+                  slug: 'compare',
+                  href: '/compare/crypto-exchanges',
+                  title: 'Compare crypto exchanges side-by-side',
                 },
               ]}
             />

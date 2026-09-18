@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
-import Link from "next/link";
-import { loginAction, type AuthFormState } from "@/lib/auth/actions";
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import Link from 'next/link';
+import { loginAction, type AuthFormState } from '@/lib/auth/actions';
 
 const initialState: AuthFormState = undefined;
 
 const FIELD =
-  "w-full rounded-lg border border-border bg-panel px-3.5 py-2.5 text-sm text-navy placeholder:text-muted focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold-soft";
+  'w-full rounded-lg border border-border bg-panel px-3.5 py-2.5 text-sm text-navy placeholder:text-muted focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold-soft';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -18,7 +18,7 @@ function SubmitButton() {
       disabled={pending}
       className="bg-navy text-background hover:bg-navy-dark inline-flex w-full items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {pending ? "Signing in…" : "Sign in"}
+      {pending ? 'Signing in…' : 'Sign in'}
     </button>
   );
 }
@@ -65,7 +65,7 @@ export function LoginForm() {
       <SubmitButton />
 
       <p className="text-muted text-center text-sm">
-        No account?{" "}
+        No account?{' '}
         <Link
           href="/register"
           className="text-navy font-semibold hover:underline"

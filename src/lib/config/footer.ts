@@ -13,15 +13,15 @@ export interface FooterLink {
  * entries by design.
  */
 export const footerLinks: FooterLink[] = [
-  { label: "Compare exchanges", href: "/compare/crypto-exchanges" },
-  { label: "Guides", href: "/guides" },
+  { label: 'Compare exchanges', href: '/compare/crypto-exchanges' },
+  { label: 'Guides', href: '/guides' },
   {
-    label: "Affiliate disclosure",
-    href: "/affiliate-disclosure",
+    label: 'Affiliate disclosure',
+    href: '/affiliate-disclosure',
     newTab: true,
   },
-  { label: "Methodology", href: "/methodology", newTab: true },
-  { label: "How we get paid", href: "/how-we-get-paid", newTab: true },
-  { label: "Terms of use", href: "/terms", newTab: true },
-  { label: "Privacy policy", href: "/privacy", newTab: true },
+  { label: 'Methodology', href: '/methodology', newTab: true },
+  { label: 'How we get paid', href: '/how-we-get-paid', newTab: true },
+  { label: 'Terms of use', href: '/terms', newTab: true },
+  { label: 'Privacy policy', href: '/privacy', newTab: true },
 ];

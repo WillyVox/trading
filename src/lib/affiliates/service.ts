@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import { affiliateLinkRepository } from "@/lib/repository";
+import { prisma } from '@/lib/prisma';
+import { affiliateLinkRepository } from '@/lib/repository';
 
 export async function getActiveAffiliateLink(partnerSlug: string) {
   const link = await affiliateLinkRepository.findFirst({
@@ -53,7 +53,7 @@ export async function recordAffiliateClick(
 /** All partnerships, newest first, with the provider and each program's link count. */
 export async function getPartnershipsAdmin() {
   return prisma.affiliatePartnership.findMany({
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
     include: {
       provider: { select: { id: true, name: true, slug: true } },
       programs: { include: { _count: { select: { links: true } } } },
@@ -64,7 +64,7 @@ export async function getPartnershipsAdmin() {
 /** Providers for the "new partnership" select — every provider, regardless of existing partnerships (a provider can have more than one program/partnership over time, e.g. re-applying after ENDED). */
 export function getProvidersForPartnershipForm() {
   return prisma.provider.findMany({
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
     select: { id: true, name: true, slug: true },
   });
 }
@@ -72,7 +72,7 @@ export function getProvidersForPartnershipForm() {
 /** Partnerships for the "new link" select, with their existing programs so the form can reuse one instead of always creating a new program per link. */
 export async function getPartnershipsForLinkForm() {
   return prisma.affiliatePartnership.findMany({
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
     include: {
       provider: { select: { name: true, slug: true } },
       programs: { select: { id: true, commissionType: true } },
@@ -83,7 +83,7 @@ export async function getPartnershipsForLinkForm() {
 /** All affiliate links with their program/partnership/provider chain and click counts. */
 export async function getAffiliateLinksAdmin() {
   return prisma.affiliateLink.findMany({
-    orderBy: { partnerSlug: "asc" },
+    orderBy: { partnerSlug: 'asc' },
     include: {
       _count: { select: { clicks: true } },
       program: {
@@ -101,7 +101,7 @@ export async function getAffiliateLinksAdmin() {
 export async function getAffiliateClicksAdmin(page = 1, pageSize = 50) {
   const [items, total] = await Promise.all([
     prisma.affiliateClick.findMany({
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
       skip: (page - 1) * pageSize,
       take: pageSize,
       include: { link: { select: { partnerSlug: true } } },

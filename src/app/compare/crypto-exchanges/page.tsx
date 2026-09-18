@@ -1,25 +1,25 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma';
 import {
   buildComparisonSections,
   toComparisonSubjects,
   type ComparisonProvider,
-} from "@/lib/providers/compare";
-import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
-import { CompareTable } from "@/components/compare/CompareTable";
-import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
-import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
-import { PageHero } from "@/components/layout/PageHero";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { JsonLd } from "@/components/seo/JsonLd";
+} from '@/lib/providers/compare';
+import { getActiveAffiliateLinksForProviderSlugs } from '@/lib/affiliates/service';
+import { CompareTable } from '@/components/compare/CompareTable';
+import { CompareMobileCards } from '@/components/compare/CompareMobileCards';
+import { SectionAffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure';
+import { PageHero } from '@/components/layout/PageHero';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata = buildMetadata({
-  title: "Compare All Crypto Exchanges Australia \u2014 Fees & Features",
+  title: 'Compare All Crypto Exchanges Australia \u2014 Fees & Features',
   description:
-    "A single, always-current comparison of every crypto exchange in our Provider domain \u2014 fees, features, and verified facts side by side.",
-  path: "/compare/crypto-exchanges",
-  image: "/images/og/compare-crypto-exchanges.png",
+    'A single, always-current comparison of every crypto exchange in our Provider domain \u2014 fees, features, and verified facts side by side.',
+  path: '/compare/crypto-exchanges',
+  image: '/images/og/compare-crypto-exchanges.png',
 });
 
 /**
@@ -31,8 +31,8 @@ export const metadata = buildMetadata({
  */
 export default async function CompareCryptoExchangesPage() {
   const providers = await prisma.provider.findMany({
-    where: { providerType: "CRYPTO_EXCHANGE" },
-    orderBy: { name: "asc" },
+    where: { providerType: 'CRYPTO_EXCHANGE' },
+    orderBy: { name: 'asc' },
     include: { facts: true, fees: true, features: true },
   });
 
@@ -45,8 +45,8 @@ export default async function CompareCryptoExchangesPage() {
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 
   const trail = breadcrumbTrail([
-    { name: "Compare", path: "/compare" },
-    { name: "Crypto exchanges", path: "/compare/crypto-exchanges" },
+    { name: 'Compare', path: '/compare' },
+    { name: 'Crypto exchanges', path: '/compare/crypto-exchanges' },
   ]);
 
   return (

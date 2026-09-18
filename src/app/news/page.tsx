@@ -1,21 +1,21 @@
-import { getPublishedArticles } from "@/lib/articles/service";
-import { Notice } from "@/components/ui/Notice";
-import { Card } from "@/components/ui/Card";
-import { PageHero } from "@/components/layout/PageHero";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { getPublishedArticles } from '@/lib/articles/service';
+import { Notice } from '@/components/ui/Notice';
+import { Card } from '@/components/ui/Card';
+import { PageHero } from '@/components/layout/PageHero';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
 
 export const metadata = buildMetadata({
-  title: "Trading News | Educational Materials | Trading Guides - TradingGuide",
+  title: 'Trading News | Educational Materials | Trading Guides - TradingGuide',
   description:
-    "Current crypto market and regulatory news relevant to Australian users.",
-  path: "/news",
-  image: "/images/og/news.png",
+    'Current crypto market and regulatory news relevant to Australian users.',
+  path: '/news',
+  image: '/images/og/news.png',
 });
 
 export default async function NewsPage() {
-  const { items } = await getPublishedArticles({ articleType: "NEWS" });
-  const trail = breadcrumbTrail([{ name: "News", path: "/news" }]);
+  const { items } = await getPublishedArticles({ articleType: 'NEWS' });
+  const trail = breadcrumbTrail([{ name: 'News', path: '/news' }]);
 
   return (
     <>

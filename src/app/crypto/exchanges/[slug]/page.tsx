@@ -1,33 +1,33 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import {
   getProviderBySlug,
   getProviders,
   getRelatedContentForProvider,
-} from "@/lib/providers/service";
-import { getActiveAffiliateLink } from "@/lib/affiliates/service";
+} from '@/lib/providers/service';
+import { getActiveAffiliateLink } from '@/lib/affiliates/service';
 import {
   groupFeatures,
   type ProviderFeatureRow,
-} from "@/lib/providers/features";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import { ProviderLogo } from "@/components/providers/ProviderLogo";
-import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
+} from '@/lib/providers/features';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import { ProviderLogo } from '@/components/providers/ProviderLogo';
+import { AffiliateCTA } from '@/components/affiliate/AffiliateCTA';
 // import { CompareSelector } from "@/components/compare/CompareSelector";
-import { Card } from "@/components/ui/Card";
-import { ProviderFeatureSection } from "@/components/providers/ProviderFeatureSection";
-import { ProviderProsCons } from "@/components/providers/ProviderProsCons";
-import { RelatedGuides } from "@/components/guide/RelatedGuides";
-import { RelatedNews } from "@/components/providers/RelatedNews";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/layout/PageHero";
-import { VisitSite } from "@/components/affiliate/VisitSite";
+import { Card } from '@/components/ui/Card';
+import { ProviderFeatureSection } from '@/components/providers/ProviderFeatureSection';
+import { ProviderProsCons } from '@/components/providers/ProviderProsCons';
+import { RelatedGuides } from '@/components/guide/RelatedGuides';
+import { RelatedNews } from '@/components/providers/RelatedNews';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PageHero } from '@/components/layout/PageHero';
+import { VisitSite } from '@/components/affiliate/VisitSite';
 
 function formatProviderType(type: string) {
-  const label = type.replace(/_/g, " ").toLowerCase();
+  const label = type.replace(/_/g, ' ').toLowerCase();
   return `${label.charAt(0).toUpperCase()}${label.slice(1)} profile`;
 }
 
@@ -40,8 +40,8 @@ export async function generateMetadata({
   const provider = await getProviderBySlug(slug);
   if (!provider)
     return buildMetadata({
-      title: "Exchange not found",
-      description: "",
+      title: 'Exchange not found',
+      description: '',
       path: `/crypto/exchanges/${slug}`,
       noIndex: true,
     });
@@ -86,7 +86,7 @@ export default async function ExchangeProfilePage({
   );
 
   const trail = breadcrumbTrail([
-    { name: "Exchanges", path: "/crypto/exchanges" },
+    { name: 'Exchanges', path: '/crypto/exchanges' },
     { name: provider.name, path: `/crypto/exchanges/${slug}` },
   ]);
 
@@ -145,7 +145,7 @@ export default async function ExchangeProfilePage({
                 className="border-border flex justify-between border-b pb-2"
               >
                 <span className="text-muted">{f.label}</span>
-                <span>{f.displayValue ?? "Not verified"}</span>
+                <span>{f.displayValue ?? 'Not verified'}</span>
               </li>
             ))}
             {provider.fees.length === 0 && (

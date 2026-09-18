@@ -41,13 +41,13 @@ slug: check-crypto-exchange-legit-australia
 sources:
   - label: AUSTRAC --- VASP register goes public
     sourceType: REGULATOR
-    url: "https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public"
+    url: 'https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public'
   - label: AUSTRAC --- VASP overview
     sourceType: REGULATOR
-    url: "https://www.austrac.gov.au/industry-and-business/your-industry/virtual-asset-service-providers/virtual-asset-service-providers-overview"
+    url: 'https://www.austrac.gov.au/industry-and-business/your-industry/virtual-asset-service-providers/virtual-asset-service-providers-overview'
   - label: ASIC Moneysmart --- Crypto scams
     sourceType: GOVERNMENT
-    url: "https://moneysmart.gov.au/financial-scams/crypto-scams"
+    url: 'https://moneysmart.gov.au/financial-scams/crypto-scams'
 tags:
   - Crypto Exchanges
   - Crypto Scams

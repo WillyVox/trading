@@ -1,13 +1,13 @@
-import { Card } from "@/components/ui/Card";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
+import { Card } from '@/components/ui/Card';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
 
 type ProsCon = {
   id: string;
-  type: "PRO" | "LIMITATION";
+  type: 'PRO' | 'LIMITATION';
   label: string;
   detail: string | null;
   sourceUrl: string | null;
-  verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
+  verificationStatus: 'VERIFIED' | 'UNVERIFIED' | 'STALE';
 };
 
 /**
@@ -18,8 +18,8 @@ type ProsCon = {
  * tone imply certainty the sourcing doesn't support).
  */
 export function ProviderProsCons({ items }: { items: ProsCon[] }) {
-  const pros = items.filter((i) => i.type === "PRO");
-  const limitations = items.filter((i) => i.type === "LIMITATION");
+  const pros = items.filter((i) => i.type === 'PRO');
+  const limitations = items.filter((i) => i.type === 'LIMITATION');
 
   if (pros.length === 0 && limitations.length === 0) return null;
 

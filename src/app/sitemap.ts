@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+import type { MetadataRoute } from 'next';
 import {
   staticEntries,
   guideEntries,
@@ -6,7 +6,7 @@ import {
   providerEntries,
   cryptoAssetEntries,
   offeringEntries,
-} from "@/lib/seo/sitemap-entries";
+} from '@/lib/seo/sitemap-entries';
 
 // Force this to run at request time (ISR-style, cached for an hour) rather
 // than being prerendered during `next build`. A DB-backed sitemap that

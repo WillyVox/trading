@@ -1,9 +1,9 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 const SIZE_CLASSES = {
-  sm: "h-10 w-10 rounded-lg",
-  md: "h-14 w-14 rounded-xl",
-  lg: "h-20 w-20 rounded-2xl",
+  sm: 'h-10 w-10 rounded-lg',
+  md: 'h-14 w-14 rounded-xl',
+  lg: 'h-20 w-20 rounded-2xl',
 } as const;
 
 /** Pixel box each size renders at -- keep in sync with SIZE_CLASSES above.
@@ -45,7 +45,7 @@ interface ProviderLogoProps {
 export function ProviderLogo({
   logo,
   name,
-  size = "md",
+  size = 'md',
   className,
   decorative = false,
 }: ProviderLogoProps) {
@@ -56,7 +56,7 @@ export function ProviderLogo({
     return (
       <div
         className={clsx(
-          "border-border bg-navy font-display text-gold-soft flex shrink-0 items-center justify-center border font-bold",
+          'border-border bg-navy font-display text-gold-soft flex shrink-0 items-center justify-center border font-bold',
           sizeClass,
           className
         )}
@@ -70,7 +70,7 @@ export function ProviderLogo({
   return (
     <div
       className={clsx(
-        "border-border flex shrink-0 items-center justify-center overflow-hidden border bg-white p-2",
+        'border-border flex shrink-0 items-center justify-center overflow-hidden border bg-white p-2',
         sizeClass,
         className
       )}
@@ -82,7 +82,7 @@ export function ProviderLogo({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={logo}
-        alt={decorative ? "" : name}
+        alt={decorative ? '' : name}
         width={sizePx}
         height={sizePx}
         className="h-full w-full object-contain"
@@ -95,7 +95,7 @@ export function ProviderLogo({
 
 function initials(name: string): string {
   const words = name.trim().split(/\s+/).filter(Boolean);
-  if (words.length === 0) return "?";
+  if (words.length === 0) return '?';
   if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
   return (words[0][0] + words[1][0]).toUpperCase();
 }

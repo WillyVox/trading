@@ -221,12 +221,12 @@ Conceptually:
 
 ```ts
 export const siteConfig = {
-  name: "...",
-  domain: "...",
-  description: "...",
-  locale: "en_AU",
-  language: "en-AU",
-  country: "AU",
+  name: '...',
+  domain: '...',
+  description: '...',
+  locale: 'en_AU',
+  language: 'en-AU',
+  country: 'AU',
 };
 ```
 

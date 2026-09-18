@@ -1,25 +1,25 @@
-import { cache } from "react";
-import { getProviders, getProvidersBySlugs } from "@/lib/providers/service";
-import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { cache } from 'react';
+import { getProviders, getProvidersBySlugs } from '@/lib/providers/service';
+import { getActiveAffiliateLinksForProviderSlugs } from '@/lib/affiliates/service';
 import {
   buildComparisonSections,
   toComparisonSubjects as toProviderSubjects,
   type ComparisonProvider,
-} from "@/lib/providers/compare";
+} from '@/lib/providers/compare';
 import {
   getAllOfferingsForCompare,
   getOfferingsBySlugs,
-} from "@/lib/offerings/service";
+} from '@/lib/offerings/service';
 import {
   buildOfferingComparisonSections,
   toComparisonSubjects as toOfferingSubjects,
-} from "@/lib/offerings/compare";
-import { parseCompareSlugs } from "@/lib/seo/canonical";
+} from '@/lib/offerings/compare';
+import { parseCompareSlugs } from '@/lib/seo/canonical';
 import type {
   ComparisonDomain,
   ComparisonSection,
   ComparisonSubject,
-} from "./types";
+} from './types';
 
 export type ResolvedComparison = {
   domain: ComparisonDomain;
@@ -48,17 +48,17 @@ export const DOMAIN_COPY: Record<
     metaDescriptor: string;
   }
 > = {
-  "crypto-exchange": {
-    noun: "exchanges",
-    indexPath: "/compare/crypto-exchanges",
-    sourceLabel: "the Provider domain",
-    metaDescriptor: "crypto exchanges",
+  'crypto-exchange': {
+    noun: 'exchanges',
+    indexPath: '/compare/crypto-exchanges',
+    sourceLabel: 'the Provider domain',
+    metaDescriptor: 'crypto exchanges',
   },
-  "share-trading": {
-    noun: "platforms",
-    indexPath: "/compare/trading-platforms",
-    sourceLabel: "the Offering domain",
-    metaDescriptor: "share trading platforms",
+  'share-trading': {
+    noun: 'platforms',
+    indexPath: '/compare/trading-platforms',
+    sourceLabel: 'the Offering domain',
+    metaDescriptor: 'share trading platforms',
   },
 };
 
@@ -97,7 +97,7 @@ export const resolveComparison = cache(
         rows.map((p) => p.slug)
       );
       return {
-        domain: "crypto-exchange",
+        domain: 'crypto-exchange',
         subjects: toProviderSubjects(rows, affiliateLinks),
         sections: buildComparisonSections(rows),
       };
@@ -105,7 +105,7 @@ export const resolveComparison = cache(
 
     if (offerings.length === slugs.length) {
       return {
-        domain: "share-trading",
+        domain: 'share-trading',
         subjects: toOfferingSubjects(offerings),
         sections: buildOfferingComparisonSections(offerings),
       };
@@ -131,7 +131,7 @@ export function compareHrefWithout(
   const remaining = subjects
     .map((s) => s.slug)
     .filter((slug) => slug !== slugToRemove);
-  return `/compare/${remaining.join("-vs-")}`;
+  return `/compare/${remaining.join('-vs-')}`;
 }
 
 /**
@@ -144,7 +144,7 @@ export function compareHrefWithout(
 export async function getComparisonPool(
   domain: ComparisonDomain
 ): Promise<SelectableSubject[]> {
-  if (domain === "share-trading") {
+  if (domain === 'share-trading') {
     const offerings = await getAllOfferingsForCompare();
     return offerings.map((o) => ({ id: o.id, slug: o.slug, name: o.name }));
   }

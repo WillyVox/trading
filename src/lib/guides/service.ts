@@ -1,15 +1,15 @@
 import {
   getArticleCategories,
   getPublishedArticles,
-} from "@/lib/articles/service";
+} from '@/lib/articles/service';
 
 import {
   getStaticGuideCategories,
   getStaticGuides,
   isStaticGuideSlug,
-} from "./static-guides";
+} from './static-guides';
 
-import type { GuideSummary } from "./types";
+import type { GuideSummary } from './types';
 
 /**
  * Infer the individual database guide type directly from
@@ -20,7 +20,7 @@ import type { GuideSummary } from "./types";
  */
 type PublishedArticlesResult = Awaited<ReturnType<typeof getPublishedArticles>>;
 
-type DatabaseGuide = PublishedArticlesResult["items"][number];
+type DatabaseGuide = PublishedArticlesResult['items'][number];
 
 /**
  * Unified discovery layer for /guides.
@@ -38,7 +38,7 @@ export async function getPublicGuides(
 ): Promise<GuideSummary[]> {
   const [{ items: databaseGuides }, staticGuides] = await Promise.all([
     getPublishedArticles({
-      articleType: "GUIDE",
+      articleType: 'GUIDE',
       category,
       pageSize: 48,
     }),
@@ -70,7 +70,7 @@ export async function getPublicGuides(
       author: guide.author,
       publishedAt: guide.publishedAt,
       updatedAt: guide.updatedAt,
-      source: "DATABASE",
+      source: 'DATABASE',
     }));
 
   return [...normalizedStatic, ...normalizedDatabase].sort((a, b) => {
@@ -84,7 +84,7 @@ export async function getPublicGuides(
 
 export async function getPublicGuideCategories(): Promise<string[]> {
   const [databaseCategories, staticCategories] = await Promise.all([
-    getArticleCategories("GUIDE"),
+    getArticleCategories('GUIDE'),
     Promise.resolve(getStaticGuideCategories()),
   ]);
 

@@ -1,5 +1,5 @@
-import { getPublishedArticles } from "@/lib/articles/service";
-import { getPublicGuides } from "@/lib/guides/service";
+import { getPublishedArticles } from '@/lib/articles/service';
+import { getPublicGuides } from '@/lib/guides/service';
 
 /**
  * Normalized shape for a "Latest in <category>" content module. Merges two
@@ -21,7 +21,7 @@ export interface LatestArticleSummary {
   title: string;
   excerpt: string | null;
   category: string | null;
-  articleType: "GUIDE" | "NEWS";
+  articleType: 'GUIDE' | 'NEWS';
   featuredImage: string | null;
   featuredImageAlt: string | null;
   author: string | null;
@@ -35,7 +35,7 @@ export async function getLatestArticlesForCategory(
   const [guides, newsResult] = await Promise.all([
     getPublicGuides(category),
     getPublishedArticles({
-      articleType: "NEWS",
+      articleType: 'NEWS',
       category,
       pageSize: limit,
     }),
@@ -48,7 +48,7 @@ export async function getLatestArticlesForCategory(
       title: guide.title,
       excerpt: guide.excerpt,
       category: guide.category,
-      articleType: "GUIDE",
+      articleType: 'GUIDE',
       featuredImage: guide.featuredImage,
       featuredImageAlt: guide.featuredImageAlt,
       author: guide.author,
@@ -60,7 +60,7 @@ export async function getLatestArticlesForCategory(
       title: article.title,
       excerpt: article.excerpt,
       category: article.category,
-      articleType: "NEWS",
+      articleType: 'NEWS',
       featuredImage: article.featuredImage,
       featuredImageAlt: article.featuredImageAlt,
       author: article.author,

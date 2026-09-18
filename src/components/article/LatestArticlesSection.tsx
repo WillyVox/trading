@@ -1,20 +1,20 @@
-import Link from "next/link";
-import { Badge } from "@/components/ui/Badge";
-import { formatCategoryLabel } from "@/lib/articles/content";
-import type { LatestArticleSummary } from "@/lib/content/latest";
+import Link from 'next/link';
+import { Badge } from '@/components/ui/Badge';
+import { formatCategoryLabel } from '@/lib/articles/content';
+import type { LatestArticleSummary } from '@/lib/content/latest';
 
 function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString("en-AU", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+  return new Date(date).toLocaleDateString('en-AU', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   });
 }
 
 function initials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return "?";
-  return (parts[0][0] + (parts[parts.length - 1][0] ?? "")).toUpperCase();
+  if (parts.length === 0) return '?';
+  return (parts[0][0] + (parts[parts.length - 1][0] ?? '')).toUpperCase();
 }
 
 function Byline({
@@ -34,7 +34,7 @@ function Byline({
       )}
       <span className="text-muted text-xs">
         {author && <span className="text-text font-semibold">{author}</span>}
-        {author && publishedAt && " · "}
+        {author && publishedAt && ' · '}
         {publishedAt && formatDate(publishedAt)}
       </span>
     </div>
@@ -51,7 +51,7 @@ function Byline({
 export function LatestArticlesSection({
   title,
   viewAllHref,
-  viewAllLabel = "View all",
+  viewAllLabel = 'View all',
   items,
 }: {
   title: string;
@@ -91,7 +91,7 @@ export function LatestArticlesSection({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={featured.featuredImage}
-                alt={featured.featuredImageAlt ?? ""}
+                alt={featured.featuredImageAlt ?? ''}
                 loading="lazy"
                 decoding="async"
                 className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
@@ -137,7 +137,7 @@ export function LatestArticlesSection({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={item.featuredImage}
-                    alt={item.featuredImageAlt ?? ""}
+                    alt={item.featuredImageAlt ?? ''}
                     loading="lazy"
                     decoding="async"
                     className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
@@ -157,7 +157,7 @@ export function LatestArticlesSection({
                         {item.author}
                       </span>
                     )}
-                    {item.author && item.publishedAt && " · "}
+                    {item.author && item.publishedAt && ' · '}
                     {item.publishedAt && formatDate(item.publishedAt)}
                   </p>
                 )}

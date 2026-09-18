@@ -9,5 +9,5 @@ export type GuideSummary = {
   author: string | null;
   publishedAt: Date | string | null;
   updatedAt: Date | string | null;
-  source: "STATIC" | "DATABASE";
+  source: 'STATIC' | 'DATABASE';
 };

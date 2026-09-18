@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { PROVIDER_RELATIONSHIPS } from "@/lib/articles/validation";
+import { useState } from 'react';
+import { PROVIDER_RELATIONSHIPS } from '@/lib/articles/validation';
 
 type Relationship = (typeof PROVIDER_RELATIONSHIPS)[number];
 interface Row {
@@ -50,7 +50,7 @@ export function ProviderRelationshipsPicker({
   function addRow() {
     setRows((prev) => [
       ...prev,
-      { providerId: providers[0].id, relationship: "MENTIONED" },
+      { providerId: providers[0].id, relationship: 'MENTIONED' },
     ]);
   }
 

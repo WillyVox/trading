@@ -1,11 +1,11 @@
-import { prisma } from "@/lib/prisma";
-import { articleRepository } from "@/lib/repository";
-import type { ArticleImportPayload } from "./types";
-import { ArticleStatus, ArticleType, Prisma } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
+import { articleRepository } from '@/lib/repository';
+import type { ArticleImportPayload } from './types';
+import { ArticleStatus, ArticleType, Prisma } from '@prisma/client';
 
 export interface CoreUpsertResult {
   id: string;
-  outcome: "CREATED" | "UPDATED";
+  outcome: 'CREATED' | 'UPDATED';
 }
 
 /** Same `undefined`-or-invalid-string -> null rule as actions.ts's toDateOrNull, for the
@@ -58,7 +58,7 @@ function buildScalarData(
   if (payload.searchIntent !== undefined)
     data.searchIntent = payload.searchIntent;
   if (payload.region !== undefined)
-    data.region = payload.region === "GLOBAL" ? null : payload.region;
+    data.region = payload.region === 'GLOBAL' ? null : payload.region;
 
   const scheduledAt = toDateOrUndefined(payload.scheduledAt);
   if (scheduledAt !== undefined) data.scheduledAt = scheduledAt;
@@ -85,7 +85,7 @@ async function syncTags(
 async function syncSources(
   tx: Prisma.TransactionClient,
   articleId: string,
-  sources: ArticleImportPayload["sources"]
+  sources: ArticleImportPayload['sources']
 ) {
   if (sources === undefined) return; // not present in file — leave existing sources untouched
   await tx.articleSource.deleteMany({ where: { articleId } });
@@ -125,7 +125,7 @@ export async function upsertArticleCore(
     const scalarData = buildScalarData(payload);
 
     let id: string;
-    let outcome: CoreUpsertResult["outcome"];
+    let outcome: CoreUpsertResult['outcome'];
 
     if (existing) {
       const updated = await tx.article.update({
@@ -133,7 +133,7 @@ export async function upsertArticleCore(
         data: scalarData,
       });
       id = updated.id;
-      outcome = "UPDATED";
+      outcome = 'UPDATED';
     } else {
       const created = await tx.article.create({
         data: {
@@ -147,7 +147,7 @@ export async function upsertArticleCore(
         },
       });
       id = created.id;
-      outcome = "CREATED";
+      outcome = 'CREATED';
     }
 
     await syncTags(tx, id, payload.tags);
@@ -160,9 +160,9 @@ export async function upsertArticleCore(
 /** Read-only lookup used by --dry-run to report CREATE vs UPDATE without writing anything. */
 export async function previewOutcome(
   slug: string
-): Promise<"CREATED" | "UPDATED"> {
+): Promise<'CREATED' | 'UPDATED'> {
   const existing = await articleRepository.findBySlug(slug, {
     select: { id: true },
   });
-  return existing ? "UPDATED" : "CREATED";
+  return existing ? 'UPDATED' : 'CREATED';
 }

@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "403 — Forbidden",
+  title: '403 — Forbidden',
   robots: { index: false, follow: false },
 };
 

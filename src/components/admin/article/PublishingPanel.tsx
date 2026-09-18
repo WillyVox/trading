@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
+import Link from 'next/link';
+import { Card } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
 import {
   submitArticleForReview,
   moveArticleBackToDraft,
@@ -8,22 +8,22 @@ import {
   unpublishArticle,
   archiveArticle,
   restoreArticleFromArchive,
-} from "@/lib/articles/actions";
+} from '@/lib/articles/actions';
 
-type Status = "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
+type Status = 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
 
-const STATUS_TONE: Record<Status, "muted" | "gold" | "green" | "red"> = {
-  DRAFT: "muted",
-  REVIEW: "gold",
-  PUBLISHED: "green",
-  ARCHIVED: "red",
+const STATUS_TONE: Record<Status, 'muted' | 'gold' | 'green' | 'red'> = {
+  DRAFT: 'muted',
+  REVIEW: 'gold',
+  PUBLISHED: 'green',
+  ARCHIVED: 'red',
 };
 
 function fmt(d: Date | null | undefined): string {
-  if (!d) return "—";
-  return new Date(d).toLocaleString("en-AU", {
-    dateStyle: "medium",
-    timeStyle: "short",
+  if (!d) return '—';
+  return new Date(d).toLocaleString('en-AU', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
   });
 }
 
@@ -77,7 +77,7 @@ export function PublishingPanel({
           Preview
         </Link>
 
-        {status === "DRAFT" && (
+        {status === 'DRAFT' && (
           <>
             <form action={submitArticleForReview}>
               <input type="hidden" name="id" value={articleId} />
@@ -92,7 +92,7 @@ export function PublishingPanel({
           </>
         )}
 
-        {status === "REVIEW" && (
+        {status === 'REVIEW' && (
           <>
             <form action={moveArticleBackToDraft}>
               <input type="hidden" name="id" value={articleId} />
@@ -116,7 +116,7 @@ export function PublishingPanel({
           </>
         )}
 
-        {status === "PUBLISHED" && (
+        {status === 'PUBLISHED' && (
           <>
             <form action={unpublishArticle}>
               <input type="hidden" name="id" value={articleId} />
@@ -131,7 +131,7 @@ export function PublishingPanel({
           </>
         )}
 
-        {status === "ARCHIVED" && (
+        {status === 'ARCHIVED' && (
           <form action={restoreArticleFromArchive}>
             <input type="hidden" name="id" value={articleId} />
             <button

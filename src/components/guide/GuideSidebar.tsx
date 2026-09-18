@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { formatCategoryLabel, type Heading } from "@/lib/articles/content";
-import { GuideTableOfContents } from "./GuideTableOfContents";
+import Link from 'next/link';
+import { formatCategoryLabel, type Heading } from '@/lib/articles/content';
+import { GuideTableOfContents } from './GuideTableOfContents';
 
 export function GuideSidebar({
   headings,

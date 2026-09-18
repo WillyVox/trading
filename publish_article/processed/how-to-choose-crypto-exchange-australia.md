@@ -1,23 +1,23 @@
 ---
-title: "How to Choose a Crypto Exchange in Australia in 2026"
-slug: "how-to-choose-crypto-exchange-australia"
-articleType: "GUIDE"
+title: 'How to Choose a Crypto Exchange in Australia in 2026'
+slug: 'how-to-choose-crypto-exchange-australia'
+articleType: 'GUIDE'
 excerpt:
   "Fees, AUD deposits, AUSTRAC registration and security all matter more than the headline trading\
   \ fee. A practical checklist for choosing an exchange in 2026."
-category: "crypto-exchanges"
+category: 'crypto-exchanges'
 tags:
-  - "Crypto Exchanges"
-  - "Australia"
-  - "Beginners"
-  - "Crypto Fees"
-  - "AUSTRAC"
-seoTitle: "How to Choose a Crypto Exchange in Australia (2026)"
+  - 'Crypto Exchanges'
+  - 'Australia'
+  - 'Beginners'
+  - 'Crypto Fees'
+  - 'AUSTRAC'
+seoTitle: 'How to Choose a Crypto Exchange in Australia (2026)'
 seoDescription:
   "Compare fees, AUD funding, security and AUSTRAC registration when choosing a crypto exchange\
   \ in Australia. A practical 2026 guide for beginners."
-featuredImageAlt: "An Australian beginner comparing two crypto exchange apps side by side on a laptop"
-author: "Editorial Team"
+featuredImageAlt: 'An Australian beginner comparing two crypto exchange apps side by side on a laptop'
+author: 'Editorial Team'
 noIndex: false
 affiliateDisclosureRequired: true
 keyTakeaways:
@@ -25,44 +25,44 @@ keyTakeaways:
     \ fees change the total more than most people expect."
   - "AUSTRAC registration is a real, checkable AML/CTF requirement, but it is not a safety guarantee or\
     \ an investment endorsement."
-  - "AUD deposit method (PayID vs card vs bank transfer) affects both cost and speed, and varies by exchange."
+  - 'AUD deposit method (PayID vs card vs bank transfer) affects both cost and speed, and varies by exchange.'
   - "Security features worth checking include 2FA, cold storage practices and what happens to your coins\
     \ if the exchange itself fails."
   - "There is no single 'best' exchange — the right one depends on how you plan to use it."
-searchIntent: "COMPARISON"
+searchIntent: 'COMPARISON'
 providerRelationships:
-  - providerSlug: "coinspot"
-    relationship: "COMPARED"
-  - providerSlug: "swyftx"
-    relationship: "COMPARED"
-  - providerSlug: "independent-reserve"
-    relationship: "COMPARED"
-  - providerSlug: "btc-markets"
-    relationship: "COMPARED"
-  - providerSlug: "kraken"
-    relationship: "MENTIONED"
+  - providerSlug: 'coinspot'
+    relationship: 'COMPARED'
+  - providerSlug: 'swyftx'
+    relationship: 'COMPARED'
+  - providerSlug: 'independent-reserve'
+    relationship: 'COMPARED'
+  - providerSlug: 'btc-markets'
+    relationship: 'COMPARED'
+  - providerSlug: 'kraken'
+    relationship: 'MENTIONED'
 cryptoAssetSlugs:
-  - "bitcoin"
+  - 'bitcoin'
 relatedGuides:
-  - "crypto-exchange-fees-australia-explained"
-  - "austrac-registration-crypto-exchanges-explained"
-  - "how-to-buy-bitcoin-australia"
+  - 'crypto-exchange-fees-australia-explained'
+  - 'austrac-registration-crypto-exchanges-explained'
+  - 'how-to-buy-bitcoin-australia'
 sources:
-  - label: "AUSTRAC — Virtual asset service provider register goes public"
-    url: "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public"
-    sourceType: "REGULATOR"
-  - label: "ASIC — Digital assets: Financial products and services (INFO 225)"
-    url: "https://www.asic.gov.au"
-    sourceType: "REGULATOR"
-  - label: "CoinSpot — Official fee schedule"
-    url: "https://www.coinspot.com.au/fees"
-    sourceType: "OFFICIAL_PROVIDER"
-  - label: "Swyftx — Fees for deposits and withdrawals"
-    url: "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals"
-    sourceType: "OFFICIAL_PROVIDER"
-  - label: "BTC Markets — Official fee schedule"
-    url: "https://www.btcmarkets.net/fees"
-    sourceType: "OFFICIAL_PROVIDER"
+  - label: 'AUSTRAC — Virtual asset service provider register goes public'
+    url: 'https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public'
+    sourceType: 'REGULATOR'
+  - label: 'ASIC — Digital assets: Financial products and services (INFO 225)'
+    url: 'https://www.asic.gov.au'
+    sourceType: 'REGULATOR'
+  - label: 'CoinSpot — Official fee schedule'
+    url: 'https://www.coinspot.com.au/fees'
+    sourceType: 'OFFICIAL_PROVIDER'
+  - label: 'Swyftx — Fees for deposits and withdrawals'
+    url: 'https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals'
+    sourceType: 'OFFICIAL_PROVIDER'
+  - label: 'BTC Markets — Official fee schedule'
+    url: 'https://www.btcmarkets.net/fees'
+    sourceType: 'OFFICIAL_PROVIDER'
 ---
 
 <p>The cheapest-looking exchange isn't always the cheapest way to actually buy crypto. Two providers can advertise similar headline trading fees and still leave you paying very different amounts once you account for how you fund the account, whether you use an order book or an instant-buy screen, and what it costs to get money back out. Australians choosing an exchange in 2026 also have a genuinely new factor to weigh: AUSTRAC's expanded virtual asset service provider (VASP) rules, which changed who has to register and made that register public for the first time.</p>

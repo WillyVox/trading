@@ -1,8 +1,8 @@
-import { cache } from "react";
-import type { ArticleSearchIntent, ArticleType } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { articleRepository } from "@/lib/repository";
-import { isPubliclyVisibleArticle } from "@/lib/articles/status-transitions";
+import { cache } from 'react';
+import type { ArticleSearchIntent, ArticleType } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { articleRepository } from '@/lib/repository';
+import { isPubliclyVisibleArticle } from '@/lib/articles/status-transitions';
 
 /**
  * `articleType` (not `category`) is what actually scopes a listing to
@@ -21,11 +21,11 @@ export function getPublishedArticles(
 ) {
   return articleRepository.paginate({
     where: {
-      status: "PUBLISHED",
+      status: 'PUBLISHED',
       ...(opts.articleType ? { articleType: opts.articleType } : {}),
       ...(opts.category ? { category: opts.category } : {}),
     },
-    orderBy: { publishedAt: "desc" },
+    orderBy: { publishedAt: 'desc' },
     page: opts.page,
     pageSize: opts.pageSize,
   });
@@ -42,10 +42,10 @@ export async function getArticleCategories(
   articleType: ArticleType
 ): Promise<string[]> {
   const rows = await prisma.article.findMany({
-    where: { status: "PUBLISHED", articleType, category: { not: null } },
-    distinct: ["category"],
+    where: { status: 'PUBLISHED', articleType, category: { not: null } },
+    distinct: ['category'],
     select: { category: true },
-    orderBy: { category: "asc" },
+    orderBy: { category: 'asc' },
   });
   return rows.map((r) => r.category).filter((c): c is string => Boolean(c));
 }
@@ -91,7 +91,7 @@ const articleDetailInclude = {
   // below), but kept on the shared include rather than a second query
   // shape so admin/public detail lookups stay structurally identical.
   relatedFrom: {
-    orderBy: { position: "asc" as const },
+    orderBy: { position: 'asc' as const },
     include: {
       relatedArticle: { select: { id: true, title: true, slug: true } },
     },
@@ -143,7 +143,7 @@ export function getAdminArticles(
   opts: {
     page?: number;
     pageSize?: number;
-    status?: "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
+    status?: 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
     articleType?: ArticleType;
     category?: string;
     search?: string;
@@ -155,13 +155,13 @@ export function getAdminArticles(
   if (opts.category) where.category = opts.category;
   if (opts.search) {
     where.OR = [
-      { title: { contains: opts.search, mode: "insensitive" } },
-      { slug: { contains: opts.search, mode: "insensitive" } },
+      { title: { contains: opts.search, mode: 'insensitive' } },
+      { slug: { contains: opts.search, mode: 'insensitive' } },
     ];
   }
   return articleRepository.paginate({
     where,
-    orderBy: { updatedAt: "desc" },
+    orderBy: { updatedAt: 'desc' },
     page: opts.page,
     pageSize: opts.pageSize,
   });
@@ -177,8 +177,8 @@ export async function getAdminArticleCategories() {
   const rows = await prisma.article.findMany({
     where: { category: { not: null } },
     select: { category: true },
-    distinct: ["category"],
-    orderBy: { category: "asc" },
+    distinct: ['category'],
+    orderBy: { category: 'asc' },
   });
   return rows.map((r) => r.category).filter((c): c is string => Boolean(c));
 }
@@ -187,7 +187,7 @@ export async function getAdminArticleCategories() {
 export function getProvidersForArticleForm() {
   return prisma.provider.findMany({
     select: { id: true, name: true, slug: true },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
   });
 }
 
@@ -195,7 +195,7 @@ export function getProvidersForArticleForm() {
 export function getCryptoAssetsForArticleForm() {
   return prisma.cryptoAsset.findMany({
     select: { id: true, name: true, symbol: true },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
   });
 }
 
@@ -216,7 +216,7 @@ export function getArticlesForRelatedPicker(excludeArticleId?: string) {
       articleType: true,
       status: true,
     },
-    orderBy: { updatedAt: "desc" },
+    orderBy: { updatedAt: 'desc' },
     take: 200,
   });
 }
@@ -250,9 +250,9 @@ export async function getRelatedGuides(
   const curated = await prisma.articleRelated.findMany({
     where: {
       articleId: article.id,
-      relatedArticle: { status: "PUBLISHED", noIndex: false },
+      relatedArticle: { status: 'PUBLISHED', noIndex: false },
     },
-    orderBy: { position: "asc" },
+    orderBy: { position: 'asc' },
     include: {
       relatedArticle: {
         select: {
@@ -282,18 +282,18 @@ export async function getRelatedGuides(
   if (topicOr.length > 0) tiers.push({ OR: topicOr });
   if (tagValues.length > 0)
     tiers.push({ tags: { some: { tag: { in: tagValues } } } });
-  tiers.push({ category: "guide" });
+  tiers.push({ category: 'guide' });
 
   for (const tier of tiers) {
     if (results.length >= limit) break;
     const more = await prisma.article.findMany({
       where: {
         id: { notIn: Array.from(excludeIds) },
-        status: "PUBLISHED",
+        status: 'PUBLISHED',
         noIndex: false,
         ...tier,
       },
-      orderBy: { publishedAt: "desc" },
+      orderBy: { publishedAt: 'desc' },
       select: {
         id: true,
         slug: true,
@@ -322,19 +322,19 @@ export async function getNextSteps(
   article: { id: string; searchIntent: ArticleSearchIntent | null },
   limit = 5
 ) {
-  if (article.searchIntent !== "BEGINNER" && article.searchIntent !== "LEARN")
+  if (article.searchIntent !== 'BEGINNER' && article.searchIntent !== 'LEARN')
     return [];
 
   const curated = await prisma.articleRelated.findMany({
     where: {
       articleId: article.id,
       relatedArticle: {
-        status: "PUBLISHED",
+        status: 'PUBLISHED',
         noIndex: false,
-        category: "guide",
+        category: 'guide',
       },
     },
-    orderBy: { position: "asc" },
+    orderBy: { position: 'asc' },
     include: {
       relatedArticle: { select: { id: true, slug: true, title: true } },
     },

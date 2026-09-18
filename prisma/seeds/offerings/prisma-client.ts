@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
-import { SEED_MARKETS } from "./markets";
-import { SEED_OFFERINGS } from "./seed-offerings";
+import { SEED_MARKETS } from './markets';
+import { SEED_OFFERINGS } from './seed-offerings';
 
 const prisma = new PrismaClient();
 
@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
  * values such as "ASX", "NYSE", and "NASDAQ".
  */
 async function seedMarkets() {
-  console.log("Seeding markets...");
+  console.log('Seeding markets...');
 
   for (const market of SEED_MARKETS) {
     await prisma.market.upsert({
@@ -51,7 +51,7 @@ async function seedMarkets() {
  *   deterministic and idempotent.
  */
 export async function seedOfferings() {
-  console.log("Seeding provider offerings...");
+  console.log('Seeding provider offerings...');
 
   // Offerings reference Market records, so markets must exist first.
   await seedMarkets();

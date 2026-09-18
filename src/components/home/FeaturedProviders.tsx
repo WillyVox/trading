@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { ProviderLogo } from "@/components/providers/ProviderLogo";
+import Link from 'next/link';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { Card } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { ProviderLogo } from '@/components/providers/ProviderLogo';
 import {
   getFeaturedProviders,
   type FeaturedProvider,
-} from "@/lib/providers/service";
-import { formatFeatureLabel } from "@/lib/providers/features";
+} from '@/lib/providers/service';
+import { formatFeatureLabel } from '@/lib/providers/features';
 
 /**
  * Isolated behind its own Suspense boundary in page.tsx so a slow or failed
@@ -22,7 +22,7 @@ export async function FeaturedProviders() {
     providers = await getFeaturedProviders(3);
   } catch (error) {
     console.error(
-      "[FeaturedProviders] failed to load featured providers:",
+      '[FeaturedProviders] failed to load featured providers:',
       error
     );
     return null;

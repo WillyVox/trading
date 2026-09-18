@@ -1182,13 +1182,13 @@ before provider selection.
 Your current `siteConfig` is:
 
 ```ts
-name: "Trading Guide";
+name: 'Trading Guide';
 ```
 
 and:
 
 ```ts
-description: "Independent, source-linked crypto exchange comparisons and guides for Australia.";
+description: 'Independent, source-linked crypto exchange comparisons and guides for Australia.';
 ```
 
 I would change the brand layer eventually to:
@@ -1486,8 +1486,8 @@ That's much safer than designing the schema abstractly and finding six months la
 
 The **Prisma/domain model should come before homepage/header implementation**, because navigation should reflect the product structure, and the product structure should reflect the actual data model—not the other way around.
 
-[1]: https://www.finder.com.au/share-trading?utm_source=chatgpt.com "Online Stock Brokers 2026: 30+ Platforms, From $0 | Finder"
-[2]: https://www.canstar.com.au/online-trading/?utm_source=chatgpt.com "Compare Online Share Trading Platforms | Canstar"
-[3]: https://www.asx.com.au/investors/start-investing/find-a-broker-adviser?utm_source=chatgpt.com "Find a stock broker or adviser | ASX"
-[4]: https://moneysmart.gov.au/shares/how-to-buy-and-sell-shares?utm_source=chatgpt.com "How to buy and sell shares - Moneysmart.gov.au"
-[5]: https://www.finder.com.au/share-trading/best-online-share-trading-platforms?utm_source=chatgpt.com "6 Best trading platforms in Australia 2026 | Finder"
+[1]: https://www.finder.com.au/share-trading?utm_source=chatgpt.com 'Online Stock Brokers 2026: 30+ Platforms, From $0 | Finder'
+[2]: https://www.canstar.com.au/online-trading/?utm_source=chatgpt.com 'Compare Online Share Trading Platforms | Canstar'
+[3]: https://www.asx.com.au/investors/start-investing/find-a-broker-adviser?utm_source=chatgpt.com 'Find a stock broker or adviser | ASX'
+[4]: https://moneysmart.gov.au/shares/how-to-buy-and-sell-shares?utm_source=chatgpt.com 'How to buy and sell shares - Moneysmart.gov.au'
+[5]: https://www.finder.com.au/share-trading/best-online-share-trading-platforms?utm_source=chatgpt.com '6 Best trading platforms in Australia 2026 | Finder'

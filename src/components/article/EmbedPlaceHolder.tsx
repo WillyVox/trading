@@ -17,20 +17,20 @@ export function EmbedPlaceholder({
   argsRaw: string;
   invalid?: boolean;
 }) {
-  const marker = `{{${type}${argsRaw ? `:${argsRaw}` : ""}}}`;
+  const marker = `{{${type}${argsRaw ? `:${argsRaw}` : ''}}}`;
 
   return (
     <div
       className={
         invalid
-          ? "border-red/30 bg-red/10 text-navy my-6 rounded-xl border p-4 text-sm"
-          : "border-gold-soft bg-panel-secondary text-navy my-6 rounded-xl border border-dashed p-4 text-sm"
+          ? 'border-red/30 bg-red/10 text-navy my-6 rounded-xl border p-4 text-sm'
+          : 'border-gold-soft bg-panel-secondary text-navy my-6 rounded-xl border border-dashed p-4 text-sm'
       }
     >
       <p className="font-semibold">
         {invalid
-          ? "Invalid embed configuration: "
-          : "Embed not yet available: "}
+          ? 'Invalid embed configuration: '
+          : 'Embed not yet available: '}
         <code className="font-mono">{marker}</code>
       </p>
       <p className="text-muted mt-1">

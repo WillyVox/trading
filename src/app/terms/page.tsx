@@ -1,20 +1,20 @@
-import Link from "next/link";
-import { Notice } from "@/components/ui/Notice";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { businessIdentity } from "@/lib/config/business";
-import { siteConfig } from "@/lib/seo/config";
-import { buildMetadata } from "@/lib/seo/metadata";
+import Link from 'next/link';
+import { Notice } from '@/components/ui/Notice';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { businessIdentity } from '@/lib/config/business';
+import { siteConfig } from '@/lib/seo/config';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata = buildMetadata({
-  title: "Terms of Use",
-  description: "The terms that apply to using the Trading Guide website.",
-  path: "/terms",
+  title: 'Terms of Use',
+  description: 'The terms that apply to using the Trading Guide website.',
+  path: '/terms',
 });
 
-const LAST_UPDATED = "12 September 2026";
+const LAST_UPDATED = '12 September 2026';
 
 /**
  * Content status: DRAFT ONLY. Every section marked \u26A0\uFE0F below needs
@@ -25,7 +25,7 @@ const LAST_UPDATED = "12 September 2026";
  * actual registered business location.
  */
 export default function TermsOfUsePage() {
-  const trail = breadcrumbTrail([{ name: "Terms of Use", path: "/terms" }]);
+  const trail = breadcrumbTrail([{ name: 'Terms of Use', path: '/terms' }]);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -77,7 +77,7 @@ export default function TermsOfUsePage() {
           <p>
             Content is provided for general information and educational
             purposes. We make reasonable efforts to verify provider facts (see
-            our{" "}
+            our{' '}
             <Link
               href="/methodology/comparisons"
               className="text-blue underline"
@@ -115,7 +115,7 @@ export default function TermsOfUsePage() {
           </h2>
           <p>
             This site contains links to third-party provider websites, including
-            affiliate/referral links (see our{" "}
+            affiliate/referral links (see our{' '}
             <Link href="/affiliate-disclosure" className="text-blue underline">
               affiliate disclosure
             </Link>
@@ -193,9 +193,9 @@ export default function TermsOfUsePage() {
             11. Contact
           </h2>
           <p>
-            Questions about these terms:{" "}
+            Questions about these terms:{' '}
             {businessIdentity.supportEmail ??
-              "[support email not yet configured \u2014 see CONTENT-GAPS.md]"}
+              '[support email not yet configured \u2014 see CONTENT-GAPS.md]'}
           </p>
         </section>
       </div>

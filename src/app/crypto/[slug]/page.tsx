@@ -1,12 +1,12 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { getCryptoAssetBySlug } from "@/lib/crypto/service";
-import { Card } from "@/components/ui/Card";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/layout/PageHero";
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { getCryptoAssetBySlug } from '@/lib/crypto/service';
+import { Card } from '@/components/ui/Card';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PageHero } from '@/components/layout/PageHero';
 
 export async function generateMetadata({
   params,
@@ -17,8 +17,8 @@ export async function generateMetadata({
   const asset = await getCryptoAssetBySlug(slug);
   if (!asset)
     return buildMetadata({
-      title: "Asset not found",
-      description: "",
+      title: 'Asset not found',
+      description: '',
       path: `/crypto/${slug}`,
       noIndex: true,
     });
@@ -29,7 +29,7 @@ export async function generateMetadata({
       asset.description ??
       `${asset.name} (${asset.symbol}) explained \u2014 how it works, where to buy it in Australia, and related guides.`,
     path: `/crypto/${slug}`,
-    image: "/images/og/crypto-asset.png",
+    image: '/images/og/crypto-asset.png',
   });
 }
 
@@ -43,7 +43,7 @@ export default async function CryptoAssetPage({
   if (!asset) notFound();
 
   const trail = breadcrumbTrail([
-    { name: "Crypto", path: "/crypto" },
+    { name: 'Crypto', path: '/crypto' },
     { name: asset.name, path: `/crypto/${slug}` },
   ]);
 
@@ -91,7 +91,7 @@ export default async function CryptoAssetPage({
               {asset.articles.map((aa: any) => (
                 <li key={aa.article.id}>
                   <Link
-                    href={`/${aa.article.category === "news" ? "news" : "guides"}/${aa.article.slug}`}
+                    href={`/${aa.article.category === 'news' ? 'news' : 'guides'}/${aa.article.slug}`}
                     className="text-navy hover:underline"
                   >
                     {aa.article.title}

@@ -1,4 +1,4 @@
-import type { ProviderFeatureType } from "@prisma/client";
+import type { ProviderFeatureType } from '@prisma/client';
 
 /**
  * The Provider schema keeps a single flat ProviderFeature list (see
@@ -18,7 +18,7 @@ import type { ProviderFeatureType } from "@prisma/client";
  * the real row shape. An explicit row type + a cast at the call site is
  * more reliable than fighting that inference.
  */
-export type ProviderFeatureGroup = "deposits" | "security" | "products";
+export type ProviderFeatureGroup = 'deposits' | 'security' | 'products';
 
 export type ProviderFeatureRow = {
   id: string;
@@ -29,24 +29,24 @@ export type ProviderFeatureRow = {
 };
 
 const DEPOSIT_WITHDRAWAL_TYPES: ProviderFeatureType[] = [
-  "AUD_DEPOSITS",
-  "AUD_WITHDRAWALS",
-  "PAYID",
-  "BANK_TRANSFER",
-  "CARD_DEPOSIT",
+  'AUD_DEPOSITS',
+  'AUD_WITHDRAWALS',
+  'PAYID',
+  'BANK_TRANSFER',
+  'CARD_DEPOSIT',
 ];
 
 const SECURITY_TYPES: ProviderFeatureType[] = [
-  "TWO_FACTOR_AUTH",
-  "COLD_STORAGE",
+  'TWO_FACTOR_AUTH',
+  'COLD_STORAGE',
 ];
 
 export function featureGroup(
   featureType: ProviderFeatureType
 ): ProviderFeatureGroup {
-  if (DEPOSIT_WITHDRAWAL_TYPES.includes(featureType)) return "deposits";
-  if (SECURITY_TYPES.includes(featureType)) return "security";
-  return "products";
+  if (DEPOSIT_WITHDRAWAL_TYPES.includes(featureType)) return 'deposits';
+  if (SECURITY_TYPES.includes(featureType)) return 'security';
+  return 'products';
 }
 
 export function groupFeatures(
@@ -69,24 +69,24 @@ export function groupFeatures(
  * only falls back to formatting the raw enum name when no override is set.
  */
 const FEATURE_TYPE_LABELS: Partial<Record<ProviderFeatureType, string>> = {
-  AUD_DEPOSITS: "AUD deposits",
-  AUD_WITHDRAWALS: "AUD withdrawals",
-  PAYID: "PayID",
-  BANK_TRANSFER: "Bank transfer",
-  CARD_DEPOSIT: "Card deposit",
-  MOBILE_APP: "Mobile app",
-  WEB_PLATFORM: "Web platform",
-  LIMIT_ORDERS: "Limit orders",
-  MARKET_ORDERS: "Market orders",
-  STOP_ORDERS: "Stop orders",
-  RECURRING_BUYS: "Recurring buys",
-  STAKING: "Staking",
-  API_ACCESS: "API access",
-  ADVANCED_CHARTING: "Advanced charting",
-  TWO_FACTOR_AUTH: "Two-factor auth",
-  COLD_STORAGE: "Cold storage",
-  SMSF_SUPPORT: "SMSF support",
-  OTC_DESK: "OTC desk",
+  AUD_DEPOSITS: 'AUD deposits',
+  AUD_WITHDRAWALS: 'AUD withdrawals',
+  PAYID: 'PayID',
+  BANK_TRANSFER: 'Bank transfer',
+  CARD_DEPOSIT: 'Card deposit',
+  MOBILE_APP: 'Mobile app',
+  WEB_PLATFORM: 'Web platform',
+  LIMIT_ORDERS: 'Limit orders',
+  MARKET_ORDERS: 'Market orders',
+  STOP_ORDERS: 'Stop orders',
+  RECURRING_BUYS: 'Recurring buys',
+  STAKING: 'Staking',
+  API_ACCESS: 'API access',
+  ADVANCED_CHARTING: 'Advanced charting',
+  TWO_FACTOR_AUTH: 'Two-factor auth',
+  COLD_STORAGE: 'Cold storage',
+  SMSF_SUPPORT: 'SMSF support',
+  OTC_DESK: 'OTC desk',
 };
 
 export function formatFeatureLabel(

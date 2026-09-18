@@ -1,25 +1,25 @@
-import { notFound, redirect } from "next/navigation";
-import { CompareTable } from "@/components/compare/CompareTable";
-import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
-import { CompareSelector } from "@/components/compare/CompareSelector";
-import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { notFound, redirect } from 'next/navigation';
+import { CompareTable } from '@/components/compare/CompareTable';
+import { CompareMobileCards } from '@/components/compare/CompareMobileCards';
+import { CompareSelector } from '@/components/compare/CompareSelector';
+import { SectionAffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure';
 import {
   DOMAIN_COPY,
   getComparisonPool,
   resolveComparison,
-} from "@/lib/compare/resolve";
+} from '@/lib/compare/resolve';
 import {
   canonicalCompareSlugMulti,
   parseCompareSlugs,
-} from "@/lib/seo/canonical";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/layout/PageHero";
+} from '@/lib/seo/canonical';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PageHero } from '@/components/layout/PageHero';
 
 function label(slug: string) {
-  return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export async function generateMetadata({
@@ -31,8 +31,8 @@ export async function generateMetadata({
   const slugs = parseCompareSlugs(slug);
   if (slugs.length === 0) {
     return buildMetadata({
-      title: "Compare not found",
-      description: "",
+      title: 'Compare not found',
+      description: '',
       path: `/compare/${slug}`,
       noIndex: true,
     });
@@ -45,22 +45,22 @@ export async function generateMetadata({
   const names = resolved?.subjects.map((s) => s.name) ?? slugs.map(label);
   const descriptor = resolved
     ? DOMAIN_COPY[resolved.domain].metaDescriptor
-    : "providers";
+    : 'providers';
 
   const title =
     names.length > 1
-      ? `${names.join(" vs ")}: Fees & Features Compared`
+      ? `${names.join(' vs ')}: Fees & Features Compared`
       : `Compare ${names[0] ?? slug}`;
   const description =
     names.length > 1
-      ? `Compare ${names.join(", ")} ${descriptor} for Australian users \u2014 fees, features, and verified facts side by side.`
+      ? `Compare ${names.join(', ')} ${descriptor} for Australian users \u2014 fees, features, and verified facts side by side.`
       : `Compare ${names[0] ?? slug} against other Australian ${descriptor}.`;
 
   return buildMetadata({
     title,
     description,
     path: `/compare/${slug}`,
-    type: "website",
+    type: 'website',
     // Table now renders real facts/fees/features (Phase 5), not just
     // provider names -- but indexing every possible subject-pair/triple
     // combination is still an open SEO decision (Phase 8), so this stays
@@ -102,9 +102,9 @@ export default async function CompareDetailPage({
   const pool = await getComparisonPool(domain);
 
   const trail = breadcrumbTrail([
-    { name: "Compare", path: "/compare" },
+    { name: 'Compare', path: '/compare' },
     {
-      name: subjects.map((s) => s.name).join(" vs "),
+      name: subjects.map((s) => s.name).join(' vs '),
       path: `/compare/${slug}`,
     },
   ]);
@@ -115,16 +115,16 @@ export default async function CompareDetailPage({
       <PageHero
         breadcrumbs={trail}
         eyebrow="Compare"
-        title={subjects.map((s) => s.name).join(" vs ")}
+        title={subjects.map((s) => s.name).join(' vs ')}
         subheading={`Generated live from ${copy.sourceLabel} \u2014 everything shown here updates automatically when the underlying data changes.`}
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
         {subjects.length < 2 && (
           <p className="text-muted mt-3 text-sm">
-            Only one selected. Visit{" "}
+            Only one selected. Visit{' '}
             <a className="hover:text-navy underline" href={copy.indexPath}>
               the full comparison
-            </a>{" "}
+            </a>{' '}
             to add another.
           </p>
         )}

@@ -27,7 +27,7 @@
 import {
   getStaticGuideArticleHref,
   STATIC_SLUG_IDS,
-} from "../guides/static-article-slugs";
+} from '../guides/static-article-slugs';
 
 export interface NavLink {
   label: string;
@@ -48,14 +48,14 @@ export interface NavItem extends Partial<NavLink> {
 
 export const NAV_ITEMS: NavItem[] = [
   {
-    label: "Guides",
-    href: "/guides",
+    label: 'Guides',
+    href: '/guides',
     columns: [
       {
-        heading: "Share Trading",
+        heading: 'Share Trading',
         links: [
           {
-            label: "Share Trading for Beginners",
+            label: 'Share Trading for Beginners',
             href: getStaticGuideArticleHref(
               STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS
             ),
@@ -63,22 +63,22 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        heading: "Crypto Exchanges",
+        heading: 'Crypto Exchanges',
         links: [
           {
-            label: "5 Simple Steps to Buy Cryptocurrency",
+            label: '5 Simple Steps to Buy Cryptocurrency',
             href: getStaticGuideArticleHref(
               STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
             ),
           },
           {
-            label: "How to Start Investing in Crypto for Beginners",
+            label: 'How to Start Investing in Crypto for Beginners',
             href: getStaticGuideArticleHref(
               STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
             ),
           },
           {
-            label: "Top Cryptocurrency Exchanges in Australia",
+            label: 'Top Cryptocurrency Exchanges in Australia',
             href: getStaticGuideArticleHref(
               STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES
             ),
@@ -86,36 +86,36 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
     ],
-    footerLink: { label: "View all guides →", href: "/guides" },
+    footerLink: { label: 'View all guides →', href: '/guides' },
   },
   {
-    label: "Compares",
-    href: "/compare",
+    label: 'Compares',
+    href: '/compare',
     columns: [
       {
-        heading: "Online Trading Platforms",
+        heading: 'Online Trading Platforms',
         links: [
           {
-            label: "Compare all trading platforms",
-            href: "/compare/trading-platforms",
+            label: 'Compare all trading platforms',
+            href: '/compare/trading-platforms',
           },
-          { label: "Browse share trading platforms", href: "/share-trading" },
+          { label: 'Browse share trading platforms', href: '/share-trading' },
         ],
       },
       {
-        heading: "Crypto Exchanges",
+        heading: 'Crypto Exchanges',
         links: [
           {
-            label: "Compare all crypto exchanges",
-            href: "/compare/crypto-exchanges",
+            label: 'Compare all crypto exchanges',
+            href: '/compare/crypto-exchanges',
           },
-          { label: "Browse crypto exchanges", href: "/crypto/exchanges" },
+          { label: 'Browse crypto exchanges', href: '/crypto/exchanges' },
         ],
       },
     ],
-    footerLink: { label: "View all comparisons →", href: "/compare" },
+    footerLink: { label: 'View all comparisons →', href: '/compare' },
   },
-  { label: "Share Trading", href: "/share-trading" },
-  { label: "Crypto Exchanges", href: "/crypto/exchanges" },
-  { label: "News", href: "/news" },
+  { label: 'Share Trading', href: '/share-trading' },
+  { label: 'Crypto Exchanges', href: '/crypto/exchanges' },
+  { label: 'News', href: '/news' },
 ];

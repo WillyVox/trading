@@ -1,13 +1,13 @@
-import { Prisma, ProviderType } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { providerRepository } from "@/lib/repository";
+import { Prisma, ProviderType } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { providerRepository } from '@/lib/repository';
 
 export function getProviders(
   opts: { page?: number; pageSize?: number; providerType?: ProviderType } = {}
 ) {
   return providerRepository.paginate({
     where: opts.providerType ? { providerType: opts.providerType } : undefined,
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
     page: opts.page,
     pageSize: opts.pageSize,
   });
@@ -15,8 +15,8 @@ export function getProviders(
 
 const FEATURED_PROVIDER_INCLUDE = {
   features: {
-    where: { available: true, verificationStatus: "VERIFIED" as const },
-    orderBy: { featureType: "asc" as const },
+    where: { available: true, verificationStatus: 'VERIFIED' as const },
+    orderBy: { featureType: 'asc' as const },
     take: 2,
   },
 } satisfies Prisma.ProviderInclude;
@@ -46,10 +46,10 @@ export async function getFeaturedProviders(
   const rows = await providerRepository.findMany({
     where: {
       providerType: ProviderType.CRYPTO_EXCHANGE,
-      verificationStatus: "VERIFIED",
+      verificationStatus: 'VERIFIED',
       noIndex: false,
     },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
     take: limit,
     include: FEATURED_PROVIDER_INCLUDE,
   });
@@ -66,7 +66,7 @@ export function getProviderBySlug(slug: string) {
   return providerRepository.findBySlug(slug, {
     include: {
       ...COMPARISON_INCLUDE,
-      prosCons: { orderBy: { position: "asc" } },
+      prosCons: { orderBy: { position: 'asc' } },
       sources: true,
       regulations: true,
       assets: { include: { asset: true } },
@@ -98,7 +98,7 @@ export async function getProvidersBySlugs(slugs: string[]) {
 export function getProvidersForAsset(assetSlug: string) {
   return providerRepository.findMany({
     where: { assets: { some: { asset: { slug: assetSlug } } } },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
   });
 }
 
@@ -117,7 +117,7 @@ export async function getRelatedContentForProvider(
   limit = 4
 ) {
   const links = await prisma.articleProvider.findMany({
-    where: { providerId, article: { status: "PUBLISHED", noIndex: false } },
+    where: { providerId, article: { status: 'PUBLISHED', noIndex: false } },
     include: {
       article: {
         select: {
@@ -130,16 +130,16 @@ export async function getRelatedContentForProvider(
         },
       },
     },
-    orderBy: { article: { publishedAt: "desc" } },
+    orderBy: { article: { publishedAt: 'desc' } },
   });
 
   const guides = links
     .map((l) => l.article)
-    .filter((a) => a.articleType === "GUIDE")
+    .filter((a) => a.articleType === 'GUIDE')
     .slice(0, limit);
   const news = links
     .map((l) => l.article)
-    .filter((a) => a.articleType === "NEWS")
+    .filter((a) => a.articleType === 'NEWS')
     .slice(0, limit);
 
   return { guides, news };

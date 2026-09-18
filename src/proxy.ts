@@ -1,17 +1,17 @@
-import { auth } from "@/lib/auth";
-import { NextResponse } from "next/server";
+import { auth } from '@/lib/auth';
+import { NextResponse } from 'next/server';
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
-  if (!pathname.startsWith("/admin")) return NextResponse.next();
+  if (!pathname.startsWith('/admin')) return NextResponse.next();
 
   const role = (req.auth?.user as any)?.role;
   if (!req.auth?.user) {
-    const url = new URL("/login", req.url);
+    const url = new URL('/login', req.url);
     return NextResponse.redirect(url);
   }
-  if (role !== "ADMIN") {
-    const url = new URL("/403", req.url);
+  if (role !== 'ADMIN') {
+    const url = new URL('/403', req.url);
     return NextResponse.redirect(url);
   }
 
@@ -21,11 +21,11 @@ export default auth((req) => {
   // appropriate"). This used to only be documented in a comment on the
   // preview page itself; the header was never actually set anywhere.
   if (/^\/admin\/articles\/[^/]+\/preview(\/|$)/.test(pathname)) {
-    response.headers.set("Cache-Control", "no-store");
+    response.headers.set('Cache-Control', 'no-store');
   }
   return response;
 });
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ['/admin/:path*'],
 };

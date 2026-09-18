@@ -2,14 +2,14 @@ import type {
   ComparisonRow,
   ComparisonSection,
   ComparisonSubject,
-} from "@/lib/compare/types";
-import type { OfferingDetail } from "./service";
+} from '@/lib/compare/types';
+import type { OfferingDetail } from './service';
 import {
   formatAvailability,
   formatProductType,
   formatAccountType,
   custodyTypeCopy,
-} from "./labels";
+} from './labels';
 
 /**
  * Mirrors src/lib/providers/compare.ts's shape and structure exactly (see
@@ -69,7 +69,7 @@ export function buildMarketRows(offerings: OfferingDetail[]): ComparisonRow[] {
 }
 
 export function buildProductRows(offerings: OfferingDetail[]): ComparisonRow[] {
-  const seen: OfferingDetail["products"][number]["productType"][] = [];
+  const seen: OfferingDetail['products'][number]['productType'][] = [];
   for (const o of offerings) {
     for (const p of o.products) {
       if (!seen.includes(p.productType)) seen.push(p.productType);
@@ -88,7 +88,7 @@ export function buildProductRows(offerings: OfferingDetail[]): ComparisonRow[] {
 export function buildAccountTypeRows(
   offerings: OfferingDetail[]
 ): ComparisonRow[] {
-  const seen: OfferingDetail["accountTypes"][number]["accountType"][] = [];
+  const seen: OfferingDetail['accountTypes'][number]['accountType'][] = [];
   for (const o of offerings) {
     for (const a of o.accountTypes) {
       if (!seen.includes(a.accountType)) seen.push(a.accountType);
@@ -115,9 +115,9 @@ export function buildCustodyRows(offerings: OfferingDetail[]): ComparisonRow[] {
   const seen = new Map<string, string>(); // bucket key -> row label
   for (const o of offerings) {
     for (const c of o.custody) {
-      const bucketKey = c.market?.code ?? "_all";
+      const bucketKey = c.market?.code ?? '_all';
       if (!seen.has(bucketKey)) {
-        seen.set(bucketKey, c.market ? c.market.name : "All markets");
+        seen.set(bucketKey, c.market ? c.market.name : 'All markets');
       }
     }
   }
@@ -126,7 +126,7 @@ export function buildCustodyRows(offerings: OfferingDetail[]): ComparisonRow[] {
     label,
     values: offerings.map((o) => {
       const row = o.custody.find(
-        (c) => (c.market?.code ?? "_all") === bucketKey
+        (c) => (c.market?.code ?? '_all') === bucketKey
       );
       if (!row) return null;
       const copy = custodyTypeCopy(row.custodyType);
@@ -141,9 +141,9 @@ export function buildOfferingComparisonSections(
   offerings: OfferingDetail[]
 ): ComparisonSection[] {
   return [
-    { title: "Markets", rows: buildMarketRows(offerings) },
-    { title: "Products", rows: buildProductRows(offerings) },
-    { title: "Custody & ownership", rows: buildCustodyRows(offerings) },
-    { title: "Account types", rows: buildAccountTypeRows(offerings) },
+    { title: 'Markets', rows: buildMarketRows(offerings) },
+    { title: 'Products', rows: buildProductRows(offerings) },
+    { title: 'Custody & ownership', rows: buildCustodyRows(offerings) },
+    { title: 'Account types', rows: buildAccountTypeRows(offerings) },
   ].filter((section) => section.rows.length > 0);
 }

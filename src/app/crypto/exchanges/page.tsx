@@ -1,24 +1,24 @@
-import Link from "next/link";
-import { getProviders } from "@/lib/providers/service";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import { ProviderLogo } from "@/components/providers/ProviderLogo";
-import { Card } from "@/components/ui/Card";
-import { PageHero } from "@/components/layout/PageHero";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import Link from 'next/link';
+import { getProviders } from '@/lib/providers/service';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import { ProviderLogo } from '@/components/providers/ProviderLogo';
+import { Card } from '@/components/ui/Card';
+import { PageHero } from '@/components/layout/PageHero';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
 
 export const metadata = buildMetadata({
-  title: "Crypto Exchanges in Australia \u2014 Compare Platforms",
+  title: 'Crypto Exchanges in Australia \u2014 Compare Platforms',
   description:
-    "Browse Australian crypto exchange profiles with verified facts, fees, and sources.",
-  path: "/crypto/exchanges",
+    'Browse Australian crypto exchange profiles with verified facts, fees, and sources.',
+  path: '/crypto/exchanges',
 });
 
 export default async function ExchangesPage() {
   const { items } = await getProviders();
   const trail = breadcrumbTrail([
-    { name: "Crypto", path: "/crypto" },
-    { name: "Exchanges", path: "/crypto/exchanges" },
+    { name: 'Crypto', path: '/crypto' },
+    { name: 'Exchanges', path: '/crypto/exchanges' },
   ]);
 
   return (

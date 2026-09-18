@@ -1,9 +1,9 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import type { ParsedFile } from "./types";
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import type { ParsedFile } from './types';
 
-const SUPPORTED_EXTENSIONS = new Set([".md", ".txt"]);
-const IGNORED_DIR_NAMES = new Set(["processed", "failed"]);
+const SUPPORTED_EXTENSIONS = new Set(['.md', '.txt']);
+const IGNORED_DIR_NAMES = new Set(['processed', 'failed']);
 
 /**
  * Lists importable files directly inside `dir` — per spec §3, this does NOT
@@ -16,13 +16,13 @@ export async function scanArticleDirectory(dir: string): Promise<ParsedFile[]> {
   try {
     entries = await fs.readdir(dir, { withFileTypes: true });
   } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") return [];
+    if ((err as NodeJS.ErrnoException).code === 'ENOENT') return [];
     throw err;
   }
 
   const files: ParsedFile[] = [];
   for (const entry of entries) {
-    if (entry.name.startsWith(".")) continue;
+    if (entry.name.startsWith('.')) continue;
     if (entry.isDirectory()) {
       // Never recurse. Flag anything unexpected (e.g. a typo'd "Processed/")
       // rather than silently ignoring it — processed/ and failed/ are the
@@ -46,6 +46,6 @@ export async function scanArticleDirectory(dir: string): Promise<ParsedFile[]> {
 
 /** Ensures publish_article/processed and publish_article/failed exist. */
 export async function ensureImportDirectories(baseDir: string): Promise<void> {
-  await fs.mkdir(path.join(baseDir, "processed"), { recursive: true });
-  await fs.mkdir(path.join(baseDir, "failed"), { recursive: true });
+  await fs.mkdir(path.join(baseDir, 'processed'), { recursive: true });
+  await fs.mkdir(path.join(baseDir, 'failed'), { recursive: true });
 }

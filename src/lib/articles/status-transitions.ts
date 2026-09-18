@@ -16,10 +16,10 @@
  * now thin wrappers naming only their target status.
  */
 export const ARTICLE_STATUSES = [
-  "DRAFT",
-  "REVIEW",
-  "PUBLISHED",
-  "ARCHIVED",
+  'DRAFT',
+  'REVIEW',
+  'PUBLISHED',
+  'ARCHIVED',
 ] as const;
 export type ArticleLifecycleStatus = (typeof ARTICLE_STATUSES)[number];
 
@@ -36,10 +36,10 @@ export const ARTICLE_STATUS_TRANSITIONS: Record<
   ArticleLifecycleStatus,
   ArticleLifecycleStatus[]
 > = {
-  DRAFT: ["REVIEW", "ARCHIVED"],
-  REVIEW: ["DRAFT", "PUBLISHED", "ARCHIVED"],
-  PUBLISHED: ["DRAFT", "ARCHIVED"],
-  ARCHIVED: ["DRAFT"],
+  DRAFT: ['REVIEW', 'ARCHIVED'],
+  REVIEW: ['DRAFT', 'PUBLISHED', 'ARCHIVED'],
+  PUBLISHED: ['DRAFT', 'ARCHIVED'],
+  ARCHIVED: ['DRAFT'],
 };
 
 export function isValidArticleStatusTransition(
@@ -59,8 +59,8 @@ export function isValidArticleStatusTransition(
  */
 export function isPubliclyVisibleArticle(
   article: { status: string; articleType: string } | null | undefined,
-  requiredType: "NEWS" | "GUIDE"
+  requiredType: 'NEWS' | 'GUIDE'
 ): boolean {
   if (!article) return false;
-  return article.status === "PUBLISHED" && article.articleType === requiredType;
+  return article.status === 'PUBLISHED' && article.articleType === requiredType;
 }

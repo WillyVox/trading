@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/Card";
+import Link from 'next/link';
+import { Card } from '@/components/ui/Card';
 
 type RelatedGuide = {
   id: string;

@@ -695,22 +695,22 @@ Kraken Pro Yes VERIFIED https://www.kraken.com/features/fee-schedule
 ```ts
 regulations: [
   {
-    jurisdiction: "AU",
-    regulator: "AUSTRAC",
+    jurisdiction: 'AU',
+    regulator: 'AUSTRAC',
     status:
-      "Bit Trade Pty Ltd (ACN 163 237 634) is registered as a Digital Currency Exchange and Independent Remittance Dealer",
+      'Bit Trade Pty Ltd (ACN 163 237 634) is registered as a Digital Currency Exchange and Independent Remittance Dealer',
     sourceUrl:
-      "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
-    verifiedAt: new Date("2026-09-17"),
+      'https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated',
+    verifiedAt: new Date('2026-09-17'),
   },
   {
-    jurisdiction: "AU",
-    regulator: "ASIC",
+    jurisdiction: 'AU',
+    regulator: 'ASIC',
     status:
-      "Kraken Derivatives are offered to eligible Australian wholesale clients through Beaufort Fiduciaries Pty Ltd (ACN 162 139 871), AFSL 545124",
+      'Kraken Derivatives are offered to eligible Australian wholesale clients through Beaufort Fiduciaries Pty Ltd (ACN 162 139 871), AFSL 545124',
     sourceUrl:
-      "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
-    verifiedAt: new Date("2026-09-17"),
+      'https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated',
+    verifiedAt: new Date('2026-09-17'),
   },
 ];
 ```

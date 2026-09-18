@@ -1,5 +1,5 @@
-import { Card } from "@/components/ui/Card";
-import type { ProviderFeatureRow } from "@/lib/providers/features";
+import { Card } from '@/components/ui/Card';
+import type { ProviderFeatureRow } from '@/lib/providers/features';
 
 /**
  * One profile-page card for a single feature group (products/trading,
@@ -28,15 +28,15 @@ export function ProviderFeatureSection({
             className="border-border flex justify-between border-b pb-2"
           >
             <span className="text-muted">
-              {(f.label ?? f.featureType).toString().replace(/_/g, " ")}
+              {(f.label ?? f.featureType).toString().replace(/_/g, ' ')}
             </span>
             <span>
               {f.value ??
                 (f.available === false
-                  ? "\u2014"
+                  ? '\u2014'
                   : f.available === true
-                    ? "\u2713"
-                    : "?")}
+                    ? '\u2713'
+                    : '?')}
             </span>
           </li>
         ))}

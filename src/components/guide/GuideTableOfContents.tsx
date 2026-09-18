@@ -1,4 +1,4 @@
-import type { Heading } from "@/lib/articles/content";
+import type { Heading } from '@/lib/articles/content';
 
 /**
  * Server component, no client JS. Native <details>/<summary> gives mobile
@@ -19,7 +19,7 @@ export function GuideTableOfContents({ headings }: { headings: Heading[] }) {
       </summary>
       <ol className="mt-3 space-y-1.5 text-sm">
         {headings.map((h) => (
-          <li key={h.id} className={h.level === 3 ? "ml-4" : undefined}>
+          <li key={h.id} className={h.level === 3 ? 'ml-4' : undefined}>
             <a href={`#${h.id}`} className="text-muted hover:text-navy">
               {h.text}
             </a>

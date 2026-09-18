@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma';
 import {
   articleRepository,
   providerRepository,
   cryptoAssetRepository,
-} from "@/lib/repository";
-import type { ArticleImportPayload } from "./types";
+} from '@/lib/repository';
+import type { ArticleImportPayload } from './types';
 
 export interface RelationshipResult {
   warnings: string[];
@@ -13,7 +13,7 @@ export interface RelationshipResult {
 interface ResolvedProvider {
   providerId: string;
   slug: string;
-  relationship: "MENTIONED" | "COMPARED" | "FEATURED";
+  relationship: 'MENTIONED' | 'COMPARED' | 'FEATURED';
 }
 
 /**
@@ -41,12 +41,12 @@ async function resolveProviders(
 
   if (relatedEntries === undefined && affiliateSlugs.length === 0) return;
 
-  const bySlug = new Map<string, ResolvedProvider["relationship"]>();
+  const bySlug = new Map<string, ResolvedProvider['relationship']>();
   for (const entry of relatedEntries ?? []) {
     bySlug.set(entry.providerSlug, entry.relationship);
   }
   for (const slug of affiliateSlugs) {
-    if (!bySlug.has(slug)) bySlug.set(slug, "MENTIONED");
+    if (!bySlug.has(slug)) bySlug.set(slug, 'MENTIONED');
   }
 
   const resolved: ResolvedProvider[] = [];
@@ -76,7 +76,7 @@ async function resolveProviders(
       where: {
         articleId,
         providerId: {
-          notIn: keepProviderIds.length > 0 ? keepProviderIds : ["__none__"],
+          notIn: keepProviderIds.length > 0 ? keepProviderIds : ['__none__'],
         },
         // Never delete a row we're about to keep purely because it came in
         // via affiliateProviders rather than providerRelationships this run.
@@ -154,7 +154,7 @@ async function resolveRelatedGuides(
   await prisma.articleRelated.deleteMany({
     where: {
       articleId,
-      relatedArticleId: { notIn: keepIds.length > 0 ? keepIds : ["__none__"] },
+      relatedArticleId: { notIn: keepIds.length > 0 ? keepIds : ['__none__'] },
     },
   });
 
@@ -209,7 +209,7 @@ async function resolveCryptoAssets(
   await prisma.articleCryptoAsset.deleteMany({
     where: {
       articleId,
-      assetId: { notIn: resolvedIds.length > 0 ? resolvedIds : ["__none__"] },
+      assetId: { notIn: resolvedIds.length > 0 ? resolvedIds : ['__none__'] },
     },
   });
 
@@ -233,7 +233,7 @@ async function resolveCanonicalArticle(
   warnings: string[]
 ): Promise<void> {
   const isRegionalVariant =
-    payload.region !== undefined && payload.region !== "GLOBAL";
+    payload.region !== undefined && payload.region !== 'GLOBAL';
 
   if (!isRegionalVariant) {
     if (payload.canonicalArticleSlug) {
@@ -343,7 +343,7 @@ export async function previewRelationshipWarnings(
   }
 
   const isRegionalVariant =
-    payload.region !== undefined && payload.region !== "GLOBAL";
+    payload.region !== undefined && payload.region !== 'GLOBAL';
   if (isRegionalVariant && payload.canonicalArticleSlug) {
     const canonical = await articleRepository.findBySlug(
       payload.canonicalArticleSlug,

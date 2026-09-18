@@ -1,24 +1,24 @@
-import Link from "next/link";
-import { getProviders } from "@/lib/providers/service";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import { CompareSelector } from "@/components/compare/CompareSelector";
-import { PageHero } from "@/components/layout/PageHero";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import Link from 'next/link';
+import { getProviders } from '@/lib/providers/service';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import { CompareSelector } from '@/components/compare/CompareSelector';
+import { PageHero } from '@/components/layout/PageHero';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
 
 export const metadata = buildMetadata({
-  title: "Compare Crypto Exchanges Australia \u2014 Fees & Features",
+  title: 'Compare Crypto Exchanges Australia \u2014 Fees & Features',
   description:
-    "Side-by-side Australian crypto exchange comparisons, generated from verified provider data.",
-  path: "/compare",
-  image: "/images/og/compare.png",
+    'Side-by-side Australian crypto exchange comparisons, generated from verified provider data.',
+  path: '/compare',
+  image: '/images/og/compare.png',
 });
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function ComparePage() {
   const { items } = await getProviders();
-  const trail = breadcrumbTrail([{ name: "Compare", path: "/compare" }]);
+  const trail = breadcrumbTrail([{ name: 'Compare', path: '/compare' }]);
 
   return (
     <>

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { slugify } from "@/lib/articles/slug";
-import { Notice } from "@/components/ui/Notice";
+import { useState } from 'react';
+import { slugify } from '@/lib/articles/slug';
+import { Notice } from '@/components/ui/Notice';
 
 /**
  * The only reason this pair needs to be a Client Component (Req.md §6 —

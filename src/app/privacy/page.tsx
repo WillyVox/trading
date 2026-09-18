@@ -1,20 +1,20 @@
-import { Notice } from "@/components/ui/Notice";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { businessIdentity } from "@/lib/config/business";
-import { siteConfig } from "@/lib/seo/config";
-import { buildMetadata } from "@/lib/seo/metadata";
+import { Notice } from '@/components/ui/Notice';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { businessIdentity } from '@/lib/config/business';
+import { siteConfig } from '@/lib/seo/config';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata = buildMetadata({
-  title: "Privacy Policy",
+  title: 'Privacy Policy',
   description:
     "What personal information Trading Guide collects and how it's used.",
-  path: "/privacy",
+  path: '/privacy',
 });
 
-const LAST_UPDATED = "12 September 2026";
+const LAST_UPDATED = '12 September 2026';
 
 /**
  * Content status: DRAFT ONLY -- see docs/CONTENT-GAPS.md "Privacy Policy".
@@ -37,7 +37,7 @@ const LAST_UPDATED = "12 September 2026";
  * (depends on turnover/entity type) -- flagged below rather than guessed.
  */
 export default function PrivacyPolicyPage() {
-  const trail = breadcrumbTrail([{ name: "Privacy Policy", path: "/privacy" }]);
+  const trail = breadcrumbTrail([{ name: 'Privacy Policy', path: '/privacy' }]);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -62,9 +62,9 @@ export default function PrivacyPolicyPage() {
             1. Who operates this site
           </h2>
           <p>
-            This policy covers{" "}
+            This policy covers{' '}
             {businessIdentity.legalName ?? siteConfig.shortName}
-            {businessIdentity.abn ? ` (ABN ${businessIdentity.abn})` : ""}{" "}
+            {businessIdentity.abn ? ` (ABN ${businessIdentity.abn})` : ''}{' '}
             (&quot;Trading Guide&quot;, &quot;we&quot;, &quot;us&quot;).
           </p>
         </section>
@@ -76,19 +76,19 @@ export default function PrivacyPolicyPage() {
           <p className="mb-2">We currently collect:</p>
           <ul className="list-disc space-y-1.5 pl-5">
             <li>
-              <span className="text-navy font-medium">Account information</span>{" "}
+              <span className="text-navy font-medium">Account information</span>{' '}
               -- if you register for an account: name (optional), email address,
               and a securely hashed password. We never store your password in
               plain text.
             </li>
             <li>
-              <span className="text-navy font-medium">Session information</span>{" "}
+              <span className="text-navy font-medium">Session information</span>{' '}
               -- login session data needed to keep you signed in.
             </li>
             <li>
               <span className="text-navy font-medium">
                 Affiliate click information
-              </span>{" "}
+              </span>{' '}
               -- when you click a provider link, we record which link, which
               page it was on, and when. This doesn&apos;t currently include your
               IP address or device details.
@@ -142,9 +142,9 @@ export default function PrivacyPolicyPage() {
           </h2>
           <p>
             You can ask us to access or correct your personal information, or
-            raise a privacy concern, at{" "}
+            raise a privacy concern, at{' '}
             {businessIdentity.privacyEmail ??
-              "[privacy email not yet configured \u2014 see CONTENT-GAPS.md]"}
+              '[privacy email not yet configured \u2014 see CONTENT-GAPS.md]'}
             . If you&apos;re not satisfied with our response, you can contact
             the Office of the Australian Information Commissioner (OAIC).
           </p>

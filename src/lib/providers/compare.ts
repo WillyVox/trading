@@ -1,10 +1,10 @@
-import type { ProviderFeatureType } from "@prisma/client";
-import { featureGroup, type ProviderFeatureGroup } from "./features";
+import type { ProviderFeatureType } from '@prisma/client';
+import { featureGroup, type ProviderFeatureGroup } from './features';
 import type {
   ComparisonRow,
   ComparisonSection,
   ComparisonSubject,
-} from "@/lib/compare/types";
+} from '@/lib/compare/types';
 
 export type { ComparisonRow, ComparisonSection };
 
@@ -26,7 +26,7 @@ export type ComparisonProvider = {
   id: string;
   slug: string;
   name: string;
-  verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
+  verificationStatus: 'VERIFIED' | 'UNVERIFIED' | 'STALE';
   logo: string | null;
   website: string | null;
   facts: { label: string; value: string }[];
@@ -113,7 +113,7 @@ export function buildFeeRows(providers: ComparisonProvider[]): ComparisonRow[] {
     label,
     values: providers.map(
       (p) =>
-        p.fees.find((f) => f.label === label)?.displayValue ?? "Not verified"
+        p.fees.find((f) => f.label === label)?.displayValue ?? 'Not verified'
     ),
   }));
 }
@@ -137,14 +137,14 @@ export function buildFeatureSections(
   for (const type of types) {
     const row: ComparisonRow = {
       key: `feature:${type}`,
-      label: type.replace(/_/g, " "),
+      label: type.replace(/_/g, ' '),
       values: providers.map((p) => {
         const f = p.features.find((x) => x.featureType === type);
         if (!f) return null;
         if (f.value) return f.value;
-        if (f.available === true) return "\u2713";
-        if (f.available === false) return "\u2014";
-        return "?";
+        if (f.available === true) return '\u2713';
+        if (f.available === false) return '\u2014';
+        return '?';
       }),
     };
     rows[featureGroup(type)].push(row);
@@ -157,10 +157,10 @@ export function buildComparisonSections(
 ): ComparisonSection[] {
   const featureSections = buildFeatureSections(providers);
   return [
-    { title: "Facts", rows: buildFactRows(providers) },
-    { title: "Fees", rows: buildFeeRows(providers) },
-    { title: "Products & trading", rows: featureSections.products },
-    { title: "Deposits & withdrawals", rows: featureSections.deposits },
-    { title: "Security", rows: featureSections.security },
+    { title: 'Facts', rows: buildFactRows(providers) },
+    { title: 'Fees', rows: buildFeeRows(providers) },
+    { title: 'Products & trading', rows: featureSections.products },
+    { title: 'Deposits & withdrawals', rows: featureSections.deposits },
+    { title: 'Security', rows: featureSections.security },
   ].filter((section) => section.rows.length > 0);
 }

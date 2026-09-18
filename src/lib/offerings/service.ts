@@ -1,6 +1,6 @@
-import type { Prisma } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { providerOfferingRepository } from "@/lib/repository";
+import type { Prisma } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { providerOfferingRepository } from '@/lib/repository';
 
 /**
  * Share trading platform domain (Milestone 1 — see docs/IMPLEMENTATION-PLAN.md
@@ -20,11 +20,11 @@ const OFFERING_LIST_INCLUDE = {
   // scroll).
   markets: {
     include: { market: true },
-    orderBy: { market: { name: "asc" as const } },
+    orderBy: { market: { name: 'asc' as const } },
   },
-  products: { orderBy: { productType: "asc" as const } },
+  products: { orderBy: { productType: 'asc' as const } },
   custody: { include: { market: true } },
-  accountTypes: { orderBy: { accountType: "asc" as const } },
+  accountTypes: { orderBy: { accountType: 'asc' as const } },
 } satisfies Prisma.ProviderOfferingInclude;
 
 export type OfferingListItem = Prisma.ProviderOfferingGetPayload<{
@@ -34,7 +34,7 @@ export type OfferingListItem = Prisma.ProviderOfferingGetPayload<{
 export function getOfferings(opts: { page?: number; pageSize?: number } = {}) {
   return providerOfferingRepository.paginate({
     where: { active: true },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
     include: OFFERING_LIST_INCLUDE,
     page: opts.page,
     pageSize: opts.pageSize,
@@ -51,11 +51,11 @@ const OFFERING_DETAIL_INCLUDE = {
   provider: { select: { id: true, name: true, slug: true } },
   markets: {
     include: { market: true },
-    orderBy: { market: { name: "asc" as const } },
+    orderBy: { market: { name: 'asc' as const } },
   },
-  products: { orderBy: { productType: "asc" as const } },
+  products: { orderBy: { productType: 'asc' as const } },
   custody: { include: { market: true } },
-  accountTypes: { orderBy: { accountType: "asc" as const } },
+  accountTypes: { orderBy: { accountType: 'asc' as const } },
 } satisfies Prisma.ProviderOfferingInclude;
 
 export type OfferingDetail = Prisma.ProviderOfferingGetPayload<{
@@ -104,7 +104,7 @@ export async function getOfferingsBySlugs(
 export async function getAllOfferingsForCompare(): Promise<OfferingDetail[]> {
   const rows = await prisma.providerOffering.findMany({
     where: { active: true },
-    orderBy: { name: "asc" },
+    orderBy: { name: 'asc' },
     include: OFFERING_DETAIL_INCLUDE,
   });
   return rows as OfferingDetail[];

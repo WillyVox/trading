@@ -15,8 +15,8 @@ keyTakeaways:
     service you will actually use.
   - Check current AUSTRAC VASP registration information, without treating
     registration as a guarantee of safety.
-  - "Compare like with like: instant-buy pricing and order-book fees can
-    be different."
+  - 'Compare like with like: instant-buy pricing and order-book fees can
+    be different.'
   - Check AUD funding, withdrawals, security controls and supported assets
     before opening an account.
   - Understand how a comparison site makes money and how any rankings are
@@ -46,13 +46,13 @@ slug: how-to-choose-crypto-exchange-australia
 sources:
   - label: AUSTRAC --- VASP register goes public
     sourceType: REGULATOR
-    url: "https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public"
+    url: 'https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public'
   - label: ASIC Moneysmart --- Crypto assets
     sourceType: GOVERNMENT
-    url: "https://moneysmart.gov.au/complex-investment-products/crypto-assets"
+    url: 'https://moneysmart.gov.au/complex-investment-products/crypto-assets'
   - label: ASIC Moneysmart --- Using comparison websites
     sourceType: GOVERNMENT
-    url: "https://moneysmart.gov.au/online-safety/using-comparison-websites"
+    url: 'https://moneysmart.gov.au/online-safety/using-comparison-websites'
 tags:
   - Crypto Exchanges
   - Australia

@@ -1,18 +1,18 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/Card";
-import { Notice } from "@/components/ui/Notice";
-import { PageHero } from "@/components/layout/PageHero";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { buildMetadata } from "@/lib/seo/metadata";
+import Link from 'next/link';
+import { Card } from '@/components/ui/Card';
+import { Notice } from '@/components/ui/Notice';
+import { PageHero } from '@/components/layout/PageHero';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata = buildMetadata({
-  title: "Comparison Methodology — How We Build Comparison Tables",
+  title: 'Comparison Methodology — How We Build Comparison Tables',
   description:
     "How Trading Guide's comparison tables are generated from live provider records, what \u201cNot verified\u201d means, and how providers are ordered.",
-  path: "/methodology/comparisons",
-  image: "/images/og/methodology-comparisons.png",
+  path: '/methodology/comparisons',
+  image: '/images/og/methodology-comparisons.png',
 });
 
 /**
@@ -35,23 +35,23 @@ export const metadata = buildMetadata({
  */
 const PRINCIPLES = [
   {
-    title: "No fact is hidden to make a row line up",
-    body: "If even one compared provider has a fact, that fact gets its own row for every provider in the table. Providers without that fact show a dash rather than the row being left out.",
+    title: 'No fact is hidden to make a row line up',
+    body: 'If even one compared provider has a fact, that fact gets its own row for every provider in the table. Providers without that fact show a dash rather than the row being left out.',
   },
   {
-    title: "Unverified fees are labelled, never guessed",
+    title: 'Unverified fees are labelled, never guessed',
     body: "If we haven't verified a provider's fee for something the table is comparing, that cell reads \u201cNot verified.\u201d We don't estimate a number or leave the cell blank in a way that could be misread as zero.",
   },
   {
-    title: "Alphabetical order, always",
-    body: "Comparison tables and provider listings are sorted alphabetically by name. Order is never influenced by affiliate revenue, click-through rate, or how recently a provider paid us \u2014 see our how we get paid page.",
+    title: 'Alphabetical order, always',
+    body: 'Comparison tables and provider listings are sorted alphabetically by name. Order is never influenced by affiliate revenue, click-through rate, or how recently a provider paid us \u2014 see our how we get paid page.',
   },
 ];
 
 export default function ComparisonMethodologyPage() {
   const trail = breadcrumbTrail([
-    { name: "Methodology", path: "/methodology" },
-    { name: "Comparison Methodology", path: "/methodology/comparisons" },
+    { name: 'Methodology', path: '/methodology' },
+    { name: 'Comparison Methodology', path: '/methodology/comparisons' },
   ]);
 
   return (

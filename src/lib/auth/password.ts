@@ -1,5 +1,5 @@
-import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from "crypto";
-import { promisify } from "util";
+import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'crypto';
+import { promisify } from 'util';
 
 const scrypt = promisify(scryptCallback) as (
   password: string,
@@ -20,7 +20,7 @@ const SALT_LENGTH = 16;
 export async function hashPassword(password: string): Promise<string> {
   const salt = randomBytes(SALT_LENGTH);
   const derivedKey = await scrypt(password, salt, KEY_LENGTH);
-  return `${salt.toString("hex")}:${derivedKey.toString("hex")}`;
+  return `${salt.toString('hex')}:${derivedKey.toString('hex')}`;
 }
 
 /**
@@ -31,11 +31,11 @@ export async function verifyPassword(
   password: string,
   stored: string
 ): Promise<boolean> {
-  const [saltHex, hashHex] = stored.split(":");
+  const [saltHex, hashHex] = stored.split(':');
   if (!saltHex || !hashHex) return false;
 
-  const salt = Buffer.from(saltHex, "hex");
-  const storedHash = Buffer.from(hashHex, "hex");
+  const salt = Buffer.from(saltHex, 'hex');
+  const storedHash = Buffer.from(hashHex, 'hex');
   const derivedKey = await scrypt(password, salt, storedHash.length);
 
   return (
@@ -50,5 +50,5 @@ export async function verifyPassword(
  * (zxcvbn, breach list, etc.) before this goes to production.
  */
 export function isPasswordAcceptable(password: string): boolean {
-  return typeof password === "string" && password.length >= 8;
+  return typeof password === 'string' && password.length >= 8;
 }

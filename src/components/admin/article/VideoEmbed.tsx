@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Node, mergeAttributes } from "@tiptap/core";
+import { Node, mergeAttributes } from '@tiptap/core';
 import {
   NodeViewWrapper,
   ReactNodeViewRenderer,
   type NodeViewProps,
-} from "@tiptap/react";
-import { VIDEO_EMBED_TAG_NAME } from "./markerBridge";
+} from '@tiptap/react';
+import { VIDEO_EMBED_TAG_NAME } from './markerBridge';
 
 /**
  * The in-editor representation of `{{video:provider:videoId:caption}}`.
@@ -17,15 +17,15 @@ import { VIDEO_EMBED_TAG_NAME } from "./markerBridge";
  * to/from the real marker text that actually gets stored.
  */
 export const VideoEmbed = Node.create({
-  name: "videoEmbed",
-  group: "block",
+  name: 'videoEmbed',
+  group: 'block',
   atom: true,
 
   addAttributes() {
     return {
-      provider: { default: "youtube" },
-      videoId: { default: "" },
-      caption: { default: "" },
+      provider: { default: 'youtube' },
+      videoId: { default: '' },
+      caption: { default: '' },
     };
   },
 
@@ -35,9 +35,9 @@ export const VideoEmbed = Node.create({
         tag: VIDEO_EMBED_TAG_NAME,
         getAttrs: (element) => ({
           provider:
-            (element as HTMLElement).getAttribute("provider") ?? "youtube",
-          videoId: (element as HTMLElement).getAttribute("video-id") ?? "",
-          caption: (element as HTMLElement).getAttribute("caption") ?? "",
+            (element as HTMLElement).getAttribute('provider') ?? 'youtube',
+          videoId: (element as HTMLElement).getAttribute('video-id') ?? '',
+          caption: (element as HTMLElement).getAttribute('caption') ?? '',
         }),
       },
     ];
@@ -48,7 +48,7 @@ export const VideoEmbed = Node.create({
       VIDEO_EMBED_TAG_NAME,
       mergeAttributes({
         provider: node.attrs.provider,
-        "video-id": node.attrs.videoId,
+        'video-id': node.attrs.videoId,
         caption: node.attrs.caption,
       }),
     ];
@@ -72,7 +72,7 @@ function VideoEmbedView({ node, deleteNode }: NodeViewProps) {
     >
       <div className="flex items-center justify-between gap-3">
         <span className="text-navy/70 text-xs font-semibold tracking-wide uppercase">
-          {provider} &middot; {videoId || "(no video selected)"}
+          {provider} &middot; {videoId || '(no video selected)'}
         </span>
         <button
           type="button"

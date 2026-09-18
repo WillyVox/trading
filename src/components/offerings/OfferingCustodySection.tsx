@@ -1,7 +1,7 @@
-import { Card } from "@/components/ui/Card";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
-import { custodyTypeCopy } from "@/lib/offerings/labels";
-import type { CustodyType, VerificationStatus } from "@prisma/client";
+import { Card } from '@/components/ui/Card';
+import { VerificationBadge } from '@/components/trust/VerificationBadge';
+import { custodyTypeCopy } from '@/lib/offerings/labels';
+import type { CustodyType, VerificationStatus } from '@prisma/client';
 
 export type CustodyRow = {
   id: string;
@@ -34,7 +34,7 @@ export function OfferingCustodySection({ rows }: { rows: CustodyRow[] }) {
             <li key={row.id} className="border-border border-b pb-4">
               <div className="flex items-center justify-between gap-2">
                 <span className="font-medium">
-                  {row.marketName ?? "All markets"} — {copy.label}
+                  {row.marketName ?? 'All markets'} — {copy.label}
                 </span>
                 <VerificationBadge status={row.verificationStatus} />
               </div>

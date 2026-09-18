@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type SelectableProvider = { id: string; slug: string; name: string };
 
@@ -14,7 +14,7 @@ type SelectableProvider = { id: string; slug: string; name: string };
  * ordering rule ever changes, update it there too.
  */
 function canonicalOrder(slugs: string[]): string {
-  return [...slugs].sort((a, b) => a.localeCompare(b)).join("-vs-");
+  return [...slugs].sort((a, b) => a.localeCompare(b)).join('-vs-');
 }
 
 /**
@@ -31,7 +31,7 @@ function canonicalOrder(slugs: string[]): string {
 export function CompareSelector({
   providers,
   initialSelected = [],
-  noun = "options",
+  noun = 'options',
 }: {
   providers: SelectableProvider[];
   /** Slugs to pre-check on mount -- e.g. the providers already shown on
@@ -82,8 +82,8 @@ export function CompareSelector({
               aria-pressed={active}
               className={
                 active
-                  ? "border-gold-soft bg-panel-secondary text-navy rounded-full border px-3 py-1.5 text-sm font-medium"
-                  : "border-border text-muted hover:border-gold-soft rounded-full border px-3 py-1.5 text-sm"
+                  ? 'border-gold-soft bg-panel-secondary text-navy rounded-full border px-3 py-1.5 text-sm font-medium'
+                  : 'border-border text-muted hover:border-gold-soft rounded-full border px-3 py-1.5 text-sm'
               }
             >
               {p.name}
@@ -101,7 +101,7 @@ export function CompareSelector({
         disabled={selected.length < 2}
         className="bg-navy text-background hover:bg-navy-dark mt-4 rounded-full px-5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
       >
-        Compare selected{selected.length > 0 ? ` (${selected.length})` : ""}
+        Compare selected{selected.length > 0 ? ` (${selected.length})` : ''}
       </button>
     </div>
   );

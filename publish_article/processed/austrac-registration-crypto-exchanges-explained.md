@@ -1,59 +1,59 @@
 ---
-title: "What Does AUSTRAC Registration Actually Mean for Crypto Exchange Users?"
-slug: "austrac-registration-crypto-exchanges-explained"
-articleType: "GUIDE"
+title: 'What Does AUSTRAC Registration Actually Mean for Crypto Exchange Users?'
+slug: 'austrac-registration-crypto-exchanges-explained'
+articleType: 'GUIDE'
 excerpt:
   "AUSTRAC registration is a real legal requirement for Australian crypto businesses — but it isn't\
   \ a safety guarantee or a government endorsement. Here's what it actually covers."
-category: "regulation"
+category: 'regulation'
 tags:
-  - "AUSTRAC"
-  - "Regulation"
-  - "Australia"
-  - "Crypto Security"
-seoTitle: "What AUSTRAC Registration Means for Crypto Users (2026)"
+  - 'AUSTRAC'
+  - 'Regulation'
+  - 'Australia'
+  - 'Crypto Security'
+seoTitle: 'What AUSTRAC Registration Means for Crypto Users (2026)'
 seoDescription:
   "AUSTRAC's VASP register is now public. Here's what registration actually requires, what\
   \ it doesn't guarantee, and how it differs from ASIC licensing."
 featuredImageAlt:
   "A magnifying glass over a public register document, symbolising checking an exchange's\
   \ registration status"
-author: "Editorial Team"
+author: 'Editorial Team'
 noIndex: false
 affiliateDisclosureRequired: false
 keyTakeaways:
   - "Since 31 March 2026, AUSTRAC's rules cover a broader range of crypto businesses under the 'virtual\
     \ asset service provider' (VASP) category, replacing the older 'digital currency exchange' definition."
-  - "AUSTRAC made its VASP register public on 30 June 2026, so anyone can check whether a provider is registered."
+  - 'AUSTRAC made its VASP register public on 30 June 2026, so anyone can check whether a provider is registered.'
   - "AUSTRAC registration is an anti-money-laundering/counter-terrorism-financing (AML/CTF) requirement\
     \ — it is not an ASIC financial-services licence."
-  - "Registration does not mean a platform is safe, well-run, or endorsed by the government."
+  - 'Registration does not mean a platform is safe, well-run, or endorsed by the government.'
   - "ASIC licensing (where it applies) is a separate process from AUSTRAC registration, covering different\
     \ obligations."
-searchIntent: "REGULATION"
+searchIntent: 'REGULATION'
 providerRelationships:
-  - providerSlug: "coinspot"
-    relationship: "MENTIONED"
-  - providerSlug: "swyftx"
-    relationship: "MENTIONED"
-  - providerSlug: "independent-reserve"
-    relationship: "MENTIONED"
-  - providerSlug: "btc-markets"
-    relationship: "MENTIONED"
+  - providerSlug: 'coinspot'
+    relationship: 'MENTIONED'
+  - providerSlug: 'swyftx'
+    relationship: 'MENTIONED'
+  - providerSlug: 'independent-reserve'
+    relationship: 'MENTIONED'
+  - providerSlug: 'btc-markets'
+    relationship: 'MENTIONED'
 relatedGuides:
-  - "how-to-choose-crypto-exchange-australia"
-  - "austrac-vasp-register-public-explainer"
-  - "asic-digital-asset-licensing-deadline-2026"
+  - 'how-to-choose-crypto-exchange-australia'
+  - 'austrac-vasp-register-public-explainer'
+  - 'asic-digital-asset-licensing-deadline-2026'
 sources:
-  - label: "AUSTRAC — Virtual asset service provider register goes public"
-    url: "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public"
-    sourceType: "REGULATOR"
-  - label: "ASIC — Deadline looms for digital asset businesses to apply for a licence"
-    url: "https://www.asic.gov.au/about-asic/news-centre/news-items/deadline-looms-for-digital-asset-businesses-to-apply-for-a-licence"
-    sourceType: "REGULATOR"
-  - label: "ASIC Moneysmart — Cryptocurrency"
-    url: "https://moneysmart.gov.au"
-    sourceType: "GOVERNMENT"
+  - label: 'AUSTRAC — Virtual asset service provider register goes public'
+    url: 'https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public'
+    sourceType: 'REGULATOR'
+  - label: 'ASIC — Deadline looms for digital asset businesses to apply for a licence'
+    url: 'https://www.asic.gov.au/about-asic/news-centre/news-items/deadline-looms-for-digital-asset-businesses-to-apply-for-a-licence'
+    sourceType: 'REGULATOR'
+  - label: 'ASIC Moneysmart — Cryptocurrency'
+    url: 'https://moneysmart.gov.au'
+    sourceType: 'GOVERNMENT'
 ---
 
 <p>You'll increasingly see Australian crypto platforms describe themselves as "AUSTRAC registered." It's a real requirement worth understanding — but also one that's easy to over-interpret. Here's what it actually covers, and what it doesn't.</p>

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
-import { Button } from "@/components/ui/Button";
+import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/Button';
 
 type AuthStatusProps = {
   /** "desktop" renders inline in the header bar; "mobile" renders stacked inside the nav drawer. */
-  variant: "desktop" | "mobile";
+  variant: 'desktop' | 'mobile';
   /** Mobile drawer closes itself on nav — let it close on sign-in/out too. */
   onNavigate?: () => void;
 };
@@ -16,21 +16,21 @@ export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
   const user = session?.user as
     { name?: string | null; email?: string | null; role?: string } | undefined;
 
-  if (status === "loading") {
+  if (status === 'loading') {
     // Fixed-size skeleton so there's no layout shift once the real session resolves.
     return (
       <div
         aria-hidden
         className={
-          variant === "desktop"
-            ? "bg-panel-secondary h-9 w-20 animate-pulse rounded-full"
-            : "bg-panel-secondary h-11 w-full animate-pulse rounded-full"
+          variant === 'desktop'
+            ? 'bg-panel-secondary h-9 w-20 animate-pulse rounded-full'
+            : 'bg-panel-secondary h-11 w-full animate-pulse rounded-full'
         }
       />
     );
   }
 
-  if (variant === "desktop") {
+  if (variant === 'desktop') {
     if (!user) {
       return (
         <Button href="/login" variant="secondary">
@@ -40,7 +40,7 @@ export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
     }
     return (
       <div className="flex items-center gap-3">
-        {user.role === "ADMIN" && (
+        {user.role === 'ADMIN' && (
           <Link
             href="/admin"
             className="text-navy/80 hover:text-navy text-sm font-medium transition-colors"
@@ -75,7 +75,7 @@ export function AuthStatus({ variant, onNavigate }: AuthStatusProps) {
   }
   return (
     <div className="flex flex-col gap-3">
-      {user.role === "ADMIN" && (
+      {user.role === 'ADMIN' && (
         <Link
           href="/admin"
           onClick={onNavigate}

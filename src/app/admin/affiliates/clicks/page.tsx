@@ -1,11 +1,11 @@
-import Link from "next/link";
-import { getAffiliateClicksAdmin } from "@/lib/affiliates/service";
-import { Card } from "@/components/ui/Card";
+import Link from 'next/link';
+import { getAffiliateClicksAdmin } from '@/lib/affiliates/service';
+import { Card } from '@/components/ui/Card';
 
 function formatDate(d: Date) {
-  return new Intl.DateTimeFormat("en-AU", {
-    dateStyle: "medium",
-    timeStyle: "short",
+  return new Intl.DateTimeFormat('en-AU', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
   }).format(d);
 }
 
@@ -45,10 +45,10 @@ export default async function AdminAffiliateClicksPage({
                     {c.link.partnerSlug}
                   </td>
                   <td className="text-muted max-w-[220px] truncate py-2">
-                    {c.sourcePage ?? "\u2014"}
+                    {c.sourcePage ?? '\u2014'}
                   </td>
-                  <td className="py-2">{c.placement ?? "\u2014"}</td>
-                  <td className="py-2">{c.campaign ?? "\u2014"}</td>
+                  <td className="py-2">{c.placement ?? '\u2014'}</td>
+                  <td className="py-2">{c.campaign ?? '\u2014'}</td>
                   <td className="text-muted py-2">{formatDate(c.createdAt)}</td>
                 </tr>
               ))}

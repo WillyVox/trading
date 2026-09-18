@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth } from '@/lib/auth';
 
 /**
  * Guard for server actions / route handlers. A protected page is not the
@@ -8,8 +8,8 @@ import { auth } from "@/lib/auth";
 export async function requireAdmin() {
   const session = await auth();
   const role = (session?.user as any)?.role;
-  if (!session?.user || role !== "ADMIN") {
-    throw new Error("Forbidden: admin role required");
+  if (!session?.user || role !== 'ADMIN') {
+    throw new Error('Forbidden: admin role required');
   }
   return session;
 }

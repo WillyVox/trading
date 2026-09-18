@@ -1,11 +1,11 @@
-import { Badge } from "@/components/ui/Badge";
-import { formatCategoryLabel } from "@/lib/articles/content";
+import { Badge } from '@/components/ui/Badge';
+import { formatCategoryLabel } from '@/lib/articles/content';
 
 function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString("en-AU", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  return new Date(date).toLocaleDateString('en-AU', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 }
 

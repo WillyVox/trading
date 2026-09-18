@@ -1,19 +1,19 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/Card";
-import { PageHero } from "@/components/layout/PageHero";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import Link from 'next/link';
+import { Card } from '@/components/ui/Card';
+import { PageHero } from '@/components/layout/PageHero';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
 
 export const metadata = buildMetadata({
-  title: "Crypto Markets & Exchange Intelligence Australia",
+  title: 'Crypto Markets & Exchange Intelligence Australia',
   description:
-    "Source-linked exchange research, verification status, and comparisons for the Australian crypto market.",
-  path: "/crypto",
-  image: "/images/og/crypto.png",
+    'Source-linked exchange research, verification status, and comparisons for the Australian crypto market.',
+  path: '/crypto',
+  image: '/images/og/crypto.png',
 });
 
 export default function CryptoPage() {
-  const trail = breadcrumbTrail([{ name: "Crypto", path: "/crypto" }]);
+  const trail = breadcrumbTrail([{ name: 'Crypto', path: '/crypto' }]);
 
   return (
     <>

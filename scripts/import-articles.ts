@@ -1,33 +1,33 @@
-import path from "node:path";
-import { promises as fs } from "node:fs";
-import { prisma } from "@/lib/prisma";
+import path from 'node:path';
+import { promises as fs } from 'node:fs';
+import { prisma } from '@/lib/prisma';
 import {
   scanArticleDirectory,
   ensureImportDirectories,
-} from "@/lib/articles/import/scanner";
-import { parseArticleFile } from "@/lib/articles/import/parser";
+} from '@/lib/articles/import/scanner';
+import { parseArticleFile } from '@/lib/articles/import/parser';
 import {
   upsertArticleCore,
   previewOutcome,
-} from "@/lib/articles/import/importer";
-import { resolveFallbackFeaturedImage } from "@/lib/articles/import/featured-image";
+} from '@/lib/articles/import/importer';
+import { resolveFallbackFeaturedImage } from '@/lib/articles/import/featured-image';
 import {
   resolveRelationships,
   previewRelationshipWarnings,
-} from "@/lib/articles/import/relationships";
-import { moveToProcessed } from "@/lib/articles/import/file-mover";
+} from '@/lib/articles/import/relationships';
+import { moveToProcessed } from '@/lib/articles/import/file-mover';
 import {
   printHeader,
   printFileResult,
   printSummary,
-} from "@/lib/articles/import/reporter";
+} from '@/lib/articles/import/reporter';
 import type {
   ArticleImportPayload,
   ImportResult,
-} from "@/lib/articles/import/types";
+} from '@/lib/articles/import/types';
 
-const PUBLISH_DIR = path.resolve(process.cwd(), "publish_article");
-const PUBLIC_DIR = path.resolve(process.cwd(), "public");
+const PUBLISH_DIR = path.resolve(process.cwd(), 'publish_article');
+const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 
 interface CliArgs {
   dryRun: boolean;
@@ -39,12 +39,12 @@ interface CliArgs {
 
 function parseArgs(argv: string[]): CliArgs {
   return {
-    dryRun: argv.includes("--dry-run"),
-    verbose: argv.includes("--verbose"),
-    allowProduction: argv.includes("--allow-production"),
-    noAutoImage: argv.includes("--no-auto-image"),
+    dryRun: argv.includes('--dry-run'),
+    verbose: argv.includes('--verbose'),
+    allowProduction: argv.includes('--allow-production'),
+    noAutoImage: argv.includes('--no-auto-image'),
     file: (() => {
-      const idx = argv.indexOf("--file");
+      const idx = argv.indexOf('--file');
       return idx !== -1 ? argv[idx + 1] : undefined;
     })(),
   };
@@ -56,14 +56,14 @@ interface PendingFile {
   payload: ArticleImportPayload;
   warnings: string[];
   id?: string;
-  outcome: "CREATED" | "UPDATED";
+  outcome: 'CREATED' | 'UPDATED';
 }
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const environment = process.env.NODE_ENV ?? "development";
+  const environment = process.env.NODE_ENV ?? 'development';
 
-  if (environment === "production" && !args.dryRun && !args.allowProduction) {
+  if (environment === 'production' && !args.dryRun && !args.allowProduction) {
     console.error(
       `Refusing to write to a production database without --allow-production.\n` +
         `Run with --dry-run first, or re-run with --allow-production once you're sure.`
@@ -94,15 +94,15 @@ async function main() {
 
   for (const file of files) {
     try {
-      const rawText = await fs.readFile(file.filePath, "utf8");
+      const rawText = await fs.readFile(file.filePath, 'utf8');
       const parsed = parseArticleFile(rawText);
 
       if (!parsed.ok) {
         results.push({
           fileName: file.fileName,
-          outcome: "FAILED",
+          outcome: 'FAILED',
           warnings: parsed.warnings,
-          error: parsed.errors.join("; "),
+          error: parsed.errors.join('; '),
           dryRun: args.dryRun,
         });
         continue;
@@ -155,7 +155,7 @@ async function main() {
     } catch (err) {
       results.push({
         fileName: file.fileName,
-        outcome: "FAILED",
+        outcome: 'FAILED',
         warnings: [],
         error: (err as Error).message,
         dryRun: args.dryRun,
@@ -217,14 +217,14 @@ async function main() {
   );
   printSummary(results, args.dryRun);
 
-  const hasFailures = results.some((r) => r.outcome === "FAILED");
+  const hasFailures = results.some((r) => r.outcome === 'FAILED');
   if (hasFailures) process.exitCode = 1;
 
   await prisma.$disconnect();
 }
 
 main().catch(async (err) => {
-  console.error("Import job crashed:", err);
+  console.error('Import job crashed:', err);
   await prisma.$disconnect();
   process.exitCode = 1;
 });

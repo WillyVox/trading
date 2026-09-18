@@ -1,9 +1,9 @@
-import { AffiliateDisclosure } from "./AffiliateDisclosure";
+import { AffiliateDisclosure } from './AffiliateDisclosure';
 
 export function AffiliateCTA({
   partnerSlug,
   providerName,
-  variant = "default",
+  variant = 'default',
   showDisclosure = false,
   isNewTab = true,
   placement,
@@ -18,7 +18,7 @@ export function AffiliateCTA({
    * "Visit site" since naming the provider right next to its own logo is
    * redundant.
    */
-  variant?: "default" | "compact";
+  variant?: 'default' | 'compact';
   /** Set false when the caller renders one shared AffiliateDisclosure for a whole section (e.g. several provider cards, or another AffiliateCTA lower on the same page) instead of per-card. */
   showDisclosure?: boolean;
   isNewTab?: boolean;
@@ -29,14 +29,14 @@ export function AffiliateCTA({
    * back to the link's stored placement. */
   placement?: string;
 }) {
-  const label = variant === "compact" ? "Visit site" : `Visit ${providerName}`;
+  const label = variant === 'compact' ? 'Visit site' : `Visit ${providerName}`;
   const href = placement
     ? `/go/${partnerSlug}?placement=${encodeURIComponent(placement)}`
     : `/go/${partnerSlug}`; // [TODO] should append our referred Id here to send to partner
 
   const link = (
     <a
-      target={isNewTab ? "_blank" : "_self"}
+      target={isNewTab ? '_blank' : '_self'}
       // "sponsored" tells Google this is a paid/affiliate link (Google's
       // link-qualification guidance) -- robots.txt disallowing /go/ stops
       // crawling it, but rel is what discloses the commercial
@@ -45,7 +45,7 @@ export function AffiliateCTA({
       // the Referer header that /go/[partner]/route.ts reads for
       // AffiliateClick.sourcePage -- noreferrer was silently zeroing out
       // click attribution.
-      rel={isNewTab ? "sponsored noopener" : "sponsored"}
+      rel={isNewTab ? 'sponsored noopener' : 'sponsored'}
       href={href}
       className="bg-navy text-background hover:bg-navy-dark inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold"
     >
@@ -53,7 +53,7 @@ export function AffiliateCTA({
     </a>
   );
 
-  if (variant === "compact") {
+  if (variant === 'compact') {
     return (
       <>
         {link}

@@ -1,24 +1,24 @@
-import Image from "next/image";
-import Link from "next/link";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
-import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/layout/PageHero";
-import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
-import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
-import { GuideSidebar } from "@/components/guide/GuideSidebar";
-import { GuideSourceList } from "@/components/guide/GuideSourceList";
-import { GuideFigure } from "@/components/guide/GuideFigure";
-import { RelatedGuides } from "@/components/guide/RelatedGuides";
-import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
-import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
+import Image from 'next/image';
+import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { articleSchema, breadcrumbSchema } from '@/lib/seo/schema';
+import { estimateReadingMinutesByWordCount } from '@/lib/articles/content';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PageHero } from '@/components/layout/PageHero';
+import { KeyTakeaways } from '@/components/guide/KeyTakeaways';
+import { GuideTableOfContents } from '@/components/guide/GuideTableOfContents';
+import { GuideSidebar } from '@/components/guide/GuideSidebar';
+import { GuideSourceList } from '@/components/guide/GuideSourceList';
+import { GuideFigure } from '@/components/guide/GuideFigure';
+import { RelatedGuides } from '@/components/guide/RelatedGuides';
+import { GuideProviderLinks } from '@/components/guide/GuideProviderLinks';
+import { GuideNextSteps } from '@/components/guide/GuideNextSteps';
 import {
   getStaticGuideArticleHref,
   getStaticGuideArticleImage,
   STATIC_SLUG_IDS,
-} from "@/lib/guides/static-article-slugs";
+} from '@/lib/guides/static-article-slugs';
 
 const PATH = getStaticGuideArticleHref(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES);
 const RELATED_PATH_STEPS_TO_BUY_CRYPTO = getStaticGuideArticleHref(
@@ -29,58 +29,58 @@ const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(
 );
 
 const TITLE =
-  "Top Cryptocurrency Exchanges in Australia: What to Compare in 2026";
+  'Top Cryptocurrency Exchanges in Australia: What to Compare in 2026';
 const DESCRIPTION =
-  "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.";
+  'Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.';
 
 const HEADINGS = [
   {
-    id: "quick-comparison",
-    text: "Quick comparison: established exchanges available in Australia",
+    id: 'quick-comparison',
+    text: 'Quick comparison: established exchanges available in Australia',
     level: 2 as const,
   },
   {
-    id: "what-is-an-exchange",
-    text: "What is a cryptocurrency exchange?",
+    id: 'what-is-an-exchange',
+    text: 'What is a cryptocurrency exchange?',
     level: 2 as const,
   },
   {
-    id: "how-australian-exchanges-work",
-    text: "How crypto exchanges work in Australia",
+    id: 'how-australian-exchanges-work',
+    text: 'How crypto exchanges work in Australia',
     level: 2 as const,
   },
   {
-    id: "exchange-profiles",
-    text: "Cryptocurrency exchanges to research",
+    id: 'exchange-profiles',
+    text: 'Cryptocurrency exchanges to research',
     level: 2 as const,
   },
-  { id: "coinspot", text: "CoinSpot", level: 3 as const },
-  { id: "swyftx", text: "Swyftx", level: 3 as const },
-  { id: "btc-markets", text: "BTC Markets", level: 3 as const },
-  { id: "coinjar", text: "CoinJar", level: 3 as const },
-  { id: "independent-reserve", text: "Independent Reserve", level: 3 as const },
-  { id: "kraken", text: "Kraken", level: 3 as const },
+  { id: 'coinspot', text: 'CoinSpot', level: 3 as const },
+  { id: 'swyftx', text: 'Swyftx', level: 3 as const },
+  { id: 'btc-markets', text: 'BTC Markets', level: 3 as const },
+  { id: 'coinjar', text: 'CoinJar', level: 3 as const },
+  { id: 'independent-reserve', text: 'Independent Reserve', level: 3 as const },
+  { id: 'kraken', text: 'Kraken', level: 3 as const },
   {
-    id: "what-to-compare",
-    text: "What to compare before choosing an exchange",
+    id: 'what-to-compare',
+    text: 'What to compare before choosing an exchange',
     level: 2 as const,
   },
   {
-    id: "fees",
-    text: "Understand the total cost, not just the headline fee",
+    id: 'fees',
+    text: 'Understand the total cost, not just the headline fee',
     level: 2 as const,
   },
-  { id: "austrac", text: "AUSTRAC registration explained", level: 2 as const },
-  { id: "security", text: "Security, custody and wallets", level: 2 as const },
+  { id: 'austrac', text: 'AUSTRAC registration explained', level: 2 as const },
+  { id: 'security', text: 'Security, custody and wallets', level: 2 as const },
   {
-    id: "scams",
-    text: "Crypto exchange scams and red flags",
+    id: 'scams',
+    text: 'Crypto exchange scams and red flags',
     level: 2 as const,
   },
-  { id: "tax", text: "Crypto and tax in Australia", level: 2 as const },
+  { id: 'tax', text: 'Crypto and tax in Australia', level: 2 as const },
   {
-    id: "before-opening-account",
-    text: "Before opening an exchange account",
+    id: 'before-opening-account',
+    text: 'Before opening an exchange account',
     level: 2 as const,
   },
 ];
@@ -89,90 +89,90 @@ const WORD_COUNT = 2850;
 const READING_MINUTES = estimateReadingMinutesByWordCount(WORD_COUNT);
 
 const KEY_TAKEAWAYS = [
-  "Australian crypto exchanges can differ materially in trading fees, spreads, AUD deposit methods, available assets, trading tools and withdrawal costs.",
-  "Virtual asset service providers that provide registrable services in Australia must be registered with AUSTRAC. The public VASP register can be used to check registration status.",
-  "AUSTRAC registration is not a guarantee that an exchange or a crypto asset is safe, and it should not be confused with the consumer protections that may apply to licensed financial products.",
-  "Compare the total cost of using an exchange: trading fees are only one part of the picture, alongside spreads, card or payment fees and crypto network or withdrawal charges.",
-  "Crypto is highly volatile and scams are common. An exchange comparison can explain platform differences, but it cannot remove the underlying investment, custody or fraud risks.",
+  'Australian crypto exchanges can differ materially in trading fees, spreads, AUD deposit methods, available assets, trading tools and withdrawal costs.',
+  'Virtual asset service providers that provide registrable services in Australia must be registered with AUSTRAC. The public VASP register can be used to check registration status.',
+  'AUSTRAC registration is not a guarantee that an exchange or a crypto asset is safe, and it should not be confused with the consumer protections that may apply to licensed financial products.',
+  'Compare the total cost of using an exchange: trading fees are only one part of the picture, alongside spreads, card or payment fees and crypto network or withdrawal charges.',
+  'Crypto is highly volatile and scams are common. An exchange comparison can explain platform differences, but it cannot remove the underlying investment, custody or fraud risks.',
 ];
 
 const SOURCES = [
   {
-    id: "austrac-vasp-overview",
-    label: "AUSTRAC — Virtual asset service providers overview",
-    url: "https://www.austrac.gov.au/industry-and-business/your-industry/virtual-asset-service-providers/virtual-asset-service-providers-overview",
+    id: 'austrac-vasp-overview',
+    label: 'AUSTRAC — Virtual asset service providers overview',
+    url: 'https://www.austrac.gov.au/industry-and-business/your-industry/virtual-asset-service-providers/virtual-asset-service-providers-overview',
   },
   {
-    id: "austrac-vasp-register",
+    id: 'austrac-vasp-register',
     label:
-      "AUSTRAC — Virtual asset service provider register goes public (30 June 2026)",
-    url: "https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public",
+      'AUSTRAC — Virtual asset service provider register goes public (30 June 2026)',
+    url: 'https://www.austrac.gov.au/news-and-media/article/virtual-asset-service-provider-register-goes-public',
   },
   {
-    id: "moneysmart-crypto-assets",
-    label: "Moneysmart — Crypto assets: how they work and their risks",
-    url: "https://moneysmart.gov.au/complex-investment-products/crypto-assets",
+    id: 'moneysmart-crypto-assets',
+    label: 'Moneysmart — Crypto assets: how they work and their risks',
+    url: 'https://moneysmart.gov.au/complex-investment-products/crypto-assets',
   },
   {
-    id: "moneysmart-crypto-scams",
-    label: "Moneysmart — Crypto scams",
-    url: "https://moneysmart.gov.au/financial-scams/crypto-scams",
+    id: 'moneysmart-crypto-scams',
+    label: 'Moneysmart — Crypto scams',
+    url: 'https://moneysmart.gov.au/financial-scams/crypto-scams',
   },
   {
-    id: "coinspot-markets",
-    label: "CoinSpot — Markets and market trading fee",
-    url: "https://www.coinspot.com.au/markets",
+    id: 'coinspot-markets',
+    label: 'CoinSpot — Markets and market trading fee',
+    url: 'https://www.coinspot.com.au/markets',
   },
   {
-    id: "swyftx-fees",
-    label: "Swyftx — Trading fee tiers",
-    url: "https://support.swyftx.com/en/articles/12005536-our-trading-fees",
+    id: 'swyftx-fees',
+    label: 'Swyftx — Trading fee tiers',
+    url: 'https://support.swyftx.com/en/articles/12005536-our-trading-fees',
   },
   {
-    id: "btc-markets-fees",
-    label: "BTC Markets — Fees",
-    url: "https://www.btcmarkets.net/fees",
+    id: 'btc-markets-fees',
+    label: 'BTC Markets — Fees',
+    url: 'https://www.btcmarkets.net/fees',
   },
   {
-    id: "coinjar-fees",
-    label: "CoinJar — Australian fees and spreads",
-    url: "https://www.coinjar.com/au/fees",
+    id: 'coinjar-fees',
+    label: 'CoinJar — Australian fees and spreads',
+    url: 'https://www.coinjar.com/au/fees',
   },
   {
-    id: "independent-reserve-fees",
-    label: "Independent Reserve — Australian fee schedule",
-    url: "https://www.independentreserve.com/au/fees",
+    id: 'independent-reserve-fees',
+    label: 'Independent Reserve — Australian fee schedule',
+    url: 'https://www.independentreserve.com/au/fees',
   },
   {
-    id: "kraken-australia",
-    label: "Kraken — Australia",
-    url: "https://www.kraken.com/en-au",
+    id: 'kraken-australia',
+    label: 'Kraken — Australia',
+    url: 'https://www.kraken.com/en-au',
   },
   {
-    id: "ato-crypto",
-    label: "Australian Taxation Office — Crypto asset investments",
-    url: "https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments",
+    id: 'ato-crypto',
+    label: 'Australian Taxation Office — Crypto asset investments',
+    url: 'https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments',
   },
 ];
 
 export const metadata = buildMetadata({
-  title: "Cryptocurrency Exchanges in Australia: Compare Options (2026)",
+  title: 'Cryptocurrency Exchanges in Australia: Compare Options (2026)',
   description: DESCRIPTION,
   path: PATH,
   image: getStaticGuideArticleImage(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES),
-  type: "article",
-  publishedTime: "2026-09-17",
-  modifiedTime: "2026-09-17",
-  authors: ["Trading Guide Editorial Team"],
+  type: 'article',
+  publishedTime: '2026-09-17',
+  modifiedTime: '2026-09-17',
+  authors: ['Trading Guide Editorial Team'],
 });
 
 export default function TopCryptocurrencyExchangesInAustraliaPage() {
   const trail = breadcrumbTrail([
-    { name: "Top Cryptocurrency Exchanges in Australia", path: PATH },
+    { name: 'Top Cryptocurrency Exchanges in Australia', path: PATH },
   ]);
   const metaItems = [
-    "By Trading Guide Editorial Team",
-    "Last updated 17 September 2026",
+    'By Trading Guide Editorial Team',
+    'Last updated 17 September 2026',
     `${READING_MINUTES} min read`,
   ];
 
@@ -185,9 +185,9 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
           image: getStaticGuideArticleImage(
             STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES
           ),
-          author: "Trading Guide Editorial Team",
-          datePublished: "2026-09-17",
-          dateModified: "2026-09-17",
+          author: 'Trading Guide Editorial Team',
+          datePublished: '2026-09-17',
+          dateModified: '2026-09-17',
           path: PATH,
         })}
       />
@@ -238,11 +238,11 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 &quot;best&quot; exchange. Instead, it profiles established
                 services available to Australian users and explains the facts a
                 beginner should compare. If you already know what matters to
-                you, you can also{" "}
+                you, you can also{' '}
                 <Link href="/compare/crypto-exchanges">
                   compare crypto exchanges side-by-side
-                </Link>{" "}
-                or browse our{" "}
+                </Link>{' '}
+                or browse our{' '}
                 <Link href="/crypto/exchanges">crypto exchange profiles</Link>.
               </p>
 
@@ -400,8 +400,8 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 currently advertises a 0.1% market trading fee. That distinction
                 is useful for beginners: the price and fee structure of a
                 provider&apos;s instant-buy service can differ from its
-                order-book market. See our{" "}
-                <Link href="/crypto/exchanges/coinspot">CoinSpot profile</Link>{" "}
+                order-book market. See our{' '}
+                <Link href="/crypto/exchanges/coinspot">CoinSpot profile</Link>{' '}
                 for the structured facts and sources we track.
               </p>
 
@@ -413,7 +413,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 rolling 30-day trading volume and steps down through volume
                 tiers, reaching 0.1% at the highest published tier. The
                 practical lesson is that the same provider can charge different
-                trading rates depending on activity. See our{" "}
+                trading rates depending on activity. See our{' '}
                 <Link href="/crypto/exchanges/swyftx">Swyftx profile</Link>.
               </p>
 
@@ -425,7 +425,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 traders more direct control over order price and type. BTC
                 Markets also publishes its own fee schedule, which should be
                 checked before trading because fee tiers and product pricing can
-                change. See our{" "}
+                change. See our{' '}
                 <Link href="/crypto/exchanges/btc-markets">
                   BTC Markets profile
                 </Link>
@@ -451,7 +451,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 Australian fee schedule currently starts at 0.50% and reduces
                 with rolling 30-day trading volume, with lower published rates
                 at high volume. It also supports free EFT bank withdrawals
-                according to its current fee page. See our{" "}
+                according to its current fee page. See our{' '}
                 <Link href="/crypto/exchanges/independent-reserve">
                   Independent Reserve profile
                 </Link>
@@ -466,7 +466,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 multiple products and services, check the Australian product,
                 legal entity, fee schedule and regulatory scope relevant to the
                 service you intend to use rather than assuming every Kraken
-                product works the same way. See our{" "}
+                product works the same way. See our{' '}
                 <Link href="/crypto/exchanges/kraken">Kraken profile</Link>.
               </p>
 
@@ -535,7 +535,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 always mean the same thing. A <strong>trading fee</strong> is a
                 direct charge on a transaction. A <strong>spread</strong> is the
                 difference between buy and sell pricing or the margin
-                incorporated into a quoted price. A <strong>network fee</strong>{" "}
+                incorporated into a quoted price. A <strong>network fee</strong>{' '}
                 relates to moving an asset on its blockchain and can vary with
                 the network and provider policy.
               </p>
@@ -544,10 +544,10 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 options may cost more than bank transfer or PayID. Before
                 comparing two exchanges, map the journey you expect to use —
                 deposit AUD, buy, potentially sell, and potentially withdraw
-                crypto — and compare costs at each stage. Our{" "}
+                crypto — and compare costs at each stage. Our{' '}
                 <Link href="/guides/crypto-exchange-fees-australia-explained">
                   crypto exchange fees guide
-                </Link>{" "}
+                </Link>{' '}
                 goes deeper into the terminology.
               </p>
 
@@ -576,10 +576,10 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 </p>
               </div>
               <p>
-                For more context, read our{" "}
+                For more context, read our{' '}
                 <Link href="/guides/austrac-registration-crypto-exchanges-explained">
                   AUSTRAC registration explainer
-                </Link>{" "}
+                </Link>{' '}
                 and verify current status directly with AUSTRAC.
               </p>
 
@@ -598,10 +598,10 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 manages the wallet infrastructure. Withdrawing to a personal
                 wallet gives you control of the private keys, but it also
                 transfers responsibility to you: losing the recovery phrase or
-                sending to the wrong address can cause permanent loss. Our{" "}
+                sending to the wrong address can cause permanent loss. Our{' '}
                 <Link href="/guides/crypto-wallet-vs-exchange-beginners">
                   wallet vs exchange guide
-                </Link>{" "}
+                </Link>{' '}
                 explains the trade-off in beginner-friendly terms.
               </p>
 
@@ -672,11 +672,11 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 schedule, understand how assets are held, enable strong account
                 security, and start with an amount small enough to learn how
                 deposits, orders and withdrawals work. If you are making your
-                first purchase, continue with our{" "}
+                first purchase, continue with our{' '}
                 <Link href={RELATED_PATH_STEPS_TO_BUY_CRYPTO}>
                   5 simple steps to buy cryptocurrency
-                </Link>{" "}
-                or read{" "}
+                </Link>{' '}
+                or read{' '}
                 <Link href={RELATED_PATH_START_INVESTING_IN_CRYPTO}>
                   how to start investing in crypto for beginners
                 </Link>
@@ -689,20 +689,20 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
             <RelatedGuides
               guides={[
                 {
-                  id: "start-investing-crypto",
+                  id: 'start-investing-crypto',
                   slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
                   href: RELATED_PATH_START_INVESTING_IN_CRYPTO,
-                  title: "How to Start Investing in Crypto for Beginners",
+                  title: 'How to Start Investing in Crypto for Beginners',
                   excerpt:
-                    "Understand risk, research, storage and the decisions to make before putting money into crypto.",
+                    'Understand risk, research, storage and the decisions to make before putting money into crypto.',
                 },
                 {
-                  id: "simple-steps-buy-crypto",
+                  id: 'simple-steps-buy-crypto',
                   slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
                   href: RELATED_PATH_STEPS_TO_BUY_CRYPTO,
-                  title: "5 Simple Steps to Buy Cryptocurrency",
+                  title: '5 Simple Steps to Buy Cryptocurrency',
                   excerpt:
-                    "A practical walkthrough from choosing an exchange to placing a first purchase.",
+                    'A practical walkthrough from choosing an exchange to placing a first purchase.',
                 },
               ]}
             />
@@ -711,34 +711,34 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
               heading="Research exchange profiles"
               providers={[
                 {
-                  slug: "coinspot",
-                  name: "CoinSpot",
+                  slug: 'coinspot',
+                  name: 'CoinSpot',
                   description:
-                    "Australian exchange with instant-buy services and AUD market trading.",
+                    'Australian exchange with instant-buy services and AUD market trading.',
                 },
                 {
-                  slug: "swyftx",
-                  name: "Swyftx",
+                  slug: 'swyftx',
+                  name: 'Swyftx',
                   description:
-                    "Australian retail crypto platform with tiered trading fees.",
+                    'Australian retail crypto platform with tiered trading fees.',
                 },
                 {
-                  slug: "btc-markets",
-                  name: "BTC Markets",
+                  slug: 'btc-markets',
+                  name: 'BTC Markets',
                   description:
-                    "Australian order-book exchange with AUD markets.",
+                    'Australian order-book exchange with AUD markets.',
                 },
                 {
-                  slug: "independent-reserve",
-                  name: "Independent Reserve",
+                  slug: 'independent-reserve',
+                  name: 'Independent Reserve',
                   description:
-                    "Australian exchange with order-book, recurring-buy and OTC services.",
+                    'Australian exchange with order-book, recurring-buy and OTC services.',
                 },
                 {
-                  slug: "kraken",
-                  name: "Kraken",
+                  slug: 'kraken',
+                  name: 'Kraken',
                   description:
-                    "Global exchange with an Australian-facing service and advanced trading tools.",
+                    'Global exchange with an Australian-facing service and advanced trading tools.',
                 },
               ]}
             />
@@ -746,16 +746,16 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
             <GuideNextSteps
               steps={[
                 {
-                  id: "compare-exchanges",
-                  slug: "compare-crypto-exchanges",
-                  href: "/compare/crypto-exchanges",
-                  title: "Compare crypto exchanges side-by-side",
+                  id: 'compare-exchanges',
+                  slug: 'compare-crypto-exchanges',
+                  href: '/compare/crypto-exchanges',
+                  title: 'Compare crypto exchanges side-by-side',
                 },
                 {
-                  id: "buy-crypto",
+                  id: 'buy-crypto',
                   slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
                   href: RELATED_PATH_STEPS_TO_BUY_CRYPTO,
-                  title: "Learn the 5 simple steps to buy cryptocurrency",
+                  title: 'Learn the 5 simple steps to buy cryptocurrency',
                 },
               ]}
             />

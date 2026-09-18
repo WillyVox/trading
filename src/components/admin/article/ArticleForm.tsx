@@ -1,24 +1,24 @@
-import { createArticle, updateArticle } from "@/lib/articles/actions";
+import { createArticle, updateArticle } from '@/lib/articles/actions';
 import {
   getProvidersForArticleForm,
   getCryptoAssetsForArticleForm,
   getArticlesForRelatedPicker,
-} from "@/lib/articles/service";
+} from '@/lib/articles/service';
 import {
   ARTICLE_TYPES,
   SEARCH_INTENTS,
   SOURCE_TYPES,
-} from "@/lib/articles/validation";
-import { IMPORT_REGIONS } from "@/lib/articles/import/types";
-import { buildEditorialChecklist } from "@/lib/articles/editorial-checklist";
-import { Card } from "@/components/ui/Card";
-import { Notice } from "@/components/ui/Notice";
-import { TitleSlugFields } from "@/components/admin/article/TitleSlugFields";
-import { ProviderRelationshipsPicker } from "@/components/admin/article/ProviderRelationshipsPicker";
-import { SourcesEditor } from "@/components/admin/article/SourcesEditor";
-import { EditorialChecklistPanel } from "@/components/admin/article/EditorialChecklistPanel";
-import { PublishingPanel } from "@/components/admin/article/PublishingPanel";
-import { ArticleRichEditor } from "./ArticleRichEditor";
+} from '@/lib/articles/validation';
+import { IMPORT_REGIONS } from '@/lib/articles/import/types';
+import { buildEditorialChecklist } from '@/lib/articles/editorial-checklist';
+import { Card } from '@/components/ui/Card';
+import { Notice } from '@/components/ui/Notice';
+import { TitleSlugFields } from '@/components/admin/article/TitleSlugFields';
+import { ProviderRelationshipsPicker } from '@/components/admin/article/ProviderRelationshipsPicker';
+import { SourcesEditor } from '@/components/admin/article/SourcesEditor';
+import { EditorialChecklistPanel } from '@/components/admin/article/EditorialChecklistPanel';
+import { PublishingPanel } from '@/components/admin/article/PublishingPanel';
+import { ArticleRichEditor } from './ArticleRichEditor';
 
 /**
  * The article shape this form edits — a subset of what
@@ -30,7 +30,7 @@ interface ArticleFormData {
   id: string;
   title: string;
   slug: string;
-  articleType: "NEWS" | "GUIDE";
+  articleType: 'NEWS' | 'GUIDE';
   category: string | null;
   excerpt: string | null;
   content: string;
@@ -49,7 +49,7 @@ interface ArticleFormData {
   region: string | null;
   canonicalArticleId: string | null;
   scheduledAt: Date | null;
-  status: "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
+  status: 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -61,32 +61,32 @@ interface ArticleFormData {
   }[];
   providers: {
     providerId: string;
-    relationshipType: "MENTIONED" | "COMPARED" | "FEATURED";
+    relationshipType: 'MENTIONED' | 'COMPARED' | 'FEATURED';
   }[];
   cryptoAssets: { assetId: string }[];
   relatedFrom: { relatedArticleId: string }[];
 }
 
 function toDateInputValue(d: Date | null | undefined): string {
-  if (!d) return "";
+  if (!d) return '';
   return d.toISOString().slice(0, 10); // yyyy-mm-dd for <input type="date">
 }
 
 function toDateTimeInputValue(d: Date | null | undefined): string {
-  if (!d) return "";
+  if (!d) return '';
   return d.toISOString().slice(0, 16); // yyyy-MM-ddTHH:mm for <input type="datetime-local">
 }
 
 const inputClass =
-  "rounded-lg border border-border bg-panel-secondary px-3 py-2 text-navy placeholder:text-muted";
-const labelClass = "flex flex-col text-sm";
-const labelSpanClass = "mb-1 font-medium text-navy";
+  'rounded-lg border border-border bg-panel-secondary px-3 py-2 text-navy placeholder:text-muted';
+const labelClass = 'flex flex-col text-sm';
+const labelSpanClass = 'mb-1 font-medium text-navy';
 
 export async function ArticleForm({
   mode,
   article,
 }: {
-  mode: "create" | "edit";
+  mode: 'create' | 'edit';
   article?: ArticleFormData;
 }) {
   const [providers, cryptoAssets, relatedCandidates] = await Promise.all([
@@ -114,7 +114,7 @@ export async function ArticleForm({
   );
 
   const checklist =
-    mode === "edit" && article
+    mode === 'edit' && article
       ? buildEditorialChecklist({
           title: article.title,
           excerpt: article.excerpt,
@@ -137,12 +137,12 @@ export async function ArticleForm({
         })
       : null;
 
-  const action = mode === "create" ? createArticle : updateArticle;
+  const action = mode === 'create' ? createArticle : updateArticle;
 
   return (
     <div className="space-y-6">
       <form action={action} className="space-y-6">
-        {mode === "edit" && article && (
+        {mode === 'edit' && article && (
           <input type="hidden" name="id" value={article.id} />
         )}
 
@@ -152,9 +152,9 @@ export async function ArticleForm({
           </h2>
           <div className="mt-4 space-y-4">
             <TitleSlugFields
-              initialTitle={article?.title ?? ""}
-              initialSlug={article?.slug ?? ""}
-              isPublished={article?.status === "PUBLISHED"}
+              initialTitle={article?.title ?? ''}
+              initialSlug={article?.slug ?? ''}
+              isPublished={article?.status === 'PUBLISHED'}
             />
             <div className="grid gap-4 sm:grid-cols-2">
               <label className={labelClass}>
@@ -162,7 +162,7 @@ export async function ArticleForm({
                 <select
                   name="articleType"
                   required
-                  defaultValue={article?.articleType ?? ""}
+                  defaultValue={article?.articleType ?? ''}
                   className={inputClass}
                 >
                   <option value="" disabled>
@@ -179,7 +179,7 @@ export async function ArticleForm({
                 <span className={labelSpanClass}>Category</span>
                 <input
                   name="category"
-                  defaultValue={article?.category ?? ""}
+                  defaultValue={article?.category ?? ''}
                   placeholder="crypto-exchanges"
                   className={inputClass}
                 />
@@ -192,7 +192,7 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Excerpt</span>
               <textarea
                 name="excerpt"
-                defaultValue={article?.excerpt ?? ""}
+                defaultValue={article?.excerpt ?? ''}
                 rows={2}
                 maxLength={500}
                 placeholder="Shown in listings and used as a fallback meta description."
@@ -210,19 +210,19 @@ export async function ArticleForm({
             sanitized on save regardless of what's pasted in here.
           </p>
           <p className="text-muted mt-1 text-xs">
-            Video embeds are supported:{" "}
+            Video embeds are supported:{' '}
             <code className="font-mono">
-              {"{{video:youtube:VIDEO_ID:Optional caption}}"}
-            </code>{" "}
-            or <code className="font-mono">{"{{video:vimeo:VIDEO_ID}}"}</code>,
-            on their own line. Other embed markers (e.g.{" "}
-            <code className="font-mono">{"{{provider-comparison:...}}"}</code>)
+              {'{{video:youtube:VIDEO_ID:Optional caption}}'}
+            </code>{' '}
+            or <code className="font-mono">{'{{video:vimeo:VIDEO_ID}}'}</code>,
+            on their own line. Other embed markers (e.g.{' '}
+            <code className="font-mono">{'{{provider-comparison:...}}'}</code>)
             can be typed in now — they'll show a "not yet available" note in
             Preview until that block type ships.
           </p>
           <ArticleRichEditor
             name="content"
-            initialHtml={article?.content ?? ""}
+            initialHtml={article?.content ?? ''}
           />
           {/*           
           <textarea
@@ -244,10 +244,10 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Key takeaways</span>
               <textarea
                 name="keyTakeaways"
-                defaultValue={(article?.keyTakeaways ?? []).join("\n")}
+                defaultValue={(article?.keyTakeaways ?? []).join('\n')}
                 rows={5}
                 placeholder={
-                  "One takeaway per line\ne.g. CoinSpot has the lowest AUD deposit fees of the three"
+                  'One takeaway per line\ne.g. CoinSpot has the lowest AUD deposit fees of the three'
                 }
                 className={inputClass}
               />
@@ -258,7 +258,7 @@ export async function ArticleForm({
                 name="tags"
                 defaultValue={(article?.tags ?? [])
                   .map((t) => t.tag)
-                  .join(", ")}
+                  .join(', ')}
                 rows={5}
                 placeholder="crypto, exchanges, australia, beginner"
                 className={inputClass}
@@ -355,7 +355,7 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Author</span>
               <input
                 name="author"
-                defaultValue={article?.author ?? ""}
+                defaultValue={article?.author ?? ''}
                 className={inputClass}
               />
             </label>
@@ -363,7 +363,7 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Reviewer</span>
               <input
                 name="reviewer"
-                defaultValue={article?.reviewer ?? ""}
+                defaultValue={article?.reviewer ?? ''}
                 className={inputClass}
               />
             </label>
@@ -391,7 +391,7 @@ export async function ArticleForm({
                 <span className={labelSpanClass}>SEO title</span>
                 <input
                   name="seoTitle"
-                  defaultValue={article?.seoTitle ?? ""}
+                  defaultValue={article?.seoTitle ?? ''}
                   maxLength={70}
                   className={inputClass}
                 />
@@ -400,7 +400,7 @@ export async function ArticleForm({
                 <span className={labelSpanClass}>Search intent</span>
                 <select
                   name="searchIntent"
-                  defaultValue={article?.searchIntent ?? ""}
+                  defaultValue={article?.searchIntent ?? ''}
                   className={inputClass}
                 >
                   <option value="">Unset</option>
@@ -416,7 +416,7 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Meta description</span>
               <textarea
                 name="seoDescription"
-                defaultValue={article?.seoDescription ?? ""}
+                defaultValue={article?.seoDescription ?? ''}
                 rows={2}
                 maxLength={200}
                 className={inputClass}
@@ -427,7 +427,7 @@ export async function ArticleForm({
                 <span className={labelSpanClass}>Canonical URL</span>
                 <input
                   name="canonicalUrl"
-                  defaultValue={article?.canonicalUrl ?? ""}
+                  defaultValue={article?.canonicalUrl ?? ''}
                   className={inputClass}
                 />
               </label>
@@ -446,7 +446,7 @@ export async function ArticleForm({
                 <span className={labelSpanClass}>Featured image URL</span>
                 <input
                   name="featuredImage"
-                  defaultValue={article?.featuredImage ?? ""}
+                  defaultValue={article?.featuredImage ?? ''}
                   className={inputClass}
                 />
               </label>
@@ -454,7 +454,7 @@ export async function ArticleForm({
                 <span className={labelSpanClass}>Featured image alt text</span>
                 <input
                   name="featuredImageAlt"
-                  defaultValue={article?.featuredImageAlt ?? ""}
+                  defaultValue={article?.featuredImageAlt ?? ''}
                   placeholder="Describe the image — not keywords"
                   className={inputClass}
                 />
@@ -494,7 +494,7 @@ export async function ArticleForm({
               <span className={labelSpanClass}>Region</span>
               <select
                 name="region"
-                defaultValue={article?.region ?? "GLOBAL"}
+                defaultValue={article?.region ?? 'GLOBAL'}
                 className={inputClass}
               >
                 {IMPORT_REGIONS.map((r) => (
@@ -510,7 +510,7 @@ export async function ArticleForm({
               </span>
               <select
                 name="canonicalArticleId"
-                defaultValue={article?.canonicalArticleId ?? ""}
+                defaultValue={article?.canonicalArticleId ?? ''}
                 className={inputClass}
               >
                 <option value="">
@@ -553,12 +553,12 @@ export async function ArticleForm({
             type="submit"
             className="bg-navy text-background hover:bg-navy-dark rounded-full px-6 py-2.5 text-sm font-semibold"
           >
-            {mode === "create" ? "Save as draft" : "Save changes"}
+            {mode === 'create' ? 'Save as draft' : 'Save changes'}
           </button>
         </div>
       </form>
 
-      {mode === "edit" && article && (
+      {mode === 'edit' && article && (
         <>
           {checklist && <EditorialChecklistPanel items={checklist} />}
           <PublishingPanel

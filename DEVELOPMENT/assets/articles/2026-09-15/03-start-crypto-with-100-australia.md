@@ -41,10 +41,10 @@ slug: start-crypto-with-100-australia
 sources:
   - label: ASIC Moneysmart --- Crypto assets
     sourceType: GOVERNMENT
-    url: "https://moneysmart.gov.au/complex-investment-products/crypto-assets"
+    url: 'https://moneysmart.gov.au/complex-investment-products/crypto-assets'
   - label: ASIC Moneysmart --- Don't get burned by investment hype
     sourceType: GOVERNMENT
-    url: "https://moneysmart.gov.au/investment-warnings/dont-get-burned-by-investment-hype"
+    url: 'https://moneysmart.gov.au/investment-warnings/dont-get-burned-by-investment-hype'
 tags:
   - Crypto
   - Beginners

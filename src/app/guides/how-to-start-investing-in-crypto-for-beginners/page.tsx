@@ -1,28 +1,28 @@
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
-import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/layout/PageHero";
-import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
-import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
-import { GuideSidebar } from "@/components/guide/GuideSidebar";
-import { GuideSourceList } from "@/components/guide/GuideSourceList";
-import { GuideFAQ } from "@/components/guide/GuideFAQ";
-import { GuideFigure } from "@/components/guide/GuideFigure";
-import { RelatedGuides } from "@/components/guide/RelatedGuides";
-import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
-import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { articleSchema, breadcrumbSchema, faqSchema } from '@/lib/seo/schema';
+import { estimateReadingMinutesByWordCount } from '@/lib/articles/content';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PageHero } from '@/components/layout/PageHero';
+import { KeyTakeaways } from '@/components/guide/KeyTakeaways';
+import { GuideTableOfContents } from '@/components/guide/GuideTableOfContents';
+import { GuideSidebar } from '@/components/guide/GuideSidebar';
+import { GuideSourceList } from '@/components/guide/GuideSourceList';
+import { GuideFAQ } from '@/components/guide/GuideFAQ';
+import { GuideFigure } from '@/components/guide/GuideFigure';
+import { RelatedGuides } from '@/components/guide/RelatedGuides';
+import { GuideProviderLinks } from '@/components/guide/GuideProviderLinks';
+import { GuideNextSteps } from '@/components/guide/GuideNextSteps';
 import {
   GrowthTrendIllustration,
   ResearchIllustration,
   SecurityShieldIllustration,
-} from "@/components/guide/illustrations";
+} from '@/components/guide/illustrations';
 import {
   getStaticGuideArticleHref,
   getStaticGuideArticleImage,
   STATIC_SLUG_IDS,
-} from "@/lib/guides/static-article-slugs";
+} from '@/lib/guides/static-article-slugs';
 
 const PATH = getStaticGuideArticleHref(
   STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
@@ -30,7 +30,7 @@ const PATH = getStaticGuideArticleHref(
 const RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS = getStaticGuideArticleHref(
   STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS
 );
-const TITLE = "How to Start Investing in Crypto for Beginners";
+const TITLE = 'How to Start Investing in Crypto for Beginners';
 const IMAGE = getStaticGuideArticleImage(
   STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
 );
@@ -39,51 +39,51 @@ const DESCRIPTION =
 
 const HEADINGS = [
   {
-    id: "investing-vs-buying",
-    text: "Investing vs. just buying crypto",
+    id: 'investing-vs-buying',
+    text: 'Investing vs. just buying crypto',
     level: 2 as const,
   },
   {
-    id: "understand-the-asset-class",
+    id: 'understand-the-asset-class',
     text: "Understand what you're investing in",
     level: 2 as const,
   },
   {
-    id: "know-your-risk-tolerance",
-    text: "Know your risk tolerance first",
+    id: 'know-your-risk-tolerance',
+    text: 'Know your risk tolerance first',
     level: 2 as const,
   },
   {
-    id: "how-much-to-invest",
-    text: "How much of your money should go into crypto?",
+    id: 'how-much-to-invest',
+    text: 'How much of your money should go into crypto?',
     level: 2 as const,
   },
   {
-    id: "dollar-cost-averaging",
-    text: "Dollar-cost averaging: a common beginner strategy",
+    id: 'dollar-cost-averaging',
+    text: 'Dollar-cost averaging: a common beginner strategy',
     level: 2 as const,
   },
   {
-    id: "researching-a-project",
-    text: "Researching a crypto project before you buy",
+    id: 'researching-a-project',
+    text: 'Researching a crypto project before you buy',
     level: 2 as const,
   },
   {
-    id: "avoiding-scams",
-    text: "Avoiding common crypto scams",
+    id: 'avoiding-scams',
+    text: 'Avoiding common crypto scams',
     level: 2 as const,
   },
   {
-    id: "storage-and-security",
-    text: "Storage and security",
+    id: 'storage-and-security',
+    text: 'Storage and security',
     level: 2 as const,
   },
   {
-    id: "tax-in-australia",
-    text: "Crypto and tax in Australia",
+    id: 'tax-in-australia',
+    text: 'Crypto and tax in Australia',
     level: 2 as const,
   },
-  { id: "getting-started", text: "Getting started", level: 2 as const },
+  { id: 'getting-started', text: 'Getting started', level: 2 as const },
 ];
 
 const WORD_COUNT = 1900;
@@ -92,29 +92,29 @@ const READING_MINUTES = estimateReadingMinutesByWordCount(WORD_COUNT);
 const KEY_TAKEAWAYS = [
   "Investing in crypto means deliberately sizing your risk and time horizon — it's different from a one-off purchase out of curiosity.",
   "Most regulators, including Australia's ASIC and Moneysmart, class crypto assets as high-risk and highly volatile — treat that as a starting assumption, not a worst case.",
-  "A common beginner approach is to only invest money you can afford to lose, spread purchases over time (dollar-cost averaging), and research a project before buying it.",
-  "Crypto scams are widespread — be sceptical of unsolicited investment opportunities, guaranteed returns, and pressure to act quickly.",
-  "Crypto held as an investment is generally subject to Capital Gains Tax in Australia — keep records of every transaction from day one.",
+  'A common beginner approach is to only invest money you can afford to lose, spread purchases over time (dollar-cost averaging), and research a project before buying it.',
+  'Crypto scams are widespread — be sceptical of unsolicited investment opportunities, guaranteed returns, and pressure to act quickly.',
+  'Crypto held as an investment is generally subject to Capital Gains Tax in Australia — keep records of every transaction from day one.',
 ];
 
 const FAQS = [
   {
-    question: "Is crypto a good investment for beginners?",
+    question: 'Is crypto a good investment for beginners?',
     answer:
       "It depends entirely on your own risk tolerance and financial situation — there's no universal answer. Crypto assets are volatile and unregulated compared to shares, so most guidance (including Australia's Moneysmart) suggests only investing money you can afford to lose and treating any crypto allocation as one part of a broader financial picture, not the whole of it.",
   },
   {
-    question: "How much should a beginner invest in crypto?",
+    question: 'How much should a beginner invest in crypto?',
     answer:
       "There's no fixed rule, but a common approach is to start small — an amount you wouldn't be distressed to lose entirely — and only increase it once you understand how the asset behaves and how you personally react to its volatility.",
   },
   {
     question: "What's the safest way to start investing in crypto?",
     answer:
-      "Using a regulated Australian exchange, enabling two-factor authentication, starting with a well-established asset rather than an obscure new token, spreading purchases over time instead of investing a lump sum at once, and moving larger holdings to a personal wallet are all common risk-reducing practices.",
+      'Using a regulated Australian exchange, enabling two-factor authentication, starting with a well-established asset rather than an obscure new token, spreading purchases over time instead of investing a lump sum at once, and moving larger holdings to a personal wallet are all common risk-reducing practices.',
   },
   {
-    question: "Do I have to pay tax on crypto in Australia?",
+    question: 'Do I have to pay tax on crypto in Australia?',
     answer:
       "Generally yes. The ATO treats crypto assets held as an investment as subject to Capital Gains Tax when you sell, swap, or spend them — buying with AUD and simply holding isn't a taxable event. Rules can be detailed and change over time, so it's worth checking the ATO's current guidance or speaking with a tax professional.",
   },
@@ -125,24 +125,24 @@ export const metadata = buildMetadata({
   description: DESCRIPTION,
   path: PATH,
   image: IMAGE,
-  type: "article",
-  publishedTime: "2026-09-15",
-  modifiedTime: "2026-09-15",
-  authors: ["Trading Guide Editorial Team"],
-  seoTitle: "How to Start Investing in Crypto for Beginners (2026 Guide)",
+  type: 'article',
+  publishedTime: '2026-09-15',
+  modifiedTime: '2026-09-15',
+  authors: ['Trading Guide Editorial Team'],
+  seoTitle: 'How to Start Investing in Crypto for Beginners (2026 Guide)',
   seoDescription:
-    "Thinking about investing in crypto? Learn how to size your risk, research before you buy, avoid scams, and understand tax — before you put money in.",
+    'Thinking about investing in crypto? Learn how to size your risk, research before you buy, avoid scams, and understand tax — before you put money in.',
 });
 
 export default function HowToStartInvestingInCryptoForBeginnersPage() {
   const trail = breadcrumbTrail([
-    { name: "How to Start Investing in Crypto for Beginners", path: PATH },
+    { name: 'How to Start Investing in Crypto for Beginners', path: PATH },
   ]);
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    'By Trading Guide Editorial Team',
     // "Published 15 September 2026",
-    "Last updated 15 September 2026",
+    'Last updated 15 September 2026',
     `${READING_MINUTES} min read`,
   ];
 
@@ -153,9 +153,9 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
-          datePublished: "2026-09-15",
-          dateModified: "2026-09-15",
+          author: 'Trading Guide Editorial Team',
+          datePublished: '2026-09-15',
+          dateModified: '2026-09-15',
           path: PATH,
         })}
       />
@@ -184,19 +184,19 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
               <h2 id="investing-vs-buying">Investing vs. just buying crypto</h2>
               <p>
                 There&apos;s a meaningful difference between buying a small
-                amount of crypto out of curiosity and actually{" "}
+                amount of crypto out of curiosity and actually{' '}
                 <em>investing</em> in it. Investing implies a plan: a rough idea
                 of how much you&apos;re putting in, over what timeframe, and why
                 — versus reacting to a headline or a friend&apos;s tip. If
                 you&apos;re only after the mechanics of making a first purchase,
-                our{" "}
+                our{' '}
                 <a
                   href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   )}
                 >
                   5 simple steps to buy cryptocurrency
-                </a>{" "}
+                </a>{' '}
                 guide covers that. This guide is about the thinking that should
                 happen before and alongside that purchase.
               </p>
@@ -249,7 +249,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 Dollar-cost averaging: a common beginner strategy
               </h2>
               <p>
-                Rather than investing a lump sum at once,{" "}
+                Rather than investing a lump sum at once,{' '}
                 <strong>dollar-cost averaging (DCA)</strong> means investing a
                 smaller, fixed amount at regular intervals — say, weekly or
                 monthly — regardless of the price on that particular day. This
@@ -315,7 +315,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
 
               <h2 id="tax-in-australia">Crypto and tax in Australia</h2>
               <p>
-                The ATO treats crypto assets held as an investment as subject to{" "}
+                The ATO treats crypto assets held as an investment as subject to{' '}
                 <strong>Capital Gains Tax (CGT)</strong>. Broadly, buying crypto
                 with Australian dollars and simply holding it isn&apos;t a
                 taxable event, but selling it, swapping it for another crypto
@@ -332,14 +332,14 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 Once you&apos;ve thought through your risk tolerance, roughly
                 how much you&apos;re comfortable allocating, and how you&apos;ll
                 keep records, the practical next step is opening an account on a
-                regulated exchange and making a first, modest purchase. Our{" "}
+                regulated exchange and making a first, modest purchase. Our{' '}
                 <a
                   href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   )}
                 >
                   5 simple steps to buy cryptocurrency
-                </a>{" "}
+                </a>{' '}
                 guide walks through exactly that.
               </p>
             </div>
@@ -349,20 +349,20 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
             <GuideSourceList
               sources={[
                 {
-                  id: "moneysmart-crypto-assets",
+                  id: 'moneysmart-crypto-assets',
                   label:
-                    "Moneysmart — Crypto assets (how they work and their risks)",
-                  url: "https://moneysmart.gov.au/investment-warnings/crypto-assets",
+                    'Moneysmart — Crypto assets (how they work and their risks)',
+                  url: 'https://moneysmart.gov.au/investment-warnings/crypto-assets',
                 },
                 {
-                  id: "moneysmart-crypto-scams",
-                  label: "Moneysmart — Crypto scams",
-                  url: "https://moneysmart.gov.au/investment-warnings/crypto-scams",
+                  id: 'moneysmart-crypto-scams',
+                  label: 'Moneysmart — Crypto scams',
+                  url: 'https://moneysmart.gov.au/investment-warnings/crypto-scams',
                 },
                 {
-                  id: "ato-crypto-cgt",
-                  label: "ATO — How to work out and report CGT on crypto",
-                  url: "https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments/how-to-work-out-and-report-cgt-on-crypto",
+                  id: 'ato-crypto-cgt',
+                  label: 'ATO — How to work out and report CGT on crypto',
+                  url: 'https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments/how-to-work-out-and-report-cgt-on-crypto',
                 },
               ]}
             />
@@ -370,20 +370,20 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
             <RelatedGuides
               guides={[
                 {
-                  id: "simple-steps-to-buy-crypto",
+                  id: 'simple-steps-to-buy-crypto',
                   slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
                   href: getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   ),
-                  title: "5 Simple Steps to Buy Cryptocurrency",
+                  title: '5 Simple Steps to Buy Cryptocurrency',
                   excerpt:
-                    "The practical walkthrough — choosing an exchange, verifying, and placing your first order.",
+                    'The practical walkthrough — choosing an exchange, verifying, and placing your first order.',
                 },
                 {
-                  id: "share-trading-for-beginners",
+                  id: 'share-trading-for-beginners',
                   slug: STATIC_SLUG_IDS.SHARE_TRADING_FOR_BEGINNERS,
                   href: RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS,
-                  title: "Share Trading for Beginners",
+                  title: 'Share Trading for Beginners',
                   excerpt:
                     "How a more regulated asset class compares, if you're weighing up both.",
                 },
@@ -394,27 +394,27 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
               heading="Ready to buy? Compare exchanges first"
               providers={[
                 {
-                  slug: "swyftx",
-                  name: "Swyftx",
+                  slug: 'swyftx',
+                  name: 'Swyftx',
                   description:
-                    "Australian exchange with a broad range of listed assets.",
+                    'Australian exchange with a broad range of listed assets.',
                 },
                 {
-                  slug: "coinspot",
-                  name: "CoinSpot",
-                  description: "Beginner-friendly Australian crypto exchange.",
+                  slug: 'coinspot',
+                  name: 'CoinSpot',
+                  description: 'Beginner-friendly Australian crypto exchange.',
                 },
                 {
-                  slug: "kraken",
-                  name: "Kraken",
+                  slug: 'kraken',
+                  name: 'Kraken',
                   description:
-                    "Global exchange with an Australian-facing service.",
+                    'Global exchange with an Australian-facing service.',
                 },
                 {
-                  slug: "independent-reserve",
-                  name: "Independent Reserve",
+                  slug: 'independent-reserve',
+                  name: 'Independent Reserve',
                   description:
-                    "Australian exchange for individuals and businesses.",
+                    'Australian exchange for individuals and businesses.',
                 },
               ]}
             />
@@ -422,18 +422,18 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
             <GuideNextSteps
               steps={[
                 {
-                  id: "buy-steps",
+                  id: 'buy-steps',
                   slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
                   href: getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   ),
-                  title: "5 simple steps to buy cryptocurrency",
+                  title: '5 simple steps to buy cryptocurrency',
                 },
                 {
-                  id: "compare-exchanges",
-                  slug: "compare",
-                  href: "/compare/crypto-exchanges",
-                  title: "Compare crypto exchanges side-by-side",
+                  id: 'compare-exchanges',
+                  slug: 'compare',
+                  href: '/compare/crypto-exchanges',
+                  title: 'Compare crypto exchanges side-by-side',
                 },
               ]}
             />

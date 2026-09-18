@@ -1,8 +1,8 @@
-import type { NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "@/lib/prisma";
-import { verifyPassword } from "./password";
+import type { NextAuthConfig } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { prisma } from '@/lib/prisma';
+import { verifyPassword } from './password';
 
 // Credentials provider is incompatible with the "database" session
 // strategy's automatic user linking, so sessions are JWT-based instead.
@@ -10,22 +10,22 @@ import { verifyPassword } from "./password";
 // in case an OAuth provider is added later alongside this one.
 export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
-  pages: { signIn: "/login" },
+  session: { strategy: 'jwt' },
+  pages: { signIn: '/login' },
   providers: [
     Credentials({
-      name: "Email and password",
+      name: 'Email and password',
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         const email =
-          typeof credentials?.email === "string"
+          typeof credentials?.email === 'string'
             ? credentials.email.trim().toLowerCase()
-            : "";
+            : '';
         const password =
-          typeof credentials?.password === "string" ? credentials.password : "";
+          typeof credentials?.password === 'string' ? credentials.password : '';
         if (!email || !password) return null;
 
         const user = await prisma.user.findUnique({ where: { email } });

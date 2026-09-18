@@ -1,4 +1,4 @@
-import { AffiliateTabs } from "@/components/admin/Affiliatetabs";
+import { AffiliateTabs } from '@/components/admin/Affiliatetabs';
 
 export default function AffiliatesLayout({
   children,

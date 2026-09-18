@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma';
 
 export default async function AdminAffiliatesPage() {
   const links = await prisma.affiliateLink.findMany({
@@ -23,7 +23,7 @@ export default async function AdminAffiliatesPage() {
             {links.map((l) => (
               <tr key={l.id} className="border-border border-b">
                 <td className="py-2">{l.partnerSlug}</td>
-                <td className="py-2">{l.active ? "Yes" : "No"}</td>
+                <td className="py-2">{l.active ? 'Yes' : 'No'}</td>
                 <td className="py-2">{l._count.clicks}</td>
               </tr>
             ))}

@@ -1,5 +1,5 @@
-import Link from "next/link";
-import type { BreadcrumbItem } from "@/lib/seo/types";
+import Link from 'next/link';
+import type { BreadcrumbItem } from '@/lib/seo/types';
 
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (

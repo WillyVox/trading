@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
-import { getArticleById } from "@/lib/articles/service";
-import { ArticleForm } from "@/components/admin/article/ArticleForm";
+import { notFound } from 'next/navigation';
+import { getArticleById } from '@/lib/articles/service';
+import { ArticleForm } from '@/components/admin/article/ArticleForm';
 
 export default async function EditArticlePage({
   params,

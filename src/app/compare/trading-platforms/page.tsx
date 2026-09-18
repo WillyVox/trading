@@ -1,23 +1,23 @@
-import { getAllOfferingsForCompare } from "@/lib/offerings/service";
+import { getAllOfferingsForCompare } from '@/lib/offerings/service';
 import {
   buildOfferingComparisonSections,
   toComparisonSubjects,
-} from "@/lib/offerings/compare";
-import { CompareTable } from "@/components/compare/CompareTable";
-import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
-import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
-import { PageHero } from "@/components/layout/PageHero";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { JsonLd } from "@/components/seo/JsonLd";
+} from '@/lib/offerings/compare';
+import { CompareTable } from '@/components/compare/CompareTable';
+import { CompareMobileCards } from '@/components/compare/CompareMobileCards';
+import { SectionAffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure';
+import { PageHero } from '@/components/layout/PageHero';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbSchema } from '@/lib/seo/schema';
+import { breadcrumbTrail } from '@/lib/seo/breadcrumbs';
+import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata = buildMetadata({
   title:
-    "Compare Share Trading Platforms Australia \u2014 Markets, Products & Custody",
+    'Compare Share Trading Platforms Australia \u2014 Markets, Products & Custody',
   description:
-    "A single, always-current comparison of every share trading platform in our Offering domain \u2014 market access, products, custody arrangements, and account types side by side.",
-  path: "/compare/trading-platforms",
+    'A single, always-current comparison of every share trading platform in our Offering domain \u2014 market access, products, custody arrangements, and account types side by side.',
+  path: '/compare/trading-platforms',
 });
 
 /**
@@ -43,8 +43,8 @@ export default async function CompareTradingPlatformsPage() {
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 
   const trail = breadcrumbTrail([
-    { name: "Compare", path: "/compare" },
-    { name: "Share trading platforms", path: "/compare/trading-platforms" },
+    { name: 'Compare', path: '/compare' },
+    { name: 'Share trading platforms', path: '/compare/trading-platforms' },
   ]);
 
   return (

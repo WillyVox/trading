@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const ITEMS = [
-  { href: "/admin", label: "Dashboard" },
-  { href: "/admin/articles", label: "Articles" },
-  { href: "/admin/affiliates", label: "Affiliates" },
-  { href: "/admin/media", label: "Media" },
-  { href: "/admin/settings", label: "Settings" },
+  { href: '/admin', label: 'Dashboard' },
+  { href: '/admin/articles', label: 'Articles' },
+  { href: '/admin/affiliates', label: 'Affiliates' },
+  { href: '/admin/media', label: 'Media' },
+  { href: '/admin/settings', label: 'Settings' },
 ];
 
 export function AdminSidebar() {

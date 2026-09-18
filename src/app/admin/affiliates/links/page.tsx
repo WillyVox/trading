@@ -1,22 +1,22 @@
 import {
   getPartnershipsAdmin,
   getProvidersForPartnershipForm,
-} from "@/lib/affiliates/service";
+} from '@/lib/affiliates/service';
 import {
   createPartnership,
   updatePartnershipStatus,
-} from "@/lib/affiliates/actions";
-import { Card } from "@/components/ui/Card";
-import { PartnerStatusBadge } from "@/components/admin/PartnerStatusBadge";
+} from '@/lib/affiliates/actions';
+import { Card } from '@/components/ui/Card';
+import { PartnerStatusBadge } from '@/components/admin/PartnerStatusBadge';
 
 const STATUS_OPTIONS = [
-  "PROSPECT",
-  "APPLIED",
-  "APPROVED",
-  "ACTIVE",
-  "PAUSED",
-  "REJECTED",
-  "ENDED",
+  'PROSPECT',
+  'APPLIED',
+  'APPROVED',
+  'ACTIVE',
+  'PAUSED',
+  'REJECTED',
+  'ENDED',
 ] as const;
 
 export default async function AdminAffiliatePartnersPage() {

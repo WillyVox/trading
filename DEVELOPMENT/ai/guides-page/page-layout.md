@@ -660,9 +660,9 @@ Then Phase 2 can introduce learning paths, difficulty filters, sophisticated sea
 
 Most importantly, I would **not start changing the code yet**. Before implementation, the next useful step is to inspect your existing `Article` model, article repository/query layer, `/guides` implementation, article detail route, categories/topics and CMS fields. Then we can determine which of the design elements above are already supported by your data model versus which require schema changes. That will prevent building a beautiful page whose content has to be hard-coded.
 
-[1]: https://www.canstar.com.au/cryptocurrency/?utm_source=chatgpt.com "Cryptocurrency Exchanges & Wallets | Canstar"
-[2]: https://www.coinspot.com.au/learn?level=Beginner&utm_source=chatgpt.com "Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot"
-[3]: https://www.coinspot.com.au/learn?utm_source=chatgpt.com "Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot"
-[4]: https://www.coinspot.com.au/learn?level=intermediate&utm_source=chatgpt.com "Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot"
-[5]: https://www.finder.com.au/compare?utm_source=chatgpt.com "Compare and start finding better | finder.com.au"
-[6]: https://www.finder.com.au/cryptocurrency/exchanges?utm_source=chatgpt.com "8 Best Crypto Exchanges in Australia for 2026 | Finder"
+[1]: https://www.canstar.com.au/cryptocurrency/?utm_source=chatgpt.com 'Cryptocurrency Exchanges & Wallets | Canstar'
+[2]: https://www.coinspot.com.au/learn?level=Beginner&utm_source=chatgpt.com 'Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot'
+[3]: https://www.coinspot.com.au/learn?utm_source=chatgpt.com 'Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot'
+[4]: https://www.coinspot.com.au/learn?level=intermediate&utm_source=chatgpt.com 'Buy & Sell Bitcoin, Dogecoin, Litecoin | CoinSpot'
+[5]: https://www.finder.com.au/compare?utm_source=chatgpt.com 'Compare and start finding better | finder.com.au'
+[6]: https://www.finder.com.au/cryptocurrency/exchanges?utm_source=chatgpt.com '8 Best Crypto Exchanges in Australia for 2026 | Finder'

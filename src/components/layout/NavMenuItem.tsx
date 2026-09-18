@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type { NavItem } from "@/lib/nav/config";
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { NavItem } from '@/lib/nav/config';
 
 /** How long the panel stays open after the pointer/focus leaves, so
  *  crossing the small gap between trigger and panel doesn't flicker it
@@ -73,14 +73,14 @@ export function NavMenuItem({ item }: { item: NavItem }) {
       }
     }
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === 'Escape') setOpen(false);
     }
 
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [open]);
 
@@ -90,12 +90,12 @@ export function NavMenuItem({ item }: { item: NavItem }) {
   const isWide = columns.length > 0;
 
   const linkClass =
-    "text-navy/80 hover:bg-panel-secondary hover:text-navy block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors";
+    'text-navy/80 hover:bg-panel-secondary hover:text-navy block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors';
 
   if (!hasDropdown) {
     return (
       <Link
-        href={item.href ?? "#"}
+        href={item.href ?? '#'}
         className="text-navy/80 hover:text-navy text-sm font-medium transition-colors"
       >
         {item.label}
@@ -111,7 +111,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
       onMouseLeave={scheduleClose}
     >
       <Link
-        href={item.href ?? "#"}
+        href={item.href ?? '#'}
         aria-expanded={open}
         aria-haspopup="true"
         onFocus={openNow}
@@ -121,7 +121,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
         <svg
           aria-hidden
           viewBox="0 0 12 12"
-          className={`h-3 w-3 transition-transform duration-150 ${open ? "rotate-180" : ""}`}
+          className={`h-3 w-3 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
         >
           <path
             d="M2 4l4 4 4-4"
@@ -148,11 +148,11 @@ export function NavMenuItem({ item }: { item: NavItem }) {
           }
         }}
         className={`border-border bg-panel absolute top-full left-0 z-30 mt-3 rounded-2xl border p-2 shadow-lg transition-all duration-150 ${
-          isWide ? "w-[560px] p-4" : "w-64"
+          isWide ? 'w-[560px] p-4' : 'w-64'
         } ${
           open
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-1 opacity-0"
+            ? 'pointer-events-auto translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-1 opacity-0'
         }`}
       >
         {isWide ? (
@@ -161,7 +161,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
               <div
                 key={column.heading}
                 className={
-                  index > 0 ? "border-border border-l pl-5" : undefined
+                  index > 0 ? 'border-border border-l pl-5' : undefined
                 }
               >
                 <div className="text-gold flex items-center gap-2 px-3 pb-2 text-[11px] font-extrabold tracking-wider uppercase">

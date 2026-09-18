@@ -1,60 +1,60 @@
 ---
 title: 'Safest Crypto Exchanges in Australia: What "Safe" Actually Means'
-slug: "safest-crypto-exchanges-australia-explained"
-articleType: "GUIDE"
+slug: 'safest-crypto-exchanges-australia-explained'
+articleType: 'GUIDE'
 excerpt:
   "\"Safest exchange\" gets searched a lot, but safety isn't a single number. Here's what actually\
   \ determines it, and how several Australian exchanges compare on the factors that matter."
-category: "crypto-security"
+category: 'crypto-security'
 tags:
-  - "Crypto Security"
-  - "AUSTRAC"
-  - "Australia"
-  - "Crypto Exchanges"
-seoTitle: "Safest Crypto Exchanges in Australia: What Safety Means"
+  - 'Crypto Security'
+  - 'AUSTRAC'
+  - 'Australia'
+  - 'Crypto Exchanges'
+seoTitle: 'Safest Crypto Exchanges in Australia: What Safety Means'
 seoDescription:
   "There's no single 'safest' crypto exchange ranking. Here's what security, custody and\
   \ regulation factors actually matter, compared across Australian exchanges."
-featuredImageAlt: "A shield icon overlaid on several exchange app icons, representing a security comparison"
-author: "Editorial Team"
+featuredImageAlt: 'A shield icon overlaid on several exchange app icons, representing a security comparison'
+author: 'Editorial Team'
 noIndex: false
 affiliateDisclosureRequired: true
 keyTakeaways:
   - "'Safest' isn't a single measurable ranking — it's a combination of custody practices, security features,\
     \ regulatory status and track record."
-  - "AUSTRAC registration is relevant to legitimacy but is not itself a safety or security guarantee."
-  - "Two-factor authentication, cold-storage practices and withdrawal controls are concrete, checkable factors."
+  - 'AUSTRAC registration is relevant to legitimacy but is not itself a safety or security guarantee.'
+  - 'Two-factor authentication, cold-storage practices and withdrawal controls are concrete, checkable factors.'
   - "An exchange's operating history (time in market without a major publicly reported incident) is informative\
     \ but not a promise about the future."
   - "We haven't built a scored 'safest exchange' ranking here — the factors below are for you to weigh against\
     \ what matters most to you."
-searchIntent: "SECURITY"
+searchIntent: 'SECURITY'
 providerRelationships:
-  - providerSlug: "coinspot"
-    relationship: "COMPARED"
-  - providerSlug: "independent-reserve"
-    relationship: "COMPARED"
-  - providerSlug: "swyftx"
-    relationship: "COMPARED"
-  - providerSlug: "btc-markets"
-    relationship: "COMPARED"
+  - providerSlug: 'coinspot'
+    relationship: 'COMPARED'
+  - providerSlug: 'independent-reserve'
+    relationship: 'COMPARED'
+  - providerSlug: 'swyftx'
+    relationship: 'COMPARED'
+  - providerSlug: 'btc-markets'
+    relationship: 'COMPARED'
 relatedGuides:
-  - "austrac-registration-crypto-exchanges-explained"
-  - "crypto-wallet-vs-exchange-beginners"
-  - "how-to-choose-crypto-exchange-australia"
+  - 'austrac-registration-crypto-exchanges-explained'
+  - 'crypto-wallet-vs-exchange-beginners'
+  - 'how-to-choose-crypto-exchange-australia'
 sources:
-  - label: "AUSTRAC — Virtual asset service provider register goes public"
-    url: "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public"
-    sourceType: "REGULATOR"
-  - label: "Independent Reserve — Official FAQ"
-    url: "https://www.independentreserve.com/help/faq"
-    sourceType: "OFFICIAL_PROVIDER"
-  - label: "BTC Markets — Account security"
-    url: "https://support.btcmarkets.net/hc/en-us/articles/360001821168-Account-Security-on-BTC-Markets"
-    sourceType: "OFFICIAL_PROVIDER"
-  - label: "Swyftx — Official facts page"
-    url: "https://swyftx.com/facts/"
-    sourceType: "OFFICIAL_PROVIDER"
+  - label: 'AUSTRAC — Virtual asset service provider register goes public'
+    url: 'https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public'
+    sourceType: 'REGULATOR'
+  - label: 'Independent Reserve — Official FAQ'
+    url: 'https://www.independentreserve.com/help/faq'
+    sourceType: 'OFFICIAL_PROVIDER'
+  - label: 'BTC Markets — Account security'
+    url: 'https://support.btcmarkets.net/hc/en-us/articles/360001821168-Account-Security-on-BTC-Markets'
+    sourceType: 'OFFICIAL_PROVIDER'
+  - label: 'Swyftx — Official facts page'
+    url: 'https://swyftx.com/facts/'
+    sourceType: 'OFFICIAL_PROVIDER'
 ---
 
 <p>"Safest crypto exchange in Australia" is one of the most commonly searched phrases in this space — and one of the hardest to answer honestly, because there's no independent, standardised safety score that exchanges are rated against. This guide breaks "safe" into its actual components instead of naming a single winner.</p>
