@@ -321,9 +321,10 @@ enum ProviderSourceType {
 // same broker). ProviderOffering is the thing users actually compare;
 // Provider stays the brand/legal-entity row for both domains.
 //
-// Deliberately excluded from Milestone 1 (see ROADMAP.md): OfferingFee
-// (tiered/conditional pricing is its own migration per the master prompt's
-// own "fees are Phase Two" sequencing), OfferingOrderType, OfferingFeature.
+// Deliberately excluded from Milestone 1 (see ROADMAP.md): OfferingOrderType,
+// OfferingFeature. OfferingFee/OfferingFeeTier landed in Phase 2 (below) as
+// its own additive migration, per the master prompt's "fees are Phase Two"
+// sequencing.
 // Also deliberately NOT modelled yet: a separate FinancialEntity/
 // service-role layer for AFSL holder vs. executing broker vs. custodian --
 // `custodianName` below is a plain string for now; that's the documented
@@ -381,6 +382,49 @@ enum AccountType {
   OTHER
 }
 
+// ---------- Offering pricing (Phase 2) ----------
+// Deliberately NOT a generic rules engine (no OfferingFeeCondition /
+// ConditionOperator). Checked against the real CommSec and CMC Invest AU
+// schedules: the only things a fee genuinely varies by are the market
+// (existing marketId FK), how the trade is placed/settled (FeeChannel), and
+// the trade value (OfferingFeeTier). A generic EQUALS/BETWEEN/IN engine would
+// be solving a problem this data doesn't have yet.
+//
+// Also deliberately deferred: OfferingPricingPlan (named plan tiers such as
+// IBKR Lite vs Pro). Neither seeded broker's AU offering has named plans in
+// the sense IBKR does; it gets added when IBKR is seeded, not speculatively.
+// (CMC Invest's ALPHA and CommSec's International Shares Plus are noted in
+// `notes` text on the affected rows for now -- the same "documented seam,
+// not built yet" pattern as `custodianName` above.)
+enum FeeCategory {
+  BROKERAGE
+  FX_CONVERSION
+  ACCOUNT_KEEPING
+  INACTIVITY
+  WITHDRAWAL
+  DEPOSIT
+  EXCHANGE_TRANSFER // e.g. off-market / CHESS transfer fees
+  OTHER
+}
+
+enum FeeCalculationBasis {
+  FLAT
+  PERCENTAGE
+  GREATER_OF // max(flatAmount, trade_value * percentage / 100)
+  TIERED // see OfferingFeeTier rows
+  FREE
+  VARIES // no structured value -- displayValue + notes only
+}
+
+// A real, observed dimension (not a generic condition system): CommSec's AU
+// brokerage genuinely differs by *how* you trade and settle, nothing else.
+enum FeeChannel {
+  ONLINE_STANDARD_SETTLEMENT // online, settling to CDIA / Margin Loan
+  ONLINE_OWN_BANK_SETTLEMENT // online, settling to a bank account of your choice
+  PHONE_OR_ESTATE
+  THIRD_PARTY_SETTLEMENT
+}
+
 model Market {
   id          String   @id @default(cuid())
   code        String   @unique
@@ -393,6 +437,7 @@ model Market {
 
   offerings OfferingMarket[]
   custody   OfferingCustody[]
+  fees      OfferingFee[]
 }
 
 model ProviderOffering {
@@ -419,6 +464,7 @@ model ProviderOffering {
   products     OfferingProduct[]
   custody      OfferingCustody[]
   accountTypes OfferingAccountType[]
+  fees         OfferingFee[]
 
   @@index([providerId])
 }
@@ -501,6 +547,80 @@ model OfferingAccountType {
 
   @@unique([offeringId, accountType])
   @@index([offeringId])
+}
+
+// One row = one fee (or one fee schedule, when calculationBasis is TIERED).
+//
+// Units: `percentage` is stored in PERCENT POINTS, not a fraction -- 0.12
+// means 0.12%, 0.55 means 0.55% (Decimal(6,4) holds up to 99.9999). Kept
+// that way so the value in the database reads exactly like the number on the
+// broker's own fee page.
+//
+// `marketId`: null = offering-wide (e.g. FX conversion); set = per-market
+// (e.g. AU vs US brokerage). Same convention as OfferingCustody.
+//
+// `channel`: null when the fee doesn't vary by channel.
+//
+// Promotions are a few honest fields, not a rules engine: isPromotional +
+// validFrom/validTo + prose in `promotionalTerms`. A promotional row is
+// always an ADDITION to the standing schedule, never a replacement for it --
+// the standing schedule keeps its own non-promotional row(s), so an expired
+// promo can never masquerade as the everyday price.
+model OfferingFee {
+  id               String              @id @default(cuid())
+  offeringId       String
+  marketId         String?
+  feeCategory      FeeCategory
+  channel          FeeChannel?
+  label            String
+  calculationBasis FeeCalculationBasis
+
+  flatAmount   Decimal? @db.Decimal(10, 2)
+  percentage   Decimal? @db.Decimal(6, 4)
+  currency     String?
+  displayValue String?
+  notes        String?  @db.Text
+
+  isPromotional    Boolean   @default(false)
+  validFrom        DateTime?
+  validTo          DateTime?
+  promotionalTerms String?   @db.Text
+
+  sourceUrl          String?
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  offering ProviderOffering  @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  market   Market?           @relation(fields: [marketId], references: [id], onDelete: SetNull)
+  tiers    OfferingFeeTier[]
+
+  @@index([offeringId])
+  @@index([marketId])
+  @@index([feeCategory])
+}
+
+// Bounds semantics (matches the "up to and including" wording brokers use):
+//   - `maxAmount` is an INCLUSIVE upper bound; null = no upper bound.
+//   - `minAmount` is the tier's lower edge. For a tier that follows an
+//     inclusive max, it equals the previous tier's maxAmount and the value
+//     must be strictly greater than it (CommSec: "Over $1,000 up to $3,000").
+//   - Where a broker draws the boundary at the cent (CommSec bank-settled:
+//     "up to and including $9,999.99" / "$10,000 and above"), the seed stores
+//     exactly that: max 9999.99, next tier min 10000.
+// A tier row is either a flat dollar amount OR a percentage (percent points,
+// as on OfferingFee), never both.
+model OfferingFeeTier {
+  id         String   @id @default(cuid())
+  feeId      String
+  minAmount  Decimal  @db.Decimal(14, 2)
+  maxAmount  Decimal? @db.Decimal(14, 2)
+  flatAmount Decimal? @db.Decimal(10, 2)
+  percentage Decimal? @db.Decimal(6, 4)
+  position   Int      @default(0)
+
+  fee OfferingFee @relation(fields: [feeId], references: [id], onDelete: Cascade)
+
+  @@index([feeId])
 }
 
 model Provider {

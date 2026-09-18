@@ -2,21 +2,84 @@ import {
   AccountType,
   AvailabilityStatus,
   CustodyType,
+  FeeCalculationBasis,
+  FeeCategory,
   InvestmentProductType,
   OfferingType,
   ProviderType,
   VerificationStatus,
 } from "@prisma/client";
+import type { OfferingFeeSeed } from "./types";
 
 /**
- * Checked 17 Sep 2026 against CMC Invest's own stockbroking pages
- * (cmcmarkets.com/en-au/stockbroking) for market/product/custody claims
- * only -- no fee data is seeded here (see docs/ROADMAP.md, Milestone 1
- * deliberately excludes OfferingFee). The international-custody row is
- * UNVERIFIED: it's reported in third-party reviews, not stated directly on
- * CMC's own pages in what was checked -- confirm against CMC's PDS/FSG
- * before upgrading it.
+ * Market/product/custody claims checked 17 Sep 2026 against CMC Invest's own
+ * stockbroking pages. The international-custody row is UNVERIFIED: it's
+ * reported in third-party reviews, not stated directly on CMC's own pages in
+ * what was checked -- confirm against CMC's PDS/FSG before upgrading it.
+ *
+ * Fees added in Phase 2 and checked 19 Sep 2026 against CMC's Australian
+ * pricing page (cmcmarkets.com/en-au/stockbroking/pricing) and overview page.
+ * The full research manifest is docs/research/offerings/cmc-invest.md.
+ *
+ * NEVER source fee data from cmcinvest.com (the UK entity: Core/Enhanced/
+ * Premium plans, Cash ISA, SIPP). It is a different company and product set;
+ * every sourceUrl below must be on cmcmarkets.com/en-au/.
  */
+const PRICING_URL = "https://www.cmcmarkets.com/en-au/stockbroking/pricing";
+const FEES_CHECKED = new Date("2026-09-19");
+
+const fees: OfferingFeeSeed[] = [
+  {
+    feeCategory: FeeCategory.BROKERAGE,
+    marketCode: "ASX",
+    label: "Australian shares brokerage: first buy per security, per day",
+    calculationBasis: FeeCalculationBasis.FREE,
+    displayValue: "$0 (first buy up to $1,000, per security, per day)",
+    notes:
+      'Applies once per security, per day, and excludes trades settled through a margin loan. CMC\'s own pages word the cap as both "under $1,000" and "up to $1,000". ALPHA accounts get the same $0 first buy.',
+    sourceUrl: PRICING_URL,
+    verificationStatus: VerificationStatus.VERIFIED,
+    verifiedAt: FEES_CHECKED,
+  },
+  {
+    feeCategory: FeeCategory.BROKERAGE,
+    marketCode: "ASX",
+    label: "Australian shares brokerage: all other buys and all sells",
+    calculationBasis: FeeCalculationBasis.GREATER_OF,
+    flatAmount: 11,
+    percentage: 0.1,
+    currency: "AUD",
+    notes:
+      "Whichever amount is greater; online orders, GST-inclusive. ALPHA accounts pay the greater of $9.90 or 0.075%. Marked unverified because another CMC page quotes 0.11% instead of 0.10% \u2014 to be confirmed against CMC's Financial Services Guide.",
+    sourceUrl: PRICING_URL,
+    verificationStatus: VerificationStatus.UNVERIFIED,
+  },
+  // $0 brokerage on US/UK/Canada/Japan. Only NYSE/NASDAQ exist in Market
+  // today, so only those are seeded.
+  ...(["NYSE", "NASDAQ"] as const).map((marketCode): OfferingFeeSeed => ({
+    feeCategory: FeeCategory.BROKERAGE,
+    marketCode,
+    label: "US shares brokerage",
+    calculationBasis: FeeCalculationBasis.FREE,
+    notes:
+      "CMC Invest also lists $0 brokerage on UK, Canadian and Japanese stocks and ETFs. FX spreads apply to all international orders.",
+    sourceUrl: PRICING_URL,
+    verificationStatus: VerificationStatus.VERIFIED,
+    verifiedAt: FEES_CHECKED,
+  })),
+  {
+    feeCategory: FeeCategory.FX_CONVERSION,
+    label: "Foreign exchange conversion",
+    calculationBasis: FeeCalculationBasis.VARIES,
+    displayValue: "FX spread applies (no fixed % published)",
+    notes:
+      "CMC Invest states that FX spreads apply to all international orders. A fixed conversion percentage isn't published on its Australian pricing page \u2014 check the current Financial Services Guide.",
+    sourceUrl: PRICING_URL,
+    verificationStatus: VerificationStatus.VERIFIED,
+    verifiedAt: FEES_CHECKED,
+  },
+];
+
 export const CmcInvest = {
   provider: {
     name: "CMC Markets",
@@ -128,5 +191,6 @@ export const CmcInvest = {
         verificationStatus: VerificationStatus.UNVERIFIED,
       },
     ],
+    fees,
   },
 };

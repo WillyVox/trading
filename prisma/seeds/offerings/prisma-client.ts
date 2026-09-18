@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 import { SEED_MARKETS } from "./markets";
 import { SEED_OFFERINGS } from "./seed-offerings";
+import { assertValidFeeSeed } from "./types";
 
 const prisma = new PrismaClient();
 
@@ -113,6 +114,7 @@ export async function seedOfferings() {
       products,
       custody,
       accountTypes,
+      fees,
       ...offeringData
     } = offeringSeed;
 
@@ -175,6 +177,13 @@ export async function seedOfferings() {
           offeringId: offering.id,
         },
       }),
+
+      // OfferingFeeTier rows go with their fee (onDelete: Cascade).
+      prisma.offeringFee.deleteMany({
+        where: {
+          offeringId: offering.id,
+        },
+      }),
     ]);
 
     /**
@@ -228,7 +237,45 @@ export async function seedOfferings() {
       });
     }
 
-    console.log(`Seeded offering: ${provider.name} → ${offering.name}`);
+    /**
+     * Fees (Phase 2)
+     *
+     * Created one at a time rather than with createMany: createMany can't
+     * return IDs or nest OfferingFeeTier rows, and a fee and its tiers must
+     * land together. The seed set is tiny, so the extra round-trips are
+     * irrelevant. Tier `position` is the array index, so seed order is
+     * display order.
+     *
+     * assertValidFeeSeed() throws on structurally incoherent data (e.g. a
+     * TIERED fee with no tiers, non-contiguous tier bounds) so a typo fails
+     * the seed run instead of reaching the public pages.
+     */
+    for (const fee of fees) {
+      assertValidFeeSeed(offering.slug, fee);
+
+      const { marketCode, tiers, ...feeData } = fee;
+
+      await prisma.offeringFee.create({
+        data: {
+          offeringId: offering.id,
+          marketId: marketCode ? getMarketId(marketCode) : null,
+          ...feeData,
+          tiers:
+            tiers && tiers.length > 0
+              ? {
+                  create: tiers.map((tier, position) => ({
+                    ...tier,
+                    position,
+                  })),
+                }
+              : undefined,
+        },
+      });
+    }
+
+    console.log(
+      `Seeded offering: ${provider.name} → ${offering.name} (${fees.length} fees)`
+    );
   }
 
   console.log(`Seeded ${SEED_OFFERINGS.length} provider offerings.`);
