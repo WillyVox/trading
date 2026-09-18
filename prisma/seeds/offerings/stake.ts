@@ -158,7 +158,7 @@ import {
           marketCode: "ASX",
           custodyType: CustodyType.CHESS_SPONSORED,
           hinSupported: true,
-          notes:
+          description:
             "Only whole shares supported on ASX (no fractional ASX shares); ASX minimum marketable parcel rules apply to the initial purchase.",
           sourceUrl: BROKERAGE_EXPLAINER_URL,
           verificationStatus: VerificationStatus.UNVERIFIED,
