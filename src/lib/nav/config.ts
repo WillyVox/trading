@@ -8,12 +8,20 @@
  * is a real link now — the trigger itself navigates like any nav link (see
  * NavMenuItem.tsx), so it must always be set on a parent with a dropdown.
  *
- * `children` is a flat single-column list of links (e.g. "Crypto").
- * `columns` is for a multi-column panel where each column has its own
- * heading (e.g. "Guides" — Share Trading / Crypto Exchanges). An item can
- * define `columns` and an optional trailing `footerLink` (e.g.
- * "View all guides →") shown under a divider spanning the full panel width.
- * Use one of `children` or `columns`, not both.
+ * `children` is a flat single-column list of links. `columns` is for a
+ * multi-column panel where each column has its own heading (e.g. "Guides" —
+ * Share Trading / Crypto Exchanges; "Compares" — Online Trading Platforms /
+ * Crypto Exchanges). An item can define `columns` and an optional trailing
+ * `footerLink` (e.g. "View all guides →") shown under a divider spanning
+ * the full panel width. Use one of `children` or `columns`, not both.
+ *
+ * "Crypto Exchanges" is a flat top-level link to the existing
+ * /crypto/exchanges route (browse page + /crypto/exchanges/[slug] profiles)
+ * — the URL was deliberately kept as-is rather than flattened to
+ * /crypto-exchanges: it's already indexed, hardcoded across ~14 files plus
+ * sitemap-entries.ts, and Google doesn't reward flatter URLs over a
+ * logical nested one, so renaming would only add 301-redirect risk for no
+ * SEO upside.
  */
 
 import {
@@ -39,15 +47,6 @@ export interface NavItem extends Partial<NavLink> {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  {
-    label: "Crypto",
-    href: "/crypto",
-    children: [
-      { label: "Compare Exchanges", href: "/compare" },
-      { label: "Exchange Review", href: "/crypto/exchanges" },
-      { label: "Crypto guides", href: "/guides" },
-    ],
-  },
   {
     label: "Guides",
     href: "/guides",
@@ -89,6 +88,34 @@ export const NAV_ITEMS: NavItem[] = [
     ],
     footerLink: { label: "View all guides →", href: "/guides" },
   },
+  {
+    label: "Compares",
+    href: "/compare",
+    columns: [
+      {
+        heading: "Online Trading Platforms",
+        links: [
+          {
+            label: "Compare all trading platforms",
+            href: "/compare/trading-platforms",
+          },
+          { label: "Browse share trading platforms", href: "/share-trading" },
+        ],
+      },
+      {
+        heading: "Crypto Exchanges",
+        links: [
+          {
+            label: "Compare all crypto exchanges",
+            href: "/compare/crypto-exchanges",
+          },
+          { label: "Browse crypto exchanges", href: "/crypto/exchanges" },
+        ],
+      },
+    ],
+    footerLink: { label: "View all comparisons →", href: "/compare" },
+  },
   { label: "Share Trading", href: "/share-trading" },
+  { label: "Crypto Exchanges", href: "/crypto/exchanges" },
   { label: "News", href: "/news" },
 ];

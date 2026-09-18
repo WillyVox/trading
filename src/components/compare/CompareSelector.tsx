@@ -6,11 +6,27 @@ import { useRouter } from "next/navigation";
 type SelectableProvider = { id: string; slug: string; name: string };
 
 /**
+ * Same alpha-sort as canonicalCompareSlugMulti in src/lib/seo/canonical.ts
+ * -- duplicated here (rather than imported) so this client component
+ * doesn't pull in that module's import of src/lib/seo/config.ts, which
+ * reads server env vars (NEXTAUTH_URL, VERCEL) at module load purely for
+ * its unrelated absoluteUrl() export. If canonicalCompareSlugMulti's
+ * ordering rule ever changes, update it there too.
+ */
+function canonicalOrder(slugs: string[]): string {
+  return [...slugs].sort((a, b) => a.localeCompare(b)).join("-vs-");
+}
+
+/**
  * Lets a person tick 2+ providers and jump straight to their comparison
  * page, instead of hand-typing an "a-vs-b" URL (a real source of the kind
- * of typo'd 404 this component exists to avoid -- see Phase 5). The
- * resulting slug order doesn't matter: /compare/[slug] canonicalizes and
- * redirects regardless (see src/lib/seo/canonical.ts).
+ * of typo'd 404 this component exists to avoid -- see Phase 5). Navigates
+ * straight to the canonical (alpha-sorted) slug order -- the same order
+ * /compare/[slug] itself redirects non-canonical orderings to -- so
+ * clicking providers in click order (e.g. independent-reserve then
+ * btc-markets) doesn't visit independent-reserve-vs-btc-markets first and
+ * then get redirect()ed to btc-markets-vs-independent-reserve; it goes
+ * straight to the canonical URL and the address bar never flips.
  */
 export function CompareSelector({
   providers,
@@ -40,7 +56,7 @@ export function CompareSelector({
 
   function goToComparison() {
     if (selected.length < 2) return;
-    router.push(`/compare/${selected.join("-vs-")}`);
+    router.push(`/compare/${canonicalOrder(selected)}`);
   }
 
   return (
