@@ -1,5 +1,5 @@
-import { getOfferings } from "@/lib/offerings/service";
-import { OfferingListCard } from "@/components/offerings/OfferingListCard";
+import { getShareTradingPlatforms } from "@/lib/share-trading/service";
+import { ShareTradingPlatformListCard } from "@/components/share-trading/ShareTradingPlatformListCard";
 import { LatestArticlesSection } from "@/components/article/LatestArticlesSection";
 import { getLatestArticlesForCategory } from "@/lib/content/latest";
 import { PageHero } from "@/components/layout/PageHero";
@@ -23,7 +23,7 @@ export const metadata = buildMetadata({
 
 export default async function ShareTradingPage() {
   const [{ items }, latestArticles] = await Promise.all([
-    getOfferings(),
+    getShareTradingPlatforms(),
     getLatestArticlesForCategory(SHARE_TRADING_CATEGORY),
   ]);
   const trail = breadcrumbTrail([
@@ -55,7 +55,10 @@ export default async function ShareTradingPage() {
         )}
         <div className="mt-6 flex flex-col gap-4">
           {items.map((offering) => (
-            <OfferingListCard key={offering.id} offering={offering} />
+            <ShareTradingPlatformListCard
+              key={offering.id}
+              offering={offering}
+            />
           ))}
         </div>
 

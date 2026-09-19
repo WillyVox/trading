@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getProviders } from "@/lib/providers/service";
+import { getCryptoExchanges } from "@/lib/crypto-exchanges/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { Card } from "@/components/ui/Card";
@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
 });
 
 export default async function ExchangesPage() {
-  const { items } = await getProviders();
+  const items = await getCryptoExchanges();
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },
     { name: "Exchanges", path: "/crypto/exchanges" },
@@ -34,26 +34,29 @@ export default async function ExchangesPage() {
           <p className="text-muted mt-4">No providers seeded yet.</p>
         )}
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {items.map((p: any) => (
-            <Link key={p.id} href={`/crypto/exchanges/${p.slug}`}>
-              <Card className="hover:border-gold-soft h-full transition-colors">
-                <div className="flex items-start gap-4">
-                  <ProviderLogo logo={p.logo} name={p.name} size="md" />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <h2 className="font-display text-navy truncate text-lg font-bold">
-                        {p.name}
-                      </h2>
-                      <VerificationBadge status={p.verificationStatus} />
+          {items.map((offering) => {
+            const p = offering.provider;
+            return (
+              <Link key={p.id} href={`/crypto/exchanges/${p.slug}`}>
+                <Card className="hover:border-gold-soft h-full transition-colors">
+                  <div className="flex items-start gap-4">
+                    <ProviderLogo logo={p.logo} name={p.name} size="md" />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h2 className="font-display text-navy truncate text-lg font-bold">
+                          {p.name}
+                        </h2>
+                        <VerificationBadge status={p.verificationStatus} />
+                      </div>
+                      <p className="text-muted mt-2 line-clamp-3 text-sm">
+                        {p.description}
+                      </p>
                     </div>
-                    <p className="text-muted mt-2 line-clamp-3 text-sm">
-                      {p.description}
-                    </p>
                   </div>
-                </div>
-              </Card>
-            </Link>
-          ))}
+                </Card>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </>

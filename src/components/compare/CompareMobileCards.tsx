@@ -2,14 +2,17 @@ import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
-import { compareHrefWithout } from "@/lib/compare/resolve";
-import type { ComparisonSection, ComparisonSubject } from "@/lib/compare/types";
+import { comparisonHrefWithout } from "@/components/compare/paths";
+import type {
+  CompareSection,
+  CompareSubject,
+} from "@/components/compare/types";
 
 /**
  * Small-screen counterpart to CompareTable -- a wide comparison table
  * degrades badly below `md`, so each subject gets its own scrollable card
  * with the same rows instead. Domain-agnostic for the same reason
- * CompareTable is -- see src/lib/compare/types.ts. Hidden at `md` and
+ * CompareTable is -- see shared comparison UI types. Hidden at `md` and
  * above. Mirrors CompareTable's header content (logo, remove control,
  * visit CTA, review link) so removing a subject or adding one behaves
  * identically on mobile and desktop.
@@ -18,14 +21,16 @@ export function CompareMobileCards({
   subjects,
   sections,
   buildYourOwnHref,
+  comparisonBasePath,
 }: {
-  subjects: ComparisonSubject[];
-  sections: ComparisonSection[];
+  subjects: CompareSubject[];
+  sections: CompareSection[];
   /** See CompareTable's prop of the same name -- omit on the
    * always-complete compare pages. */
   buildYourOwnHref?: string;
+  comparisonBasePath?: string;
 }) {
-  const canRemove = subjects.length > 2;
+  const canRemove = subjects.length > 2 && Boolean(comparisonBasePath);
 
   return (
     <div className="space-y-4 md:hidden">
@@ -33,7 +38,11 @@ export function CompareMobileCards({
         <Card key={s.id} className="relative">
           {canRemove && (
             <Link
-              href={compareHrefWithout(subjects, s.slug)}
+              href={comparisonHrefWithout(
+                comparisonBasePath ?? "",
+                subjects,
+                s.slug
+              )}
               aria-label={`Remove ${s.name} from this comparison`}
               className="text-muted hover:text-navy absolute top-4 right-4"
             >

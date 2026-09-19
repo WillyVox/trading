@@ -22,7 +22,7 @@ function canonicalOrder(slugs: string[]): string {
  * page, instead of hand-typing an "a-vs-b" URL (a real source of the kind
  * of typo'd 404 this component exists to avoid -- see Phase 5). Navigates
  * straight to the canonical (alpha-sorted) slug order -- the same order
- * /compare/[slug] itself redirects non-canonical orderings to -- so
+ * domain-specific comparison routes itself redirects non-canonical orderings to -- so
  * clicking providers in click order (e.g. independent-reserve then
  * btc-markets) doesn't visit independent-reserve-vs-btc-markets first and
  * then get redirect()ed to btc-markets-vs-independent-reserve; it goes
@@ -32,6 +32,7 @@ export function CompareSelector({
   providers,
   initialSelected = [],
   noun = "options",
+  comparisonBasePath,
 }: {
   providers: SelectableProvider[];
   /** Slugs to pre-check on mount -- e.g. the providers already shown on
@@ -41,9 +42,10 @@ export function CompareSelector({
   initialSelected?: string[];
   /** Plural noun for what's in the pool -- "exchanges" on a crypto
    * comparison, "platforms" on a share trading one. The pool itself is
-   * always domain-scoped by the caller (see getComparisonPool), so this
+   * always domain-scoped by the caller (see the domain-specific comparison pool), so this
    * only affects copy, not behaviour. */
   noun?: string;
+  comparisonBasePath: string;
 }) {
   const router = useRouter();
   const [selected, setSelected] = useState<string[]>(initialSelected);
@@ -56,7 +58,7 @@ export function CompareSelector({
 
   function goToComparison() {
     if (selected.length < 2) return;
-    router.push(`/compare/${canonicalOrder(selected)}`);
+    router.push(`${comparisonBasePath}/${canonicalOrder(selected)}`);
   }
 
   return (

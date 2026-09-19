@@ -28,7 +28,7 @@ export function canonicalCompareSlugMulti(slugs: string[]): string {
  * (Phase 5: "3+-way comparison UI"), not just pairs.
  *
  * Deduplicates: "coinspot-vs-coinspot" is one subject, not two. Previously
- * the /compare/[slug] page split without deduping, so a repeated slug
+ * the domain-specific comparison routes page split without deduping, so a repeated slug
  * rendered the same subject twice -- duplicate React keys in the table
  * header, and a `results.length === slugs.length` existence check that
  * passed on a list it shouldn't have. Deduping here means the canonical
@@ -36,17 +36,6 @@ export function canonicalCompareSlugMulti(slugs: string[]): string {
  */
 export function parseCompareSlugs(slug: string): string[] {
   return Array.from(new Set(slug.split("-vs-").filter(Boolean)));
-}
-
-/** @deprecated kept for two-way call sites; prefer canonicalCompareSlugMulti. */
-export function canonicalCompareSlug(slugA: string, slugB: string): string {
-  return canonicalCompareSlugMulti([slugA, slugB]);
-}
-
-export function isCanonicalCompareSlug(slug: string): boolean {
-  const parts = slug.split("-vs-").filter(Boolean);
-  if (parts.length < 2) return true; // not a multi-provider slug — nothing to canonicalize
-  return canonicalCompareSlugMulti(parts) === slug;
 }
 
 const REGION_HREFLANG: Record<string, string> = {

@@ -1,50 +1,26 @@
 import { PrismaClient } from "@prisma/client";
-import { seedOfferings } from "./offerings/prisma-client";
-import { seedProviders } from "./providers/prisma-client";
-import { seedCryptoAssets } from "./crypto-assets/prisma-client";
-import { seedAffiliateLinks } from "./affiliate-links/prisma-client";
+import { CRYPTO_EXCHANGES } from "./crypto-exchanges";
+import { SHARE_TRADING_PLATFORMS } from "./share-trading-platforms";
+import { seedAffiliateLinks } from "./lib/seed-affiliate-links";
+import { seedCryptoAssets } from "./lib/seed-crypto-assets";
+import { seedCryptoExchanges } from "./lib/seed-crypto-exchanges";
+import { seedShareTradingPlatforms } from "./lib/seed-share-trading-platforms";
+import { validateCatalogSlugs } from "./lib/validation";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // ---------------------------------------
-  // Crypto assets
-  // ---------------------------------------
-
-  await seedCryptoAssets();
-  console.log("Several cryptos are seeded.");
-  // ---------------------------------------
-  // Crypto providers
-  // ---------------------------------------
-  await seedProviders();
-  console.log(
-    "CoinSpot, Independent Reserve, Swyftx and BTC Markets Kraken and CoinJar exchanges are seeded."
-  );
-
-  // ---------------------------------------
-  // Share-trading offerings
-  // ---------------------------------------
-
-  await seedOfferings();
-
-  console.log("Seeded seedOfferings, share trading providers and offerings");
-
-  // ---------------------------------------
-  // Seed affiliate partnerships/programs/links
-  // ---------------------------------------
-
-  await seedAffiliateLinks();
-
-  console.log(
-    "Seeded affiliateLinks, default are true to all crypto providers...."
-  );
+  validateCatalogSlugs(CRYPTO_EXCHANGES, SHARE_TRADING_PLATFORMS);
+  await seedCryptoAssets(prisma);
+  await seedCryptoExchanges(prisma);
+  await seedShareTradingPlatforms(prisma);
+  await seedAffiliateLinks(prisma);
+  console.log("Seed complete.");
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
+  .catch((error) => {
+    console.error(error);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .finally(async () => prisma.$disconnect());

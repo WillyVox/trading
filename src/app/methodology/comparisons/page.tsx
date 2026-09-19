@@ -18,7 +18,7 @@ export const metadata = buildMetadata({
 /**
  * Content status: DRAFT, not legal-reviewed -- see docs/CONTENT-GAPS.md
  * "Comparison Methodology page". Every claim below is checked directly
- * against src/lib/providers/compare.ts and service.ts:
+ * against src/lib/crypto-exchanges/comparison.ts and service.ts:
  *  - Comparison tables are generated live from Provider facts/fees/features
  *    (getProvidersBySlugs), never a separately-maintained copy.
  *  - Rows are a union of labels across the compared providers (buildFactRows/
@@ -26,7 +26,7 @@ export const metadata = buildMetadata({
  *    rather than being dropped.
  *  - A missing fee shows literally as "Not verified", not blank or "$0".
  *  - Sections are Facts, Fees, Products & trading, Deposits & withdrawals,
- *    Security (buildComparisonSections) -- an empty section is omitted.
+ *    Security (buildCompareSections) -- an empty section is omitted.
  *  - Provider listings/tables sort alphabetically (orderBy: name asc), not
  *    by commercial relationship -- matches the Affiliate Disclosure page.
  *  - Multi-provider comparison URLs canonicalize to alphabetical slug order
@@ -110,7 +110,7 @@ export default function ComparisonMethodologyPage() {
             Affiliate disclosure
           </Link>
           <Link
-            href="/compare/crypto-exchanges"
+            href="/crypto/exchanges/compare"
             className="text-blue underline"
           >
             See a live comparison

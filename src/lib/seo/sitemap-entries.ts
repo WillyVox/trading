@@ -1,18 +1,18 @@
 import type { MetadataRoute } from "next";
-import type { ArticleType, ProviderType } from "@prisma/client";
+import type { ArticleType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl } from "./config";
 import { STATIC_GUIDES } from "@/lib/guides/static-guides";
 
 /**
- * Note: /compare/[slug] is intentionally excluded from the sitemap for now
+ * Note: domain-specific comparison routes is intentionally excluded from the sitemap for now
  * -- pages are noindex until indexing every possible provider combination
- * has had an SEO review (Phase 8). /compare/crypto-exchanges is different:
+ * has had an SEO review (Phase 8). /crypto/exchanges/compare is different:
  * it's a single, deterministic, always-complete comparison (every
  * CRYPTO_EXCHANGE provider, no combinatorial URL to generate), so it's
  * both indexed and listed below rather than programmatically generating
  * every provider-pair/triple combination just to grow sitemap size (see
- * audit rule §34). /compare/trading-platforms is its share trading
+ * audit rule §34). /share-trading/compare is its share trading
  * counterpart and is listed for exactly the same reason.
  *
  * /crypto/[slug] is now backed by the CryptoAsset model (see cryptoAssetEntries).
@@ -29,8 +29,8 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/crypto/exchanges",
     "/guides",
     "/compare",
-    "/compare/crypto-exchanges",
-    "/compare/trading-platforms",
+    "/crypto/exchanges/compare",
+    "/share-trading/compare",
     "/share-trading",
     "/news",
     "/methodology",
@@ -87,21 +87,13 @@ export async function newsEntries(): Promise<MetadataRoute.Sitemap> {
 }
 
 export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
-  // Hardcoded to /crypto/exchanges/ below, so this MUST stay scoped to
-  // CRYPTO_EXCHANGE providers only. Provider.providerType also has BROKER /
-  // MULTI_ASSET_BROKER / TRADING_PLATFORM values — those brands' actual
-  // comparable pages live under /share-trading/[slug] via ProviderOffering
-  // (see offeringEntries() below), not here. Do not widen this filter.
-  const providers = await prisma.provider.findMany({
-    where: {
-      noIndex: false,
-      providerType: "CRYPTO_EXCHANGE" satisfies ProviderType,
-    },
-    select: { slug: true, updatedAt: true },
+  const offerings = await prisma.providerOffering.findMany({
+    where: { active: true, noIndex: false, offeringType: "CRYPTO_EXCHANGE" },
+    select: { updatedAt: true, provider: { select: { slug: true } } },
   });
-  return providers.map((p) => ({
-    url: absoluteUrl(`/crypto/exchanges/${p.slug}`),
-    lastModified: p.updatedAt,
+  return offerings.map((o) => ({
+    url: absoluteUrl(`/crypto/exchanges/${o.provider.slug}`),
+    lastModified: o.updatedAt,
   }));
 }
 
@@ -113,7 +105,7 @@ export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
  */
 export async function offeringEntries(): Promise<MetadataRoute.Sitemap> {
   const offerings = await prisma.providerOffering.findMany({
-    where: { active: true, noIndex: false },
+    where: { active: true, noIndex: false, offeringType: "SHARE_TRADING" },
     select: { slug: true, updatedAt: true },
   });
   return offerings.map((o) => ({

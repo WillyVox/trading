@@ -2,15 +2,18 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
-import { compareHrefWithout } from "@/lib/compare/resolve";
-import type { ComparisonSection, ComparisonSubject } from "@/lib/compare/types";
+import { comparisonHrefWithout } from "@/components/compare/paths";
+import type {
+  CompareSection,
+  CompareSubject,
+} from "@/components/compare/types";
 
 /**
  * Desktop/tablet comparison table -- one column per subject, one row per
  * fact/fee/feature (crypto) or market/product/custody/account type (share
- * trading). Domain-agnostic: takes ComparisonSubject[] rather than a raw
+ * trading). Domain-agnostic: takes CompareSubject[] rather than a raw
  * Provider[], so it doesn't need to know which domain it's rendering --
- * see src/lib/compare/types.ts and the compare-engine-unification
+ * see shared comparison UI types and the domain-specific comparison architecture
  * analysis. Hidden below the `md` breakpoint; CompareMobileCards renders
  * the same data as stacked per-subject cards for small screens.
  * Horizontally scrollable so a 3+-way comparison never breaks the page
@@ -22,20 +25,22 @@ export function CompareTable({
   subjects,
   sections,
   buildYourOwnHref,
+  comparisonBasePath,
 }: {
-  subjects: ComparisonSubject[];
-  sections: ComparisonSection[];
+  subjects: CompareSubject[];
+  sections: CompareSection[];
   /** Anchor/URL for the "Add another" tile, e.g. "#build-your-own" on
-   * /compare/[slug]. Omit on the always-complete pages
-   * (/compare/crypto-exchanges, /compare/trading-platforms) where every
+   * domain-specific comparison routes. Omit on the always-complete pages
+   * (/crypto/exchanges/compare, /share-trading/compare) where every
    * subject is already shown and there's nothing to add. */
   buildYourOwnHref?: string;
+  comparisonBasePath?: string;
 }) {
   // Removing a subject down to one isn't a comparison this page renders
   // usefully (see CompareDetailPage's "only one selected" message), so the
   // remove control only appears while there's a third subject to fall
   // back to.
-  const canRemove = subjects.length > 2;
+  const canRemove = subjects.length > 2 && Boolean(comparisonBasePath);
   const colCount = subjects.length + (buildYourOwnHref ? 2 : 1); // row-label [+ add-another]
 
   return (
@@ -61,7 +66,11 @@ export function CompareTable({
               >
                 {canRemove && (
                   <Link
-                    href={compareHrefWithout(subjects, s.slug)}
+                    href={comparisonHrefWithout(
+                      comparisonBasePath ?? "",
+                      subjects,
+                      s.slug
+                    )}
                     aria-label={`Remove ${s.name} from this comparison`}
                     className="text-muted hover:text-navy absolute top-2 right-2"
                   >

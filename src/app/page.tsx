@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/Badge";
 import { PageHero } from "@/components/layout/PageHero";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getFeaturedProviders } from "@/lib/providers/service";
-import { formatFeatureLabel } from "@/lib/providers/features";
+import { formatFeatureLabel } from "@/lib/crypto-exchanges/features";
+import { getFeaturedCryptoExchanges } from "@/lib/crypto-exchanges/service";
 
 export const metadata = buildMetadata({
   title:
@@ -33,7 +33,7 @@ const howItWorksSteps = [
   },
   {
     number: "3",
-    href: "/compare/crypto-exchanges",
+    href: "/crypto/exchanges/compare",
     title: "Compare side by side",
     description:
       "See providers against each other on the same facts before you choose one.",
@@ -49,7 +49,7 @@ const researchStandardLinks = [
     description: "Structured facts, fees, and sources per exchange.",
   },
   {
-    href: "/compare/crypto-exchanges",
+    href: "/crypto/exchanges/compare",
     tagLabel: "COMPARE",
     tagClassName: "border-green/30 bg-green/10 text-green",
     title: "Side-by-side comparisons",
@@ -66,7 +66,7 @@ const researchStandardLinks = [
 ] as const;
 
 export default async function HomePage() {
-  const featuredProviders = await getFeaturedProviders(3);
+  const featuredProviders = await getFeaturedCryptoExchanges(3);
 
   return (
     <>
@@ -154,46 +154,52 @@ export default async function HomePage() {
             Shown alphabetically — not a ranking.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {featuredProviders.map((provider) => (
-              <Card key={provider.id} className="h-full">
-                <div className="flex items-center gap-3">
-                  <ProviderLogo
-                    logo={provider.logo}
-                    name={provider.name}
-                    size="sm"
-                  />
-                  <div className="font-display text-navy text-lg font-bold">
-                    {provider.name}
+            {featuredProviders.map((offering) => {
+              const provider = offering.provider;
+              return (
+                <Card key={offering.id} className="h-full">
+                  <div className="flex items-center gap-3">
+                    <ProviderLogo
+                      logo={provider.logo}
+                      name={provider.name}
+                      size="sm"
+                    />
+                    <div className="font-display text-navy text-lg font-bold">
+                      {provider.name}
+                    </div>
                   </div>
-                </div>
-                <div className="mt-3">
-                  <Badge tone="green">Verified</Badge>
-                </div>
-                {provider.description && (
-                  <p className="text-muted mt-3 text-sm">
-                    {provider.description}
-                  </p>
-                )}
-                {provider.features.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {provider.features.map((feature) => (
-                      <span
-                        key={feature.id}
-                        className="bg-panel-secondary text-navy rounded-full px-2 py-0.5 text-xs"
-                      >
-                        {formatFeatureLabel(feature.featureType, feature.label)}
-                      </span>
-                    ))}
+                  <div className="mt-3">
+                    <Badge tone="green">Verified</Badge>
                   </div>
-                )}
-                <Link
-                  href={`/crypto/exchanges/${provider.slug}`}
-                  className="border-border text-blue focus-visible:ring-gold-soft mt-3 inline-block rounded border-t pt-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                >
-                  View profile →
-                </Link>
-              </Card>
-            ))}
+                  {(offering.description ?? provider.description) && (
+                    <p className="text-muted mt-3 text-sm">
+                      {offering.description ?? provider.description}
+                    </p>
+                  )}
+                  {offering.features.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {offering.features.map((feature) => (
+                        <span
+                          key={feature.id}
+                          className="bg-panel-secondary text-navy rounded-full px-2 py-0.5 text-xs"
+                        >
+                          {formatFeatureLabel(
+                            feature.featureType,
+                            feature.label
+                          )}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <Link
+                    href={`/crypto/exchanges/${provider.slug}`}
+                    className="border-border text-blue focus-visible:ring-gold-soft mt-3 inline-block rounded border-t pt-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                  >
+                    View profile →
+                  </Link>
+                </Card>
+              );
+            })}
           </div>
           <Link
             href="/crypto/exchanges"

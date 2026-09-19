@@ -1,22 +1,22 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { getRelatedContentForProvider } from "@/lib/providers/service";
 import {
-  getProviderBySlug,
-  getProviders,
-  getRelatedContentForProvider,
-} from "@/lib/providers/service";
+  getCryptoExchangeByPublicSlug,
+  getCryptoExchanges,
+} from "@/lib/crypto-exchanges/service";
 import { getActiveAffiliateLink } from "@/lib/affiliates/service";
 import {
   groupFeatures,
-  type ProviderFeatureRow,
-} from "@/lib/providers/features";
+  type CryptoFeatureRow,
+} from "@/lib/crypto-exchanges/features";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
 // import { CompareSelector } from "@/components/compare/CompareSelector";
 import { Card } from "@/components/ui/Card";
-import { ProviderFeatureSection } from "@/components/providers/ProviderFeatureSection";
-import { ProviderProsCons } from "@/components/providers/ProviderProsCons";
+import { CryptoExchangeFeatureSection } from "@/components/crypto-exchanges/FeatureSection";
+import { CryptoExchangeProsCons } from "@/components/crypto-exchanges/ProsCons";
 import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { RelatedNews } from "@/components/providers/RelatedNews";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -26,7 +26,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 import { VisitSite } from "@/components/affiliate/VisitSite";
 
-function formatProviderType(type: string) {
+function formatOfferingType(type: string) {
   const label = type.replace(/_/g, " ").toLowerCase();
   return `${label.charAt(0).toUpperCase()}${label.slice(1)} profile`;
 }
@@ -37,7 +37,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const provider = await getProviderBySlug(slug);
+  const offering = await getCryptoExchangeByPublicSlug(slug);
+  const provider = offering?.provider;
   if (!provider)
     return buildMetadata({
       title: "Exchange not found",
@@ -64,25 +65,20 @@ export default async function ExchangeProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const provider = await getProviderBySlug(slug);
-  if (!provider) notFound();
+  const offering = await getCryptoExchangeByPublicSlug(slug);
+  if (!offering) notFound();
+  const provider = offering.provider;
   const [link, relatedContent, comparablesResult] = await Promise.all([
     getActiveAffiliateLink(slug),
     getRelatedContentForProvider(provider.id),
-    // Same providerType only, per product decision -- if this provider has
-    // no providerType set, getProviders() returns the unfiltered pool (see
-    // its opts.providerType ternary), so that edge case surfaces as "compare
-    // with everyone" rather than an empty list.
-    provider.providerType
-      ? getProviders({ providerType: provider.providerType })
-      : getProviders(),
+    getCryptoExchanges(),
   ]);
-  const comparableProviders = comparablesResult.items
-    .filter((p: any) => p.slug !== slug)
-    .map((p: any) => ({ id: p.id, slug: p.slug, name: p.name }));
+  const comparableProviders = comparablesResult
+    .filter((o) => o.provider.slug !== slug)
+    .map((o) => ({ id: o.id, slug: o.provider.slug, name: o.provider.name }));
 
   const featureGroups = groupFeatures(
-    provider.features as ProviderFeatureRow[]
+    offering.features as unknown as CryptoFeatureRow[]
   );
 
   const trail = breadcrumbTrail([
@@ -95,7 +91,7 @@ export default async function ExchangeProfilePage({
       <JsonLd data={breadcrumbSchema(trail)} />
       <PageHero
         breadcrumbs={trail}
-        eyebrow={formatProviderType(provider.providerType)}
+        eyebrow={formatOfferingType(offering.offeringType)}
         title={`${provider.name} Australia review`}
         subheading={provider.description ?? undefined}
         maxWidth="max-w-4xl"
@@ -139,7 +135,7 @@ export default async function ExchangeProfilePage({
             Fees
           </h2>
           <ul className="space-y-2 text-sm">
-            {provider.fees.map((f: any) => (
+            {offering.fees.map((f: any) => (
               <li
                 key={f.id}
                 className="border-border flex justify-between border-b pb-2"
@@ -148,39 +144,39 @@ export default async function ExchangeProfilePage({
                 <span>{f.displayValue ?? "Not verified"}</span>
               </li>
             ))}
-            {provider.fees.length === 0 && (
+            {offering.fees.length === 0 && (
               <li className="text-muted">No fee data yet.</li>
             )}
           </ul>
         </Card>
 
-        <ProviderFeatureSection
+        <CryptoExchangeFeatureSection
           title="Products & trading"
           emptyLabel="No product/trading feature data yet."
           features={featureGroups.products}
         />
 
-        <ProviderFeatureSection
+        <CryptoExchangeFeatureSection
           title="Deposits & withdrawals"
           emptyLabel="No deposit/withdrawal method data yet."
           features={featureGroups.deposits}
         />
 
-        <ProviderFeatureSection
+        <CryptoExchangeFeatureSection
           title="Security"
           emptyLabel="No security data yet."
           features={featureGroups.security}
         />
 
-        <ProviderProsCons items={provider.prosCons} />
+        <CryptoExchangeProsCons items={offering.prosCons} />
 
-        {provider.assets.length > 0 && (
+        {offering.cryptoAssets.length > 0 && (
           <Card className="mt-4">
             <h2 className="font-display text-navy mb-4 text-lg font-bold">
               Supported assets
             </h2>
             <div className="flex flex-wrap gap-2 text-sm">
-              {provider.assets.map((pa: any) => (
+              {offering.cryptoAssets.map((pa: any) => (
                 <Link
                   key={pa.asset.id}
                   href={`/crypto/${pa.asset.slug}`}

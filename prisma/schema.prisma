@@ -248,15 +248,6 @@ enum VerificationStatus {
   STALE
 }
 
-enum ProviderType {
-  CRYPTO_EXCHANGE
-  BROKER
-  MULTI_ASSET_BROKER
-  TRADING_PLATFORM
-  WALLET_PROVIDER
-  OTHER
-}
-
 enum ProviderFeeType {
   TRADING
   MAKER
@@ -330,11 +321,42 @@ enum ProviderSourceType {
 // `custodianName` below is a plain string for now; that's the documented
 // seam where future normalization would attach, not an oversight.
 enum OfferingType {
+  CRYPTO_EXCHANGE
   SHARE_TRADING
-  CFD
+  CFD_TRADING
+  FOREX_TRADING
   MANAGED_FUND
   SUPERANNUATION
+  CRYPTO_WALLET
   OTHER
+}
+
+
+enum OfferingFeatureType {
+  AUD_DEPOSITS
+  AUD_WITHDRAWALS
+  PAYID
+  BANK_TRANSFER
+  CARD_DEPOSIT
+  MOBILE_APP
+  WEB_PLATFORM
+  LIMIT_ORDERS
+  MARKET_ORDERS
+  STOP_ORDERS
+  RECURRING_BUYS
+  STAKING
+  API_ACCESS
+  ADVANCED_CHARTING
+  TWO_FACTOR_AUTH
+  COLD_STORAGE
+  SMSF_SUPPORT
+  OTC_DESK
+  OTHER
+}
+
+enum OfferingProsConsType {
+  PRO
+  LIMITATION
 }
 
 enum AvailabilityStatus {
@@ -404,6 +426,14 @@ enum FeeCategory {
   WITHDRAWAL
   DEPOSIT
   EXCHANGE_TRANSFER // e.g. off-market / CHESS transfer fees
+  CRYPTO_TRADING
+  MAKER
+  TAKER
+  INSTANT_BUY
+  FIAT_DEPOSIT
+  FIAT_WITHDRAWAL
+  CRYPTO_WITHDRAWAL
+  SPREAD
   OTHER
 }
 
@@ -448,7 +478,7 @@ model ProviderOffering {
   logo               String?
   website            String?
   description        String?             @db.Text
-  offeringType       OfferingType?
+  offeringType       OfferingType
   jurisdiction       String?
   active             Boolean             @default(true)
   verificationStatus VerificationStatus  @default(UNVERIFIED)
@@ -465,8 +495,61 @@ model ProviderOffering {
   custody      OfferingCustody[]
   accountTypes OfferingAccountType[]
   fees         OfferingFee[]
+  features     OfferingFeature[]
+  prosCons     OfferingProsCon[]
+  cryptoAssets OfferingCryptoAsset[]
 
   @@index([providerId])
+  @@index([offeringType])
+  @@index([offeringType, active])
+}
+
+model OfferingFeature {
+  id                 String              @id @default(cuid())
+  offeringId         String
+  featureType        OfferingFeatureType
+  label              String?
+  value              String?
+  available          Boolean?
+  sourceUrl          String?
+  jurisdiction       String?
+  verificationStatus VerificationStatus  @default(UNVERIFIED)
+  verifiedAt         DateTime?
+
+  offering ProviderOffering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+
+  @@unique([offeringId, featureType])
+  @@index([offeringId])
+  @@index([featureType])
+}
+
+model OfferingProsCon {
+  id                 String               @id @default(cuid())
+  offeringId         String
+  type               OfferingProsConsType
+  label              String
+  detail             String?              @db.Text
+  sourceUrl          String?
+  jurisdiction       String?
+  verificationStatus VerificationStatus   @default(UNVERIFIED)
+  verifiedAt         DateTime?
+  position           Int                  @default(0)
+
+  offering ProviderOffering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+
+  @@index([offeringId])
+  @@index([offeringId, type])
+}
+
+model OfferingCryptoAsset {
+  offeringId String
+  assetId    String
+
+  offering ProviderOffering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  asset     CryptoAsset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@id([offeringId, assetId])
+  @@index([assetId])
 }
 
 model OfferingMarket {
@@ -630,7 +713,6 @@ model Provider {
   logo               String?
   website            String?
   description        String?             @db.Text
-  providerType       ProviderType?
   jurisdictions      String[]
   verificationStatus VerificationStatus  @default(UNVERIFIED)
   lastVerifiedAt     DateTime?
@@ -791,7 +873,8 @@ model CryptoAsset {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  providers ProviderAsset[]
+  providers ProviderAsset[] // legacy during migration
+  offerings OfferingCryptoAsset[]
   articles  ArticleCryptoAsset[]
 }
 

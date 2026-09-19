@@ -29,7 +29,7 @@ export const metadata = buildMetadata({
  *    links as a planned future model, not a current one.
  *  - "alphabetical, not commercially weighted" -- verified true today
  *    against src/lib/providers/service.ts (orderBy: { name: "asc" }) and
- *    src/lib/providers/compare.ts (no scoring/weighting logic exists). If
+ *    src/lib/crypto-exchanges/comparison.ts (no scoring/weighting logic exists). If
  *    that ever changes, this page must change with it.
  *  - Sponsored/Promoted/Featured labelling is described as "not currently
  *    used" because no such UI exists yet (see ArticleProviderRelationship

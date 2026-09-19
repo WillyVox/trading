@@ -1,3 +1,5 @@
+> **Architecture update (2026-09-20):** Comparison is now domain-owned. Crypto comparisons live under `/crypto/exchanges/compare`, share-trading comparisons under `/share-trading/compare`, and the former generic `/compare/[slug]` resolver/`ComparisonDomain` layer has been removed. Historical milestones below may still describe the superseded structure.
+
 # Roadmap & Scaffold Status
 
 This tracks exactly what's implemented in this scaffold vs. what's still a stub, phase by phase.

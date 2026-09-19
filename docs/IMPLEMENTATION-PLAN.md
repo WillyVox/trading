@@ -1,3 +1,5 @@
+> **Architecture update (2026-09-20):** Comparison is now domain-owned. Crypto comparisons live under `/crypto/exchanges/compare`, share-trading comparisons under `/share-trading/compare`, and the former generic `/compare/[slug]` resolver/`ComparisonDomain` layer has been removed. Historical milestones below may still describe the superseded structure.
+
 # Crypto Affiliate Comparison Platform — Implementation Plan
 
 **Status:** Draft planning document, based on the master prompt and the `index.html` design reference only. No existing codebase was supplied. Sections marked **[NEEDS CODEBASE AUDIT]** must be revisited once the real repo (`package.json`, Prisma schema, routes, auth config) is available — do not treat this plan's assumptions there as final.
@@ -115,7 +117,7 @@ ArticleTag
 
 ```
 Provider
-  id, name, slug, logo, website, description, providerType,
+  id, name, slug, logo, website, description,
   jurisdictions[], regulatoryInfo, supportedProducts[], supportedMarkets[],
   supportedAssets[], features[], securityInfo, mobileApp, apiSupport,
   verificationStatus, lastVerifiedAt

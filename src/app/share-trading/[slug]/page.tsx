@@ -2,22 +2,22 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { FeeCategory } from "@prisma/client";
-import { getOfferingBySlug } from "@/lib/offerings/service";
+import { getShareTradingPlatformBySlug } from "@/lib/share-trading/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { Card } from "@/components/ui/Card";
-import { OfferingAvailabilitySection } from "@/components/offerings/OfferingAvailabilitySection";
-import { OfferingCustodySection } from "@/components/offerings/OfferingCustodySection";
+import { AvailabilitySection } from "@/components/share-trading/AvailabilitySection";
+import { CustodySection } from "@/components/share-trading/CustodySection";
 import {
   OfferingFeeSection,
   type PromotionRow,
-} from "@/components/offerings/OfferingSection";
-import type { FeeRowData } from "@/components/offerings/FeeDisplay";
+} from "@/components/share-trading/PlatformSection";
+import type { FeeRowData } from "@/components/share-trading/FeeDisplay";
 import {
   formatProductType,
   formatAccountType,
   formatFeeValue,
-} from "@/lib/offerings/labels";
+} from "@/lib/share-trading/labels";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
@@ -41,7 +41,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = await getOfferingBySlug(slug);
+  const offering = await getShareTradingPlatformBySlug(slug);
   if (!offering)
     return buildMetadata({
       title: "Platform not found",
@@ -68,7 +68,7 @@ export default async function ShareTradingOfferingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = await getOfferingBySlug(slug);
+  const offering = await getShareTradingPlatformBySlug(slug);
   if (!offering) notFound();
 
   const trail = breadcrumbTrail([
@@ -102,6 +102,7 @@ export default async function ShareTradingOfferingPage({
     marketName: c.market?.name ?? null,
     custodyType: c.custodyType,
     custodianName: c.custodianName,
+    hinSupported: c.hinSupported,
     verificationStatus: c.verificationStatus,
   }));
 
@@ -184,21 +185,21 @@ export default async function ShareTradingOfferingPage({
           </p>
         </Card>
 
-        <OfferingAvailabilitySection
+        <AvailabilitySection
           title="Markets"
           emptyLabel="No market access data yet."
           rows={marketRows}
         />
 
-        <OfferingAvailabilitySection
+        <AvailabilitySection
           title="Products"
           emptyLabel="No product data yet."
           rows={productRows}
         />
 
-        <OfferingCustodySection rows={custodyRows} />
+        <CustodySection rows={custodyRows} />
 
-        <OfferingAvailabilitySection
+        <AvailabilitySection
           title="Account types"
           emptyLabel="No account type data yet."
           rows={accountTypeRows}

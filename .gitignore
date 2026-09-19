@@ -4,3 +4,4 @@ node_modules
 *.log
 # publish_article
 .DS_Store
+tsconfig.tsbuildinfo

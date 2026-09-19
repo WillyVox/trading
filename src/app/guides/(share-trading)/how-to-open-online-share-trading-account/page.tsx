@@ -389,7 +389,7 @@ export default function OpenShareTradingAccountPage() {
             <GuideProviderLinks
               heading="Ready to open an account? Compare platforms"
               basePath="/share-trading"
-              compareHref="/compare/trading-platforms"
+              compareHref="/share-trading/compare"
               compareLabel="Compare all trading platforms side-by-side"
               providers={[
                 {
@@ -419,7 +419,7 @@ export default function OpenShareTradingAccountPage() {
                 {
                   id: "compare-trading-platforms",
                   slug: "compare",
-                  href: "/compare/trading-platforms",
+                  href: "/share-trading/compare",
                   title: "Compare trading platforms side-by-side",
                 },
               ]}
@@ -430,7 +430,7 @@ export default function OpenShareTradingAccountPage() {
             headings={HEADINGS}
             category="share-trading"
             readingMinutes={READING_MINUTES}
-            compareHref="/compare/trading-platforms"
+            compareHref="/share-trading/compare"
             compareLabel="Compare trading platforms"
           />
         </div>

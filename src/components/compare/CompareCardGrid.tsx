@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
-import { compareHrefWithout } from "@/lib/compare/resolve";
 import type { ComparisonSection, ComparisonSubject } from "@/lib/compare/types";
 
 /**
@@ -43,29 +42,6 @@ export function CompareCardGrid({
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {subjects.map((s, i) => (
         <Card key={s.id} className="relative flex flex-col">
-          {canRemove && (
-            <Link
-              href={compareHrefWithout(subjects, s.slug)}
-              aria-label={`Remove ${s.name} from this comparison`}
-              className="text-muted hover:text-navy hover:border-gold-soft border-border bg-panel absolute top-4 right-4 flex h-7 w-7 items-center justify-center rounded-full border transition-colors"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 14 14"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M1 1l12 12M13 1L1 13"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </Link>
-          )}
-
           <div className="flex items-center gap-3 pr-8">
             <ProviderLogo logo={s.logo} name={s.name} size="sm" decorative />
             <div className="min-w-0">

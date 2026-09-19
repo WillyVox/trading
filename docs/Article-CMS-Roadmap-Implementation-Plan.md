@@ -1,3 +1,5 @@
+> **Architecture update (2026-09-20):** Comparison is now domain-owned. Crypto comparisons live under `/crypto/exchanges/compare`, share-trading comparisons under `/share-trading/compare`, and the former generic `/compare/[slug]` resolver/`ComparisonDomain` layer has been removed. Historical milestones below may still describe the superseded structure.
+
 # Article CMS — Roadmap & Implementation Plan
 
 Answers to the two requirement docs, plus a concrete 5-block plan grounded in

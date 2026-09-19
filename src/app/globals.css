@@ -139,3 +139,22 @@ body {
 .article-table-wrap tbody tr:last-child td {
   border-bottom: none;
 }
+
+/*
+  Beginner explainer cards (src/components/explain/Explain.tsx). The card is
+  a native popover, which the browser centres in the viewport by default --
+  good on desktop. On phones it becomes a bottom sheet instead. This rule is
+  deliberately unlayered CSS so it wins over the Tailwind utilities on the
+  element (width, rounded corners) without needing !important.
+*/
+@media (max-width: 40rem) {
+  .explainer-card {
+    inset: auto 0 0 0;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    border-bottom-width: 0;
+    border-radius: 1rem 1rem 0 0;
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  }
+}
