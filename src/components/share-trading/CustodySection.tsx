@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { custodyTypeCopy } from "@/lib/share-trading/labels";
@@ -51,6 +52,11 @@ export function CustodySection({ rows }: { rows: CustodyRow[] }) {
           <li className="text-muted">No custody data yet.</li>
         )}
       </ul>
+      <div className="border-border mt-5 border-t pt-4">
+        <Link href="/tools/chess-vs-custody" className="text-blue text-sm font-semibold underline">
+          Explore CHESS vs custody in plain English →
+        </Link>
+      </div>
     </Card>
   );
 }

@@ -1,4 +1,14 @@
-import type { CustodyType, VerificationStatus } from "@prisma/client";
+export type CustodyTypeDto =
+  | "CHESS_SPONSORED"
+  | "ISSUER_SPONSORED"
+  | "CUSTODIAL"
+  | "DIRECT_REGISTRATION"
+  | "OMNIBUS"
+  | "MIXED"
+  | "OTHER"
+  | "UNKNOWN";
+
+export type CustodyVerificationStatus = "VERIFIED" | "UNVERIFIED" | "STALE";
 
 export type CustodyExplorerRow = {
   id: string;
@@ -7,11 +17,12 @@ export type CustodyExplorerRow = {
   providerName: string;
   marketCode: string | null;
   marketName: string | null;
-  custodyType: CustodyType;
+  custodyType: CustodyTypeDto;
   hinSupported: boolean | null;
   custodianName: string | null;
   description: string | null;
   sourceUrl: string | null;
-  verificationStatus: VerificationStatus;
+  verificationStatus: CustodyVerificationStatus;
   verifiedAt: string | null;
+  reviewDueAt: string | null;
 };

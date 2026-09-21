@@ -8,6 +8,8 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { getCustodyExplorerRows } from "@/lib/tools/custody/service";
 
+export const revalidate = 3600;
+
 export const metadata = buildMetadata({
   title: "CHESS vs Custody Explorer Australia",
   description:
@@ -33,6 +35,21 @@ export default async function ChessVsCustodyPage() {
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
         <CustodyExplorer rows={rows} />
+
+        <section className="mt-10 grid gap-4 md:grid-cols-2" aria-labelledby="chess-custody-difference">
+          <div className="border-border rounded-2xl border p-5">
+            <p className="text-gold-dark text-xs font-bold tracking-wider uppercase">CHESS-sponsored</p>
+            <h2 id="chess-custody-difference" className="font-display text-navy mt-2 text-xl font-bold">Registered on the CHESS subregister</h2>
+            <p className="text-muted mt-3 text-sm leading-6">ASX describes a CHESS-sponsored holder as the person or entity registered in CHESS as the owner of the securities. The sponsored holder is identified by a HIN.</p>
+            <a href="https://www.asx.com.au/holder-management" target="_blank" rel="noopener noreferrer" className="text-blue mt-3 inline-block text-sm font-semibold underline">ASX holder-management source ↗</a>
+          </div>
+          <div className="border-border rounded-2xl border p-5">
+            <p className="text-gold-dark text-xs font-bold tracking-wider uppercase">Custodial / omnibus</p>
+            <h2 className="font-display text-navy mt-2 text-xl font-bold">Legal title can sit with a custodian</h2>
+            <p className="text-muted mt-3 text-sm leading-6">ASX notes that an investor may instead have a beneficial interest where legal title is held by a custodian, including through an omnibus structure. The provider&apos;s terms determine how that arrangement operates.</p>
+            <a href="https://www.asx.com.au/investors/investment-tools-and-resources/faqs-company-defaults" target="_blank" rel="noopener noreferrer" className="text-blue mt-3 inline-block text-sm font-semibold underline">ASX ownership source ↗</a>
+          </div>
+        </section>
 
         <section className="mt-10 max-w-3xl" aria-labelledby="custody-scope">
           <h2

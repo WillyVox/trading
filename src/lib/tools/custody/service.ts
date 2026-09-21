@@ -33,6 +33,7 @@ export async function getCustodyExplorerRows(): Promise<CustodyExplorerRow[]> {
       sourceUrl: row.sourceUrl,
       verificationStatus: row.verificationStatus,
       verifiedAt: row.verifiedAt?.toISOString() ?? null,
+      reviewDueAt: row.reviewDueAt?.toISOString() ?? null,
     }))
     .sort(
       (a, b) =>

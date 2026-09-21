@@ -7,6 +7,7 @@ import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { custodyTypeCopy } from "@/lib/share-trading/labels";
 import { GLOSSARY, type GlossaryKey } from "@/lib/glossary/terms";
 import type { CustodyExplorerRow } from "@/lib/tools/custody/types";
+import { custodyFacts } from "@/lib/tools/custody/presentation";
 
 const conceptKeys: GlossaryKey[] = [
   "chess-sponsored",
@@ -55,6 +56,7 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
     offeringRows.find((row) => (row.marketCode ?? "ALL") === effectiveMarket) ??
     null;
   const concept = GLOSSARY[selectedConcept];
+  const selectedFacts = selectedRow ? custodyFacts(selectedRow.custodyType) : [];
 
   return (
     <div className="space-y-10">
@@ -113,6 +115,21 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
                 Educational wording is still marked as awaiting source review in
                 Trading Guide&apos;s glossary.
               </p>
+            )}
+            {concept.sources.length > 0 && (
+              <div className="border-border mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t pt-4">
+                {concept.sources.map((source) => (
+                  <a
+                    key={source.url}
+                    href={source.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue text-xs font-semibold underline"
+                  >
+                    {source.label} ↗
+                  </a>
+                ))}
+              </div>
             )}
           </Card>
         </div>
@@ -201,6 +218,17 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
                   <p className="text-muted mt-4 leading-7">
                     {custodyTypeCopy(selectedRow.custodyType).explainer}
                   </p>
+
+                  <div className="mt-5 grid gap-3 sm:grid-cols-3" aria-label="What this structure means">
+                    {selectedFacts.map((fact) => (
+                      <div key={fact.label} className="border-border rounded-xl border p-3">
+                        <p className="text-muted text-xs font-semibold tracking-wide uppercase">{fact.label}</p>
+                        <p className="text-navy mt-1 font-bold">{fact.value}</p>
+                        <p className="text-muted mt-2 text-xs leading-5">{fact.detail}</p>
+                      </div>
+                    ))}
+                  </div>
+
                   <dl className="border-border mt-5 grid gap-4 border-t pt-5 sm:grid-cols-2">
                     <div>
                       <dt className="text-muted text-xs font-semibold tracking-wide uppercase">
@@ -222,6 +250,16 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
                         {formatDate(selectedRow.verifiedAt)}
                       </dd>
                     </div>
+                    {selectedRow.reviewDueAt && (
+                      <div>
+                        <dt className="text-muted text-xs font-semibold tracking-wide uppercase">
+                          Review due
+                        </dt>
+                        <dd className="text-navy mt-1 font-bold">
+                          {formatDate(selectedRow.reviewDueAt)}
+                        </dd>
+                      </div>
+                    )}
                     {selectedRow.custodianName && (
                       <div>
                         <dt className="text-muted text-xs font-semibold tracking-wide uppercase">
@@ -243,6 +281,11 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
                   )}
                   <div className="border-border mt-5 border-t pt-5">
                     <h4 className="text-navy font-bold">Evidence</h4>
+                    {selectedRow.verificationStatus !== "VERIFIED" && (
+                      <p className="text-muted mt-2 text-sm leading-6">
+                        This record is not treated as confirmed. Use the linked evidence as a research lead and verify the current provider documentation directly.
+                      </p>
+                    )}
                     {selectedRow.sourceUrl ? (
                       <a
                         href={selectedRow.sourceUrl}
