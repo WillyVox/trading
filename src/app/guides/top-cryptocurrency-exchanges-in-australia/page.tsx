@@ -239,7 +239,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 services available to Australian users and explains the facts a
                 beginner should compare. If you already know what matters to
                 you, you can also{" "}
-                <Link href="/crypto/exchanges/compare">
+                <Link href="/compare/crypto-exchanges">
                   compare crypto exchanges side-by-side
                 </Link>{" "}
                 or browse our{" "}
@@ -758,7 +758,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 {
                   id: "compare-exchanges",
                   slug: "compare-crypto-exchanges",
-                  href: "/crypto/exchanges/compare",
+                  href: "/compare/crypto-exchanges",
                   title: "Compare crypto exchanges side-by-side",
                 },
                 {

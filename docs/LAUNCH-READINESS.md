@@ -30,7 +30,7 @@ npm run check:production
 
 ## Search and navigation
 
-- Canonical public comparison hubs are `/share-trading/compare` and `/crypto/exchanges/compare`.
+- Canonical public comparison hubs are `/compare/trading-platforms` and `/compare/crypto-exchanges`.
 - Arbitrary provider-combination URLs remain `noindex` until a separate SEO review establishes that they provide unique, durable search value.
 - Tool pages use canonical base URLs; scenario/query-string variants must not become separate indexable pages.
 - Sitemap entries should contain only real, indexable routes.

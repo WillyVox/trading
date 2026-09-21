@@ -433,7 +433,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 {
                   id: "compare-exchanges",
                   slug: "compare",
-                  href: "/crypto/exchanges/compare",
+                  href: "/compare/crypto-exchanges",
                   title: "Compare crypto exchanges side-by-side",
                 },
               ]}

@@ -33,7 +33,7 @@ const howItWorksSteps = [
   },
   {
     number: "3",
-    href: "/crypto/exchanges/compare",
+    href: "/compare/crypto-exchanges",
     title: "Compare side by side",
     description:
       "See providers against each other on the same facts before you choose one.",
@@ -49,7 +49,7 @@ const researchStandardLinks = [
     description: "Structured facts, fees, and sources per exchange.",
   },
   {
-    href: "/crypto/exchanges/compare",
+    href: "/compare/crypto-exchanges",
     tagLabel: "COMPARE",
     tagClassName: "border-green/30 bg-green/10 text-green",
     title: "Side-by-side comparisons",

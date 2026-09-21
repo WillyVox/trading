@@ -21,7 +21,7 @@ export function GuideProviderLinks({
   heading,
   providers,
   basePath = "/crypto/exchanges",
-  compareHref = "/crypto/exchanges/compare",
+  compareHref = "/compare/crypto-exchanges",
   compareLabel = "Compare all exchanges side-by-side",
 }: {
   heading: string;

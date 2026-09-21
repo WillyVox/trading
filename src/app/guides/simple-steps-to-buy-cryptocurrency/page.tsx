@@ -223,7 +223,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                 withdrawal fees, its deposit methods, and how it explains its
                 security practices — two-factor authentication and cold storage
                 of customer funds are good signs. Our{" "}
-                <Link href="/crypto/exchanges/compare">
+                <Link href="/compare/crypto-exchanges">
                   crypto exchange comparison
                 </Link>{" "}
                 lines up fees and features from Australian exchanges

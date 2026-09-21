@@ -9,7 +9,7 @@ export function RelatedTools({ offeringSlug }: { offeringSlug?: string }) {
           },
         ]
       : []),
-    { href: "/share-trading/compare", label: "Compare trading platforms" },
+    { href: "/compare/trading-platforms", label: "Compare trading platforms" },
     {
       href: "/guides/share-trading-for-beginners",
       label: "Share trading for beginners",

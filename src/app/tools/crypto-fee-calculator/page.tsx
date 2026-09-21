@@ -58,7 +58,7 @@ export default async function CryptoFeeCalculatorPage() {
             </Link>
             <Link
               className="text-blue underline"
-              href="/crypto/exchanges/compare"
+              href="/compare/crypto-exchanges"
             >
               Compare crypto exchanges →
             </Link>

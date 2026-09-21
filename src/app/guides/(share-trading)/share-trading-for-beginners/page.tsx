@@ -508,7 +508,7 @@ export default function ShareTradingForBeginnersPage() {
             <GuideProviderLinks
               heading="Ready to open an account? Compare share trading platforms"
               basePath="/share-trading"
-              compareHref="/share-trading/compare"
+              compareHref="/compare/trading-platforms"
               compareLabel="Compare all trading platforms side-by-side"
               providers={[
                 {
@@ -537,7 +537,7 @@ export default function ShareTradingForBeginnersPage() {
                 {
                   id: "compare-trading-platforms",
                   slug: "compare",
-                  href: "/share-trading/compare",
+                  href: "/compare/trading-platforms",
                   title: "Compare share trading platforms side-by-side",
                 },
               ]}
@@ -548,7 +548,7 @@ export default function ShareTradingForBeginnersPage() {
             headings={HEADINGS}
             category="beginner-guides"
             readingMinutes={READING_MINUTES}
-            compareHref="/share-trading/compare"
+            compareHref="/compare/trading-platforms"
             compareLabel="Compare trading platforms"
           />
         </div>

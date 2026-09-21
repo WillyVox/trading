@@ -128,9 +128,9 @@ export async function getShareTradingPlatformsBySlugs(
 
 /**
  * Every active, indexable offering with full compare-ready detail included
- * -- backs /share-trading/compare, the always-complete counterpart to
+ * -- backs /compare/trading-platforms, the always-complete counterpart to
  * getShareTradingPlatforms() (which is include-light, for the list page). Mirrors how
- * /crypto/exchanges/compare queries prisma.provider directly rather than
+ * /compare/crypto-exchanges queries prisma.provider directly rather than
  * going through the paginated list helper.
  */
 export async function getAllShareTradingPlatformsForCompare(): Promise<
@@ -146,7 +146,7 @@ export async function getAllShareTradingPlatformsForCompare(): Promise<
 
 /**
  * Lightweight pool for the compare selector -- id/slug/name only, so the
- * /share-trading/compare/[slug] page doesn't load every offering's markets,
+ * /compare/trading-platforms/[slug] page doesn't load every offering's markets,
  * fees and custody just to render a row of pills. The hub page derives its
  * own pool from data it already loaded; this is for pages that don't.
  * Alphabetical, matching the compare pages' "never ranked" rule.

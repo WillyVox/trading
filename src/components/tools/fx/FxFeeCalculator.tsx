@@ -200,7 +200,7 @@ export function FxFeeCalculator({
                 </Link>
                 <Link
                   className="text-blue font-semibold underline"
-                  href="/share-trading/compare"
+                  href="/compare/trading-platforms"
                 >
                   Compare platforms →
                 </Link>

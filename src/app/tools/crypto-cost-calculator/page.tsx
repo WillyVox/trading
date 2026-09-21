@@ -63,7 +63,7 @@ export default async function CryptoCostCalculatorPage() {
             </Link>
             <Link
               className="text-blue underline"
-              href="/crypto/exchanges/compare"
+              href="/compare/crypto-exchanges"
             >
               Compare crypto exchanges →
             </Link>

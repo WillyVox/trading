@@ -7,12 +7,12 @@ import { STATIC_GUIDES } from "@/lib/guides/static-guides";
 /**
  * Note: domain-specific comparison routes is intentionally excluded from the sitemap for now
  * -- pages are noindex until indexing every possible provider combination
- * has had an SEO review (Phase 8). /crypto/exchanges/compare is different:
+ * has had an SEO review (Phase 8). /compare/crypto-exchanges is different:
  * it's a single, deterministic, always-complete comparison (every
  * CRYPTO_EXCHANGE provider, no combinatorial URL to generate), so it's
  * both indexed and listed below rather than programmatically generating
  * every provider-pair/triple combination just to grow sitemap size (see
- * audit rule §34). /share-trading/compare is its share trading
+ * audit rule §34). /compare/trading-platforms is its share trading
  * counterpart and is listed for exactly the same reason.
  *
  * /crypto/[slug] is now backed by the CryptoAsset model (see cryptoAssetEntries).
@@ -28,8 +28,9 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/crypto",
     "/crypto/exchanges",
     "/guides",
-    "/crypto/exchanges/compare",
-    "/share-trading/compare",
+    "/compare",
+    "/compare/crypto-exchanges",
+    "/compare/trading-platforms",
     "/share-trading",
     "/news",
     "/tools",

@@ -123,7 +123,10 @@ export default async function ChessVsCustodyPage() {
             Research next
           </h2>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-            <Link className="text-blue underline" href="/share-trading/compare">
+            <Link
+              className="text-blue underline"
+              href="/compare/trading-platforms"
+            >
               Compare share-trading platforms →
             </Link>
             <Link

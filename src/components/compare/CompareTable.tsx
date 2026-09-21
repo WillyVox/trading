@@ -31,7 +31,7 @@ export function CompareTable({
   sections: CompareSection[];
   /** Anchor/URL for the "Add another" tile, e.g. "#build-your-own" on
    * domain-specific comparison routes. Omit on the always-complete pages
-   * (/crypto/exchanges/compare, /share-trading/compare) where every
+   * (/compare/crypto-exchanges, /compare/trading-platforms) where every
    * subject is already shown and there's nothing to add. */
   buildYourOwnHref?: string;
   comparisonBasePath?: string;

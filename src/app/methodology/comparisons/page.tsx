@@ -110,7 +110,7 @@ export default function ComparisonMethodologyPage() {
             Affiliate disclosure
           </Link>
           <Link
-            href="/crypto/exchanges/compare"
+            href="/compare/crypto-exchanges"
             className="text-blue underline"
           >
             See a live comparison

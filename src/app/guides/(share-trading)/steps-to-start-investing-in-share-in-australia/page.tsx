@@ -376,7 +376,7 @@ export default function StepsToStartInvestingInSharesPage() {
             <GuideProviderLinks
               heading="Ready to invest? Compare share trading platforms"
               basePath="/share-trading"
-              compareHref="/share-trading/compare"
+              compareHref="/compare/trading-platforms"
               compareLabel="Compare all trading platforms side-by-side"
               providers={[
                 {
@@ -406,7 +406,7 @@ export default function StepsToStartInvestingInSharesPage() {
                 {
                   id: "compare-trading-platforms",
                   slug: "compare",
-                  href: "/share-trading/compare",
+                  href: "/compare/trading-platforms",
                   title: "Compare trading platforms side-by-side",
                 },
               ]}
@@ -417,7 +417,7 @@ export default function StepsToStartInvestingInSharesPage() {
             headings={HEADINGS}
             category="share-trading"
             readingMinutes={READING_MINUTES}
-            compareHref="/share-trading/compare"
+            compareHref="/compare/trading-platforms"
             compareLabel="Compare trading platforms"
           />
         </div>

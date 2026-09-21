@@ -123,7 +123,7 @@ export const NAV_ITEMS: NavItem[] = [
         links: [
           {
             label: "Compare all trading platforms",
-            href: "/share-trading/compare",
+            href: "/compare/trading-platforms",
           },
           { label: "Browse share trading platforms", href: "/share-trading" },
         ],
@@ -133,12 +133,13 @@ export const NAV_ITEMS: NavItem[] = [
         links: [
           {
             label: "Compare all crypto exchanges",
-            href: "/crypto/exchanges/compare",
+            href: "/compare/crypto-exchanges",
           },
           { label: "Browse crypto exchanges", href: "/crypto/exchanges" },
         ],
       },
     ],
+    footerLink: { label: "View all comparisons →", href: "/compare" },
   },
   {
     label: "Tools",

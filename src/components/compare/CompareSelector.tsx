@@ -53,8 +53,8 @@ function initials(name: string): string {
  * then get redirect()ed to btc-markets-vs-independent-reserve; it goes
  * straight to the canonical URL and the address bar never flips.
  *
- * Used on both the always-complete hubs (/crypto/exchanges/compare,
- * /share-trading/compare) and the /compare/[slug] result pages. The
+ * Used on both the always-complete hubs (/compare/crypto-exchanges,
+ * /compare/trading-platforms) and the /compare/[slug] result pages. The
  * comparison itself is always rendered server-side after navigation, so
  * rows and sections are recomputed for exactly the chosen subset -- this
  * component never filters a table in place.

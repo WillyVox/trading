@@ -109,7 +109,10 @@ export default async function FxFeeCalculatorPage({
             >
               Brokerage calculator →
             </Link>
-            <Link className="text-blue underline" href="/share-trading/compare">
+            <Link
+              className="text-blue underline"
+              href="/compare/trading-platforms"
+            >
               Compare share-trading platforms →
             </Link>
             <Link className="text-blue underline" href="/tools">

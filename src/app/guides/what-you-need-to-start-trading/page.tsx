@@ -488,7 +488,7 @@ export default function WhatYouNeedToStartTradingPage() {
             <GuideProviderLinks
               heading="Ready for share trading? Compare platforms"
               basePath="/share-trading"
-              compareHref="/share-trading/compare"
+              compareHref="/compare/trading-platforms"
               compareLabel="Compare all trading platforms side-by-side"
               providers={[
                 {
@@ -509,7 +509,7 @@ export default function WhatYouNeedToStartTradingPage() {
             <GuideProviderLinks
               heading="Ready for crypto? Compare exchanges"
               basePath="/crypto/exchanges"
-              compareHref="/crypto/exchanges/compare"
+              compareHref="/compare/crypto-exchanges"
               compareLabel="Compare all exchanges side-by-side"
               providers={[
                 {
@@ -538,13 +538,13 @@ export default function WhatYouNeedToStartTradingPage() {
                 {
                   id: "compare-trading-platforms",
                   slug: "compare",
-                  href: "/share-trading/compare",
+                  href: "/compare/trading-platforms",
                   title: "Compare share trading platforms",
                 },
                 {
                   id: "compare-crypto-exchanges",
                   slug: "compare",
-                  href: "/crypto/exchanges/compare",
+                  href: "/compare/crypto-exchanges",
                   title: "Compare crypto exchanges",
                 },
               ]}
@@ -555,7 +555,7 @@ export default function WhatYouNeedToStartTradingPage() {
             headings={HEADINGS}
             category="getting-started"
             readingMinutes={READING_MINUTES}
-            compareHref="/crypto/exchanges/compare"
+            compareHref="/compare/crypto-exchanges"
             compareLabel="Compare crypto exchanges"
           />
         </div>
