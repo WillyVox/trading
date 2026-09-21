@@ -32,7 +32,7 @@ export function AffiliateCTA({
   const label = variant === "compact" ? "Visit site" : `Visit ${providerName}`;
   const href = placement
     ? `/go/${partnerSlug}?placement=${encodeURIComponent(placement)}`
-    : `/go/${partnerSlug}`; // [TODO] should append our referred Id here to send to partner
+    : `/go/${partnerSlug}`; // referral params live in AffiliateLink.approvedUrl, not appended here
 
   const link = (
     <a

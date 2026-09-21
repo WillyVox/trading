@@ -834,3 +834,15 @@ model AffiliateConversion {
   amount    Float?
   createdAt DateTime @default(now())
 }
+
+/// Sliding-window counters for login/register throttling (src/lib/security).
+/// `key` is "<rule>:<HMAC of the identifier>" -- no raw email or IP is stored.
+/// Rows are pruned automatically after 24 hours.
+model RateLimitHit {
+  id        String   @id @default(cuid())
+  key       String
+  createdAt DateTime @default(now())
+
+  @@index([key, createdAt])
+  @@index([createdAt])
+}

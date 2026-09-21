@@ -109,15 +109,32 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   // sending a visitor away from an in-progress article read is only
   // warranted for genuinely external destinations (sources, regulators).
   transformTags: {
-    a: (tagName, attribs) => {
+    a: (_tagName, attribs) => {
       const href = attribs.href ?? "";
-      const isExternal = isExternalHref(href);
+  
+      const isExternal =
+        href.startsWith("https://") || href.startsWith("http://");
+  
+      if (isExternal) {
+        return {
+          tagName: "a",
+          attribs: {
+            ...attribs,
+            href,
+            target: "_blank",
+            rel: "noopener noreferrer",
+          },
+        };
+      }
+  
+      const { target: _target, ...safeAttribs } = attribs;
+  
       return {
-        tagName,
+        tagName: "a",
         attribs: {
-          ...attribs,
+          ...safeAttribs,
+          href,
           rel: "noopener noreferrer",
-          ...(isExternal ? { target: "_blank" } : {}),
         },
       };
     },

@@ -1,47 +1,66 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-export default nextConfig;
+const isProduction = process.env.NODE_ENV === "production";
 
-/**
- * If after launching, and google already indexed your url, then you change the path,
- * you need to config as following to migrate the path.
- * explain:
- * Without a redirect, anyone visiting the old URL gets a 404. More importantly, if Google has already discovered/indexed the old URL, or another page/bookmark links to it, that old URL suddenly disappears.
+// Report-Only: violations are logged (see src/app/api/csp-report/route.ts)
+// but nothing is blocked, so this can be watched for real traffic before it
+// is switched to an enforcing Content-Security-Policy.
+//
+// Derived from what the app actually loads:
+//  - script/style 'unsafe-inline': Next.js emits inline bootstrap scripts and
+//    styles, and there is no nonce pipeline. Nonces require every page to
+//    render dynamically (no static/ISR caching), which isn't worth it here
+//    while article HTML passes through a single sanitizer.
+//  - img-src https:: sanitized article bodies may embed remote images. If
+//    that is ever restricted to uploaded media, narrow this to 'self'.
+//  - frame-src: only the two video providers ArticleVideo can render.
+//  - fonts are self-hosted by next/font, so font-src is 'self'.
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self'",
+  "frame-src https://www.youtube-nocookie.com https://player.vimeo.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "report-uri /api/csp-report",
+].join("; ");
 
-With:
-
-{
-  source: "/top-cryptocurrency-exchanges-in-australia",
-  destination: "/guides/top-cryptocurrency-exchanges-in-australia",
-  permanent: true,
-}
-
-the migration becomes:
-
-OLD URL
-/top-cryptocurrency-exchanges-in-australia
-              │
-              │ permanent redirect
-              ▼
-NEW URL
-/guides/top-cryptocurrency-exchanges-in-australia
-
-So users, bookmarks, external links and search crawlers are sent to the new canonical location.
-
-const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: "/top-cryptocurrency-exchanges-in-australia",
-        destination: "/guides/top-cryptocurrency-exchanges-in-australia",
-        permanent: true,
-      },
-      {
-        source: "/share-trading-for-beginners",
-        destination: "/guides/share-trading-for-beginners",
-        permanent: true,
-      },
-    ];
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  // Enforced clickjacking protection. (frame-ancestors would be the CSP
+  // equivalent, but browsers ignore it in a Report-Only policy.)
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value:
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()",
   },
+  ...(isProduction
+    ? [
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=31536000; includeSubDomains",
+        },
+        {
+          key: "Content-Security-Policy-Report-Only",
+          value: contentSecurityPolicy,
+        },
+      ]
+    : []),
+];
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  poweredByHeader: false,
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
+  // If a published URL ever changes, add a permanent redirect here
+  // (async redirects() { return [{ source, destination, permanent: true }] })
+  // so links, bookmarks and search engines follow it to the new address.
 };
- */
+
+export default nextConfig;

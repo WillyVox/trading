@@ -10,7 +10,8 @@ export default function robots(): MetadataRoute.Robots {
       // not the only protection, see audit §8).
       // /go/ — affiliate redirects, not content.
       // /login, /403 — utility/error pages, no search value.
-      disallow: ["/admin", "/go/", "/login", "/403"],
+      // /api/ — auth and CSP-report endpoints, not content.
+      disallow: ["/admin", "/go/", "/login", "/403", "/api/"],
     },
     sitemap: absoluteUrl("/sitemap.xml"),
   };

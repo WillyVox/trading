@@ -1,15 +1,23 @@
 import { prisma } from "@/lib/prisma";
-import { affiliateLinkRepository } from "@/lib/repository";
+import { LIVE_PARTNERSHIP_STATUSES } from "./status";
+
+/**
+ * A link only counts as active when BOTH the link is switched on AND its
+ * partnership is in a live status (see ./status.ts). Checking the
+ * partnership here, at read time, is what stops a PROSPECT/PAUSED/ENDED
+ * partner from ever monetising -- regardless of what the link row says.
+ */
+const LIVE_LINK_FILTER = {
+  active: true,
+  program: {
+    partnership: { status: { in: [...LIVE_PARTNERSHIP_STATUSES] } },
+  },
+};
 
 export async function getActiveAffiliateLink(partnerSlug: string) {
-  const link = await affiliateLinkRepository.findFirst({
-    where: {
-      partnerSlug,
-      active: true,
-    },
+  return prisma.affiliateLink.findFirst({
+    where: { partnerSlug, ...LIVE_LINK_FILTER },
   });
-  if (!link || !link.active) return null;
-  return link;
 }
 
 /**
@@ -23,7 +31,7 @@ export async function getActiveAffiliateLinksForProviderSlugs(slugs: string[]) {
   const links = await prisma.affiliateLink.findMany({
     where: {
       partnerSlug: { in: slugs },
-      active: true,
+      ...LIVE_LINK_FILTER,
     },
   });
   return new Map(links.map((link) => [link.partnerSlug, link]));

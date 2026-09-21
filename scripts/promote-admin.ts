@@ -83,7 +83,7 @@ async function main() {
     }
     if (!args.password || !isPasswordAcceptable(args.password)) {
       console.error(
-        "--password is required with --create and must be at least 8 characters."
+        "--password is required with --create and must be 8 to 128 characters."
       );
       process.exitCode = 1;
       return;

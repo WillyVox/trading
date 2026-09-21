@@ -1,10 +1,21 @@
 "use server";
 
 import { AuthError } from "next-auth";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { signIn, signOut } from "@/lib/auth";
-import { hashPassword, isPasswordAcceptable } from "./password";
+import { getClientIp } from "@/lib/security/client-ip";
+import {
+  allowRegistration,
+  isLoginThrottled,
+  LOGIN_LOCKOUT_MESSAGE,
+} from "@/lib/security/auth-throttle";
+import {
+  hashPassword,
+  isPasswordAcceptable,
+  PASSWORD_POLICY_MESSAGE,
+} from "./password";
 
 export type AuthFormState = { error?: string } | undefined;
 
@@ -21,6 +32,13 @@ export async function loginAction(
 
   if (!email || !password) {
     return { error: "Email and password are required." };
+  }
+
+  // Read-only pre-check so a locked-out visitor sees why, instead of the
+  // generic "incorrect password" message. The counting itself happens in
+  // the credentials provider's authorize().
+  if (await isLoginThrottled(email, getClientIp(await headers()))) {
+    return { error: LOGIN_LOCKOUT_MESSAGE };
   }
 
   try {
@@ -48,11 +66,19 @@ export async function registerAction(
   const password = String(formData.get("password") ?? "");
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
 
+  // Counted before any validation or database work so scripted sign-ups
+  // can't be used to probe emails or fill the users table.
+  if (!(await allowRegistration(getClientIp(await headers())))) {
+    return {
+      error: "Too many sign-up attempts from this network. Try again later.",
+    };
+  }
+
   if (!email || !EMAIL_PATTERN.test(email)) {
     return { error: "Enter a valid email address." };
   }
   if (!isPasswordAcceptable(password)) {
-    return { error: "Password must be at least 8 characters." };
+    return { error: PASSWORD_POLICY_MESSAGE };
   }
   if (password !== confirmPassword) {
     return { error: "Passwords do not match." };

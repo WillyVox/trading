@@ -33,5 +33,3 @@ export function PartnerStatusBadge({
 }) {
   return <Badge tone={TONE[status]}>{LABEL[status]}</Badge>;
 }
-
-1;

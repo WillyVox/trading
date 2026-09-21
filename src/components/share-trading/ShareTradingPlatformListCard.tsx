@@ -141,11 +141,10 @@ export function ShareTradingPlatformListCard({
 
       {/* Actions */}
       <div className="flex flex-row items-center gap-3 md:flex-col md:items-end">
-        <VisitSite
-          partnerSlug={offering.slug}
-          href={offering.website ?? ""}
-          placement="share-trading"
-        />
+        {/* No share-trading affiliate links exist yet, so this is a plain
+            outbound link to the platform's own website. When one does, look
+            it up on the page and pass its partnerSlug here. */}
+        <VisitSite href={offering.website ?? undefined} />
         <Link
           href={`/share-trading/${offering.slug}`}
           className="text-navy text-xs font-semibold whitespace-nowrap hover:underline"
