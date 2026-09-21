@@ -1,4 +1,5 @@
 import { getGlossaryTerm, type GlossaryKey } from "@/lib/glossary/terms";
+import { ExplainTip } from "./ExplainTip";
 
 /** "19 Sep 2026" -- same short style used for promo dates on profiles. */
 function formatReviewed(iso: string) {
@@ -10,24 +11,19 @@ function formatReviewed(iso: string) {
 }
 
 /**
- * A small "?" button that opens a plain-English explainer card for one
- * glossary term.
+ * A small "?" button that shows a plain-English explainer tooltip for one
+ * glossary term, anchored to the button.
  *
- * Built on the browser's native Popover API (`popover` + `popovertarget`),
- * so it needs no client JavaScript: Esc and clicking outside close it, it
- * renders in the top layer (so the compare table's horizontal scroll
- * container can't clip it), and the explanation stays in the server-rendered
- * HTML for search engines. The card is centred on desktop and becomes a
- * bottom sheet on phones -- see `.explainer-card` in globals.css.
+ * This is a server component: the explanation (and any source links) is
+ * rendered into the HTML, so search engines see it even though the tooltip
+ * is closed by default. Open/close and positioning live in `ExplainTip`
+ * (client) -- hover or focus to peek, click or tap to pin, Esc or an outside
+ * tap to dismiss. The tooltip is a native popover in the top layer, so the
+ * compare table's horizontal scroll container can't clip it.
  *
  * `scope` keeps element ids unique when the same term appears more than once
- * on a page (e.g. one card per list row). Pass anything stable and unique
+ * on a page (e.g. one tooltip per list row). Pass anything stable and unique
  * per place the term appears -- a row id or `${slug}-list` both work.
- *
- * Do not add a `display` utility (flex, grid, block...) to the popover
- * element itself: an author `display` beats the browser's built-in
- * `display: none` for a closed popover and the card would always be
- * visible. Layout lives on the inner wrapper instead.
  */
 export function Explain({ term, scope }: { term: GlossaryKey; scope: string }) {
   const entry = getGlossaryTerm(term);
@@ -35,52 +31,52 @@ export function Explain({ term, scope }: { term: GlossaryKey; scope: string }) {
   const titleId = `${id}-title`;
 
   return (
-    <>
-      <button
-        type="button"
-        popoverTarget={id}
-        aria-label={`What does ${entry.term} mean?`}
-        className="border-gold bg-panel text-gold hover:bg-gold hover:text-panel focus-visible:outline-navy relative ml-1.5 inline-flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded-full border align-middle text-[11px] leading-none font-semibold transition-colors before:absolute before:-inset-2 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-2"
-      >
-        ?
-      </button>
+    <ExplainTip
+      id={id}
+      labelledBy={titleId}
+      label={`What does ${entry.term} mean?`}
+    >
+      <p id={titleId} className="font-display text-base font-bold">
+        {entry.term}
+      </p>
+      <p className="mt-0.5 text-[13.5px] leading-normal">
+        {entry.plainEnglish}
+      </p>
 
-      <div
-        id={id}
-        popover="auto"
-        aria-labelledby={titleId}
-        className="explainer-card border-border bg-panel text-text backdrop:bg-navy/40 max-h-[80vh] w-[min(24rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border p-5 text-left"
-      >
-        <div className="flex items-start justify-between gap-3">
-          <p
-            id={titleId}
-            className="font-display text-navy text-base font-bold"
-          >
-            {entry.term}
-          </p>
-          <button
-            type="button"
-            popoverTarget={id}
-            popoverTargetAction="hide"
-            aria-label="Close"
-            className="border-border text-muted hover:text-navy focus-visible:outline-navy -mt-1 -mr-1 inline-flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border text-base leading-none focus-visible:outline-2"
-          >
-            {"\u00d7"}
-          </button>
+      <p className="text-gold-soft mt-2.5 text-xs font-semibold">
+        Why it matters
+      </p>
+      <p className="mt-0.5 text-[13.5px] leading-normal">
+        {entry.whyItMatters}
+      </p>
+
+      {(entry.sources.length > 0 || entry.reviewedAt) && (
+        <div className="mt-3 border-t border-white/15 pt-2.5 text-xs text-white/70">
+          {entry.sources.length > 0 && (
+            <p>
+              Sources:{" "}
+              {entry.sources.map((s, i) => (
+                <span key={s.url}>
+                  {i > 0 && ", "}
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gold-soft underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+                  >
+                    {s.label}
+                  </a>
+                </span>
+              ))}
+            </p>
+          )}
+          {entry.reviewedAt && (
+            <p className={entry.sources.length > 0 ? "mt-1" : undefined}>
+              Last reviewed {formatReviewed(entry.reviewedAt)}
+            </p>
+          )}
         </div>
-
-        {/* <p className="text-navy mt-3 text-xs font-semibold">In plain English</p> */}
-        <p className="mt-0.5 text-sm">{entry.plainEnglish}</p>
-
-        <p className="text-navy mt-3 text-xs font-semibold">Why it matters</p>
-        <p className="mt-0.5 text-sm">{entry.whyItMatters}</p>
-
-        {entry.reviewedAt && (
-          <p className="text-muted border-border mt-4 border-t pt-3 text-xs">
-            Last reviewed {formatReviewed(entry.reviewedAt)}
-          </p>
-        )}
-      </div>
-    </>
+      )}
+    </ExplainTip>
   );
 }

@@ -68,7 +68,10 @@ export default async function FxFeeCalculatorPage({
           </div>
         </section>
 
-        <section className="mt-10 max-w-3xl" aria-labelledby="fx-what-is-included">
+        <section
+          className="mt-10 max-w-3xl"
+          aria-labelledby="fx-what-is-included"
+        >
           <h2
             id="fx-what-is-included"
             className="font-display text-navy text-2xl font-bold"
@@ -76,10 +79,10 @@ export default async function FxFeeCalculatorPage({
             What the estimate does — and does not — measure
           </h2>
           <p className="text-muted mt-3 leading-7">
-            The estimate applies the selected provider&apos;s structured published
-            FX percentage to the hypothetical AUD amount entered. It is designed
-            to explain the pricing rule, not to predict the exchange rate you
-            will receive.
+            The estimate applies the selected provider&apos;s structured
+            published FX percentage to the hypothetical AUD amount entered. It
+            is designed to explain the pricing rule, not to predict the exchange
+            rate you will receive.
           </p>
           <p className="text-muted mt-3 leading-7">
             Brokerage, market fees, taxes, deposit or withdrawal charges and

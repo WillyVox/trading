@@ -53,7 +53,10 @@ export function CustodySection({ rows }: { rows: CustodyRow[] }) {
         )}
       </ul>
       <div className="border-border mt-5 border-t pt-4">
-        <Link href="/tools/chess-vs-custody" className="text-blue text-sm font-semibold underline">
+        <Link
+          href="/tools/chess-vs-custody"
+          className="text-blue text-sm font-semibold underline"
+        >
           Explore CHESS vs custody in plain English →
         </Link>
       </div>

@@ -18,7 +18,10 @@ test("custodial facts do not imply a personal HIN", () => {
 test("verified custody evidence becomes stale after its review date", () => {
   assert.equal(
     effectiveCustodyStatus(
-      { verificationStatus: "VERIFIED", reviewDueAt: "2026-09-20T00:00:00.000Z" },
+      {
+        verificationStatus: "VERIFIED",
+        reviewDueAt: "2026-09-20T00:00:00.000Z",
+      },
       new Date("2026-09-22T00:00:00.000Z").getTime()
     ),
     "STALE"
@@ -28,7 +31,10 @@ test("verified custody evidence becomes stale after its review date", () => {
 test("unverified status is never upgraded by review dates", () => {
   assert.equal(
     effectiveCustodyStatus(
-      { verificationStatus: "UNVERIFIED", reviewDueAt: "2026-12-01T00:00:00.000Z" },
+      {
+        verificationStatus: "UNVERIFIED",
+        reviewDueAt: "2026-12-01T00:00:00.000Z",
+      },
       new Date("2026-09-22T00:00:00.000Z").getTime()
     ),
     "UNVERIFIED"

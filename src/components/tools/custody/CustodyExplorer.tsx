@@ -56,7 +56,9 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
     offeringRows.find((row) => (row.marketCode ?? "ALL") === effectiveMarket) ??
     null;
   const concept = GLOSSARY[selectedConcept];
-  const selectedFacts = selectedRow ? custodyFacts(selectedRow.custodyType) : [];
+  const selectedFacts = selectedRow
+    ? custodyFacts(selectedRow.custodyType)
+    : [];
 
   return (
     <div className="space-y-10">
@@ -219,12 +221,22 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
                     {custodyTypeCopy(selectedRow.custodyType).explainer}
                   </p>
 
-                  <div className="mt-5 grid gap-3 sm:grid-cols-3" aria-label="What this structure means">
+                  <div
+                    className="mt-5 grid gap-3 sm:grid-cols-3"
+                    aria-label="What this structure means"
+                  >
                     {selectedFacts.map((fact) => (
-                      <div key={fact.label} className="border-border rounded-xl border p-3">
-                        <p className="text-muted text-xs font-semibold tracking-wide uppercase">{fact.label}</p>
+                      <div
+                        key={fact.label}
+                        className="border-border rounded-xl border p-3"
+                      >
+                        <p className="text-muted text-xs font-semibold tracking-wide uppercase">
+                          {fact.label}
+                        </p>
                         <p className="text-navy mt-1 font-bold">{fact.value}</p>
-                        <p className="text-muted mt-2 text-xs leading-5">{fact.detail}</p>
+                        <p className="text-muted mt-2 text-xs leading-5">
+                          {fact.detail}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -283,7 +295,9 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
                     <h4 className="text-navy font-bold">Evidence</h4>
                     {selectedRow.verificationStatus !== "VERIFIED" && (
                       <p className="text-muted mt-2 text-sm leading-6">
-                        This record is not treated as confirmed. Use the linked evidence as a research lead and verify the current provider documentation directly.
+                        This record is not treated as confirmed. Use the linked
+                        evidence as a research lead and verify the current
+                        provider documentation directly.
                       </p>
                     )}
                     {selectedRow.sourceUrl ? (

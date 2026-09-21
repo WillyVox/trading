@@ -46,15 +46,27 @@ test("allows a zero percentage without confusing it with unknown pricing", () =>
 });
 
 test("rejects zero, negative, non-finite and excessive amounts", () => {
-  for (const amount of [0, -1, Number.NaN, Number.POSITIVE_INFINITY, 1_000_000_001]) {
-    assert.equal(calculateFxFee(amount, providerRule(0.55)).status, "UNSUPPORTED");
+  for (const amount of [
+    0,
+    -1,
+    Number.NaN,
+    Number.POSITIVE_INFINITY,
+    1_000_000_001,
+  ]) {
+    assert.equal(
+      calculateFxFee(amount, providerRule(0.55)).status,
+      "UNSUPPORTED"
+    );
   }
 });
 
 test("rejects invalid or excessive educational percentages", () => {
   assert.equal(calculateEducationalFxFee(5000, -0.1).status, "UNSUPPORTED");
   assert.equal(calculateEducationalFxFee(5000, 100.01).status, "UNSUPPORTED");
-  assert.equal(calculateEducationalFxFee(5000, Number.NaN).status, "UNSUPPORTED");
+  assert.equal(
+    calculateEducationalFxFee(5000, Number.NaN).status,
+    "UNSUPPORTED"
+  );
 });
 
 test("calculates representative CommSec/Stake-style 0.55% pricing", () => {
@@ -85,11 +97,15 @@ test("does not calculate variable pricing as zero", () => {
 
 test("does not calculate stale or unverified pricing", () => {
   assert.equal(
-    calculateFxFee(5000, providerRule(0.55, { verificationStatus: "STALE" })).status,
+    calculateFxFee(5000, providerRule(0.55, { verificationStatus: "STALE" }))
+      .status,
     "UNSUPPORTED"
   );
   assert.equal(
-    calculateFxFee(5000, providerRule(0.55, { verificationStatus: "UNVERIFIED" })).status,
+    calculateFxFee(
+      5000,
+      providerRule(0.55, { verificationStatus: "UNVERIFIED" })
+    ).status,
     "UNSUPPORTED"
   );
 });

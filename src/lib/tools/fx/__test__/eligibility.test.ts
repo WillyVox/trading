@@ -33,10 +33,7 @@ test("accepts verified percentage pricing with an HTTPS source inside its review
 });
 
 test("rejects unverified pricing", () => {
-  const result = fxEligibility(
-    rule({ verificationStatus: "UNVERIFIED" }),
-    NOW
-  );
+  const result = fxEligibility(rule({ verificationStatus: "UNVERIFIED" }), NOW);
   assert.equal(result.eligible, false);
   assert.equal(result.status, "UNAVAILABLE");
 });

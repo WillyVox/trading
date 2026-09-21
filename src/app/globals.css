@@ -141,20 +141,57 @@ body {
 }
 
 /*
-  Beginner explainer cards (src/components/explain/Explain.tsx). The card is
-  a native popover, which the browser centres in the viewport by default --
-  good on desktop. On phones it becomes a bottom sheet instead. This rule is
-  deliberately unlayered CSS so it wins over the Tailwind utilities on the
-  element (width, rounded corners) without needing !important.
+  Beginner explainer tooltips (src/components/explain/). The tooltip is a
+  native popover, which the browser centres in the viewport by default, so
+  reset that and let ExplainTip position it next to the "?" button (it sets
+  top / left / --arrow-x / data-side inline). Deliberately unlayered CSS so it
+  wins over the Tailwind utilities on the element without needing !important.
+  `overflow` must stay visible here or the arrow (a pseudo-element outside
+  the box) is clipped; the scrolling lives on an inner wrapper instead.
 */
-@media (max-width: 40rem) {
-  .explainer-card {
-    inset: auto 0 0 0;
-    margin: 0;
-    width: 100%;
-    max-width: none;
-    border-bottom-width: 0;
-    border-radius: 1rem 1rem 0 0;
-    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+.explain-tip {
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  box-shadow:
+    0 12px 32px -8px rgb(22 35 58 / 0.45),
+    0 2px 6px rgb(22 35 58 / 0.2);
+}
+
+.explain-tip::after {
+  content: "";
+  position: absolute;
+  left: var(--arrow-x, 50%);
+  width: 12px;
+  height: 12px;
+  background: var(--color-navy);
+  border-radius: 2px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.explain-tip[data-side="top"]::after {
+  bottom: -5px;
+}
+
+.explain-tip[data-side="bottom"]::after {
+  top: -5px;
+}
+
+.explain-tip:popover-open {
+  animation: explain-tip-in 0.12s ease-out;
+}
+
+@keyframes explain-tip-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explain-tip:popover-open {
+    animation: none;
   }
 }
