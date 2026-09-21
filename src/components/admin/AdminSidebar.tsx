@@ -4,6 +4,7 @@ const ITEMS = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/articles", label: "Articles" },
   { href: "/admin/affiliates", label: "Affiliates" },
+  { href: "/admin/pricing-verification", label: "Pricing verification" },
   { href: "/admin/media", label: "Media" },
   { href: "/admin/settings", label: "Settings" },
 ];

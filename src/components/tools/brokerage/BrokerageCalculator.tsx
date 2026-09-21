@@ -26,8 +26,9 @@ function money(amount: number, currency?: string) {
   }
 }
 const AVAILABILITY = {
-  CALCULATABLE: "Ready to calculate",
-  NEEDS_INPUT: "Additional information required",
+  CALCULATABLE: "",
+  NEEDS_INPUT: "",
+  STALE: "Pricing needs verification",
   UNAVAILABLE: "Calculation unavailable",
 } as const;
 
@@ -74,10 +75,26 @@ export function BrokerageCalculator({
   const relevant = marketRules.filter(
     (r) => !effectivePlan || !r.pricingPlan || r.pricingPlan === effectivePlan
   );
-  const asksFirstBuy = relevant.some(
-    (r) => r.firstBuyPerSecurityPerDay != null
+  // Only ask conditional questions when they can change the result for the current
+  // amount/order. This keeps simple trades simple while exposing CMC-style
+  // first-buy conditions exactly when they matter.
+  const conditionCandidates = relevant.filter((r) => {
+    const sideMatches =
+      !r.tradeSide || r.tradeSide === "ANY" || r.tradeSide === tradeSide;
+    const minMatches = r.minTradeAmount == null || amount >= r.minTradeAmount;
+    const maxMatches =
+      r.maxTradeAmount == null ||
+      (r.maxTradeAmountInclusive
+        ? amount <= r.maxTradeAmount
+        : amount < r.maxTradeAmount);
+    return sideMatches && minMatches && maxMatches;
+  });
+  const asksFirstBuy =
+    tradeSide === "BUY" &&
+    conditionCandidates.some((r) => r.firstBuyPerSecurityPerDay != null);
+  const asksMargin = conditionCandidates.some(
+    (r) => r.excludesMarginLoanSettlement
   );
-  const asksMargin = relevant.some((r) => r.excludesMarginLoanSettlement);
   const scenario: BrokerageScenario = {
     tradeAmount: amount,
     tradeSide,
@@ -119,12 +136,16 @@ export function BrokerageCalculator({
             >
               {offerings.map((o) => (
                 <option key={o.slug} value={o.slug}>
-                  {o.name} — {AVAILABILITY[o.availability]}
+                  {o.name}
+                  {AVAILABILITY[o.availability]
+                    ? ` — ${AVAILABILITY[o.availability]}`
+                    : ""}
                 </option>
               ))}
             </select>
           </label>
-          {offering?.availability === "UNAVAILABLE" && (
+          {(offering?.availability === "UNAVAILABLE" ||
+            offering?.availability === "STALE") && (
             <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
               {offering.reason ?? "Calculation unavailable for this platform."}
             </p>
@@ -177,39 +198,6 @@ export function BrokerageCalculator({
               ))}
             </div>
           </fieldset>
-          {asksFirstBuy && tradeSide === "BUY" && (
-            <label className="border-border flex min-h-11 items-start gap-3 rounded-lg border p-3 text-sm">
-              <input
-                type="checkbox"
-                checked={firstBuy}
-                onChange={(e) => setFirstBuy(e.target.checked)}
-                className="mt-1"
-              />
-              <span>
-                <strong>First buy of this security today</strong>
-                <span className="text-muted block">
-                  Used only where the published pricing explicitly depends on
-                  this condition.
-                </span>
-              </span>
-            </label>
-          )}
-          {asksMargin && (
-            <label className="border-border flex min-h-11 items-start gap-3 rounded-lg border p-3 text-sm">
-              <input
-                type="checkbox"
-                checked={marginLoan}
-                onChange={(e) => setMarginLoan(e.target.checked)}
-                className="mt-1"
-              />
-              <span>
-                <strong>Settled through a margin loan</strong>
-                <span className="text-muted block">
-                  Some published concessions exclude margin-loan-settled trades.
-                </span>
-              </span>
-            </label>
-          )}
           <label className="text-navy block text-sm font-semibold">
             Trade amount
             <div className="border-border bg-background mt-2 flex min-h-11 items-center rounded-lg border">
@@ -227,6 +215,54 @@ export function BrokerageCalculator({
               />
             </div>
           </label>
+          {asksFirstBuy && (
+            <fieldset>
+              <legend className="text-navy text-sm font-semibold">
+                Is this the first buy of this security today?
+              </legend>
+              <p className="text-muted mt-1 text-xs leading-5">
+                Some published concessions apply only to the first eligible buy
+                of each security per day.
+              </p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                {([true, false] as const).map((value) => (
+                  <button
+                    type="button"
+                    key={String(value)}
+                    aria-pressed={firstBuy === value}
+                    onClick={() => setFirstBuy(value)}
+                    className={`min-h-11 rounded-lg border px-3 text-sm ${firstBuy === value ? "border-navy bg-navy text-white" : "border-border bg-background text-navy"}`}
+                  >
+                    {value ? "Yes" : "No"}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+          )}
+          {asksMargin && (
+            <fieldset>
+              <legend className="text-navy text-sm font-semibold">
+                Margin-loan settlement?
+              </legend>
+              <p className="text-muted mt-1 text-xs leading-5">
+                Some published concessions exclude trades settled through a
+                margin loan.
+              </p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                {([false, true] as const).map((value) => (
+                  <button
+                    type="button"
+                    key={String(value)}
+                    aria-pressed={marginLoan === value}
+                    onClick={() => setMarginLoan(value)}
+                    className={`min-h-11 rounded-lg border px-3 text-sm ${marginLoan === value ? "border-navy bg-navy text-white" : "border-border bg-background text-navy"}`}
+                  >
+                    {value ? "Yes" : "No"}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+          )}
         </div>
       </ToolPanel>
       <ToolPanel labelledBy="brokerage-result" live>
@@ -273,6 +309,7 @@ export function BrokerageCalculator({
               <SourceVerificationPanel
                 sourceUrl={rule.sourceUrl}
                 verifiedAt={rule.verifiedAt}
+                reviewDueAt={rule.reviewDueAt}
                 status={rule.verificationStatus}
               />
             </div>

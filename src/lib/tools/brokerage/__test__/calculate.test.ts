@@ -262,3 +262,38 @@ test("IBKR Fixed ASX estimate applies the published minimum and GST", () => {
   assert.equal(calculateBrokerage(r, 2000).amount, 6.6);
   assert.equal(calculateBrokerage(r, 20000).amount, 17.6);
 });
+
+test("CMC A$500 first eligible buy selects the conditional FREE rule", () => {
+  const free = rule({
+    feeId: "cmc-free",
+    offeringSlug: "cmc-invest",
+    calculationBasis: "FREE",
+    flatAmount: null,
+    pricingPlan: "Standard",
+    tradeSide: "BUY",
+    firstBuyPerSecurityPerDay: true,
+    maxTradeAmount: 1000,
+    maxTradeAmountInclusive: false,
+    excludesMarginLoanSettlement: true,
+  });
+  const fallback = rule({
+    feeId: "cmc-paid",
+    offeringSlug: "cmc-invest",
+    calculationBasis: "GREATER_OF",
+    flatAmount: 11,
+    percentage: 0.1,
+    pricingPlan: "Standard",
+    tradeSide: "BUY",
+  });
+  const selected = selectBrokerageRule([free, fallback], {
+    tradeAmount: 500,
+    tradeSide: "BUY",
+    firstBuyPerSecurityPerDay: true,
+    marginLoanSettlement: false,
+    pricingPlan: "Standard",
+  });
+  assert.equal(selected?.feeId, "cmc-free");
+  const result = calculateBrokerage(selected!, 500);
+  assert.equal(result.status, "CALCULATED");
+  assert.equal(result.amount, 0);
+});

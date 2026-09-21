@@ -46,6 +46,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: COMMISSIONS_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: FEES_CHECKED,
+    reviewDueAt: new Date("2026-11-06"),
   },
   // US shares: priced per share (US$0.005/share, min US$1, max 1% of trade
   // value), which doesn't fit FLAT/PERCENTAGE/GREATER_OF (all value-based

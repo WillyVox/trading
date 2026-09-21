@@ -75,13 +75,13 @@ test("requires HTTPS official evidence", () => {
     false
   );
 });
-test("does not treat FREE or VARIES as calculator-ready", () => {
+test("accepts verified FREE but rejects VARIES", () => {
   assert.equal(
     brokerageEligibility(
       { ...base, calculationBasis: "FREE", flatAmount: null, percentage: null },
       now
     ).eligible,
-    false
+    true
   );
   assert.equal(
     brokerageEligibility(
@@ -94,6 +94,22 @@ test("does not treat FREE or VARIES as calculator-ready", () => {
       now
     ).eligible,
     false
+  );
+});
+test("withholds a rule after its explicit review due date", () => {
+  assert.equal(
+    brokerageEligibility(
+      { ...base, reviewDueAt: "2026-09-21T00:00:00.000Z" },
+      now
+    ).eligible,
+    false
+  );
+  assert.equal(
+    brokerageEligibility(
+      { ...base, reviewDueAt: "2026-10-01T00:00:00.000Z" },
+      now
+    ).eligible,
+    true
   );
 });
 test("validates required values for flat, percentage and greater-of", () => {

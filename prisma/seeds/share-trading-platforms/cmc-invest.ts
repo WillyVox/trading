@@ -26,7 +26,6 @@ import type { OfferingFeeSeed } from "../lib/types";
  * every sourceUrl below must be on cmcmarkets.com/en-au/.
  */
 const PRICING_URL = "https://www.cmcmarkets.com/en-au/stockbroking/pricing";
-const FEES_CHECKED = new Date("2026-09-19");
 
 const fees: OfferingFeeSeed[] = [
   {
@@ -47,6 +46,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: PRICING_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
   {
     feeCategory: FeeCategory.BROKERAGE,
@@ -63,6 +63,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: PRICING_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
   {
     feeCategory: FeeCategory.BROKERAGE,
@@ -80,6 +81,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: PRICING_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
   {
     feeCategory: FeeCategory.BROKERAGE,
@@ -97,6 +99,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: PRICING_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
   {
     feeCategory: FeeCategory.BROKERAGE,
@@ -113,6 +116,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: PRICING_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
   ...(["NYSE", "NASDAQ"] as const).map((marketCode): OfferingFeeSeed => ({
     feeCategory: FeeCategory.BROKERAGE,
@@ -126,6 +130,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: PRICING_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   })),
   {
     feeCategory: FeeCategory.FX_CONVERSION,
@@ -137,6 +142,7 @@ const fees: OfferingFeeSeed[] = [
     sourceUrl: PRICING_URL,
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
 ];
 

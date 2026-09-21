@@ -41,6 +41,7 @@ export type BrokerageRule = {
   sourceUrl: string | null;
   verificationStatus: ToolVerificationStatus;
   verifiedAt: string | null;
+  reviewDueAt?: string | null;
   tiers: BrokerageTierRule[];
   pricingPlan: string | null;
   tradeSide: BrokerageTradeSide | null;
@@ -66,6 +67,6 @@ export type BrokerageOfferingOption = {
   name: string;
   providerName: string;
   rules: BrokerageRule[];
-  availability: "CALCULATABLE" | "NEEDS_INPUT" | "UNAVAILABLE";
+  availability: "CALCULATABLE" | "NEEDS_INPUT" | "STALE" | "UNAVAILABLE";
   reason?: string;
 };

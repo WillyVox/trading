@@ -51,6 +51,7 @@ export async function getBrokerageRules(): Promise<BrokerageRule[]> {
               sourceUrl: fee.sourceUrl,
               verificationStatus: mapStatus(fee.verificationStatus),
               verifiedAt: fee.verifiedAt?.toISOString() ?? null,
+              reviewDueAt: fee.reviewDueAt?.toISOString() ?? null,
               pricingPlan: fee.pricingPlan,
               tradeSide: fee.tradeSide as BrokerageRule["tradeSide"],
               firstBuyPerSecurityPerDay: fee.firstBuyPerSecurityPerDay,
@@ -109,10 +110,17 @@ export async function getBrokerageOfferings(): Promise<
         ? "NEEDS_INPUT"
         : "CALCULATABLE";
       delete group.reason;
-    } else
+    } else {
+      const hasReviewIssue = group.rules.some(
+        (r) =>
+          r.verificationStatus === "STALE" ||
+          (r.reviewDueAt && new Date(r.reviewDueAt).getTime() < Date.now())
+      );
+      group.availability = hasReviewIssue ? "STALE" : "UNAVAILABLE";
       group.reason =
         checks.map((c) => (c.eligible ? null : c.reason)).find(Boolean) ??
         "Calculation unavailable for the current published data.";
+    }
   }
   return [...groups.values()].sort((a, b) => a.name.localeCompare(b.name));
 }

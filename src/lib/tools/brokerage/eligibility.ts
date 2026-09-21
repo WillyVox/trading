@@ -33,6 +33,18 @@ export function brokerageEligibility(rule: BrokerageRule, now = new Date()) {
       reason: "Pricing is not currently verified.",
     } as const;
   }
+  if (rule.reviewDueAt) {
+    const reviewDueAt = new Date(rule.reviewDueAt);
+    if (
+      !Number.isFinite(reviewDueAt.getTime()) ||
+      reviewDueAt.getTime() < now.getTime()
+    ) {
+      return {
+        eligible: false,
+        reason: "Pricing is due for verification review.",
+      } as const;
+    }
+  }
   const verifiedAt = new Date(rule.verifiedAt);
   if (!Number.isFinite(verifiedAt.getTime())) {
     return {

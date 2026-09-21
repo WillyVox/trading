@@ -57,6 +57,7 @@ export type OfferingFeeSeed = {
   sourceUrl?: string;
   verificationStatus?: VerificationStatus;
   verifiedAt?: Date;
+  reviewDueAt?: Date;
 
   /** Only for calculationBasis === TIERED. Array order becomes `position`. */
   tiers?: OfferingFeeTierSeed[];
