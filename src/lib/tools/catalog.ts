@@ -18,7 +18,7 @@ export const TOOLS: ToolDefinition[] = [
     description:
       "Understand percentage-based currency conversion costs with a transparent worked calculation.",
     category: "TRADING_COSTS",
-    status: "COMING_SOON",
+    status: "AVAILABLE",
     href: "/tools/fx-fee-calculator",
   },
   {
