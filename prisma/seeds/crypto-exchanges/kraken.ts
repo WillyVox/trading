@@ -21,15 +21,6 @@ export const Kraken = {
     lastVerifiedAt: new Date("2026-09-17"),
     facts: [
       {
-        label: "AUD Support",
-        value: "Yes",
-        jurisdiction: "AU",
-        sourceUrl:
-          "https://support.kraken.com/au/articles/360045033231-how-do-i-deposit-aud-",
-        verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
-      },
-      {
         label: "Platform Type",
         value: "Centralised cryptocurrency platform / exchange",
         jurisdiction: "AU",

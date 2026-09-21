@@ -1,7 +1,7 @@
 import type { OfferingFeatureType } from "@prisma/client";
 
 /**
- * The Provider schema keeps a single flat ProviderFeature list (see
+ * ProviderOffering keeps a single flat OfferingFeature list (see
  * docs/IMPLEMENTATION-PLAN.md §4) rather than separate tables per profile
  * section -- deposits/withdrawals, products/trading, and security are all
  * just different OfferingFeatureType values. This groups them for display
@@ -12,10 +12,10 @@ import type { OfferingFeatureType } from "@prisma/client";
  *
  * Deliberately not generic: the repository layer's findBySlug(slug, extra)
  * takes an untyped `extra` include object (see src/lib/repository.ts), so
- * Prisma can't statically infer the ProviderFeature payload shape from
- * getProviderBySlug()'s include -- a generic here would have its type
- * parameter fall back to the bare constraint at the call site instead of
- * the real row shape. An explicit row type + a cast at the call site is
+ * Prisma can't statically infer the OfferingFeature payload shape from
+ * getCryptoExchangeByPublicSlug()'s include -- a generic here would have its
+ * type parameter fall back to the bare constraint at the call site instead
+ * of the real row shape. An explicit row type + a cast at the call site is
  * more reliable than fighting that inference.
  */
 export type CryptoFeatureGroup = "deposits" | "security" | "products";

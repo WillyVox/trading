@@ -45,14 +45,6 @@ export const Swyftx = {
         verifiedAt: new Date("2026-09-17"),
       },
       {
-        label: "AUD Support",
-        value: "Yes",
-        jurisdiction: "AU",
-        sourceUrl: "https://swyftx.com/au/features/",
-        verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
-      },
-      {
         label: "Platform Type",
         value: "Centralised cryptocurrency trading platform",
         jurisdiction: "AU",

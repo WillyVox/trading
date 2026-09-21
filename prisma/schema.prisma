@@ -248,49 +248,6 @@ enum VerificationStatus {
   STALE
 }
 
-enum ProviderFeeType {
-  TRADING
-  MAKER
-  TAKER
-  INSTANT_BUY
-  DEPOSIT
-  WITHDRAWAL
-  FIAT_DEPOSIT
-  FIAT_WITHDRAWAL
-  SPREAD
-  OTHER
-}
-
-enum FeeValueType {
-  PERCENTAGE
-  FIXED
-  TIERED
-  VARIABLE
-  FREE
-  UNKNOWN
-}
-
-enum ProviderFeatureType {
-  AUD_DEPOSITS
-  AUD_WITHDRAWALS
-  PAYID
-  BANK_TRANSFER
-  CARD_DEPOSIT
-  MOBILE_APP
-  WEB_PLATFORM
-  LIMIT_ORDERS
-  MARKET_ORDERS
-  STOP_ORDERS
-  RECURRING_BUYS
-  STAKING
-  API_ACCESS
-  ADVANCED_CHARTING
-  TWO_FACTOR_AUTH
-  COLD_STORAGE
-  SMSF_SUPPORT
-  OTC_DESK
-}
-
 enum ProviderSourceType {
   OFFICIAL_WEBSITE
   OFFICIAL_FEES
@@ -354,6 +311,12 @@ enum OfferingFeatureType {
   OTHER
 }
 
+// Editorial pros/limitations shown on an offering's profile. Kept sourced
+// like every other Offering fact (sourceUrl + verificationStatus) rather
+// than free-floating marketing copy -- see docs/IMPLEMENTATION-PLAN.md
+// cross-cutting rule against fabricated/superlative claims. `label` should
+// stay a short, factual, non-superlative statement ("Wide coin selection
+// (500+)", not "The best coin selection").
 enum OfferingProsConsType {
   PRO
   LIMITATION
@@ -725,12 +688,8 @@ model Provider {
   updatedAt          DateTime            @updatedAt
 
   facts        ProviderFact[]
-  fees         ProviderFee[]
-  features     ProviderFeature[]
-  prosCons     ProviderProsCon[]
   sources      ProviderSource[]
   regulations  ProviderRegulation[]
-  assets       ProviderAsset[]
   articles     ArticleProvider[]
   partnerships AffiliatePartnership[]
   offerings    ProviderOffering[]
@@ -750,54 +709,6 @@ model ProviderFact {
   @@index([providerId])
 }
 
-model ProviderFee {
-  id          String          @id @default(cuid())
-  providerId  String
-  feeType     ProviderFeeType
-  label       String
-  valueType   FeeValueType
-
-  percentage  Decimal?        @db.Decimal(10, 6)
-  fixedAmount Decimal?        @db.Decimal(18, 8)
-  currency    String?
-
-  // Human-readable value shown on the page even when the underlying
-  // percentage/fixedAmount can't be captured precisely (e.g. "Varies").
-  displayValue String?
-  notes        String?        @db.Text
-
-  sourceUrl    String?
-  jurisdiction String?
-
-  verificationStatus VerificationStatus @default(UNVERIFIED)
-  verifiedAt         DateTime?
-
-  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
-
-  @@index([providerId])
-  @@index([feeType])
-}
-
-model ProviderFeature {
-  id          String              @id @default(cuid())
-  providerId  String
-  featureType ProviderFeatureType
-  label       String?
-  value       String?
-  available   Boolean?
-
-  sourceUrl    String?
-  jurisdiction String?
-
-  verificationStatus VerificationStatus @default(UNVERIFIED)
-  verifiedAt         DateTime?
-
-  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
-
-  @@index([providerId])
-  @@index([featureType])
-}
-
 model ProviderSource {
   id         String             @id @default(cuid())
   providerId String
@@ -815,35 +726,6 @@ model ProviderSource {
 
   @@index([providerId])
   @@index([sourceType])
-}
-
-// Editorial pros/limitations shown on the exchange profile. Kept sourced
-// like every other Provider fact (sourceUrl + verificationStatus) rather
-// than free-floating marketing copy -- see docs/IMPLEMENTATION-PLAN.md
-// cross-cutting rule against fabricated/superlative claims. `label` should
-// stay a short, factual, non-superlative statement ("Wide coin selection
-// (500+)", not "The best coin selection").
-enum ProviderProsConsType {
-  PRO
-  LIMITATION
-}
-
-model ProviderProsCon {
-  id                 String               @id @default(cuid())
-  providerId         String
-  type               ProviderProsConsType
-  label              String
-  detail             String?              @db.Text
-  sourceUrl          String?
-  jurisdiction       String?
-  verificationStatus VerificationStatus @default(UNVERIFIED)
-  verifiedAt         DateTime?
-  position           Int                @default(0)
-
-  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
-
-  @@index([providerId])
-  @@index([type])
 }
 
 model ProviderRegulation {
@@ -873,20 +755,8 @@ model CryptoAsset {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  providers ProviderAsset[] // legacy during migration
   offerings OfferingCryptoAsset[]
   articles  ArticleCryptoAsset[]
-}
-
-model ProviderAsset {
-  providerId String
-  assetId    String
-
-  provider Provider    @relation(fields: [providerId], references: [id], onDelete: Cascade)
-  asset    CryptoAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
-
-  @@id([providerId, assetId])
-  @@index([assetId])
 }
 
 model ArticleCryptoAsset {

@@ -29,14 +29,6 @@ export const BtcMarkets = {
         verifiedAt: new Date("2026-09-17"),
       },
       {
-        label: "AUD Support",
-        value: "Yes",
-        jurisdiction: "AU",
-        sourceUrl: "https://www.btcmarkets.net/fees",
-        verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
-      },
-      {
         label: "Platform Type",
         value: "Centralised cryptocurrency exchange",
         jurisdiction: "AU",

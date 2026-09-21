@@ -29,14 +29,6 @@ export const CoinSpot = {
         verifiedAt: new Date("2026-09-17"),
       },
       {
-        label: "AUD Support",
-        value: "Yes",
-        jurisdiction: "AU",
-        sourceUrl: "https://www.coinspot.com.au/fees",
-        verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
-      },
-      {
         label: "Platform Type",
         value:
           "Centralised cryptocurrency platform with instant trading, Markets and OTC",
