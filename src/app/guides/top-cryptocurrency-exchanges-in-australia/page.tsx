@@ -770,7 +770,6 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
               ]}
             />
           </article>
-
           <GuideSidebar
             headings={HEADINGS}
             category="crypto-exchanges"

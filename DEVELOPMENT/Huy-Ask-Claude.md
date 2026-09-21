@@ -1,3 +1,7 @@
+# -1. check the latest source code, with the requirement provided. try to explore, understand the requirements, feel free to give me your feedback, concerns, outline your proposal approaches, plans, ideas and solutions, pros and cons. Provide me html mockup displays (if any) of the feature, before i decide when to update code.
+
+- remember you should be acting as the adviser, the lawyer my ultimate goals is SEO perfection, effective tools and guides for new beginners to trading, and one of the most loved and trusted financing website. and i need the version that can go live and deploy to production.
+
 # 0. as a product owner, finanical adviser, etc, can you help review all pages that my app has done, review them thoroughly and effectively, then prepare me a prompt to ask an AI to tackle all missing stuff (business, regulation, law, policy, SEO configuration, Google standards, web standards, financial standards, Australian government rules, everything, ) implement them properly, completely, perfectly, then give a final version that i can deploy to production for launching.
 
 I do not want

@@ -23,16 +23,29 @@ export const metadata = buildMetadata({
 export default async function GuidesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string | string[] }>;
 }) {
-  const { category: selectedCategory } = await searchParams;
+  const { category } = await searchParams;
+
+  const selectedCategories = Array.isArray(category)
+    ? category
+    : category
+      ? [category]
+      : [];
 
   const [items, categories] = await Promise.all([
-    getPublicGuides(selectedCategory),
+    getPublicGuides(selectedCategories),
     getPublicGuideCategories(),
   ]);
 
   const trail = breadcrumbTrail([{ name: "Guides", path: "/guides" }]);
+
+  const buildCategoryHref = (nextCategories: string[]) => {
+    if (nextCategories.length === 0) return "/guides";
+    const params = new URLSearchParams();
+    for (const c of nextCategories) params.append("category", c);
+    return `/guides?${params.toString()}`;
+  };
 
   return (
     <>
@@ -50,36 +63,46 @@ export default async function GuidesPage({
             className="mb-8 flex flex-wrap gap-2"
           >
             <Link
+              scroll={false}
               href="/guides"
               className={clsx(
                 "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
-                !selectedCategory
+                selectedCategories.length === 0
                   ? "border-navy bg-navy text-background"
                   : "border-border bg-panel text-muted hover:border-gold-soft hover:text-navy"
               )}
             >
               All guides
             </Link>
-            {categories.map((category) => (
-              <Link
-                key={category}
-                href={`/guides?category=${encodeURIComponent(category)}`}
-                className={clsx(
-                  "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
-                  selectedCategory === category
-                    ? "border-navy bg-navy text-background"
-                    : "border-border bg-panel text-muted hover:border-gold-soft hover:text-navy"
-                )}
-              >
-                {formatCategoryLabel(category)}
-              </Link>
-            ))}
+            {categories.map((category) => {
+              const isSelected = selectedCategories.includes(category);
+              const nextCategories = isSelected
+                ? selectedCategories.filter((c) => c !== category)
+                : [...selectedCategories, category];
+
+              return (
+                <Link
+                  scroll={false}
+                  key={category}
+                  href={buildCategoryHref(nextCategories)}
+                  aria-pressed={isSelected}
+                  className={clsx(
+                    "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
+                    isSelected
+                      ? "border-navy bg-navy text-background"
+                      : "border-border bg-panel text-muted hover:border-gold-soft hover:text-navy"
+                  )}
+                >
+                  {formatCategoryLabel(category)}
+                </Link>
+              );
+            })}
           </nav>
         )}
 
         {items.length === 0 ? (
           <Notice>
-            {selectedCategory
+            {selectedCategories.length > 0
               ? "No guides published in this category yet."
               : "No guides published yet."}
           </Notice>

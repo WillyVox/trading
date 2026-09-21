@@ -28,7 +28,6 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/crypto",
     "/crypto/exchanges",
     "/guides",
-    "/compare",
     "/crypto/exchanges/compare",
     "/share-trading/compare",
     "/share-trading",

@@ -16,14 +16,24 @@ export function getPublishedArticles(
     page?: number;
     pageSize?: number;
     articleType?: ArticleType;
-    category?: string;
+    category?: string | string[];
   } = {}
 ) {
+  const categories = Array.isArray(opts.category)
+    ? opts.category
+    : opts.category
+      ? [opts.category]
+      : [];
+
   return articleRepository.paginate({
     where: {
       status: "PUBLISHED",
       ...(opts.articleType ? { articleType: opts.articleType } : {}),
-      ...(opts.category ? { category: opts.category } : {}),
+      ...(categories.length === 1
+        ? { category: categories[0] }
+        : categories.length > 1
+          ? { category: { in: categories } }
+          : {}),
     },
     orderBy: { publishedAt: "desc" },
     page: opts.page,

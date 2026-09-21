@@ -34,7 +34,7 @@ type DatabaseGuide = PublishedArticlesResult["items"][number];
  * for static and database-backed guides.
  */
 export async function getPublicGuides(
-  category?: string
+  category?: string | string[]
 ): Promise<GuideSummary[]> {
   const [{ items: databaseGuides }, staticGuides] = await Promise.all([
     getPublishedArticles({

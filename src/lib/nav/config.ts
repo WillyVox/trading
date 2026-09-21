@@ -117,7 +117,6 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Compares",
-    // href: "/compare",
     columns: [
       {
         heading: "Online Trading Platforms",
@@ -140,7 +139,6 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
     ],
-    footerLink: { label: "View all comparisons →", href: "/compare" },
   },
   { label: "Share Trading", href: "/share-trading" },
   { label: "Crypto Exchanges", href: "/crypto/exchanges" },

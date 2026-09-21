@@ -161,9 +161,17 @@ export function isStaticGuideSlug(slug: string): boolean {
   return STATIC_GUIDE_SLUGS.has(slug);
 }
 
-export function getStaticGuides(category?: string): StaticGuideSummary[] {
+export function getStaticGuides(
+  category?: string | string[]
+): StaticGuideSummary[] {
+  const categories = Array.isArray(category)
+    ? category
+    : category
+      ? [category]
+      : [];
+
   return STATIC_GUIDES.filter(
-    (guide) => !category || guide.category === category
+    (guide) => categories.length === 0 || categories.includes(guide.category)
   ).map((guide) => ({ ...guide }));
 }
 

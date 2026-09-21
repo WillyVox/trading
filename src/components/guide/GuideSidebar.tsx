@@ -6,8 +6,8 @@ export function GuideSidebar({
   headings,
   category,
   readingMinutes,
-  compareHref = "/compare",
-  compareLabel = "Compare crypto exchanges",
+  compareHref = "crypto/exchanges/compare",
+  compareLabel = "Compare providers",
 }: {
   headings: Heading[];
   category?: string | null;
@@ -46,7 +46,7 @@ export function GuideSidebar({
           href={compareHref}
           className="border-border bg-panel-secondary text-navy hover:border-gold-soft block rounded-2xl border p-4 text-center text-sm font-semibold"
         >
-          {compareLabel}
+          {compareLabel} 111ABD
         </Link>
       </div>
     </aside>

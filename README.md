@@ -22,7 +22,7 @@ screenshot supplied later in the project (replaces the original dark
 
 Phase 1 (Public Foundation) is complete: design tokens, `Header` / `Footer` /
 `MobileNav` (real Next `<Link>` routing, no hash routing), the four top-level
-shells (`/crypto`, `/compare`, `/methodology`, `/news`), homepage, a fully
+shells (`/crypto`, `/methodology`, `/news`), homepage, a fully
 functional animated mobile drawer, and a resolved typography decision
 (Source Serif 4 + Inter, self-hosted via `next/font`, replacing the
 reference's unlicensed Georgia placeholder).

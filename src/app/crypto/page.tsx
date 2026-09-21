@@ -36,7 +36,7 @@ export default function CryptoPage() {
               </p>
             </Card>
           </Link>
-          <Link href="/compare">
+          <Link href="/crypto/exchanges/compare">
             <Card className="hover:border-gold-soft h-full transition-colors">
               <h2 className="font-display text-navy text-lg font-bold">
                 Compare exchanges

@@ -111,10 +111,9 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   transformTags: {
     a: (_tagName, attribs) => {
       const href = attribs.href ?? "";
-  
-      const isExternal =
-        href.startsWith("https://") || href.startsWith("http://");
-  
+
+      const isExternal = isExternalHref(href);
+      
       if (isExternal) {
         return {
           tagName: "a",
@@ -126,9 +125,9 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
           },
         };
       }
-  
+
       const { target: _target, ...safeAttribs } = attribs;
-  
+
       return {
         tagName: "a",
         attribs: {
