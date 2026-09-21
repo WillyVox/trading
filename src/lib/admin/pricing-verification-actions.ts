@@ -7,10 +7,35 @@ import { requireAdmin } from "@/lib/auth/require-admin";
 
 const REVIEW_DAYS = 45;
 
+const PRICING_TOOL_PATHS = [
+  "/admin/pricing-verification",
+  "/tools",
+  "/tools/brokerage-calculator",
+  "/tools/fx-fee-calculator",
+  "/tools/trading-cost-calculator",
+  "/tools/regular-investing-calculator",
+  "/tools/crypto-fee-calculator",
+  "/tools/crypto-funding-withdrawal-fees",
+  "/tools/crypto-cost-calculator",
+] as const;
+
+function revalidatePricingSurfaces() {
+  for (const path of PRICING_TOOL_PATHS) revalidatePath(path);
+}
+
 export async function verifyOfferingFee(formData: FormData) {
   const session = await requireAdmin();
   const feeId = String(formData.get("feeId") ?? "");
   if (!feeId) throw new Error("feeId is required");
+
+  const fee = await prisma.offeringFee.findUnique({
+    where: { id: feeId },
+    select: { sourceUrl: true },
+  });
+  if (!fee) throw new Error("Pricing record not found");
+  if (!fee.sourceUrl)
+    throw new Error("A source URL is required before pricing can be verified");
+
   const now = new Date();
   const reviewDueAt = new Date(now.getTime() + REVIEW_DAYS * 86400000);
   await prisma.offeringFee.update({
@@ -22,9 +47,7 @@ export async function verifyOfferingFee(formData: FormData) {
       verifiedByUserId: session.user.id,
     },
   });
-  revalidatePath("/admin/pricing-verification");
-  revalidatePath("/tools/brokerage-calculator");
-  revalidatePath("/tools/fx-fee-calculator");
+  revalidatePricingSurfaces();
 }
 
 export async function markOfferingFeeStale(formData: FormData) {
@@ -35,7 +58,5 @@ export async function markOfferingFeeStale(formData: FormData) {
     where: { id: feeId },
     data: { verificationStatus: VerificationStatus.STALE },
   });
-  revalidatePath("/admin/pricing-verification");
-  revalidatePath("/tools/brokerage-calculator");
-  revalidatePath("/tools/fx-fee-calculator");
+  revalidatePricingSurfaces();
 }
