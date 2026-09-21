@@ -161,12 +161,30 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
     }
 
     if (fees.length > 0) {
-      await prisma.offeringFee.createMany({
-        data: fees.map((fee) => ({
-          offeringId: offering.id,
-          ...fee,
-        })),
-      });
+      for (const fee of fees) {
+        const feeWithTiers = fee as typeof fee & {
+          tiers?: Array<{
+            minAmount: number;
+            maxAmount?: number | null;
+            flatAmount?: number;
+            percentage?: number;
+            minRolling30DayVolume?: number;
+            minAssetsOnPlatform?: number;
+          }>;
+          tierVolumeCurrency?: string;
+          tierAssetsCurrency?: string;
+        };
+        const { tiers, ...feeData } = feeWithTiers;
+        await prisma.offeringFee.create({
+          data: {
+            offeringId: offering.id,
+            ...feeData,
+            tiers: tiers?.length
+              ? { create: tiers.map((tier, position) => ({ ...tier, position })) }
+              : undefined,
+          },
+        });
+      }
     }
 
     console.log(`Seeded crypto exchange: ${provider.name} → ${offering.name}`);

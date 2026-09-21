@@ -109,6 +109,20 @@ export const Swyftx = {
         label: "Standard trading fee",
         calculationBasis: FeeCalculationBasis.TIERED,
         percentage: 0.6,
+        currency: "AUD",
+        tierVolumeCurrency: "AUD",
+        tiers: [
+          { minAmount: 0, minRolling30DayVolume: 0, percentage: 0.6 },
+          { minAmount: 0, minRolling30DayVolume: 100000, percentage: 0.55 },
+          { minAmount: 0, minRolling30DayVolume: 300000, percentage: 0.5 },
+          { minAmount: 0, minRolling30DayVolume: 400000, percentage: 0.45 },
+          { minAmount: 0, minRolling30DayVolume: 500000, percentage: 0.4 },
+          { minAmount: 0, minRolling30DayVolume: 1000000, percentage: 0.35 },
+          { minAmount: 0, minRolling30DayVolume: 3000000, percentage: 0.3 },
+          { minAmount: 0, minRolling30DayVolume: 4000000, percentage: 0.25 },
+          { minAmount: 0, minRolling30DayVolume: 5000000, percentage: 0.2 },
+          { minAmount: 0, minRolling30DayVolume: 6000000, percentage: 0.1 },
+        ],
         displayValue:
           "0.60% below AUD $100,000 rolling 30-day volume, tiered down to 0.10% at AUD $6m+",
         sourceUrl:

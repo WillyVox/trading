@@ -165,6 +165,14 @@ export const CoinJar = {
         label: "CoinJar Exchange fiat-pair maker fee",
         calculationBasis: FeeCalculationBasis.TIERED,
         percentage: 0.1,
+        currency: "AUD",
+        tierVolumeCurrency: "AUD",
+        tiers: [
+          { minAmount: 0, minRolling30DayVolume: 0, percentage: 0.1 },
+          { minAmount: 0, minRolling30DayVolume: 100000, percentage: 0.08 },
+          { minAmount: 0, minRolling30DayVolume: 1000000, percentage: 0.04 },
+          { minAmount: 0, minRolling30DayVolume: 10000000, percentage: 0.02 },
+        ],
         displayValue:
           "0.10% at the entry tier; falls to 0.02% above $10m 30-day trading volume",
         sourceUrl: "https://www.coinjar.com/au/fees",
@@ -176,6 +184,14 @@ export const CoinJar = {
         label: "CoinJar Exchange fiat-pair taker fee",
         calculationBasis: FeeCalculationBasis.TIERED,
         percentage: 0.1,
+        currency: "AUD",
+        tierVolumeCurrency: "AUD",
+        tiers: [
+          { minAmount: 0, minRolling30DayVolume: 0, percentage: 0.1 },
+          { minAmount: 0, minRolling30DayVolume: 100000, percentage: 0.1 },
+          { minAmount: 0, minRolling30DayVolume: 1000000, percentage: 0.08 },
+          { minAmount: 0, minRolling30DayVolume: 10000000, percentage: 0.06 },
+        ],
         displayValue:
           "0.10% at the entry tier; falls to 0.06% above $10m 30-day trading volume",
         sourceUrl: "https://www.coinjar.com/au/fees",

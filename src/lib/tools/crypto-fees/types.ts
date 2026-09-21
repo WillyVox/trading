@@ -12,6 +12,14 @@ export type CryptoFeeCategory =
   | "OTHER";
 export type ToolVerificationStatus = "VERIFIED" | "STALE" | "UNVERIFIED";
 
+export type CryptoFeeTier = {
+  position: number;
+  percentage: number | null;
+  flatAmount: number | null;
+  minRolling30DayVolume: number | null;
+  minAssetsOnPlatform: number | null;
+};
+
 export type CryptoFeeRule = {
   feeId: string;
   offeringSlug: string;
@@ -29,6 +37,9 @@ export type CryptoFeeRule = {
   verificationStatus: ToolVerificationStatus;
   verifiedAt: string | null;
   reviewDueAt: string | null;
+  tierVolumeCurrency: string | null;
+  tierAssetsCurrency: string | null;
+  tiers: CryptoFeeTier[];
 };
 
 export type CryptoFeeOffering = {
@@ -36,6 +47,12 @@ export type CryptoFeeOffering = {
   name: string;
   providerName: string;
   rules: CryptoFeeRule[];
+};
+
+export type CryptoFeeScenario = {
+  amount: number;
+  rolling30DayVolume?: number | null;
+  assetsOnPlatform?: number | null;
 };
 
 export type CryptoFeeCalculation = {
@@ -51,4 +68,5 @@ export type CryptoFeeCalculation = {
   percentage?: number;
   expression?: string;
   explanation: string;
+  appliedTier?: number;
 };

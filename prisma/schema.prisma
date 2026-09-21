@@ -652,6 +652,11 @@ model OfferingFee {
   excludesMarginLoanSettlement Boolean   @default(false)
   gstPercent                   Decimal?  @db.Decimal(5, 2)
 
+  // Advanced crypto tier qualification. Threshold currencies are explicit
+  // because providers publish schedules in AUD or USD.
+  tierVolumeCurrency           String?
+  tierAssetsCurrency           String?
+
   isPromotional    Boolean   @default(false)
   validFrom        DateTime?
   validTo          DateTime?
@@ -691,6 +696,11 @@ model OfferingFeeTier {
   flatAmount Decimal? @db.Decimal(10, 2)
   percentage Decimal? @db.Decimal(6, 4)
   position   Int      @default(0)
+
+  // Crypto fee tiers can qualify by rolling 30-day trading volume and, for
+  // providers such as Kraken, alternatively by assets held on platform.
+  minRolling30DayVolume Decimal? @db.Decimal(18, 2)
+  minAssetsOnPlatform   Decimal? @db.Decimal(18, 2)
 
   fee OfferingFee @relation(fields: [feeId], references: [id], onDelete: Cascade)
 

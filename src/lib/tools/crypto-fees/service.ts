@@ -23,6 +23,7 @@ export async function getCryptoFeeOfferings(): Promise<CryptoFeeOffering[]> {
       offering: { active: true, offeringType: OfferingType.CRYPTO_EXCHANGE },
     },
     include: {
+      tiers: { orderBy: { position: "asc" } },
       offering: { include: { provider: { select: { name: true } } } },
     },
     orderBy: [{ offering: { name: "asc" } }, { label: "asc" }],
@@ -54,6 +55,21 @@ export async function getCryptoFeeOfferings(): Promise<CryptoFeeOffering[]> {
       verificationStatus: status,
       verifiedAt: fee.verifiedAt?.toISOString() ?? null,
       reviewDueAt: fee.reviewDueAt?.toISOString() ?? null,
+      tierVolumeCurrency: fee.tierVolumeCurrency,
+      tierAssetsCurrency: fee.tierAssetsCurrency,
+      tiers: fee.tiers.map((tier) => ({
+        position: tier.position,
+        percentage: tier.percentage == null ? null : Number(tier.percentage),
+        flatAmount: tier.flatAmount == null ? null : Number(tier.flatAmount),
+        minRolling30DayVolume:
+          tier.minRolling30DayVolume == null
+            ? null
+            : Number(tier.minRolling30DayVolume),
+        minAssetsOnPlatform:
+          tier.minAssetsOnPlatform == null
+            ? null
+            : Number(tier.minAssetsOnPlatform),
+      })),
     };
     const current = grouped.get(rule.offeringSlug) ?? {
       slug: rule.offeringSlug,
