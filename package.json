@@ -14,9 +14,10 @@
     "generate:og-images": "tsx scripts/generate-page-og-images.ts",
     "promote:admin": "tsx scripts/promote-admin.ts",
     "studio": "npx prisma studio",
-    "test": "tsx --test src/lib/articles/import/__test__/*.test.ts src/lib/articles/__test__/*.test.ts src/lib/auth/__test__/*.test.ts src/lib/security/__test__/*.test.ts src/lib/affiliates/__test__/*.test.ts src/lib/tools/brokerage/__test__/*.test.ts src/lib/tools/fx/__test__/*.test.ts src/lib/tools/custody/__test__/*.test.ts src/lib/tools/regular-investing/__test__/*.test.ts",
+    "test": "tsx --test src/lib/articles/import/__test__/*.test.ts src/lib/articles/__test__/*.test.ts src/lib/auth/__test__/*.test.ts src/lib/security/__test__/*.test.ts src/lib/affiliates/__test__/*.test.ts src/lib/tools/brokerage/__test__/*.test.ts src/lib/tools/fx/__test__/*.test.ts src/lib/tools/custody/__test__/*.test.ts src/lib/tools/regular-investing/__test__/*.test.ts src/lib/tools/trading-cost/__test__/*.test.ts src/lib/tools/crypto-fees/__test__/*.test.ts src/lib/tools/crypto-cost/__test__/*.test.ts",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "check:production": "node scripts/check-production-readiness.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
@@ -52,7 +53,6 @@
     "prisma": "^5.19.1",
     "tailwindcss": "^4.0.0",
     "tsx": "^4.16.5",
-    "typescript": "^5.7.2",
-    "vitest": "^4.1.11"
+    "typescript": "^5.7.2"
   }
 }

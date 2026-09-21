@@ -109,3 +109,6 @@ npm run build
 - For production deployment, use:
   npx prisma migrate deploy
   npm run db:seed
+
+- check production
+  npm run check:production
