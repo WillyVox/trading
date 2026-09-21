@@ -146,6 +146,10 @@ export const NAV_ITEMS: NavItem[] = [
     children: [
       { label: "Brokerage calculator", href: "/tools/brokerage-calculator" },
       { label: "FX fee calculator", href: "/tools/fx-fee-calculator" },
+      {
+        label: "Regular investing calculator",
+        href: "/tools/regular-investing-calculator",
+      },
       { label: "CHESS vs custody", href: "/tools/chess-vs-custody" },
     ],
     footerLink: { label: "View all tools →", href: "/tools" },

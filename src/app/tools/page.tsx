@@ -42,22 +42,24 @@ export default function ToolsPage() {
           </p>
         </section>
 
-        <section aria-labelledby="phase-one-tools" className="mt-10">
+        <section aria-labelledby="available-tools" className="mt-10">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="text-gold-dark text-xs font-bold tracking-wider uppercase">
-                Phase 1
+                Available now
               </p>
               <h2
-                id="phase-one-tools"
+                id="available-tools"
                 className="font-display text-navy mt-2 text-2xl font-bold"
               >
-                First tools
+                Research tools
               </h2>
             </div>
             <p className="text-muted max-w-xl text-sm">
-              We are starting with three focused experiences rather than
-              publishing a large collection of unreliable calculators.
+              We are building focused experiences rather than publishing a large
+              collection of unreliable calculators. The regular investing
+              scenario now reuses the same verified brokerage rules rather than
+              introducing a second pricing source.
             </p>
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-3">

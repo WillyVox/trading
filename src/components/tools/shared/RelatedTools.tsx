@@ -15,6 +15,10 @@ export function RelatedTools({ offeringSlug }: { offeringSlug?: string }) {
       label: "Share trading for beginners",
     },
     { href: "/tools/fx-fee-calculator", label: "FX fee calculator" },
+    {
+      href: "/tools/regular-investing-calculator",
+      label: "Regular investing calculator",
+    },
   ];
   return (
     <section aria-labelledby="related-research" className="mt-10">

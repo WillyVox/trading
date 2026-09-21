@@ -5,6 +5,9 @@ import type {
   BrokerageTierRule,
 } from "./types";
 
+function roundCurrency(value: number) {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
+}
 function percentageAmount(tradeAmount: number, percentage: number) {
   return tradeAmount * (percentage / 100);
 }
@@ -160,14 +163,16 @@ export function calculateBrokerage(
         "We can't calculate this scenario from the verified structured pricing currently available.",
     };
   const tax = rule.gstPercent ? base * (rule.gstPercent / 100) : 0;
-  const amount = base + tax;
+  const amount = roundCurrency(base + tax);
+  const preTaxAmount = roundCurrency(base);
+  const taxAmount = roundCurrency(tax);
   if (tax > 0)
-    expression = `${expression}; + ${rule.gstPercent}% GST (${tax.toFixed(2)}) = ${amount.toFixed(2)}`;
+    expression = `${expression}; + ${rule.gstPercent}% GST (${taxAmount.toFixed(2)}) = ${amount.toFixed(2)}`;
   return {
     status: "CALCULATED",
     amount,
-    preTaxAmount: base,
-    taxAmount: tax || undefined,
+    preTaxAmount,
+    taxAmount: tax ? taxAmount : undefined,
     currency: rule.currency ?? undefined,
     ruleLabel: rule.label,
     expression,

@@ -22,6 +22,16 @@ export const TOOLS: ToolDefinition[] = [
     href: "/tools/fx-fee-calculator",
   },
   {
+    slug: "regular-investing-calculator",
+    name: "Regular Investing Brokerage Calculator",
+    shortName: "Regular investing calculator",
+    description:
+      "Model repeated equal investments and see how brokerage covered by verified pricing rules adds up over time.",
+    category: "TRADING_COSTS",
+    status: "AVAILABLE",
+    href: "/tools/regular-investing-calculator",
+  },
+  {
     slug: "chess-vs-custody",
     name: "CHESS vs Custody Explorer",
     shortName: "CHESS vs custody",
