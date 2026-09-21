@@ -3,7 +3,7 @@ import { FxFeeCalculator } from "@/components/tools/fx/FxFeeCalculator";
 import { getFxOfferings } from "@/lib/tools/fx/service";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Notice } from "@/components/ui/Notice";
+import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -15,8 +15,18 @@ export const metadata = buildMetadata({
   path: "/tools/fx-fee-calculator",
 });
 
-export default async function FxFeeCalculatorPage() {
+export const revalidate = 3600;
+
+export default async function FxFeeCalculatorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ platform?: string | string[] }>;
+}) {
   const offerings = await getFxOfferings();
+  const query = await searchParams;
+  const initialPlatform = Array.isArray(query.platform)
+    ? query.platform[0]
+    : query.platform;
   const trail = breadcrumbTrail([
     { name: "Tools", path: "/tools" },
     { name: "FX fee calculator", path: "/tools/fx-fee-calculator" },
@@ -32,7 +42,7 @@ export default async function FxFeeCalculatorPage() {
         subheading="Estimate currency-conversion costs from verified published platform pricing, with the calculation and source shown clearly."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <FxFeeCalculator offerings={offerings} />
+        <FxFeeCalculator offerings={offerings} initialSlug={initialPlatform} />
 
         <section className="mt-10 max-w-3xl" aria-labelledby="fx-how-it-works">
           <h2
@@ -54,13 +64,29 @@ export default async function FxFeeCalculatorPage() {
             rather than converting unknown pricing into a false $0 estimate.
           </p>
           <div className="mt-5">
-            <Notice>
-              General information only. Estimates use published provider pricing
-              for a hypothetical conversion amount. They do not recommend a
-              platform, predict the exchange rate or calculate every cost of an
-              international trade.
-            </Notice>
+            <ToolDisclaimer />
           </div>
+        </section>
+
+        <section className="mt-10 max-w-3xl" aria-labelledby="fx-what-is-included">
+          <h2
+            id="fx-what-is-included"
+            className="font-display text-navy text-2xl font-bold"
+          >
+            What the estimate does — and does not — measure
+          </h2>
+          <p className="text-muted mt-3 leading-7">
+            The estimate applies the selected provider&apos;s structured published
+            FX percentage to the hypothetical AUD amount entered. It is designed
+            to explain the pricing rule, not to predict the exchange rate you
+            will receive.
+          </p>
+          <p className="text-muted mt-3 leading-7">
+            Brokerage, market fees, taxes, deposit or withdrawal charges and
+            exchange-rate movements are outside this estimate. Where a provider
+            uses variable or unsupported FX pricing, Trading Guide labels that
+            limitation instead of treating the unknown cost as zero.
+          </p>
         </section>
 
         <section

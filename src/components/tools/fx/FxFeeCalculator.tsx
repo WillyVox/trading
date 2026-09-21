@@ -14,11 +14,18 @@ const money = (n: number) =>
 
 export function FxFeeCalculator({
   offerings,
+  initialSlug,
 }: {
   offerings: FxOfferingOption[];
+  initialSlug?: string;
 }) {
+  const requested = initialSlug
+    ? offerings.find((o) => o.slug === initialSlug)
+    : undefined;
   const first =
-    offerings.find((o) => o.availability === "CALCULATABLE") ?? offerings[0];
+    requested ??
+    offerings.find((o) => o.availability === "CALCULATABLE") ??
+    offerings[0];
   const [slug, setSlug] = useState(first?.slug ?? "");
   const [amount, setAmount] = useState("5000");
   const selected = useMemo(

@@ -24,6 +24,7 @@ export async function verifyOfferingFee(formData: FormData) {
   });
   revalidatePath("/admin/pricing-verification");
   revalidatePath("/tools/brokerage-calculator");
+  revalidatePath("/tools/fx-fee-calculator");
 }
 
 export async function markOfferingFeeStale(formData: FormData) {
@@ -36,4 +37,5 @@ export async function markOfferingFeeStale(formData: FormData) {
   });
   revalidatePath("/admin/pricing-verification");
   revalidatePath("/tools/brokerage-calculator");
+  revalidatePath("/tools/fx-fee-calculator");
 }

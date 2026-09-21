@@ -207,6 +207,27 @@ export default async function ShareTradingOfferingPage({
 
         <OfferingFeeSection fees={feeRows} promotions={promotionRows} />
 
+        {offering.fees.some(
+          (fee) => !fee.isPromotional && fee.feeCategory === "FX_CONVERSION"
+        ) && (
+          <Card className="mt-4">
+            <h2 className="font-display text-navy text-lg font-bold">
+              Explore currency-conversion costs
+            </h2>
+            <p className="text-muted mt-2 text-sm leading-6">
+              Use the FX Fee Calculator to apply supported verified published FX
+              pricing to a hypothetical AUD conversion amount and inspect the
+              calculation, assumptions and source.
+            </p>
+            <Link
+              href={`/tools/fx-fee-calculator?platform=${offering.slug}`}
+              className="text-blue mt-3 inline-block text-sm font-semibold underline"
+            >
+              Estimate {offering.name} FX costs →
+            </Link>
+          </Card>
+        )}
+
         <Card className="mt-4">
           <p className="text-muted text-xs">
             Order types and platform features for share trading platforms are
