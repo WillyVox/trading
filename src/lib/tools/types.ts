@@ -13,12 +13,7 @@ export type ToolDefinition = {
 };
 
 export type CalculationStatus =
-  | "CALCULATED"
-  | "PARTIAL"
-  | "VARIABLE"
-  | "UNKNOWN"
-  | "STALE"
-  | "UNSUPPORTED";
+  "CALCULATED" | "PARTIAL" | "VARIABLE" | "UNKNOWN" | "STALE" | "UNSUPPORTED";
 
 export type CalculationInput = {
   label: string;

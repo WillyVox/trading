@@ -70,14 +70,9 @@ A provider-derived fee is calculator-eligible only when all relevant checks pass
 
 Failure must produce an explicit unavailable/partial/variable/stale state, never a guessed number and never zero by default.
 
-## Freshness decision still required before Milestone 2
+## Freshness policy adopted for Milestone 2
 
-Milestone 1 defines status types but intentionally does not invent a universal age threshold. Before provider-derived calculations launch, define a fee-specific review policy covering:
-
-- VERIFIED and current → calculate;
-- review due → calculate only if approved, with warning;
-- STALE → do not silently calculate;
-- UNVERIFIED → do not present as a verified provider-derived estimate.
+Provider-derived brokerage calculations use a 45-day review window. A VERIFIED fee with a valid source and verification date inside that window may be calculator-eligible. Older pricing is withheld from the calculator until editorially re-verified. UNVERIFIED pricing is never presented as a verified estimate. This is an internal calculator safety policy, not a claim that every fee changes within 45 days; later tools may adopt a different evidence-appropriate review window.
 
 ## Phase 1 data decision
 

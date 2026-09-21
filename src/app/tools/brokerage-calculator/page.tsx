@@ -1,0 +1,69 @@
+import { BrokerageCalculator } from "@/components/tools/brokerage/BrokerageCalculator";
+import { PageHero } from "@/components/layout/PageHero";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Notice } from "@/components/ui/Notice";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+import { getBrokerageRules } from "@/lib/tools/brokerage/service";
+
+export const metadata = buildMetadata({
+  title: "Brokerage Cost Calculator Australia",
+  description:
+    "Calculate supported published share-trading brokerage fees for a hypothetical trade and see the pricing rule, calculation, assumptions and source.",
+  path: "/tools/brokerage-calculator",
+});
+
+export const revalidate = 3600;
+
+export default async function BrokerageCalculatorPage() {
+  const trail = breadcrumbTrail([
+    { name: "Tools", path: "/tools" },
+    { name: "Brokerage calculator", path: "/tools/brokerage-calculator" },
+  ]);
+  const rules = await getBrokerageRules();
+
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema(trail)} />
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Trading costs"
+        title="Brokerage Cost Calculator"
+        subheading="Apply supported published brokerage rules to a hypothetical trade, then inspect exactly how the estimate was produced."
+      />
+      <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
+        {rules.length > 0 ? (
+          <BrokerageCalculator rules={rules} />
+        ) : (
+          <Notice>
+            No verified calculator-ready brokerage rules are currently
+            available. We would rather show no estimate than guess.
+          </Notice>
+        )}
+        <section className="mt-10 max-w-3xl" aria-labelledby="how-it-works">
+          <h2
+            id="how-it-works"
+            className="font-display text-navy text-2xl font-bold"
+          >
+            How this calculator works
+          </h2>
+          <p className="text-muted mt-3 leading-7">
+            The calculator uses verified brokerage rules stored against Trading
+            Guide's share-trading offerings. It supports deterministic
+            value-based rules such as flat fees, percentages, greater-of rules
+            and trade-value tiers. Pricing that depends on information we do not
+            model is not forced into an estimate.
+          </p>
+          <div className="mt-5">
+            <Notice>
+              General information only. This calculator explains how published
+              pricing applies to a hypothetical scenario. It does not recommend
+              a platform and does not include every cost that could apply.
+            </Notice>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}

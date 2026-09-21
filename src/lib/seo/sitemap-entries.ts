@@ -33,6 +33,7 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/share-trading",
     "/news",
     "/tools",
+    "/tools/brokerage-calculator",
     "/methodology",
     "/methodology/editorial-policy",
     "/methodology/comparisons",

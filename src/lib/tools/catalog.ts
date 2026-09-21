@@ -8,7 +8,7 @@ export const TOOLS: ToolDefinition[] = [
     description:
       "Apply supported published brokerage rules to a hypothetical trade and see how the result is derived.",
     category: "TRADING_COSTS",
-    status: "COMING_SOON",
+    status: "AVAILABLE",
     href: "/tools/brokerage-calculator",
   },
   {

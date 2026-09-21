@@ -113,7 +113,7 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
       const href = attribs.href ?? "";
 
       const isExternal = isExternalHref(href);
-      
+
       if (isExternal) {
         return {
           tagName: "a",

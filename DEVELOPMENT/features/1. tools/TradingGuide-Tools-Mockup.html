@@ -1,22 +1,658 @@
 <!doctype html>
 <html lang="en-AU">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Trading Guide — Tools Product Mockup</title>
-<style>
-:root{--navy:#0b1d32;--navy2:#102944;--gold:#c79a3d;--cream:#f7f4ed;--paper:#fff;--ink:#17202a;--muted:#65717d;--line:#dfe4e8;--ok:#237a57;--warn:#9a6818;--soft:#f0f4f7}*{box-sizing:border-box}body{margin:0;font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--cream)}a{color:inherit}.top{background:var(--navy);color:white;position:sticky;top:0;z-index:5}.nav{max-width:1180px;margin:auto;min-height:72px;display:flex;align-items:center;gap:28px;padding:0 22px}.brand{font:700 23px Georgia,serif;margin-right:auto}.brand i{color:var(--gold);font-style:normal}.nav a{text-decoration:none;color:#e8edf2;font-weight:650}.nav .active{color:#fff;border-bottom:2px solid var(--gold);padding:24px 0 21px}.hero{background:linear-gradient(135deg,var(--navy),#173b61);color:#fff;padding:66px 22px}.wrap{max-width:1120px;margin:auto}.eyebrow{color:#e0b968;text-transform:uppercase;letter-spacing:.13em;font-size:12px;font-weight:800}.hero h1{font:700 clamp(38px,6vw,64px)/1.04 Georgia,serif;max-width:760px;margin:12px 0}.hero p{max-width:720px;color:#dbe5ee;font-size:19px}.trustline{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}.pill{border:1px solid #58708a;border-radius:99px;padding:8px 13px;font-size:13px}.section{padding:58px 22px}.section h2{font:700 34px Georgia,serif;color:var(--navy);margin:0 0 10px}.lead{color:var(--muted);max-width:720px;margin:0 0 28px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 5px 18px rgba(11,29,50,.04)}.card .icon{width:44px;height:44px;border-radius:12px;background:#f5ead2;color:#7d5b16;display:grid;place-items:center;font-weight:900;margin-bottom:18px}.card h3{margin:0 0 7px;color:var(--navy);font-size:19px}.card p{color:var(--muted);margin:0 0 17px}.tag{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--ok);text-transform:uppercase}.button{display:inline-flex;text-decoration:none;background:var(--navy);color:#fff;border-radius:999px;padding:10px 16px;font-weight:750}.tool{background:white;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 12px 36px rgba(11,29,50,.07);margin:26px 0 50px}.toolhead{padding:28px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px}.toolhead h3{font:700 28px Georgia,serif;color:var(--navy);margin:4px 0}.toolbody{display:grid;grid-template-columns:380px 1fr}.form{padding:28px;background:#fbfcfd;border-right:1px solid var(--line)}label{display:block;font-weight:750;margin:0 0 7px}.field{margin-bottom:19px}select,input{width:100%;border:1px solid #cbd3d9;border-radius:11px;padding:12px 13px;background:white;font:inherit}.result{padding:30px}.resultbox{background:var(--navy);color:white;border-radius:18px;padding:24px}.resultbox small{color:#bdcbd8}.amount{font:700 42px Georgia,serif;color:#f0c66d;margin:4px 0}.rows{margin-top:20px}.row{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px solid var(--line)}.row span:first-child{color:var(--muted)}.explain{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:15px}.mini{background:var(--soft);border-radius:13px;padding:16px}.mini b{display:block;color:var(--navy);margin-bottom:5px}.source{margin-top:20px;border-left:4px solid var(--gold);background:#fffaf0;padding:16px 18px;border-radius:4px 12px 12px 4px}.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:22px}.flow span{background:white;border:1px solid var(--line);padding:8px 12px;border-radius:10px;font-weight:700}.arrow{color:var(--gold)}.ownership{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}.own{border:1px solid var(--line);border-radius:16px;padding:22px}.own h4{color:var(--navy);font-size:19px;margin:0 0 10px}.diagram{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--soft);padding:18px 10px;border-radius:12px;margin:15px 0;font-size:13px}.diagram b{background:white;border:1px solid var(--line);padding:8px;border-radius:8px}.notice{font-size:13px;color:var(--muted);margin-top:20px}.footer{background:var(--navy);color:#cdd7e0;padding:34px 22px;margin-top:50px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.tabs a{background:white;border:1px solid var(--line);padding:8px 12px;border-radius:99px;text-decoration:none;font-weight:700;color:var(--navy)}@media(max-width:850px){.grid{grid-template-columns:1fr}.toolbody{grid-template-columns:1fr}.form{border-right:0;border-bottom:1px solid var(--line)}.ownership,.explain{grid-template-columns:1fr}.nav a:not(.active){display:none}.toolhead{flex-direction:column}.section{padding:42px 16px}.hero{padding:48px 16px}}
-</style>
-</head><body>
-<header class="top"><div class="nav"><div class="brand">Trading Guide<i>.com.au</i></div><a href="#">Guides</a><a href="#">Compare</a><a class="active" href="#tools">Tools</a><a href="#">Share Trading</a><a href="#">Crypto</a></div></header>
-<section class="hero" id="tools"><div class="wrap"><div class="eyebrow">Trading Guide Tools</div><h1>Understand the numbers before you compare.</h1><p>Beginner-friendly calculators and visual explainers built from published platform data. See the rule used, how the result was calculated, what is excluded, and where the information came from.</p><div class="trustline"><span class="pill">✓ Source-linked data</span><span class="pill">✓ Verification dates</span><span class="pill">✓ Assumptions shown</span><span class="pill">✓ No “best for you” ranking</span></div></div></section>
-<section class="section"><div class="wrap"><div class="eyebrow">Start here</div><h2>Tools for common investing questions</h2><p class="lead">Phase 1 focuses on three tools that validate the product architecture without pretending every fee structure can already be calculated.</p><div class="grid">
-<div class="card"><div class="icon">$</div><span class="tag">Trading costs</span><h3>Brokerage Cost Calculator</h3><p>Estimate published brokerage for a selected platform, market and trade amount, then inspect the pricing rule.</p><a class="button" href="#brokerage">Try mockup</a></div>
-<div class="card"><div class="icon">FX</div><span class="tag">International investing</span><h3>FX Fee Calculator</h3><p>Learn how a percentage conversion fee changes an amount, or use verified platform FX data when it is determinable.</p><a class="button" href="#fx">Try mockup</a></div>
-<div class="card"><div class="icon">HIN</div><span class="tag">Ownership & custody</span><h3>CHESS vs Custody Explorer</h3><p>Visually understand HINs, beneficial ownership and custody without framing one structure as universally better.</p><a class="button" href="#custody">Explore mockup</a></div>
-</div></div></section>
-<section class="section" id="brokerage"><div class="wrap"><div class="eyebrow">Mockup 01</div><h2>Brokerage Cost Calculator</h2><div class="tool"><div class="toolhead"><div><span class="tag">Published pricing scenario</span><h3>Estimate brokerage</h3><div class="notice">This estimate applies the published pricing rule matching the scenario below.</div></div><span class="pill" style="color:#237a57;border-color:#acd5c3;height:max-content">Verified data</span></div><div class="toolbody"><div class="form"><div class="field"><label>Platform</label><select><option>CommSec</option><option>Stake</option><option>CMC Invest</option></select></div><div class="field"><label>Market</label><select><option>Australian shares (ASX)</option></select></div><div class="field"><label>Trade amount</label><input value="2000" inputmode="decimal"></div><div class="field"><label>Trading / settlement method</label><select><option>Online — standard settlement</option></select></div><button class="button" style="border:0">Calculate brokerage</button></div><div class="result"><div class="resultbox"><small>Estimated brokerage for this scenario</small><div class="amount">A$10.00</div><div>CommSec · ASX · A$2,000 trade</div></div><div class="rows"><div class="row"><span>Applicable rule</span><b>A$10 for over A$1,000 up to A$3,000</b></div><div class="row"><span>Calculation</span><b>Published tier → A$10.00</b></div><div class="row"><span>Pricing status</span><b>Standing schedule</b></div></div><div class="explain"><div class="mini"><b>Assumptions</b>Online trade using the selected settlement channel. Trade value is A$2,000.</div><div class="mini"><b>Not included</b>Taxes, market movement, product-specific charges or costs not represented by this brokerage rule.</div></div><div class="source"><b>About this calculation</b><br>Source: Official provider pricing<br>Last verified: 19 Sep 2026 · <u>View source</u> · <u>Methodology</u> · <u>Report an issue</u></div></div></div></div></div></section>
-<section class="section" id="fx"><div class="wrap"><div class="eyebrow">Mockup 02</div><h2>FX Fee Calculator</h2><div class="tabs"><a href="#">Educational mode</a><a href="#">Platform-data mode</a></div><div class="tool"><div class="toolbody"><div class="form"><div class="field"><label>Amount converted</label><input value="5000"></div><div class="field"><label>FX fee</label><input value="0.55%"></div><button class="button" style="border:0">Calculate</button><p class="notice">Educational mode uses the percentage you enter. It does not claim this is any provider's current fee.</p></div><div class="result"><div class="resultbox"><small>Estimated FX fee</small><div class="amount">A$27.50</div><div>A$5,000 × 0.55%</div></div><div class="rows"><div class="row"><span>Amount</span><b>A$5,000</b></div><div class="row"><span>Fee rate</span><b>0.55%</b></div><div class="row"><span>Formula</span><b>5,000 × 0.0055</b></div></div><div class="source"><b>Educational calculation</b><br>This mode explains percentage-based FX fees. Platform mode would use verified structured pricing and explicitly show Variable or Unknown rather than treating it as 0.</div></div></div></div></div></section>
-<section class="section" id="custody"><div class="wrap"><div class="eyebrow">Mockup 03</div><h2>CHESS vs Custody Explorer</h2><p class="lead">An interactive explainer, not a winner/loser comparison. Users can inspect how ownership records differ and then see which structure applies to a platform and market.</p><div class="ownership"><div class="own"><span class="tag">Australian shares</span><h4>CHESS-sponsored</h4><div class="diagram"><b>You</b><span>→</span><b>HIN</b><span>→</span><b>CHESS register</b></div><p>A HIN identifies your CHESS-sponsored holdings. The explorer would explain what this means, when it applies, and transfer considerations.</p><a href="#">Learn about HINs →</a></div><div class="own"><span class="tag">Custody structure</span><h4>Custodial / nominee</h4><div class="diagram"><b>You</b><span>→</span><b>Beneficial interest</b><span>→</span><b>Custodian</b></div><p>The legal holding structure can differ by provider and market. The explorer should show the verified arrangement rather than imply custody is automatically unsafe.</p><a href="#">Understand beneficial ownership →</a></div></div><div class="source"><b>Then connect the concept to real data</b><br>Select a platform + market → show its verified custody record → source → last verified → provider profile → factual comparison.</div></div></section>
-<section class="section" style="background:#eef2f4"><div class="wrap"><div class="eyebrow">Learning ecosystem</div><h2>Tools should connect the whole product</h2><div class="flow"><span>Guide</span><b class="arrow">→</b><span>Tool</span><b class="arrow">→</b><span>Provider research</span><b class="arrow">→</b><span>Comparison</span><b class="arrow">→</b><span>Official source</span></div><p class="notice">Mockup only. It demonstrates information hierarchy and product behaviour; it is not an implementation and does not alter the uploaded repository.</p></div></section>
-<footer class="footer"><div class="wrap">Trading Guide Tools concept mockup · Navy/gold design direction · Desktop + mobile responsive</div></footer>
-</body></html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Trading Guide — Tools Product Mockup</title>
+    <style>
+      :root {
+        --navy: #0b1d32;
+        --navy2: #102944;
+        --gold: #c79a3d;
+        --cream: #f7f4ed;
+        --paper: #fff;
+        --ink: #17202a;
+        --muted: #65717d;
+        --line: #dfe4e8;
+        --ok: #237a57;
+        --warn: #9a6818;
+        --soft: #f0f4f7;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          15px/1.55 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: var(--cream);
+      }
+      a {
+        color: inherit;
+      }
+      .top {
+        background: var(--navy);
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+      .nav {
+        max-width: 1180px;
+        margin: auto;
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        padding: 0 22px;
+      }
+      .brand {
+        font:
+          700 23px Georgia,
+          serif;
+        margin-right: auto;
+      }
+      .brand i {
+        color: var(--gold);
+        font-style: normal;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #e8edf2;
+        font-weight: 650;
+      }
+      .nav .active {
+        color: #fff;
+        border-bottom: 2px solid var(--gold);
+        padding: 24px 0 21px;
+      }
+      .hero {
+        background: linear-gradient(135deg, var(--navy), #173b61);
+        color: #fff;
+        padding: 66px 22px;
+      }
+      .wrap {
+        max-width: 1120px;
+        margin: auto;
+      }
+      .eyebrow {
+        color: #e0b968;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .hero h1 {
+        font:
+          700 clamp(38px, 6vw, 64px)/1.04 Georgia,
+          serif;
+        max-width: 760px;
+        margin: 12px 0;
+      }
+      .hero p {
+        max-width: 720px;
+        color: #dbe5ee;
+        font-size: 19px;
+      }
+      .trustline {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 26px;
+      }
+      .pill {
+        border: 1px solid #58708a;
+        border-radius: 99px;
+        padding: 8px 13px;
+        font-size: 13px;
+      }
+      .section {
+        padding: 58px 22px;
+      }
+      .section h2 {
+        font:
+          700 34px Georgia,
+          serif;
+        color: var(--navy);
+        margin: 0 0 10px;
+      }
+      .lead {
+        color: var(--muted);
+        max-width: 720px;
+        margin: 0 0 28px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 5px 18px rgba(11, 29, 50, 0.04);
+      }
+      .card .icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: #f5ead2;
+        color: #7d5b16;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        margin-bottom: 18px;
+      }
+      .card h3 {
+        margin: 0 0 7px;
+        color: var(--navy);
+        font-size: 19px;
+      }
+      .card p {
+        color: var(--muted);
+        margin: 0 0 17px;
+      }
+      .tag {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        color: var(--ok);
+        text-transform: uppercase;
+      }
+      .button {
+        display: inline-flex;
+        text-decoration: none;
+        background: var(--navy);
+        color: #fff;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-weight: 750;
+      }
+      .tool {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 12px 36px rgba(11, 29, 50, 0.07);
+        margin: 26px 0 50px;
+      }
+      .toolhead {
+        padding: 28px 30px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .toolhead h3 {
+        font:
+          700 28px Georgia,
+          serif;
+        color: var(--navy);
+        margin: 4px 0;
+      }
+      .toolbody {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+      }
+      .form {
+        padding: 28px;
+        background: #fbfcfd;
+        border-right: 1px solid var(--line);
+      }
+      label {
+        display: block;
+        font-weight: 750;
+        margin: 0 0 7px;
+      }
+      .field {
+        margin-bottom: 19px;
+      }
+      select,
+      input {
+        width: 100%;
+        border: 1px solid #cbd3d9;
+        border-radius: 11px;
+        padding: 12px 13px;
+        background: white;
+        font: inherit;
+      }
+      .result {
+        padding: 30px;
+      }
+      .resultbox {
+        background: var(--navy);
+        color: white;
+        border-radius: 18px;
+        padding: 24px;
+      }
+      .resultbox small {
+        color: #bdcbd8;
+      }
+      .amount {
+        font:
+          700 42px Georgia,
+          serif;
+        color: #f0c66d;
+        margin: 4px 0;
+      }
+      .rows {
+        margin-top: 20px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 11px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .row span:first-child {
+        color: var(--muted);
+      }
+      .explain {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .mini {
+        background: var(--soft);
+        border-radius: 13px;
+        padding: 16px;
+      }
+      .mini b {
+        display: block;
+        color: var(--navy);
+        margin-bottom: 5px;
+      }
+      .source {
+        margin-top: 20px;
+        border-left: 4px solid var(--gold);
+        background: #fffaf0;
+        padding: 16px 18px;
+        border-radius: 4px 12px 12px 4px;
+      }
+      .flow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 22px;
+      }
+      .flow span {
+        background: white;
+        border: 1px solid var(--line);
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-weight: 700;
+      }
+      .arrow {
+        color: var(--gold);
+      }
+      .ownership {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .own {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 22px;
+      }
+      .own h4 {
+        color: var(--navy);
+        font-size: 19px;
+        margin: 0 0 10px;
+      }
+      .diagram {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--soft);
+        padding: 18px 10px;
+        border-radius: 12px;
+        margin: 15px 0;
+        font-size: 13px;
+      }
+      .diagram b {
+        background: white;
+        border: 1px solid var(--line);
+        padding: 8px;
+        border-radius: 8px;
+      }
+      .notice {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 20px;
+      }
+      .footer {
+        background: var(--navy);
+        color: #cdd7e0;
+        padding: 34px 22px;
+        margin-top: 50px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+      }
+      .tabs a {
+        background: white;
+        border: 1px solid var(--line);
+        padding: 8px 12px;
+        border-radius: 99px;
+        text-decoration: none;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      @media (max-width: 850px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .toolbody {
+          grid-template-columns: 1fr;
+        }
+        .form {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .ownership,
+        .explain {
+          grid-template-columns: 1fr;
+        }
+        .nav a:not(.active) {
+          display: none;
+        }
+        .toolhead {
+          flex-direction: column;
+        }
+        .section {
+          padding: 42px 16px;
+        }
+        .hero {
+          padding: 48px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="nav">
+        <div class="brand">Trading Guide<i>.com.au</i></div>
+        <a href="#">Guides</a><a href="#">Compare</a
+        ><a class="active" href="#tools">Tools</a><a href="#">Share Trading</a
+        ><a href="#">Crypto</a>
+      </div>
+    </header>
+    <section class="hero" id="tools">
+      <div class="wrap">
+        <div class="eyebrow">Trading Guide Tools</div>
+        <h1>Understand the numbers before you compare.</h1>
+        <p>
+          Beginner-friendly calculators and visual explainers built from
+          published platform data. See the rule used, how the result was
+          calculated, what is excluded, and where the information came from.
+        </p>
+        <div class="trustline">
+          <span class="pill">✓ Source-linked data</span
+          ><span class="pill">✓ Verification dates</span
+          ><span class="pill">✓ Assumptions shown</span
+          ><span class="pill">✓ No “best for you” ranking</span>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">Start here</div>
+        <h2>Tools for common investing questions</h2>
+        <p class="lead">
+          Phase 1 focuses on three tools that validate the product architecture
+          without pretending every fee structure can already be calculated.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <div class="icon">$</div>
+            <span class="tag">Trading costs</span>
+            <h3>Brokerage Cost Calculator</h3>
+            <p>
+              Estimate published brokerage for a selected platform, market and
+              trade amount, then inspect the pricing rule.
+            </p>
+            <a class="button" href="#brokerage">Try mockup</a>
+          </div>
+          <div class="card">
+            <div class="icon">FX</div>
+            <span class="tag">International investing</span>
+            <h3>FX Fee Calculator</h3>
+            <p>
+              Learn how a percentage conversion fee changes an amount, or use
+              verified platform FX data when it is determinable.
+            </p>
+            <a class="button" href="#fx">Try mockup</a>
+          </div>
+          <div class="card">
+            <div class="icon">HIN</div>
+            <span class="tag">Ownership & custody</span>
+            <h3>CHESS vs Custody Explorer</h3>
+            <p>
+              Visually understand HINs, beneficial ownership and custody without
+              framing one structure as universally better.
+            </p>
+            <a class="button" href="#custody">Explore mockup</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="brokerage">
+      <div class="wrap">
+        <div class="eyebrow">Mockup 01</div>
+        <h2>Brokerage Cost Calculator</h2>
+        <div class="tool">
+          <div class="toolhead">
+            <div>
+              <span class="tag">Published pricing scenario</span>
+              <h3>Estimate brokerage</h3>
+              <div class="notice">
+                This estimate applies the published pricing rule matching the
+                scenario below.
+              </div>
+            </div>
+            <span
+              class="pill"
+              style="color: #237a57; border-color: #acd5c3; height: max-content"
+              >Verified data</span
+            >
+          </div>
+          <div class="toolbody">
+            <div class="form">
+              <div class="field">
+                <label>Platform</label
+                ><select>
+                  <option>CommSec</option>
+                  <option>Stake</option>
+                  <option>CMC Invest</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Market</label
+                ><select>
+                  <option>Australian shares (ASX)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Trade amount</label
+                ><input value="2000" inputmode="decimal" />
+              </div>
+              <div class="field">
+                <label>Trading / settlement method</label
+                ><select>
+                  <option>Online — standard settlement</option>
+                </select>
+              </div>
+              <button class="button" style="border: 0">
+                Calculate brokerage
+              </button>
+            </div>
+            <div class="result">
+              <div class="resultbox">
+                <small>Estimated brokerage for this scenario</small>
+                <div class="amount">A$10.00</div>
+                <div>CommSec · ASX · A$2,000 trade</div>
+              </div>
+              <div class="rows">
+                <div class="row">
+                  <span>Applicable rule</span
+                  ><b>A$10 for over A$1,000 up to A$3,000</b>
+                </div>
+                <div class="row">
+                  <span>Calculation</span><b>Published tier → A$10.00</b>
+                </div>
+                <div class="row">
+                  <span>Pricing status</span><b>Standing schedule</b>
+                </div>
+              </div>
+              <div class="explain">
+                <div class="mini">
+                  <b>Assumptions</b>Online trade using the selected settlement
+                  channel. Trade value is A$2,000.
+                </div>
+                <div class="mini">
+                  <b>Not included</b>Taxes, market movement, product-specific
+                  charges or costs not represented by this brokerage rule.
+                </div>
+              </div>
+              <div class="source">
+                <b>About this calculation</b><br />Source: Official provider
+                pricing<br />Last verified: 19 Sep 2026 · <u>View source</u> ·
+                <u>Methodology</u> · <u>Report an issue</u>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="fx">
+      <div class="wrap">
+        <div class="eyebrow">Mockup 02</div>
+        <h2>FX Fee Calculator</h2>
+        <div class="tabs">
+          <a href="#">Educational mode</a><a href="#">Platform-data mode</a>
+        </div>
+        <div class="tool">
+          <div class="toolbody">
+            <div class="form">
+              <div class="field">
+                <label>Amount converted</label><input value="5000" />
+              </div>
+              <div class="field">
+                <label>FX fee</label><input value="0.55%" />
+              </div>
+              <button class="button" style="border: 0">Calculate</button>
+              <p class="notice">
+                Educational mode uses the percentage you enter. It does not
+                claim this is any provider's current fee.
+              </p>
+            </div>
+            <div class="result">
+              <div class="resultbox">
+                <small>Estimated FX fee</small>
+                <div class="amount">A$27.50</div>
+                <div>A$5,000 × 0.55%</div>
+              </div>
+              <div class="rows">
+                <div class="row"><span>Amount</span><b>A$5,000</b></div>
+                <div class="row"><span>Fee rate</span><b>0.55%</b></div>
+                <div class="row"><span>Formula</span><b>5,000 × 0.0055</b></div>
+              </div>
+              <div class="source">
+                <b>Educational calculation</b><br />This mode explains
+                percentage-based FX fees. Platform mode would use verified
+                structured pricing and explicitly show Variable or Unknown
+                rather than treating it as 0.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="custody">
+      <div class="wrap">
+        <div class="eyebrow">Mockup 03</div>
+        <h2>CHESS vs Custody Explorer</h2>
+        <p class="lead">
+          An interactive explainer, not a winner/loser comparison. Users can
+          inspect how ownership records differ and then see which structure
+          applies to a platform and market.
+        </p>
+        <div class="ownership">
+          <div class="own">
+            <span class="tag">Australian shares</span>
+            <h4>CHESS-sponsored</h4>
+            <div class="diagram">
+              <b>You</b><span>→</span><b>HIN</b><span>→</span
+              ><b>CHESS register</b>
+            </div>
+            <p>
+              A HIN identifies your CHESS-sponsored holdings. The explorer would
+              explain what this means, when it applies, and transfer
+              considerations.
+            </p>
+            <a href="#">Learn about HINs →</a>
+          </div>
+          <div class="own">
+            <span class="tag">Custody structure</span>
+            <h4>Custodial / nominee</h4>
+            <div class="diagram">
+              <b>You</b><span>→</span><b>Beneficial interest</b><span>→</span
+              ><b>Custodian</b>
+            </div>
+            <p>
+              The legal holding structure can differ by provider and market. The
+              explorer should show the verified arrangement rather than imply
+              custody is automatically unsafe.
+            </p>
+            <a href="#">Understand beneficial ownership →</a>
+          </div>
+        </div>
+        <div class="source">
+          <b>Then connect the concept to real data</b><br />Select a platform +
+          market → show its verified custody record → source → last verified →
+          provider profile → factual comparison.
+        </div>
+      </div>
+    </section>
+    <section class="section" style="background: #eef2f4">
+      <div class="wrap">
+        <div class="eyebrow">Learning ecosystem</div>
+        <h2>Tools should connect the whole product</h2>
+        <div class="flow">
+          <span>Guide</span><b class="arrow">→</b><span>Tool</span
+          ><b class="arrow">→</b><span>Provider research</span
+          ><b class="arrow">→</b><span>Comparison</span><b class="arrow">→</b
+          ><span>Official source</span>
+        </div>
+        <p class="notice">
+          Mockup only. It demonstrates information hierarchy and product
+          behaviour; it is not an implementation and does not alter the uploaded
+          repository.
+        </p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="wrap">
+        Trading Guide Tools concept mockup · Navy/gold design direction ·
+        Desktop + mobile responsive
+      </div>
+    </footer>
+  </body>
+</html>

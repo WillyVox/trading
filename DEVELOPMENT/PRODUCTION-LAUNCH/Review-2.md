@@ -1,6 +1,6 @@
 # Production-readiness review of the latest Trading Guide source
 
-I reviewed the latest `Archive(9).zip` against the production-readiness checklist you supplied. I treated the checklist as the acceptance criteria: complete route review, Australian financial-services boundaries, consumer law, privacy, affiliate compliance, provider data, SEO, accessibility, security, CMS, deployment, testing and launch gates. 
+I reviewed the latest `Archive(9).zip` against the production-readiness checklist you supplied. I treated the checklist as the acceptance criteria: complete route review, Australian financial-services boundaries, consumer law, privacy, affiliate compliance, provider data, SEO, accessibility, security, CMS, deployment, testing and launch gates.
 
 I also checked current ASIC, ACCC, Google and W3C material because several of these requirements are time-sensitive.
 
@@ -45,7 +45,7 @@ But I found several things that I would regard as **launch blockers**, not polis
 | Observability            | NEEDS WORK | CSP reporting exists; production monitoring incomplete           |
 | Deployment               | BLOCKER    | Clean install/build/test/start not demonstrated                  |
 
-Your checklist correctly says that compiling, having metadata, or having disclaimers does **not** make the product finished; the whole chain from verified research through deployment and monitoring has to work. 
+Your checklist correctly says that compiling, having metadata, or having disclaimers does **not** make the product finished; the whole chain from verified research through deployment and monitoring has to work.
 
 ---
 
@@ -57,18 +57,18 @@ The latest code is much healthier than the versions we reviewed previously.
 
 Your schema now distinguishes the company/brand from the service being compared. You have structured concepts around:
 
-* `Provider`
-* `ProviderOffering`
-* `Market`
-* `OfferingMarket`
-* `OfferingProduct`
-* `OfferingFeature`
-* `OfferingProsCon`
-* `OfferingCryptoAsset`
-* `OfferingCustody`
-* `OfferingAccountType`
-* `OfferingFee`
-* `OfferingFeeTier`
+- `Provider`
+- `ProviderOffering`
+- `Market`
+- `OfferingMarket`
+- `OfferingProduct`
+- `OfferingFeature`
+- `OfferingProsCon`
+- `OfferingCryptoAsset`
+- `OfferingCustody`
+- `OfferingAccountType`
+- `OfferingFee`
+- `OfferingFeeTier`
 
 That gives you a realistic foundation for representing CMC Markets → CMC Invest, Stake → Stake AUS/Wall St, crypto exchanges, and eventually multi-product providers.
 
@@ -100,23 +100,23 @@ This is much cleaner than trying to force crypto and brokers through one generic
 
 The repository contains:
 
-* Auth.js/Prisma authentication
-* ADMIN authorization in `proxy.ts`
-* password hashing and rehashing
-* login throttling
-* IP handling
-* rate-limit tests
-* affiliate input tests
-* article sanitisation
-* adversarial XSS tests
-* CSP report endpoint
-* security headers
-* HSTS in production
-* clickjacking protection
-* MIME-sniffing protection
-* referrer policy
-* permissions policy
-* draft article previews with `no-store`
+- Auth.js/Prisma authentication
+- ADMIN authorization in `proxy.ts`
+- password hashing and rehashing
+- login throttling
+- IP handling
+- rate-limit tests
+- affiliate input tests
+- article sanitisation
+- adversarial XSS tests
+- CSP report endpoint
+- security headers
+- HSTS in production
+- clickjacking protection
+- MIME-sniffing protection
+- referrer policy
+- permissions policy
+- draft article previews with `no-store`
 
 That's a meaningful improvement.
 
@@ -218,7 +218,7 @@ Affiliate destinations
 
 Then privacy wording must describe reality.
 
-Your checklist explicitly requires privacy claims to be derived from actual registration, sessions, affiliate clicks, IP/logging, analytics, cookies, hosting, database, email, embeds and monitoring. 
+Your checklist explicitly requires privacy claims to be derived from actual registration, sessions, affiliate clicks, IP/logging, analytics, cookies, hosting, database, email, embeds and monitoring.
 
 Don't write the privacy policy first and later configure infrastructure that contradicts it.
 
@@ -238,7 +238,7 @@ Your current application architecture has moved comparison into:
 but `sitemap-entries.ts` still includes:
 
 ```ts
-"/compare"
+"/compare";
 ```
 
 and I found links pointing to `/compare`, including the crypto area and footer/navigation configuration.
@@ -247,11 +247,11 @@ Yet the current route inventory contains **no `src/app/compare/page.tsx`**.
 
 That means you are potentially:
 
-* linking users to a 404;
-* putting a nonexistent URL in the sitemap;
-* wasting crawler requests;
-* creating a poor internal-link graph;
-* damaging trust.
+- linking users to a 404;
+- putting a nonexistent URL in the sitemap;
+- wasting crawler requests;
+- creating a poor internal-link graph;
+- damaging trust.
 
 This should be P0/P1.
 
@@ -326,15 +326,15 @@ provider outbound click
 
 You should also know:
 
-* indexed pages;
-* Google queries;
-* CTR;
-* organic landing pages;
-* 404s;
-* runtime errors;
-* affiliate redirect failures;
-* Core Web Vitals;
-* returning users.
+- indexed pages;
+- Google queries;
+- CTR;
+- organic landing pages;
+- 404s;
+- runtime errors;
+- affiliate redirect failures;
+- Core Web Vitals;
+- returning users.
 
 Without this, “SEO perfection” becomes guesswork.
 
@@ -371,7 +371,7 @@ and comparison to:
 “Featured providers” is populated exclusively through:
 
 ```ts
-getFeaturedCryptoExchanges(3)
+getFeaturedCryptoExchanges(3);
 ```
 
 So the headline says:
@@ -524,7 +524,7 @@ commission amount
 
 inside ranking logic.
 
-Your checklist explicitly requires inactive partners not to monetize accidentally, approved destinations, redirect protection, clear disclosure and no commission-driven ranking. 
+Your checklist explicitly requires inactive partners not to monetize accidentally, approved destinations, redirect protection, clear disclosure and no commission-driven ranking.
 
 Your current `CONTENT-GAPS.md` still notes that actual referral identifiers will need to be added when real agreements exist. That's fine before partnerships exist, but the activation workflow should be tested before the first partnership goes live.
 
@@ -562,7 +562,7 @@ This would be much more valuable than merely adding more articles.
 
 # A real corrections mechanism is still missing
 
-You already identified this in your checklist: readers/providers need a way to report factual errors, privacy concerns and corrections. 
+You already identified this in your checklist: readers/providers need a way to report factual errors, privacy concerns and corrections.
 
 I recommend adding:
 
@@ -721,7 +721,7 @@ I noticed something worth fixing after the recent XSS test work.
 `sanitize.ts` defines the correct helper:
 
 ```ts
-isExternalHref()
+isExternalHref();
 ```
 
 which checks whether the host differs from Trading Guide.
@@ -729,9 +729,7 @@ which checks whether the host differs from Trading Guide.
 But your current `<a>` transformation does not use it. Instead it currently does roughly:
 
 ```ts
-const isExternal =
-  href.startsWith("https://") ||
-  href.startsWith("http://");
+const isExternal = href.startsWith("https://") || href.startsWith("http://");
 ```
 
 Therefore:
@@ -770,17 +768,17 @@ Before launch I would test at least:
 
 especially:
 
-* comparison tables;
-* rich articles;
-* navigation;
-* forms;
-* TipTap output;
-* provider cards;
-* long fee qualifications;
-* keyboard navigation;
-* focus visibility;
-* 200% zoom;
-* validation errors.
+- comparison tables;
+- rich articles;
+- navigation;
+- forms;
+- TipTap output;
+- provider cards;
+- long fee qualifications;
+- keyboard navigation;
+- focus visibility;
+- 200% zoom;
+- validation errors.
 
 ---
 
@@ -856,7 +854,7 @@ The biggest strategic change I recommend is also the simplest:
 
 If you execute that consistently—source-linked facts, plain-English explanations, transparent limitations, useful calculators and comparisons, visible verification and no affiliate-driven rankings—you have a much clearer reason to exist alongside Finder and Canstar.
 
-I have not modified `Archive(9).zip`, consistent with the approval gate in your requirements. 
+I have not modified `Archive(9).zip`, consistent with the approval gate in your requirements.
 
 [1]: https://developers.google.com/search/docs/fundamentals/creating-helpful-content?authuser=31&utm_source=chatgpt.com "Creating Helpful, Reliable, People-First Content | Google Search Central  |  Documentation  |  Google for Developers"
 [2]: https://developers.google.com/search/updates?utm_source=chatgpt.com "Latest Google Search Documentation Updates | Google Search Central  |  What's new  |  Google for Developers"
