@@ -14,15 +14,14 @@ export type ToolDefinition = {
 export type ToolVerificationStatus = "VERIFIED" | "UNVERIFIED" | "STALE";
 
 export type CalculationStatus =
-  | "CALCULATED"
-  | "PARTIAL"
-  | "VARIABLE"
-  | "UNKNOWN"
-  | "STALE"
-  | "UNSUPPORTED";
+  "CALCULATED" | "PARTIAL" | "VARIABLE" | "UNKNOWN" | "STALE" | "UNSUPPORTED";
 
 export type CalculationInput = { label: string; value: string };
-export type CalculationStep = { label: string; expression?: string; result?: string };
+export type CalculationStep = {
+  label: string;
+  expression?: string;
+  result?: string;
+};
 export type CalculationEvidence = {
   sourceUrl: string;
   verifiedAt?: string | null;

@@ -1,12 +1,11 @@
 Provider fee exists
-        ↓
+↓
 Can our structured engine represent ALL required conditions?
-        │
-     YES│        NO
-        ↓         ↓
-Calculator      Exclude it
-shows it        rather than guess
-
+│
+YES│ NO
+↓ ↓
+Calculator Exclude it
+shows it rather than guess
 
 -> This is safe, but the UX is not ideal. A beginner sees CommSec/Stake but has no idea why CMC and IBKR are absent.
 

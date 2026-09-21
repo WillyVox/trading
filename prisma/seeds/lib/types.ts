@@ -2,6 +2,7 @@ import type {
   FeeCalculationBasis,
   FeeCategory,
   FeeChannel,
+  FeeTradeSide,
   VerificationStatus,
 } from "@prisma/client";
 
@@ -38,6 +39,15 @@ export type OfferingFeeSeed = {
    * short condition attached, e.g. CMC's "$0 first buy up to $1,000"). */
   displayValue?: string;
   notes?: string;
+
+  pricingPlan?: string;
+  tradeSide?: FeeTradeSide;
+  firstBuyPerSecurityPerDay?: boolean;
+  minTradeAmount?: number;
+  maxTradeAmount?: number;
+  maxTradeAmountInclusive?: boolean;
+  excludesMarginLoanSettlement?: boolean;
+  gstPercent?: number;
 
   isPromotional?: boolean;
   validFrom?: Date;

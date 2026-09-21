@@ -411,6 +411,12 @@ enum FeeCalculationBasis {
 
 // A real, observed dimension (not a generic condition system): CommSec's AU
 // brokerage genuinely differs by *how* you trade and settle, nothing else.
+enum FeeTradeSide {
+  ANY
+  BUY
+  SELL
+}
+
 enum FeeChannel {
   ONLINE_STANDARD_SETTLEMENT // online, settling to CDIA / Margin Loan
   ONLINE_OWN_BANK_SETTLEMENT // online, settling to a bank account of your choice
@@ -626,6 +632,17 @@ model OfferingFee {
   currency     String?
   displayValue String?
   notes        String?  @db.Text
+
+  // Optional deterministic scenario dimensions used by interactive tools.
+  // Null means the fee does not depend on that dimension.
+  pricingPlan                  String?
+  tradeSide                    FeeTradeSide?
+  firstBuyPerSecurityPerDay    Boolean?
+  minTradeAmount               Decimal? @db.Decimal(14, 2)
+  maxTradeAmount               Decimal? @db.Decimal(14, 2)
+  maxTradeAmountInclusive      Boolean   @default(true)
+  excludesMarginLoanSettlement Boolean   @default(false)
+  gstPercent                   Decimal?  @db.Decimal(5, 2)
 
   isPromotional    Boolean   @default(false)
   validFrom        DateTime?

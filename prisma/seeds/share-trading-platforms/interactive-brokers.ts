@@ -25,24 +25,27 @@ import type { OfferingFeeSeed } from "../lib/types";
  * etc. are separate entities/pricing).
  */
 const COMMISSIONS_URL =
-  "https://www.interactivebrokers.com.au/en/pricing/commissions-home.php";
+  "https://www.interactivebrokers.com.au/en/index.php?f=49808";
 const GLOBALTRADER_URL =
   "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php";
-const FEES_CHECKED = new Date("2026-09-19");
+const FEES_CHECKED = new Date("2026-09-22");
 
 const fees: OfferingFeeSeed[] = [
   {
     feeCategory: FeeCategory.BROKERAGE,
     marketCode: "ASX",
-    label: "Australian shares brokerage (IBKR Pro, Fixed plan)",
+    label: "Australian shares brokerage (Fixed plan)",
     calculationBasis: FeeCalculationBasis.GREATER_OF,
     flatAmount: 6,
     percentage: 0.08,
     currency: "AUD",
+    pricingPlan: "Fixed",
+    gstPercent: 10,
     notes:
-      "0.08% of trade value, minimum AUD $6 per order. A separate ASX clearing fee (~0.011695% of trade value) and exchange fee (~0.00165% of trade value) apply on top, per third-party sources citing IBKR's ASX Exchange Fees page -- not independently re-derived from that page in this research pass, so not seeded as its own row. IBKR Pro's Tiered plan (lower per-share rates for high-volume traders) and the separate GlobalTrader flat-rate product are not modelled -- see the research manifest.",
-    sourceUrl: GLOBALTRADER_URL,
-    verificationStatus: VerificationStatus.UNVERIFIED,
+      "IBKR publishes Fixed Australian stock commissions at 0.08% of trade value with a A$6 minimum per order, exclusive of GST. The calculator adds 10% GST. IBKR Tiered pricing and third-party fees are not included in this Fixed-plan estimate.",
+    sourceUrl: COMMISSIONS_URL,
+    verificationStatus: VerificationStatus.VERIFIED,
+    verifiedAt: FEES_CHECKED,
   },
   // US shares: priced per share (US$0.005/share, min US$1, max 1% of trade
   // value), which doesn't fit FLAT/PERCENTAGE/GREATER_OF (all value-based

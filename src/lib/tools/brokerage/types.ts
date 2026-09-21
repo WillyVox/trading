@@ -1,18 +1,21 @@
 import type { ToolVerificationStatus } from "../types";
 
 export type BrokerageCalculationBasis =
-  | "FLAT"
-  | "PERCENTAGE"
-  | "GREATER_OF"
-  | "TIERED"
-  | "FREE"
-  | "VARIES";
-
+  "FLAT" | "PERCENTAGE" | "GREATER_OF" | "TIERED" | "FREE" | "VARIES";
 export type BrokerageFeeChannel =
   | "ONLINE_STANDARD_SETTLEMENT"
   | "ONLINE_OWN_BANK_SETTLEMENT"
   | "PHONE_OR_ESTATE"
   | "THIRD_PARTY_SETTLEMENT";
+export type BrokerageTradeSide = "ANY" | "BUY" | "SELL";
+
+export type BrokerageScenario = {
+  tradeAmount: number;
+  tradeSide: "BUY" | "SELL";
+  firstBuyPerSecurityPerDay: boolean;
+  marginLoanSettlement: boolean;
+  pricingPlan?: string | null;
+};
 
 export type BrokerageTierRule = {
   minAmount: number;
@@ -20,7 +23,6 @@ export type BrokerageTierRule = {
   flatAmount: number | null;
   percentage: number | null;
 };
-
 export type BrokerageRule = {
   feeId: string;
   offeringSlug: string;
@@ -40,13 +42,30 @@ export type BrokerageRule = {
   verificationStatus: ToolVerificationStatus;
   verifiedAt: string | null;
   tiers: BrokerageTierRule[];
+  pricingPlan: string | null;
+  tradeSide: BrokerageTradeSide | null;
+  firstBuyPerSecurityPerDay: boolean | null;
+  minTradeAmount: number | null;
+  maxTradeAmount: number | null;
+  maxTradeAmountInclusive: boolean;
+  excludesMarginLoanSettlement: boolean;
+  gstPercent: number | null;
 };
-
 export type BrokerageCalculation = {
   status: "CALCULATED" | "VARIABLE" | "UNKNOWN" | "STALE" | "UNSUPPORTED";
   amount?: number;
+  preTaxAmount?: number;
+  taxAmount?: number;
   currency?: string;
   ruleLabel: string;
   expression?: string;
   explanation: string;
+};
+export type BrokerageOfferingOption = {
+  slug: string;
+  name: string;
+  providerName: string;
+  rules: BrokerageRule[];
+  availability: "CALCULATABLE" | "NEEDS_INPUT" | "UNAVAILABLE";
+  reason?: string;
 };

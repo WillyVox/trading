@@ -1,20 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { calculateBrokerage } from "@/lib/tools/brokerage/calculate";
-import type { BrokerageRule } from "@/lib/tools/brokerage/types";
+import {
+  calculateBrokerage,
+  selectBrokerageRule,
+} from "@/lib/tools/brokerage/calculate";
+import type {
+  BrokerageOfferingOption,
+  BrokerageScenario,
+} from "@/lib/tools/brokerage/types";
 import { ToolShell, ToolPanel } from "@/components/tools/shared/ToolShell";
 import { CalculationResult } from "@/components/tools/shared/CalculationResult";
 import { CalculationBreakdown } from "@/components/tools/shared/CalculationBreakdown";
 import { AssumptionsPanel } from "@/components/tools/shared/AssumptionsPanel";
 import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
-
-const CHANNEL_LABELS: Record<string, string> = {
-  ONLINE_STANDARD_SETTLEMENT: "Online — CDIA / Margin Loan settlement",
-  ONLINE_OWN_BANK_SETTLEMENT: "Online — own bank account settlement",
-  PHONE_OR_ESTATE: "Phone / deceased estate",
-  THIRD_PARTY_SETTLEMENT: "Third-party settlement",
-};
 
 function money(amount: number, currency?: string) {
   try {
@@ -26,49 +25,77 @@ function money(amount: number, currency?: string) {
     return `${currency ?? ""} ${amount.toFixed(2)}`.trim();
   }
 }
+const AVAILABILITY = {
+  CALCULATABLE: "Ready to calculate",
+  NEEDS_INPUT: "Additional information required",
+  UNAVAILABLE: "Calculation unavailable",
+} as const;
 
-export function BrokerageCalculator({ rules }: { rules: BrokerageRule[] }) {
-  const offerings = useMemo(
+export function BrokerageCalculator({
+  offerings,
+}: {
+  offerings: BrokerageOfferingOption[];
+}) {
+  const [offeringSlug, setOfferingSlug] = useState(offerings[0]?.slug ?? "");
+  const offering =
+    offerings.find((o) => o.slug === offeringSlug) ?? offerings[0];
+  const markets = useMemo(
     () =>
       Array.from(
-        new Map(rules.map((r) => [r.offeringSlug, r.offeringName])).entries()
+        new Map(
+          (offering?.rules ?? []).map((r) => [r.marketCode, r.marketName])
+        ).entries()
       ),
-    [rules]
+    [offering]
   );
-  const [offeringSlug, setOfferingSlug] = useState(offerings[0]?.[0] ?? "");
-  const offeringRules = rules.filter((r) => r.offeringSlug === offeringSlug);
-  const markets = Array.from(
-    new Map(offeringRules.map((r) => [r.marketCode, r.marketName])).entries()
-  );
-  const [marketCode, setMarketCode] = useState(markets[0]?.[0] ?? "");
-  const marketRules = offeringRules.filter((r) => r.marketCode === marketCode);
-  const [feeId, setFeeId] = useState(marketRules[0]?.feeId ?? "");
-  const [tradeAmount, setTradeAmount] = useState("2000");
-
-  const effectiveMarket = markets.some(([code]) => code === marketCode)
+  const [marketCode, setMarketCode] = useState("");
+  const effectiveMarket = markets.some(([c]) => c === marketCode)
     ? marketCode
     : (markets[0]?.[0] ?? "");
-  const effectiveRules = offeringRules.filter(
+  const marketRules = (offering?.rules ?? []).filter(
     (r) => r.marketCode === effectiveMarket
   );
-  const rule =
-    effectiveRules.find((r) => r.feeId === feeId) ?? effectiveRules[0];
+  const plans = Array.from(
+    new Set(
+      marketRules
+        .map((r) => r.pricingPlan)
+        .filter((v): v is string => Boolean(v))
+    )
+  );
+  const [pricingPlan, setPricingPlan] = useState("");
+  const effectivePlan = plans.includes(pricingPlan)
+    ? pricingPlan
+    : (plans[0] ?? null);
+  const [tradeAmount, setTradeAmount] = useState("2000");
+  const [tradeSide, setTradeSide] = useState<"BUY" | "SELL">("BUY");
+  const [firstBuy, setFirstBuy] = useState(true);
+  const [marginLoan, setMarginLoan] = useState(false);
   const amount = Number(tradeAmount);
+  const relevant = marketRules.filter(
+    (r) => !effectivePlan || !r.pricingPlan || r.pricingPlan === effectivePlan
+  );
+  const asksFirstBuy = relevant.some(
+    (r) => r.firstBuyPerSecurityPerDay != null
+  );
+  const asksMargin = relevant.some((r) => r.excludesMarginLoanSettlement);
+  const scenario: BrokerageScenario = {
+    tradeAmount: amount,
+    tradeSide,
+    firstBuyPerSecurityPerDay: firstBuy,
+    marginLoanSettlement: marginLoan,
+    pricingPlan: effectivePlan,
+  };
+  const rule = selectBrokerageRule(relevant, scenario);
   const result = rule ? calculateBrokerage(rule, amount) : null;
-
-  function changeOffering(next: string) {
-    setOfferingSlug(next);
-    const nextRules = rules.filter((r) => r.offeringSlug === next);
-    setMarketCode(nextRules[0]?.marketCode ?? "");
-    setFeeId(nextRules[0]?.feeId ?? "");
+  const noMatch =
+    offering?.availability === "UNAVAILABLE"
+      ? offering.reason
+      : "The selected scenario does not match a verified calculator-ready pricing rule.";
+  function changeOffering(slug: string) {
+    setOfferingSlug(slug);
+    setMarketCode("");
+    setPricingPlan("");
   }
-
-  function changeMarket(next: string) {
-    setMarketCode(next);
-    const nextRule = offeringRules.find((r) => r.marketCode === next);
-    setFeeId(nextRule?.feeId ?? "");
-  }
-
   return (
     <ToolShell>
       <ToolPanel labelledBy="brokerage-inputs">
@@ -79,61 +106,114 @@ export function BrokerageCalculator({ rules }: { rules: BrokerageRule[] }) {
           Your hypothetical trade
         </h2>
         <p className="text-muted mt-2 text-sm leading-6">
-          Choose a platform, market and supported pricing rule. The calculator
-          uses verified structured fee data; it does not choose a platform for
-          you.
+          All relevant platforms stay visible. Where pricing needs more context,
+          we ask for it rather than guessing.
         </p>
         <div className="mt-6 space-y-5">
           <label className="text-navy block text-sm font-semibold">
             Platform
             <select
-              value={offeringSlug}
+              value={offering?.slug ?? ""}
               onChange={(e) => changeOffering(e.target.value)}
               className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
             >
-              {offerings.map(([slug, name]) => (
-                <option key={slug} value={slug}>
-                  {name}
+              {offerings.map((o) => (
+                <option key={o.slug} value={o.slug}>
+                  {o.name} — {AVAILABILITY[o.availability]}
                 </option>
               ))}
             </select>
           </label>
-          <label className="text-navy block text-sm font-semibold">
-            Market
-            <select
-              value={effectiveMarket}
-              onChange={(e) => changeMarket(e.target.value)}
-              className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
-            >
-              {markets.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name} ({code})
-                </option>
-              ))}
-            </select>
-          </label>
-          {effectiveRules.length > 1 && (
+          {offering?.availability === "UNAVAILABLE" && (
+            <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+              {offering.reason ?? "Calculation unavailable for this platform."}
+            </p>
+          )}
+          {markets.length > 0 && (
             <label className="text-navy block text-sm font-semibold">
-              Pricing / settlement method
+              Market
               <select
-                value={rule?.feeId ?? ""}
-                onChange={(e) => setFeeId(e.target.value)}
+                value={effectiveMarket}
+                onChange={(e) => setMarketCode(e.target.value)}
                 className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
               >
-                {effectiveRules.map((r) => (
-                  <option key={r.feeId} value={r.feeId}>
-                    {r.channel
-                      ? (CHANNEL_LABELS[r.channel] ?? r.label)
-                      : r.label}
+                {markets.map(([c, n]) => (
+                  <option key={c} value={c}>
+                    {n} ({c})
                   </option>
                 ))}
               </select>
             </label>
           )}
+          {plans.length > 1 && (
+            <label className="text-navy block text-sm font-semibold">
+              Pricing plan
+              <select
+                value={effectivePlan ?? ""}
+                onChange={(e) => setPricingPlan(e.target.value)}
+                className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
+              >
+                {plans.map((p) => (
+                  <option key={p}>{p}</option>
+                ))}
+              </select>
+            </label>
+          )}
+          <fieldset>
+            <legend className="text-navy text-sm font-semibold">
+              Order type
+            </legend>
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              {(["BUY", "SELL"] as const).map((side) => (
+                <button
+                  type="button"
+                  key={side}
+                  aria-pressed={tradeSide === side}
+                  onClick={() => setTradeSide(side)}
+                  className={`min-h-11 rounded-lg border px-3 text-sm ${tradeSide === side ? "border-navy bg-navy text-white" : "border-border bg-background text-navy"}`}
+                >
+                  {side === "BUY" ? "Buy" : "Sell"}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+          {asksFirstBuy && tradeSide === "BUY" && (
+            <label className="border-border flex min-h-11 items-start gap-3 rounded-lg border p-3 text-sm">
+              <input
+                type="checkbox"
+                checked={firstBuy}
+                onChange={(e) => setFirstBuy(e.target.checked)}
+                className="mt-1"
+              />
+              <span>
+                <strong>First buy of this security today</strong>
+                <span className="text-muted block">
+                  Used only where the published pricing explicitly depends on
+                  this condition.
+                </span>
+              </span>
+            </label>
+          )}
+          {asksMargin && (
+            <label className="border-border flex min-h-11 items-start gap-3 rounded-lg border p-3 text-sm">
+              <input
+                type="checkbox"
+                checked={marginLoan}
+                onChange={(e) => setMarginLoan(e.target.checked)}
+                className="mt-1"
+              />
+              <span>
+                <strong>Settled through a margin loan</strong>
+                <span className="text-muted block">
+                  Some published concessions exclude margin-loan-settled trades.
+                </span>
+              </span>
+            </label>
+          )}
           <label className="text-navy block text-sm font-semibold">
             Trade amount
-            <div className="border-border bg-background focus-within:ring-blue/30 mt-2 flex min-h-11 items-center rounded-lg border focus-within:ring-2">
-              <span className="text-muted pl-3" aria-hidden="true">
+            <div className="border-border bg-background mt-2 flex min-h-11 items-center rounded-lg border">
+              <span className="text-muted pl-3" aria-hidden>
                 $
               </span>
               <input
@@ -144,34 +224,60 @@ export function BrokerageCalculator({ rules }: { rules: BrokerageRule[] }) {
                 value={tradeAmount}
                 onChange={(e) => setTradeAmount(e.target.value)}
                 className="min-w-0 flex-1 bg-transparent px-2 py-2 outline-none"
-                aria-describedby="trade-amount-help"
               />
             </div>
-            <span
-              id="trade-amount-help"
-              className="text-muted mt-1 block text-xs font-normal"
-            >
-              Trade value, not the amount of cash in your account.
-            </span>
           </label>
         </div>
       </ToolPanel>
-
       <ToolPanel labelledBy="brokerage-result" live>
         <CalculationResult
           title="Estimated brokerage"
-          value={result?.status === "CALCULATED" ? money(result.amount ?? 0, result.currency) : undefined}
-          context={result?.status === "CALCULATED" ? `For a ${Number.isFinite(amount) ? money(amount, rule?.currency ?? undefined) : "—"} hypothetical trade.` : undefined}
+          value={
+            result?.status === "CALCULATED"
+              ? money(result.amount ?? 0, result.currency)
+              : undefined
+          }
+          context={
+            result?.status === "CALCULATED"
+              ? `For this ${tradeSide.toLowerCase()} scenario${effectivePlan ? ` using ${effectivePlan} pricing` : ""}.`
+              : undefined
+          }
         >
-          {rule && result && (
+          {rule && result ? (
             <div className="mt-7 space-y-5 text-sm">
-              <CalculationBreakdown label={rule.label} expression={result.expression} explanation={result.explanation} />
-              <AssumptionsPanel
-                assumptions={rule.notes ? [rule.notes] : []}
-                exclusions={["Taxes, market movement, FX costs and other fees are not included unless they are part of the selected brokerage rule."]}
+              <CalculationBreakdown
+                label={rule.label}
+                expression={result.expression}
+                explanation={result.explanation}
               />
-              <SourceVerificationPanel sourceUrl={rule.sourceUrl} verifiedAt={rule.verifiedAt} status={rule.verificationStatus} />
+              <AssumptionsPanel
+                assumptions={[
+                  ...(rule.notes ? [rule.notes] : []),
+                  ...(asksFirstBuy && tradeSide === "BUY"
+                    ? [
+                        firstBuy
+                          ? "You indicated this is the first buy of this security today."
+                          : "You indicated this is not the first buy of this security today.",
+                      ]
+                    : []),
+                ]}
+                exclusions={[
+                  "Taxes, market movement, FX costs and other fees are excluded unless the selected rule explicitly includes them.",
+                  ...(rule.gstPercent
+                    ? [
+                        `This estimate includes ${rule.gstPercent}% GST on the published pre-GST brokerage.`,
+                      ]
+                    : []),
+                ]}
+              />
+              <SourceVerificationPanel
+                sourceUrl={rule.sourceUrl}
+                verifiedAt={rule.verifiedAt}
+                status={rule.verificationStatus}
+              />
             </div>
+          ) : (
+            <p className="text-muted mt-6 text-sm leading-6">{noMatch}</p>
           )}
         </CalculationResult>
       </ToolPanel>

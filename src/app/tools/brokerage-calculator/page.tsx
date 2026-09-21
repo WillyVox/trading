@@ -7,7 +7,7 @@ import { RelatedTools } from "@/components/tools/shared/RelatedTools";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
-import { getBrokerageRules } from "@/lib/tools/brokerage/service";
+import { getBrokerageOfferings } from "@/lib/tools/brokerage/service";
 
 export const metadata = buildMetadata({
   title: "Brokerage Cost Calculator Australia",
@@ -23,7 +23,7 @@ export default async function BrokerageCalculatorPage() {
     { name: "Tools", path: "/tools" },
     { name: "Brokerage calculator", path: "/tools/brokerage-calculator" },
   ]);
-  const rules = await getBrokerageRules();
+  const offerings = await getBrokerageOfferings();
 
   return (
     <>
@@ -35,8 +35,8 @@ export default async function BrokerageCalculatorPage() {
         subheading="Apply supported published brokerage rules to a hypothetical trade, then inspect exactly how the estimate was produced."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        {rules.length > 0 ? (
-          <BrokerageCalculator rules={rules} />
+        {offerings.length > 0 ? (
+          <BrokerageCalculator offerings={offerings} />
         ) : (
           <Notice>
             No verified calculator-ready brokerage rules are currently
@@ -57,7 +57,9 @@ export default async function BrokerageCalculatorPage() {
             and trade-value tiers. Pricing that depends on information we do not
             model is not forced into an estimate.
           </p>
-          <div className="mt-5"><ToolDisclaimer /></div>
+          <div className="mt-5">
+            <ToolDisclaimer />
+          </div>
         </section>
         <RelatedTools />
       </main>
