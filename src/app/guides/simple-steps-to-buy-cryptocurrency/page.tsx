@@ -375,6 +375,16 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                   excerpt:
                     "How buying shares compares to buying crypto, and how to place your first trade.",
                 },
+                {
+                  id: "what-you-need-to-start-trading",
+                  slug: STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING,
+                  href: getStaticGuideArticleHref(
+                    STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING
+                  ),
+                  title: "What You Need to Start Trading: 10-Point Checklist",
+                  excerpt:
+                    "Money, safety net, knowledge and a plan to sort out before you buy.",
+                },
               ]}
             />
 

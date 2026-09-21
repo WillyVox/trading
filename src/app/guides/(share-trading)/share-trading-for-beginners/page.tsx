@@ -474,6 +474,16 @@ export default function ShareTradingForBeginnersPage() {
             <RelatedGuides
               guides={[
                 {
+                  id: "what-is-trading",
+                  slug: STATIC_SLUG_IDS.WHAT_IS_TRADING,
+                  href: getStaticGuideArticleHref(
+                    STATIC_SLUG_IDS.WHAT_IS_TRADING
+                  ),
+                  title: "What Is Trading? A Beginner's Guide for Australians",
+                  excerpt:
+                    "How trading works across all markets, and how it differs from investing.",
+                },
+                {
                   id: "how-to-start-investing-in-crypto",
                   slug: STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO,
                   href: RELATED_PATH_START_INVESTING_IN_CRYPTO,

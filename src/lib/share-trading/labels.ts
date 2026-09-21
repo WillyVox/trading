@@ -141,10 +141,7 @@ export function formatFeeCategory(category: FeeCategory): string {
 }
 
 /** "$5" / "$29.95" — trims a bare ".00", never rounds away real cents. */
-export function formatMoney(
-  amount: number,
-  currency?: string | null
-): string {
+export function formatMoney(amount: number, currency?: string | null): string {
   const prefix = !currency || currency === "AUD" ? "$" : `${currency} $`;
   const formatted = amount.toFixed(2).replace(/\.00$/, "");
   return `${prefix}${formatted}`;
@@ -243,9 +240,7 @@ export function pickHeadlineFee<T extends { channel: string | null }>(
   }
 
   return (
-    candidates.find(
-      (fee) => fee.channel === "ONLINE_STANDARD_SETTLEMENT"
-    ) ??
+    candidates.find((fee) => fee.channel === "ONLINE_STANDARD_SETTLEMENT") ??
     candidates.find((fee) => fee.channel === null) ??
     candidates[0]
   );

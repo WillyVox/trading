@@ -10,6 +10,8 @@ export const STATIC_SLUG_IDS = {
   OPEN_SHARE_TRADING_ACCOUNT: "how-to-open-online-share-trading-account",
   STEPS_TO_START_INVESTING_IN_SHARES:
     "steps-to-start-investing-in-share-in-australia",
+  WHAT_IS_TRADING: "what-is-trading",
+  WHAT_YOU_NEED_TO_START_TRADING: "what-you-need-to-start-trading",
 };
 
 /**

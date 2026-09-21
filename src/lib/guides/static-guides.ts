@@ -121,6 +121,36 @@ export const STATIC_GUIDES = [
     updatedAt: "2026-09-19",
     source: "STATIC",
   },
+  {
+    slug: STATIC_SLUG_IDS.WHAT_IS_TRADING,
+    title: "What Is Trading? A Beginner's Guide for Australians",
+    excerpt:
+      "What is trading? Learn how buying and selling shares, ETFs and crypto works, the main trading styles, what it costs, the risks, and how trading differs from investing.",
+    category: "getting-started",
+    featuredImage: getStaticGuideArticleImage(STATIC_SLUG_IDS.WHAT_IS_TRADING),
+    featuredImageAlt:
+      "Diagram of how a trade travels from an investor through a broker to an exchange",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-21",
+    updatedAt: "2026-09-21",
+    source: "STATIC",
+  },
+  {
+    slug: STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING,
+    title: "What You Need to Start Trading: 10-Point Checklist",
+    excerpt:
+      "Before your first trade: money, knowledge, broker and plan. A plain-English 10-point checklist for Australian beginners on what to prepare first.",
+    category: "getting-started",
+    featuredImage: getStaticGuideArticleImage(
+      STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING
+    ),
+    featuredImageAlt:
+      "Ten-point checklist for getting ready to start trading in Australia",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-21",
+    updatedAt: "2026-09-21",
+    source: "STATIC",
+  },
 ] as const satisfies readonly StaticGuideSummary[];
 
 export const STATIC_GUIDE_SLUGS = new Set<string>(

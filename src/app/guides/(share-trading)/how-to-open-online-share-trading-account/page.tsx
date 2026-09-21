@@ -383,6 +383,16 @@ export default function OpenShareTradingAccountPage() {
                   excerpt:
                     "The full investing journey — from goal-setting to your first purchase.",
                 },
+                {
+                  id: "what-you-need-to-start-trading",
+                  slug: STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING,
+                  href: getStaticGuideArticleHref(
+                    STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING
+                  ),
+                  title: "What You Need to Start Trading: 10-Point Checklist",
+                  excerpt:
+                    "Money, safety net, knowledge and a plan to sort out before you open an account.",
+                },
               ]}
             />
 

@@ -52,6 +52,21 @@ export const NAV_ITEMS: NavItem[] = [
     href: "/guides",
     columns: [
       {
+        heading: "Getting Started",
+        links: [
+          {
+            label: "What Is Trading?",
+            href: getStaticGuideArticleHref(STATIC_SLUG_IDS.WHAT_IS_TRADING),
+          },
+          {
+            label: "What You Need to Start Trading",
+            href: getStaticGuideArticleHref(
+              STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING
+            ),
+          },
+        ],
+      },
+      {
         heading: "Share Trading",
         links: [
           {

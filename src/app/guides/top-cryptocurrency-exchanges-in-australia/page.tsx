@@ -704,6 +704,16 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                   excerpt:
                     "A practical walkthrough from choosing an exchange to placing a first purchase.",
                 },
+                {
+                  id: "what-you-need-to-start-trading",
+                  slug: STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING,
+                  href: getStaticGuideArticleHref(
+                    STATIC_SLUG_IDS.WHAT_YOU_NEED_TO_START_TRADING
+                  ),
+                  title: "What You Need to Start Trading: 10-Point Checklist",
+                  excerpt:
+                    "Money, safety net, knowledge and a plan to sort out before you choose an exchange.",
+                },
               ]}
             />
 

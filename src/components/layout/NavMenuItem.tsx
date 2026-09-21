@@ -88,6 +88,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
   const columns = item.columns ?? [];
   const hasDropdown = children.length > 0 || columns.length > 0;
   const isWide = columns.length > 0;
+  const isWideColumns = columns.length >= 3;
 
   const linkClass =
     "text-navy/80 hover:bg-panel-secondary hover:text-navy block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors";
@@ -148,7 +149,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
           }
         }}
         className={`border-border bg-panel absolute top-full left-0 z-30 mt-3 rounded-2xl border p-2 shadow-lg transition-all duration-150 ${
-          isWide ? "w-[560px] p-4" : "w-64"
+          isWide ? (isWideColumns ? "w-[820px] p-4" : "w-[560px] p-4") : "w-64"
         } ${
           open
             ? "pointer-events-auto translate-y-0 opacity-100"
@@ -156,7 +157,11 @@ export function NavMenuItem({ item }: { item: NavItem }) {
         }`}
       >
         {isWide ? (
-          <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+          <div
+            className={`grid gap-x-6 gap-y-1 ${
+              isWideColumns ? "grid-cols-3" : "grid-cols-2"
+            }`}
+          >
             {columns.map((column, index) => (
               <div
                 key={column.heading}
@@ -176,7 +181,11 @@ export function NavMenuItem({ item }: { item: NavItem }) {
               </div>
             ))}
             {item.footerLink && (
-              <div className="border-border col-span-2 mt-1 border-t border-dashed pt-2">
+              <div
+                className={`border-border mt-1 border-t border-dashed pt-2 ${
+                  isWideColumns ? "col-span-3" : "col-span-2"
+                }`}
+              >
                 <Link href={item.footerLink.href} className={linkClass}>
                   <b>{item.footerLink.label}</b>
                 </Link>

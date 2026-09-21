@@ -359,6 +359,16 @@ export default function StepsToStartInvestingInSharesPage() {
                   excerpt:
                     "How the share market works, what it costs, and how to place your first trade.",
                 },
+                {
+                  id: "what-is-trading",
+                  slug: STATIC_SLUG_IDS.WHAT_IS_TRADING,
+                  href: getStaticGuideArticleHref(
+                    STATIC_SLUG_IDS.WHAT_IS_TRADING
+                  ),
+                  title: "What Is Trading? A Beginner's Guide for Australians",
+                  excerpt:
+                    "How trading works across all markets, and how it differs from investing.",
+                },
               ]}
             />
 
