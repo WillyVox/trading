@@ -6,7 +6,6 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Editorial Policy — Sourcing, Review & Fact-Checking Standards",
@@ -90,7 +89,8 @@ export default function EditorialPolicyPage() {
           <Link href="/methodology/comparisons" className="text-blue underline">
             comparison methodology
           </Link>
-          . For how we're paid and how that's kept separate from coverage, see{" "}
+          . For how we&apos;re paid and how that&apos;s kept separate from
+          coverage, see{" "}
           <Link href="/how-we-get-paid" className="text-blue underline">
             how we get paid
           </Link>{" "}
@@ -104,9 +104,9 @@ export default function EditorialPolicyPage() {
         <div className="mt-6">
           <Notice>
             General information only. This describes our internal editorial
-            process and isn't a guarantee that every fact on the site is current
-            at the moment you read it — always verify important details directly
-            with the provider.
+            process and isn&apos;t a guarantee that every fact on the site is
+            current at the moment you read it — always verify important details
+            directly with the provider.
           </Notice>
         </div>
       </div>

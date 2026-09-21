@@ -1,3 +1,4 @@
+import type { Article } from "@prisma/client";
 import { getPublishedArticles } from "@/lib/articles/service";
 import { getPublicGuides } from "@/lib/guides/service";
 
@@ -54,7 +55,7 @@ export async function getLatestArticlesForCategory(
       author: guide.author,
       publishedAt: guide.publishedAt,
     })),
-    ...newsResult.items.map((article: any): LatestArticleSummary => ({
+    ...newsResult.items.map((article: Article): LatestArticleSummary => ({
       id: article.id,
       href: `/news/${article.slug}`,
       title: article.title,

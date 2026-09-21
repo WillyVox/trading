@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any --
+   The delegate constraint below has to accept every Prisma model delegate,
+   whose generated method signatures differ per model. `(...args: any[]) => any`
+   is the standard way to express "any Prisma delegate" here; the wrapped
+   methods re-derive precise parameter types via Parameters<Delegate[...]>. */
 import { prisma } from "@/lib/prisma";
 
 /**

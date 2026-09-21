@@ -1,3 +1,4 @@
+import type { Article } from "@prisma/client";
 import { getPublishedArticles } from "@/lib/articles/service";
 import { Notice } from "@/components/ui/Notice";
 import { Card } from "@/components/ui/Card";
@@ -35,7 +36,7 @@ export default async function NewsPage() {
           </div>
         ) : (
           <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {items.map((a: any) => (
+            {items.map((a: Article) => (
               <Card key={a.id}>
                 <h2 className="font-display text-navy text-lg font-bold">
                   {a.title}

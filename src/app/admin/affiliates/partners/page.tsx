@@ -33,9 +33,9 @@ export default async function AdminAffiliatePartnersPage() {
         </h2>
         <p className="text-muted mt-1 text-sm">
           A partnership is the record that a Provider is being pursued as an
-          affiliate — it holds no commercial terms itself (that's the Program)
-          and never affects whether the Provider's profile or comparisons
-          render.
+          affiliate — it holds no commercial terms itself (that&apos;s the
+          Program) and never affects whether the Provider&apos;s profile or
+          comparisons render.
         </p>
         <form
           action={createPartnership}

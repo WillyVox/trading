@@ -184,7 +184,8 @@ export async function ArticleForm({
                   className={inputClass}
                 />
                 <span className="text-muted mt-1 text-xs">
-                  A topic, not the content type — e.g. "Bitcoin", "Regulation".
+                  A topic, not the content type — e.g. &quot;Bitcoin&quot;,
+                  &quot;Regulation&quot;.
                 </span>
               </label>
             </div>
@@ -207,7 +208,7 @@ export async function ArticleForm({
           <p className="text-muted mt-1 text-xs">
             HTML content. A rich block-based editor is planned for a later pass
             — this is deliberately a plain textarea for now; content is
-            sanitized on save regardless of what's pasted in here.
+            sanitized on save regardless of what&apos;s pasted in here.
           </p>
           <p className="text-muted mt-1 text-xs">
             Video embeds are supported:{" "}
@@ -217,8 +218,8 @@ export async function ArticleForm({
             or <code className="font-mono">{"{{video:vimeo:VIDEO_ID}}"}</code>,
             on their own line. Other embed markers (e.g.{" "}
             <code className="font-mono">{"{{provider-comparison:...}}"}</code>)
-            can be typed in now — they'll show a "not yet available" note in
-            Preview until that block type ships.
+            can be typed in now — they&apos;ll show a &quot;not yet
+            available&quot; note in Preview until that block type ships.
           </p>
           <ArticleRichEditor
             name="content"
@@ -377,7 +378,7 @@ export async function ArticleForm({
               />
               <span className="text-muted mt-1 text-xs">
                 Meaningfully fact-checked, not just edited — distinct from
-                "updated".
+                &quot;updated&quot;.
               </span>
             </label>
           </div>

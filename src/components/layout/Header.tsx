@@ -1,4 +1,3 @@
-import Link from "next/link";
 // import { AuthStatus } from "./AuthStatus";
 import { MobileNav } from "./MobileNav";
 import { NavMenuItem } from "./NavMenuItem";

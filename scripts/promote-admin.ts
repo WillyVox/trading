@@ -34,7 +34,6 @@ interface CliArgs {
 
 function parseArgs(argv: string[]): CliArgs {
   const args: CliArgs = { create: false, demote: false };
-  const VALUE_FLAGS = new Set(["--password", "--name"]);
 
   for (let i = 0; i < argv.length; i++) {
     const token = argv[i];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AuthStatus } from "./AuthStatus";
@@ -25,12 +25,23 @@ export function MobileNav() {
   // `children` get an expand/collapse section here instead.
   const [expandedLabel, setExpandedLabel] = useState<string | null>(null);
   const pathname = usePathname();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  // Close on route change and lock body scroll while open.
-  useEffect(() => {
+  // Close on route change. This is "adjusting state when a value changes":
+  // compare against the previous pathname during render and reset there,
+  // instead of a useEffect that calls setState after the render has already
+  // committed (which costs an extra render pass and is flagged by
+  // react-hooks/set-state-in-effect).
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setOpen(false);
     setExpandedLabel(null);
-  }, [pathname]);
+  }
+
+  // Lock body scroll while open.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -38,9 +49,49 @@ export function MobileNav() {
     };
   }, [open]);
 
+  // Dialog behaviour while open: move focus into the drawer, keep Tab inside
+  // it, close on Escape, and hand focus back to the Menu button afterwards.
+  useEffect(() => {
+    if (!open) return;
+    const toggle = toggleRef.current;
+    closeRef.current?.focus({ preventScroll: true });
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab" || !drawerRef.current) return;
+      const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled])"
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      } else if (!drawerRef.current.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      toggle?.focus();
+    };
+  }, [open]);
+
   return (
     <div className="md:hidden">
       <button
+        ref={toggleRef}
         type="button"
         aria-expanded={open}
         aria-controls="mobile-nav-drawer"
@@ -64,9 +115,15 @@ export function MobileNav() {
 
       {/* Drawer */}
       <div
+        ref={drawerRef}
         id="mobile-nav-drawer"
         role="dialog"
         aria-modal="true"
+        aria-label="Site menu"
+        // Off-screen when closed: `inert` removes its links from the tab order
+        // and the accessibility tree, so keyboard and screen-reader users
+        // can't land on invisible controls.
+        inert={!open}
         className={`border-border bg-panel fixed inset-y-0 right-0 z-40 w-72 max-w-[80vw] transform border-l p-6 shadow-xl transition-transform duration-200 ease-out ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
@@ -74,6 +131,7 @@ export function MobileNav() {
         <div className="flex items-center justify-between">
           <span className="font-display text-navy text-lg font-bold">Menu</span>
           <button
+            ref={closeRef}
             type="button"
             aria-label="Close menu"
             onClick={() => setOpen(false)}

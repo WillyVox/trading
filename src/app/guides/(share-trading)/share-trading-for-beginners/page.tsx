@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
@@ -424,17 +425,17 @@ export default function ShareTradingForBeginnersPage() {
                 Neither is inherently &quot;better&quot; — they&apos;re
                 different tools for different risk appetites, and some investors
                 hold both. If you&apos;re specifically weighing up crypto, our{" "}
-                <a href={RELATED_PATH_START_INVESTING_IN_CRYPTO}>
+                <Link href={RELATED_PATH_START_INVESTING_IN_CRYPTO}>
                   guide to investing in crypto for beginners
-                </a>{" "}
+                </Link>{" "}
                 covers the same ground for that asset class, and our{" "}
-                <a
-                  href={getStaticGuideArticleImage(
+                <Link
+                  href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   )}
                 >
                   5 simple steps to buy cryptocurrency
-                </a>{" "}
+                </Link>{" "}
                 walks through opening an account on a crypto exchange.
               </p>
 

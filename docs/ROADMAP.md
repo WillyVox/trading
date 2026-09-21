@@ -1,5 +1,7 @@
 > **Architecture update (2026-09-20):** Comparison is now domain-owned. Crypto comparisons live under `/crypto/exchanges/compare`, share-trading comparisons under `/share-trading/compare`, and the former generic `/compare/[slug]` resolver/`ComparisonDomain` layer has been removed. Historical milestones below may still describe the superseded structure.
 
+> **Tooling update (2026-09-21):** `npm run lint` now runs `eslint .` with `eslint-config-next`'s native flat config (`core-web-vitals` + `typescript`). Rules that were failing when lint first ran (unescaped JSX entities, internal `<a>` tags, `setState` inside `useEffect`, `any` casts, unused imports) were addressed in "wave 2" (pending confirmation from a local lint run) — see `docs/CONTENT-GAPS.md` § Engineering follow-ups. `npm run build` / `tsc --noEmit` still need a run in an environment with registry and Prisma binary access.
+
 # Roadmap & Scaffold Status
 
 This tracks exactly what's implemented in this scaffold vs. what's still a stub, phase by phase.
@@ -28,7 +30,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 ## Phase 2 — Authentication + Admin Foundation
 
 - ✅ Prisma `User`/`Role` model + Auth.js (NextAuth v5) adapter models (`Account`, `Session`, `VerificationToken`)
-- ✅ `src/middleware.ts` — server-side `/admin/*` protection (redirects unauthenticated → `/login`, non-admin → `/403`)
+- ✅ `src/proxy.ts` — server-side `/admin/*` protection (redirects unauthenticated → `/login`, non-admin → `/403`). Next.js 16 renamed the `middleware` file convention to `proxy`; this was `src/middleware.ts` in earlier drafts.
 - ✅ `requireAdmin()` helper for guarding server actions/mutations independently of the middleware
 - ✅ Admin shell (`AdminSidebar`, `AdminHeader`, `/admin` dashboard with real DB-backed counts)
 - ✅ Credentials (email/password) provider wired in `src/lib/auth/config.ts`; `User.passwordHash` added (migration `20260911060000_user_password_auth`), hashed with scrypt (`src/lib/auth/password.ts`, no new dependency), session strategy switched from `database` to `jwt` (required for the Credentials provider)
@@ -43,7 +45,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ✅ `lib/articles/service.ts` — `getPublishedArticles`, `getArticleBySlug`, `getAdminArticles`
 - ✅ Public rendering at `/guides/[slug]` and `/news/[slug]`, both refusing to render non-`PUBLISHED` articles
 - ✅ `/admin/articles` list view (real data, honest empty state)
-- 🟡 `/admin/articles/new` and `/admin/articles/[id]` are placeholders — no editor, no `createArticle()`/`updateArticle()`/`publishArticle()` server actions yet
+- ✅ `/admin/articles/new` and `/admin/articles/[id]` render a real `ArticleForm` (TipTap rich editor, sources editor, provider-relationship picker, editorial checklist, publishing panel), backed by `createArticle` / `updateArticle` and the status-transition actions (`submitArticleForReview`, `publishArticle`, `unpublishArticle`, `archiveArticle`, ...) in `src/lib/articles/actions.ts`, each calling `requireAdmin()` itself. **Not yet exercised end-to-end against a live database** — verify create → edit → review → publish → archive before relying on it. (Earlier revisions of this file, and the 2026-09-21 Pass 1 audit that read it, described these routes as placeholders; that is out of date.)
 - ⬜ Markdown/MDX editor decision + implementation (see IMPLEMENTATION-PLAN §6 design notes)
 - 🟡 File-based import workflow (`npm run import:article`, see `docs/article-publishing-format.md`) — Phase 1 only: scanning, shared `.md`/`.txt` parsing, Zod validation, Markdown→sanitized-HTML conversion, and `--dry-run` reporting are implemented (`src/lib/articles/import/`, `scripts/import-articles.ts`). **No database writes or file movement yet** — that's Phase 2/3 of `src/lib/articles/import/`.
 - ⬜ Media integration
@@ -59,9 +61,9 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ✅ Seed script creates three providers; two now carry **real, sourced Australian data**:
   - **CoinSpot** — fees, AUD deposit/withdrawal methods, OTC desk, and AUSTRAC/ASIC regulatory status verified directly against `coinspot.com.au/fees` and CoinSpot's own Zendesk support articles (official sources, marked `VERIFIED`); coin-count and a few UX claims sourced from reputable third-party reviews and left `UNVERIFIED` rather than upgraded on secondhand reporting.
   - **Independent Reserve** — added as a second real AU exchange (Sydney-hosted infrastructure and API access confirmed via its official FAQ, `VERIFIED`; tiered maker/taker fee schedule, coin count, ownership and AFSL-exemption status sourced from third-party reviews/Forbes Advisor and left `UNVERIFIED`).
-  - **Kraken** remains the original `UNVERIFIED` placeholder — real AU-specific sourcing for it is still outstanding.
-  - All of the above were checked 11 Sep 2026. Australia's crypto licensing regime changed materially in 2026 (AUSTRAC's expanded VASP scope from 31 March 2026; ASIC's sector-wide AFSL "no-action" position, originally due to expire 30 June 2026, was **extended to 30 September 2026** on 25 June 2026 and its scope broadened to cover authorised-representative/intermediary arrangements — see ASIC's "extends no-action position for digital asset businesses" release) — re-verify regulatory facts on a short cycle, don't treat this seed as done-once. **Note (2026-09-21):** a separate provider data re-verification pass was completed 2026-09-17 (`docs/data-correction/`) — reconcile against that before treating this Kraken/CoinSpot/Independent Reserve status as current.
-- ⬜ Still to do before public launch: real sourcing for Kraken (or drop it in favour of a third genuinely AU-first exchange, e.g. Swyftx/CoinJar/Coinstash, following the same pattern), and an admin UI to edit these facts without touching the seed script (tracked in Phase 9).
+  - **Kraken** — updated in the 2026-09-17 re-verification pass (`docs/data-correction/`): Tier-1 maker/taker fees (0.40% / 0.80%, tiering down to 0% / 0.05%), AUD funding and `lastVerifiedAt` now reflect Kraken's official fee schedule and AU support articles. Some rows (e.g. staking availability) are still deliberately `UNVERIFIED`. (Earlier revisions said Kraken was still an unverified placeholder — no longer true.)
+  - All of the above were checked 11 Sep 2026. Australia's crypto licensing regime changed materially in 2026 (AUSTRAC's expanded VASP scope from 31 March 2026; ASIC's sector-wide AFSL "no-action" position, originally due to expire 30 June 2026, was **extended to 30 September 2026** on 25 June 2026 and its scope broadened to cover authorised-representative/intermediary arrangements — see ASIC's "extends no-action position for digital asset businesses" release) — re-verify regulatory facts on a short cycle, don't treat this seed as done-once. **Note (2026-09-21):** reconciled against the 2026-09-17 provider re-verification pass (`docs/data-correction/`) for Kraken (applied to the seed — see the Kraken bullet above). CoinSpot and Independent Reserve figures in this section are the 11 Sep sourcing; check them against the same register before launch.
+- ⬜ Still to do before public launch: finish sourcing the remaining `UNVERIFIED` provider rows (or drop them from public display), and an admin UI to edit these facts without touching the seed script (tracked in Phase 9).
 
 ## Phase 5 — Comparison Engine
 
@@ -98,7 +100,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 
 - ✅ `sitemap.ts`, `robots.ts` (dynamic, DB-backed)
 - ✅ Per-article/provider `generateMetadata` with `noIndex` support
-- ⬜ JSON-LD structured data components (`components/seo/JsonLd.tsx` folder exists, empty)
+- ✅ JSON-LD structured data — `components/seo/JsonLd.tsx` (escapes `<` so a value can never close the script tag) plus the schema builders in `lib/seo/schema.ts` (organization, website, breadcrumb, item list, article/news article, FAQ, how-to), used on the public page templates. Whether each template's markup matches its visible content still needs a per-route review.
 - ⬜ Content clusters, internal linking engine, category pages, site search
 
 ## Guide Phase 1 — Guide Article Template (this change)

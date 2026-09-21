@@ -148,7 +148,7 @@ export default async function HomePage() {
         <section className="mx-auto max-w-6xl px-4 py-14">
           <Eyebrow>Featured providers</Eyebrow>
           <h2 className="font-display text-navy mt-4 text-3xl font-bold">
-            A few providers we've verified.
+            A few providers we&apos;ve verified.
           </h2>
           <p className="text-muted mt-1 text-sm">
             Shown alphabetically — not a ranking.

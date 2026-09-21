@@ -53,13 +53,24 @@ export function NavMenuItem({ item }: { item: NavItem }) {
     closeTimer.current = setTimeout(() => setOpen(false), CLOSE_DELAY_MS);
   };
 
-  useEffect(() => {
+  // Close on route change ("adjusting state when a value changes": compare
+  // with the previous pathname during render rather than calling setState in
+  // an effect after the render has committed). No need to cancel a pending
+  // close timer here: if one is still queued it only ever calls
+  // setOpen(false), and openNow() clears it before any re-open.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setOpen(false);
-    clearCloseTimer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }
 
-  useEffect(() => clearCloseTimer, []);
+  // Cancel any queued close when the item unmounts.
+  useEffect(
+    () => () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    },
+    []
+  );
 
   useEffect(() => {
     if (!open) return;

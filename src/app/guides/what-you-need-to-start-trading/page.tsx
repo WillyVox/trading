@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
@@ -198,9 +199,9 @@ export default function WhatYouNeedToStartTradingPage() {
                 money, then direction and knowledge, then setup, then
                 discipline. If you want to understand what trading actually is
                 first, start with{" "}
-                <a href={RELATED_PATH_WHAT_IS_TRADING}>
+                <Link href={RELATED_PATH_WHAT_IS_TRADING}>
                   our guide to what trading is
-                </a>
+                </Link>
                 .
               </p>
 
@@ -275,9 +276,9 @@ export default function WhatYouNeedToStartTradingPage() {
                 <strong>4. A clear goal and time horizon.</strong> What are you
                 trying to do, and by when? If you&apos;re not sure yet, the
                 goal-setting step in{" "}
-                <a href="/guides/steps-to-start-investing-in-share-in-australia">
+                <Link href="/guides/steps-to-start-investing-in-share-in-australia">
                   our steps to start investing in shares
-                </a>{" "}
+                </Link>{" "}
                 guide is a good place to start.
               </p>
               <p>
@@ -286,13 +287,13 @@ export default function WhatYouNeedToStartTradingPage() {
                 wait. For shares and ETFs, read the product disclosure
                 statement; for crypto, read the project&apos;s own documentation
                 and check the scam warnings first. See{" "}
-                <a href="/guides/share-trading-for-beginners">
+                <Link href="/guides/share-trading-for-beginners">
                   Share trading for beginners
-                </a>{" "}
+                </Link>{" "}
                 and{" "}
-                <a href="/guides/how-to-start-investing-in-crypto-for-beginners">
+                <Link href="/guides/how-to-start-investing-in-crypto-for-beginners">
                   How to start investing in crypto
-                </a>{" "}
+                </Link>{" "}
                 for the basics of each.
               </p>
 
@@ -353,8 +354,8 @@ export default function WhatYouNeedToStartTradingPage() {
               </table>
               <p>
                 See our full comparisons for{" "}
-                <a href="/share-trading">share trading platforms</a> and{" "}
-                <a href="/crypto/exchanges">crypto exchanges</a>.
+                <Link href="/share-trading">share trading platforms</Link> and{" "}
+                <Link href="/crypto/exchanges">crypto exchanges</Link>.
               </p>
 
               <p>
@@ -363,13 +364,13 @@ export default function WhatYouNeedToStartTradingPage() {
                 Australian bank account; some brokers also ask for your TFN. Set
                 up a unique password and two-factor login, and avoid logging in
                 over public Wi-Fi. See{" "}
-                <a href={RELATED_PATH_OPEN_ACCOUNT}>
+                <Link href={RELATED_PATH_OPEN_ACCOUNT}>
                   how to open an online share trading account
-                </a>{" "}
+                </Link>{" "}
                 or{" "}
-                <a href={RELATED_PATH_STEPS_TO_BUY_CRYPTO}>
+                <Link href={RELATED_PATH_STEPS_TO_BUY_CRYPTO}>
                   5 simple steps to buy cryptocurrency
-                </a>{" "}
+                </Link>{" "}
                 for the account-opening detail.
               </p>
 
@@ -413,8 +414,8 @@ export default function WhatYouNeedToStartTradingPage() {
                 Once you&apos;ve worked through the checklist above, the next
                 step depends on which market you&apos;re heading toward. Not
                 sure yet? Go back to{" "}
-                <a href={RELATED_PATH_WHAT_IS_TRADING}>what is trading</a> for
-                an overview of what you can trade and how it works.
+                <Link href={RELATED_PATH_WHAT_IS_TRADING}>what is trading</Link>{" "}
+                for an overview of what you can trade and how it works.
               </p>
             </div>
 

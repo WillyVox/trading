@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
@@ -244,9 +245,9 @@ export default function StepsToStartInvestingInSharesPage() {
               <p>
                 This is the mechanical step covered in full in our companion
                 guide —{" "}
-                <a href={RELATED_PATH_OPEN_ACCOUNT}>
+                <Link href={RELATED_PATH_OPEN_ACCOUNT}>
                   how to open an online share trading account
-                </a>{" "}
+                </Link>{" "}
                 — which walks through ID verification, linking a bank account,
                 and choosing between a HIN and custodian model. It typically
                 takes 10–20 minutes to apply, with verification completed

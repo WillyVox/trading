@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
@@ -316,9 +317,9 @@ export default function OpenShareTradingAccountPage() {
               <p>
                 If you&apos;re still deciding what to actually buy — an ETF, an
                 individual company, or a mix of both — our{" "}
-                <a href={RELATED_PATH_STEPS_TO_START_INVESTING}>
+                <Link href={RELATED_PATH_STEPS_TO_START_INVESTING}>
                   guide to the steps for starting to invest in shares
-                </a>{" "}
+                </Link>{" "}
                 walks through that decision in more detail.
               </p>
 

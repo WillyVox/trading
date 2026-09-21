@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import {
@@ -222,9 +223,9 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                 withdrawal fees, its deposit methods, and how it explains its
                 security practices — two-factor authentication and cold storage
                 of customer funds are good signs. Our{" "}
-                <a href="/crypto/exchanges/compare">
+                <Link href="/crypto/exchanges/compare">
                   crypto exchange comparison
-                </a>{" "}
+                </Link>{" "}
                 lines up fees and features from Australian exchanges
                 side-by-side.
               </p>

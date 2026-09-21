@@ -108,13 +108,13 @@ function Toolbar({ editor }: { editor: Editor }) {
     // `setImage`'s TS signature only knows the stock Image extension's
     // attrs (src/alt/title) — a real integration should augment that
     // command's type via module declaration merging so `align` type-checks
-    // properly; the cast is a stand-in for that here.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    editor
-      .chain()
-      .focus()
-      .setImage({ src: url, alt, align: "center" } as any)
-      .run();
+    // properly. Until then, `align` rides along at runtime while the cast
+    // narrows the object to the attrs the command's types know about.
+    const imageAttrs = { src: url, alt, align: "center" } as {
+      src: string;
+      alt: string;
+    };
+    editor.chain().focus().setImage(imageAttrs).run();
   };
 
   const addVideo = () => {

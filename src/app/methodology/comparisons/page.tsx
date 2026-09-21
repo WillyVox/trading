@@ -83,16 +83,16 @@ export default function ComparisonMethodologyPage() {
           Where the data exists, a comparison is grouped into five sections:
           Facts, Fees, Products &amp; trading, Deposits &amp; withdrawals, and
           Security. A section is only shown if at least one compared provider
-          has data for it — we don't render an empty section just to keep the
-          layout consistent.
+          has data for it — we don&apos;t render an empty section just to keep
+          the layout consistent.
         </p>
 
         <div className="mt-6">
           <Notice>
-            This describes how the comparison engine works today. It's general
-            information about our methodology, not financial advice — always
-            confirm current fees and features directly with the provider before
-            making a decision.
+            This describes how the comparison engine works today. It&apos;s
+            general information about our methodology, not financial advice —
+            always confirm current fees and features directly with the provider
+            before making a decision.
           </Notice>
         </div>
 

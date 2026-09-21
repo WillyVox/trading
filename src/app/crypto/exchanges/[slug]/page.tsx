@@ -1,10 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getRelatedContentForProvider } from "@/lib/providers/service";
-import {
-  getCryptoExchangeByPublicSlug,
-  getCryptoExchanges,
-} from "@/lib/crypto-exchanges/service";
+import { getCryptoExchangeByPublicSlug } from "@/lib/crypto-exchanges/service";
 import { getActiveAffiliateLink } from "@/lib/affiliates/service";
 import {
   groupFeatures,
@@ -12,7 +9,6 @@ import {
 } from "@/lib/crypto-exchanges/features";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
-import { AffiliateCTA } from "@/components/affiliate/AffiliateCTA";
 // import { CompareSelector } from "@/components/compare/CompareSelector";
 import { Card } from "@/components/ui/Card";
 import { CryptoExchangeFeatureSection } from "@/components/crypto-exchanges/FeatureSection";
@@ -68,14 +64,14 @@ export default async function ExchangeProfilePage({
   const offering = await getCryptoExchangeByPublicSlug(slug);
   if (!offering) notFound();
   const provider = offering.provider;
-  const [link, relatedContent, comparablesResult] = await Promise.all([
+  // The comparable-providers pool for the (currently disabled) CompareSelector
+  // was fetched here but never read. If that selector is re-enabled, use the
+  // lightweight getCryptoExchangeSelectorOptions() rather than loading every
+  // exchange with all its facts/fees/features just to build a picker.
+  const [link, relatedContent] = await Promise.all([
     getActiveAffiliateLink(slug),
     getRelatedContentForProvider(provider.id),
-    getCryptoExchanges(),
   ]);
-  const comparableProviders = comparablesResult
-    .filter((o) => o.provider.slug !== slug)
-    .map((o) => ({ id: o.id, slug: o.provider.slug, name: o.provider.name }));
 
   const featureGroups = groupFeatures(
     offering.features as unknown as CryptoFeatureRow[]
@@ -115,7 +111,7 @@ export default async function ExchangeProfilePage({
             Facts
           </h2>
           <ul className="space-y-2 text-sm">
-            {provider.facts.map((f: any) => (
+            {provider.facts.map((f) => (
               <li
                 key={f.id}
                 className="border-border flex justify-between border-b pb-2"
@@ -135,7 +131,7 @@ export default async function ExchangeProfilePage({
             Fees
           </h2>
           <ul className="space-y-2 text-sm">
-            {offering.fees.map((f: any) => (
+            {offering.fees.map((f) => (
               <li
                 key={f.id}
                 className="border-border flex justify-between border-b pb-2"
@@ -176,7 +172,7 @@ export default async function ExchangeProfilePage({
               Supported assets
             </h2>
             <div className="flex flex-wrap gap-2 text-sm">
-              {offering.cryptoAssets.map((pa: any) => (
+              {offering.cryptoAssets.map((pa) => (
                 <Link
                   key={pa.asset.id}
                   href={`/crypto/${pa.asset.slug}`}

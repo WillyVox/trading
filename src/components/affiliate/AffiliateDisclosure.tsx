@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function AffiliateDisclosure() {
   return (
     <p className="text-muted mt-2 text-xs">
@@ -25,9 +27,9 @@ export function SectionAffiliateDisclosure() {
       <p>
         Some links on this site are affiliate links. They never affect which
         providers appear here or how they&apos;re ordered.{" "}
-        <a href="/how-we-get-paid" className="text-navy underline">
+        <Link href="/how-we-get-paid" className="text-navy underline">
           How we get paid
-        </a>
+        </Link>
         .
       </p>
     </div>

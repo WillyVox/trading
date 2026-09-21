@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
@@ -190,13 +191,13 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 — versus reacting to a headline or a friend&apos;s tip. If
                 you&apos;re only after the mechanics of making a first purchase,
                 our{" "}
-                <a
+                <Link
                   href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   )}
                 >
                   5 simple steps to buy cryptocurrency
-                </a>{" "}
+                </Link>{" "}
                 guide covers that. This guide is about the thinking that should
                 happen before and alongside that purchase.
               </p>
@@ -333,13 +334,13 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 how much you&apos;re comfortable allocating, and how you&apos;ll
                 keep records, the practical next step is opening an account on a
                 regulated exchange and making a first, modest purchase. Our{" "}
-                <a
+                <Link
                   href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
                   )}
                 >
                   5 simple steps to buy cryptocurrency
-                </a>{" "}
+                </Link>{" "}
                 guide walks through exactly that.
               </p>
             </div>

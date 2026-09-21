@@ -105,7 +105,6 @@ export function renderArticleContent(
     if (segment.kind === "html") {
       if (!segment.html.trim()) return null;
       return (
-        // eslint-disable-next-line react/no-danger
         <div
           key={`html-${i}`}
           dangerouslySetInnerHTML={{ __html: segment.html }}
