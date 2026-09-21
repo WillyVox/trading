@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
 import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
 import {
@@ -33,22 +33,17 @@ export function TradingCostCalculator({
   brokerageOfferings: BrokerageOfferingOption[];
   fxOfferings: FxOfferingOption[];
 }) {
-  const fxBySlug = useMemo(
-    () => new Map(fxOfferings.map((o) => [o.slug, o])),
-    [fxOfferings]
-  );
+  const fxBySlug = new Map(fxOfferings.map((o) => [o.slug, o]));
+
   const supported = brokerageOfferings.filter((o) => o.rules.length > 0);
   const [slug, setSlug] = useState(supported[0]?.slug ?? "");
   const offering = supported.find((o) => o.slug === slug) ?? supported[0];
-  const markets = useMemo(
-    () =>
-      Array.from(
-        new Map(
-          (offering?.rules ?? []).map((r) => [r.marketCode, r.marketName])
-        ).entries()
-      ),
-    [offering]
+  const markets = Array.from(
+    new Map(
+      (offering?.rules ?? []).map((r) => [r.marketCode, r.marketName])
+    ).entries()
   );
+
   const [marketCode, setMarketCode] = useState("");
   const effectiveMarket = markets.some(([code]) => code === marketCode)
     ? marketCode
