@@ -24,9 +24,11 @@ export const metadata = buildMetadata({
  * sign-off before this is production-final):
  *  - Every AffiliateLink in the seed data is active: false with
  *    commissionType NONE and partnershipStatus PROSPECT (see
- *    prisma/seed.ts seedAffiliateLinks()) -- there is no live commercial
- *    relationship with any provider yet, so this page describes affiliate
- *    links as a planned future model, not a current one.
+ *    prisma/seeds/affiliate-links/*.ts and prisma/seeds/lib/
+ *    seed-affiliate-links.ts, which now guards against a PROSPECT
+ *    partnership ever being seeded active: true) -- there is no live
+ *    commercial relationship with any provider yet, so this page describes
+ *    affiliate links as a planned future model, not a current one.
  *  - "alphabetical, not commercially weighted" -- verified true today
  *    against src/lib/providers/service.ts (orderBy: { name: "asc" }) and
  *    src/lib/crypto-exchanges/comparison.ts (no scoring/weighting logic exists). If
@@ -89,7 +91,11 @@ export default function AffiliateDisclosurePage() {
       <h1 className="font-display text-navy mt-4 text-4xl font-extrabold">
         Affiliate &amp; advertiser disclosure
       </h1>
-      <p className="text-muted mt-3">[TODO]</p>
+      <p className="text-muted mt-3">
+        This page explains how Trading Guide is funded today, how we expect that
+        to change as provider partnerships go live, and exactly what a
+        commercial relationship will and won&apos;t influence on this site.
+      </p>
 
       <div className="mt-8 flex flex-col gap-4">
         {SECTIONS.map((s) => (
@@ -105,9 +111,7 @@ export default function AffiliateDisclosurePage() {
       <div className="mt-6">
         <Notice>
           Questions about a specific commercial relationship? Contact us at{" "}
-          {businessIdentity.supportEmail ??
-            "[support email not yet configured]"}
-          .
+          {businessIdentity.supportEmail ?? "support email not yet configured"}.
           {/* TODO(content-gap): link to a real /contact page once it exists
               -- not in the current footer scope. See CONTENT-GAPS.md. */}
         </Notice>

@@ -1,3 +1,29 @@
+# 0. as a product owner, finanical adviser, etc, can you help review all pages that my app has done, review them thoroughly and effectively, then prepare me a prompt to ask an AI to tackle all missing stuff (business, regulation, law, policy, SEO configuration, Google standards, web standards, financial standards, Australian government rules, everything, ) implement them properly, completely, perfectly, then give a final version that i can deploy to production for launching.
+
+I do not want
+
+- half fixing issues
+
+- breach any rules of the government
+
+- further advices or review from lawyer
+
+- any contents like AI writing, handling, they all must be human flows, human understanding and human way of explaining thing
+
+- any broken UIs, layouts, bad mobile views, desktop views
+
+- dirty codebase, comments, hardcoded parts
+
+- bad SEO configuration, bad contents, bad user experience
+
+- people read my website, contents and learn nothing, and go away never re-visit again
+
+- less than 100 visits a month for the first three months of launching the app
+
+- people will have bad experiences or feedback from my web, contents
+
+- my website is stand behind other competitors in australia
+
 # 1. Working Directive & Analysis Protocol
 
 Before writing or updating any code, complete a thorough analysis by following these steps:

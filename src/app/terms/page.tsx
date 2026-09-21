@@ -14,15 +14,17 @@ export const metadata = buildMetadata({
   path: "/terms",
 });
 
-const LAST_UPDATED = "12 September 2026";
+const LAST_UPDATED = "21 September 2026";
 
 /**
- * Content status: DRAFT ONLY. Every section marked \u26A0\uFE0F below needs
+ * Content status: DRAFT. Sections marked \u26A0\uFE0F below still need
  * sign-off from a lawyer before this page goes live -- see
- * docs/CONTENT-GAPS.md "Terms of Use". None of this has been reviewed.
- * Governing-law jurisdiction is a placeholder guess (NSW, based on the
- * site's Sydney context elsewhere in this project) -- confirm against the
- * actual registered business location.
+ * docs/CONTENT-GAPS.md "Terms of Use". Business identity (legal name, ABN,
+ * address, contact email) and governing-law jurisdiction (NSW) were
+ * confirmed by the business owner 2026-09-21 -- those are no longer
+ * placeholders, but the substantive legal drafting (liability limitation,
+ * financial-advice-boundary framing) still has not been reviewed by a
+ * lawyer.
  */
 export default function TermsOfUsePage() {
   const trail = breadcrumbTrail([{ name: "Terms of Use", path: "/terms" }]);
@@ -173,10 +175,10 @@ export default function TermsOfUsePage() {
           <p>
             These terms are governed by the laws of New South Wales, Australia,
             and you submit to the non-exclusive jurisdiction of its courts.
-            {/* \u26A0\uFE0F LEGAL REVIEW REQUIRED: confirm actual jurisdiction
-                against the registered business location -- currently a
-                placeholder guess. */}
           </p>
+          {/* Jurisdiction confirmed by the business owner 2026-09-21 (NSW) --
+              no longer a placeholder guess. Exact wording of this clause is
+              still unreviewed by a lawyer, see file-level note above. */}
         </section>
 
         <section>
@@ -198,7 +200,7 @@ export default function TermsOfUsePage() {
           <p>
             Questions about these terms:{" "}
             {businessIdentity.supportEmail ??
-              "[support email not yet configured \u2014 see CONTENT-GAPS.md]"}
+              "support email not yet configured"}
           </p>
         </section>
       </div>

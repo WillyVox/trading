@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seeds/seed.ts",
     "postinstall": "prisma generate",

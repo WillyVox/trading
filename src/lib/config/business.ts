@@ -9,9 +9,12 @@
  * (see Footer.tsx) rather than substituting a placeholder that could be
  * mistaken for a real one.
  *
- * TODO(content-gap): every field below is a known content gap tracked in
- * docs/CONTENT-GAPS.md -- populate with real values (or confirm "not
- * applicable") before production launch.
+ * legalName/abn/businessAddress/support+privacy+complaints emails confirmed
+ * by the business owner 2026-09-21 (see docs/CONTENT-GAPS.md). acn/afsl/
+ * authorisedRepresentativeNumber remain unset -- not confirmed, do not
+ * assume. supportEmail/privacyEmail/complaintsEmail currently all point at
+ * the same inbox by the owner's instruction; split them if/when dedicated
+ * addresses exist.
  */
 export interface BusinessIdentity {
   /** Registered legal entity name, if different from the "Trading Guide" trading name. */
@@ -29,4 +32,12 @@ export interface BusinessIdentity {
   complaintsEmail?: string;
 }
 
-export const businessIdentity: BusinessIdentity = {};
+export const businessIdentity: BusinessIdentity = {
+  legalName: "TradingGuide.com.au",
+  tradingName: "Trading Guide",
+  abn: "54347400601",
+  businessAddress: "254B North Rocks Rd, North Rocks, NSW 2151",
+  supportEmail: "tradingguide@outlook.com.au",
+  privacyEmail: "tradingguide@outlook.com.au",
+  complaintsEmail: "tradingguide@outlook.com.au",
+};

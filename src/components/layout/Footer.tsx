@@ -33,13 +33,14 @@ export function Footer() {
               <TradingGuideLogoWhite />
             </Link>
             <p className="text-background/60 mt-1 text-xs">
-              Independent Australian trading research — share trading and crypto
+              Independent trading research — online share trading and cryptocurrency
             </p>
           </div>
 
-          {/* legalName/abn/businessAddress are unset until real values are
-              supplied (src/lib/config/business.ts) -- never fabricate them.
-              This renders just the trading name until then. */}
+          {/* legalName/abn/businessAddress confirmed 2026-09-21
+              (src/lib/config/business.ts) and render here automatically;
+              this block still degrades to just the trading name if any of
+              them are ever unset again -- never fabricate a fallback. */}
           <div className="text-background/70 text-right text-xs leading-relaxed">
             <p>
               {"\u00A9"} {YEAR}{" "}

@@ -17,16 +17,16 @@ export const metadata = buildMetadata({
 
 /**
  * Content status: DRAFT, not legal-reviewed -- see docs/CONTENT-GAPS.md
- * "How We Get Paid page". Rewritten 2026-09-14 to match current reality:
- * every AffiliateLink in the seed data is active: false with
- * commissionType NONE and partnershipStatus PROSPECT (see
- * prisma/seed.ts seedAffiliateLinks()) -- i.e. no commercial agreement is
- * live today. FUTURE_PLAN describes the intended model once partnerships
- * go live; nothing in it is active yet, so don't present it as current
- * revenue. EFFECTIVE_DATE is a placeholder -- set it to the month this
- * page is actually published, per the source brief ("As of [Month/Year]").
+ * "How We Get Paid page". Every AffiliateLink in the seed data is
+ * active: false as of 2026-09-21 (the BTC Markets seed previously set
+ * active: true against a PROSPECT partnership -- see
+ * prisma/seeds/affiliate-links/btc-markets.ts -- fixed, and
+ * prisma/seeds/lib/seed-affiliate-links.ts now guards against this class of
+ * bug recurring). No commercial agreement is live today. FUTURE_PLAN
+ * describes the intended model once partnerships go live; nothing in it is
+ * active yet, so don't present it as current revenue.
  */
-const EFFECTIVE_DATE = "[Month/Year]"; // TODO(content-gap): set on publish
+const EFFECTIVE_DATE = "September 2026";
 
 const FUTURE_PLAN = [
   {

@@ -1,18 +1,15 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+// eslint-config-next (this version) ships its own native flat-config array,
+// so there's no need to route it through @eslint/eslintrc's FlatCompat
+// bridge -- doing so crashed here with "Converting circular structure to
+// JSON" while FlatCompat tried to re-serialize the `react` plugin object.
+// Importing the flat config directly avoids the bridge entirely.
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  // Append prettier at the very end to override conflicting rules
-  ...compat.extends("prettier"),
+  ...nextCoreWebVitals,
+  // Append prettier last so it overrides any conflicting stylistic rules.
+  eslintConfigPrettier,
 ];
 
 export default eslintConfig;

@@ -1,8 +1,29 @@
-import { PrismaClient } from "@prisma/client";
+import { AffiliatePartnerStatus, PrismaClient } from "@prisma/client";
 import { affiliateSeeds } from "../affiliate-links";
+
+// Only these partnership statuses represent a genuine, live commercial
+// agreement. A link seeded active: true against any other status (e.g. a
+// PROSPECT/placeholder partnership, as BTC Markets briefly was) would make
+// the disclosure pages' "no active commercial relationship" claims false
+// the moment the seed runs -- fail loudly instead of writing it silently.
+const STATUSES_ELIGIBLE_FOR_ACTIVE_LINK: AffiliatePartnerStatus[] = [
+  AffiliatePartnerStatus.APPROVED,
+  AffiliatePartnerStatus.ACTIVE,
+];
 
 export async function seedAffiliateLinks(prisma: PrismaClient) {
   for (const seed of affiliateSeeds) {
+    if (
+      seed.active &&
+      !STATUSES_ELIGIBLE_FOR_ACTIVE_LINK.includes(seed.partnershipStatus)
+    ) {
+      throw new Error(
+        `Affiliate seed for "${seed.partnerSlug}" sets active: true but ` +
+          `partnershipStatus is ${seed.partnershipStatus}, not an approved/live ` +
+          `agreement. Set active: false until a real partnership is in place, ` +
+          `or correct the status if the agreement is genuinely live.`
+      );
+    }
     const provider = await prisma.provider.findUnique({
       where: {
         slug: seed.providerSlug,

@@ -10,5 +10,5 @@ export const BtcMarketsLinks = {
   partnershipStatus: AffiliatePartnerStatus.PROSPECT,
   notes:
     "Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.",
-  active: true, // [TODO] WHEN REAL PARTNER, this should be false as default, only paid/sponsored partners must be true
+  active: false, // Confirmed 2026-09-21: only a genuine paid/sponsored, non-PROSPECT partnership should ever set this true.
 };

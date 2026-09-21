@@ -14,7 +14,7 @@ export const metadata = buildMetadata({
   path: "/privacy",
 });
 
-const LAST_UPDATED = "12 September 2026";
+const LAST_UPDATED = "21 September 2026";
 
 /**
  * Content status: DRAFT ONLY -- see docs/CONTENT-GAPS.md "Privacy Policy".
@@ -144,7 +144,7 @@ export default function PrivacyPolicyPage() {
             You can ask us to access or correct your personal information, or
             raise a privacy concern, at{" "}
             {businessIdentity.privacyEmail ??
-              "[privacy email not yet configured \u2014 see CONTENT-GAPS.md]"}
+              "privacy email not yet configured"}
             . If you&apos;re not satisfied with our response, you can contact
             the Office of the Australian Information Commissioner (OAIC).
           </p>
