@@ -143,13 +143,35 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "Tools",
     href: "/tools",
-    children: [
-      { label: "Trading cost calculator", href: "/tools/trading-cost-calculator" },
-      { label: "Brokerage calculator", href: "/tools/brokerage-calculator" },
-      { label: "FX fee calculator", href: "/tools/fx-fee-calculator" },
-      { label: "Crypto fee calculator", href: "/tools/crypto-fee-calculator" },
-      { label: "Regular investing calculator", href: "/tools/regular-investing-calculator" },
-      { label: "CHESS vs custody", href: "/tools/chess-vs-custody" },
+    columns: [
+      {
+        heading: "Share Trading Tools",
+        links: [
+          {
+            label: "Trading cost calculator",
+            href: "/tools/trading-cost-calculator",
+          },
+          {
+            label: "Brokerage calculator",
+            href: "/tools/brokerage-calculator",
+          },
+          { label: "FX fee calculator", href: "/tools/fx-fee-calculator" },
+          {
+            label: "Regular investing calculator",
+            href: "/tools/regular-investing-calculator",
+          },
+          { label: "CHESS vs custody", href: "/tools/chess-vs-custody" },
+        ],
+      },
+      {
+        heading: "Crypto Tools",
+        links: [
+          {
+            label: "Crypto fee calculator",
+            href: "/tools/crypto-fee-calculator",
+          },
+        ],
+      },
     ],
     footerLink: { label: "View all tools →", href: "/tools" },
   },

@@ -14,10 +14,16 @@ export function RelatedTools({ offeringSlug }: { offeringSlug?: string }) {
       href: "/guides/share-trading-for-beginners",
       label: "Share trading for beginners",
     },
-    { href: "/tools/trading-cost-calculator", label: "Trading cost calculator" },
+    {
+      href: "/tools/trading-cost-calculator",
+      label: "Trading cost calculator",
+    },
     { href: "/tools/fx-fee-calculator", label: "FX fee calculator" },
     { href: "/tools/crypto-fee-calculator", label: "Crypto fee calculator" },
-    { href: "/tools/regular-investing-calculator", label: "Regular investing calculator" },
+    {
+      href: "/tools/regular-investing-calculator",
+      label: "Regular investing calculator",
+    },
   ];
   return (
     <section aria-labelledby="related-research" className="mt-10">

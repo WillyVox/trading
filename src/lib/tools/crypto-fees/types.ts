@@ -1,7 +1,15 @@
-export type CryptoFeeBasis = "FLAT" | "PERCENTAGE" | "FREE" | "TIERED" | "VARIES";
+export type CryptoFeeBasis =
+  "FLAT" | "PERCENTAGE" | "FREE" | "TIERED" | "VARIES";
 export type CryptoFeeCategory =
-  | "CRYPTO_TRADING" | "MAKER" | "TAKER" | "INSTANT_BUY"
-  | "FIAT_DEPOSIT" | "FIAT_WITHDRAWAL" | "CRYPTO_WITHDRAWAL" | "SPREAD" | "OTHER";
+  | "CRYPTO_TRADING"
+  | "MAKER"
+  | "TAKER"
+  | "INSTANT_BUY"
+  | "FIAT_DEPOSIT"
+  | "FIAT_WITHDRAWAL"
+  | "CRYPTO_WITHDRAWAL"
+  | "SPREAD"
+  | "OTHER";
 export type ToolVerificationStatus = "VERIFIED" | "STALE" | "UNVERIFIED";
 
 export type CryptoFeeRule = {
@@ -31,7 +39,13 @@ export type CryptoFeeOffering = {
 };
 
 export type CryptoFeeCalculation = {
-  status: "CALCULATED" | "VARIABLE" | "TIERED_NEEDS_INPUT" | "UNKNOWN" | "STALE" | "UNSUPPORTED";
+  status:
+    | "CALCULATED"
+    | "VARIABLE"
+    | "TIERED_NEEDS_INPUT"
+    | "UNKNOWN"
+    | "STALE"
+    | "UNSUPPORTED";
   amount?: number;
   currency?: string;
   percentage?: number;
