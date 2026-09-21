@@ -21,7 +21,6 @@ export default async function PricingVerificationPage() {
     },
     orderBy: [{ reviewDueAt: "asc" }, { label: "asc" }],
   });
-  const now = new Date();
   return (
     <div>
       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -38,7 +37,6 @@ export default async function PricingVerificationPage() {
       </div>
       <div className="mt-6 grid gap-4">
         {fees.map((fee) => {
-          const overdue = !fee.reviewDueAt || fee.reviewDueAt < now;
           return (
             <article
               key={fee.id}
@@ -57,9 +55,7 @@ export default async function PricingVerificationPage() {
                       {fee.verificationStatus}
                     </strong>{" "}
                     · Last verified: {date(fee.verifiedAt)} · Review due:{" "}
-                    <span
-                      className={overdue ? "font-semibold text-amber-800" : ""}
-                    >
+                    <span className="font-semibold">
                       {date(fee.reviewDueAt)}
                     </span>
                   </p>

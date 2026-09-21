@@ -44,3 +44,37 @@ test("rejects non-finite and excessive amounts", () => {
     "UNSUPPORTED"
   );
 });
+
+import { calculateFxFee } from "../calculate";
+import type { FxRule } from "../types";
+
+function providerRule(percentage: number): FxRule {
+  return {
+    feeId: "fee",
+    offeringSlug: "provider",
+    offeringName: "Provider",
+    providerName: "Provider Ltd",
+    label: "FX conversion",
+    calculationBasis: "PERCENTAGE",
+    percentage,
+    currency: "AUD",
+    displayValue: null,
+    notes: "Published percentage FX pricing.",
+    sourceUrl: "https://provider.example/pricing",
+    verificationStatus: "VERIFIED",
+    verifiedAt: "2026-09-22T00:00:00.000Z",
+    reviewDueAt: "2026-11-06T00:00:00.000Z",
+  };
+}
+
+test("calculates CommSec/Stake-style 0.55% pricing", () => {
+  assert.equal(calculateFxFee(5000, providerRule(0.55)).amount, 27.5);
+});
+
+test("calculates IBKR automated conversion 0.03% pricing", () => {
+  assert.equal(calculateFxFee(20000, providerRule(0.03)).amount, 6);
+});
+
+test("calculates CMC 0.60% published international-order spread", () => {
+  assert.equal(calculateFxFee(5000, providerRule(0.6)).amount, 30);
+});

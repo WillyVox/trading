@@ -71,8 +71,11 @@ const fees: OfferingFeeSeed[] = [
     percentage: 0.03,
     notes:
       "IBKR's automated currency conversion service rate, applied when a trade requires converting AUD to buy a foreign-currency security. A lower client-initiated standalone conversion rate of 0.002% (minimum US$2.00) is available if you convert currency manually ahead of time instead.",
-    sourceUrl: COMMISSIONS_URL,
-    verificationStatus: VerificationStatus.UNVERIFIED,
+    sourceUrl:
+      "https://www.interactivebrokers.com.au/en/pricing/commissions-spot-currencies.php",
+    verificationStatus: VerificationStatus.VERIFIED,
+    verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
 ];
 

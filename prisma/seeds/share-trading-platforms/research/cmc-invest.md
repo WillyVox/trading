@@ -35,7 +35,7 @@ Earlier research note said "1 trade/day, ≤$1,000". The wording on CMC's own pa
 ## International shares
 
 - $0 brokerage on US, UK, Canada and Japan listed stocks and ETFs. **"FX spreads apply."** Seeded for `NYSE` and `NASDAQ` (`FREE`).
-- **FX:** CMC states FX spreads apply to all international orders. No fixed FX conversion percentage is published on the pricing page or overview page. Seeded as `FX_CONVERSION` / `VARIES` with a plain-language `displayValue`; do **not** substitute the UK plan-table percentages above.
+- **FX:** CMC’s Australian international-shares page now publishes a **0.60% FX spread** on international orders. Seeded as `FX_CONVERSION` / `PERCENTAGE` at 0.60%, sourced from the AU international-shares page. Do **not** substitute the unrelated UK plan-table percentages.
 - **Not verified:** an earlier note claimed other international markets cost "$59 or 0.59%". That figure was not found on the AU pricing page as fetched (the international tab's table did not render in the fetch). Not seeded. Re-check against the FSG before adding.
 
 ## Account tiers

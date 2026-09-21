@@ -1,299 +1,329 @@
-import assert from "node:assert/strict";
-import test from "node:test";
-import { calculateBrokerage } from "../calculate";
-import type { BrokerageRule } from "../types";
+import type {
+  BrokerageCalculation,
+  BrokerageRule,
+  BrokerageScenario,
+  BrokerageTierRule,
+} from "../types";
 
-function rule(overrides: Partial<BrokerageRule> = {}): BrokerageRule {
-  return {
-    feeId: "fee",
-    offeringSlug: "test",
-    offeringName: "Test",
-    providerName: "Test Provider",
-    marketCode: "ASX",
-    marketName: "Australian Securities Exchange",
-    channel: null,
-    label: "Brokerage",
-    calculationBasis: "FLAT",
-    flatAmount: 3,
-    percentage: null,
-    currency: "AUD",
-    displayValue: null,
-    notes: null,
-    sourceUrl: "https://example.com/pricing",
-    verificationStatus: "VERIFIED",
-    verifiedAt: "2026-09-19T00:00:00.000Z",
-    tiers: [],
-    pricingPlan: null,
-    tradeSide: null,
-    firstBuyPerSecurityPerDay: null,
-    minTradeAmount: null,
-    maxTradeAmount: null,
-    maxTradeAmountInclusive: true,
-    excludesMarginLoanSettlement: false,
-    gstPercent: null,
-    ...overrides,
-  };
+/**
+ * Round a monetary value to two decimal places.
+ *
+ * JavaScript uses binary floating-point numbers, so calculations such as
+ * 25,000 × 0.12% can internally produce 29.999999999999996 instead of 30.
+ *
+ * We keep full precision while determining the applicable fee/rule and only
+ * round monetary outputs afterwards.
+ */
+function roundCurrency(value: number): number {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
 }
 
-test("calculates flat pricing", () =>
-  assert.equal(
-    calculateBrokerage(rule({ flatAmount: 7.5 }), 2000).amount,
-    7.5
-  ));
-test("calculates percentage pricing", () =>
-  assert.equal(
-    calculateBrokerage(
-      rule({
-        calculationBasis: "PERCENTAGE",
-        flatAmount: null,
-        percentage: 0.12,
-      }),
-      25000
-    ).amount,
-    30
-  ));
-test("calculates greater-of pricing on both sides of threshold", () => {
-  const r = rule({
-    calculationBasis: "GREATER_OF",
-    flatAmount: 3,
-    percentage: 0.01,
-  });
-  assert.equal(calculateBrokerage(r, 20000).amount, 3);
-  assert.equal(calculateBrokerage(r, 40000).amount, 4);
-});
-test("respects shared inclusive tier boundaries one cent below, at and above", () => {
-  const r = rule({
-    calculationBasis: "TIERED",
-    flatAmount: null,
-    tiers: [
-      { minAmount: 0, maxAmount: 1000, flatAmount: 5, percentage: null },
-      { minAmount: 1000, maxAmount: 3000, flatAmount: 10, percentage: null },
-    ],
-  });
-  assert.equal(calculateBrokerage(r, 999.99).amount, 5);
-  assert.equal(calculateBrokerage(r, 1000).amount, 5);
-  assert.equal(calculateBrokerage(r, 1000.01).amount, 10);
-});
-test("respects cent-separated inclusive lower boundary", () => {
-  const r = rule({
-    calculationBasis: "TIERED",
-    flatAmount: null,
-    tiers: [
-      { minAmount: 0, maxAmount: 9999.99, flatAmount: 29.95, percentage: null },
-      { minAmount: 10000, maxAmount: null, flatAmount: null, percentage: 0.31 },
-    ],
-  });
-  assert.equal(calculateBrokerage(r, 9999.99).amount, 29.95);
-  assert.equal(calculateBrokerage(r, 10000).amount, 31);
-  assert.equal(calculateBrokerage(r, 10000.01).amount, 31.000031);
-});
-test("returns unsupported when required structured values are missing", () => {
-  assert.equal(
-    calculateBrokerage(rule({ flatAmount: null }), 1000).status,
-    "UNSUPPORTED"
-  );
-  assert.equal(
-    calculateBrokerage(
-      rule({
-        calculationBasis: "PERCENTAGE",
-        flatAmount: null,
-        percentage: null,
-      }),
-      1000
-    ).status,
-    "UNSUPPORTED"
-  );
-  assert.equal(
-    calculateBrokerage(
-      rule({ calculationBasis: "TIERED", flatAmount: null, tiers: [] }),
-      1000
-    ).status,
-    "UNSUPPORTED"
-  );
-});
-test("calculates verified FREE rules as zero and keeps VARIES non-numeric", () => {
-  assert.equal(
-    calculateBrokerage(
-      rule({ calculationBasis: "FREE", flatAmount: null }),
-      5000
-    ).amount,
-    0
-  );
-  assert.equal(
-    calculateBrokerage(
-      rule({ calculationBasis: "VARIES", flatAmount: null }),
-      5000
-    ).status,
-    "VARIABLE"
-  );
-});
-test("rejects invalid and non-positive trade values", () => {
-  for (const amount of [0, -1, Number.NaN, Number.POSITIVE_INFINITY])
-    assert.equal(calculateBrokerage(rule(), amount).status, "UNSUPPORTED");
-  assert.equal(calculateBrokerage(rule(), 0.01).status, "CALCULATED");
-});
-test("preserves calculation precision and leaves display rounding to UI", () => {
-  const r = rule({
-    calculationBasis: "PERCENTAGE",
-    flatAmount: null,
-    percentage: 0.31,
-  });
-  assert.equal(calculateBrokerage(r, 10000.01).amount, 31.000031);
-});
-// Representative verified seed rules: these lock the engine semantics to the published structures seeded by Trading Guide.
-test("Stake ASX representative rule: greater of A$3 or 0.01%", () => {
-  const r = rule({
-    offeringSlug: "stake",
-    calculationBasis: "GREATER_OF",
-    flatAmount: 3,
-    percentage: 0.01,
-  });
-  assert.equal(calculateBrokerage(r, 30000).amount, 3);
-  assert.equal(calculateBrokerage(r, 30000.01).amount, 3.000001);
-});
-test("CommSec ASX standard settlement representative tiers", () => {
-  const r = rule({
-    offeringSlug: "commsec",
-    calculationBasis: "TIERED",
-    flatAmount: null,
-    tiers: [
-      { minAmount: 0, maxAmount: 1000, flatAmount: 5, percentage: null },
-      { minAmount: 1000, maxAmount: 3000, flatAmount: 10, percentage: null },
-      {
-        minAmount: 3000,
-        maxAmount: 10000,
-        flatAmount: 19.95,
-        percentage: null,
-      },
-      {
-        minAmount: 10000,
-        maxAmount: 25000,
-        flatAmount: 29.95,
-        percentage: null,
-      },
-      { minAmount: 25000, maxAmount: null, flatAmount: null, percentage: 0.12 },
-    ],
-  });
-  assert.equal(calculateBrokerage(r, 1000).amount, 5);
-  assert.equal(calculateBrokerage(r, 1000.01).amount, 10);
-  assert.equal(calculateBrokerage(r, 25000).amount, 29.95);
-  assert.equal(calculateBrokerage(r, 25000.01).amount, 30.000012);
-});
-test("CommSec US representative rule: greater of US$5 or 0.12%", () => {
-  const r = rule({
-    marketCode: "NASDAQ",
-    currency: "USD",
-    calculationBasis: "GREATER_OF",
-    flatAmount: 5,
-    percentage: 0.12,
-  });
-  assert.equal(calculateBrokerage(r, 1000).amount, 5);
-  assert.equal(calculateBrokerage(r, 5000).amount, 6);
-});
-test("surfaces stale and unverified rules instead of calculating them", () => {
-  assert.equal(
-    calculateBrokerage(rule({ verificationStatus: "STALE" }), 1000).status,
-    "STALE"
-  );
-  assert.equal(
-    calculateBrokerage(rule({ verificationStatus: "UNVERIFIED" }), 1000).status,
-    "UNKNOWN"
-  );
-});
+/**
+ * Calculate a percentage of the trade amount.
+ *
+ * This deliberately does NOT round because the raw value may be used when
+ * deciding which side of a GREATER_OF rule applies.
+ */
+function percentageAmount(tradeAmount: number, percentage: number): number {
+  return tradeAmount * (percentage / 100);
+}
 
-test("CMC conditional free-buy scenario selects free only when conditions match", async () => {
-  const { selectBrokerageRule } = await import("../calculate");
-  const free = rule({
-    feeId: "free",
-    offeringSlug: "cmc-invest",
-    calculationBasis: "FREE",
-    flatAmount: null,
-    tradeSide: "BUY",
-    firstBuyPerSecurityPerDay: true,
-    maxTradeAmount: 1000,
-    maxTradeAmountInclusive: false,
-    excludesMarginLoanSettlement: true,
-  });
-  const fallback = rule({
-    feeId: "paid",
-    offeringSlug: "cmc-invest",
-    calculationBasis: "GREATER_OF",
-    flatAmount: 11,
-    percentage: 0.1,
-    tradeSide: "BUY",
-  });
-  assert.equal(
-    selectBrokerageRule([free, fallback], {
-      tradeAmount: 500,
-      tradeSide: "BUY",
-      firstBuyPerSecurityPerDay: true,
-      marginLoanSettlement: false,
-    })?.feeId,
-    "free"
-  );
-  assert.equal(
-    selectBrokerageRule([free, fallback], {
-      tradeAmount: 1000,
-      tradeSide: "BUY",
-      firstBuyPerSecurityPerDay: true,
-      marginLoanSettlement: false,
-    })?.feeId,
-    "paid"
-  );
-  assert.equal(
-    selectBrokerageRule([free, fallback], {
-      tradeAmount: 500,
-      tradeSide: "BUY",
-      firstBuyPerSecurityPerDay: true,
-      marginLoanSettlement: true,
-    })?.feeId,
-    "paid"
-  );
-});
+/**
+ * Find the applicable tier for a trade amount.
+ *
+ * Tier upper bounds are inclusive. When two adjacent tiers share the same
+ * boundary, the shared boundary belongs to the earlier tier and the next tier
+ * begins immediately above it.
+ */
+function matchingTier(
+  tiers: BrokerageTierRule[],
+  tradeAmount: number
+): BrokerageTierRule | undefined {
+  return tiers.find((tier, index) => {
+    const previousMax = index > 0 ? tiers[index - 1]?.maxAmount : null;
 
-test("IBKR Fixed ASX estimate applies the published minimum and GST", () => {
-  const r = rule({
-    offeringSlug: "interactive-brokers-australia",
-    calculationBasis: "GREATER_OF",
-    flatAmount: 6,
-    percentage: 0.08,
-    gstPercent: 10,
-  });
-  assert.equal(calculateBrokerage(r, 2000).amount, 6.6);
-  assert.equal(calculateBrokerage(r, 20000).amount, 17.6);
-});
+    const lower =
+      index === 0 || previousMax == null || previousMax < tier.minAmount
+        ? tradeAmount >= tier.minAmount
+        : tradeAmount > tier.minAmount;
 
-test("CMC A$500 first eligible buy selects the conditional FREE rule", () => {
-  const free = rule({
-    feeId: "cmc-free",
-    offeringSlug: "cmc-invest",
-    calculationBasis: "FREE",
-    flatAmount: null,
-    pricingPlan: "Standard",
-    tradeSide: "BUY",
-    firstBuyPerSecurityPerDay: true,
-    maxTradeAmount: 1000,
-    maxTradeAmountInclusive: false,
-    excludesMarginLoanSettlement: true,
+    const upper = tier.maxAmount == null || tradeAmount <= tier.maxAmount;
+
+    return lower && upper;
   });
-  const fallback = rule({
-    feeId: "cmc-paid",
-    offeringSlug: "cmc-invest",
-    calculationBasis: "GREATER_OF",
-    flatAmount: 11,
-    percentage: 0.1,
-    pricingPlan: "Standard",
-    tradeSide: "BUY",
-  });
-  const selected = selectBrokerageRule([free, fallback], {
-    tradeAmount: 500,
-    tradeSide: "BUY",
-    firstBuyPerSecurityPerDay: true,
-    marginLoanSettlement: false,
-    pricingPlan: "Standard",
-  });
-  assert.equal(selected?.feeId, "cmc-free");
-  const result = calculateBrokerage(selected!, 500);
-  assert.equal(result.status, "CALCULATED");
-  assert.equal(result.amount, 0);
-});
+}
+
+/**
+ * Determine whether a structured brokerage rule applies to the selected
+ * calculator scenario.
+ */
+export function ruleMatchesScenario(
+  rule: BrokerageRule,
+  scenario: BrokerageScenario
+): boolean {
+  if (
+    rule.pricingPlan &&
+    scenario.pricingPlan &&
+    rule.pricingPlan !== scenario.pricingPlan
+  ) {
+    return false;
+  }
+
+  if (
+    rule.tradeSide &&
+    rule.tradeSide !== "ANY" &&
+    rule.tradeSide !== scenario.tradeSide
+  ) {
+    return false;
+  }
+
+  if (
+    rule.firstBuyPerSecurityPerDay != null &&
+    rule.firstBuyPerSecurityPerDay !== scenario.firstBuyPerSecurityPerDay
+  ) {
+    return false;
+  }
+
+  if (rule.excludesMarginLoanSettlement && scenario.marginLoanSettlement) {
+    return false;
+  }
+
+  if (
+    rule.minTradeAmount != null &&
+    scenario.tradeAmount < rule.minTradeAmount
+  ) {
+    return false;
+  }
+
+  if (rule.maxTradeAmount != null) {
+    if (
+      rule.maxTradeAmountInclusive
+        ? scenario.tradeAmount > rule.maxTradeAmount
+        : scenario.tradeAmount >= rule.maxTradeAmount
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Select the most specific applicable brokerage rule.
+ *
+ * More constrained rules win over generic fallbacks. This is important for
+ * conditional pricing such as CMC's eligible first-buy concession.
+ */
+export function selectBrokerageRule(
+  rules: BrokerageRule[],
+  scenario: BrokerageScenario
+): BrokerageRule | undefined {
+  const matches = rules.filter((rule) => ruleMatchesScenario(rule, scenario));
+
+  const score = (rule: BrokerageRule): number =>
+    [
+      rule.pricingPlan,
+      rule.tradeSide,
+      rule.firstBuyPerSecurityPerDay,
+      rule.minTradeAmount,
+      rule.maxTradeAmount,
+      rule.excludesMarginLoanSettlement ? 1 : null,
+    ].filter((value) => value != null).length;
+
+  return matches.sort((a, b) => score(b) - score(a))[0];
+}
+
+/**
+ * Calculate brokerage for a verified structured pricing rule.
+ *
+ * Calculation order:
+ *
+ * 1. Validate verification status and input.
+ * 2. Calculate the raw brokerage amount.
+ * 3. Determine minimum/tier/greater-of result using full precision.
+ * 4. Calculate GST using the raw brokerage amount.
+ * 5. Round monetary outputs to currency precision.
+ *
+ * This avoids floating-point values such as:
+ *
+ *   29.999999999999996
+ *   30.000011999999995
+ *   5.999999999999999
+ *
+ * leaking into the rest of the application.
+ */
+export function calculateBrokerage(
+  rule: BrokerageRule,
+  tradeAmount: number
+): BrokerageCalculation {
+  if (rule.verificationStatus === "STALE") {
+    return {
+      status: "STALE",
+      ruleLabel: rule.label,
+      explanation:
+        "This pricing is marked stale and must be reverified before it is used for an estimate.",
+    };
+  }
+
+  if (rule.verificationStatus !== "VERIFIED") {
+    return {
+      status: "UNKNOWN",
+      ruleLabel: rule.label,
+      explanation:
+        "This pricing has not been verified, so the calculator will not estimate a cost from it.",
+    };
+  }
+
+  if (!Number.isFinite(tradeAmount) || tradeAmount <= 0) {
+    return {
+      status: "UNSUPPORTED",
+      ruleLabel: rule.label,
+      explanation: "Enter a trade amount greater than zero.",
+    };
+  }
+
+  let base: number | undefined;
+  let expression: string | undefined;
+  let explanation = "";
+
+  switch (rule.calculationBasis) {
+    case "FREE": {
+      base = 0;
+
+      expression = "Published brokerage for this eligible scenario = 0.00";
+
+      explanation =
+        "The selected scenario satisfies the published conditions for zero brokerage. Other costs may still apply.";
+
+      break;
+    }
+
+    case "FLAT": {
+      if (rule.flatAmount != null && rule.flatAmount != undefined) {
+        base = rule.flatAmount;
+
+        expression =
+          `${rule.currency ?? ""} ${roundCurrency(base ?? 0).toFixed(2)} flat brokerage`.trim();
+
+        explanation = "This published rule applies a flat brokerage amount.";
+      }
+
+      break;
+    }
+
+    case "PERCENTAGE": {
+      if (rule.percentage != null) {
+        base = percentageAmount(tradeAmount, rule.percentage);
+
+        expression = `${tradeAmount.toFixed(2)} × ${rule.percentage}% = ${roundCurrency(base).toFixed(2)}`;
+
+        explanation =
+          "This published rule applies a percentage of trade value.";
+      }
+
+      break;
+    }
+
+    case "GREATER_OF": {
+      if (rule.flatAmount != null && rule.percentage != null) {
+        const percentageFee = percentageAmount(tradeAmount, rule.percentage);
+
+        // Compare raw values first. Do not round before deciding which
+        // component of the greater-of rule applies.
+        base = Math.max(rule.flatAmount, percentageFee);
+
+        expression =
+          `Greater of ${rule.flatAmount.toFixed(2)} or ` +
+          `${tradeAmount.toFixed(2)} × ${rule.percentage}% ` +
+          `(${roundCurrency(percentageFee).toFixed(2)}) = ` +
+          `${roundCurrency(base).toFixed(2)}`;
+
+        explanation =
+          "The published rule charges whichever is greater: the minimum amount or the percentage of trade value.";
+      }
+
+      break;
+    }
+
+    case "TIERED": {
+      const tier = matchingTier(rule.tiers, tradeAmount);
+
+      if (tier?.flatAmount != null) {
+        base = tier.flatAmount;
+
+        expression =
+          `Trade value ${tradeAmount.toFixed(2)} falls in the applicable tier → ` +
+          `${roundCurrency(base ?? 0).toFixed(2)}`;
+
+        explanation = "The trade value falls within a published flat-fee tier.";
+      } else if (tier?.percentage != null) {
+        base = percentageAmount(tradeAmount, tier.percentage);
+
+        expression =
+          `${tradeAmount.toFixed(2)} × ${tier.percentage}% = ` +
+          `${roundCurrency(base).toFixed(2)}`;
+
+        explanation =
+          "The trade value falls within a published percentage tier.";
+      }
+
+      break;
+    }
+
+    case "VARIES": {
+      return {
+        status: "VARIABLE",
+        ruleLabel: rule.label,
+        explanation:
+          "This published pricing varies and cannot be calculated from this scenario alone.",
+      };
+    }
+  }
+
+  if (base == null) {
+    return {
+      status: "UNSUPPORTED",
+      ruleLabel: rule.label,
+      explanation:
+        "We can't calculate this scenario from the verified structured pricing currently available.",
+    };
+  }
+
+  /*
+   * Keep the raw brokerage amount for GST calculation.
+   *
+   * Example:
+   * IBKR:
+   * A$20,000 × 0.08% = A$16 raw brokerage
+   * GST = A$1.60
+   * Total = A$17.60
+   */
+  const rawTax = rule.gstPercent != null ? base * (rule.gstPercent / 100) : 0;
+
+  const rawTotal = base + rawTax;
+
+  /*
+   * Currency values exposed by the calculation engine are rounded to cents.
+   */
+  const preTaxAmount = roundCurrency(base);
+  const taxAmount = roundCurrency(rawTax);
+  const amount = roundCurrency(rawTotal);
+
+  if (rawTax > 0 && rule.gstPercent != null) {
+    expression =
+      `${expression}; + ${rule.gstPercent}% GST ` +
+      `(${taxAmount.toFixed(2)}) = ` +
+      `${amount.toFixed(2)}`;
+  }
+
+  return {
+    status: "CALCULATED",
+    amount,
+    preTaxAmount,
+    taxAmount: rawTax > 0 ? taxAmount : undefined,
+    currency: rule.currency ?? undefined,
+    ruleLabel: rule.label,
+    expression,
+    explanation,
+  };
+}

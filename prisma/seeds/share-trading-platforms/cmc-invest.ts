@@ -134,12 +134,13 @@ const fees: OfferingFeeSeed[] = [
   })),
   {
     feeCategory: FeeCategory.FX_CONVERSION,
-    label: "Foreign exchange conversion",
-    calculationBasis: FeeCalculationBasis.VARIES,
-    displayValue: "FX spread applies (no fixed % published)",
+    label: "International orders FX spread",
+    calculationBasis: FeeCalculationBasis.PERCENTAGE,
+    percentage: 0.6,
     notes:
-      "CMC Invest states that FX spreads apply to international orders; this is not treated as zero by Trading Guide.",
-    sourceUrl: PRICING_URL,
+      "CMC Invest publishes a 0.60% FX spread for international orders. This calculator estimates the spread cost on the AUD amount entered; the actual execution exchange rate can still move.",
+    sourceUrl:
+      "https://www.cmcmarkets.com/en-au/stockbroking/products/international-shares",
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: new Date("2026-09-22"),
     reviewDueAt: new Date("2026-11-06"),

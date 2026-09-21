@@ -126,7 +126,8 @@ export const ARTICLE_SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
         };
       }
 
-      const { ...safeAttribs } = attribs;
+      const safeAttribs = { ...attribs };
+      delete safeAttribs.target;
 
       return {
         tagName: "a",

@@ -138,7 +138,8 @@ const fees: OfferingFeeSeed[] = [
       "Charged per currency conversion. Conversions happen automatically for each international trade unless the Plus foreign-currency wallet is active and funded. Currency pairs that can't be converted directly are charged for each leg.",
     sourceUrl: RATES_URL,
     verificationStatus: VerificationStatus.VERIFIED,
-    verifiedAt: FEES_CHECKED,
+    verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
 
   // ---- Other ----

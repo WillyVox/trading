@@ -100,3 +100,12 @@ npm run format:check
 npx tsc --noEmit
 npm test
 npm run build
+
+- Db
+  npx prisma generate
+  npx prisma migrate dev
+  npm run db:seed
+
+- For production deployment, use:
+  npx prisma migrate deploy
+  npm run db:seed

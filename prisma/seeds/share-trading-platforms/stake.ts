@@ -65,9 +65,10 @@ const fees: OfferingFeeSeed[] = [
     currency: "USD",
     notes:
       "Charged when converting AUD to USD to fund Wall St trading, not on each individual trade. No separate per-trade FX fee for Wall St orders once funded.",
-    sourceUrl: PRICING_URL,
+    sourceUrl: "https://hellostake.com/au/payment-methods",
     verificationStatus: VerificationStatus.VERIFIED,
-    verifiedAt: FEES_CHECKED,
+    verifiedAt: new Date("2026-09-22"),
+    reviewDueAt: new Date("2026-11-06"),
   },
 ];
 
