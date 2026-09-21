@@ -14,6 +14,10 @@ export function RelatedTools({ offeringSlug }: { offeringSlug?: string }) {
       href: "/guides/share-trading-for-beginners",
       label: "Share trading for beginners",
     },
+    {
+      href: "/tools/trading-cost-calculator",
+      label: "Trading cost calculator",
+    },
     { href: "/tools/fx-fee-calculator", label: "FX fee calculator" },
     {
       href: "/tools/regular-investing-calculator",

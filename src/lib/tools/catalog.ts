@@ -2,6 +2,16 @@ import type { ToolDefinition } from "./types";
 
 export const TOOLS: ToolDefinition[] = [
   {
+    slug: "trading-cost-calculator",
+    name: "Trading Cost Calculator",
+    shortName: "Trading cost calculator",
+    description:
+      "Combine supported brokerage and FX conversion costs in one transparent hypothetical trade scenario.",
+    category: "TRADING_COSTS",
+    status: "AVAILABLE",
+    href: "/tools/trading-cost-calculator",
+  },
+  {
     slug: "brokerage-calculator",
     name: "Brokerage Cost Calculator",
     shortName: "Brokerage calculator",
