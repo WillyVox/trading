@@ -28,7 +28,7 @@ export const TOOLS: ToolDefinition[] = [
     description:
       "Explore how CHESS sponsorship, HINs and custodial ownership differ without reducing either structure to good or bad.",
     category: "OWNERSHIP_CUSTODY",
-    status: "COMING_SOON",
+    status: "AVAILABLE",
     href: "/tools/chess-vs-custody",
   },
 ];

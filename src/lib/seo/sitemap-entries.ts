@@ -35,6 +35,7 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/tools",
     "/tools/brokerage-calculator",
     "/tools/fx-fee-calculator",
+    "/tools/chess-vs-custody",
     "/methodology",
     "/methodology/editorial-policy",
     "/methodology/comparisons",
