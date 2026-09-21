@@ -10,5 +10,5 @@ export const SwyftxLinks = {
   partnershipStatus: AffiliatePartnerStatus.PROSPECT,
   notes:
     "Placeholder affiliate configuration. Replace approvedUrl with an approved tracking URL and activate only after an official affiliate agreement is approved.",
-  active: false
+  active: false,
 };

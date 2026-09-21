@@ -10,5 +10,5 @@ export const Kraken_Links = {
   partnershipStatus: AffiliatePartnerStatus.PROSPECT,
   notes:
     "Placeholder affiliate configuration. Replace approvedUrl and activate only after an official affiliate agreement is approved.",
-  active: false
+  active: false,
 };

@@ -5,7 +5,7 @@ export async function getActiveAffiliateLink(partnerSlug: string) {
   const link = await affiliateLinkRepository.findFirst({
     where: {
       partnerSlug,
-      active: true
+      active: true,
     },
   });
   if (!link || !link.active) return null;
@@ -23,7 +23,7 @@ export async function getActiveAffiliateLinksForProviderSlugs(slugs: string[]) {
   const links = await prisma.affiliateLink.findMany({
     where: {
       partnerSlug: { in: slugs },
-      active: true
+      active: true,
     },
   });
   return new Map(links.map((link) => [link.partnerSlug, link]));
