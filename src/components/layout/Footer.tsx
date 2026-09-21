@@ -33,7 +33,8 @@ export function Footer() {
               <TradingGuideLogoWhite />
             </Link>
             <p className="text-background/60 mt-1 text-xs">
-              Independent trading research — online share trading and cryptocurrency
+              Independent trading research — online share trading and
+              cryptocurrency
             </p>
           </div>
 
