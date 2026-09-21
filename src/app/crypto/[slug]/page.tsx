@@ -42,6 +42,18 @@ export default async function CryptoAssetPage({
   const asset = await getCryptoAssetBySlug(slug);
   if (!asset) notFound();
 
+  // One entry per exchange (a provider could in principle have several
+  // active crypto-exchange offerings), alphabetical -- never ranked. Links
+  // use the public provider slug, same as every other /crypto/exchanges link.
+  const exchanges = [
+    ...new Map(
+      asset.offerings.map((oa) => [
+        oa.offering.provider.id,
+        oa.offering.provider,
+      ])
+    ).values(),
+  ].sort((a, b) => a.name.localeCompare(b.name));
+
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },
     { name: asset.name, path: `/crypto/${slug}` },
@@ -62,19 +74,19 @@ export default async function CryptoAssetPage({
           <h2 className="font-display text-navy mb-4 text-lg font-bold">
             Where to buy {asset.symbol} in Australia
           </h2>
-          {asset.providers.length === 0 ? (
+          {exchanges.length === 0 ? (
             <p className="text-muted text-sm">
               No exchanges linked to this asset yet.
             </p>
           ) : (
             <ul className="grid gap-2 text-sm sm:grid-cols-2">
-              {asset.providers.map((pa: any) => (
-                <li key={pa.provider.id}>
+              {exchanges.map((exchange) => (
+                <li key={exchange.id}>
                   <Link
-                    href={`/crypto/exchanges/${pa.provider.slug}`}
+                    href={`/crypto/exchanges/${exchange.slug}`}
                     className="text-navy hover:underline"
                   >
-                    {pa.provider.name}
+                    {exchange.name}
                   </Link>
                 </li>
               ))}
@@ -88,7 +100,7 @@ export default async function CryptoAssetPage({
               Related guides
             </h2>
             <ul className="space-y-2 text-sm">
-              {asset.articles.map((aa: any) => (
+              {asset.articles.map((aa) => (
                 <li key={aa.article.id}>
                   <Link
                     href={`/${aa.article.category === "news" ? "news" : "guides"}/${aa.article.slug}`}
