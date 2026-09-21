@@ -2,6 +2,16 @@ import type { ToolDefinition } from "./types";
 
 export const TOOLS: ToolDefinition[] = [
   {
+    slug: "crypto-fee-calculator",
+    name: "Crypto Fee Calculator",
+    shortName: "Crypto fee calculator",
+    description:
+      "Calculate supported published crypto exchange fees and surface tiered, spread or network-dependent costs without guessing.",
+    category: "TRADING_COSTS",
+    status: "AVAILABLE",
+    href: "/tools/crypto-fee-calculator",
+  },
+  {
     slug: "trading-cost-calculator",
     name: "Trading Cost Calculator",
     shortName: "Trading cost calculator",
