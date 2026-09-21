@@ -15,14 +15,21 @@ export function Header() {
   return (
     <header className="border-navy bg-panel sticky top-0 z-20 border-b-2">
       <div className="mx-auto flex h-[72px] max-w-6xl items-center gap-7 px-4">
-        <HeaderLogo />
-        <nav className="hidden flex-1 items-center gap-6 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <NavMenuItem key={item.label} item={item} />
-          ))}
-        </nav>
+        <div className="shrink-0">
+          <HeaderLogo />
+        </div>
 
-        <div className="ml-auto flex items-center gap-3">
+        {/* Desktop navigation */}
+        <div className="hidden min-w-0 flex-1 items-center md:flex">
+          <nav className="hidden flex-1 items-center gap-6 md:flex">
+            {NAV_ITEMS.map((item) => (
+              <NavMenuItem key={item.label} item={item} />
+            ))}
+          </nav>
+        </div>
+
+        {/* Mobile navigation */}
+        <div className="flex shrink-0 items-center gap-3 md:ml-auto">
           {/* Desktop auth area — hidden on mobile, where MobileNav's drawer covers it instead. */}
           {/* <div className="hidden md:block">
             <AuthStatus variant="desktop" />
@@ -34,3 +41,18 @@ export function Header() {
     </header>
   );
 }
+
+<div className="flex w-full min-w-0 items-center">
+  {/* Logo */}
+  <div className="shrink-0">{/* logo */}</div>
+
+  {/* Desktop navigation */}
+  <div className="hidden min-w-0 flex-1 items-center md:flex">
+    {/* desktop nav */}
+  </div>
+
+  {/* Mobile navigation */}
+  <div className="ml-auto flex shrink-0 items-center gap-3 md:hidden">
+    <MobileNav />
+  </div>
+</div>;
