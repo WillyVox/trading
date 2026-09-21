@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { NavItem } from "@/lib/nav/config";
+import { NavIcon } from "./NavIcon";
 
 /** How long the panel stays open after the pointer/focus leaves, so
  *  crossing the small gap between trigger and panel doesn't flicker it
@@ -102,7 +103,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
   const isWideColumns = columns.length >= 3;
 
   const linkClass =
-    "text-navy/80 hover:bg-panel-secondary hover:text-navy block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors";
+    "group text-navy/80 hover:bg-panel-secondary hover:text-navy flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors";
 
   if (!hasDropdown) {
     return (
@@ -186,6 +187,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
                 </div>
                 {column.links.map((link) => (
                   <Link key={link.href} href={link.href} className={linkClass}>
+                    {link.icon && <NavIcon name={link.icon} />}
                     {link.label}
                   </Link>
                 ))}
@@ -206,6 +208,7 @@ export function NavMenuItem({ item }: { item: NavItem }) {
         ) : (
           children.map((child) => (
             <Link key={child.href} href={child.href} className={linkClass}>
+              {child.icon && <NavIcon name={child.icon} />}
               {child.label}
             </Link>
           ))

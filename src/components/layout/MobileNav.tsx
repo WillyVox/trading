@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AuthStatus } from "./AuthStatus";
 import { NAV_ITEMS, type NavLink } from "@/lib/nav/config";
+import { NavIcon } from "./NavIcon";
 
 /** A flattened mobile-accordion entry: either a real link, or a
  *  non-interactive column-heading label used when an item's dropdown is
@@ -217,12 +218,13 @@ export function MobileNav() {
                         <Link
                           key={child.href}
                           href={child.href}
-                          className={`rounded-xl px-3 py-2 text-sm transition-colors ${
+                          className={`group flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm transition-colors ${
                             isActive(pathname, child.href)
                               ? "bg-panel-secondary text-navy"
                               : "text-muted hover:bg-panel-secondary hover:text-navy"
                           }`}
                         >
+                          {child.icon && <NavIcon name={child.icon} />}
                           {child.label}
                         </Link>
                       )
