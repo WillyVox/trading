@@ -92,8 +92,6 @@ When migrate failed
 - `/go/[partner]` only ever redirects to a stored `approvedUrl` on an
   `ACTIVE` `AffiliateLink` row — never to a user-supplied URL.
 
-
-
 npm ci
 npx prisma validate
 npx prisma generate
