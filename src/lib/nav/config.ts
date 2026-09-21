@@ -140,6 +140,7 @@ export const NAV_ITEMS: NavItem[] = [
       },
     ],
   },
+  { label: "Tools", href: "/tools" },
   { label: "Share Trading", href: "/share-trading" },
   { label: "Crypto Exchanges", href: "/crypto/exchanges" },
   { label: "News", href: "/news" },
