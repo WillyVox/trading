@@ -2,6 +2,26 @@ import type { ToolDefinition } from "./types";
 
 export const TOOLS: ToolDefinition[] = [
   {
+    slug: "crypto-cost-calculator",
+    name: "Crypto Cost Calculator",
+    shortName: "Crypto cost calculator",
+    description:
+      "Combine supported deposit, trading and withdrawal fee components in one transparent crypto scenario.",
+    category: "TRADING_COSTS",
+    status: "AVAILABLE",
+    href: "/tools/crypto-cost-calculator",
+  },
+  {
+    slug: "crypto-funding-withdrawal-fees",
+    name: "Crypto Deposit & Withdrawal Fees",
+    shortName: "Deposit & withdrawal fees",
+    description:
+      "Explore source-linked fiat funding and crypto withdrawal fees without treating network-dependent costs as zero.",
+    category: "TRADING_COSTS",
+    status: "AVAILABLE",
+    href: "/tools/crypto-funding-withdrawal-fees",
+  },
+  {
     slug: "crypto-fee-calculator",
     name: "Crypto Fee Calculator",
     shortName: "Crypto fee calculator",

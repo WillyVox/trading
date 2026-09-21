@@ -180,7 +180,12 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
             offeringId: offering.id,
             ...feeData,
             tiers: tiers?.length
-              ? { create: tiers.map((tier, position) => ({ ...tier, position })) }
+              ? {
+                  create: tiers.map((tier, position) => ({
+                    ...tier,
+                    position,
+                  })),
+                }
               : undefined,
           },
         });

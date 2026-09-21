@@ -20,6 +20,7 @@ export function RelatedTools({ offeringSlug }: { offeringSlug?: string }) {
     },
     { href: "/tools/fx-fee-calculator", label: "FX fee calculator" },
     { href: "/tools/crypto-fee-calculator", label: "Crypto fee calculator" },
+    { href: "/tools/crypto-cost-calculator", label: "Crypto cost calculator" },
     {
       href: "/tools/regular-investing-calculator",
       label: "Regular investing calculator",

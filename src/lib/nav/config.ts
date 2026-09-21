@@ -170,6 +170,14 @@ export const NAV_ITEMS: NavItem[] = [
             label: "Crypto fee calculator",
             href: "/tools/crypto-fee-calculator",
           },
+          {
+            label: "Crypto cost calculator",
+            href: "/tools/crypto-cost-calculator",
+          },
+          {
+            label: "Deposit & withdrawal fees",
+            href: "/tools/crypto-funding-withdrawal-fees",
+          },
         ],
       },
     ],
