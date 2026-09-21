@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CookieNotice } from "@/components/layout/CookieNotice";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
@@ -68,6 +69,7 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
           <Footer />
         </AuthProvider>
+        <CookieNotice />
       </body>
     </html>
   );

@@ -91,3 +91,14 @@ When migrate failed
   layers of admin protection (route-level and mutation-level).
 - `/go/[partner]` only ever redirects to a stored `approvedUrl` on an
   `ACTIVE` `AffiliateLink` row — never to a user-supplied URL.
+
+
+
+npm ci
+npx prisma validate
+npx prisma generate
+npm run lint
+npm run format:check
+npx tsc --noEmit
+npm test
+npm run build

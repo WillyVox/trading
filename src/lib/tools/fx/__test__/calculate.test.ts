@@ -28,10 +28,19 @@ test("rejects zero and negative amounts", () => {
 test("rejects invalid or excessive percentages", () => {
   assert.equal(calculateEducationalFxFee(5000, -0.1).status, "UNSUPPORTED");
   assert.equal(calculateEducationalFxFee(5000, 100.01).status, "UNSUPPORTED");
-  assert.equal(calculateEducationalFxFee(5000, Number.NaN).status, "UNSUPPORTED");
+  assert.equal(
+    calculateEducationalFxFee(5000, Number.NaN).status,
+    "UNSUPPORTED"
+  );
 });
 
 test("rejects non-finite and excessive amounts", () => {
-  assert.equal(calculateEducationalFxFee(Number.POSITIVE_INFINITY, 0.55).status, "UNSUPPORTED");
-  assert.equal(calculateEducationalFxFee(1_000_000_001, 0.55).status, "UNSUPPORTED");
+  assert.equal(
+    calculateEducationalFxFee(Number.POSITIVE_INFINITY, 0.55).status,
+    "UNSUPPORTED"
+  );
+  assert.equal(
+    calculateEducationalFxFee(1_000_000_001, 0.55).status,
+    "UNSUPPORTED"
+  );
 });

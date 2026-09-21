@@ -14,7 +14,7 @@ export const metadata = buildMetadata({
   path: "/privacy",
 });
 
-const LAST_UPDATED = "21 September 2026";
+const LAST_UPDATED = "22 September 2026";
 
 /**
  * Content status: DRAFT ONLY -- see docs/CONTENT-GAPS.md "Privacy Policy".
@@ -98,6 +98,42 @@ export default function PrivacyPolicyPage() {
             We don&apos;t currently use analytics, advertising, or
             tracking-pixel tools on this site. If that changes, this policy will
             be updated first.
+          </p>
+
+          <h3
+            id="cookies"
+            className="font-display text-navy mt-5 mb-2 scroll-mt-24 text-base font-bold"
+          >
+            Cookies
+          </h3>
+          <p className="mb-2">
+            We only use cookies and browser storage that keep the site working:
+          </p>
+          <ul className="list-disc space-y-1.5 pl-5">
+            <li>
+              <span className="text-navy font-medium">Sign-in cookies</span> --
+              if you create an account or log in, we set cookies that keep you
+              signed in and protect the sign-in form.
+            </li>
+            <li>
+              <span className="text-navy font-medium">
+                Cookie notice choice
+              </span>{" "}
+              -- once you click OK on the cookie notice, your browser remembers
+              that in its local storage (not sent to our servers) so we
+              don&apos;t show the notice again.
+            </li>
+            <li>
+              <span className="text-navy font-medium">Embedded videos</span> --
+              some guides embed videos from YouTube or Vimeo. Those providers
+              may set their own cookies when a video loads or plays, and handle
+              that information under their own policies.
+            </li>
+          </ul>
+          <p className="mt-2">
+            We don&apos;t use advertising or analytics cookies. If that changes,
+            we&apos;ll update this policy and change the cookie notice to ask
+            you before any are set.
           </p>
         </section>
 

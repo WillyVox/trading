@@ -37,6 +37,6 @@ export async function getCustodyExplorerRows(): Promise<CustodyExplorerRow[]> {
     .sort(
       (a, b) =>
         a.offeringName.localeCompare(b.offeringName) ||
-        (a.marketName ?? "").localeCompare(b.marketName ?? ""),
+        (a.marketName ?? "").localeCompare(b.marketName ?? "")
     );
 }

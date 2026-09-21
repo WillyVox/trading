@@ -9,11 +9,17 @@ function roundCurrency(value: number) {
 
 export function calculateEducationalFxFee(
   amount: number,
-  percentage: number,
+  percentage: number
 ): CalculationResult {
   const inputs = [
-    { label: "Amount", value: Number.isFinite(amount) ? String(amount) : "Invalid" },
-    { label: "FX fee", value: Number.isFinite(percentage) ? `${percentage}%` : "Invalid" },
+    {
+      label: "Amount",
+      value: Number.isFinite(amount) ? String(amount) : "Invalid",
+    },
+    {
+      label: "FX fee",
+      value: Number.isFinite(percentage) ? `${percentage}%` : "Invalid",
+    },
   ];
 
   if (!Number.isFinite(amount) || amount <= 0 || amount > MAX_AMOUNT) {
@@ -27,7 +33,11 @@ export function calculateEducationalFxFee(
     };
   }
 
-  if (!Number.isFinite(percentage) || percentage < 0 || percentage > MAX_PERCENTAGE) {
+  if (
+    !Number.isFinite(percentage) ||
+    percentage < 0 ||
+    percentage > MAX_PERCENTAGE
+  ) {
     return {
       status: "UNSUPPORTED",
       inputs,
