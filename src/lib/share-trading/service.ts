@@ -143,3 +143,20 @@ export async function getAllShareTradingPlatformsForCompare(): Promise<
   });
   return rows as ShareTradingPlatformDetail[];
 }
+
+/**
+ * Lightweight pool for the compare selector -- id/slug/name only, so the
+ * /share-trading/compare/[slug] page doesn't load every offering's markets,
+ * fees and custody just to render a row of pills. The hub page derives its
+ * own pool from data it already loaded; this is for pages that don't.
+ * Alphabetical, matching the compare pages' "never ranked" rule.
+ */
+export async function getShareTradingSelectorOptions(): Promise<
+  { id: string; slug: string; name: string }[]
+> {
+  return prisma.providerOffering.findMany({
+    where: { active: true, offeringType: OfferingType.SHARE_TRADING },
+    orderBy: { name: "asc" },
+    select: { id: true, slug: true, name: true },
+  });
+}

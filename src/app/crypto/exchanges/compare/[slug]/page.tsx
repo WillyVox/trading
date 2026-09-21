@@ -4,7 +4,7 @@ import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
 import { CompareSelector } from "@/components/compare/CompareSelector";
 import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { getCryptoExchangeComparison } from "@/lib/crypto-exchanges/comparison";
-import { getCryptoExchanges } from "@/lib/crypto-exchanges/service";
+import { getCryptoExchangeSelectorOptions } from "@/lib/crypto-exchanges/service";
 import {
   canonicalCompareSlugMulti,
   parseCompareSlugs,
@@ -56,11 +56,7 @@ export default async function CryptoExchangeComparisonPage({
   const comparison = await getCryptoExchangeComparison(slugs);
   if (!comparison) notFound();
   const { subjects, sections } = comparison;
-  const pool = (await getCryptoExchanges()).map((offering) => ({
-    id: offering.id,
-    slug: offering.provider.slug,
-    name: offering.provider.name,
-  }));
+  const pool = await getCryptoExchangeSelectorOptions();
   const trail = breadcrumbTrail([
     { name: "Crypto exchanges", path: "/crypto/exchanges" },
     { name: "Compare", path: "/crypto/exchanges/compare" },

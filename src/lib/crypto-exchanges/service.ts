@@ -24,6 +24,30 @@ export function getCryptoExchanges(): Promise<CryptoExchangeOffering[]> {
   });
 }
 
+/**
+ * Lightweight pool for the compare selector -- id and the *public* provider
+ * slug/name (the same identity the compare URLs use), without the facts,
+ * fees, features and assets getCryptoExchanges() loads. Alphabetical by
+ * offering name, same order as getCryptoExchanges().
+ */
+export async function getCryptoExchangeSelectorOptions(): Promise<
+  { id: string; slug: string; name: string }[]
+> {
+  const rows = await prisma.providerOffering.findMany({
+    where: { offeringType: OfferingType.CRYPTO_EXCHANGE, active: true },
+    orderBy: { name: "asc" },
+    select: {
+      id: true,
+      provider: { select: { slug: true, name: true } },
+    },
+  });
+  return rows.map((row) => ({
+    id: row.id,
+    slug: row.provider.slug,
+    name: row.provider.name,
+  }));
+}
+
 export function getCryptoExchangeByPublicSlug(
   providerSlug: string
 ): Promise<CryptoExchangeOffering | null> {

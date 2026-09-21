@@ -4,7 +4,7 @@ import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
 import { CompareSelector } from "@/components/compare/CompareSelector";
 import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { getShareTradingComparison } from "@/lib/share-trading/comparison";
-import { getAllShareTradingPlatformsForCompare } from "@/lib/share-trading/service";
+import { getShareTradingSelectorOptions } from "@/lib/share-trading/service";
 import {
   canonicalCompareSlugMulti,
   parseCompareSlugs,
@@ -56,13 +56,7 @@ export default async function ShareTradingComparisonPage({
   const comparison = await getShareTradingComparison(slugs);
   if (!comparison) notFound();
   const { subjects, sections } = comparison;
-  const pool = (await getAllShareTradingPlatformsForCompare()).map(
-    (platform) => ({
-      id: platform.id,
-      slug: platform.slug,
-      name: platform.name,
-    })
-  );
+  const pool = await getShareTradingSelectorOptions();
   const trail = breadcrumbTrail([
     { name: "Share trading", path: "/share-trading" },
     { name: "Compare", path: "/share-trading/compare" },

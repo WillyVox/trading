@@ -7,6 +7,7 @@ import {
 import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
+import { CompareSelector } from "@/components/compare/CompareSelector";
 import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -52,6 +53,14 @@ export default async function CompareCryptoExchangesPage() {
   const sections = buildCompareSections(rows);
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 
+  // Built from the offerings already loaded above -- no second query. Same
+  // identity (public provider slug/name) the compare URLs use.
+  const selectorPool = cryptoOfferings.map((offering) => ({
+    id: offering.id,
+    slug: offering.provider.slug,
+    name: offering.provider.name,
+  }));
+
   const trail = breadcrumbTrail([
     { name: "Crypto exchanges", path: "/crypto/exchanges/compare" },
   ]);
@@ -71,7 +80,19 @@ export default async function CompareCryptoExchangesPage() {
             No crypto exchange providers seeded yet.
           </p>
         ) : (
-          <div className="mt-8">
+          <div>
+            {selectorPool.length >= 2 && (
+              <div className="-mt-8">
+                <CompareSelector
+                  providers={selectorPool}
+                  noun="exchanges"
+                  comparisonBasePath="/crypto/exchanges/compare"
+                />
+              </div>
+            )}
+            <h2 className="font-display text-navy mt-10 mb-4 text-xl font-bold">
+              All {rows.length} exchanges, side by side
+            </h2>
             <CompareTable subjects={subjects} sections={sections} />
             <CompareMobileCards subjects={subjects} sections={sections} />
             {hasAffiliateCta && <SectionAffiliateDisclosure />}

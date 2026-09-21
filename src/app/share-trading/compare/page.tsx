@@ -5,6 +5,7 @@ import {
 } from "@/lib/share-trading/comparison";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
+import { CompareSelector } from "@/components/compare/CompareSelector";
 import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -42,6 +43,13 @@ export default async function CompareTradingPlatformsPage() {
   // disclosure automatically if that tier is ever added.
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 
+  // Built from the offerings already loaded above -- no second query.
+  const selectorPool = offerings.map((offering) => ({
+    id: offering.id,
+    slug: offering.slug,
+    name: offering.name,
+  }));
+
   const trail = breadcrumbTrail([
     { name: "Share trading platforms", path: "/share-trading/compare" },
   ]);
@@ -61,7 +69,19 @@ export default async function CompareTradingPlatformsPage() {
             No share trading platforms seeded yet.
           </p>
         ) : (
-          <div className="mt-8">
+          <div>
+            {selectorPool.length >= 2 && (
+              <div className="-mt-8">
+                <CompareSelector
+                  providers={selectorPool}
+                  noun="platforms"
+                  comparisonBasePath="/share-trading/compare"
+                />
+              </div>
+            )}
+            <h2 className="font-display text-navy mt-10 mb-4 text-xl font-bold">
+              All {offerings.length} platforms, side by side
+            </h2>
             <CompareTable subjects={subjects} sections={sections} />
             <CompareMobileCards subjects={subjects} sections={sections} />
             {hasAffiliateCta && <SectionAffiliateDisclosure />}
