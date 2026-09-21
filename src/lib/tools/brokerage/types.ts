@@ -1,8 +1,18 @@
-import type {
-  FeeCalculationBasis,
-  FeeChannel,
-  VerificationStatus,
-} from "@prisma/client";
+import type { ToolVerificationStatus } from "../types";
+
+export type BrokerageCalculationBasis =
+  | "FLAT"
+  | "PERCENTAGE"
+  | "GREATER_OF"
+  | "TIERED"
+  | "FREE"
+  | "VARIES";
+
+export type BrokerageFeeChannel =
+  | "ONLINE_STANDARD_SETTLEMENT"
+  | "ONLINE_OWN_BANK_SETTLEMENT"
+  | "PHONE_OR_ESTATE"
+  | "THIRD_PARTY_SETTLEMENT";
 
 export type BrokerageTierRule = {
   minAmount: number;
@@ -18,22 +28,22 @@ export type BrokerageRule = {
   providerName: string;
   marketCode: string;
   marketName: string;
-  channel: FeeChannel | null;
+  channel: BrokerageFeeChannel | null;
   label: string;
-  calculationBasis: FeeCalculationBasis;
+  calculationBasis: BrokerageCalculationBasis;
   flatAmount: number | null;
   percentage: number | null;
   currency: string | null;
   displayValue: string | null;
   notes: string | null;
   sourceUrl: string | null;
-  verificationStatus: VerificationStatus;
+  verificationStatus: ToolVerificationStatus;
   verifiedAt: string | null;
   tiers: BrokerageTierRule[];
 };
 
 export type BrokerageCalculation = {
-  status: "CALCULATED" | "UNSUPPORTED";
+  status: "CALCULATED" | "VARIABLE" | "UNKNOWN" | "STALE" | "UNSUPPORTED";
   amount?: number;
   currency?: string;
   ruleLabel: string;

@@ -1,3 +1,4 @@
+import "server-only";
 import { FeeCategory, OfferingType, VerificationStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import type { BrokerageRule } from "./types";
@@ -30,16 +31,16 @@ export async function getBrokerageRules(): Promise<BrokerageRule[]> {
         providerName: fee.offering.provider.name,
         marketCode: fee.market.code,
         marketName: fee.market.name,
-        channel: fee.channel,
+        channel: fee.channel as BrokerageRule["channel"],
         label: fee.label,
-        calculationBasis: fee.calculationBasis,
+        calculationBasis: fee.calculationBasis as BrokerageRule["calculationBasis"],
         flatAmount: fee.flatAmount == null ? null : Number(fee.flatAmount),
         percentage: fee.percentage == null ? null : Number(fee.percentage),
         currency: fee.currency,
         displayValue: fee.displayValue,
         notes: fee.notes,
         sourceUrl: fee.sourceUrl,
-        verificationStatus: fee.verificationStatus,
+        verificationStatus: fee.verificationStatus as BrokerageRule["verificationStatus"],
         verifiedAt: fee.verifiedAt?.toISOString() ?? null,
         tiers: fee.tiers.map((tier) => ({
           minAmount: Number(tier.minAmount),

@@ -1,5 +1,3 @@
-import type { VerificationStatus } from "@prisma/client";
-
 export type ToolStatus = "AVAILABLE" | "COMING_SOON";
 
 export type ToolDefinition = {
@@ -12,26 +10,24 @@ export type ToolDefinition = {
   href: string;
 };
 
+/** Browser-safe verification state. Prisma values are mapped server-side. */
+export type ToolVerificationStatus = "VERIFIED" | "UNVERIFIED" | "STALE";
+
 export type CalculationStatus =
-  "CALCULATED" | "PARTIAL" | "VARIABLE" | "UNKNOWN" | "STALE" | "UNSUPPORTED";
+  | "CALCULATED"
+  | "PARTIAL"
+  | "VARIABLE"
+  | "UNKNOWN"
+  | "STALE"
+  | "UNSUPPORTED";
 
-export type CalculationInput = {
-  label: string;
-  value: string;
-};
-
-export type CalculationStep = {
-  label: string;
-  expression?: string;
-  result?: string;
-};
-
+export type CalculationInput = { label: string; value: string };
+export type CalculationStep = { label: string; expression?: string; result?: string };
 export type CalculationEvidence = {
   sourceUrl: string;
-  verifiedAt?: Date | null;
-  verificationStatus: VerificationStatus;
+  verifiedAt?: string | null;
+  verificationStatus: ToolVerificationStatus;
 };
-
 export type CalculationResult = {
   status: CalculationStatus;
   amount?: number;

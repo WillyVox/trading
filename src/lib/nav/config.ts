@@ -140,7 +140,16 @@ export const NAV_ITEMS: NavItem[] = [
       },
     ],
   },
-  { label: "Tools", href: "/tools" },
+  {
+    label: "Tools",
+    href: "/tools",
+    children: [
+      { label: "Brokerage calculator", href: "/tools/brokerage-calculator" },
+      { label: "FX fee calculator", href: "/tools/fx-fee-calculator" },
+      { label: "CHESS vs custody", href: "/tools/chess-vs-custody" },
+    ],
+    footerLink: { label: "View all tools →", href: "/tools" },
+  },
   { label: "Share Trading", href: "/share-trading" },
   { label: "Crypto Exchanges", href: "/crypto/exchanges" },
   { label: "News", href: "/news" },

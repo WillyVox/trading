@@ -36,6 +36,20 @@ export function calculateBrokerage(
   rule: BrokerageRule,
   tradeAmount: number
 ): BrokerageCalculation {
+  if (rule.verificationStatus === "STALE") {
+    return {
+      status: "STALE",
+      ruleLabel: rule.label,
+      explanation: "This pricing is marked stale and must be reverified before it is used for an estimate.",
+    };
+  }
+  if (rule.verificationStatus !== "VERIFIED") {
+    return {
+      status: "UNKNOWN",
+      ruleLabel: rule.label,
+      explanation: "This pricing has not been verified, so the calculator will not estimate a cost from it.",
+    };
+  }
   if (!Number.isFinite(tradeAmount) || tradeAmount <= 0) {
     return {
       status: "UNSUPPORTED",
@@ -146,6 +160,14 @@ export function calculateBrokerage(
 
       break;
     }
+  }
+
+  if (rule.calculationBasis === "VARIES") {
+    return {
+      status: "VARIABLE",
+      ruleLabel: rule.label,
+      explanation: "This published pricing varies and cannot be calculated from trade value alone.",
+    };
   }
 
   return {

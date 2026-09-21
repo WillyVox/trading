@@ -3,6 +3,11 @@
 import { useMemo, useState } from "react";
 import { calculateBrokerage } from "@/lib/tools/brokerage/calculate";
 import type { BrokerageRule } from "@/lib/tools/brokerage/types";
+import { ToolShell, ToolPanel } from "@/components/tools/shared/ToolShell";
+import { CalculationResult } from "@/components/tools/shared/CalculationResult";
+import { CalculationBreakdown } from "@/components/tools/shared/CalculationBreakdown";
+import { AssumptionsPanel } from "@/components/tools/shared/AssumptionsPanel";
+import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
 
 const CHANNEL_LABELS: Record<string, string> = {
   ONLINE_STANDARD_SETTLEMENT: "Online — CDIA / Margin Loan settlement",
@@ -65,11 +70,8 @@ export function BrokerageCalculator({ rules }: { rules: BrokerageRule[] }) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-      <section
-        aria-labelledby="brokerage-inputs"
-        className="border-border bg-panel rounded-2xl border p-5 md:p-6"
-      >
+    <ToolShell>
+      <ToolPanel labelledBy="brokerage-inputs">
         <h2
           id="brokerage-inputs"
           className="font-display text-navy text-xl font-bold"
@@ -153,93 +155,26 @@ export function BrokerageCalculator({ rules }: { rules: BrokerageRule[] }) {
             </span>
           </label>
         </div>
-      </section>
+      </ToolPanel>
 
-      <section
-        aria-labelledby="brokerage-result"
-        className="border-border bg-panel rounded-2xl border p-5 md:p-6"
-        aria-live="polite"
-      >
-        <p className="text-gold-dark text-xs font-bold tracking-wider uppercase">
-          Estimate
-        </p>
-        <h2
-          id="brokerage-result"
-          className="font-display text-navy mt-2 text-xl font-bold"
+      <ToolPanel labelledBy="brokerage-result" live>
+        <CalculationResult
+          title="Estimated brokerage"
+          value={result?.status === "CALCULATED" ? money(result.amount ?? 0, result.currency) : undefined}
+          context={result?.status === "CALCULATED" ? `For a ${Number.isFinite(amount) ? money(amount, rule?.currency ?? undefined) : "—"} hypothetical trade.` : undefined}
         >
-          Estimated brokerage
-        </h2>
-        {result?.status === "CALCULATED" ? (
-          <>
-            <p className="font-display text-navy mt-4 text-4xl font-bold">
-              {money(result.amount!, result.currency)}
-            </p>
-            <p className="text-muted mt-2 text-sm">
-              For a{" "}
-              {Number.isFinite(amount)
-                ? money(amount, rule?.currency ?? undefined)
-                : "—"}{" "}
-              hypothetical trade.
-            </p>
-          </>
-        ) : (
-          <p className="text-navy mt-4 text-lg font-semibold">
-            Unable to calculate this scenario
-          </p>
-        )}
-
-        {rule && result && (
-          <div className="mt-7 space-y-5 text-sm">
-            <div>
-              <h3 className="text-navy font-bold">Why this result</h3>
-              <p className="text-muted mt-1 leading-6">{result.explanation}</p>
+          {rule && result && (
+            <div className="mt-7 space-y-5 text-sm">
+              <CalculationBreakdown label={rule.label} expression={result.expression} explanation={result.explanation} />
+              <AssumptionsPanel
+                assumptions={rule.notes ? [rule.notes] : []}
+                exclusions={["Taxes, market movement, FX costs and other fees are not included unless they are part of the selected brokerage rule."]}
+              />
+              <SourceVerificationPanel sourceUrl={rule.sourceUrl} verifiedAt={rule.verifiedAt} status={rule.verificationStatus} />
             </div>
-            <div>
-              <h3 className="text-navy font-bold">Applicable pricing rule</h3>
-              <p className="text-muted mt-1 leading-6">{rule.label}</p>
-              {result.expression && (
-                <code className="bg-panel-secondary mt-2 block overflow-x-auto rounded-lg px-3 py-2 text-xs">
-                  {result.expression}
-                </code>
-              )}
-            </div>
-            {rule.notes && (
-              <div>
-                <h3 className="text-navy font-bold">
-                  Assumptions and conditions
-                </h3>
-                <p className="text-muted mt-1 leading-6">{rule.notes}</p>
-              </div>
-            )}
-            <div>
-              <h3 className="text-navy font-bold">Not included</h3>
-              <p className="text-muted mt-1 leading-6">
-                Taxes, market movement, FX costs and other fees are not included
-                unless they are part of the selected brokerage rule.
-              </p>
-            </div>
-            <div className="border-border border-t pt-5">
-              <h3 className="text-navy font-bold">Source & verification</h3>
-              <p className="text-muted mt-1">
-                Status: {rule.verificationStatus}
-                {rule.verifiedAt
-                  ? ` · Verified ${new Intl.DateTimeFormat("en-AU", { dateStyle: "medium" }).format(new Date(rule.verifiedAt))}`
-                  : ""}
-              </p>
-              {rule.sourceUrl && (
-                <a
-                  href={rule.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue mt-2 inline-block font-semibold underline"
-                >
-                  View official source ↗
-                </a>
-              )}
-            </div>
-          </div>
-        )}
-      </section>
-    </div>
+          )}
+        </CalculationResult>
+      </ToolPanel>
+    </ToolShell>
   );
 }

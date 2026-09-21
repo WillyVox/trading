@@ -2,6 +2,8 @@ import { BrokerageCalculator } from "@/components/tools/brokerage/BrokerageCalcu
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Notice } from "@/components/ui/Notice";
+import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
+import { RelatedTools } from "@/components/tools/shared/RelatedTools";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -55,14 +57,9 @@ export default async function BrokerageCalculatorPage() {
             and trade-value tiers. Pricing that depends on information we do not
             model is not forced into an estimate.
           </p>
-          <div className="mt-5">
-            <Notice>
-              General information only. This calculator explains how published
-              pricing applies to a hypothetical scenario. It does not recommend
-              a platform and does not include every cost that could apply.
-            </Notice>
-          </div>
+          <div className="mt-5"><ToolDisclaimer /></div>
         </section>
+        <RelatedTools />
       </main>
     </>
   );
