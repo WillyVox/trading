@@ -42,7 +42,7 @@ export async function getFxOfferings(): Promise<FxOfferingOption[]> {
       offeringSlug: fee.offering.slug,
       offeringName: fee.offering.name,
       providerName: fee.offering.provider.name,
-      marketCode: fee.marketCode,
+      marketCode: fee.marketId,
       label: fee.label,
       calculationBasis,
       percentage: fee.percentage == null ? null : Number(fee.percentage),
