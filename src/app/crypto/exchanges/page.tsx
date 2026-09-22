@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
 export const metadata = buildMetadata({
   title: "Crypto Exchanges in Australia \u2014 Compare Platforms",
@@ -58,6 +59,7 @@ export default async function ExchangesPage() {
             );
           })}
         </div>
+        <TopicClusterLinks clusterId="crypto" excludeHref="/crypto/exchanges" />
       </div>
     </>
   );

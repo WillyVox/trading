@@ -26,6 +26,7 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
+import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
 /** Matches the "1 Oct 2026" style used elsewhere for guide/article dates
  *  (see GuideHeader's local formatDate) -- short form suits a promo's
@@ -255,6 +256,10 @@ export default async function ShareTradingOfferingPage({
         <RelatedComparisons
           domain="trading-platforms"
           subjectSlug={offering.slug}
+        />
+        <TopicClusterLinks
+          clusterId="share-trading"
+          excludeHref={`/share-trading/${offering.slug}`}
         />
 
         <Card className="mt-4">

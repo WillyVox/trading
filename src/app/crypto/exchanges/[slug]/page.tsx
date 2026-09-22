@@ -22,6 +22,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 import { VisitSite } from "@/components/affiliate/VisitSite";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
+import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
 function formatOfferingType(type: string) {
   const label = type.replace(/_/g, " ").toLowerCase();
@@ -188,6 +189,10 @@ export default async function ExchangeProfilePage({
         <RelatedComparisons
           domain="crypto-exchanges"
           subjectSlug={provider.slug}
+        />
+        <TopicClusterLinks
+          clusterId="crypto"
+          excludeHref={`/crypto/exchanges/${provider.slug}`}
         />
 
         {offering.cryptoAssets.length > 0 && (

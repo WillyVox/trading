@@ -10,6 +10,7 @@ import { ArticleCard } from "@/components/article/ArticleCard";
 import { Notice } from "@/components/ui/Notice";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { Card } from "@/components/ui/Card";
 
 export const metadata = buildMetadata({
   title:
@@ -57,6 +58,39 @@ export default async function GuidesPage({
         graphic="guides"
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
+        <section
+          className="mb-10 grid gap-4 md:grid-cols-2"
+          aria-label="Learning paths"
+        >
+          <Link href="/guides/share-trading">
+            <Card className="hover:border-gold-soft h-full transition-colors">
+              <p className="text-gold-dark text-xs font-bold tracking-wider uppercase">
+                Learning path
+              </p>
+              <h2 className="font-display text-navy mt-2 text-xl font-bold">
+                Share trading
+              </h2>
+              <p className="text-muted mt-2 text-sm leading-6">
+                Move from beginner concepts to CHESS and custody, brokerage, FX
+                costs, provider profiles and comparisons.
+              </p>
+            </Card>
+          </Link>
+          <Link href="/guides/crypto">
+            <Card className="hover:border-gold-soft h-full transition-colors">
+              <p className="text-gold-dark text-xs font-bold tracking-wider uppercase">
+                Learning path
+              </p>
+              <h2 className="font-display text-navy mt-2 text-xl font-bold">
+                Crypto exchanges
+              </h2>
+              <p className="text-muted mt-2 text-sm leading-6">
+                Understand crypto basics, funding, trading fees, withdrawals,
+                exchange profiles and comparisons.
+              </p>
+            </Card>
+          </Link>
+        </section>
         {categories.length > 0 && (
           <nav
             aria-label="Filter guides by category"

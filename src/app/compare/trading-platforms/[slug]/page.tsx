@@ -16,6 +16,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 import { ComparisonEditorial } from "@/components/seo/ComparisonEditorial";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
+import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 import { getCuratedComparison } from "@/lib/seo/curated-comparisons";
 
 const BASE_PATH = "/compare/trading-platforms";
@@ -110,6 +111,7 @@ export default async function ShareTradingComparisonPage({
             excludeSlug={curated.slug}
           />
         )}
+        {curated && <TopicClusterLinks clusterId="share-trading" limit={4} />}
       </div>
       {subjects.some((subject) => subject.cta?.isAffiliate) && (
         <SectionAffiliateDisclosure />

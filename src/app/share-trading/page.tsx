@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, itemListSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
 // Matches the STATIC_GUIDES category already used by
 // /guides/share-trading-for-beginners -- see src/lib/guides/static-guides.ts.
@@ -61,6 +62,11 @@ export default async function ShareTradingPage() {
             />
           ))}
         </div>
+
+        <TopicClusterLinks
+          clusterId="share-trading"
+          excludeHref="/share-trading"
+        />
 
         <LatestArticlesSection
           title="Latest in share trading"
