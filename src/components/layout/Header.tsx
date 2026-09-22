@@ -1,5 +1,5 @@
 // import { AuthStatus } from "./AuthStatus";
-import { MobileNav } from "./MobileNav";
+import { DesktopQuickAccess, MobileNav } from "./MobileNav";
 import { NavMenuItem } from "./NavMenuItem";
 import HeaderLogo from "./HeaderLogo";
 import { NAV_ITEMS } from "@/lib/nav/config";
@@ -14,18 +14,21 @@ import { NAV_ITEMS } from "@/lib/nav/config";
 export function Header() {
   return (
     <header className="border-navy bg-panel sticky top-0 z-20 border-b-2">
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center gap-7 px-4">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center gap-5 px-4 sm:px-6 lg:px-8">
         <div className="shrink-0">
           <HeaderLogo />
         </div>
 
         {/* Desktop navigation */}
         <div className="hidden min-w-0 flex-1 items-center lg:flex">
-          <nav className="flex min-w-0 flex-1 items-center gap-6">
+          <nav className="flex min-w-0 flex-1 items-center gap-5 xl:gap-6">
             {NAV_ITEMS.map((item) => (
               <NavMenuItem key={item.label} item={item} />
             ))}
           </nav>
+          <div className="ml-3 shrink-0">
+            <DesktopQuickAccess />
+          </div>
         </div>
 
         {/* Mobile navigation */}
