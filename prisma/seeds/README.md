@@ -1,5 +1,7 @@
 # Seed data
 
+> **Production safety:** `npm run db:seed` is a development/reference-data seed, not a live-production update mechanism. Several seeders replace offering child rows (`deleteMany` + recreate), which can replace row IDs and verification metadata. For the first empty production database only, use guarded `npm run db:bootstrap:production`. After launch, use reviewed migrations or admin/editorial workflows.
+
 Seed data is organised by the product/service users compare, not by database table.
 
 - `crypto-assets/` — global crypto asset catalogue.

@@ -225,15 +225,6 @@ export async function ArticleForm({
             name="content"
             initialHtml={article?.content ?? ""}
           />
-          {/*           
-          <textarea
-            name="content"
-            required
-            defaultValue={article?.content ?? ""}
-            rows={20}
-            className={`${inputClass} mt-3 w-full font-mono text-sm`}
-            placeholder="<h2>Our top exchanges</h2>&#10;&#10;<p>...</p>"
-          /> */}
         </Card>
 
         <Card>

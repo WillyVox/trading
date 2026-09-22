@@ -117,9 +117,6 @@ npx prisma validate
 npx tsc --noEmit
 npm test
 npm run lint
-npm run format
 npm run format:check
 npm run build
-npm run validate:code
-npm run validate:release
 npm run check:production

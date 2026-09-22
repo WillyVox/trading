@@ -19,7 +19,12 @@
     "format:check": "prettier --check .",
     "check:production": "node scripts/check-production-readiness.mjs",
     "validate:code": "node scripts/run-code-validation.mjs",
-    "validate:release": "node scripts/run-release-validation.mjs"
+    "validate:release": "node scripts/run-release-validation.mjs",
+    "db:deploy": "prisma migrate deploy",
+    "db:status": "prisma migrate status",
+    "db:inspect:production": "tsx scripts/check-production-database-state.ts",
+    "db:bootstrap:production": "tsx scripts/bootstrap-production-reference-data.ts",
+    "db:review:migrations": "node scripts/check-migration-safety.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
