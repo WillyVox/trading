@@ -10,21 +10,8 @@ import type {
   BrokerageScenario,
 } from "@/lib/tools/brokerage/types";
 import { ToolShell, ToolPanel } from "@/components/tools/shared/ToolShell";
-import { CalculationResult } from "@/components/tools/shared/CalculationResult";
-import { CalculationBreakdown } from "@/components/tools/shared/CalculationBreakdown";
-import { AssumptionsPanel } from "@/components/tools/shared/AssumptionsPanel";
-import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
+import { BrokerageResultCard } from "@/components/tools/brokerage/BrokerageResultCard";
 
-function money(amount: number, currency?: string) {
-  try {
-    return new Intl.NumberFormat("en-AU", {
-      style: "currency",
-      currency: currency || "AUD",
-    }).format(amount);
-  } catch {
-    return `${currency ?? ""} ${amount.toFixed(2)}`.trim();
-  }
-}
 const AVAILABILITY = {
   CALCULATABLE: "",
   NEEDS_INPUT: "",
@@ -105,9 +92,8 @@ export function BrokerageCalculator({
   const rule = selectBrokerageRule(relevant, scenario);
   const result = rule ? calculateBrokerage(rule, amount) : null;
   const noMatch =
-    offering?.availability === "UNAVAILABLE"
-      ? offering.reason
-      : "The selected scenario does not match a verified calculator-ready pricing rule.";
+    (offering?.availability === "UNAVAILABLE" ? offering.reason : null) ??
+    "The selected scenario does not match a verified calculator-ready pricing rule.";
   function changeOffering(slug: string) {
     setOfferingSlug(slug);
     setMarketCode("");
@@ -266,57 +252,34 @@ export function BrokerageCalculator({
         </div>
       </ToolPanel>
       <ToolPanel labelledBy="brokerage-result" live>
-        <CalculationResult
-          title="Estimated brokerage"
-          value={
-            result?.status === "CALCULATED"
-              ? money(result.amount ?? 0, result.currency)
-              : undefined
-          }
+        <BrokerageResultCard
+          rule={rule}
+          result={result}
           context={
             result?.status === "CALCULATED"
               ? `For this ${tradeSide.toLowerCase()} scenario${effectivePlan ? ` using ${effectivePlan} pricing` : ""}.`
               : undefined
           }
-        >
-          {rule && result ? (
-            <div className="mt-7 space-y-5 text-sm">
-              <CalculationBreakdown
-                label={rule.label}
-                expression={result.expression}
-                explanation={result.explanation}
-              />
-              <AssumptionsPanel
-                assumptions={[
-                  ...(rule.notes ? [rule.notes] : []),
-                  ...(asksFirstBuy && tradeSide === "BUY"
-                    ? [
-                        firstBuy
-                          ? "You indicated this is the first buy of this security today."
-                          : "You indicated this is not the first buy of this security today.",
-                      ]
-                    : []),
-                ]}
-                exclusions={[
-                  "Taxes, market movement, FX costs and other fees are excluded unless the selected rule explicitly includes them.",
-                  ...(rule.gstPercent
-                    ? [
-                        `This estimate includes ${rule.gstPercent}% GST on the published pre-GST brokerage.`,
-                      ]
-                    : []),
-                ]}
-              />
-              <SourceVerificationPanel
-                sourceUrl={rule.sourceUrl}
-                verifiedAt={rule.verifiedAt}
-                reviewDueAt={rule.reviewDueAt}
-                status={rule.verificationStatus}
-              />
-            </div>
-          ) : (
-            <p className="text-muted mt-6 text-sm leading-6">{noMatch}</p>
-          )}
-        </CalculationResult>
+          assumptions={[
+            ...(rule?.notes ? [rule.notes] : []),
+            ...(asksFirstBuy && tradeSide === "BUY"
+              ? [
+                  firstBuy
+                    ? "You indicated this is the first buy of this security today."
+                    : "You indicated this is not the first buy of this security today.",
+                ]
+              : []),
+          ]}
+          exclusions={[
+            "Taxes, market movement, FX costs and other fees are excluded unless the selected rule explicitly includes them.",
+            ...(rule?.gstPercent
+              ? [
+                  `This estimate includes ${rule.gstPercent}% GST on the published pre-GST brokerage.`,
+                ]
+              : []),
+          ]}
+          fallbackMessage={noMatch}
+        />
       </ToolPanel>
     </ToolShell>
   );
