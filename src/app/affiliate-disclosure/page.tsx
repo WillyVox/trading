@@ -12,7 +12,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "Affiliate & Advertiser Disclosure",
   description:
-    "Trading Guide is currently self-funded and doesn't earn money from provider links. Here's our current funding status, our future affiliate plans, and what that will and won't affect on this site.",
+    "How Trading Guide is funded, how commercial relationships are disclosed, and what they do and do not influence in our comparisons.",
   path: "/affiliate-disclosure",
   image: "/images/og/affiliate-disclosure.png",
 });
@@ -41,7 +41,7 @@ export const metadata = buildMetadata({
 const SECTIONS = [
   {
     title: "Our current funding status",
-    body: "Trading Guide is currently 100% self-funded. We do not receive compensation, referral fees, or affiliate commissions from any providers featured on this platform. All product recommendations and comparisons are based solely on our objective methodology and market research.",
+    body: "Trading Guide is currently 100% self-funded. We do not receive compensation, referral fees, or affiliate commissions from any providers featured on this platform. Provider inclusion and comparison treatment follow our published methodology and research process.",
   },
   {
     title: "What affiliate links will be",

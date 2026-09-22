@@ -1,25 +1,52 @@
 # Production database runbook
 
-Production is not a disposable seed environment. Provider research, verification history, affiliate operations and user data must survive application releases.
+Production is not disposable. User accounts, articles, provider research, pricing verification, affiliate activity and operational history must survive releases.
 
-## Release path
+## Rules
 
-1. Take or verify a recoverable production backup/snapshot.
-2. Review pending Prisma migrations in source control.
-3. Run `npx prisma migrate deploy` against the production database. Do not run `prisma migrate dev` in production.
-4. Do **not** run the general development seed automatically. Apply reference/provider-data changes through a reviewed, idempotent production data operation.
-5. Run the health check and public smoke tests after migration.
-6. Verify admin access and one representative read path for providers, articles and pricing.
+- Never run `prisma migrate dev`, `prisma db push`, `prisma migrate reset`, or general `npm run db:seed` on live production.
+- Use `npm run db:deploy` (`prisma migrate deploy`) for production schema changes.
+- Verify recoverable backup/snapshot and restore procedure before migration.
+- Review pending migrations and destructive SQL.
+- Stop on migration, health or smoke-test failure; never reset production.
 
-## Failure rule
+## Why general seed is not a production updater
 
-If migration or smoke verification fails, stop the release. Do not reset the production database. Restore/roll back using the database provider's tested recovery procedure and reconcile the failed migration before retrying.
+Provider seeders deliberately delete/recreate child fees, features, markets, custody and pros/cons. On live data this can replace IDs and verification metadata (`verifiedAt`, `reviewDueAt`, `verifiedByUserId`).
 
-## Required before first launch
+Use `db:seed` for development, guarded `db:bootstrap:production` only for the first empty production DB, and reviewed data migrations/admin workflows after launch.
 
-- [ ] Production database created with TLS/SSL as required by the provider.
-- [ ] Automated backups enabled and retention understood.
-- [ ] A restore has been tested outside production.
-- [ ] `DATABASE_URL` is stored only in the deployment secret store.
-- [ ] Pending migrations reviewed.
-- [ ] Initial reference-data bootstrap reviewed separately from user/operational data.
+## First production deployment
+
+1. Create PostgreSQL with required TLS/SSL.
+2. Enable backups; record retention.
+3. Test restore outside production.
+4. Store `DATABASE_URL` in secret management.
+5. Run `npm run db:status`.
+6. Run `npm run db:review:migrations` and review pending destructive migrations.
+7. Verify launch backup/snapshot.
+8. Run `npm run db:deploy`.
+9. Only while DB is empty:
+
+```bash
+PRODUCTION_BACKUP_VERIFIED=true \
+PRODUCTION_BOOTSTRAP_CONFIRMED=FIRST_PRODUCTION_BOOTSTRAP_ONLY \
+npm run db:bootstrap:production
+```
+
+10. Run `npm run db:inspect:production`.
+11. Check `/api/health`.
+12. Smoke-test provider/article/pricing paths and admin access.
+13. Record deployed migration and time.
+
+## Normal release
+
+Backup check → `db:status` → migration review → snapshot → `db:deploy` → app deploy → health/smoke tests. Do not run seed/bootstrap.
+
+## Post-launch data changes
+
+Prefer admin verification/editorial workflows; otherwise narrow reviewed one-off data migrations. Only introduce a general sync after it preserves verification/audit metadata. Affiliate configuration is operational data and must not become live merely because a seed changed.
+
+## Recovery
+
+Stop release; do not reset/push. Preserve logs, inspect Prisma migration state, use Prisma/provider recovery procedures, reconcile failure, then rerun health/smoke tests.
