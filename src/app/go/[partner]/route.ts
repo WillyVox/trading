@@ -8,6 +8,7 @@ import {
   sanitizePlacement,
   shouldRecordClick,
 } from "@/lib/affiliates/click-input";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
 
 const PARTNER_SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const MAX_PARTNER_SLUG_LENGTH = 100;
@@ -34,7 +35,20 @@ export async function GET(
     return notFound();
   }
 
-  const link = await getActiveAffiliateLink(partner);
+  // Fail closed if the database cannot confirm that this is an approved,
+  // currently active affiliate destination. Never guess or redirect from
+  // user input when partnership state cannot be verified.
+  const linkResult = await safeDatabaseQuery(
+    "affiliate.getActiveLink",
+    () => getActiveAffiliateLink(partner),
+  );
+  if (!linkResult.ok) {
+    return NextResponse.json(
+      { error: "Partner link temporarily unavailable" },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
+    );
+  }
+  const link = linkResult.data;
   if (!link) return notFound();
 
   // approvedUrl is checked as https when created in the admin, but seed

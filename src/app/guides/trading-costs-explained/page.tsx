@@ -1,10 +1,10 @@
 import { ResearchGuidePage } from "@/components/guide/ResearchGuidePage";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { LiveEvidenceUnavailable } from "@/components/data/LiveEvidenceUnavailable";
 import { PHASE_9_3_GUIDES } from "@/lib/guides/phase9-3-guides";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { tradingCostCoverageRows } from "@/lib/guides/topic-evidence";
 import { TradingCostCoverageEvidence } from "@/components/guide/TopicEvidencePanels";
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 const config = PHASE_9_3_GUIDES["trading-costs-explained"];
 export const metadata = buildMetadata({
@@ -18,15 +18,27 @@ export const metadata = buildMetadata({
 });
 export const revalidate = 3600;
 export default async function Page() {
-  const evidenceResult = await safeDatabaseQuery(
-    "guide.tradingCostCoverageRows",
-    () => tradingCostCoverageRows()
+  const evidenceResult = await publicDatabaseRead(
+    "guideEvidence.trading-costs-explained",
+    tradingCostCoverageRows
   );
   const rows = evidenceResult.ok ? evidenceResult.data : [];
   return (
     <ResearchGuidePage
       config={config}
-      evidence={<TradingCostCoverageEvidence rows={rows} />}
+      evidence={
+        evidenceResult.ok ? (
+          <TradingCostCoverageEvidence rows={rows} />
+        ) : (
+          <DataUnavailable
+            compact
+            title="Live provider evidence is temporarily unavailable"
+          >
+            The guide remains available, but its database-backed evidence panel
+            could not be loaded right now.
+          </DataUnavailable>
+        )
+      }
     />
   );
 }

@@ -12,6 +12,9 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { Card } from "@/components/ui/Card";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 export const metadata = buildMetadata({
   title:
     "Online Share Trading & Crypto Exchanges Guides Australia — Beginner Education",
@@ -34,10 +37,15 @@ export default async function GuidesPage({
       ? [category]
       : [];
 
-  const [items, categories] = await Promise.all([
-    getPublicGuides(selectedCategories),
-    getPublicGuideCategories(),
-  ]);
+  const guidesResult = await publicDatabaseRead("guides.index", async () => {
+    const [items, categories] = await Promise.all([
+      getPublicGuides(selectedCategories),
+      getPublicGuideCategories(),
+    ]);
+    return { items, categories };
+  });
+  const items = guidesResult.ok ? guidesResult.data.items : [];
+  const categories = guidesResult.ok ? guidesResult.data.categories : [];
 
   const trail = breadcrumbTrail([{ name: "Guides", path: "/guides" }]);
 
@@ -91,6 +99,14 @@ export default async function GuidesPage({
             </Card>
           </Link>
         </section>
+        {!guidesResult.ok && (
+          <div className="mb-8">
+            <DataUnavailable title="Published guide library is temporarily unavailable">
+              The learning paths above remain available. Database-backed guide
+              listings could not be loaded right now.
+            </DataUnavailable>
+          </div>
+        )}
         {categories.length > 0 && (
           <nav
             aria-label="Filter guides by category"
@@ -134,7 +150,7 @@ export default async function GuidesPage({
           </nav>
         )}
 
-        {items.length === 0 ? (
+        {!guidesResult.ok ? null : items.length === 0 ? (
           <Notice>
             {selectedCategories.length > 0
               ? "No guides published in this category yet."

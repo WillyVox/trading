@@ -1,10 +1,10 @@
 import { LiveEvidencePanel } from "@/components/guide/LiveEvidencePanel";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { LiveEvidenceUnavailable } from "@/components/data/LiveEvidenceUnavailable";
 import { ResearchGuidePage } from "@/components/guide/ResearchGuidePage";
 import { PHASE_9_3_GUIDES } from "@/lib/guides/phase9-3-guides";
 import { brokerageWorkedExamples } from "@/lib/guides/live-evidence";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 const config = PHASE_9_3_GUIDES["brokerage-fees-australia"];
 export const metadata = buildMetadata({
@@ -19,18 +19,16 @@ export const metadata = buildMetadata({
 export const revalidate = 3600;
 
 export default async function Page() {
-  const evidenceResult = await safeDatabaseQuery(
-    "guide.brokerageWorkedExamples",
-    () => brokerageWorkedExamples()
+  const evidenceResult = await publicDatabaseRead(
+    "guideEvidence.brokerage-fees-australia",
+    brokerageWorkedExamples
   );
   const rows = evidenceResult.ok ? evidenceResult.data : [];
   return (
     <ResearchGuidePage
       config={config}
       evidence={
-        !evidenceResult.ok ? (
-          <LiveEvidenceUnavailable />
-        ) : (
+        evidenceResult.ok ? (
           <LiveEvidencePanel
             title="Worked ASX brokerage examples from verified provider rules"
             description="These examples are calculated at request/revalidation time from the same structured OfferingFee records used by Trading Guide's brokerage calculator. They model a standard online ASX buy that is not a first-buy concession and is not margin-loan settled."
@@ -38,6 +36,14 @@ export default async function Page() {
             rows={rows}
             note="Illustrative brokerage only. The table deliberately excludes rules that are stale, unverified or do not match the stated scenario. Other costs can apply. Conditional concessions, account plans and non-ASX markets can produce different results."
           />
+        ) : (
+          <DataUnavailable
+            compact
+            title="Live provider evidence is temporarily unavailable"
+          >
+            The guide remains available, but its database-backed evidence panel
+            could not be loaded right now.
+          </DataUnavailable>
         )
       }
     />

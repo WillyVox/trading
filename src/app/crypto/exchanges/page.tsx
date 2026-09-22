@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { getCryptoExchanges } from "@/lib/crypto-exchanges/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
@@ -9,6 +7,8 @@ import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 export const metadata = buildMetadata({
   title: "Crypto Exchanges in Australia \u2014 Compare Platforms",
@@ -18,8 +18,9 @@ export const metadata = buildMetadata({
 });
 
 export default async function ExchangesPage() {
-  const itemsResult = await safeDatabaseQuery("getCryptoExchanges", () =>
-    getCryptoExchanges()
+  const itemsResult = await publicDatabaseRead(
+    "getCryptoExchanges.index",
+    getCryptoExchanges
   );
   const items = itemsResult.ok ? itemsResult.data : [];
   const trail = breadcrumbTrail([
@@ -37,12 +38,13 @@ export default async function ExchangesPage() {
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
         {!itemsResult.ok ? (
-          <DataUnavailable retryHref="/crypto/exchanges" />
-        ) : (
-          items.length === 0 && (
-            <p className="text-muted mt-4">No providers seeded yet.</p>
-          )
-        )}
+          <DataUnavailable title="Crypto exchange research is temporarily unavailable">
+            We couldn&lsquo;t retrieve exchange data right now. No providers are being
+            shown rather than presenting an incomplete list.
+          </DataUnavailable>
+        ) : items.length === 0 ? (
+          <p className="text-muted mt-4">No providers seeded yet.</p>
+        ) : null}
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {items.map((offering) => {
             const p = offering.provider;

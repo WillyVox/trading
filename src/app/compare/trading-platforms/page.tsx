@@ -14,6 +14,9 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CuratedComparisonList } from "@/components/seo/CuratedComparisonList";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 export const metadata = buildMetadata({
   title:
     "Compare Share Trading Platforms Australia \u2014 Markets, Products & Custody",
@@ -29,17 +32,21 @@ export const metadata = buildMetadata({
  * is deterministic and the content is real, rather than an arbitrary
  * user-typed combination the way domain-specific comparison routes is.
  *
- * No OG image yet -- unlike the crypto page there's no
+ * No OG image yet -- unlike the crypto page there&lsquo;s no
  * /images/og/compare-trading-platforms.png generated, and pointing at a
  * missing asset is worse than falling back to the site default. Add it via
  * scripts/generate-page-og-images.ts and set `image` here.
  */
 export default async function CompareTradingPlatformsPage() {
-  const offerings = await getAllShareTradingPlatformsForCompare();
+  const offeringsResult = await publicDatabaseRead(
+    "compare.shareTrading.index",
+    getAllShareTradingPlatformsForCompare
+  );
+  const offerings = offeringsResult.ok ? offeringsResult.data : [];
   const subjects = toCompareSubjects(offerings);
   const sections = buildShareTradingCompareSections(offerings);
   // Always false today -- the offering domain has no affiliate tier (see
-  // toCompareSubjects's comment in src/lib/share-trading/comparison.ts). Kept
+  // toCompareSubjects&lsquo;s comment in src/lib/share-trading/comparison.ts). Kept
   // as a real check, not hardcoded false, so this page picks up a
   // disclosure automatically if that tier is ever added.
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
@@ -66,7 +73,12 @@ export default async function CompareTradingPlatformsPage() {
         subheading="See which markets and products each platform covers, and how your shares are actually held \u2014 side by side."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
-        {offerings.length === 0 ? (
+        {!offeringsResult.ok ? (
+          <DataUnavailable title="Platform comparison is temporarily unavailable">
+            We couldn&lsquo;t load the provider dataset required for this comparison.
+            No incomplete comparison is being shown.
+          </DataUnavailable>
+        ) : offerings.length === 0 ? (
           <p className="text-muted mt-8">
             No share trading platforms seeded yet.
           </p>

@@ -9,13 +9,26 @@ import { PageHero } from "@/components/layout/PageHero";
 import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
 import { GuideSourceList } from "@/components/guide/GuideSourceList";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, "NEWS");
+  const articleResult = await publicDatabaseRead("news.metadata", () =>
+    getPublishedArticleBySlugAndType(slug, "NEWS")
+  );
+  if (!articleResult.ok)
+    return buildMetadata({
+      title: "News",
+      description: "",
+      path: `/news/${slug}`,
+      noIndex: true,
+    });
+  const article = articleResult.data;
   if (!article)
     return buildMetadata({
       title: "News not found",
@@ -54,7 +67,26 @@ export default async function NewsArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, "NEWS");
+  const articleResult = await publicDatabaseRead("news.detail", () =>
+    getPublishedArticleBySlugAndType(slug, "NEWS")
+  );
+  if (!articleResult.ok)
+    return (
+      <>
+        <PageHero
+          eyebrow="News"
+          title="News temporarily unavailable"
+          subheading="We couldn't load this article right now."
+        />
+        <main className="mx-auto max-w-6xl px-4 py-10">
+          <DataUnavailable title="News data is temporarily unavailable">
+            Please try again shortly. This is not being presented as a missing
+            article because the database could not be queried.
+          </DataUnavailable>
+        </main>
+      </>
+    );
+  const article = articleResult.data;
   if (!article) notFound();
 
   // Same shared renderer as Guide/admin preview (Block 3) — sanitized on

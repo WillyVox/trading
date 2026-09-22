@@ -1,25 +1,20 @@
 "use client";
-export default function AdminError({
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+
+export default function AdminError({ reset }: { reset: () => void }) {
   return (
-    <div className="border-border bg-panel rounded-xl border p-6">
-      <h1 className="font-display text-navy text-2xl font-bold">
-        Admin data unavailable
-      </h1>
-      <p className="text-muted mt-2">
-        The admin area could not load its data. Check the application/database
-        service and try again.
-      </p>
-      <button
-        onClick={() => reset()}
-        className="bg-navy mt-5 rounded-lg px-4 py-2 font-semibold text-white"
-      >
-        Try again
-      </button>
-    </div>
+    <main className="mx-auto max-w-3xl p-6">
+      <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-6">
+        <h1 className="font-serif text-2xl font-semibold text-[var(--navy)]">
+          Admin data is temporarily unavailable
+        </h1>
+        <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+          The admin area could not complete its data request. No changes have
+          been assumed to succeed. Try again after the service is available.
+        </p>
+        <button type="button" onClick={reset} className="mt-5 rounded-lg bg-[var(--navy)] px-4 py-2.5 text-sm font-semibold text-white">
+          Try again
+        </button>
+      </section>
+    </main>
   );
 }

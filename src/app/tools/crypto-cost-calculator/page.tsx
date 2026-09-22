@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { CryptoCostCalculator } from "@/components/tools/crypto-cost/CryptoCostCalculator";
 import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { PageHero } from "@/components/layout/PageHero";
@@ -9,6 +7,8 @@ import { getCryptoFeeOfferings } from "@/lib/tools/crypto-fees/service";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
+import { CalculatorUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 export const metadata = buildMetadata({
   title: "Crypto Cost Calculator Australia",
@@ -19,8 +19,9 @@ export const metadata = buildMetadata({
 export const revalidate = 3600;
 
 export default async function CryptoCostCalculatorPage() {
-  const offeringsResult = await safeDatabaseQuery("getCryptoFeeOfferings", () =>
-    getCryptoFeeOfferings()
+  const offeringsResult = await publicDatabaseRead(
+    "getCryptoFeeOfferings.cryptoCost",
+    getCryptoFeeOfferings
   );
   const offerings = offeringsResult.ok ? offeringsResult.data : [];
   const trail = breadcrumbTrail([
@@ -37,10 +38,10 @@ export default async function CryptoCostCalculatorPage() {
         subheading="Combine the fee components Trading Guide can support for a hypothetical deposit, trade and optional withdrawal — without turning unknown costs into zero."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        {!offeringsResult.ok ? (
-          <CalculatorUnavailable />
-        ) : (
+        {offeringsResult.ok ? (
           <CryptoCostCalculator offerings={offerings} />
+        ) : (
+          <CalculatorUnavailable />
         )}
         <section className="mt-10 max-w-3xl">
           <h2 className="font-display text-navy text-2xl font-bold">

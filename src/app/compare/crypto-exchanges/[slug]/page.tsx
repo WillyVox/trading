@@ -19,6 +19,9 @@ import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 import { getCuratedComparison } from "@/lib/seo/curated-comparisons";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 const BASE_PATH = "/compare/crypto-exchanges";
 
 export async function generateMetadata({
@@ -28,9 +31,19 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const slugs = parseCompareSlugs(slug);
-  const comparison = slugs.length
-    ? await getCryptoExchangeComparison(slugs)
-    : null;
+  const metadataResult = slugs.length
+    ? await publicDatabaseRead("compare.crypto-exchanges.metadata", () =>
+        getCryptoExchangeComparison(slugs)
+      )
+    : { ok: true as const, data: null };
+  if (!metadataResult.ok)
+    return buildMetadata({
+      title: "Comparison temporarily unavailable",
+      description: "",
+      path: `${BASE_PATH}/${slug}`,
+      noIndex: true,
+    });
+  const comparison = metadataResult.data;
   const names = comparison?.subjects.map((subject) => subject.name) ?? slugs;
   const canonicalSlug = canonicalCompareSlugMulti(slugs);
   const curated = getCuratedComparison("crypto-exchanges", canonicalSlug);
@@ -61,11 +74,35 @@ export default async function CryptoExchangeComparisonPage({
   const canonicalSlug = canonicalCompareSlugMulti(slugs);
   if (slug !== canonicalSlug) redirect(`${BASE_PATH}/${canonicalSlug}`);
 
-  const comparison = await getCryptoExchangeComparison(slugs);
+  const comparisonResult = await publicDatabaseRead(
+    "compare.crypto-exchanges.detail",
+    () => getCryptoExchangeComparison(slugs)
+  );
+  if (!comparisonResult.ok) {
+    return (
+      <>
+        <PageHero
+          eyebrow="Crypto exchange comparison"
+          title="Exchange comparison temporarily unavailable"
+          subheading="We couldn't load the verified provider dataset required for this comparison."
+        />
+        <main className="mx-auto max-w-6xl px-4 py-10">
+          <DataUnavailable title="Comparison data is temporarily unavailable">
+            No incomplete comparison is being shown. Please try again shortly.
+          </DataUnavailable>
+        </main>
+      </>
+    );
+  }
+  const comparison = comparisonResult.data;
   if (!comparison) notFound();
   const { subjects, sections } = comparison;
   const curated = getCuratedComparison("crypto-exchanges", canonicalSlug);
-  const pool = await getCryptoExchangeSelectorOptions();
+  const poolResult = await publicDatabaseRead(
+    "compare.crypto-exchanges.selector",
+    getCryptoExchangeSelectorOptions
+  );
+  const pool = poolResult.ok ? poolResult.data : [];
   const trail = breadcrumbTrail([
     { name: "Compare", path: "/compare" },
     { name: "Crypto exchanges", path: "/compare/crypto-exchanges" },

@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { FxFeeCalculator } from "@/components/tools/fx/FxFeeCalculator";
 import { getFxOfferings } from "@/lib/tools/fx/service";
 import { PageHero } from "@/components/layout/PageHero";
@@ -9,6 +7,8 @@ import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
+import { CalculatorUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 export const metadata = buildMetadata({
   title: "FX Fee Calculator Australia",
@@ -24,8 +24,9 @@ export default async function FxFeeCalculatorPage({
 }: {
   searchParams: Promise<{ platform?: string | string[] }>;
 }) {
-  const offeringsResult = await safeDatabaseQuery("getFxOfferings", () =>
-    getFxOfferings()
+  const offeringsResult = await publicDatabaseRead(
+    "getFxOfferings",
+    getFxOfferings
   );
   const offerings = offeringsResult.ok ? offeringsResult.data : [];
   const query = await searchParams;
@@ -47,13 +48,13 @@ export default async function FxFeeCalculatorPage({
         subheading="Estimate currency-conversion costs from verified published platform pricing, with the calculation and source shown clearly."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        {!offeringsResult.ok ? (
-          <CalculatorUnavailable />
-        ) : (
+        {offeringsResult.ok ? (
           <FxFeeCalculator
             offerings={offerings}
             initialSlug={initialPlatform}
           />
+        ) : (
+          <CalculatorUnavailable />
         )}
 
         <section className="mt-10 max-w-3xl" aria-labelledby="fx-how-it-works">

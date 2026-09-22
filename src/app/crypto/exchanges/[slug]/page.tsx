@@ -24,6 +24,9 @@ import { VisitSite } from "@/components/affiliate/VisitSite";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 function formatOfferingType(type: string) {
   const label = type.replace(/_/g, " ").toLowerCase();
   return `${label.charAt(0).toUpperCase()}${label.slice(1)} profile`;
@@ -35,7 +38,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = await getCryptoExchangeByPublicSlug(slug);
+  const result = await publicDatabaseRead("cryptoExchange.metadata", () =>
+    getCryptoExchangeByPublicSlug(slug)
+  );
+  if (!result.ok)
+    return buildMetadata({
+      title: "Crypto exchange",
+      description: "",
+      path: `/crypto/exchanges/${slug}`,
+      noIndex: true,
+    });
+  const offering = result.data;
   const provider = offering?.provider;
   if (!provider)
     return buildMetadata({
@@ -63,17 +76,47 @@ export default async function ExchangeProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = await getCryptoExchangeByPublicSlug(slug);
+  const offeringResult = await publicDatabaseRead("cryptoExchange.detail", () =>
+    getCryptoExchangeByPublicSlug(slug)
+  );
+  if (!offeringResult.ok) {
+    return (
+      <>
+        <PageHero
+          eyebrow="Exchange profile"
+          title="Crypto exchange research temporarily unavailable"
+          subheading="We couldn't load this exchange's verified research right now."
+        />
+        <main className="mx-auto max-w-6xl px-4 py-10">
+          <DataUnavailable title="Exchange data is temporarily unavailable">
+            Please try again shortly. We are not showing an empty or not-found
+            state because the database could not be queried.
+          </DataUnavailable>
+        </main>
+      </>
+    );
+  }
+  const offering = offeringResult.data;
   if (!offering) notFound();
   const provider = offering.provider;
   // The comparable-providers pool for the (currently disabled) CompareSelector
   // was fetched here but never read. If that selector is re-enabled, use the
   // lightweight getCryptoExchangeSelectorOptions() rather than loading every
   // exchange with all its facts/fees/features just to build a picker.
-  const [link, relatedContent] = await Promise.all([
-    getActiveAffiliateLink(slug),
-    getRelatedContentForProvider(provider.id),
-  ]);
+  const relatedResult = await publicDatabaseRead(
+    "cryptoExchange.related",
+    async () => {
+      const [link, relatedContent] = await Promise.all([
+        getActiveAffiliateLink(slug),
+        getRelatedContentForProvider(provider.id),
+      ]);
+      return { link, relatedContent };
+    }
+  );
+  const link = relatedResult.ok ? relatedResult.data.link : null;
+  const relatedContent = relatedResult.ok
+    ? relatedResult.data.relatedContent
+    : { guides: [], news: [] };
 
   const featureGroups = groupFeatures(
     offering.features as unknown as CryptoFeatureRow[]

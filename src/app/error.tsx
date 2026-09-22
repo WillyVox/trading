@@ -1,31 +1,37 @@
 "use client";
 
-export default function ErrorPage({
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+import Link from "next/link";
+
+export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-20">
-      <div className="border-border bg-panel rounded-2xl border p-8">
-        <p className="text-gold text-sm font-bold tracking-wider uppercase">
-          Temporary problem
+    <main className="mx-auto flex min-h-[60vh] max-w-3xl items-center px-4 py-16 sm:px-6">
+      <section className="w-full rounded-2xl border border-[var(--border)] bg-[var(--panel)] p-6 shadow-sm sm:p-10">
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--gold)]">
+          Trading Guide
         </p>
-        <h1 className="font-display text-navy mt-2 text-3xl font-bold">
-          We couldn't load this page
+        <h1 className="mt-3 font-serif text-3xl font-semibold text-[var(--navy)]">
+          We couldn&apos;t load this page
         </h1>
-        <p className="text-muted mt-3 leading-7">
-          Please try again. If part of our live data service is unavailable,
-          other areas of Trading Guide may still work normally.
+        <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--muted)]">
+          A temporary problem prevented this page from loading. You can try
+          again, or continue from the homepage.
         </p>
-        <button
-          onClick={() => reset()}
-          className="bg-navy mt-6 rounded-lg px-5 py-3 font-semibold text-white"
-        >
-          Try again
-        </button>
-      </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-lg bg-[var(--navy)] px-4 py-2.5 text-sm font-semibold text-white"
+          >
+            Try again
+          </button>
+          <Link
+            href="/"
+            className="rounded-lg border border-[var(--border)] px-4 py-2.5 text-sm font-semibold text-[var(--navy)]"
+          >
+            Go to homepage
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

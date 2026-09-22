@@ -1,29 +1,62 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
 
 export function DataUnavailable({
   title = "Live data is temporarily unavailable",
-  message = "We couldn't load this research data right now. No missing values have been treated as zero or as an empty result.",
-  retryHref,
+  message,
+  children,
+  compact = false,
 }: {
   title?: string;
   message?: string;
-  retryHref?: string;
+  children?: ReactNode;
+  compact?: boolean;
 }) {
   return (
-    <div
-      className="border-border bg-panel-secondary rounded-xl border p-5"
+    <section
       role="status"
+      className={`border-border bg-panel rounded-2xl border ${compact ? "p-5" : "p-6 md:p-8"}`}
     >
-      <div className="text-navy font-semibold">{title}</div>
-      <p className="text-muted mt-2 text-sm leading-6">{message}</p>
-      {retryHref && (
-        <Link
-          href={retryHref}
-          className="text-blue mt-3 inline-block text-sm font-semibold underline underline-offset-4"
+      <div className="flex items-start gap-3">
+        <span
+          aria-hidden="true"
+          className="bg-gold/10 text-gold-dark flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-bold"
         >
-          Try again ↻
-        </Link>
-      )}
+          !
+        </span>
+        <div>
+          <h2 className="font-display text-navy text-xl font-bold">{title}</h2>
+          <p className="text-muted mt-2 max-w-2xl text-sm leading-6">
+            {message ?? children ??
+              "We couldn't load this data right now. Please try again shortly."}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function CalculatorUnavailable() {
+  return (
+    <DataUnavailable title="Calculator data is temporarily unavailable">
+      Verified pricing data could not be loaded, so no estimate has been
+      calculated. We would rather show no result than treat missing data as
+      zero.
+    </DataUnavailable>
+  );
+}
+
+export function DataUnavailableBanner() {
+  return (
+    <div
+      role="status"
+      className="border-gold-soft bg-gold/5 text-navy border-y px-4 py-3 text-sm"
+    >
+      <div className="mx-auto max-w-6xl">
+        <strong>Some live research data is temporarily unavailable.</strong>{" "}
+        <span className="text-muted">
+          Guides and other non-database content remain available.
+        </span>
+      </div>
     </div>
   );
 }

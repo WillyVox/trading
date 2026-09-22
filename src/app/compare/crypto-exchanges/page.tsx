@@ -16,6 +16,9 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CuratedComparisonList } from "@/components/seo/CuratedComparisonList";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 export const metadata = buildMetadata({
   title: "Compare All Crypto Exchanges Australia \u2014 Fees & Features",
   description:
@@ -27,29 +30,43 @@ export const metadata = buildMetadata({
 /**
  * The dedicated, curated comparison route from docs/IMPLEMENTATION-PLAN.md
  * §2/§7 (Phase 5) -- unlike domain-specific comparison routes, this always includes every
- * CRYPTO_EXCHANGE provider (no combinatorial URL to mistype), so it's safe
+ * CRYPTO_EXCHANGE provider (no combinatorial URL to mistype), so it&lsquo;s safe
  * to index: the content is real and the set of providers is deterministic
  * rather than an arbitrary user-typed combination.
  */
 export default async function CompareCryptoExchangesPage() {
-  const cryptoOfferings = await getCryptoExchanges();
-  const rows: CryptoComparisonEntry[] = cryptoOfferings.map((offering) => ({
-    id: offering.id,
-    slug: offering.provider.slug,
-    name: offering.provider.name,
-    verificationStatus: offering.verificationStatus,
-    logo: offering.logo ?? offering.provider.logo,
-    website: offering.website ?? offering.provider.website,
-    facts: offering.provider.facts,
-    fees: offering.fees.map((fee) => ({
-      label: fee.label,
-      displayValue: fee.displayValue,
-    })),
-    features: offering.features as unknown as CryptoComparisonEntry["features"],
-  }));
-  const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
-    rows.map((p) => p.slug)
+  const comparisonResult = await publicDatabaseRead(
+    "compare.crypto.index",
+    async () => {
+      const cryptoOfferings = await getCryptoExchanges();
+      const rows: CryptoComparisonEntry[] = cryptoOfferings.map((offering) => ({
+        id: offering.id,
+        slug: offering.provider.slug,
+        name: offering.provider.name,
+        verificationStatus: offering.verificationStatus,
+        logo: offering.logo ?? offering.provider.logo,
+        website: offering.website ?? offering.provider.website,
+        facts: offering.provider.facts,
+        fees: offering.fees.map((fee) => ({
+          label: fee.label,
+          displayValue: fee.displayValue,
+        })),
+        features:
+          offering.features as unknown as CryptoComparisonEntry["features"],
+      }));
+      const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
+        rows.map((p) => p.slug)
+      );
+      return { cryptoOfferings, rows, affiliateLinks };
+    }
   );
+  const cryptoOfferings = comparisonResult.ok
+    ? comparisonResult.data.cryptoOfferings
+    : [];
+  const rows = comparisonResult.ok ? comparisonResult.data.rows : [];
+  const affiliateLinks = comparisonResult.ok
+    ? comparisonResult.data.affiliateLinks
+    : new Map();
   const subjects = toCompareSubjects(rows, affiliateLinks);
   const sections = buildCompareSections(rows);
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
@@ -77,7 +94,12 @@ export default async function CompareCryptoExchangesPage() {
         subheading="See fees, spreads, and verification requirements side-by-side."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
-        {rows.length === 0 ? (
+        {!comparisonResult.ok ? (
+          <DataUnavailable title="Crypto comparison is temporarily unavailable">
+            We couldn&lsquo;t load the exchange dataset required for this comparison.
+            No incomplete comparison is being shown.
+          </DataUnavailable>
+        ) : rows.length === 0 ? (
           <p className="text-muted mt-8">
             No crypto exchange providers seeded yet.
           </p>

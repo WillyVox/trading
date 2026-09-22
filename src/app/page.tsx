@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { DataUnavailableBanner } from "@/components/data/DataUnavailableBanner";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -16,6 +14,11 @@ import {
 } from "@/lib/share-trading/service";
 import { formatProductType } from "@/lib/share-trading/labels";
 import type { FeaturedCryptoExchange } from "@/lib/crypto-exchanges/service";
+import {
+  DataUnavailable,
+  DataUnavailableBanner,
+} from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 export const metadata = buildMetadata({
   title:
@@ -74,8 +77,8 @@ const howItWorksSteps: {
 // Card 1 and 2 now cover both verticals (see homepage redesign proposal,
 // "Provider profiles" — Option A): copy is generalized and each card gets
 // two sub-links instead of one card-wide href, mirroring the pattern the
-// header's "Compares" mega-menu already uses for the same crypto/share
-// trading split. Card 3 (guides) is vertical-agnostic already, so it's
+// header&lsquo;s "Compares" mega-menu already uses for the same crypto/share
+// trading split. Card 3 (guides) is vertical-agnostic already, so it&lsquo;s
 // unchanged and keeps its single implicit link.
 const researchStandardLinks = [
   {
@@ -199,7 +202,7 @@ function FeaturedShareTradingCard({
 }
 
 export default async function HomePage() {
-  const featuredResult = await safeDatabaseQuery(
+  const featuredResult = await publicDatabaseRead(
     "homepage.featuredProviders",
     async () => {
       const [featuredCrypto, featuredShareTrading] = await Promise.all([
@@ -218,7 +221,6 @@ export default async function HomePage() {
 
   return (
     <>
-      {!featuredResult.ok && <DataUnavailableBanner />}
       <PageHero
         eyebrow="Independent trading research · Australia"
         title="Understand trading before you start investing."
@@ -297,6 +299,18 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      {!featuredResult.ok && (
+        <>
+          <DataUnavailableBanner />
+          <section className="mx-auto max-w-6xl px-4 py-10">
+            <DataUnavailable title="Featured provider research is temporarily unavailable">
+              We couldn&lsquo;t load provider research right now. Educational guides,
+              methodology and other non-database content remain available.
+            </DataUnavailable>
+          </section>
+        </>
+      )}
 
       {featuredCrypto.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 py-14">

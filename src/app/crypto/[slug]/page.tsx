@@ -8,13 +8,26 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const asset = await getCryptoAssetBySlug(slug);
+  const assetResult = await publicDatabaseRead("cryptoAsset.metadata", () =>
+    getCryptoAssetBySlug(slug)
+  );
+  if (!assetResult.ok)
+    return buildMetadata({
+      title: "Crypto asset",
+      description: "",
+      path: `/crypto/${slug}`,
+      noIndex: true,
+    });
+  const asset = assetResult.data;
   if (!asset)
     return buildMetadata({
       title: "Asset not found",
@@ -39,7 +52,26 @@ export default async function CryptoAssetPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const asset = await getCryptoAssetBySlug(slug);
+  const assetResult = await publicDatabaseRead("cryptoAsset.detail", () =>
+    getCryptoAssetBySlug(slug)
+  );
+  if (!assetResult.ok)
+    return (
+      <>
+        <PageHero
+          eyebrow="Crypto asset"
+          title="Crypto research temporarily unavailable"
+          subheading="We couldn't load this asset's research right now."
+        />
+        <main className="mx-auto max-w-4xl px-4 py-10">
+          <DataUnavailable title="Asset data is temporarily unavailable">
+            Please try again shortly. This is not being presented as a missing
+            asset because the database could not be queried.
+          </DataUnavailable>
+        </main>
+      </>
+    );
+  const asset = assetResult.data;
   if (!asset) notFound();
 
   // One entry per exchange (a provider could in principle have several

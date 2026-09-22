@@ -6,6 +6,9 @@ import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 export const metadata = buildMetadata({
   title: "Trading News | Educational Materials | Trading Guides - TradingGuide",
   description:
@@ -15,7 +18,10 @@ export const metadata = buildMetadata({
 });
 
 export default async function NewsPage() {
-  const { items } = await getPublishedArticles({ articleType: "NEWS" });
+  const newsResult = await publicDatabaseRead("news.index", () =>
+    getPublishedArticles({ articleType: "NEWS" })
+  );
+  const items = newsResult.ok ? newsResult.data.items : [];
   const trail = breadcrumbTrail([{ name: "News", path: "/news" }]);
 
   return (
@@ -27,7 +33,12 @@ export default async function NewsPage() {
         subheading="Regulatory updates and market news for share trading and crypto, source-linked."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
-        {items.length === 0 ? (
+        {!newsResult.ok ? (
+          <DataUnavailable title="News is temporarily unavailable">
+            We couldn&lsquo;t load database-backed news right now. Please try again
+            shortly.
+          </DataUnavailable>
+        ) : items.length === 0 ? (
           <div className="mt-6">
             <Notice>
               No news ingestion source is connected yet. No synthetic headlines

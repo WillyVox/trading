@@ -5,6 +5,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { signIn, signOut } from "@/lib/auth";
+import { isDatabaseUnavailableError } from "@/lib/data/database-errors";
+import { AUTH_SERVICE_UNAVAILABLE_MESSAGE } from "./service-unavailable";
 import { getClientIp } from "@/lib/security/client-ip";
 import {
   allowRegistration,
@@ -37,8 +39,15 @@ export async function loginAction(
   // Read-only pre-check so a locked-out visitor sees why, instead of the
   // generic "incorrect password" message. The counting itself happens in
   // the credentials provider's authorize().
-  if (await isLoginThrottled(email, getClientIp(await headers()))) {
-    return { error: LOGIN_LOCKOUT_MESSAGE };
+  try {
+    if (await isLoginThrottled(email, getClientIp(await headers()))) {
+      return { error: LOGIN_LOCKOUT_MESSAGE };
+    }
+  } catch (error) {
+    if (isDatabaseUnavailableError(error)) {
+      return { error: AUTH_SERVICE_UNAVAILABLE_MESSAGE };
+    }
+    throw error;
   }
 
   try {
@@ -68,10 +77,19 @@ export async function registerAction(
 
   // Counted before any validation or database work so scripted sign-ups
   // can't be used to probe emails or fill the users table.
-  if (!(await allowRegistration(getClientIp(await headers())))) {
-    return {
-      error: "Too many sign-up attempts from this network. Try again later.",
-    };
+  try {
+    if (!(await allowRegistration(getClientIp(await headers())))) {
+      return {
+        error: "Too many sign-up attempts from this network. Try again later.",
+      };
+    }
+  } catch (error) {
+    // Registration is security-sensitive: if the durable limiter cannot be
+    // consulted, fail closed rather than bypassing throttling.
+    if (isDatabaseUnavailableError(error)) {
+      return { error: AUTH_SERVICE_UNAVAILABLE_MESSAGE };
+    }
+    throw error;
   }
 
   if (!email || !EMAIL_PATTERN.test(email)) {
@@ -84,7 +102,15 @@ export async function registerAction(
     return { error: "Passwords do not match." };
   }
 
-  const existing = await prisma.user.findUnique({ where: { email } });
+  let existing;
+  try {
+    existing = await prisma.user.findUnique({ where: { email } });
+  } catch (error) {
+    if (isDatabaseUnavailableError(error)) {
+      return { error: AUTH_SERVICE_UNAVAILABLE_MESSAGE };
+    }
+    throw error;
+  }
   if (existing) {
     // Same reasoning as login: don't reveal whether the account is a
     // password account or (in future) an OAuth-only one.
@@ -96,9 +122,16 @@ export async function registerAction(
   // New accounts always land as USER — promotion to ADMIN is a deliberate,
   // out-of-band action (see scripts/promote-admin.ts), never something a
   // registration form can grant itself.
-  await prisma.user.create({
-    data: { name: name || null, email, passwordHash },
-  });
+  try {
+    await prisma.user.create({
+      data: { name: name || null, email, passwordHash },
+    });
+  } catch (error) {
+    if (isDatabaseUnavailableError(error)) {
+      return { error: AUTH_SERVICE_UNAVAILABLE_MESSAGE };
+    }
+    throw error;
+  }
 
   try {
     await signIn("credentials", { email, password, redirect: false });

@@ -28,6 +28,9 @@ import { PageHero } from "@/components/layout/PageHero";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 /** Matches the "1 Oct 2026" style used elsewhere for guide/article dates
  *  (see GuideHeader's local formatDate) -- short form suits a promo's
  *  validFrom/validTo range better than the long "17 September 2026" form. */
@@ -45,7 +48,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = await getShareTradingPlatformBySlug(slug);
+  const result = await publicDatabaseRead("shareTrading.metadata", () =>
+    getShareTradingPlatformBySlug(slug)
+  );
+  if (!result.ok)
+    return buildMetadata({
+      title: "Share trading platform",
+      description: "",
+      path: `/share-trading/${slug}`,
+      noIndex: true,
+    });
+  const offering = result.data;
   if (!offering)
     return buildMetadata({
       title: "Platform not found",
@@ -72,7 +85,27 @@ export default async function ShareTradingOfferingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = await getShareTradingPlatformBySlug(slug);
+  const offeringResult = await publicDatabaseRead("shareTrading.detail", () =>
+    getShareTradingPlatformBySlug(slug)
+  );
+  if (!offeringResult.ok) {
+    return (
+      <>
+        <PageHero
+          eyebrow="Platform profile"
+          title="Share trading research temporarily unavailable"
+          subheading="We couldn't load this platform's verified research right now."
+        />
+        <main className="mx-auto max-w-6xl px-4 py-10">
+          <DataUnavailable title="Platform data is temporarily unavailable">
+            Please try again shortly. We are not showing an empty or not-found
+            state because the database could not be queried.
+          </DataUnavailable>
+        </main>
+      </>
+    );
+  }
+  const offering = offeringResult.data;
   if (!offering) notFound();
 
   const trail = breadcrumbTrail([

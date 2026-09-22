@@ -1,6 +1,4 @@
 import { BrokerageCalculator } from "@/components/tools/brokerage/BrokerageCalculator";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Notice } from "@/components/ui/Notice";
@@ -10,6 +8,8 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { getBrokerageOfferings } from "@/lib/tools/brokerage/service";
+import { CalculatorUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 export const metadata = buildMetadata({
   title: "Brokerage Cost Calculator Australia",
@@ -25,8 +25,9 @@ export default async function BrokerageCalculatorPage() {
     { name: "Tools", path: "/tools" },
     { name: "Brokerage calculator", path: "/tools/brokerage-calculator" },
   ]);
-  const offeringsResult = await safeDatabaseQuery("getBrokerageOfferings", () =>
-    getBrokerageOfferings()
+  const offeringsResult = await publicDatabaseRead(
+    "getBrokerageOfferings",
+    getBrokerageOfferings
   );
   const offerings = offeringsResult.ok ? offeringsResult.data : [];
 

@@ -31,13 +31,27 @@ function formatDate(date: Date | string) {
   });
 }
 
+import { DataUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
+  const articleResult = await publicDatabaseRead(
+    "guides.metadata.article",
+    () => getPublishedArticleBySlugAndType(slug, "GUIDE")
+  );
+  if (!articleResult.ok)
+    return buildMetadata({
+      title: "Guide",
+      description: "",
+      path: `/guides/${slug}`,
+      noIndex: true,
+    });
+  const article = articleResult.data;
   if (!article) {
     return buildMetadata({
       title: "Guide not found",
@@ -64,10 +78,11 @@ export async function generateMetadata({
 
   // hreflang — only emitted when real regional variants exist (see Guide
   // spec §7: never fabricate duplicate pages for identical content).
-  const family = await getRegionalFamily(
-    article.id,
-    article.canonicalArticleId
+  const familyResult = await publicDatabaseRead(
+    "guides.metadata.regionalFamily",
+    () => getRegionalFamily(article.id, article.canonicalArticleId)
   );
+  const family = familyResult.ok ? familyResult.data : [];
   if (family.length > 1) {
     const globalMember = family.find((m) => !m.region);
     const languages: Record<string, string> = {};
@@ -92,25 +107,60 @@ export default async function GuidePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getPublishedArticleBySlugAndType(slug, "GUIDE");
+  const articleResult = await publicDatabaseRead("guides.detail", () =>
+    getPublishedArticleBySlugAndType(slug, "GUIDE")
+  );
+  if (!articleResult.ok)
+    return (
+      <>
+        <PageHero
+          eyebrow="Guide"
+          title="Guide temporarily unavailable"
+          subheading="We couldn't load this published guide right now."
+        />
+        <main className="mx-auto max-w-6xl px-4 py-10">
+          <DataUnavailable title="Guide data is temporarily unavailable">
+            Please try again shortly. This is not being presented as a missing
+            guide because the database could not be queried.
+          </DataUnavailable>
+        </main>
+      </>
+    );
+  const article = articleResult.data;
   if (!article) notFound();
 
   const { content, headings, readingMinutes } = renderArticleContent(
     article.content
   );
 
-  const [relatedGuides, nextSteps, regionalFamily] = await Promise.all([
-    getRelatedGuides(article),
-    getNextSteps(article),
-    getRegionalFamily(article.id, article.canonicalArticleId),
-  ]);
+  const relatedResult = await publicDatabaseRead(
+    "guides.detail.related",
+    async () => {
+      const [relatedGuides, nextSteps, regionalFamily] = await Promise.all([
+        getRelatedGuides(article),
+        getNextSteps(article),
+        getRegionalFamily(article.id, article.canonicalArticleId),
+      ]);
+      return { relatedGuides, nextSteps, regionalFamily };
+    }
+  );
+  const relatedGuides = relatedResult.ok
+    ? relatedResult.data.relatedGuides
+    : [];
+  const nextSteps = relatedResult.ok ? relatedResult.data.nextSteps : [];
+  const regionalFamily = relatedResult.ok
+    ? relatedResult.data.regionalFamily
+    : [];
   const otherRegions = regionalFamily.filter((m) => m.slug !== slug);
 
   const providerSlugs = article.providers.map(
     (ap: { provider: { slug: string } }) => ap.provider.slug
   );
-  const activeLinks =
-    await getActiveAffiliateLinksForProviderSlugs(providerSlugs);
+  const activeLinksResult = await publicDatabaseRead(
+    "guides.detail.affiliateLinks",
+    () => getActiveAffiliateLinksForProviderSlugs(providerSlugs)
+  );
+  const activeLinks = activeLinksResult.ok ? activeLinksResult.data : new Map();
   const guideProviders = article.providers.map(
     (ap: {
       provider: {

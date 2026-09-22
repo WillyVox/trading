@@ -1,6 +1,4 @@
 import { PageHero } from "@/components/layout/PageHero";
-import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
-import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Notice } from "@/components/ui/Notice";
 import { RegularInvestingCalculator } from "@/components/tools/regular-investing/RegularInvestingCalculator";
@@ -10,6 +8,8 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { getBrokerageOfferings } from "@/lib/tools/brokerage/service";
+import { CalculatorUnavailable } from "@/components/data/DataUnavailable";
+import { publicDatabaseRead } from "@/lib/data/public-read";
 
 export const metadata = buildMetadata({
   title: "Regular Investing Brokerage Calculator Australia",
@@ -28,8 +28,9 @@ export default async function RegularInvestingCalculatorPage() {
       path: "/tools/regular-investing-calculator",
     },
   ]);
-  const offeringsResult = await safeDatabaseQuery("getBrokerageOfferings", () =>
-    getBrokerageOfferings()
+  const offeringsResult = await publicDatabaseRead(
+    "getBrokerageOfferings.regularInvesting",
+    getBrokerageOfferings
   );
   const offerings = offeringsResult.ok ? offeringsResult.data : [];
   return (
