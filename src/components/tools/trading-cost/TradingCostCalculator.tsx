@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
-import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
+import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
 import {
   calculateBrokerage,
   selectBrokerageRule,
@@ -270,96 +270,82 @@ export function TradingCostCalculator({
         </div>
       </ToolPanel>
       <ToolPanel labelledBy="trading-cost-result" live>
-        <h2
-          id="trading-cost-result"
-          className="font-display text-navy text-xl font-bold"
-        >
-          Estimated costs covered
-        </h2>
         {!complete ? (
-          <p className="text-muted mt-5 text-sm">
-            Answer the conditional pricing question to calculate without
-            guessing.
-          </p>
+          <ToolResultPanel
+            panelId="trading-cost-result"
+            eyebrow="Estimate"
+            title="Estimated costs covered"
+            exclusions={[
+              "Exchange-rate movement, taxes other than GST explicitly represented by the brokerage rule, market/regulatory fees, spreads not represented by the selected FX rule, deposit/withdrawal fees and other provider charges.",
+            ]}
+            sources={[]}
+            hideBody
+            fallbackTitle="Answer the pricing question to continue"
+            fallbackMessage="Answer the conditional pricing question to calculate without guessing."
+          />
         ) : (
-          <div className="mt-5 space-y-5">
-            <div className="border-border rounded-xl border p-4">
-              <p className="text-muted text-xs tracking-wide uppercase">
-                Brokerage
-              </p>
-              <p className="text-navy mt-1 text-2xl font-bold">
-                {brokerage?.status === "CALCULATED" && brokerage.amount != null
-                  ? money(brokerage.amount, brokerage.currency)
-                  : "Not calculatable"}
-              </p>
-              {brokerage?.expression && (
-                <p className="text-muted mt-2 text-sm">
-                  {brokerage.expression}
-                </p>
-              )}
-            </div>
-            {includeFx && (
-              <div className="border-border rounded-xl border p-4">
-                <p className="text-muted text-xs tracking-wide uppercase">
-                  FX conversion
-                </p>
-                <p className="text-navy mt-1 text-2xl font-bold">
-                  {fx?.status === "CALCULATED" && fx.amount != null
-                    ? money(fx.amount, fx.currency)
-                    : fxOffering
-                      ? "Not calculatable"
-                      : "No verified rule"}
-                </p>
-                {fx?.status === "CALCULATED" && (
-                  <p className="text-muted mt-2 text-sm">
-                    {fx.steps.find((s) => s.expression)?.expression}
-                  </p>
-                )}
-              </div>
-            )}
-            <div className="bg-panel-secondary rounded-xl p-5">
-              <p className="text-muted text-xs font-semibold tracking-wide uppercase">
-                Combined total
-              </p>
-              {combined.canTotal && combined.totalAmount != null ? (
-                <p className="text-navy mt-1 text-3xl font-bold">
-                  {money(combined.totalAmount, combined.totalCurrency)}
-                </p>
-              ) : (
-                <>
-                  <p className="text-navy mt-1 font-bold">Not shown</p>
-                  <p className="text-muted mt-2 text-sm leading-6">
-                    {combined.message}
-                  </p>
-                </>
-              )}
-            </div>
-            <div className="border-border border-t pt-5">
-              <h3 className="text-navy font-semibold">What is not included</h3>
-              <p className="text-muted mt-2 text-sm leading-6">
-                Exchange-rate movement, taxes other than GST explicitly
-                represented by the brokerage rule, market/regulatory fees,
-                spreads not represented by the selected FX rule,
-                deposit/withdrawal fees and other provider charges.
-              </p>
-            </div>
-            {rule && (
-              <SourceVerificationPanel
-                sourceUrl={rule.sourceUrl}
-                verifiedAt={rule.verifiedAt}
-                reviewDueAt={rule.reviewDueAt}
-                status={rule.verificationStatus}
-              />
-            )}
-            {includeFx && fxOffering && (
-              <SourceVerificationPanel
-                sourceUrl={fxRule?.sourceUrl ?? null}
-                verifiedAt={fxRule?.verifiedAt ?? null}
-                reviewDueAt={fxRule?.reviewDueAt ?? null}
-                status={fxRule?.verificationStatus ?? "UNVERIFIED"}
-              />
-            )}
-          </div>
+          <ToolResultPanel
+            panelId="trading-cost-result"
+            eyebrow="Estimate"
+            title="Estimated costs covered"
+            value={
+              combined.canTotal && combined.totalAmount != null
+                ? money(combined.totalAmount, combined.totalCurrency)
+                : undefined
+            }
+            heroCaption="Combined total for this scenario"
+            fallbackTitle="Combined total not shown"
+            fallbackMessage={combined.message}
+            rows={[
+              {
+                label: "Brokerage",
+                value:
+                  brokerage?.status === "CALCULATED" && brokerage.amount != null
+                    ? money(brokerage.amount, brokerage.currency)
+                    : "Not calculatable",
+              },
+              ...(includeFx
+                ? [
+                    {
+                      label: "FX conversion",
+                      value:
+                        fx?.status === "CALCULATED" && fx.amount != null
+                          ? money(fx.amount, fx.currency)
+                          : fxOffering
+                            ? "Not calculatable"
+                            : "No verified rule",
+                    },
+                  ]
+                : []),
+            ]}
+            exclusions={[
+              "Exchange-rate movement, taxes other than GST explicitly represented by the brokerage rule, market/regulatory fees, spreads not represented by the selected FX rule, deposit/withdrawal fees and other provider charges.",
+            ]}
+            sources={[
+              ...(rule
+                ? [
+                    {
+                      label: "Brokerage",
+                      sourceUrl: rule.sourceUrl,
+                      verifiedAt: rule.verifiedAt,
+                      reviewDueAt: rule.reviewDueAt,
+                      status: rule.verificationStatus,
+                    },
+                  ]
+                : []),
+              ...(includeFx && fxOffering
+                ? [
+                    {
+                      label: "FX conversion",
+                      sourceUrl: fxRule?.sourceUrl ?? null,
+                      verifiedAt: fxRule?.verifiedAt ?? null,
+                      reviewDueAt: fxRule?.reviewDueAt ?? null,
+                      status: fxRule?.verificationStatus ?? "UNVERIFIED",
+                    },
+                  ]
+                : []),
+            ]}
+          />
         )}
       </ToolPanel>
     </ToolShell>

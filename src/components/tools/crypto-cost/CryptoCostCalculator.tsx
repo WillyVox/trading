@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
-import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
+import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
 import { calculateCryptoFee } from "@/lib/tools/crypto-fees/calculate";
 import type {
   CryptoFeeOffering,
@@ -25,6 +25,16 @@ function money(amount: number, currency = "AUD") {
 }
 function firstRule(rules: CryptoFeeRule[], ids: Set<string>) {
   return rules.find((r) => ids.has(r.category));
+}
+function componentValueText(
+  calculation: ReturnType<typeof calculateCryptoFee> | null
+) {
+  if (!calculation) return "Not included";
+  if (calculation.status === "CALCULATED" && calculation.amount != null)
+    return money(calculation.amount, calculation.currency);
+  if (calculation.status === "VARIABLE") return "Variable";
+  if (calculation.status === "TIERED_NEEDS_INPUT") return "Needs tier input";
+  return "Not estimated";
 }
 
 export function CryptoCostCalculator({
@@ -235,93 +245,63 @@ export function CryptoCostCalculator({
         </div>
       </ToolPanel>
       <ToolPanel labelledBy="crypto-cost-result" live>
-        <h2
-          id="crypto-cost-result"
-          className="font-display text-navy text-xl font-bold"
-        >
-          Estimated costs covered
-        </h2>
-        <div className="mt-5 space-y-4">
-          {combined.components
+        <ToolResultPanel
+          panelId="crypto-cost-result"
+          eyebrow="Estimate"
+          title="Estimated costs covered"
+          value={
+            combined.canTotal && combined.totalAmount != null
+              ? money(combined.totalAmount, combined.totalCurrency)
+              : undefined
+          }
+          heroCaption="Combined total for this scenario"
+          fallbackTitle="Combined total not shown"
+          fallbackMessage={combined.message}
+          rows={combined.components
             .filter((c) => c.calculation)
-            .map((component) => (
-              <div
-                key={component.label}
-                className="border-border rounded-xl border p-4"
-              >
-                <p className="text-muted text-xs font-semibold tracking-wide uppercase">
-                  {component.label}
-                </p>
-                <p className="text-navy mt-1 text-2xl font-bold">
-                  {component.calculation?.status === "CALCULATED" &&
-                  component.calculation.amount != null
-                    ? money(
-                        component.calculation.amount,
-                        component.calculation.currency
-                      )
-                    : component.calculation?.status === "VARIABLE"
-                      ? "Variable"
-                      : component.calculation?.status === "TIERED_NEEDS_INPUT"
-                        ? "Needs tier input"
-                        : "Not estimated"}
-                </p>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  {component.calculation?.explanation}
-                </p>
-              </div>
-            ))}
-          <div className="bg-panel-secondary rounded-xl p-5">
-            <p className="text-muted text-xs font-semibold tracking-wide uppercase">
-              Combined total
-            </p>
-            {combined.canTotal && combined.totalAmount != null ? (
-              <p className="text-navy mt-1 text-3xl font-bold">
-                {money(combined.totalAmount, combined.totalCurrency)}
-              </p>
-            ) : (
-              <>
-                <p className="text-navy mt-1 font-bold">Not shown</p>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  {combined.message}
-                </p>
-              </>
-            )}
-          </div>
-          <div className="border-border border-t pt-5">
-            <h3 className="text-navy font-semibold">What is not included</h3>
-            <p className="text-muted mt-2 text-sm leading-6">
-              Live spread/slippage, price movement, network fees unless
-              represented by the selected verified withdrawal rule, taxes,
-              exchange-rate conversion between unlike currencies, and
-              third-party payment-provider charges not captured by the selected
-              records.
-            </p>
-          </div>
-          {includeDeposit && depositRule && (
-            <SourceVerificationPanel
-              sourceUrl={depositRule.sourceUrl}
-              verifiedAt={depositRule.verifiedAt}
-              reviewDueAt={depositRule.reviewDueAt}
-              status={depositRule.verificationStatus}
-            />
-          )}
-          {tradeRule && (
-            <SourceVerificationPanel
-              sourceUrl={tradeRule.sourceUrl}
-              verifiedAt={tradeRule.verifiedAt}
-              reviewDueAt={tradeRule.reviewDueAt}
-              status={tradeRule.verificationStatus}
-            />
-          )}
-          {includeWithdrawal && withdrawalRule && (
-            <SourceVerificationPanel
-              sourceUrl={withdrawalRule.sourceUrl}
-              verifiedAt={withdrawalRule.verifiedAt}
-              reviewDueAt={withdrawalRule.reviewDueAt}
-              status={withdrawalRule.verificationStatus}
-            />
-          )}
-        </div>
+            .map((component) => ({
+              label: component.label,
+              value: componentValueText(component.calculation),
+            }))}
+          exclusions={[
+            "Live spread/slippage, price movement, network fees unless represented by the selected verified withdrawal rule, taxes, exchange-rate conversion between unlike currencies, and third-party payment-provider charges not captured by the selected records.",
+          ]}
+          sources={[
+            ...(includeDeposit && depositRule
+              ? [
+                  {
+                    label: "Deposit",
+                    sourceUrl: depositRule.sourceUrl,
+                    verifiedAt: depositRule.verifiedAt,
+                    reviewDueAt: depositRule.reviewDueAt,
+                    status: depositRule.verificationStatus,
+                  },
+                ]
+              : []),
+            ...(tradeRule
+              ? [
+                  {
+                    label: "Trading",
+                    sourceUrl: tradeRule.sourceUrl,
+                    verifiedAt: tradeRule.verifiedAt,
+                    reviewDueAt: tradeRule.reviewDueAt,
+                    status: tradeRule.verificationStatus,
+                  },
+                ]
+              : []),
+            ...(includeWithdrawal && withdrawalRule
+              ? [
+                  {
+                    label: "Withdrawal",
+                    sourceUrl: withdrawalRule.sourceUrl,
+                    verifiedAt: withdrawalRule.verifiedAt,
+                    reviewDueAt: withdrawalRule.reviewDueAt,
+                    status: withdrawalRule.verificationStatus,
+                  },
+                ]
+              : []),
+          ]}
+        />
       </ToolPanel>
     </ToolShell>
   );

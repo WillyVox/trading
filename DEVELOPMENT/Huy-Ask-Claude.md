@@ -1,3 +1,7 @@
+explore and study, feel free to return me you feedback, concerns, pros and cons. outline your ideas, recommendations, solutions, approaches.
+
+return me several mockup displays in static htlm for me to review before we decide if if implement and do code changes.
+
 # -1. check the latest source code, with the requirement provided. try to explore, understand the requirements, feel free to give me your feedback, concerns, outline your proposal approaches, plans, ideas and solutions, pros and cons. Provide me html mockup displays (if any) of the feature, before i decide when to update code.
 
 - remember you should be acting as the adviser, the lawyer my ultimate goals is SEO perfection, effective tools and guides for new beginners to trading, and one of the most loved and trusted financing website. and i need the version that can go live and deploy to production.

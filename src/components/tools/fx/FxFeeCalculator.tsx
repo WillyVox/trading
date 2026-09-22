@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { calculateFxFee } from "@/lib/tools/fx/calculate";
 import type { FxOfferingOption } from "@/lib/tools/fx/types";
 import { fxEligibility } from "@/lib/tools/fx/eligibility";
 import { preferredFxRule } from "@/lib/tools/fx/selection";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
-import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
+import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
 
 const money = (n: number) =>
   new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD" }).format(
@@ -145,113 +144,77 @@ export function FxFeeCalculator({
       </ToolPanel>
 
       <ToolPanel labelledBy="fx-result" live>
-        <p className="text-gold-dark text-xs font-bold tracking-wider uppercase">
-          Estimate
-        </p>
-        <h2
-          id="fx-result"
-          className="font-display text-navy mt-2 text-2xl font-bold"
-        >
-          Estimated FX cost
-        </h2>
         {isCalculated ? (
-          <>
-            <p className="font-display text-navy mt-5 text-4xl font-bold">
-              {money(result.amount!)}
-            </p>
-            <p className="text-muted mt-2 text-sm">
-              For converting {money(numericAmount)} using the selected published
-              pricing.
-            </p>
-            <div className="mt-7 space-y-6 text-sm">
-              <div>
-                <h3 className="text-navy font-bold">Calculation</h3>
-                <div className="mt-2 space-y-2">
-                  {result.steps.map((s) => (
-                    <div
-                      key={s.label}
-                      className="bg-panel-secondary rounded-lg px-3 py-2"
-                    >
-                      <p className="text-navy font-semibold">{s.label}</p>
-                      {s.expression && (
-                        <code className="text-muted mt-1 block text-xs break-words whitespace-normal">
-                          {s.expression}
-                          {s.result ? ` = ${s.result}` : ""}
-                        </code>
-                      )}
-                      {!s.expression && s.result && (
-                        <p className="text-muted mt-1">{s.result}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="text-navy font-bold">Why this result</h3>
-                <p className="text-muted mt-1 leading-6">
-                  {result.applicableRule?.description}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-navy font-bold">Assumptions</h3>
-                <ul className="text-muted mt-1 list-disc space-y-1 pl-5 leading-6">
-                  {result.assumptions.map((x) => (
-                    <li key={x}>{x}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-navy font-bold">Not included</h3>
-                <ul className="text-muted mt-1 list-disc space-y-1 pl-5 leading-6">
-                  {result.exclusions.map((x) => (
-                    <li key={x}>{x}</li>
-                  ))}
-                </ul>
-              </div>
-              <SourceVerificationPanel
-                sourceUrl={selectedRule.sourceUrl}
-                verifiedAt={selectedRule.verifiedAt}
-                reviewDueAt={selectedRule.reviewDueAt}
-                status={selectedRule.verificationStatus}
-              />
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  className="text-blue font-semibold underline"
-                  href={`/share-trading/${selected.slug}`}
-                >
-                  View {selected.name} →
-                </Link>
-                <Link
-                  className="text-blue font-semibold underline"
-                  href="/compare/trading-platforms"
-                >
-                  Compare platforms →
-                </Link>
-              </div>
-            </div>
-          </>
+          <ToolResultPanel
+            panelId="fx-result"
+            eyebrow="Estimate"
+            title="Estimated FX cost"
+            value={money(result.amount!)}
+            heroCaption="Estimated FX cost for this scenario"
+            context={`For converting ${money(numericAmount)} using the selected published pricing.`}
+            rows={[
+              ...(result.applicableRule
+                ? [
+                    {
+                      label: "Applicable rule",
+                      value: result.applicableRule.label,
+                    },
+                  ]
+                : []),
+              ...result.steps
+                .filter((s) => s.result)
+                .map((s) => ({ label: s.label, value: s.result as string })),
+            ]}
+            explanation={result.applicableRule?.description}
+            assumptions={result.assumptions}
+            exclusions={result.exclusions}
+            sources={[
+              {
+                sourceUrl: selectedRule.sourceUrl,
+                verifiedAt: selectedRule.verifiedAt,
+                reviewDueAt: selectedRule.reviewDueAt,
+                status: selectedRule.verificationStatus,
+              },
+            ]}
+            links={[
+              {
+                label: `View ${selected.name} →`,
+                href: `/share-trading/${selected.slug}`,
+              },
+              {
+                label: "Compare platforms →",
+                href: "/compare/trading-platforms",
+              },
+            ]}
+          />
         ) : (
-          <div className="mt-5">
-            <p className="text-navy text-lg font-semibold">
-              {result.status === "VARIABLE"
+          <ToolResultPanel
+            panelId="fx-result"
+            eyebrow="Estimate"
+            title="Estimated FX cost"
+            fallbackTitle={
+              result.status === "VARIABLE"
                 ? "Published pricing varies"
-                : "Unable to calculate this scenario"}
-            </p>
-            <p className="text-muted mt-2 leading-6">{result.message}</p>
-            {selectedRule.displayValue && (
-              <p className="bg-panel-secondary text-navy mt-4 rounded-lg p-3 font-semibold">
-                {selectedRule.displayValue}
-              </p>
-            )}
-            <div className="mt-6">
-              <SourceVerificationPanel
-                sourceUrl={selectedRule.sourceUrl}
-                verifiedAt={selectedRule.verifiedAt}
-                reviewDueAt={selectedRule.reviewDueAt}
-                status={selectedRule.verificationStatus}
-              />
-            </div>
-          </div>
+                : "Unable to calculate this scenario"
+            }
+            fallbackMessage={result.message}
+            extra={
+              selectedRule.displayValue ? (
+                <p className="bg-panel-secondary text-navy rounded-lg p-3 font-semibold">
+                  {selectedRule.displayValue}
+                </p>
+              ) : undefined
+            }
+            exclusions={result.exclusions}
+            sources={[
+              {
+                sourceUrl: selectedRule.sourceUrl,
+                verifiedAt: selectedRule.verifiedAt,
+                reviewDueAt: selectedRule.reviewDueAt,
+                status: selectedRule.verificationStatus,
+              },
+            ]}
+          />
         )}
       </ToolPanel>
     </ToolShell>
