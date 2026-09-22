@@ -3,6 +3,7 @@ import { OfferingType } from "@prisma/client";
 type CatalogSeed = {
   provider: {
     slug: string;
+    name?: string;
   };
   offering: {
     slug: string;
@@ -10,11 +11,19 @@ type CatalogSeed = {
   };
 };
 
+/**
+ * Provider slugs are intentionally reusable across offerings: one legal/brand
+ * provider can expose multiple comparable products (e.g. eToro share trading
+ * and eToro crypto). Offering slugs, however, must remain globally unique.
+ *
+ * When a provider slug is reused, require the provider name to stay identical
+ * so two unrelated entities cannot be merged accidentally by Provider.upsert.
+ */
 export function validateCatalogSlugs(
   crypto: CatalogSeed[],
   shares: CatalogSeed[]
 ) {
-  const providerSlugs = new Set<string>();
+  const providerNamesBySlug = new Map<string, string | undefined>();
   const offeringSlugs = new Set<string>();
 
   for (const seed of [...crypto, ...shares]) {
@@ -27,15 +36,22 @@ export function validateCatalogSlugs(
       );
     }
 
-    if (providerSlugs.has(p)) {
-      throw new Error(`Duplicate provider slug: ${p}`);
+    const existingProviderName = providerNamesBySlug.get(p);
+    if (
+      providerNamesBySlug.has(p) &&
+      existingProviderName &&
+      seed.provider.name &&
+      existingProviderName !== seed.provider.name
+    ) {
+      throw new Error(
+        `Provider slug "${p}" is reused with conflicting names: "${existingProviderName}" and "${seed.provider.name}".`
+      );
     }
+    providerNamesBySlug.set(p, existingProviderName ?? seed.provider.name);
 
     if (offeringSlugs.has(o)) {
       throw new Error(`Duplicate offering slug: ${o}`);
     }
-
-    providerSlugs.add(p);
     offeringSlugs.add(o);
   }
 

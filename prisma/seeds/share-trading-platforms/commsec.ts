@@ -295,6 +295,8 @@ export const CommSec = {
         verificationStatus: VerificationStatus.UNVERIFIED,
       },
     ],
+    features: [],
+    prosCons: [],
     fees,
   },
 };

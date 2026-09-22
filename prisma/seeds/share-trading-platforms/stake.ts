@@ -192,6 +192,8 @@ export const Stake = {
         verifiedAt: FEES_CHECKED,
       },
     ],
+    features: [],
+    prosCons: [],
     fees,
   },
 };

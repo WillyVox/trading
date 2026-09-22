@@ -33,4 +33,12 @@ export const SEED_MARKETS = [
     currency: "USD",
     region: "North America",
   },
+  {
+    code: "HKEX",
+    name: "Hong Kong Stock Exchange",
+    countryCode: "HK",
+    exchangeCode: "HKEX",
+    currency: "HKD",
+    region: "Asia",
+  },
 ];

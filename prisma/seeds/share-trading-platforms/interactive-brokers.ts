@@ -230,6 +230,8 @@ export const InteractiveBrokers = {
         verificationStatus: VerificationStatus.UNVERIFIED,
       },
     ],
+    features: [],
+    prosCons: [],
     fees,
   },
 };

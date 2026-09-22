@@ -257,6 +257,8 @@ export const CmcInvest = {
         verificationStatus: VerificationStatus.UNVERIFIED,
       },
     ],
+    features: [],
+    prosCons: [],
     fees,
   },
 };

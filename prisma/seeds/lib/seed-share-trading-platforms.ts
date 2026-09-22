@@ -112,6 +112,8 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
       custody,
       accountTypes,
       fees,
+      features,
+      prosCons,
       ...offeringData
     } = offeringSeed;
 
@@ -181,6 +183,14 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
           offeringId: offering.id,
         },
       }),
+
+      prisma.offeringFeature.deleteMany({
+        where: { offeringId: offering.id },
+      }),
+
+      prisma.offeringProsCon.deleteMany({
+        where: { offeringId: offering.id },
+      }),
     ]);
 
     /**
@@ -230,6 +240,28 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
         data: accountTypes.map((accountType) => ({
           offeringId: offering.id,
           ...accountType,
+        })),
+      });
+    }
+
+    /**
+     * Features and sourced pros/limitations.
+     */
+    if (features.length > 0) {
+      await prisma.offeringFeature.createMany({
+        data: features.map((feature) => ({
+          offeringId: offering.id,
+          ...feature,
+        })),
+      });
+    }
+
+    if (prosCons.length > 0) {
+      await prisma.offeringProsCon.createMany({
+        data: prosCons.map((prosCon, position) => ({
+          offeringId: offering.id,
+          position,
+          ...prosCon,
         })),
       });
     }
