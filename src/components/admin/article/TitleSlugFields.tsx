@@ -39,7 +39,7 @@ export function TitleSlugFields({
             if (!slugTouched) setSlug(slugify(next));
           }}
           className="border-border bg-panel-secondary text-navy rounded-lg border px-3 py-2"
-          placeholder="5 Best Crypto Exchanges in Australia in 2026"
+          placeholder="Comparing Crypto Exchanges in Australia in 2026"
         />
       </label>
 

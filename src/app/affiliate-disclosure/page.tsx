@@ -56,8 +56,8 @@ const SECTIONS = [
     body: "Clicking our links will never increase your price or alter the terms offered by the provider, now or once partnerships are active. Always check the provider's own fee schedule before signing up, since fees and offers can change.",
   },
   {
-    title: "Neutral ranking guarantee",
-    body: "Provider partnerships will never dictate ranking order, star ratings, or eligibility for our top picks. Provider listings and comparison tables are sorted alphabetically \u2014 not by whether a provider pays us, how much, or how recently.",
+    title: "Commercial independence",
+    body: "Provider partnerships will never dictate listing order, comparison treatment, or eligibility for inclusion. Provider listings and comparison tables are sorted alphabetically \u2014 not by whether a provider pays us, how much, or how recently.",
   },
   {
     title: "Sponsored or promoted placements",

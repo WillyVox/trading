@@ -38,8 +38,8 @@ const FUTURE_PLAN = [
     body: "Clicking our links will never increase your price or alter the terms offered by the provider.",
   },
   {
-    title: "Neutral ranking guarantee",
-    body: "Provider partnerships will never dictate ranking order, star ratings, or eligibility for our top picks.",
+    title: "Commercial independence",
+    body: "Provider partnerships will never dictate listing order, comparison treatment, or eligibility for inclusion.",
   },
 ];
 
