@@ -32,7 +32,7 @@ export const metadata = buildMetadata({
  * is deterministic and the content is real, rather than an arbitrary
  * user-typed combination the way domain-specific comparison routes is.
  *
- * No OG image yet -- unlike the crypto page there's no
+ * No OG image yet -- unlike the crypto page there&lsquo;s no
  * /images/og/compare-trading-platforms.png generated, and pointing at a
  * missing asset is worse than falling back to the site default. Add it via
  * scripts/generate-page-og-images.ts and set `image` here.
@@ -46,7 +46,7 @@ export default async function CompareTradingPlatformsPage() {
   const subjects = toCompareSubjects(offerings);
   const sections = buildShareTradingCompareSections(offerings);
   // Always false today -- the offering domain has no affiliate tier (see
-  // toCompareSubjects's comment in src/lib/share-trading/comparison.ts). Kept
+  // toCompareSubjects&lsquo;s comment in src/lib/share-trading/comparison.ts). Kept
   // as a real check, not hardcoded false, so this page picks up a
   // disclosure automatically if that tier is ever added.
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
@@ -75,7 +75,7 @@ export default async function CompareTradingPlatformsPage() {
       <div className="mx-auto max-w-6xl px-4 py-16">
         {!offeringsResult.ok ? (
           <DataUnavailable title="Platform comparison is temporarily unavailable">
-            We couldn't load the provider dataset required for this comparison.
+            We couldn&lsquo;t load the provider dataset required for this comparison.
             No incomplete comparison is being shown.
           </DataUnavailable>
         ) : offerings.length === 0 ? (
