@@ -7,6 +7,7 @@ import { AuthStatus } from "./AuthStatus";
 import HeaderLogo from "./HeaderLogo";
 import { NAV_ITEMS, type NavColumn, type NavItem, type NavLink } from "@/lib/nav/config";
 import { NavIcon, type NavIconName } from "./NavIcon";
+import { ResearchNavigatorSearch } from "@/components/search/ResearchNavigatorSearch";
 
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
@@ -88,11 +89,13 @@ function ResearchNavigatorContent({ titleId }: { titleId: string }) {
 
   return (
     <nav aria-labelledby={titleId} className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-      <div className="mb-6 lg:mb-7">
+      <div className="mb-5 lg:mb-6">
         <p className="text-gold text-[11px] font-extrabold tracking-[0.14em] uppercase">Explore</p>
         <h1 id={titleId} className="font-display text-navy mt-1 text-2xl font-bold lg:text-3xl">Trading Guide</h1>
         <p className="text-muted mt-1 text-sm lg:text-base">Learn, compare and calculate without digging through menus.</p>
       </div>
+
+      <ResearchNavigatorSearch />
 
       <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-5">
         <section className="border-border bg-panel rounded-2xl border p-3 shadow-sm sm:p-4">

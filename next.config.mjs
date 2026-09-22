@@ -58,25 +58,30 @@ const nextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
-  // If a published URL ever changes, add a permanent redirect here
-  // (async redirects() { return [{ source, destination, permanent: true }] })
-  // so links, bookmarks and search engines follow it to the new address.
-  // For example
-  
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/share-trading/compare",
-  //       destination: "/compare/trading-platforms",
-  //       permanent: true,
-  //     },
-  //     {
-  //       source: "/share-trading/compare/:slug",
-  //       destination: "/compare/trading-platforms/:slug",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
+  async redirects() {
+    return [
+      {
+        source: "/share-trading/compare",
+        destination: "/compare/trading-platforms",
+        permanent: true,
+      },
+      {
+        source: "/share-trading/compare/:slug",
+        destination: "/compare/trading-platforms/:slug",
+        permanent: true,
+      },
+      {
+        source: "/crypto/exchanges/compare",
+        destination: "/compare/crypto-exchanges",
+        permanent: true,
+      },
+      {
+        source: "/crypto/exchanges/compare/:slug",
+        destination: "/compare/crypto-exchanges/:slug",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
