@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { formatCategoryLabel, type Heading } from "@/lib/articles/content";
 import { GuideTableOfContents } from "./GuideTableOfContents";
+import { siteRoutes } from "@/lib/routes/site-routes";
 
 export function GuideSidebar({
   headings,
   category,
   readingMinutes,
-  compareHref = "crypto/exchanges/compare",
+  compareHref = siteRoutes.compare.crypto,
   compareLabel = "Compare providers",
 }: {
   headings: Heading[];

@@ -7,7 +7,7 @@ import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
 import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
 import { GuideSourceList } from "@/components/guide/GuideSourceList";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 
 export type ResearchGuideSection = {
   id: string;
@@ -44,10 +44,7 @@ export function ResearchGuidePage({
   config: ResearchGuideConfig;
   evidence?: ReactNode;
 }) {
-  const trail = breadcrumbTrail([
-    { name: "Guides", path: "/guides" },
-    { name: config.title, path: config.path },
-  ]);
+  const trail = guideBreadcrumbTrail(config.title, config.path);
   const headings = config.sections.map((section) => ({
     id: section.id,
     text: section.title,

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
 import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -133,9 +133,7 @@ export const metadata = buildMetadata({
 });
 
 export default function ShareTradingForBeginnersPage() {
-  const trail = breadcrumbTrail([
-    { name: "Share trading for beginners", path: PATH },
-  ]);
+  const trail = guideBreadcrumbTrail("Share trading for beginners", PATH);
 
   const metaItems = [
     "By Trading Guide Editorial Team",

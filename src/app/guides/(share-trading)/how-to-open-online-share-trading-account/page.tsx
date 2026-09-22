@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
 import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -128,9 +128,10 @@ export const metadata = buildMetadata({
 });
 
 export default function OpenShareTradingAccountPage() {
-  const trail = breadcrumbTrail([
-    { name: "How to open an online share trading account", path: PATH },
-  ]);
+  const trail = guideBreadcrumbTrail(
+    "How to open an online share trading account",
+    PATH
+  );
 
   const metaItems = [
     "By Trading Guide Editorial Team",

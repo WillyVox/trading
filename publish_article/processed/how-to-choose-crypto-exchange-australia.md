@@ -103,5 +103,5 @@ sources:
 <li>Confirm the exchange lists the specific coins you actually want</li>
 </ul>
 <h2>Next step: compare exchanges directly</h2>
-<p>Once you know what matters most for how you'll use it, a side-by-side comparison is more useful than reading five separate review pages. You can <a href="crypto/exchanges/compare">compare crypto exchanges</a> on this basis, or view individual provider profiles for <a href="/go/coinspot">CoinSpot</a>, <a href="/go/swyftx">Swyftx</a>, <a href="/crypto/exchanges/independent-reserve">Independent Reserve</a> and <a href="/crypto/exchanges/btc-markets">BTC Markets</a>.</p>
+<p>Once you know what matters most for how you'll use it, a side-by-side comparison is more useful than reading five separate review pages. You can <a href="/compare/crypto-exchanges">compare crypto exchanges</a> on this basis, or view individual provider profiles for <a href="/go/coinspot">CoinSpot</a>, <a href="/go/swyftx">Swyftx</a>, <a href="/crypto/exchanges/independent-reserve">Independent Reserve</a> and <a href="/crypto/exchanges/btc-markets">BTC Markets</a>.</p>
 <p>This article is general information, not personal financial advice — it doesn't recommend any specific exchange for your circumstances, and crypto assets carry real risk of loss.</p>

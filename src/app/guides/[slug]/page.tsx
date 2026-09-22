@@ -9,7 +9,7 @@ import {
 import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { regionHreflang } from "@/lib/seo/canonical";
 import { absoluteUrl } from "@/lib/seo/config";
 import { renderArticleContent } from "@/lib/articles/renderer";
@@ -180,11 +180,7 @@ export default async function GuidePage({
     })
   );
 
-  const trail = breadcrumbTrail([
-    { name: "Crypto", path: "/crypto" },
-    { name: "Guides", path: "/guides" },
-    { name: article.title, path: `/guides/${slug}` },
-  ]);
+  const trail = guideBreadcrumbTrail(article.title, `/guides/${slug}`);
 
   // Same fields GuideHeader used to render inline — now the hero's
   // eyebrow/meta line, per the category/H1/subheading field mapping

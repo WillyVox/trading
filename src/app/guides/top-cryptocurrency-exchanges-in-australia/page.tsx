@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -167,9 +167,10 @@ export const metadata = buildMetadata({
 });
 
 export default function TopCryptocurrencyExchangesInAustraliaPage() {
-  const trail = breadcrumbTrail([
-    { name: "Top Cryptocurrency Exchanges in Australia", path: PATH },
-  ]);
+  const trail = guideBreadcrumbTrail(
+    "Top Cryptocurrency Exchanges in Australia",
+    PATH
+  );
   const metaItems = [
     "By Trading Guide Editorial Team",
     "Last updated 17 September 2026",

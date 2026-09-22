@@ -1,0 +1,22 @@
+{
+  "roots": {
+    "home": "/",
+    "guides": "/guides",
+    "news": "/news",
+    "cryptoExchanges": "/crypto/exchanges",
+    "shareTrading": "/share-trading",
+    "compareCrypto": "/compare/crypto-exchanges",
+    "compareShareTrading": "/compare/trading-platforms",
+    "tools": "/tools"
+  },
+  "legacy": {
+    "/crypto/exchanges/compare": "/compare/crypto-exchanges",
+    "/share-trading/compare": "/compare/trading-platforms"
+  },
+  "invalidPrefixes": [
+    "/crypto/guides/",
+    "/share-trading/guides/",
+    "/crypto/news/",
+    "/share-trading/news/"
+  ]
+}

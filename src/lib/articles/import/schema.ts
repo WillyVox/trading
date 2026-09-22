@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { IMPORT_REGIONS } from "./types";
 import { SLUG_PATTERN } from "@/lib/articles/slug";
+import { findInternalLinkIssues } from "@/lib/links/internal-links";
 
 /** Mirrors the Prisma `ArticleSearchIntent` enum — see prisma/schema.prisma. Kept as a plain
  * literal list (not imported from @prisma/client) so this module stays usable before `prisma
@@ -174,6 +175,12 @@ export function validateFrontmatter(
 
   if (!body || body.trim().length === 0) {
     errors.push("content: body must not be empty");
+  }
+
+  for (const issue of findInternalLinkIssues(body)) {
+    errors.push(
+      `content: ${issue.message} ${issue.href}${issue.suggestedHref ? ` → use ${issue.suggestedHref}` : ""}`
+    );
   }
 
   if (data.status && data.status.toUpperCase() !== "DRAFT") {

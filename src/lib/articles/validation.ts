@@ -6,6 +6,7 @@ import {
   RELATIONSHIP_TYPES,
 } from "@/lib/articles/import/schema";
 import { IMPORT_REGIONS } from "@/lib/articles/import/types";
+import { findInternalLinkIssues } from "@/lib/links/internal-links";
 
 /**
  * Zod schemas backing the admin article editor's server actions
@@ -121,6 +122,14 @@ export function validateArticleForm(raw: unknown): ArticleFormValidation {
       const path = issue.path.join(".") || "(root)";
       return `${path}: ${issue.message}`;
     });
+    return { ok: false, errors };
+  }
+  const linkIssues = findInternalLinkIssues(result.data.content);
+  if (linkIssues.length > 0) {
+    const errors = linkIssues.map(
+      (issue) =>
+        `content: ${issue.message} ${issue.href}${issue.suggestedHref ? ` → use ${issue.suggestedHref}` : ""}`
+    );
     return { ok: false, errors };
   }
   return { ok: true, data: result.data, errors: [] };

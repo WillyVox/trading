@@ -2,6 +2,7 @@ import { spawnSync } from "node:child_process";
 const steps = [
   ["Code validation", "npm", ["run", "validate:code"]],
   ["SEO release check", "npm", ["run", "check:seo:release"]],
+  ["Canonical internal links", "npm", ["run", "check:internal-links"]],
   ["Production readiness", "npm", ["run", "check:production"]],
 ];
 for (const [label, cmd, args] of steps) {

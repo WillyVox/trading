@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import {
   articleSchema,
   breadcrumbSchema,
@@ -141,9 +141,10 @@ export const metadata = buildMetadata({
 });
 
 export default function SimpleStepsToBuyCryptocurrencyPage() {
-  const trail = breadcrumbTrail([
-    { name: "5 Simple Steps to Buy Cryptocurrency", path: PATH },
-  ]);
+  const trail = guideBreadcrumbTrail(
+    "5 Simple Steps to Buy Cryptocurrency",
+    PATH
+  );
 
   const metaItems = [
     "By Trading Guide Editorial Team",

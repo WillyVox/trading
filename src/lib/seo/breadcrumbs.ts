@@ -4,3 +4,17 @@ import type { BreadcrumbItem } from "./types";
 export function breadcrumbTrail(items: BreadcrumbItem[]): BreadcrumbItem[] {
   return [{ name: "Home", path: "/" }, ...items];
 }
+
+/**
+ * Canonical breadcrumb hierarchy for every guide detail page.
+ * Category/taxonomy belongs in the page hero, not between Guides and the article.
+ */
+export function guideBreadcrumbTrail(
+  title: string,
+  path: string
+): BreadcrumbItem[] {
+  return breadcrumbTrail([
+    { name: "Guides", path: "/guides" },
+    { name: title, path },
+  ]);
+}

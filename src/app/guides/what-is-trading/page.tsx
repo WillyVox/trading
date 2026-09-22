@@ -1,5 +1,5 @@
 import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
 import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -130,7 +130,7 @@ export const metadata = buildMetadata({
 });
 
 export default function WhatIsTradingPage() {
-  const trail = breadcrumbTrail([{ name: "What is trading?", path: PATH }]);
+  const trail = guideBreadcrumbTrail("What is trading?", PATH);
 
   const metaItems = [
     "By Trading Guide Editorial Team",
