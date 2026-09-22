@@ -1,10 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AssumptionsPanel } from "@/components/tools/shared/AssumptionsPanel";
-import { CalculationBreakdown } from "@/components/tools/shared/CalculationBreakdown";
-import { CalculationResult } from "@/components/tools/shared/CalculationResult";
-import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
+import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
 import { selectBrokerageRule } from "@/lib/tools/brokerage/calculate";
 import type {
@@ -275,93 +272,98 @@ export function RegularInvestingCalculator({
         </div>
       </ToolPanel>
       <ToolPanel labelledBy="regular-investing-result" live>
-        <CalculationResult
-          title="Estimated brokerage over the period"
-          value={
-            result?.status === "CALCULATED"
-              ? money(result.totalBrokerage ?? 0, result.currency)
-              : undefined
-          }
-          context={
-            result?.status === "CALCULATED"
-              ? `${result.contributionCount} equal investments totalling ${money(result.totalContributions, result.currency)}.`
-              : undefined
-          }
-        >
-          {!requiredAnswersComplete ? (
-            <p className="text-muted mt-6 text-sm leading-6">
-              Answer the conditional pricing question above to calculate this
-              scenario without guessing.
-            </p>
-          ) : rule && result ? (
-            <div className="mt-7 space-y-5 text-sm">
-              {result.status === "CALCULATED" && (
-                <div className="border-border grid gap-3 rounded-xl border p-4 sm:grid-cols-3">
-                  <div>
-                    <p className="text-muted text-xs tracking-wide uppercase">
-                      Per investment
-                    </p>
-                    <p className="text-navy mt-1 font-bold">
-                      {money(
-                        result.brokeragePerContribution ?? 0,
-                        result.currency
-                      )}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-muted text-xs tracking-wide uppercase">
-                      Investments
-                    </p>
-                    <p className="text-navy mt-1 font-bold">
-                      {result.contributionCount}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-muted text-xs tracking-wide uppercase">
-                      Brokerage / contributions
-                    </p>
-                    <p className="text-navy mt-1 font-bold">
-                      {result.effectiveBrokeragePercent?.toFixed(2)}%
-                    </p>
-                  </div>
+        {!requiredAnswersComplete ? (
+          <ToolResultPanel
+            panelId="regular-investing-result"
+            eyebrow="Estimate"
+            title="Estimated brokerage over the period"
+            exclusions={[
+              "Investment returns, dividends, taxes, FX costs, spreads, market movement and other provider fees are not included.",
+              "This tool does not forecast future pricing or investment performance.",
+            ]}
+            sources={[]}
+            hideBody
+            fallbackTitle="Answer the pricing question to continue"
+            fallbackMessage="Answer the conditional pricing question above to calculate this scenario without guessing."
+          />
+        ) : rule && result && result.status === "CALCULATED" ? (
+          <ToolResultPanel
+            panelId="regular-investing-result"
+            eyebrow="Estimate"
+            title="Estimated brokerage over the period"
+            value={money(result.totalBrokerage ?? 0, result.currency)}
+            heroCaption="Estimated brokerage over the period"
+            context={`${result.contributionCount} equal investments totalling ${money(result.totalContributions, result.currency)}.`}
+            extra={
+              <div className="border-border grid gap-3 rounded-xl border p-4 sm:grid-cols-3">
+                <div>
+                  <p className="text-muted text-xs tracking-wide uppercase">
+                    Per investment
+                  </p>
+                  <p className="text-navy mt-1 font-bold">
+                    {money(
+                      result.brokeragePerContribution ?? 0,
+                      result.currency
+                    )}
+                  </p>
                 </div>
-              )}
-              <CalculationBreakdown
-                label={rule.label}
-                expression={result.expression}
-                explanation={result.explanation}
-              />
-              <AssumptionsPanel
-                assumptions={[
-                  `Every investment is assumed to be the same ${money(amount, rule.currency ?? undefined)} trade.`,
-                  "The currently verified pricing rule is assumed to remain unchanged for the whole hypothetical period.",
-                  ...(asksFirstBuy
-                    ? [
-                        firstBuy
-                          ? "You indicated each contribution is the first buy of this security that day."
-                          : "You indicated contributions are not necessarily the first buy of this security that day.",
-                      ]
-                    : []),
-                ]}
-                exclusions={[
-                  "Investment returns, dividends, taxes, FX costs, spreads, market movement and other provider fees are not included.",
-                  "This tool does not forecast future pricing or investment performance.",
-                ]}
-              />
-              <SourceVerificationPanel
-                sourceUrl={rule.sourceUrl}
-                verifiedAt={rule.verifiedAt}
-                reviewDueAt={rule.reviewDueAt}
-                status={rule.verificationStatus}
-              />
-            </div>
-          ) : (
-            <p className="text-muted mt-6 text-sm leading-6">
-              The selected scenario does not match a verified calculator-ready
-              brokerage rule.
-            </p>
-          )}
-        </CalculationResult>
+                <div>
+                  <p className="text-muted text-xs tracking-wide uppercase">
+                    Investments
+                  </p>
+                  <p className="text-navy mt-1 font-bold">
+                    {result.contributionCount}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-muted text-xs tracking-wide uppercase">
+                    Brokerage / contributions
+                  </p>
+                  <p className="text-navy mt-1 font-bold">
+                    {result.effectiveBrokeragePercent?.toFixed(2)}%
+                  </p>
+                </div>
+              </div>
+            }
+            rows={[{ label: "Applicable rule", value: rule.label }]}
+            explanation={result.explanation}
+            assumptions={[
+              `Every investment is assumed to be the same ${money(amount, rule.currency ?? undefined)} trade.`,
+              "The currently verified pricing rule is assumed to remain unchanged for the whole hypothetical period.",
+              ...(asksFirstBuy
+                ? [
+                    firstBuy
+                      ? "You indicated each contribution is the first buy of this security that day."
+                      : "You indicated contributions are not necessarily the first buy of this security that day.",
+                  ]
+                : []),
+            ]}
+            exclusions={[
+              "Investment returns, dividends, taxes, FX costs, spreads, market movement and other provider fees are not included.",
+              "This tool does not forecast future pricing or investment performance.",
+            ]}
+            sources={[
+              {
+                sourceUrl: rule.sourceUrl,
+                verifiedAt: rule.verifiedAt,
+                reviewDueAt: rule.reviewDueAt,
+                status: rule.verificationStatus,
+              },
+            ]}
+          />
+        ) : (
+          <ToolResultPanel
+            panelId="regular-investing-result"
+            eyebrow="Estimate"
+            title="Estimated brokerage over the period"
+            exclusions={[
+              "Investment returns, dividends, taxes, FX costs, spreads, market movement and other provider fees are not included.",
+            ]}
+            sources={[]}
+            hideBody
+            fallbackMessage="The selected scenario does not match a verified calculator-ready brokerage rule."
+          />
+        )}
       </ToolPanel>
     </ToolShell>
   );

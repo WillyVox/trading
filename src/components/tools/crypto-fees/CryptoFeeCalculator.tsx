@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
-import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
+import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
 import { calculateCryptoFee } from "@/lib/tools/crypto-fees/calculate";
 import type { CryptoFeeOffering } from "@/lib/tools/crypto-fees/types";
 
@@ -179,76 +179,78 @@ export function CryptoFeeCalculator({
         </div>
       </ToolPanel>
       <ToolPanel labelledBy="crypto-fee-result" live>
-        <h2
-          id="crypto-fee-result"
-          className="font-display text-navy text-xl font-bold"
-        >
-          Estimated fee covered
-        </h2>
         {!rule || !result ? (
-          <p className="text-muted mt-5 text-sm">
-            No structured fee record is available.
-          </p>
+          <ToolResultPanel
+            panelId="crypto-fee-result"
+            eyebrow="Estimate"
+            title="Estimated fee covered"
+            exclusions={[
+              "Live spread/slippage, price movement, network fees unless explicitly represented by the selected rule, payment-provider charges, taxes, and account-specific discounts or tiers not captured in structured data.",
+            ]}
+            sources={[]}
+            hideBody
+            fallbackTitle="No structured fee record"
+            fallbackMessage="No structured fee record is available."
+          />
         ) : (
-          <div className="mt-5 space-y-5">
-            <div className="bg-panel-secondary rounded-xl p-5">
-              <p className="text-muted text-xs font-semibold tracking-wide uppercase">
-                {rule.label}
-              </p>
-              {result.status === "CALCULATED" && result.amount != null ? (
-                <p className="text-navy mt-1 text-3xl font-bold">
-                  {money(result.amount, result.currency)}
-                </p>
-              ) : (
-                <p className="text-navy mt-1 text-xl font-bold">
-                  {result.status === "TIERED_NEEDS_INPUT"
-                    ? "Tier-dependent"
-                    : result.status === "VARIABLE"
-                      ? "Variable"
-                      : "Not estimated"}
-                </p>
-              )}
-              {result.expression && (
-                <p className="text-muted mt-2 text-sm">{result.expression}</p>
-              )}
-              {result.appliedTier != null && (
-                <p className="text-muted mt-2 text-xs">
-                  Matched structured tier {result.appliedTier}.
-                </p>
-              )}
-              <p className="text-muted mt-3 text-sm leading-6">
-                {result.explanation}
-              </p>
-            </div>
-            {rule.displayValue && (
-              <div className="border-border rounded-xl border p-4">
-                <h3 className="text-navy font-semibold">Published pricing</h3>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  {rule.displayValue}
-                </p>
-                {rule.notes && (
+          <ToolResultPanel
+            panelId="crypto-fee-result"
+            eyebrow="Estimate"
+            title="Estimated fee covered"
+            value={
+              result.status === "CALCULATED" && result.amount != null
+                ? money(result.amount, result.currency)
+                : undefined
+            }
+            heroCaption={rule.label}
+            fallbackTitle={
+              result.status === "TIERED_NEEDS_INPUT"
+                ? "Tier-dependent"
+                : result.status === "VARIABLE"
+                  ? "Variable"
+                  : "Not estimated"
+            }
+            rows={[
+              ...(result.expression
+                ? [{ label: "Calculation", value: result.expression }]
+                : []),
+              ...(result.appliedTier != null
+                ? [
+                    {
+                      label: "Matched tier",
+                      value: `Tier ${result.appliedTier}`,
+                    },
+                  ]
+                : []),
+            ]}
+            explanation={result.explanation}
+            extra={
+              rule.displayValue ? (
+                <div className="border-border rounded-xl border p-4">
+                  <h3 className="text-navy font-semibold">Published pricing</h3>
                   <p className="text-muted mt-2 text-sm leading-6">
-                    {rule.notes}
+                    {rule.displayValue}
                   </p>
-                )}
-              </div>
-            )}
-            <div className="border-border border-t pt-5">
-              <h3 className="text-navy font-semibold">What is not included</h3>
-              <p className="text-muted mt-2 text-sm leading-6">
-                Live spread/slippage, price movement, network fees unless
-                explicitly represented by the selected rule, payment-provider
-                charges, taxes, and account-specific discounts or tiers not
-                captured in structured data.
-              </p>
-            </div>
-            <SourceVerificationPanel
-              sourceUrl={rule.sourceUrl}
-              verifiedAt={rule.verifiedAt}
-              reviewDueAt={rule.reviewDueAt}
-              status={rule.verificationStatus}
-            />
-          </div>
+                  {rule.notes && (
+                    <p className="text-muted mt-2 text-sm leading-6">
+                      {rule.notes}
+                    </p>
+                  )}
+                </div>
+              ) : undefined
+            }
+            exclusions={[
+              "Live spread/slippage, price movement, network fees unless explicitly represented by the selected rule, payment-provider charges, taxes, and account-specific discounts or tiers not captured in structured data.",
+            ]}
+            sources={[
+              {
+                sourceUrl: rule.sourceUrl,
+                verifiedAt: rule.verifiedAt,
+                reviewDueAt: rule.reviewDueAt,
+                status: rule.verificationStatus,
+              },
+            ]}
+          />
         )}
       </ToolPanel>
     </ToolShell>

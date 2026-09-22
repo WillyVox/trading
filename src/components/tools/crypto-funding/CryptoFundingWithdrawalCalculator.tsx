@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
-import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
+import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
 import { calculateCryptoFee } from "@/lib/tools/crypto-fees/calculate";
 import type { CryptoFeeOffering } from "@/lib/tools/crypto-fees/types";
 
@@ -109,64 +109,66 @@ export function CryptoFundingWithdrawalCalculator({
         </div>
       </ToolPanel>
       <ToolPanel labelledBy="crypto-funding-result" live>
-        <h2
-          id="crypto-funding-result"
-          className="font-display text-navy text-xl font-bold"
-        >
-          Estimated fee covered
-        </h2>
         {!rule || !result ? (
-          <p className="text-muted mt-5 text-sm">
-            No structured funding or withdrawal fee is available.
-          </p>
+          <ToolResultPanel
+            panelId="crypto-funding-result"
+            eyebrow="Estimate"
+            title="Estimated fee covered"
+            exclusions={[
+              "Network-dependent miner or validator fees, live exchange rates and third-party payment-provider charges are not estimated unless the selected verified rule explicitly represents them.",
+            ]}
+            sources={[]}
+            hideBody
+            fallbackTitle="No structured fee record"
+            fallbackMessage="No structured funding or withdrawal fee is available."
+          />
         ) : (
-          <div className="mt-5 space-y-5">
-            <div className="bg-panel-secondary rounded-xl p-5">
-              <p className="text-muted text-xs font-semibold tracking-wide uppercase">
-                {rule.label}
-              </p>
-              <p className="text-navy mt-1 text-3xl font-bold">
-                {result.status === "CALCULATED" && result.amount != null
-                  ? money(result.amount, result.currency)
-                  : result.status === "VARIABLE"
-                    ? "Variable"
-                    : "Not estimated"}
-              </p>
-              {result.expression && (
-                <p className="text-muted mt-2 text-sm">{result.expression}</p>
-              )}
-              <p className="text-muted mt-3 text-sm leading-6">
-                {result.explanation}
-              </p>
-            </div>
-            {rule.displayValue && (
-              <div className="border-border rounded-xl border p-4">
-                <h3 className="text-navy font-semibold">Published pricing</h3>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  {rule.displayValue}
-                </p>
-                {rule.notes && (
+          <ToolResultPanel
+            panelId="crypto-funding-result"
+            eyebrow="Estimate"
+            title="Estimated fee covered"
+            value={
+              result.status === "CALCULATED" && result.amount != null
+                ? money(result.amount, result.currency)
+                : undefined
+            }
+            heroCaption={rule.label}
+            fallbackTitle={
+              result.status === "VARIABLE" ? "Variable" : "Not estimated"
+            }
+            rows={
+              result.expression
+                ? [{ label: "Calculation", value: result.expression }]
+                : undefined
+            }
+            explanation={result.explanation}
+            extra={
+              rule.displayValue ? (
+                <div className="border-border rounded-xl border p-4">
+                  <h3 className="text-navy font-semibold">Published pricing</h3>
                   <p className="text-muted mt-2 text-sm leading-6">
-                    {rule.notes}
+                    {rule.displayValue}
                   </p>
-                )}
-              </div>
-            )}
-            <div className="border-border border-t pt-5">
-              <h3 className="text-navy font-semibold">Important limitation</h3>
-              <p className="text-muted mt-2 text-sm leading-6">
-                Network-dependent miner or validator fees, live exchange rates
-                and third-party payment-provider charges are not estimated
-                unless the selected verified rule explicitly represents them.
-              </p>
-            </div>
-            <SourceVerificationPanel
-              sourceUrl={rule.sourceUrl}
-              verifiedAt={rule.verifiedAt}
-              reviewDueAt={rule.reviewDueAt}
-              status={rule.verificationStatus}
-            />
-          </div>
+                  {rule.notes && (
+                    <p className="text-muted mt-2 text-sm leading-6">
+                      {rule.notes}
+                    </p>
+                  )}
+                </div>
+              ) : undefined
+            }
+            exclusions={[
+              "Network-dependent miner or validator fees, live exchange rates and third-party payment-provider charges are not estimated unless the selected verified rule explicitly represents them.",
+            ]}
+            sources={[
+              {
+                sourceUrl: rule.sourceUrl,
+                verifiedAt: rule.verifiedAt,
+                reviewDueAt: rule.reviewDueAt,
+                status: rule.verificationStatus,
+              },
+            ]}
+          />
         )}
       </ToolPanel>
     </ToolShell>
