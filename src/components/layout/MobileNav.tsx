@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AuthStatus } from "./AuthStatus";
-import { NAV_ITEMS, type NavLink } from "@/lib/nav/config";
-import { NavIcon } from "./NavIcon";
-
-/** A flattened mobile-accordion entry: either a real link, or a
- *  non-interactive column-heading label used when an item's dropdown is
- *  defined as multi-column `columns` (e.g. "Guides") rather than a flat
- *  `children` list. */
-type MobileNavEntry = NavLink | { heading: string };
+import HeaderLogo from "./HeaderLogo";
+import {
+  NAV_ITEMS,
+  type NavColumn,
+  type NavItem,
+  type NavLink,
+} from "@/lib/nav/config";
+import { NavIcon, type NavIconName } from "./NavIcon";
 
 /** Exact match for "/", startsWith for everything else — otherwise "/" would match every route. */
 function isActive(pathname: string | null, href: string): boolean {
@@ -19,30 +19,116 @@ function isActive(pathname: string | null, href: string): boolean {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
+function findNavItem(label: string): NavItem | undefined {
+  return NAV_ITEMS.find((item) => item.label === label);
+}
+
+function MobileLink({
+  link,
+  pathname,
+  compact = false,
+}: {
+  link: NavLink;
+  pathname: string | null;
+  compact?: boolean;
+}) {
+  const active = isActive(pathname, link.href);
+
+  return (
+    <Link
+      href={link.href}
+      aria-current={pathname === link.href ? "page" : undefined}
+      className={`group flex min-w-0 items-center gap-2.5 rounded-xl transition-colors ${
+        compact ? "px-2.5 py-2" : "px-3 py-2.5"
+      } ${
+        active
+          ? "bg-gold/10 text-navy ring-gold/25 ring-1"
+          : "text-muted hover:bg-panel-secondary hover:text-navy focus-visible:bg-panel-secondary"
+      }`}
+    >
+      {link.icon && <NavIcon name={link.icon} />}
+      <span className="min-w-0 text-sm leading-snug font-medium">
+        {link.label}
+      </span>
+      <span
+        aria-hidden="true"
+        className="text-muted/70 ml-auto shrink-0 text-sm"
+      >
+        →
+      </span>
+    </Link>
+  );
+}
+
+function SectionHeading({
+  icon,
+  children,
+}: {
+  icon: NavIconName;
+  children: ReactNode;
+}) {
+  return (
+    <div className="mb-3 flex items-center gap-2.5">
+      <NavIcon name={icon} />
+      <h2 className="font-display text-navy text-lg font-bold">{children}</h2>
+    </div>
+  );
+}
+
+function GuideColumn({
+  column,
+  pathname,
+}: {
+  column: NavColumn;
+  pathname: string | null;
+}) {
+  return (
+    <div>
+      <div className="text-gold mb-1 px-2.5 text-[10px] font-extrabold tracking-[0.12em] uppercase">
+        {column.heading}
+      </div>
+      <div className="space-y-0.5">
+        {column.links.map((link) => (
+          <MobileLink key={link.href} link={link} pathname={pathname} compact />
+        ))}
+        {column.footerLink && (
+          <Link
+            href={column.footerLink.href}
+            aria-current={
+              pathname === column.footerLink.href ? "page" : undefined
+            }
+            className="text-gold hover:text-navy focus-visible:text-navy block px-2.5 py-2 text-xs font-semibold transition-colors"
+          >
+            {column.footerLink.label} →
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function MobileNav() {
   const [open, setOpen] = useState(false);
-  // Which top-level accordion item (by label) is expanded — hover dropdowns
-  // (NavMenuItem, desktop) don't translate to touch, so items with
-  // `children` get an expand/collapse section here instead.
-  const [expandedLabel, setExpandedLabel] = useState<string | null>(null);
   const pathname = usePathname();
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const drawerRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  // Close on route change. This is "adjusting state when a value changes":
-  // compare against the previous pathname during render and reset there,
-  // instead of a useEffect that calls setState after the render has already
-  // committed (which costs an extra render pass and is flagged by
-  // react-hooks/set-state-in-effect).
+  const guides = findNavItem("Guides");
+  const compares = findNavItem("Compares");
+  const tools = findNavItem("Tools");
+  const shareTrading = findNavItem("Share Trading");
+  const cryptoExchanges = findNavItem("Crypto Exchanges");
+  const news = findNavItem("News");
+
+  // Close the full-screen navigator after a route change.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
     setOpen(false);
-    setExpandedLabel(null);
   }
 
-  // Lock body scroll while open.
+  // The menu is a modal navigation surface: background content must not scroll.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -50,8 +136,8 @@ export function MobileNav() {
     };
   }, [open]);
 
-  // Dialog behaviour while open: move focus into the drawer, keep Tab inside
-  // it, close on Escape, and hand focus back to the Menu button afterwards.
+  // Move focus into the full-screen dialog, trap Tab while it is open,
+  // support Escape, then restore focus to the hamburger trigger on close.
   useEffect(() => {
     if (!open) return;
     const toggle = toggleRef.current;
@@ -62,21 +148,23 @@ export function MobileNav() {
         setOpen(false);
         return;
       }
-      if (event.key !== "Tab" || !drawerRef.current) return;
-      const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
-        "a[href], button:not([disabled])"
+      if (event.key !== "Tab" || !dialogRef.current) return;
+
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
       );
       if (focusable.length === 0) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       const active = document.activeElement;
+
       if (event.shiftKey && active === first) {
         event.preventDefault();
         last.focus();
       } else if (!event.shiftKey && active === last) {
         event.preventDefault();
         first.focus();
-      } else if (!drawerRef.current.contains(active)) {
+      } else if (!dialogRef.current.contains(active)) {
         event.preventDefault();
         first.focus();
       }
@@ -89,165 +177,218 @@ export function MobileNav() {
     };
   }, [open]);
 
+  const compareLinks =
+    compares?.columns?.flatMap((column) => column.links) ?? [];
+  const toolColumns = tools?.columns ?? [];
+
   return (
     <div className="lg:hidden">
       <button
         ref={toggleRef}
         type="button"
         aria-expanded={open}
-        aria-controls="mobile-nav-drawer"
-        aria-label={open ? "Close menu" : "Open menu"}
-        onClick={() => setOpen((v) => !v)}
-        className="border-border bg-panel-secondary text-navy rounded-full border px-3.5 py-2 text-sm font-medium"
+        aria-controls="mobile-site-navigation"
+        aria-haspopup="dialog"
+        aria-label="Open site navigation"
+        onClick={() => setOpen(true)}
+        className="border-border bg-panel text-navy hover:bg-panel-secondary focus-visible:ring-gold flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none"
       >
-        {open ? "Close" : "Menu"}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        >
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
       </button>
 
-      {/* Overlay */}
       <div
-        aria-hidden={!open}
-        onClick={() => setOpen(false)}
-        className={`bg-navy-dark/40 fixed inset-0 z-30 backdrop-blur-sm transition-opacity duration-200 ${
-          open
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
-      />
-
-      {/* Drawer */}
-      <div
-        ref={drawerRef}
-        id="mobile-nav-drawer"
+        ref={dialogRef}
+        id="mobile-site-navigation"
         role="dialog"
         aria-modal="true"
-        aria-label="Site menu"
-        // Off-screen when closed: `inert` removes its links from the tab order
-        // and the accessibility tree, so keyboard and screen-reader users
-        // can't land on invisible controls.
+        aria-labelledby="mobile-nav-title"
         inert={!open}
-        className={`border-border bg-panel fixed inset-y-0 right-0 z-40 flex w-72 max-w-[80vw] transform flex-col border-l shadow-xl transition-transform duration-200 ease-out ${
-          open ? "translate-x-0" : "translate-x-full"
+        className={`bg-background fixed inset-0 z-50 flex min-h-dvh flex-col transition-[opacity,visibility] duration-150 ${
+          open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        <div className="flex shrink-0 items-center justify-between p-6 pb-0">
-          <span className="font-display text-navy text-lg font-bold">Menu</span>
-          <button
-            ref={closeRef}
-            type="button"
-            aria-label="Close menu"
-            onClick={() => setOpen(false)}
-            className="border-border text-muted hover:text-navy rounded-full border px-2 py-1 text-sm"
-          >
-            ✕
-          </button>
+        <div className="border-border bg-panel shrink-0 border-b">
+          <div className="mx-auto flex h-[72px] max-w-3xl items-center justify-between px-4">
+            <HeaderLogo />
+            <button
+              ref={closeRef}
+              type="button"
+              aria-label="Close site navigation"
+              onClick={() => setOpen(false)}
+              className="border-border bg-panel text-muted hover:bg-panel-secondary hover:text-navy focus-visible:ring-gold flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              >
+                <path d="m6 6 12 12M18 6 6 18" />
+              </svg>
+            </button>
+          </div>
         </div>
+
         <div
-          className="flex-1 overflow-y-auto p-6"
+          className="flex-1 overflow-y-auto overscroll-contain"
           style={{
-            paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1.5rem)",
+            paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 2rem)",
           }}
         >
-          <nav className="flex flex-col gap-1">
-            {NAV_ITEMS.map((item) => {
-              // Hover dropdowns (NavMenuItem, desktop) don't translate to
-              // touch, so items with `children` or `columns` get an
-              // expand/collapse section here instead. A `columns` item
-              // (e.g. "Guides") is flattened into one list, with each
-              // column's heading shown as a small non-interactive group
-              // label so the grouping isn't lost on mobile.
-              const children: MobileNavEntry[] =
-                item.children ??
-                (item.columns
-                  ? [
-                      ...item.columns.flatMap((column) => [
-                        { heading: column.heading },
-                        ...column.links,
-                        ...(column.footerLink ? [column.footerLink] : []),
-                      ]),
-                      ...(item.footerLink ? [item.footerLink] : []),
-                    ]
-                  : []);
+          <nav
+            aria-labelledby="mobile-nav-title"
+            className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8"
+          >
+            <div className="mb-6">
+              <p className="text-gold text-[11px] font-extrabold tracking-[0.14em] uppercase">
+                Explore
+              </p>
+              <h1
+                id="mobile-nav-title"
+                className="font-display text-navy mt-1 text-2xl font-bold"
+              >
+                Trading Guide
+              </h1>
+              <p className="text-muted mt-1 text-sm">
+                Learn, compare and calculate without digging through menus.
+              </p>
+            </div>
 
-              if (children.length === 0) {
-                const href = item.href ?? "#";
-                const active = isActive(pathname, href);
-                return (
-                  <Link
-                    key={item.label}
-                    href={href}
-                    className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
-                      active
-                        ? "bg-panel-secondary text-navy"
-                        : "text-muted hover:bg-panel-secondary hover:text-navy"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              }
-
-              const expanded = expandedLabel === item.label;
-              return (
-                <div key={item.label}>
-                  <button
-                    type="button"
-                    aria-expanded={expanded}
-                    onClick={() =>
-                      setExpandedLabel(expanded ? null : item.label)
-                    }
-                    className="text-muted hover:bg-panel-secondary hover:text-navy flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-medium transition-colors"
-                  >
-                    {item.label}
-                    <svg
-                      aria-hidden
-                      viewBox="0 0 12 12"
-                      className={`h-3 w-3 shrink-0 transition-transform duration-150 ${expanded ? "rotate-180" : ""}`}
-                    >
-                      <path
-                        d="M2 4l4 4 4-4"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  {expanded && (
-                    <div className="border-border mt-1 ml-3 flex flex-col gap-1 border-l pl-3">
-                      {children.map((child) =>
-                        "heading" in child ? (
-                          <div
-                            key={child.heading}
-                            className="text-muted mt-2 px-3 text-[11px] font-bold tracking-wider uppercase first:mt-0"
-                          >
-                            {child.heading}
-                          </div>
-                        ) : (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className={`group flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm transition-colors ${
-                              isActive(pathname, child.href)
-                                ? "bg-panel-secondary text-navy"
-                                : "text-muted hover:bg-panel-secondary hover:text-navy"
-                            }`}
-                          >
-                            {child.icon && <NavIcon name={child.icon} />}
-                            {child.label}
-                          </Link>
-                        )
-                      )}
-                    </div>
-                  )}
+            <div className="grid grid-cols-1 gap-4 min-[430px]:grid-cols-2">
+              {/* LEARN — all guide submenus are visible immediately. */}
+              <section className="border-border bg-panel rounded-2xl border p-3 shadow-sm min-[430px]:col-span-1">
+                <SectionHeading icon="book">Learn</SectionHeading>
+                <div className="space-y-4">
+                  {guides?.columns?.map((column) => (
+                    <GuideColumn
+                      key={column.heading}
+                      column={column}
+                      pathname={pathname}
+                    />
+                  ))}
                 </div>
-              );
-            })}
-          </nav>
+                {guides?.footerLink && (
+                  <Link
+                    href={guides.footerLink.href}
+                    className="border-border text-navy hover:bg-panel-secondary mt-3 flex items-center justify-between border-t px-2.5 pt-3 text-sm font-bold transition-colors"
+                  >
+                    <span>
+                      {guides.footerLink.label.replace(/\s*→\s*$/, "")}
+                    </span>
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                )}
+              </section>
 
-          <div className="border-border mt-6 border-t pt-4">
-            <AuthStatus variant="mobile" onNavigate={() => setOpen(false)} />
-          </div>
+              {/* COMPARE — no accordion; every comparison destination is one tap away. */}
+              <section className="border-border bg-panel rounded-2xl border p-3 shadow-sm min-[430px]:col-span-1">
+                <SectionHeading icon="scale">Compare</SectionHeading>
+                <div className="space-y-1">
+                  {compareLinks.map((link) => (
+                    <MobileLink
+                      key={link.href}
+                      link={link}
+                      pathname={pathname}
+                    />
+                  ))}
+                </div>
+              </section>
+
+              {/* CALCULATE gets full width because it contains the largest destination set. */}
+              <section className="border-border bg-panel rounded-2xl border p-3 shadow-sm min-[430px]:col-span-2 sm:p-4">
+                <SectionHeading icon="calc">Calculate</SectionHeading>
+                <div className="grid grid-cols-1 gap-x-4 gap-y-4 min-[430px]:grid-cols-2">
+                  {toolColumns.map((column) => (
+                    <div key={column.heading}>
+                      <div className="text-gold mb-1 px-2.5 text-[10px] font-extrabold tracking-[0.12em] uppercase">
+                        {column.heading}
+                      </div>
+                      <div className="space-y-0.5">
+                        {column.links.map((link) => (
+                          <MobileLink
+                            key={link.href}
+                            link={link}
+                            pathname={pathname}
+                            compact
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {tools?.footerLink && (
+                  <Link
+                    href={tools.footerLink.href}
+                    className="border-border text-navy hover:bg-panel-secondary mt-3 flex items-center justify-between border-t px-2.5 pt-3 text-sm font-bold transition-colors"
+                  >
+                    <span>
+                      {tools.footerLink.label.replace(/\s*→\s*$/, "")}
+                    </span>
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                )}
+              </section>
+            </div>
+
+            <section className="mt-6" aria-labelledby="mobile-explore-markets">
+              <h2
+                id="mobile-explore-markets"
+                className="text-muted mb-3 text-[11px] font-extrabold tracking-[0.14em] uppercase"
+              >
+                Explore markets
+              </h2>
+              <div className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2">
+                {shareTrading?.href && (
+                  <MobileLink
+                    link={{
+                      label: shareTrading.label,
+                      href: shareTrading.href,
+                      icon: "grid",
+                    }}
+                    pathname={pathname}
+                  />
+                )}
+                {cryptoExchanges?.href && (
+                  <MobileLink
+                    link={{
+                      label: cryptoExchanges.label,
+                      href: cryptoExchanges.href,
+                      icon: "coin",
+                    }}
+                    pathname={pathname}
+                  />
+                )}
+              </div>
+              {news?.href && (
+                <div className="mt-3">
+                  <MobileLink
+                    link={{ label: news.label, href: news.href, icon: "book" }}
+                    pathname={pathname}
+                  />
+                </div>
+              )}
+            </section>
+
+            <div className="border-border mt-7 border-t pt-5">
+              <p className="text-muted mb-3 px-1 text-[11px] font-extrabold tracking-[0.14em] uppercase">
+                Account
+              </p>
+              <AuthStatus variant="mobile" onNavigate={() => setOpen(false)} />
+            </div>
+          </nav>
         </div>
       </div>
     </div>
