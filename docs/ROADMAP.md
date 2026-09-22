@@ -135,3 +135,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 4. Build the article editor (`/admin/articles/new`) and its server actions — this unblocks real content, which unblocks everything downstream (SEO, provider mentions, affiliate placements).
 5. Wire `AffiliateCTA` into the provider profile page, conditional on `getActiveAffiliateLink()`.
 6. Replace placeholder seed providers with real, sourced Australian provider data before any public deployment.
+
+## Phase 9 — SEO content engine (implemented 2026-09-22)
+
+Trading Guide now has an explicit curated comparison registry. Selected high-value pair pages can be indexed and included in the sitemap, while arbitrary user-generated comparison combinations remain noindex. Provider profiles link into relevant curated comparisons and explain the evidence-led review method. See `PHASE9_IMPLEMENTATION.md`.

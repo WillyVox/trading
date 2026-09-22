@@ -21,6 +21,7 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 import { VisitSite } from "@/components/affiliate/VisitSite";
+import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 
 function formatOfferingType(type: string) {
   const label = type.replace(/_/g, " ").toLowerCase();
@@ -165,6 +166,29 @@ export default async function ExchangeProfilePage({
         />
 
         <CryptoExchangeProsCons items={offering.prosCons} />
+
+        <Card className="mt-4">
+          <h2 className="font-display text-navy text-lg font-bold">
+            How this review is built
+          </h2>
+          <p className="text-muted mt-2 text-sm leading-6">
+            Trading Guide does not assign this exchange an overall score or
+            winner label. The page is assembled from structured provider facts,
+            fee records and feature evidence, and unresolved or variable
+            information is not converted into a zero-cost claim.
+          </p>
+          <Link
+            href="/methodology"
+            className="text-blue mt-3 inline-block text-sm font-semibold underline"
+          >
+            Read our research methodology →
+          </Link>
+        </Card>
+
+        <RelatedComparisons
+          domain="crypto-exchanges"
+          subjectSlug={provider.slug}
+        />
 
         {offering.cryptoAssets.length > 0 && (
           <Card className="mt-4">

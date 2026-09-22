@@ -203,6 +203,36 @@ export function buildFeeRows(
   );
 }
 
+export function buildFeatureRows(
+  offerings: ShareTradingPlatformDetail[]
+): CompareRow[] {
+  const seen: ShareTradingPlatformDetail["features"][number]["featureType"][] =
+    [];
+  for (const offering of offerings) {
+    for (const feature of offering.features) {
+      if (!seen.includes(feature.featureType)) seen.push(feature.featureType);
+    }
+  }
+
+  return seen.map((featureType) => ({
+    key: `feature:${featureType}`,
+    label: featureType
+      .replaceAll("_", " ")
+      .toLowerCase()
+      .replace(/(^|\s)\S/g, (letter) => letter.toUpperCase()),
+    values: offerings.map((offering) => {
+      const feature = offering.features.find(
+        (candidate) => candidate.featureType === featureType
+      );
+      if (!feature) return null;
+      if (feature.value) return feature.value;
+      if (feature.available === true) return "✓";
+      if (feature.available === false) return "—";
+      return "Not yet confirmed";
+    }),
+  }));
+}
+
 export function buildShareTradingCompareSections(
   offerings: ShareTradingPlatformDetail[]
 ): CompareSection[] {
@@ -211,6 +241,7 @@ export function buildShareTradingCompareSections(
     { title: "Products", rows: buildProductRows(offerings) },
     { title: "Custody & ownership", rows: buildCustodyRows(offerings) },
     { title: "Account types", rows: buildAccountTypeRows(offerings) },
+    { title: "Platform features", rows: buildFeatureRows(offerings) },
     { title: "Costs", rows: buildFeeRows(offerings) },
   ].filter((section) => section.rows.length > 0);
 }

@@ -9,7 +9,7 @@ const CHECKED = new Date("2026-09-22");
  */
 export const ETORO_AU_PROVIDER_BASE = {
   name: "eToro AUS Capital Limited",
-  slug: "etoro-australia",
+  slug: "etoro",
   website: "https://www.etoro.com/au/",
   description:
     "Australian eToro entity providing access to a multi-asset investment platform. Regulated financial products and non-leveraged cryptoassets have different regulatory treatment in Australia.",

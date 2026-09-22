@@ -14,6 +14,9 @@ import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
+import { ComparisonEditorial } from "@/components/seo/ComparisonEditorial";
+import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
+import { getCuratedComparison } from "@/lib/seo/curated-comparisons";
 
 const BASE_PATH = "/compare/trading-platforms";
 
@@ -28,17 +31,21 @@ export async function generateMetadata({
     ? await getShareTradingComparison(slugs)
     : null;
   const names = comparison?.subjects.map((subject) => subject.name) ?? slugs;
+  const canonicalSlug = canonicalCompareSlugMulti(slugs);
+  const curated = getCuratedComparison("trading-platforms", canonicalSlug);
   return buildMetadata({
     title:
-      names.length > 1
+      curated?.title ??
+      (names.length > 1
         ? `${names.join(" vs ")}: Share Trading Platform Comparison`
-        : "Compare share trading platforms",
+        : "Compare share trading platforms"),
     description:
-      names.length > 1
+      curated?.description ??
+      (names.length > 1
         ? `Compare ${names.join(", ")} share trading platforms — markets, products, custody and costs side by side.`
-        : "Compare share trading platforms in Australia.",
-    path: `${BASE_PATH}/${slug}`,
-    noIndex: true,
+        : "Compare share trading platforms in Australia."),
+    path: `${BASE_PATH}/${canonicalSlug}`,
+    noIndex: !curated,
   });
 }
 
@@ -56,6 +63,7 @@ export default async function ShareTradingComparisonPage({
   const comparison = await getShareTradingComparison(slugs);
   if (!comparison) notFound();
   const { subjects, sections } = comparison;
+  const curated = getCuratedComparison("trading-platforms", canonicalSlug);
   const pool = await getShareTradingSelectorOptions();
   const trail = breadcrumbTrail([
     { name: "Compare", path: "/compare" },
@@ -76,6 +84,7 @@ export default async function ShareTradingComparisonPage({
         subheading="Compare markets, products, custody and costs side by side."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
+        {curated && <ComparisonEditorial comparison={curated} />}
         <CompareTable
           subjects={subjects}
           sections={sections}
@@ -94,6 +103,13 @@ export default async function ShareTradingComparisonPage({
           noun="platforms"
           comparisonBasePath={BASE_PATH}
         />
+        {curated && (
+          <RelatedComparisons
+            domain="trading-platforms"
+            subjectSlug={curated.slugs[0]}
+            excludeSlug={curated.slug}
+          />
+        )}
       </div>
       {subjects.some((subject) => subject.cta?.isAffiliate) && (
         <SectionAffiliateDisclosure />

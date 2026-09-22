@@ -70,6 +70,8 @@ const OFFERING_DETAIL_INCLUDE = {
   products: { orderBy: { productType: "asc" as const } },
   custody: { include: { market: true } },
   accountTypes: { orderBy: { accountType: "asc" as const } },
+  features: { orderBy: { featureType: "asc" as const } },
+  prosCons: { orderBy: { position: "asc" as const } },
   // Phase 2 (fees). `market` is included per-fee so a market-scoped fee
   // (e.g. ASX brokerage) can show its market name without a second query;
   // a null here means an offering-wide fee (e.g. FX conversion). Tiers are

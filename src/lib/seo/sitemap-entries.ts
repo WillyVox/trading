@@ -3,6 +3,7 @@ import type { ArticleType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl } from "./config";
 import { STATIC_GUIDES } from "@/lib/guides/static-guides";
+import { CURATED_COMPARISONS } from "./curated-comparisons";
 
 /**
  * Note: domain-specific comparison routes is intentionally excluded from the sitemap for now
@@ -56,6 +57,9 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     ...STATIC_GUIDES.map((guide) => ({
       url: absoluteUrl(`/guides/${guide.slug}`),
       lastModified: new Date(guide.updatedAt),
+    })),
+    ...CURATED_COMPARISONS.map((comparison) => ({
+      url: absoluteUrl(`/compare/${comparison.domain}/${comparison.slug}`),
     })),
   ];
 }

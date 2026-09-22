@@ -12,6 +12,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { CuratedComparisonList } from "@/components/seo/CuratedComparisonList";
 
 export const metadata = buildMetadata({
   title:
@@ -86,6 +87,7 @@ export default async function CompareTradingPlatformsPage() {
             <CompareTable subjects={subjects} sections={sections} />
             <CompareMobileCards subjects={subjects} sections={sections} />
             {hasAffiliateCta && <SectionAffiliateDisclosure />}
+            <CuratedComparisonList domain="trading-platforms" />
           </div>
         )}
       </div>

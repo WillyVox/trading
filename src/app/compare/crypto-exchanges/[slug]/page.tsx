@@ -14,6 +14,9 @@ import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
+import { ComparisonEditorial } from "@/components/seo/ComparisonEditorial";
+import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
+import { getCuratedComparison } from "@/lib/seo/curated-comparisons";
 
 const BASE_PATH = "/compare/crypto-exchanges";
 
@@ -28,17 +31,21 @@ export async function generateMetadata({
     ? await getCryptoExchangeComparison(slugs)
     : null;
   const names = comparison?.subjects.map((subject) => subject.name) ?? slugs;
+  const canonicalSlug = canonicalCompareSlugMulti(slugs);
+  const curated = getCuratedComparison("crypto-exchanges", canonicalSlug);
   return buildMetadata({
     title:
-      names.length > 1
+      curated?.title ??
+      (names.length > 1
         ? `${names.join(" vs ")}: Crypto Exchange Comparison`
-        : "Compare crypto exchanges",
+        : "Compare crypto exchanges"),
     description:
-      names.length > 1
+      curated?.description ??
+      (names.length > 1
         ? `Compare ${names.join(", ")} crypto exchanges for Australian users — fees and features side by side.`
-        : "Compare crypto exchanges for Australian users.",
-    path: `${BASE_PATH}/${slug}`,
-    noIndex: true,
+        : "Compare crypto exchanges for Australian users."),
+    path: `${BASE_PATH}/${canonicalSlug}`,
+    noIndex: !curated,
   });
 }
 
@@ -56,6 +63,7 @@ export default async function CryptoExchangeComparisonPage({
   const comparison = await getCryptoExchangeComparison(slugs);
   if (!comparison) notFound();
   const { subjects, sections } = comparison;
+  const curated = getCuratedComparison("crypto-exchanges", canonicalSlug);
   const pool = await getCryptoExchangeSelectorOptions();
   const trail = breadcrumbTrail([
     { name: "Compare", path: "/compare" },
@@ -76,6 +84,7 @@ export default async function CryptoExchangeComparisonPage({
         subheading="Compare verified exchange fees and features side by side."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
+        {curated && <ComparisonEditorial comparison={curated} />}
         <CompareTable
           subjects={subjects}
           sections={sections}
@@ -94,6 +103,13 @@ export default async function CryptoExchangeComparisonPage({
           noun="exchanges"
           comparisonBasePath={BASE_PATH}
         />
+        {curated && (
+          <RelatedComparisons
+            domain="crypto-exchanges"
+            subjectSlug={curated.slugs[0]}
+            excludeSlug={curated.slug}
+          />
+        )}
       </div>
       {subjects.some((subject) => subject.cta?.isAffiliate) && (
         <SectionAffiliateDisclosure />

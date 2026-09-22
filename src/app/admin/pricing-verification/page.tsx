@@ -60,6 +60,39 @@ export default async function PricingVerificationPage() {
     (fee) => fee.verificationStatus !== VerificationStatus.VERIFIED
   ).length;
 
+  const [unverifiedOfferings, staleOfferings, missingSourceFacts] =
+    await Promise.all([
+      prisma.providerOffering.count({
+        where: {
+          active: true,
+          verificationStatus: { not: VerificationStatus.VERIFIED },
+        },
+      }),
+      prisma.providerOffering.count({
+        where: { active: true, verificationStatus: VerificationStatus.STALE },
+      }),
+      Promise.all([
+        prisma.offeringFee.count({
+          where: { offering: { active: true }, sourceUrl: null },
+        }),
+        prisma.offeringMarket.count({
+          where: { offering: { active: true }, sourceUrl: null },
+        }),
+        prisma.offeringProduct.count({
+          where: { offering: { active: true }, sourceUrl: null },
+        }),
+        prisma.offeringCustody.count({
+          where: { offering: { active: true }, sourceUrl: null },
+        }),
+        prisma.offeringFeature.count({
+          where: { offering: { active: true }, sourceUrl: null },
+        }),
+        prisma.offeringProsCon.count({
+          where: { offering: { active: true }, sourceUrl: null },
+        }),
+      ]).then((counts) => counts.reduce((total, count) => total + count, 0)),
+    ]);
+
   const renderFee = (fee: (typeof fees)[number]) => {
     const overdue = fee.reviewDueAt != null && fee.reviewDueAt < now;
     const isCrypto = CRYPTO_CATEGORIES.includes(fee.feeCategory);
@@ -240,7 +273,7 @@ export default async function PricingVerificationPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         <div className="border-border bg-panel rounded-xl border p-4">
           <p className="text-muted text-xs uppercase">Active fee records</p>
           <p className="text-navy mt-1 text-2xl font-bold">{fees.length}</p>
@@ -252,6 +285,25 @@ export default async function PricingVerificationPage() {
         <div className="border-border bg-panel rounded-xl border p-4">
           <p className="text-muted text-xs uppercase">Review overdue</p>
           <p className="text-navy mt-1 text-2xl font-bold">{overdueCount}</p>
+        </div>
+        <div className="border-border bg-panel rounded-xl border p-4">
+          <p className="text-muted text-xs uppercase">Offering quality flags</p>
+          <p className="text-navy mt-1 text-2xl font-bold">
+            {unverifiedOfferings}
+          </p>
+          <p className="text-muted mt-1 text-xs">
+            Includes {staleOfferings} stale active offering
+            {staleOfferings === 1 ? "" : "s"}
+          </p>
+        </div>
+        <div className="border-border bg-panel rounded-xl border p-4">
+          <p className="text-muted text-xs uppercase">Missing source links</p>
+          <p className="text-navy mt-1 text-2xl font-bold">
+            {missingSourceFacts}
+          </p>
+          <p className="text-muted mt-1 text-xs">
+            Across structured offering facts
+          </p>
         </div>
       </div>
 

@@ -7,6 +7,8 @@ import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { Card } from "@/components/ui/Card";
 import { AvailabilitySection } from "@/components/share-trading/AvailabilitySection";
+import { OfferingFeatureSection } from "@/components/share-trading/OfferingFeatureSection";
+import { OfferingProsCons } from "@/components/share-trading/OfferingProsCons";
 import { CustodySection } from "@/components/share-trading/CustodySection";
 import {
   OfferingFeeSection,
@@ -23,6 +25,7 @@ import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
+import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 
 /** Matches the "1 Oct 2026" style used elsewhere for guide/article dates
  *  (see GuideHeader's local formatDate) -- short form suits a promo's
@@ -228,14 +231,41 @@ export default async function ShareTradingOfferingPage({
           </Card>
         )}
 
+        <OfferingFeatureSection features={offering.features} />
+        <OfferingProsCons items={offering.prosCons} />
+
+        <Card className="mt-4">
+          <h2 className="font-display text-navy text-lg font-bold">
+            How this review is built
+          </h2>
+          <p className="text-muted mt-2 text-sm leading-6">
+            Trading Guide does not assign this platform an overall score or
+            winner label. The review is assembled from structured market,
+            product, custody, feature and fee records, with unknown or variable
+            information kept visible rather than treated as zero.
+          </p>
+          <Link
+            href="/methodology"
+            className="text-blue mt-3 inline-block text-sm font-semibold underline"
+          >
+            Read our research methodology →
+          </Link>
+        </Card>
+
+        <RelatedComparisons
+          domain="trading-platforms"
+          subjectSlug={offering.slug}
+        />
+
         <Card className="mt-4">
           <p className="text-muted text-xs">
-            Order types and platform features for share trading platforms are
-            still being researched and aren&apos;t shown yet &mdash; see{" "}
+            Trading Guide publishes structured provider facts only after source
+            review. See{" "}
             <Link href="/methodology" className="underline">
               our methodology
             </Link>{" "}
-            for how we verify facts before publishing them.
+            for how availability, fees, custody and platform features are
+            verified.
           </p>
         </Card>
       </div>
