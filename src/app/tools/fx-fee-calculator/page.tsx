@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { FxFeeCalculator } from "@/components/tools/fx/FxFeeCalculator";
 import { getFxOfferings } from "@/lib/tools/fx/service";
 import { PageHero } from "@/components/layout/PageHero";
@@ -22,7 +24,10 @@ export default async function FxFeeCalculatorPage({
 }: {
   searchParams: Promise<{ platform?: string | string[] }>;
 }) {
-  const offerings = await getFxOfferings();
+  const offeringsResult = await safeDatabaseQuery("getFxOfferings", () =>
+    getFxOfferings()
+  );
+  const offerings = offeringsResult.ok ? offeringsResult.data : [];
   const query = await searchParams;
   const initialPlatform = Array.isArray(query.platform)
     ? query.platform[0]
@@ -42,7 +47,14 @@ export default async function FxFeeCalculatorPage({
         subheading="Estimate currency-conversion costs from verified published platform pricing, with the calculation and source shown clearly."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <FxFeeCalculator offerings={offerings} initialSlug={initialPlatform} />
+        {!offeringsResult.ok ? (
+          <CalculatorUnavailable />
+        ) : (
+          <FxFeeCalculator
+            offerings={offerings}
+            initialSlug={initialPlatform}
+          />
+        )}
 
         <section className="mt-10 max-w-3xl" aria-labelledby="fx-how-it-works">
           <h2

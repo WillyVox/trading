@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { DataUnavailableBanner } from "@/components/data/DataUnavailableBanner";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -197,13 +199,26 @@ function FeaturedShareTradingCard({
 }
 
 export default async function HomePage() {
-  const [featuredCrypto, featuredShareTrading] = await Promise.all([
-    getFeaturedCryptoExchanges(3),
-    getFeaturedShareTradingPlatforms(3),
-  ]);
+  const featuredResult = await safeDatabaseQuery(
+    "homepage.featuredProviders",
+    async () => {
+      const [featuredCrypto, featuredShareTrading] = await Promise.all([
+        getFeaturedCryptoExchanges(3),
+        getFeaturedShareTradingPlatforms(3),
+      ]);
+      return { featuredCrypto, featuredShareTrading };
+    }
+  );
+  const featuredCrypto = featuredResult.ok
+    ? featuredResult.data.featuredCrypto
+    : [];
+  const featuredShareTrading = featuredResult.ok
+    ? featuredResult.data.featuredShareTrading
+    : [];
 
   return (
     <>
+      {!featuredResult.ok && <DataUnavailableBanner />}
       <PageHero
         eyebrow="Independent trading research · Australia"
         title="Understand trading before you start investing."

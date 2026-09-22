@@ -1,4 +1,6 @@
 import { getShareTradingPlatforms } from "@/lib/share-trading/service";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { ShareTradingPlatformListCard } from "@/components/share-trading/ShareTradingPlatformListCard";
 import { LatestArticlesSection } from "@/components/article/LatestArticlesSection";
 import { getLatestArticlesForCategory } from "@/lib/content/latest";
@@ -23,10 +25,15 @@ export const metadata = buildMetadata({
 });
 
 export default async function ShareTradingPage() {
-  const [{ items }, latestArticles] = await Promise.all([
-    getShareTradingPlatforms(),
-    getLatestArticlesForCategory(SHARE_TRADING_CATEGORY),
-  ]);
+  const pageData = await safeDatabaseQuery("shareTrading.index", async () => {
+    const [{ items }, latestArticles] = await Promise.all([
+      getShareTradingPlatforms(),
+      getLatestArticlesForCategory(SHARE_TRADING_CATEGORY),
+    ]);
+    return { items, latestArticles };
+  });
+  const items = pageData.ok ? pageData.data.items : [];
+  const latestArticles = pageData.ok ? pageData.data.latestArticles : [];
   const trail = breadcrumbTrail([
     { name: "Share trading", path: "/share-trading" },
   ]);
@@ -51,9 +58,11 @@ export default async function ShareTradingPage() {
         subheading="Verified market access, ownership structures, and account types for every platform we cover."
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
-        {items.length === 0 && (
+        {!pageData.ok ? (
+          <DataUnavailable retryHref="/share-trading" />
+        ) : items.length === 0 ? (
           <p className="text-muted mt-4">No platforms seeded yet.</p>
-        )}
+        ) : null}
         <div className="mt-6 flex flex-col gap-4">
           {items.map((offering) => (
             <ShareTradingPlatformListCard

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { getCryptoExchanges } from "@/lib/crypto-exchanges/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
@@ -16,7 +18,10 @@ export const metadata = buildMetadata({
 });
 
 export default async function ExchangesPage() {
-  const items = await getCryptoExchanges();
+  const itemsResult = await safeDatabaseQuery("getCryptoExchanges", () =>
+    getCryptoExchanges()
+  );
+  const items = itemsResult.ok ? itemsResult.data : [];
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },
     { name: "Exchanges", path: "/crypto/exchanges" },
@@ -31,8 +36,12 @@ export default async function ExchangesPage() {
         subheading="Verified fees, features, and regulatory status for every exchange we cover."
       />
       <div className="mx-auto max-w-6xl px-4 py-12">
-        {items.length === 0 && (
-          <p className="text-muted mt-4">No providers seeded yet.</p>
+        {!itemsResult.ok ? (
+          <DataUnavailable retryHref="/crypto/exchanges" />
+        ) : (
+          items.length === 0 && (
+            <p className="text-muted mt-4">No providers seeded yet.</p>
+          )
         )}
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {items.map((offering) => {

@@ -1,4 +1,6 @@
 import { PageHero } from "@/components/layout/PageHero";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Notice } from "@/components/ui/Notice";
 import { RegularInvestingCalculator } from "@/components/tools/regular-investing/RegularInvestingCalculator";
@@ -26,7 +28,10 @@ export default async function RegularInvestingCalculatorPage() {
       path: "/tools/regular-investing-calculator",
     },
   ]);
-  const offerings = await getBrokerageOfferings();
+  const offeringsResult = await safeDatabaseQuery("getBrokerageOfferings", () =>
+    getBrokerageOfferings()
+  );
+  const offerings = offeringsResult.ok ? offeringsResult.data : [];
   return (
     <>
       <JsonLd data={breadcrumbSchema(trail)} />
@@ -37,7 +42,9 @@ export default async function RegularInvestingCalculatorPage() {
         subheading="See how repeated brokerage can add up when you invest the same amount on a regular schedule, using the verified rules already maintained by Trading Guide."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        {offerings.length > 0 ? (
+        {!offeringsResult.ok ? (
+          <CalculatorUnavailable />
+        ) : offerings.length > 0 ? (
           <RegularInvestingCalculator offerings={offerings} />
         ) : (
           <Notice>

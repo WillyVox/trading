@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { CryptoFeeCalculator } from "@/components/tools/crypto-fees/CryptoFeeCalculator";
 import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { PageHero } from "@/components/layout/PageHero";
@@ -17,7 +19,10 @@ export const metadata = buildMetadata({
 export const revalidate = 3600;
 
 export default async function CryptoFeeCalculatorPage() {
-  const offerings = await getCryptoFeeOfferings();
+  const offeringsResult = await safeDatabaseQuery("getCryptoFeeOfferings", () =>
+    getCryptoFeeOfferings()
+  );
+  const offerings = offeringsResult.ok ? offeringsResult.data : [];
   const trail = breadcrumbTrail([
     { name: "Tools", path: "/tools" },
     { name: "Crypto fee calculator", path: "/tools/crypto-fee-calculator" },
@@ -32,7 +37,11 @@ export default async function CryptoFeeCalculatorPage() {
         subheading="Explore source-linked exchange fees and calculate only the parts the published data supports."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <CryptoFeeCalculator offerings={offerings} />
+        {!offeringsResult.ok ? (
+          <CalculatorUnavailable />
+        ) : (
+          <CryptoFeeCalculator offerings={offerings} />
+        )}
         <section className="mt-10 max-w-3xl">
           <h2 className="font-display text-navy text-2xl font-bold">
             Why some crypto costs are not reduced to one number

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { CryptoCostCalculator } from "@/components/tools/crypto-cost/CryptoCostCalculator";
 import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { PageHero } from "@/components/layout/PageHero";
@@ -17,7 +19,10 @@ export const metadata = buildMetadata({
 export const revalidate = 3600;
 
 export default async function CryptoCostCalculatorPage() {
-  const offerings = await getCryptoFeeOfferings();
+  const offeringsResult = await safeDatabaseQuery("getCryptoFeeOfferings", () =>
+    getCryptoFeeOfferings()
+  );
+  const offerings = offeringsResult.ok ? offeringsResult.data : [];
   const trail = breadcrumbTrail([
     { name: "Tools", path: "/tools" },
     { name: "Crypto cost calculator", path: "/tools/crypto-cost-calculator" },
@@ -32,7 +37,11 @@ export default async function CryptoCostCalculatorPage() {
         subheading="Combine the fee components Trading Guide can support for a hypothetical deposit, trade and optional withdrawal — without turning unknown costs into zero."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <CryptoCostCalculator offerings={offerings} />
+        {!offeringsResult.ok ? (
+          <CalculatorUnavailable />
+        ) : (
+          <CryptoCostCalculator offerings={offerings} />
+        )}
         <section className="mt-10 max-w-3xl">
           <h2 className="font-display text-navy text-2xl font-bold">
             What the combined number means

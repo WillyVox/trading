@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { CryptoFundingWithdrawalCalculator } from "@/components/tools/crypto-funding/CryptoFundingWithdrawalCalculator";
 import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { PageHero } from "@/components/layout/PageHero";
@@ -17,7 +19,10 @@ export const metadata = buildMetadata({
 export const revalidate = 3600;
 
 export default async function CryptoFundingWithdrawalFeesPage() {
-  const offerings = await getCryptoFeeOfferings();
+  const offeringsResult = await safeDatabaseQuery("getCryptoFeeOfferings", () =>
+    getCryptoFeeOfferings()
+  );
+  const offerings = offeringsResult.ok ? offeringsResult.data : [];
   const trail = breadcrumbTrail([
     { name: "Tools", path: "/tools" },
     {
@@ -35,7 +40,11 @@ export default async function CryptoFundingWithdrawalFeesPage() {
         subheading="Explore the published costs of moving money or crypto into and out of supported exchanges without guessing network-dependent fees."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <CryptoFundingWithdrawalCalculator offerings={offerings} />
+        {!offeringsResult.ok ? (
+          <CalculatorUnavailable />
+        ) : (
+          <CryptoFundingWithdrawalCalculator offerings={offerings} />
+        )}
         <section className="mt-10 max-w-3xl">
           <h2 className="font-display text-navy text-2xl font-bold">
             Why withdrawal costs can stay variable

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { CustodyExplorer } from "@/components/tools/custody/CustodyExplorer";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -22,7 +24,10 @@ export default async function ChessVsCustodyPage() {
     { name: "Tools", path: "/tools" },
     { name: "CHESS vs custody", path: "/tools/chess-vs-custody" },
   ]);
-  const rows = await getCustodyExplorerRows();
+  const rowsResult = await safeDatabaseQuery("getCustodyExplorerRows", () =>
+    getCustodyExplorerRows()
+  );
+  const rows = rowsResult.ok ? rowsResult.data : [];
 
   return (
     <>
@@ -34,7 +39,11 @@ export default async function ChessVsCustodyPage() {
         subheading="Understand how share ownership structures differ, what a HIN means, and how the structure can change by platform and market."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <CustodyExplorer rows={rows} />
+        {!rowsResult.ok ? (
+          <CalculatorUnavailable />
+        ) : (
+          <CustodyExplorer rows={rows} />
+        )}
 
         <section
           className="mt-10 grid gap-4 md:grid-cols-2"

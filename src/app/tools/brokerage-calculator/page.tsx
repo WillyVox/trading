@@ -1,4 +1,6 @@
 import { BrokerageCalculator } from "@/components/tools/brokerage/BrokerageCalculator";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Notice } from "@/components/ui/Notice";
@@ -23,7 +25,10 @@ export default async function BrokerageCalculatorPage() {
     { name: "Tools", path: "/tools" },
     { name: "Brokerage calculator", path: "/tools/brokerage-calculator" },
   ]);
-  const offerings = await getBrokerageOfferings();
+  const offeringsResult = await safeDatabaseQuery("getBrokerageOfferings", () =>
+    getBrokerageOfferings()
+  );
+  const offerings = offeringsResult.ok ? offeringsResult.data : [];
 
   return (
     <>
@@ -35,7 +40,9 @@ export default async function BrokerageCalculatorPage() {
         subheading="Apply supported published brokerage rules to a hypothetical trade, then inspect exactly how the estimate was produced."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        {offerings.length > 0 ? (
+        {!offeringsResult.ok ? (
+          <CalculatorUnavailable />
+        ) : offerings.length > 0 ? (
           <BrokerageCalculator offerings={offerings} />
         ) : (
           <Notice>

@@ -1,4 +1,6 @@
 import { ResearchGuidePage } from "@/components/guide/ResearchGuidePage";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { LiveEvidenceUnavailable } from "@/components/data/LiveEvidenceUnavailable";
 import { PHASE_9_3_GUIDES } from "@/lib/guides/phase9-3-guides";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { hinEvidenceRows } from "@/lib/guides/topic-evidence";
@@ -16,8 +18,20 @@ export const metadata = buildMetadata({
 });
 export const revalidate = 3600;
 export default async function Page() {
-  const rows = await hinEvidenceRows();
+  const evidenceResult = await safeDatabaseQuery("guide.hinEvidenceRows", () =>
+    hinEvidenceRows()
+  );
+  const rows = evidenceResult.ok ? evidenceResult.data : [];
   return (
-    <ResearchGuidePage config={config} evidence={<HinEvidence rows={rows} />} />
+    <ResearchGuidePage
+      config={config}
+      evidence={
+        !evidenceResult.ok ? (
+          <LiveEvidenceUnavailable />
+        ) : (
+          <HinEvidence rows={rows} />
+        )
+      }
+    />
   );
 }

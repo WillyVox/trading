@@ -1,5 +1,7 @@
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { safeDatabaseQuery } from "@/lib/data/safe-database-query";
+import { CalculatorUnavailable } from "@/components/data/CalculatorUnavailable";
 import { TradingCostCalculator } from "@/components/tools/trading-cost/TradingCostCalculator";
 import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { RelatedTools } from "@/components/tools/shared/RelatedTools";
@@ -18,10 +20,20 @@ export const metadata = buildMetadata({
 export const revalidate = 3600;
 
 export default async function TradingCostCalculatorPage() {
-  const [brokerageOfferings, fxOfferings] = await Promise.all([
-    getBrokerageOfferings(),
-    getFxOfferings(),
-  ]);
+  const dataResult = await safeDatabaseQuery(
+    "tradingCost.offerings",
+    async () => {
+      const [brokerageOfferings, fxOfferings] = await Promise.all([
+        getBrokerageOfferings(),
+        getFxOfferings(),
+      ]);
+      return { brokerageOfferings, fxOfferings };
+    }
+  );
+  const brokerageOfferings = dataResult.ok
+    ? dataResult.data.brokerageOfferings
+    : [];
+  const fxOfferings = dataResult.ok ? dataResult.data.fxOfferings : [];
   const trail = breadcrumbTrail([
     { name: "Tools", path: "/tools" },
     { name: "Trading cost calculator", path: "/tools/trading-cost-calculator" },
@@ -36,10 +48,14 @@ export default async function TradingCostCalculatorPage() {
         subheading="Put supported brokerage and FX conversion costs into one transparent hypothetical trade scenario — without treating unknown costs as zero."
       />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <TradingCostCalculator
-          brokerageOfferings={brokerageOfferings}
-          fxOfferings={fxOfferings}
-        />
+        {!dataResult.ok ? (
+          <CalculatorUnavailable />
+        ) : (
+          <TradingCostCalculator
+            brokerageOfferings={brokerageOfferings}
+            fxOfferings={fxOfferings}
+          />
+        )}
         <section
           className="mt-10 max-w-3xl"
           aria-labelledby="combined-methodology"
