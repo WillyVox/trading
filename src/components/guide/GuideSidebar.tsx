@@ -46,7 +46,7 @@ export function GuideSidebar({
           href={compareHref}
           className="border-border bg-panel-secondary text-navy hover:border-gold-soft block rounded-2xl border p-4 text-center text-sm font-semibold"
         >
-          {compareLabel} 111ABD
+          {compareLabel} →
         </Link>
       </div>
     </aside>

@@ -717,3 +717,19 @@ export function getContentOpportunities(priority?: ContentPriority) {
     (item) => !priority || item.priority === priority
   );
 }
+
+/** Phase 9.3 editorial execution state. The roadmap stays separate from page content. */
+export const PUBLISHED_CONTENT_OPPORTUNITY_IDS = new Set([
+  "share-brokerage-fees",
+  "chess-vs-custody-guide",
+  "fractional-shares",
+  "hin-explained",
+  "crypto-fees-explained",
+  "austrac-registration",
+  "aud-funding",
+  "trading-cost-anatomy",
+]);
+
+export function isContentOpportunityPublished(id: string) {
+  return PUBLISHED_CONTENT_OPPORTUNITY_IDS.has(id);
+}

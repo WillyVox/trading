@@ -24,6 +24,34 @@ export const TOPIC_CLUSTERS: Record<TopicClusterId, TopicCluster> = {
     hubHref: "/guides/share-trading",
     links: [
       {
+        href: "/guides/brokerage-fees-australia",
+        title: "Brokerage fees in Australia",
+        description:
+          "Understand flat, percentage, minimum and conditional brokerage rules.",
+        kind: "guide",
+      },
+      {
+        href: "/guides/chess-vs-custody",
+        title: "CHESS sponsorship vs custody",
+        description:
+          "Understand legal ownership, beneficial interests and HIN-based holdings.",
+        kind: "guide",
+      },
+      {
+        href: "/guides/what-is-a-hin",
+        title: "What is a HIN?",
+        description:
+          "Learn how HINs identify CHESS-sponsored holders and how they differ from SRNs.",
+        kind: "guide",
+      },
+      {
+        href: "/guides/fractional-shares-australia",
+        title: "Fractional shares in Australia",
+        description:
+          "Research ownership, fees and transfer restrictions for fractional investing.",
+        kind: "guide",
+      },
+      {
         href: "/guides/share-trading-for-beginners",
         title: "Share trading for beginners",
         description:
@@ -81,6 +109,27 @@ export const TOPIC_CLUSTERS: Record<TopicClusterId, TopicCluster> = {
       "Learn how crypto platforms work, inspect funding and trading costs, then compare source-linked exchange facts.",
     hubHref: "/guides/crypto",
     links: [
+      {
+        href: "/guides/crypto-exchange-fees-australia",
+        title: "Crypto exchange fees",
+        description:
+          "Separate trading, funding, withdrawal and network-dependent costs.",
+        kind: "guide",
+      },
+      {
+        href: "/guides/austrac-crypto-registration",
+        title: "AUSTRAC VASP register",
+        description:
+          "Understand what Australian VASP registration means and what it does not prove.",
+        kind: "guide",
+      },
+      {
+        href: "/guides/crypto-exchange-funding-australia",
+        title: "Funding a crypto exchange",
+        description:
+          "Compare bank transfer, PayID, card and conversion considerations.",
+        kind: "guide",
+      },
       {
         href: "/guides/how-to-start-investing-in-crypto-for-beginners",
         title: "Crypto for beginners",

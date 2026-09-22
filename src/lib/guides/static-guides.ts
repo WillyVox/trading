@@ -151,6 +151,119 @@ export const STATIC_GUIDES = [
     updatedAt: "2026-09-21",
     source: "STATIC",
   },
+
+  {
+    slug: "brokerage-fees-australia",
+    title: "Brokerage Fees in Australia: How Share Trading Costs Work",
+    excerpt:
+      "Understand flat, percentage, minimum and conditional brokerage before comparing Australian share trading platforms.",
+    category: "share-trading",
+    featuredImage: "/images/articles/share-trading-for-beginners.png",
+    featuredImageAlt: "Guide to brokerage fees in Australia",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
+  {
+    slug: "chess-vs-custody",
+    title:
+      "CHESS Sponsorship vs Custody: What Australian Investors Should Understand",
+    excerpt:
+      "Learn how CHESS-sponsored holdings differ from custodial or omnibus structures.",
+    category: "share-trading",
+    featuredImage: "/images/articles/share-trading-for-beginners.png",
+    featuredImageAlt: "CHESS sponsorship and custody guide",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
+  {
+    slug: "what-is-a-hin",
+    title: "What Is a HIN? CHESS-Sponsored Share Ownership Explained",
+    excerpt:
+      "A plain-English explanation of Holder Identification Numbers, CHESS-sponsored holdings and SRNs.",
+    category: "share-trading",
+    featuredImage: "/images/articles/share-trading-for-beginners.png",
+    featuredImageAlt: "Holder Identification Number guide",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
+  {
+    slug: "fractional-shares-australia",
+    title: "Fractional Shares in Australia: Ownership, Fees and Transfers",
+    excerpt:
+      "Understand what it means to buy part of a share, how ownership can differ, and what to research.",
+    category: "share-trading",
+    featuredImage: "/images/articles/share-trading-for-beginners.png",
+    featuredImageAlt: "Fractional shares in Australia guide",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
+  {
+    slug: "crypto-exchange-fees-australia",
+    title:
+      "Crypto Exchange Fees in Australia: Trading, Funding and Withdrawal Costs",
+    excerpt:
+      "Learn where crypto exchange costs can occur and why one headline fee rarely describes the whole transaction flow.",
+    category: "crypto-exchanges",
+    featuredImage:
+      "/images/articles/crypto-exchange-fees-australia-explained.png",
+    featuredImageAlt: "Crypto exchange fees in Australia guide",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
+  {
+    slug: "austrac-crypto-registration",
+    title:
+      "AUSTRAC's VASP Register: What Registration Means — and What It Doesn't",
+    excerpt:
+      "Understand Australia's public virtual asset service provider register and how to use it as one factual platform check.",
+    category: "crypto-exchanges",
+    featuredImage:
+      "/images/articles/crypto-exchange-fees-australia-explained.png",
+    featuredImageAlt: "AUSTRAC VASP register guide",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
+  {
+    slug: "crypto-exchange-funding-australia",
+    title:
+      "Funding a Crypto Exchange in Australia: Bank Transfer, PayID and Card Fees",
+    excerpt:
+      "Map the funding method to the published fee before comparing crypto exchange deposit costs.",
+    category: "crypto-exchanges",
+    featuredImage:
+      "/images/articles/crypto-exchange-fees-australia-explained.png",
+    featuredImageAlt: "Crypto exchange funding methods in Australia",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
+  {
+    slug: "trading-costs-explained",
+    title:
+      "The Real Cost of a Trade: Brokerage, FX, Spread and Withdrawal Fees",
+    excerpt:
+      "A cross-market framework for separating the costs that can occur before, during and after a trade.",
+    category: "getting-started",
+    featuredImage: "/images/articles/what-is-trading.svg",
+    featuredImageAlt: "Trading cost components explained",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-22",
+    updatedAt: "2026-09-22",
+    source: "STATIC",
+  },
 ] as const satisfies readonly StaticGuideSummary[];
 
 export const STATIC_GUIDE_SLUGS = new Set<string>(
