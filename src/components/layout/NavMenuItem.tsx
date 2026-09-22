@@ -191,6 +191,20 @@ export function NavMenuItem({ item }: { item: NavItem }) {
                     {link.label}
                   </Link>
                 ))}
+                {column.footerLink && (
+                  <Link
+                    href={column.footerLink.href}
+                    className="group text-gold hover:text-navy mt-2 flex items-center gap-2 px-3 py-2 text-sm font-semibold transition-colors"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="border-gold/70 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-transform group-hover:translate-x-0.5"
+                    >
+                      →
+                    </span>
+                    <span>{column.footerLink.label}</span>
+                  </Link>
+                )}
               </div>
             ))}
             {item.footerLink && (

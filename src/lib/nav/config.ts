@@ -41,6 +41,8 @@ export interface NavLink {
 export interface NavColumn {
   heading: string;
   links: NavLink[];
+  /** Optional category landing-page CTA shown after the column links. */
+  footerLink?: NavLink;
 }
 
 export interface NavItem extends Partial<NavLink> {
@@ -97,6 +99,10 @@ export const NAV_ITEMS: NavItem[] = [
             icon: "userplus",
           },
         ],
+        footerLink: {
+          label: "Explore all share trading guides",
+          href: "/guides/share-trading",
+        },
       },
       {
         heading: "Crypto Exchanges",
@@ -123,6 +129,10 @@ export const NAV_ITEMS: NavItem[] = [
             icon: "star",
           },
         ],
+        footerLink: {
+          label: "Explore all crypto guides",
+          href: "/guides/crypto",
+        },
       },
     ],
     footerLink: { label: "View all guides →", href: "/guides" },

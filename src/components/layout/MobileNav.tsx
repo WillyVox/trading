@@ -162,6 +162,7 @@ export function MobileNav() {
                       ...item.columns.flatMap((column) => [
                         { heading: column.heading },
                         ...column.links,
+                        ...(column.footerLink ? [column.footerLink] : []),
                       ]),
                       ...(item.footerLink ? [item.footerLink] : []),
                     ]
