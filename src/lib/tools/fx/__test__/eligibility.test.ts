@@ -12,6 +12,7 @@ function rule(overrides: Partial<FxRule> = {}): FxRule {
     offeringSlug: "provider",
     offeringName: "Provider",
     providerName: "Provider Ltd",
+    marketCode: null,
     label: "FX conversion",
     calculationBasis: "PERCENTAGE",
     percentage: 0.55,
@@ -71,4 +72,17 @@ test("keeps variable pricing visible without making it calculatable", () => {
   assert.equal(result.eligible, false);
   assert.equal(result.status, "VARIABLE");
   assert.equal(result.reason, "Variable FX pricing");
+});
+
+test("accepts a verified FREE FX scenario as calculatable", () => {
+  const result = fxEligibility(
+    rule({
+      calculationBasis: "FREE",
+      percentage: null,
+      displayValue: "0% FX fee",
+    }),
+    NOW
+  );
+  assert.equal(result.eligible, true);
+  assert.equal(result.status, "CALCULATABLE");
 });

@@ -1,12 +1,13 @@
 import type { ToolVerificationStatus } from "@/lib/tools/types";
 
-export type FxCalculationBasis = "PERCENTAGE" | "VARIES";
+export type FxCalculationBasis = "PERCENTAGE" | "FREE" | "VARIES";
 
 export type FxRule = {
   feeId: string;
   offeringSlug: string;
   offeringName: string;
   providerName: string;
+  marketCode: string | null;
   label: string;
   calculationBasis: FxCalculationBasis;
   percentage: number | null;
@@ -21,11 +22,13 @@ export type FxRule = {
 
 export type FxAvailability =
   "CALCULATABLE" | "VARIABLE" | "STALE" | "UNAVAILABLE";
+
+/** One platform option may legitimately have multiple FX pricing scenarios. */
 export type FxOfferingOption = {
   slug: string;
   name: string;
   providerName: string;
-  rule: FxRule;
+  rules: FxRule[];
   availability: FxAvailability;
   reason?: string;
 };

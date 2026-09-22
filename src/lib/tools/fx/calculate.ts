@@ -34,6 +34,41 @@ export function calculateFxFee(
       exclusions: [],
       message: "Enter an amount greater than A$0 and no more than A$1 billion.",
     };
+  if (rule.verificationStatus !== "VERIFIED")
+    return {
+      status: "UNSUPPORTED",
+      inputs,
+      steps: [],
+      assumptions: [],
+      exclusions: [],
+      message: "This FX pricing is not currently calculator-ready.",
+    };
+  if (rule.calculationBasis === "FREE")
+    return {
+      status: "CALCULATED",
+      amount: 0,
+      currency: "AUD",
+      inputs,
+      applicableRule: {
+        label: rule.label,
+        description:
+          rule.notes ??
+          rule.displayValue ??
+          "Published as no FX conversion fee for this scenario.",
+      },
+      steps: [{ label: "Published FX cost", result: "A$0.00" }],
+      assumptions: [
+        "The selected published FX scenario applies to this transaction.",
+      ],
+      exclusions: [
+        "Brokerage, taxes, market fees, deposit or withdrawal fees and other transaction costs.",
+      ],
+      evidence: {
+        sourceUrl: rule.sourceUrl!,
+        verifiedAt: rule.verifiedAt,
+        verificationStatus: rule.verificationStatus,
+      },
+    };
   if (rule.calculationBasis === "VARIES")
     return {
       status: "VARIABLE",
@@ -51,7 +86,7 @@ export function calculateFxFee(
       message:
         rule.displayValue ?? "The provider publishes variable FX pricing.",
     };
-  if (rule.verificationStatus !== "VERIFIED" || rule.percentage == null)
+  if (rule.percentage == null)
     return {
       status: "UNSUPPORTED",
       inputs,
@@ -105,6 +140,7 @@ export function calculateEducationalFxFee(
     offeringSlug: "educational",
     offeringName: "Educational example",
     providerName: "",
+    marketCode: null,
     label: "Percentage fee",
     calculationBasis: "PERCENTAGE",
     percentage,

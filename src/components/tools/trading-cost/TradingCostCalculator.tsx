@@ -13,6 +13,7 @@ import type {
 } from "@/lib/tools/brokerage/types";
 import { calculateFxFee } from "@/lib/tools/fx/calculate";
 import type { FxOfferingOption } from "@/lib/tools/fx/types";
+import { selectFxRuleForMarket } from "@/lib/tools/fx/selection";
 import { combineTradingCosts } from "@/lib/tools/trading-cost/calculate";
 
 function money(amount: number, currency = "AUD") {
@@ -94,8 +95,10 @@ export function TradingCostCalculator({
   const rule = complete ? selectBrokerageRule(relevant, scenario) : undefined;
   const brokerage = rule ? calculateBrokerage(rule, amount) : null;
   const fxOffering = offering ? fxBySlug.get(offering.slug) : undefined;
-  const fx =
-    includeFx && fxOffering ? calculateFxFee(amount, fxOffering.rule) : null;
+  const fxRule = fxOffering
+    ? selectFxRuleForMarket(fxOffering.rules, effectiveMarket)
+    : undefined;
+  const fx = includeFx && fxRule ? calculateFxFee(amount, fxRule) : null;
   const combined = combineTradingCosts(brokerage, fx);
 
   function changePlatform(next: string) {
@@ -350,10 +353,10 @@ export function TradingCostCalculator({
             )}
             {includeFx && fxOffering && (
               <SourceVerificationPanel
-                sourceUrl={fxOffering.rule.sourceUrl}
-                verifiedAt={fxOffering.rule.verifiedAt}
-                reviewDueAt={fxOffering.rule.reviewDueAt}
-                status={fxOffering.rule.verificationStatus}
+                sourceUrl={fxRule?.sourceUrl ?? null}
+                verifiedAt={fxRule?.verifiedAt ?? null}
+                reviewDueAt={fxRule?.reviewDueAt ?? null}
+                status={fxRule?.verificationStatus ?? "UNVERIFIED"}
               />
             )}
           </div>

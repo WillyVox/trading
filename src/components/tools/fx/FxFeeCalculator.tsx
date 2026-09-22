@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { calculateFxFee } from "@/lib/tools/fx/calculate";
 import type { FxOfferingOption } from "@/lib/tools/fx/types";
+import { fxEligibility } from "@/lib/tools/fx/eligibility";
+import { preferredFxRule } from "@/lib/tools/fx/selection";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
 import { SourceVerificationPanel } from "@/components/tools/shared/SourceVerificationPanel";
 
@@ -27,17 +29,21 @@ export function FxFeeCalculator({
     offerings.find((o) => o.availability === "CALCULATABLE") ??
     offerings[0];
   const [slug, setSlug] = useState(first?.slug ?? "");
+  const [ruleId, setRuleId] = useState("");
   const [amount, setAmount] = useState("5000");
-  const selected = useMemo(
-    () => offerings.find((o) => o.slug === slug) ?? first,
-    [offerings, slug, first]
-  );
+  const selected = offerings.find((o) => o.slug === slug) ?? first;
   if (!selected)
     return (
       <p className="text-muted">No FX pricing records are available yet.</p>
     );
+  const selectedRule =
+    selected.rules.find((rule) => rule.feeId === ruleId) ??
+    preferredFxRule(selected.rules);
+  if (!selectedRule)
+    return <p className="text-muted">No FX pricing rule is available.</p>;
+  const selectedAvailability = fxEligibility(selectedRule, new Date());
   const numericAmount = Number(amount);
-  const result = calculateFxFee(numericAmount, selected.rule);
+  const result = calculateFxFee(numericAmount, selectedRule);
   const isCalculated = result.status === "CALCULATED";
 
   return (
@@ -62,23 +68,40 @@ export function FxFeeCalculator({
             Platform
             <select
               value={selected.slug}
-              onChange={(e) => setSlug(e.target.value)}
+              onChange={(e) => {
+                setSlug(e.target.value);
+                setRuleId("");
+              }}
               className="border-border bg-background mt-2 min-h-12 w-full rounded-lg border px-3 py-2"
             >
               {offerings.map((o) => (
                 <option key={o.slug} value={o.slug}>
                   {o.name}
-                  {o.availability === "STALE"
-                    ? " — Pricing needs verification"
-                    : o.availability === "VARIABLE"
-                      ? " — Variable pricing"
-                      : o.availability === "UNAVAILABLE"
-                        ? " — Calculation unavailable"
-                        : ""}
                 </option>
               ))}
             </select>
           </label>
+          {selected.rules.length > 1 && (
+            <label className="text-navy block text-sm font-semibold">
+              FX pricing scenario
+              <select
+                value={selectedRule.feeId}
+                onChange={(e) => setRuleId(e.target.value)}
+                className="border-border bg-background mt-2 min-h-12 w-full rounded-lg border px-3 py-2 font-normal"
+              >
+                {selected.rules.map((rule) => (
+                  <option key={rule.feeId} value={rule.feeId}>
+                    {rule.label}
+                    {rule.marketCode ? ` — ${rule.marketCode}` : ""}
+                  </option>
+                ))}
+              </select>
+              <span className="text-muted mt-1 block text-xs font-normal">
+                This platform publishes more than one FX rule. Choose the
+                scenario that matches your transaction.
+              </span>
+            </label>
+          )}
           <label className="text-navy block text-sm font-semibold">
             Amount to convert
             <div className="border-border bg-background focus-within:ring-blue/30 mt-2 flex min-h-12 items-center rounded-lg border focus-within:ring-2">
@@ -95,26 +118,26 @@ export function FxFeeCalculator({
               />
             </div>
           </label>
-          {selected.rule.percentage != null && (
+          {selectedRule.percentage != null && (
             <div className="bg-panel-secondary rounded-xl p-4">
               <p className="text-muted text-xs font-bold tracking-wide uppercase">
                 Published FX pricing used
               </p>
               <p className="text-navy mt-1 text-lg font-bold">
-                {selected.rule.percentage}%
+                {selectedRule.percentage}%
               </p>
               <p className="text-muted mt-1 text-sm leading-6">
-                {selected.rule.label}
+                {selectedRule.label}
               </p>
             </div>
           )}
-          {selected.availability === "VARIABLE" && (
+          {selectedAvailability.status === "VARIABLE" && (
             <div className="border-gold bg-gold/5 rounded-xl border p-4">
               <p className="text-navy font-semibold">
                 A fixed estimate is not available
               </p>
               <p className="text-muted mt-1 text-sm leading-6">
-                {selected.reason}
+                {selectedAvailability.reason}
               </p>
             </div>
           )}
@@ -186,10 +209,10 @@ export function FxFeeCalculator({
                 </ul>
               </div>
               <SourceVerificationPanel
-                sourceUrl={selected.rule.sourceUrl}
-                verifiedAt={selected.rule.verifiedAt}
-                reviewDueAt={selected.rule.reviewDueAt}
-                status={selected.rule.verificationStatus}
+                sourceUrl={selectedRule.sourceUrl}
+                verifiedAt={selectedRule.verifiedAt}
+                reviewDueAt={selectedRule.reviewDueAt}
+                status={selectedRule.verificationStatus}
               />
               <div className="flex flex-wrap gap-4">
                 <Link
@@ -215,17 +238,17 @@ export function FxFeeCalculator({
                 : "Unable to calculate this scenario"}
             </p>
             <p className="text-muted mt-2 leading-6">{result.message}</p>
-            {selected.rule.displayValue && (
+            {selectedRule.displayValue && (
               <p className="bg-panel-secondary text-navy mt-4 rounded-lg p-3 font-semibold">
-                {selected.rule.displayValue}
+                {selectedRule.displayValue}
               </p>
             )}
             <div className="mt-6">
               <SourceVerificationPanel
-                sourceUrl={selected.rule.sourceUrl}
-                verifiedAt={selected.rule.verifiedAt}
-                reviewDueAt={selected.rule.reviewDueAt}
-                status={selected.rule.verificationStatus}
+                sourceUrl={selectedRule.sourceUrl}
+                verifiedAt={selectedRule.verifiedAt}
+                reviewDueAt={selectedRule.reviewDueAt}
+                status={selectedRule.verificationStatus}
               />
             </div>
           </div>

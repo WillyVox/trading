@@ -25,6 +25,8 @@ export function fxEligibility(rule: FxRule, now: Date) {
       status: "STALE" as const,
       reason: "This FX pricing is due for reverification.",
     };
+  if (rule.calculationBasis === "FREE")
+    return { eligible: true, status: "CALCULATABLE" as const };
   if (rule.calculationBasis === "VARIES")
     return {
       eligible: false,

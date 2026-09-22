@@ -13,6 +13,7 @@ function providerRule(
     offeringSlug: "provider",
     offeringName: "Provider",
     providerName: "Provider Ltd",
+    marketCode: null,
     label: "FX conversion",
     calculationBasis: percentage == null ? "VARIES" : "PERCENTAGE",
     percentage,
@@ -108,4 +109,16 @@ test("does not calculate stale or unverified pricing", () => {
     ).status,
     "UNSUPPORTED"
   );
+});
+
+test("calculates a verified FREE FX scenario as zero without treating unknown pricing as zero", () => {
+  const result = calculateFxFee(
+    5000,
+    providerRule(null, {
+      calculationBasis: "FREE",
+      displayValue: "0% FX fee for this scenario",
+    })
+  );
+  assert.equal(result.status, "CALCULATED");
+  assert.equal(result.amount, 0);
 });
