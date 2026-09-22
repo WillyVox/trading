@@ -57,7 +57,8 @@ const fees: OfferingFeeSeed[] = [
     displayValue: "Exchange rate shown before confirmation",
     notes:
       "Moomoo confirms currency conversion is available and displays the exchange rate before submission. A current fixed AUD/USD percentage was not sufficiently verified from the official AU sources reviewed, so Trading Guide does not infer one.",
-    sourceUrl: "https://www.moomoo.com/au/learn/how-to-exchange-currency-on-moomoo",
+    sourceUrl:
+      "https://www.moomoo.com/au/learn/how-to-exchange-currency-on-moomoo",
     verificationStatus: VerificationStatus.VERIFIED,
     verifiedAt: CHECKED,
     reviewDueAt: REVIEW_DUE,
@@ -98,7 +99,8 @@ export const Moomoo = {
       {
         marketCode: "NYSE",
         availability: AvailabilityStatus.AVAILABLE,
-        notes: "US shares and ETFs are supported; exact security availability varies.",
+        notes:
+          "US shares and ETFs are supported; exact security availability varies.",
         sourceUrl: STOCKS,
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: CHECKED,
@@ -107,7 +109,8 @@ export const Moomoo = {
       {
         marketCode: "NASDAQ",
         availability: AvailabilityStatus.AVAILABLE,
-        notes: "US shares and ETFs are supported; exact security availability varies.",
+        notes:
+          "US shares and ETFs are supported; exact security availability varies.",
         sourceUrl: STOCKS,
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: CHECKED,
@@ -149,7 +152,8 @@ export const Moomoo = {
       {
         productType: InvestmentProductType.OPTIONS,
         availability: AvailabilityStatus.AVAILABLE,
-        notes: "US options are supported; options fee schedules are not modelled in this share-brokerage seed.",
+        notes:
+          "US options are supported; options fee schedules are not modelled in this share-brokerage seed.",
         sourceUrl: STOCKS,
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: CHECKED,
@@ -173,7 +177,8 @@ export const Moomoo = {
         custodyType: CustodyType.CUSTODIAL,
         hinSupported: false,
         custodianName: "Futu Clearing Inc.",
-        description: "US equities use an international custodial arrangement; CHESS/HIN does not apply.",
+        description:
+          "US equities use an international custodial arrangement; CHESS/HIN does not apply.",
         sourceUrl: "https://www.moomoo.com/au/learn/is-stake-chess-sponsored",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: CHECKED,
@@ -183,7 +188,8 @@ export const Moomoo = {
         marketCode: "HKEX",
         custodyType: CustodyType.CUSTODIAL,
         hinSupported: false,
-        description: "Hong Kong holdings use a custodial arrangement; CHESS/HIN does not apply.",
+        description:
+          "Hong Kong holdings use a custodial arrangement; CHESS/HIN does not apply.",
         sourceUrl: "https://www.moomoo.com/au/learn/is-stake-chess-sponsored",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: CHECKED,
@@ -222,16 +228,71 @@ export const Moomoo = {
     ],
     fees,
     features: [
-      { featureType: OfferingFeatureType.MOBILE_APP, available: true, sourceUrl: STOCKS, verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
-      { featureType: OfferingFeatureType.WEB_PLATFORM, available: true, sourceUrl: STOCKS, verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
-      { featureType: OfferingFeatureType.RECURRING_BUYS, available: true, sourceUrl: RECURRING, verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
-      { featureType: OfferingFeatureType.ADVANCED_CHARTING, available: true, sourceUrl: "https://www.moomoo.com/au", verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
+      {
+        featureType: OfferingFeatureType.MOBILE_APP,
+        available: true,
+        sourceUrl: STOCKS,
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
+      {
+        featureType: OfferingFeatureType.WEB_PLATFORM,
+        available: true,
+        sourceUrl: STOCKS,
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
+      {
+        featureType: OfferingFeatureType.RECURRING_BUYS,
+        available: true,
+        sourceUrl: RECURRING,
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
+      {
+        featureType: OfferingFeatureType.ADVANCED_CHARTING,
+        available: true,
+        sourceUrl: "https://www.moomoo.com/au",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
     ],
     prosCons: [
-      { type: OfferingProsConsType.PRO, label: "CHESS-sponsored ASX holdings are the default for new Australian accounts", sourceUrl: CHESS, jurisdiction: "AU", verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
-      { type: OfferingProsConsType.PRO, label: "Australian, US and Hong Kong share-market access is available", sourceUrl: STOCKS, jurisdiction: "AU", verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
-      { type: OfferingProsConsType.LIMITATION, label: "US$0.99 standard US order pricing excludes FX and pass-through/service fees", sourceUrl: PRICING, jurisdiction: "AU", verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
-      { type: OfferingProsConsType.LIMITATION, label: "Fractional and recurring US orders can use a different capped percentage fee schedule", sourceUrl: RECURRING, jurisdiction: "AU", verificationStatus: VerificationStatus.VERIFIED, verifiedAt: CHECKED },
+      {
+        type: OfferingProsConsType.PRO,
+        label:
+          "CHESS-sponsored ASX holdings are the default for new Australian accounts",
+        sourceUrl: CHESS,
+        jurisdiction: "AU",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
+      {
+        type: OfferingProsConsType.PRO,
+        label: "Australian, US and Hong Kong share-market access is available",
+        sourceUrl: STOCKS,
+        jurisdiction: "AU",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
+      {
+        type: OfferingProsConsType.LIMITATION,
+        label:
+          "US$0.99 standard US order pricing excludes FX and pass-through/service fees",
+        sourceUrl: PRICING,
+        jurisdiction: "AU",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
+      {
+        type: OfferingProsConsType.LIMITATION,
+        label:
+          "Fractional and recurring US orders can use a different capped percentage fee schedule",
+        sourceUrl: RECURRING,
+        jurisdiction: "AU",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: CHECKED,
+      },
     ],
   },
 };
