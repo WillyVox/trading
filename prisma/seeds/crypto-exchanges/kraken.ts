@@ -93,7 +93,7 @@ export const Kraken = {
     fees: [
       {
         feeCategory: FeeCategory.MAKER,
-        label: "Kraken Pro standard spot maker fee",
+        label: "Pro standard spot maker fee",
         calculationBasis: FeeCalculationBasis.TIERED,
         percentage: 0.4,
         currency: "AUD",
@@ -196,11 +196,11 @@ export const Kraken = {
         displayValue: "0.40% at Tier 1, tiered down to 0% from Tier 12",
         sourceUrl: "https://www.kraken.com/features/fee-schedule",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.TAKER,
-        label: "Kraken Pro standard spot taker fee",
+        label: "Pro standard spot taker fee",
         calculationBasis: FeeCalculationBasis.TIERED,
         percentage: 0.8,
         currency: "AUD",
@@ -303,7 +303,7 @@ export const Kraken = {
         displayValue: "0.80% at Tier 1, tiered down to 0.05% at Pro 5",
         sourceUrl: "https://www.kraken.com/features/fee-schedule",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.INSTANT_BUY,
@@ -313,7 +313,27 @@ export const Kraken = {
         displayValue: "1% trading fee; payment fees may also apply",
         sourceUrl: "https://www.kraken.com/features/fee-schedule",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.FIAT_DEPOSIT,
+        label: "AUD bank transfer / Osko deposit fee",
+        calculationBasis: FeeCalculationBasis.FREE,
+        displayValue: "Free",
+        sourceUrl:
+          "https://support.kraken.com/en-au/articles/360000381846-cash-deposit-options-fees-minimums-and-processing-times-",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.FIAT_WITHDRAWAL,
+        label: "AUD bank transfer / Osko withdrawal fee",
+        calculationBasis: FeeCalculationBasis.FREE,
+        displayValue: "Free",
+        sourceUrl:
+          "https://support.kraken.com/en-au/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
       },
     ],
     features: [
@@ -357,9 +377,11 @@ export const Kraken = {
       },
       {
         featureType: OfferingFeatureType.STAKING,
-        available: null,
-        sourceUrl: "https://support.kraken.com/au",
-        verificationStatus: VerificationStatus.UNVERIFIED,
+        available: true,
+        sourceUrl:
+          "https://support.kraken.com/articles/overview-of-bitcoin-staking-on-kraken",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
       },
     ],
     prosCons: [

@@ -132,13 +132,13 @@ export const CoinJar = {
     fees: [
       {
         feeCategory: FeeCategory.INSTANT_BUY,
-        label: "CoinJar fiat-to-crypto conversion fee",
+        label: "Fiat-to-crypto conversion fee",
         calculationBasis: FeeCalculationBasis.PERCENTAGE,
         percentage: 1,
         displayValue: "1%",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.CRYPTO_TRADING,
@@ -148,7 +148,7 @@ export const CoinJar = {
         displayValue: "1%",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.CRYPTO_TRADING,
@@ -158,11 +158,11 @@ export const CoinJar = {
         displayValue: "1%",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.MAKER,
-        label: "CoinJar Exchange fiat-pair maker fee",
+        label: "Exchange fiat-pair maker fee",
         calculationBasis: FeeCalculationBasis.TIERED,
         percentage: 0.1,
         currency: "AUD",
@@ -177,11 +177,11 @@ export const CoinJar = {
           "0.10% at the entry tier; falls to 0.02% above $10m 30-day trading volume",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.TAKER,
-        label: "CoinJar Exchange fiat-pair taker fee",
+        label: "Exchange fiat-pair taker fee",
         calculationBasis: FeeCalculationBasis.TIERED,
         percentage: 0.1,
         currency: "AUD",
@@ -196,7 +196,7 @@ export const CoinJar = {
           "0.10% at the entry tier; falls to 0.06% above $10m 30-day trading volume",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.MAKER,
@@ -206,7 +206,7 @@ export const CoinJar = {
         displayValue: "0%",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.TAKER,
@@ -216,7 +216,7 @@ export const CoinJar = {
         displayValue: "0.06%",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.FIAT_DEPOSIT,
@@ -225,7 +225,7 @@ export const CoinJar = {
         displayValue: "Free",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.FIAT_DEPOSIT,
@@ -234,7 +234,7 @@ export const CoinJar = {
         displayValue: "Free",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.FIAT_WITHDRAWAL,
@@ -243,7 +243,7 @@ export const CoinJar = {
         displayValue: "Free",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.FIAT_DEPOSIT,
@@ -253,7 +253,7 @@ export const CoinJar = {
         displayValue: "0.5%",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.FIAT_WITHDRAWAL,
@@ -262,7 +262,7 @@ export const CoinJar = {
         displayValue: "Free for withdrawals back to PayPal from crypto sales",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.FIAT_DEPOSIT,
@@ -272,7 +272,7 @@ export const CoinJar = {
         displayValue: "2%",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.OTHER,
@@ -283,7 +283,7 @@ export const CoinJar = {
           "1% for recurring purchases using debit/credit card or Apple Pay / Google Pay",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.CRYPTO_WITHDRAWAL,
@@ -293,7 +293,27 @@ export const CoinJar = {
           "Dynamic fee that varies by cryptocurrency and network conditions",
         sourceUrl: "https://www.coinjar.com/au/fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.MAKER,
+        label: "Stablecoin-to-fiat / stablecoin maker fee",
+        calculationBasis: FeeCalculationBasis.FREE,
+        percentage: 0,
+        displayValue: "0%",
+        sourceUrl: "https://www.coinjar.com/au/fees",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.TAKER,
+        label: "Stablecoin-to-fiat / stablecoin taker fee",
+        calculationBasis: FeeCalculationBasis.PERCENTAGE,
+        percentage: 0.001,
+        displayValue: "0.001%",
+        sourceUrl: "https://www.coinjar.com/au/fees",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
       },
     ],
     features: [

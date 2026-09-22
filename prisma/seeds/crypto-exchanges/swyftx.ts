@@ -128,7 +128,7 @@ export const Swyftx = {
         sourceUrl:
           "https://support.swyftx.com/en/articles/12005536-our-trading-fees",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
       },
       {
         feeCategory: FeeCategory.SPREAD,
@@ -138,7 +138,48 @@ export const Swyftx = {
           "Variable by asset, liquidity and market conditions; separate from the trading fee",
         sourceUrl: "https://swyftx.com/facts/",
         verificationStatus: VerificationStatus.VERIFIED,
-        verifiedAt: new Date("2026-09-17"),
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.FIAT_DEPOSIT,
+        label: "AUD bank transfer / PayID deposit fee",
+        calculationBasis: FeeCalculationBasis.FREE,
+        displayValue: "Free",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.FIAT_DEPOSIT,
+        label: "AUD card deposit fee (Stripe)",
+        calculationBasis: FeeCalculationBasis.PERCENTAGE,
+        percentage: 1.875,
+        displayValue: "1.875% charged by Stripe",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.FIAT_WITHDRAWAL,
+        label: "AUD bank withdrawal fee",
+        calculationBasis: FeeCalculationBasis.FREE,
+        displayValue: "Free",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12015846-withdraw-australian-dollars",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        feeCategory: FeeCategory.CRYPTO_WITHDRAWAL,
+        label: "Crypto withdrawal network fee",
+        calculationBasis: FeeCalculationBasis.VARIES,
+        displayValue: "Varies by asset/network and is shown before withdrawal",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12015855-withdraw-crypto-from-swyftx",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
       },
     ],
     features: [

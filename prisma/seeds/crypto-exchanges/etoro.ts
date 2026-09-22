@@ -8,7 +8,7 @@ import {
 } from "@prisma/client";
 import { ETORO_AU_PROVIDER } from "../providers/etoro";
 
-const CHECKED = new Date("2026-09-22");
+const CHECKED = new Date("2026-09-17");
 const REVIEW_DUE = new Date("2026-11-06");
 const FEES = "https://www.etoro.com/au/trading/fees/";
 const MARKETS = "https://www.etoro.com/au/trading/markets/";
@@ -58,7 +58,7 @@ export const EtoroCrypto = {
       },
       {
         feeCategory: FeeCategory.CRYPTO_WITHDRAWAL,
-        label: "Transfer from eToro investment platform to eToro Crypto Wallet",
+        label: "Platform-to-crypto-wallet transfer fee",
         calculationBasis: FeeCalculationBasis.PERCENTAGE,
         percentage: 2,
         displayValue: "2%, subject to published minimum/maximum limits",
