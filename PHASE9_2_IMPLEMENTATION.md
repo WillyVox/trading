@@ -16,7 +16,6 @@ Turn Phase 9.1's topic clusters into an editorial publishing roadmap without cre
 ## Build-now editorial queue
 
 ### Share trading
-
 1. Brokerage fees in Australia
 2. CHESS sponsorship vs custody
 3. FX fees when buying US shares
@@ -25,7 +24,6 @@ Turn Phase 9.1's topic clusters into an editorial publishing roadmap without cre
 6. What is a HIN?
 
 ### Crypto
-
 1. Crypto exchange fees in Australia
 2. What AUSTRAC/VASP registration means and does not mean
 3. Crypto spreads vs trading fees
@@ -34,7 +32,6 @@ Turn Phase 9.1's topic clusters into an editorial publishing roadmap without cre
 6. AUD funding methods and fees
 
 ### Cross-market / trust
-
 1. The real cost of a trade
 2. Strengthen the existing methodology page around verification
 
