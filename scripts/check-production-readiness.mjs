@@ -39,10 +39,16 @@ if (existsSync("docs/SECURITY.md")) {
     warnings.push(
       "CSP is still Report-Only; review production violation logs before enforcing it."
     );
-  if (/Edge rate limiting/i.test(security))
-    warnings.push(
-      "Host/edge rate limiting remains an external deployment task."
-    );
+}
+
+// Edge/WAF rate limiting cannot be proven from application source because the
+// control lives at the CDN/hosting layer. Production deployments must set this
+// attestation only after the rules in docs/EDGE-RATE-LIMITING.md are deployed
+// and verified with a 429 response.
+if (process.env.EDGE_RATE_LIMITING_CONFIGURED !== "true") {
+  errors.push(
+    "EDGE_RATE_LIMITING_CONFIGURED=true is required after deploying and verifying the host/WAF rules in docs/EDGE-RATE-LIMITING.md."
+  );
 }
 
 console.log("Trading Guide production-readiness check\n");

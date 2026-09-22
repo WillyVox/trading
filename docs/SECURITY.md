@@ -39,10 +39,12 @@ below changes, change it here.
 - `?placement=` is accepted only as a short identifier; the referrer is reduced
   to origin + path; prefetches and obvious bots aren't recorded. A failure to
   record a click is logged and the redirect still happens.
-- **Not covered in code:** a script with a browser User-Agent can still inflate
-  click counts and write to the database. There is deliberately no per-request
-  database rate limit here (it would double the writes). Add an edge/firewall
-  rate limit on `/go/*` at the host.
+- A script with a browser User-Agent can still inflate click counts and write
+  to the database. There is deliberately no per-request database rate limit
+  here (it would double the writes). Production therefore requires the
+  host/WAF control documented in `docs/EDGE-RATE-LIMITING.md`. The release
+  checker requires an explicit deployment attestation after those rules have
+  been tested.
 
 ## Response headers
 
@@ -65,9 +67,18 @@ content is written and again when it is rendered. Video embeds are limited to
 YouTube (nocookie) and Vimeo with validated IDs. `sanitize-xss.test.ts` holds
 the adversarial cases.
 
+## Deployment security controls
+
+- Edge rate limiting for `/go/*` and authentication traffic is a required
+  production control. Configure and verify it using
+  `docs/EDGE-RATE-LIMITING.md`, then set `EDGE_RATE_LIMITING_CONFIGURED=true`
+  in the production environment. This is intentionally not implemented with
+  the database-backed application limiter because doing so would add a write
+  to every affiliate redirect and would still allow abusive traffic to reach
+  the application.
+
 ## Known gaps / to do outside the code
 
-- Edge rate limiting for `/go/*` and the auth endpoints at the host.
 - Breached-password check and email verification (needs an email provider,
   which the privacy page also depends on).
 - Enforce the CSP after a review period.
