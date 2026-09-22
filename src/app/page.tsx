@@ -95,7 +95,7 @@ const researchStandardLinks = [
       "Generated live from the same provider dataset — for exchanges and platforms alike.",
     links: [
       { label: "Compare exchanges", href: "/compare/crypto-exchanges" },
-      { label: "Compare platforms", href: "/share-trading/compare" },
+      { label: "Compare platforms", href: "/compare/trading-platforms" },
     ],
   },
   {

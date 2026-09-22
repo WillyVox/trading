@@ -135,7 +135,7 @@ export const NAV_ITEMS: NavItem[] = [
         links: [
           {
             label: "Compare all trading platforms",
-            href: "/share-trading/compare",
+            href: "/compare/trading-platforms",
             icon: "scale",
           },
           {
@@ -150,7 +150,7 @@ export const NAV_ITEMS: NavItem[] = [
         links: [
           {
             label: "Compare all crypto exchanges",
-            href: "/crypto/exchanges/compare",
+            href: "/compare/crypto-exchanges",
             icon: "scale",
           },
           {
