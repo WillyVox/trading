@@ -110,10 +110,11 @@ export default function AffiliateDisclosurePage() {
 
       <div className="mt-6">
         <Notice>
-          Questions about a specific commercial relationship? Contact us at{" "}
-          {businessIdentity.supportEmail ?? "support email not yet configured"}.
-          {/* TODO(content-gap): link to a real /contact page once it exists
-              -- not in the current footer scope. See CONTENT-GAPS.md. */}
+          Questions about a specific commercial relationship? Visit our{" "}
+          <Link href="/contact" className="text-blue underline">
+            contact page
+          </Link>{" "}
+          or email {businessIdentity.supportEmail ?? "our support address"}.
         </Notice>
       </div>
 

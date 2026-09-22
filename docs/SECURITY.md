@@ -50,12 +50,14 @@ below changes, change it here.
 
 `next.config.mjs` sets `X-Content-Type-Options`, `X-Frame-Options: DENY`,
 `Referrer-Policy`, `Permissions-Policy` everywhere, plus (production only)
-`Strict-Transport-Security` and a **Report-Only** Content-Security-Policy.
+`Strict-Transport-Security` and a Content Security Policy. The policy remains
+**Report-Only** until `CSP_ENFORCED_AND_VERIFIED=true` is set after staging or
+production observation; with that verified attestation the same configuration
+switches to enforcing `Content-Security-Policy` and adds `frame-ancestors 'none'`.
 
-The CSP is report-only until real traffic has been watched: violations are
-written to the server log by `/api/csp-report`. To enforce it, review those
-logs, then change the header name to `Content-Security-Policy` and add
-`frame-ancestors 'none'`. It allows inline scripts/styles because Next.js
+Violations are written to the server log by `/api/csp-report`. Before setting
+the attestation, review those logs and exercise public pages, authentication,
+admin/editor flows, article images, and supported video embeds. It allows inline scripts/styles because Next.js
 needs them and there is no nonce pipeline (nonces force every page to render
 dynamically). Restricting `img-src` needs a decision on remote images inside
 article bodies.

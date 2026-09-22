@@ -53,6 +53,7 @@ export async function staticEntries(): Promise<MetadataRoute.Sitemap> {
     "/how-we-get-paid",
     "/terms",
     "/privacy",
+    "/contact",
   ];
   return [
     ...paths.map((path) => ({ url: absoluteUrl(path) })),

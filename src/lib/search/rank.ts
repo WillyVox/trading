@@ -1,10 +1,16 @@
 import type { SearchDocument } from "./types";
 
 function normalize(value: string): string {
-  return value.toLocaleLowerCase("en-AU").replace(/[^a-z0-9]+/g, " ").trim();
+  return value
+    .toLocaleLowerCase("en-AU")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
-export function scoreSearchDocument(document: SearchDocument, rawQuery: string): number {
+export function scoreSearchDocument(
+  document: SearchDocument,
+  rawQuery: string
+): number {
   const query = normalize(rawQuery);
   if (!query) return 0;
   const title = normalize(document.title);
@@ -30,12 +36,23 @@ export function scoreSearchDocument(document: SearchDocument, rawQuery: string):
   return score;
 }
 
-export function rankSearchDocuments(documents: SearchDocument[], query: string, limit = 12): SearchDocument[] {
+export function rankSearchDocuments(
+  documents: SearchDocument[],
+  query: string,
+  limit = 12
+): SearchDocument[] {
   const seen = new Set<string>();
   return documents
-    .map((document) => ({ document, score: scoreSearchDocument(document, query) }))
+    .map((document) => ({
+      document,
+      score: scoreSearchDocument(document, query),
+    }))
     .filter(({ score }) => score > 0)
-    .sort((a, b) => b.score - a.score || a.document.title.localeCompare(b.document.title, "en-AU"))
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.document.title.localeCompare(b.document.title, "en-AU")
+    )
     .filter(({ document }) => {
       if (seen.has(document.href)) return false;
       seen.add(document.href);

@@ -1,4 +1,5 @@
 const isProduction = process.env.NODE_ENV === "production";
+const enforceCsp = process.env.CSP_ENFORCED_AND_VERIFIED === "true";
 
 // Report-Only: violations are logged (see src/app/api/csp-report/route.ts)
 // but nothing is blocked, so this can be watched for real traffic before it
@@ -45,8 +46,12 @@ const securityHeaders = [
           value: "max-age=31536000; includeSubDomains",
         },
         {
-          key: "Content-Security-Policy-Report-Only",
-          value: contentSecurityPolicy,
+          key: enforceCsp
+            ? "Content-Security-Policy"
+            : "Content-Security-Policy-Report-Only",
+          value: enforceCsp
+            ? `${contentSecurityPolicy}; frame-ancestors 'none'`
+            : contentSecurityPolicy,
         },
       ]
     : []),

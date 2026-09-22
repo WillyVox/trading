@@ -145,7 +145,8 @@ export const Swyftx = {
         label: "AUD bank transfer / PayID deposit fee",
         calculationBasis: FeeCalculationBasis.FREE,
         displayValue: "Free",
-        sourceUrl: "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-22"),
       },
@@ -155,7 +156,8 @@ export const Swyftx = {
         calculationBasis: FeeCalculationBasis.PERCENTAGE,
         percentage: 1.875,
         displayValue: "1.875% charged by Stripe",
-        sourceUrl: "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12004727-fees-for-deposits-and-withdrawals",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-22"),
       },
@@ -164,7 +166,8 @@ export const Swyftx = {
         label: "AUD bank withdrawal fee",
         calculationBasis: FeeCalculationBasis.FREE,
         displayValue: "Free",
-        sourceUrl: "https://support.swyftx.com/en/articles/12015846-withdraw-australian-dollars",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12015846-withdraw-australian-dollars",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-22"),
       },
@@ -173,7 +176,8 @@ export const Swyftx = {
         label: "Crypto withdrawal network fee",
         calculationBasis: FeeCalculationBasis.VARIES,
         displayValue: "Varies by asset/network and is shown before withdrawal",
-        sourceUrl: "https://support.swyftx.com/en/articles/12015855-withdraw-crypto-from-swyftx",
+        sourceUrl:
+          "https://support.swyftx.com/en/articles/12015855-withdraw-crypto-from-swyftx",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-22"),
       },

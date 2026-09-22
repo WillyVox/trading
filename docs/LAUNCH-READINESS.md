@@ -21,10 +21,10 @@ npm run check:production
 
 ## Manual launch blockers
 
-- Privacy Policy and Terms of Use still contain explicit draft/legal-review markers. Obtain appropriate review and remove the markers only after the final wording is approved.
+- Privacy Policy and Terms of Use still contain explicit draft/legal-review markers. Obtain appropriate review, confirm deployment-specific privacy details, remove the markers only after approval, then set `LEGAL_CONTENT_APPROVED=true`.
 - Confirm the actual hosting/database processors and overseas data handling described by the Privacy Policy.
 - Deploy and verify the host/WAF rules in `docs/EDGE-RATE-LIMITING.md`; only then set `EDGE_RATE_LIMITING_CONFIGURED=true` in production.
-- Observe CSP report-only violations in production/staging before switching to an enforcing CSP.
+- Observe CSP report-only violations in staging/production, fix legitimate violations, verify enforcement, then set `CSP_ENFORCED_AND_VERIFIED=true`.
 - Verify all affiliate disclosures and commercial-status wording against the partnerships that are actually active at launch.
 - Verify production database migrations and seed strategy before running them against live data. Do not blindly reseed a production database if the seed deletes/recreates operational records.
 

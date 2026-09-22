@@ -6,9 +6,10 @@ import type { SearchDocument } from "./types";
 
 function toolDocuments(): SearchDocument[] {
   const tools = NAV_ITEMS.find((item) => item.label === "Tools");
-  const links = tools?.columns?.flatMap((column) =>
-    column.links.map((link) => ({ link, category: column.heading })),
-  ) ?? [];
+  const links =
+    tools?.columns?.flatMap((column) =>
+      column.links.map((link) => ({ link, category: column.heading }))
+    ) ?? [];
 
   return links.map(({ link, category }) => ({
     id: `tool:${link.href}`,

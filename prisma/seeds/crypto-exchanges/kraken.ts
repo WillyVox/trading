@@ -320,7 +320,8 @@ export const Kraken = {
         label: "AUD bank transfer / Osko deposit fee",
         calculationBasis: FeeCalculationBasis.FREE,
         displayValue: "Free",
-        sourceUrl: "https://support.kraken.com/en-au/articles/360000381846-cash-deposit-options-fees-minimums-and-processing-times-",
+        sourceUrl:
+          "https://support.kraken.com/en-au/articles/360000381846-cash-deposit-options-fees-minimums-and-processing-times-",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-22"),
       },
@@ -329,7 +330,8 @@ export const Kraken = {
         label: "AUD bank transfer / Osko withdrawal fee",
         calculationBasis: FeeCalculationBasis.FREE,
         displayValue: "Free",
-        sourceUrl: "https://support.kraken.com/en-au/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times",
+        sourceUrl:
+          "https://support.kraken.com/en-au/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-22"),
       },

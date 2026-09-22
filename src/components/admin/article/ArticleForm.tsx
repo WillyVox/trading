@@ -206,9 +206,9 @@ export async function ArticleForm({
         <Card>
           <h2 className="font-display text-navy text-lg font-bold">Content</h2>
           <p className="text-muted mt-1 text-xs">
-            HTML content. A rich block-based editor is planned for a later pass
-            — this is deliberately a plain textarea for now; content is
-            sanitized on save regardless of what&apos;s pasted in here.
+            Create and format the article with the rich editor below. Content is
+            sanitized on save and again when rendered, including content pasted
+            from another source.
           </p>
           <p className="text-muted mt-1 text-xs">
             Video embeds are supported:{" "}

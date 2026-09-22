@@ -44,12 +44,12 @@ no owner decision yet.
 
 - ✅ Intro paragraph — was a literal rendered `[TODO]`, replaced with real copy
 - ✅ Contact email — resolved via `businessIdentity.supportEmail`
-- ⬜ Link to a real `/contact` page once one exists — no such route currently exists; out of scope for this pass (adding a `/contact` or `/corrections` mechanism was flagged as a broader open item in the original audit, Pass 1 §20)
+- ✅ `/contact` now exists for corrections, privacy, complaints and commercial enquiries and is linked from this disclosure.
 - ⬜ **Lawyer review required** — not lifted.
 
 ## Footer trust paragraph (`src/components/layout/Footer.tsx`)
 
-- ⬜ Still a draft, not reviewed by a lawyer. Content itself (AFSL disclaimer, self-funded status, commission language) reads consistently with the other four pages above as of this pass, but hasn't had independent legal sign-off either.
+- 🟡 Funding wording is now launch-state-safe: it says some provider links may be commercial/affiliate links and links to `/how-we-get-paid`, rather than promising the site currently earns no commissions. Substantive legal wording still needs the same final review as the linked trust pages.
 
 ## Cross-cutting
 
@@ -72,9 +72,9 @@ Not content gaps, but tracked here so there is one place to look.
 - 🟡 **Needs a local run** — none of the above could be executed in the authoring sandbox (no `node_modules`, no registry): `npm run lint` (target: 0 errors), `npx tsc --noEmit`, `npm run build`, `npm test`, `npm run format:check`.
 - ⬜ Exchange profile page: the section-level `AffiliateCTA` is commented out (`crypto/exchanges/[slug]/page.tsx`) and only `VisitSite` renders. Decide whether the disclosure-bearing CTA should come back; if so, restore the import.
 - ⬜ `CompareSelector` on the exchange profile is commented out; if re-enabled, use `getCryptoExchangeSelectorOptions()`, not `getCryptoExchanges()`.
-- ⬜ `ArticleForm` help text still says the content editor is "deliberately a plain textarea for now", but `ArticleRichEditor` is rendered directly below it. Update the copy.
+- ✅ `ArticleForm` help text now describes the rich editor actually rendered below it.
 - ⬜ `[TODO]` in `AffiliateCTA.tsx` / `VisitSite.tsx`: append a referral ID to outbound partner URLs once a real agreement exists.
-- ⬜ `@eslint/eslintrc` is no longer imported anywhere — remove with `npm uninstall @eslint/eslintrc` (updates the lockfile too).
+- ✅ Removed the direct `@eslint/eslintrc` dev dependency; ESLint may still bring it transitively, so its transitive lockfile entry remains.
 - ⬜ Rich-editor image `align` attribute is cast rather than typed; augment the TipTap Image extension's attribute types to remove the cast.
 
 ### Corrections to the Pass 1 audit (2026-09-21)

@@ -25,4 +25,5 @@ export const footerLinks: FooterLink[] = [
   { label: "How we get paid", href: "/how-we-get-paid", newTab: true },
   { label: "Terms of use", href: "/terms", newTab: true },
   { label: "Privacy policy", href: "/privacy", newTab: true },
+  { label: "Contact", href: "/contact" },
 ];
