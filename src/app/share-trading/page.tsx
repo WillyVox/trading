@@ -65,8 +65,8 @@ export default async function ShareTradingPage() {
       <div className="mx-auto max-w-6xl px-4 py-12">
         {!pageDataResult.ok ? (
           <DataUnavailable title="Share trading research is temporarily unavailable">
-            We couldn&lsquo;t retrieve platform data right now. No platforms are being
-            shown rather than presenting an incomplete list.
+            We couldn&lsquo;t retrieve platform data right now. No platforms are
+            being shown rather than presenting an incomplete list.
           </DataUnavailable>
         ) : items.length === 0 ? (
           <p className="text-muted mt-4">No platforms seeded yet.</p>

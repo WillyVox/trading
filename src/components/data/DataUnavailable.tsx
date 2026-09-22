@@ -26,7 +26,8 @@ export function DataUnavailable({
         <div>
           <h2 className="font-display text-navy text-xl font-bold">{title}</h2>
           <p className="text-muted mt-2 max-w-2xl text-sm leading-6">
-            {message ?? children ??
+            {message ??
+              children ??
               "We couldn't load this data right now. Please try again shortly."}
           </p>
         </div>

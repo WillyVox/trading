@@ -20,12 +20,12 @@ export async function GET() {
       {
         status: 503,
         headers: { "Cache-Control": "no-store" },
-      },
+      }
     );
   }
 
   return NextResponse.json(
     { status: "healthy", database: "available" },
-    { headers: { "Cache-Control": "no-store" } },
+    { headers: { "Cache-Control": "no-store" } }
   );
 }

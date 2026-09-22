@@ -305,8 +305,9 @@ export default async function HomePage() {
           <DataUnavailableBanner />
           <section className="mx-auto max-w-6xl px-4 py-10">
             <DataUnavailable title="Featured provider research is temporarily unavailable">
-              We couldn&lsquo;t load provider research right now. Educational guides,
-              methodology and other non-database content remain available.
+              We couldn&lsquo;t load provider research right now. Educational
+              guides, methodology and other non-database content remain
+              available.
             </DataUnavailable>
           </section>
         </>

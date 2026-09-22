@@ -75,8 +75,8 @@ export default async function CompareTradingPlatformsPage() {
       <div className="mx-auto max-w-6xl px-4 py-16">
         {!offeringsResult.ok ? (
           <DataUnavailable title="Platform comparison is temporarily unavailable">
-            We couldn&lsquo;t load the provider dataset required for this comparison.
-            No incomplete comparison is being shown.
+            We couldn&lsquo;t load the provider dataset required for this
+            comparison. No incomplete comparison is being shown.
           </DataUnavailable>
         ) : offerings.length === 0 ? (
           <p className="text-muted mt-8">

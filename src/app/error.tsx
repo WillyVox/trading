@@ -6,7 +6,7 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-3xl items-center px-4 py-16 sm:px-6">
       <section className="w-full rounded-2xl border border-[var(--border)] bg-[var(--panel)] p-6 shadow-sm sm:p-10">
-        <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--gold)]">
+        <p className="font-mono text-xs font-semibold tracking-[0.18em] text-[var(--gold)] uppercase">
           Trading Guide
         </p>
         <h1 className="mt-3 font-serif text-3xl font-semibold text-[var(--navy)]">

@@ -20,12 +20,23 @@ test("classifies the Prisma localhost connectivity message from the observed out
 });
 
 test("does not hide authentication/configuration failures", () => {
-  assert.equal(isDatabaseUnavailableError(codedError("P1000", "Authentication failed")), false);
+  assert.equal(
+    isDatabaseUnavailableError(codedError("P1000", "Authentication failed")),
+    false
+  );
 });
 
 test("does not hide invalid-query or ordinary programming errors", () => {
-  assert.equal(isDatabaseUnavailableError(codedError("P2002", "Unique constraint failed")), false);
-  assert.equal(isDatabaseUnavailableError(new TypeError("Cannot read properties of undefined")), false);
+  assert.equal(
+    isDatabaseUnavailableError(codedError("P2002", "Unique constraint failed")),
+    false
+  );
+  assert.equal(
+    isDatabaseUnavailableError(
+      new TypeError("Cannot read properties of undefined")
+    ),
+    false
+  );
 });
 
 test("does not classify every Prisma initialization error as an outage", () => {
@@ -37,8 +48,11 @@ test("does not classify every Prisma initialization error as an outage", () => {
 // Phase 8.5.3: security/operational callers rely on configuration and query
 // failures NOT being downgraded to temporary availability states.
 test("does not hide database authentication failures", () => {
-  const error = Object.assign(new Error("Authentication failed against database server"), {
-    code: "P1000",
-  });
+  const error = Object.assign(
+    new Error("Authentication failed against database server"),
+    {
+      code: "P1000",
+    }
+  );
   assert.equal(isDatabaseUnavailableError(error), false);
 });

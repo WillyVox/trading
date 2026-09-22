@@ -38,14 +38,13 @@ export async function GET(
   // Fail closed if the database cannot confirm that this is an approved,
   // currently active affiliate destination. Never guess or redirect from
   // user input when partnership state cannot be verified.
-  const linkResult = await safeDatabaseQuery(
-    "affiliate.getActiveLink",
-    () => getActiveAffiliateLink(partner),
+  const linkResult = await safeDatabaseQuery("affiliate.getActiveLink", () =>
+    getActiveAffiliateLink(partner)
   );
   if (!linkResult.ok) {
     return NextResponse.json(
       { error: "Partner link temporarily unavailable" },
-      { status: 503, headers: { "Cache-Control": "no-store" } },
+      { status: 503, headers: { "Cache-Control": "no-store" } }
     );
   }
   const link = linkResult.data;

@@ -39,8 +39,8 @@ export default async function ExchangesPage() {
       <div className="mx-auto max-w-6xl px-4 py-12">
         {!itemsResult.ok ? (
           <DataUnavailable title="Crypto exchange research is temporarily unavailable">
-            We couldn&lsquo;t retrieve exchange data right now. No providers are being
-            shown rather than presenting an incomplete list.
+            We couldn&lsquo;t retrieve exchange data right now. No providers are
+            being shown rather than presenting an incomplete list.
           </DataUnavailable>
         ) : items.length === 0 ? (
           <p className="text-muted mt-4">No providers seeded yet.</p>

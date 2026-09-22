@@ -11,7 +11,11 @@ export default function AdminError({ reset }: { reset: () => void }) {
           The admin area could not complete its data request. No changes have
           been assumed to succeed. Try again after the service is available.
         </p>
-        <button type="button" onClick={reset} className="mt-5 rounded-lg bg-[var(--navy)] px-4 py-2.5 text-sm font-semibold text-white">
+        <button
+          type="button"
+          onClick={reset}
+          className="mt-5 rounded-lg bg-[var(--navy)] px-4 py-2.5 text-sm font-semibold text-white"
+        >
           Try again
         </button>
       </section>
