@@ -72,7 +72,7 @@ export const CoinJar = {
         verifiedAt: new Date("2026-09-17"),
       },
       {
-        label: "CoinJar Exchange markets",
+        label: "Exchange markets",
         value: "380+ AUD, USD, GBP and BTC trading pairs",
         jurisdiction: "AU",
         sourceUrl: "https://www.coinjar.com/au/exchange",

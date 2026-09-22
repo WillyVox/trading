@@ -7,7 +7,7 @@ import {
 import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
-import { CompareSelector } from "@/components/compare/CompareSelector";
+import { CompareHubMode } from "@/components/compare/CompareHubMode";
 import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -30,7 +30,7 @@ export const metadata = buildMetadata({
 /**
  * The dedicated, curated comparison route from docs/IMPLEMENTATION-PLAN.md
  * §2/§7 (Phase 5) -- unlike domain-specific comparison routes, this always includes every
- * CRYPTO_EXCHANGE provider (no combinatorial URL to mistype), so it&lsquo;s safe
+ * CRYPTO_EXCHANGE provider (no combinatorial URL to mistype), so it's safe
  * to index: the content is real and the set of providers is deterministic
  * rather than an arbitrary user-typed combination.
  */
@@ -96,8 +96,8 @@ export default async function CompareCryptoExchangesPage() {
       <div className="mx-auto max-w-6xl px-4 py-16">
         {!comparisonResult.ok ? (
           <DataUnavailable title="Crypto comparison is temporarily unavailable">
-            We couldn&lsquo;t load the exchange dataset required for this
-            comparison. No incomplete comparison is being shown.
+            We couldn't load the exchange dataset required for this comparison.
+            No incomplete comparison is being shown.
           </DataUnavailable>
         ) : rows.length === 0 ? (
           <p className="text-muted mt-8">
@@ -105,20 +105,25 @@ export default async function CompareCryptoExchangesPage() {
           </p>
         ) : (
           <div>
-            {selectorPool.length >= 2 && (
-              <div className="-mt-8">
-                <CompareSelector
-                  providers={selectorPool}
-                  noun="exchanges"
-                  comparisonBasePath="/compare/crypto-exchanges"
-                />
+            <CompareHubMode
+              providers={selectorPool}
+              noun="exchanges"
+              comparisonBasePath="/compare/crypto-exchanges"
+            >
+              <div>
+                <div className="mb-5">
+                  <h3 className="font-display text-navy text-xl font-bold">
+                    All {rows.length} exchanges, side by side
+                  </h3>
+                  <p className="text-muted mt-1 text-sm">
+                    Compare fees, features and recorded facts using
+                    source-linked research.
+                  </p>
+                </div>
+                <CompareTable subjects={subjects} sections={sections} />
+                <CompareMobileCards subjects={subjects} sections={sections} />
               </div>
-            )}
-            <h2 className="font-display text-navy mt-10 mb-4 text-xl font-bold">
-              All {rows.length} exchanges, side by side
-            </h2>
-            <CompareTable subjects={subjects} sections={sections} />
-            <CompareMobileCards subjects={subjects} sections={sections} />
+            </CompareHubMode>
             {hasAffiliateCta && <SectionAffiliateDisclosure />}
             <CuratedComparisonList domain="crypto-exchanges" />
           </div>

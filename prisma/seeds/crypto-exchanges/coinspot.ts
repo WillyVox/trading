@@ -47,6 +47,30 @@ export const CoinSpot = {
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-17"),
       },
+      {
+        label: "Founded",
+        value: "2013",
+        jurisdiction: "AU",
+        sourceUrl: "https://www.coinspot.com.au/?affiliate=NP4T8",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        label: "Advertised crypto assets",
+        value: "476",
+        jurisdiction: "AU",
+        sourceUrl: "https://www.coinspot.com.au/tradecoins",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
+      {
+        label: "Customers",
+        value: "3m+",
+        jurisdiction: "AU",
+        sourceUrl: "https://www.coinspot.com.au/",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-22"),
+      },
     ],
     sources: [
       {
@@ -151,6 +175,16 @@ export const CoinSpot = {
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-17"),
       },
+      {
+        feeCategory: FeeCategory.OTHER,
+        label: "Recurring Buy fee",
+        calculationBasis: FeeCalculationBasis.PERCENTAGE,
+        percentage: 1,
+        displayValue: "1% for recurring purchases",
+        sourceUrl: "https://www.coinspot.com.au/fees",
+        verificationStatus: VerificationStatus.VERIFIED,
+        verifiedAt: new Date("2026-09-17"),
+      },
     ],
     features: [
       {
@@ -194,6 +228,13 @@ export const CoinSpot = {
         sourceUrl: "https://www.coinspot.com.au/otc",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-17"),
+      },
+      {
+        featureType: OfferingFeatureType.MOBILE_APP,
+        available: true,
+        verificationStatus: VerificationStatus.VERIFIED,
+        sourceUrl: "https://www.coinspot.com.au/mobile",
+        verifiedAt: new Date("2026-09-22"),
       },
     ],
     prosCons: [

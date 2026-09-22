@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
-import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { comparisonHrefWithout } from "@/components/compare/paths";
 import type {
@@ -72,13 +71,23 @@ export function CompareMobileCards({
               >
                 {s.name}
               </Link>
-              <div className="mt-1">
-                <VerificationBadge status={s.verificationStatus} />
-              </div>
+              <p className="text-muted mt-1 text-xs font-medium">
+                {s.verificationStatus === "VERIFIED"
+                  ? "● Data verified"
+                  : s.verificationStatus === "STALE"
+                    ? "● Data review due"
+                    : "○ Data not yet verified"}
+              </p>
             </div>
           </div>
 
           <div className="mt-4 flex items-center gap-4">
+            <Link
+              href={s.profileHref}
+              className="bg-navy text-background hover:bg-navy-dark flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold"
+            >
+              View details
+            </Link>
             {s.cta && (
               <a
                 href={s.cta.href}
@@ -86,17 +95,11 @@ export function CompareMobileCards({
                 rel={
                   s.cta.isAffiliate ? "sponsored noopener" : "nofollow noopener"
                 }
-                className="bg-navy text-background hover:bg-navy-dark flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold"
+                className="text-muted hover:text-navy text-sm font-medium underline"
               >
-                Visit {s.name}
+                Visit provider ↗
               </a>
             )}
-            <Link
-              href={s.profileHref}
-              className="text-navy text-sm font-medium underline"
-            >
-              Read review
-            </Link>
           </div>
 
           {sections.map((section) => (
@@ -112,7 +115,7 @@ export function CompareMobileCards({
                   >
                     <span className="text-muted">{row.label}</span>
                     <span className="text-navy">
-                      {row.values[i] ?? "\u2014"}
+                      {row.values[i] ?? "? Not yet confirmed"}
                     </span>
                   </li>
                 ))}
