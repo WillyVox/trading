@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
@@ -11,7 +12,12 @@ import type { BreadcrumbItem } from "@/lib/seo/types";
 type HeroCta = {
   label: string;
   href: string;
-  variant?: "gold" | "outline";
+  variant?: "gold" | "outline" | "outline-soft";
+};
+
+type HeroNote = {
+  label: string;
+  href: string;
 };
 
 /**
@@ -39,6 +45,7 @@ export function PageHero({
   subheading,
   meta,
   ctas,
+  note,
   maxWidth = "max-w-6xl",
   graphic,
 }: {
@@ -48,6 +55,10 @@ export function PageHero({
   subheading?: ReactNode;
   meta?: ReactNode[];
   ctas?: HeroCta[];
+  /** Quiet text link rendered under the CTAs — for a secondary/trust-signal
+   *  link (e.g. "or read our methodology") that shouldn't compete with the
+   *  primary CTA(s) for visual weight. */
+  note?: HeroNote;
   maxWidth?: string;
   graphic?: HeroGraphicVariant;
 }) {
@@ -101,6 +112,15 @@ export function PageHero({
                 </Button>
               ))}
             </div>
+          )}
+
+          {note && (
+            <Link
+              href={note.href}
+              className="focus-visible:ring-gold-soft mt-4 inline-block text-sm text-white/60 underline decoration-white/30 underline-offset-2 hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            >
+              {note.label}
+            </Link>
           )}
 
           {meta && meta.length > 0 && (

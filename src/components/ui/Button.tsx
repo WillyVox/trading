@@ -3,7 +3,8 @@ import Link from "next/link";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "ghost" | "gold" | "outline";
+  variant?:
+    "primary" | "secondary" | "ghost" | "gold" | "outline" | "outline-soft";
   className?: string;
   href?: string;
   type?: "button" | "submit";
@@ -18,6 +19,11 @@ const VARIANT_CLASS: Record<NonNullable<ButtonProps["variant"]>, string> = {
   // On-dark variants for use inside PageHero's navy band.
   gold: "bg-gold text-navy hover:bg-gold-soft",
   outline: "border border-white/40 text-white hover:bg-white/10",
+  // Second-tier "on-dark" CTA that still reads as a real sibling action
+  // (not a lesser afterthought) next to the solid `gold` button — see the
+  // homepage hero, which pairs "Explore crypto exchanges" (gold) with
+  // "Explore share trading platforms" (outline-soft) as equal-weight CTAs.
+  "outline-soft": "border border-gold-soft text-white hover:bg-white/10",
 };
 
 const BASE =

@@ -160,3 +160,38 @@ export async function getShareTradingSelectorOptions(): Promise<
     select: { id: true, slug: true, name: true },
   });
 }
+
+// Mirrors FEATURED_CRYPTO_INCLUDE / getFeaturedCryptoExchanges in
+// crypto-exchanges/service.ts one for one — same "verified provider +
+// verified offering, alphabetical, capped chip list" shape — so the
+// homepage's two featured-provider sections (crypto + share trading) come
+// from parallel, independently cacheable queries rather than one shared
+// helper that would need an offeringType branch at every call site.
+const FEATURED_SHARE_TRADING_INCLUDE = {
+  provider: true,
+  products: {
+    orderBy: { productType: "asc" as const },
+    take: 2,
+  },
+} satisfies Prisma.ProviderOfferingInclude;
+
+export type FeaturedShareTradingPlatform = Prisma.ProviderOfferingGetPayload<{
+  include: typeof FEATURED_SHARE_TRADING_INCLUDE;
+}>;
+
+export function getFeaturedShareTradingPlatforms(
+  limit = 3
+): Promise<FeaturedShareTradingPlatform[]> {
+  return prisma.providerOffering.findMany({
+    where: {
+      offeringType: OfferingType.SHARE_TRADING,
+      active: true,
+      verificationStatus: "VERIFIED",
+      noIndex: false,
+      provider: { verificationStatus: "VERIFIED", noIndex: false },
+    },
+    orderBy: { provider: { name: "asc" } },
+    take: limit,
+    include: FEATURED_SHARE_TRADING_INCLUDE,
+  });
+}
