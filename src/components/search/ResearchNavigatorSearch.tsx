@@ -25,12 +25,15 @@ export function ResearchNavigatorSearch() {
   const resultsId = `research-search-${useId().replace(/:/g, "")}`;
   const requestRef = useRef<AbortController | null>(null);
 
+  const searching = query.trim().length >= 2;
+
   useEffect(() => {
     const trimmed = query.trim();
     if (trimmed.length < 2) {
+      // Nothing to fetch for a short/empty query. `response`/`loading` are
+      // rendered gated by `searching`, so they don't need to be reset here —
+      // just cancel any in-flight request for the previous (longer) query.
       requestRef.current?.abort();
-      setResponse(null);
-      setLoading(false);
       return;
     }
     const timer = window.setTimeout(async () => {
@@ -51,8 +54,13 @@ export function ResearchNavigatorSearch() {
     return () => window.clearTimeout(timer);
   }, [query]);
 
-  const searching = query.trim().length >= 2;
-  const groups = response?.results.reduce<Record<string, SearchDocument[]>>((acc, result) => {
+  // Derived, not stored: even if `loading`/`response` are stale from a
+  // request that got aborted mid-flight, rendering ignores them once the
+  // query is no longer long enough to search.
+  const effectiveLoading = searching && loading;
+  const effectiveResponse = searching ? response : null;
+
+  const groups = effectiveResponse?.results.reduce<Record<string, SearchDocument[]>>((acc, result) => {
     (acc[result.type] ??= []).push(result);
     return acc;
   }, {}) ?? {};
@@ -69,20 +77,20 @@ export function ResearchNavigatorSearch() {
       </div>
       <p id={`${resultsId}-hint`} className="text-muted mt-2 px-1 text-xs">Searches published guides, articles, news and Trading Guide tools.</p>
 
-      <div id={resultsId} aria-live="polite" aria-busy={loading}>
+      <div id={resultsId} aria-live="polite" aria-busy={effectiveLoading}>
         {searching && (
           <div className="border-border bg-panel mt-4 rounded-2xl border p-3 shadow-sm sm:p-4">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <p className="text-navy text-sm font-bold">{loading ? "Searching…" : `${response?.results.length ?? 0} result${response?.results.length === 1 ? "" : "s"} for “${query.trim()}”`}</p>
-              {!loading && response?.partial && <span className="text-muted text-xs font-semibold">Partial results</span>}
+              <p className="text-navy text-sm font-bold">{effectiveLoading ? "Searching…" : `${effectiveResponse?.results.length ?? 0} result${effectiveResponse?.results.length === 1 ? "" : "s"} for “${query.trim()}”`}</p>
+              {!effectiveLoading && effectiveResponse?.partial && <span className="text-muted text-xs font-semibold">Partial results</span>}
             </div>
-            {!loading && response?.partial && (
+            {!effectiveLoading && effectiveResponse?.partial && (
               <div role="status" className="border-gold/30 bg-gold/5 text-muted mb-4 rounded-xl border px-3 py-2 text-sm">Some database articles are temporarily unavailable. Static guides and tools are still searchable.</div>
             )}
-            {!loading && response && response.results.length === 0 && (
+            {!effectiveLoading && effectiveResponse && effectiveResponse.results.length === 0 && (
               <p className="text-muted px-2 py-4 text-sm">No matching published content found. Try a shorter or broader search.</p>
             )}
-            {!loading && response && response.results.length > 0 && (
+            {!effectiveLoading && effectiveResponse && effectiveResponse.results.length > 0 && (
               <div className="grid gap-5 lg:grid-cols-2">
                 {(["GUIDE", "ARTICLE", "TOOL", "NEWS"] as SearchDocumentType[]).map((type) => groups[type]?.length ? (
                   <section key={type} aria-labelledby={`${resultsId}-${type}`}>
