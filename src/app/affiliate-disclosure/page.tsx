@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
-import { Notice } from "@/components/ui/Notice";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
-import { businessIdentity } from "@/lib/config/business";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({

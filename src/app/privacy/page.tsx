@@ -132,9 +132,6 @@ export default function PrivacyPolicyPage() {
             services). Website usage information is also processed by Google as
             the provider of Google Analytics.
           </p>
-          {/* \u26A0\uFE0F LEGAL REVIEW REQUIRED: name actual hosting/database
-              providers and confirm which countries process/store data --
-              see CONTENT-GAPS.md. */}
         </section>
 
         <section>

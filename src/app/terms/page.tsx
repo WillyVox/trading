@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { businessIdentity } from "@/lib/config/business";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
