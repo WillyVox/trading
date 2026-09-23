@@ -267,12 +267,12 @@ function ResearchNavigatorContent({ titleId }: { titleId: string }) {
         <ExploreMarkets pathname={pathname} />
       </div>
 
-      <div className="border-border mt-7 border-t pt-5">
+      {/* <div className="border-border mt-7 border-t pt-5">
         <p className="text-muted mb-3 px-1 text-[11px] font-extrabold tracking-[0.14em] uppercase">
           Account
         </p>
         <AuthStatus variant="mobile" />
-      </div>
+      </div>       */}
     </nav>
   );
 }
