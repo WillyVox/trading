@@ -144,7 +144,7 @@ export async function registerAction(
     throw err;
   }
 
-  redirect("/");
+  redirect("/?signup=success");
 }
 
 export async function logoutAction() {

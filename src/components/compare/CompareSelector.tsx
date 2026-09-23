@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { useRouter } from "next/navigation";
+import { trackEvent } from "@/lib/analytics/events";
 
 type SelectableProvider = { id: string; slug: string; name: string };
 
@@ -147,6 +148,12 @@ export function CompareSelector({
       setMessage(`Pick at least 2 ${noun} to compare.`);
       return;
     }
+    trackEvent("comparison_created", {
+      comparison_type: comparisonBasePath.includes("crypto")
+        ? "crypto_exchange"
+        : "trading_platform",
+      provider_count: selected.length,
+    });
     router.push(`${comparisonBasePath}/${canonicalOrder(selected)}`);
   }
 

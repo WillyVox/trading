@@ -45,3 +45,15 @@ Recommended defaults:
 - Google Search Console property/DNS setup
 
 Those remain subsequent Milestone 5 work.
+
+## Milestone 5.3 — behaviour and conversion events
+
+The application now emits a deliberately small event set through `src/lib/analytics/events.ts`:
+
+- `affiliate_click`: click on a first-party `/go/[partner]` affiliate redirect; parameters: `provider_slug`, `placement`, `source_path`.
+- `comparison_created`: user submits the comparison selector; parameters: `comparison_type`, `provider_count`. Provider combinations are deliberately not sent to avoid high-cardinality reporting.
+- `provider_view`: view of a supported provider/exchange detail route; parameters: `provider_slug`, `provider_type`.
+- `tool_used`: first meaningful form interaction on a `/tools/[tool]` page per route visit; parameter: `tool_name`. Financial input values are never sent.
+- `sign_up`: successful credentials registration; parameter: `method=credentials`. Email/name are never sent. The server redirects with a transient `signup=success` marker; the analytics client emits the event then removes the marker from the visible URL.
+
+Recommended GA4 key events at launch: `affiliate_click`, `comparison_created`, and `sign_up`.

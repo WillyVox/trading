@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { AnalyticsInteractions } from "@/components/analytics/AnalyticsInteractions";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
@@ -72,6 +73,7 @@ export default function RootLayout({
         </AuthProvider>
         <Suspense fallback={null}>
           <GoogleAnalytics />
+          <AnalyticsInteractions />
         </Suspense>
       </body>
     </html>

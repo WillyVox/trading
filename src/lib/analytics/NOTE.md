@@ -1,0 +1,284 @@
+### What is now tracked
+
+The implementation adds a central `trackEvent()` layer rather than scattering raw `window.gtag()` calls around the application.
+
+| Event                | Trigger                                 | Data sent                               |
+| -------------------- | --------------------------------------- | --------------------------------------- |
+| `page_view`          | Initial load + Next.js navigation       | URL/path/title                          |
+| `provider_view`      | Provider/exchange detail page           | provider slug/type                      |
+| `comparison_created` | User creates comparison                 | comparison type + provider count        |
+| `affiliate_click`    | User clicks `/go/[partner]`             | provider slug + placement + source path |
+| `tool_used`          | First meaningful calculator interaction | tool name                               |
+| `sign_up`            | Successful account registration         | `method: credentials`                   |
+
+Importantly, calculator financial values, email addresses, names and passwords are **not** sent to GA4.
+
+Your PostgreSQL `AffiliateClick` tracking remains independent. GA4 is therefore behavioural analytics while your database remains the first-party affiliate-click record.
+
+Google supports custom events and parameters for this kind of measurement, and custom events can subsequently be designated as key events. ([Google Help][1])
+
+### Files changed
+
+**New**
+
+```text
+src/lib/analytics/events.ts
+src/components/analytics/AnalyticsInteractions.tsx
+```
+
+**Modified**
+
+```text
+src/app/layout.tsx
+src/components/compare/CompareSelector.tsx
+src/lib/auth/actions.ts
+docs/MILESTONE5_1_5_2_ANALYTICS.md
+```
+
+The registration redirect now temporarily uses:
+
+```text
+/?signup=success
+```
+
+so the browser can send:
+
+```text
+sign_up
+method = credentials
+```
+
+After recording it, the analytics component removes `signup=success` from the browser URL.
+
+---
+
+## Now configure your real GA4 property
+
+This part requires your Google account, so you'll need to perform these account-side steps.
+
+Go to [Google Analytics](https://analytics.google.com/?utm_source=chatgpt.com) and create:
+
+**Account**
+
+```text
+Trading Guide
+```
+
+**GA4 property**
+
+```text
+Trading Guide Australia
+```
+
+I recommend:
+
+```text
+Reporting time zone: Australia/Melbourne
+Currency: Australian Dollar (AUD)
+```
+
+Then create a **Web data stream** using your production URL.
+
+Google will give you a Measurement ID in this format:
+
+```text
+G-XXXXXXXXXX
+```
+
+Google confirms that the Measurement ID uniquely identifies the GA4 web data stream and is available under Admin → Data Streams → Web stream. ([Google Help][2])
+
+Put it in your production environment:
+
+```env
+NEXT_PUBLIC_ANALYTICS_ENABLED=true
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+For Vercel, configure those as **Production environment variables**.
+
+I recommend keeping preview/local analytics disabled.
+
+---
+
+## GA4 configuration
+
+Once data begins arriving, go to:
+
+**Admin → Data display → Events**
+
+You should eventually see:
+
+```text
+page_view
+
+provider_view
+
+comparison_created
+
+affiliate_click
+
+tool_used
+
+sign_up
+```
+
+Google notes that newly collected events may take some time to appear in normal Events reports. ([Google Help][3])
+
+For immediate testing, use **Realtime** and **DebugView**.
+
+### Mark these as key events
+
+I recommend:
+
+```text
+affiliate_click       ← YES
+comparison_created    ← YES
+sign_up               ← YES
+
+provider_view         ← No
+tool_used             ← No
+page_view             ← No
+```
+
+This gives you a clean commercial funnel rather than treating ordinary browsing as conversion activity.
+
+Google allows custom events to be marked as key events. ([Google Help][1])
+
+---
+
+# Search Console
+
+Go to:
+
+[Google Search Console](https://search.google.com/search-console/?utm_source=chatgpt.com)
+
+Choose:
+
+**Add property → Domain**
+
+Enter only your root domain, for example:
+
+```text
+tradingguide.com.au
+```
+
+not:
+
+```text
+https://tradingguide.com.au
+```
+
+A Domain property automatically covers protocols and subdomains, and Google requires DNS verification for it. ([Google Help][4])
+
+Google will give you a TXT record similar to:
+
+```text
+google-site-verification=XXXXXXXXXXXXXXXX
+```
+
+Add that TXT record through whichever provider manages your DNS.
+
+Then return to Search Console and click:
+
+**Verify**
+
+---
+
+## Submit your existing sitemap
+
+Your application already generates the sitemap, so once production is live submit:
+
+```text
+https://tradingguide.com.au/sitemap.xml
+```
+
+in:
+
+**Search Console → Sitemaps**
+
+We don't need to build a second Google-specific sitemap system.
+
+---
+
+# Production verification
+
+After you deploy with the real `G-...` ID, open Trading Guide in a fresh browser and perform this sequence:
+
+```text
+Homepage
+   ↓
+Provider/exchange page
+   ↓
+Build comparison
+   ↓
+Use calculator
+   ↓
+Click affiliate CTA
+```
+
+Then GA4 should show approximately:
+
+```text
+page_view
+    ↓
+provider_view
+    ↓
+comparison_created
+    ↓
+page_view
+    ↓
+tool_used
+    ↓
+affiliate_click
+```
+
+Create a test account separately and confirm:
+
+```text
+sign_up
+method = credentials
+```
+
+Critically, verify that you **never** see:
+
+```text
+email
+name
+password
+trade_amount
+portfolio_value
+calculator financial inputs
+```
+
+inside GA event parameters.
+
+---
+
+## One thing I need from you next
+
+Once you've created the GA4 Web stream, send me just the:
+
+```text
+G-XXXXXXXXXX
+```
+
+Measurement ID.
+
+That ID is intended for website configuration; don't send me Google passwords, credentials, API secrets, or DNS-account credentials.
+
+I can then put the **actual Measurement ID into the appropriate production configuration structure**, review the completed GA implementation, and move us into the next useful milestone: building a proper **analytics/SEO measurement dashboard and conversion funnel** around Search Console + GA4 data. ([Google Help][2])
+
+[1]: https://support.google.com/analytics/answer/12229021?hl=en&utm_source=chatgpt.com "Custom events - Analytics Help"
+[2]: https://support.google.com/analytics/answer/12270356?hl=en&utm_source=chatgpt.com "[GA4] Measurement ID - Analytics Help"
+[3]: https://support.google.com/analytics/answer/12844695?hl=en&utm_source=chatgpt.com "Create or modify key events - Analytics Help"
+[4]: https://support.google.com/webmasters/answer/34592?hl=en&utm_source=chatgpt.com "Add a website or platform property to Search Console - Search Console Help"
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYDR9G64W4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GYDR9G64W4');
+</script>
