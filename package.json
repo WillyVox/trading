@@ -29,7 +29,9 @@
     "check:seo:release": "node scripts/check-seo-release.mjs",
     "launch:gate": "node scripts/final-launch-gate.mjs && npm run check:guide-breadcrumbs",
     "check:internal-links": "node scripts/check-internal-links.mjs",
-    "check:guide-breadcrumbs": "node scripts/check-guide-breadcrumbs.mjs"
+    "check:guide-breadcrumbs": "node scripts/check-guide-breadcrumbs.mjs",
+    "check:sitemap": "node scripts/check-sitemap-health.mjs",
+    "check:sitemap:production": "node scripts/check-sitemap-health.mjs https://tradingguide.com.au/sitemap.xml"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",

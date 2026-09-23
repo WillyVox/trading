@@ -174,16 +174,7 @@ function ResearchNavigatorContent({ titleId }: { titleId: string }) {
     >
       <div className="mb-5 lg:mb-6">
         <p className="text-gold text-[11px] font-extrabold tracking-[0.14em] uppercase">
-          Explore
-        </p>
-        <h1
-          id={titleId}
-          className="font-display text-navy mt-1 text-2xl font-bold lg:text-3xl"
-        >
-          Trading Guide
-        </h1>
-        <p className="text-muted mt-1 text-sm lg:text-base">
-          Learn, compare and calculate without digging through menus.
+          Explore more contents
         </p>
       </div>
 
