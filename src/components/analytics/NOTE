@@ -1,0 +1,62 @@
+**Search Console + production analytics verification**.
+
+1. **Deploy GA4 to production**
+
+   * Add `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-GYDR9G64W4`
+   * Set `NEXT_PUBLIC_ANALYTICS_ENABLED=true`
+   * Redeploy.
+   * Verify `page_view`, `provider_view`, `comparison_created`, `tool_used`, `affiliate_click`, and `sign_up` in GA4 Realtime/DebugView.
+
+2. **Configure Google Search Console**
+
+   * Create the Domain property for `tradingguide.com.au`.
+   * Verify ownership through DNS.
+   * Submit `/sitemap.xml`.
+   * Check robots.txt, canonical URLs, HTTPS and initial indexing.
+
+3. **Finish GA4 configuration**
+
+   * Mark `affiliate_click`, `comparison_created`, and `sign_up` as key events.
+   * Check event parameters and make sure no PII or financial inputs are leaking into Analytics.
+   * Confirm page views aren't duplicated.
+
+4. **Milestone 6 — SEO indexing/readiness audit**
+
+   Once Google is connected, I think this should be the next substantial development milestone. Audit the actual site for:
+
+   * indexable vs non-indexable pages
+   * metadata and titles
+   * canonical correctness
+   * sitemap coverage
+   * structured data/schema
+   * internal linking
+   * provider/exchange page SEO
+   * comparison page SEO
+   * article SEO
+   * duplicate/thin content
+   * Core Web Vitals/performance
+   * programmatic SEO opportunities
+
+5. **Milestone 7 — Conversion optimisation**
+
+   Once measurement is trustworthy, use it to improve the actual business funnel:
+
+```text
+Google Search
+      ↓
+Article / Guide
+      ↓
+Provider
+      ↓
+Comparison
+      ↓
+Calculator / Research
+      ↓
+Affiliate CTA
+      ↓
+Partner
+```
+
+This is where we can improve CTA placement, comparison tables, provider pages, affiliate disclosures, trust signals, mobile UX, and conversion paths based on data instead of guessing.
+
+**Recommended immediate next task is #1–3: finish Search Console and verify the entire GA4 implementation in production.** After that, move directly into the comprehensive **Milestone 6 SEO/indexing audit**, because getting the IMPORTANT pages discovered and ranking is now more valuable than adding more analytics features.

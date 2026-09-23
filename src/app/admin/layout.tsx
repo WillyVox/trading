@@ -7,7 +7,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Middleware already blocks non-admins from reaching here; this is the
+  // Proxy already blocks non-admins from reaching here; this is the
   // independent server-side check for the layout's own data access.
   try {
     await requireAdmin();

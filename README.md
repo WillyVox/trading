@@ -87,7 +87,7 @@ When migrate failed
 - `src/lib/repository.ts` — generic data-access layer; `articles`,
   `providers`, and `affiliates` services all build on it rather than calling
   Prisma directly.
-- `src/middleware.ts` + `src/lib/auth/require-admin.ts` — two independent
+- `src/proxy.ts` + `src/lib/auth/require-admin.ts` — two independent
   layers of admin protection (route-level and mutation-level).
 - `/go/[partner]` only ever redirects to a stored `approvedUrl` on an
   `ACTIVE` `AffiliateLink` row — never to a user-supplied URL.
