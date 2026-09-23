@@ -163,12 +163,6 @@ export default function WhatYouNeedToStartTradingPage() {
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="max-w-3xl min-w-0">
-            <Notice>
-              General information only. This checklist isn&apos;t personal
-              advice and doesn&apos;t take your circumstances into account. Only
-              ever trade with money you can afford to lose.
-            </Notice>
-
             <KeyTakeaways items={KEY_TAKEAWAYS} />
 
             <div className="mt-6 lg:hidden">

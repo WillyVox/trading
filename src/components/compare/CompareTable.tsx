@@ -169,7 +169,8 @@ export function CompareTable({
                             href={s.profileHref}
                             className="text-navy text-xs font-semibold underline underline-offset-2"
                           >
-                            View details →
+                            View details
+                            {/* → */}
                           </Link>
                           {s.cta && (
                             <a
@@ -182,7 +183,7 @@ export function CompareTable({
                               }
                               className="text-muted hover:text-navy inline-flex items-center gap-1 text-xs font-medium"
                             >
-                              Visit provider <span aria-hidden>↗</span>
+                              Visit site <span aria-hidden>↗</span>
                             </a>
                           )}
                         </div>

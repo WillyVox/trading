@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { PageHero } from "@/components/layout/PageHero";
 import { Card } from "@/components/ui/Card";
-import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
@@ -10,25 +9,47 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "How We Get Paid",
   description:
-    "Trading Guide is currently self-funded and doesn't earn commissions from providers. Here's our current funding status and how we plan to monetize in future.",
+    "How Trading Guide is funded, how commercial relationships may work, and how we keep them separate from our research and comparison methodology.",
   path: "/how-we-get-paid",
   image: "/images/og/how-we-get-paid.png",
 });
 
 const EFFECTIVE_DATE = "September 2026";
 
-const FUTURE_PLAN = [
+const FUTURE_MODEL = [
   {
-    title: "Affiliate links",
-    body: "If you click on a provider link on our site and sign up or purchase a service, the provider may pay us a small referral commission.",
+    step: "01",
+    title: "You follow a provider link",
+    body: "Some provider links may become affiliate or referral links once a commercial partnership is active.",
   },
   {
-    title: "Zero cost to you",
-    body: "Clicking our links will never increase your price or alter the terms offered by the provider.",
+    step: "02",
+    title: "The provider may pay us",
+    body: "If you sign up or complete an eligible action, the provider may pay Trading Guide a referral commission.",
   },
   {
-    title: "Commercial independence",
-    body: "Provider partnerships will never dictate listing order, comparison treatment, or eligibility for inclusion.",
+    step: "03",
+    title: "Trading Guide stays free to use",
+    body: "Trading Guide does not add a fee for using an affiliate link. Provider pricing, eligibility, offers, and terms are set by the provider and should be checked directly.",
+  },
+];
+
+const INDEPENDENCE_PRINCIPLES = [
+  {
+    title: "Provider coverage",
+    body: "A commercial relationship does not determine whether a provider is eligible to be researched or included.",
+  },
+  {
+    title: "Research findings",
+    body: "Providers do not determine the facts, sources, verification status, or research findings we publish.",
+  },
+  {
+    title: "Comparison order",
+    body: "Commercial relationships do not determine the default alphabetical order used in our comparison experiences.",
+  },
+  {
+    title: "Editorial content",
+    body: "Commercial partners do not write, approve, or control our independent editorial content.",
   },
 ];
 
@@ -39,84 +60,177 @@ export default function HowWeGetPaidPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <>
       <JsonLd data={breadcrumbSchema(trail)} />
-      <Breadcrumbs items={trail} />
-      <Eyebrow>Methodology</Eyebrow>
-      <h1 className="font-display text-navy mt-4 text-4xl font-extrabold">
-        How we get paid
-      </h1>
-      <p className="text-muted mt-3">
-        Our goal is to help you compare online share trading platforms & crypto
-        exchanges transparently so you can make confident decisions. Here&apos;s
-        how we&apos;re funded today, and how we plan to fund the platform going
-        forward.
-      </p>
+      <PageHero
+        breadcrumbs={trail}
+        eyebrow="Transparency"
+        title="How we get paid"
+        subheading="How Trading Guide is funded, how commercial relationships may work, and how we keep them separate from our research."
+        graphic="methodology"
+      />
 
-      <h2 className="font-display text-navy mt-8 text-lg font-bold">
-        Current funding status
-      </h2>
-      <Card className="mt-3">
-        <p className="text-muted text-sm leading-relaxed">
-          Trading Online is currently 100% self-funded. As of {EFFECTIVE_DATE},
-          we do not receive compensation, referral fees, or affiliate
-          commissions from any financial providers featured on this site. All
-          product comparisons and research are conducted independently based
-          solely on our objective methodology and market research.
-        </p>
-      </Card>
+      <main className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+        <section aria-labelledby="current-funding">
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-gold font-mono text-xs font-semibold tracking-[0.16em] uppercase">
+                Our position today
+              </p>
+              <h2
+                id="current-funding"
+                className="font-display text-navy mt-2 text-2xl font-bold md:text-3xl"
+              >
+                Currently self-funded
+              </h2>
+            </div>
+            <p className="text-muted font-mono text-xs tracking-wide uppercase">
+              As of {EFFECTIVE_DATE}
+            </p>
+          </div>
 
-      <h2 className="font-display text-navy mt-8 text-lg font-bold">
-        How we plan to monetize in the future
-      </h2>
-      <p className="text-muted mt-2 text-sm">
-        To keep our platform free for users, we plan to partner with select
-        providers through commercial agreements. Here&apos;s how that will work:
-      </p>
-      <div className="mt-3 flex flex-col gap-4">
-        {FUTURE_PLAN.map((f) => (
-          <Card key={f.title}>
-            <h3 className="font-display text-navy mb-1.5 font-bold">
-              {f.title}
-            </h3>
-            <p className="text-muted text-sm">{f.body}</p>
+          <Card className="border-gold/40 bg-gold/5">
+            <div className="flex gap-4">
+              <div
+                aria-hidden="true"
+                className="bg-navy text-gold flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg font-bold"
+              >
+                ✓
+              </div>
+              <div>
+                <h3 className="font-display text-navy text-lg font-bold">
+                  Trading Guide currently receives no affiliate commissions from
+                  featured providers.
+                </h3>
+                <p className="text-muted mt-2 max-w-3xl text-sm leading-relaxed">
+                  As of {EFFECTIVE_DATE}, Trading Guide is self-funded and does
+                  not receive compensation, referral fees, or affiliate
+                  commissions from financial providers featured on the site. Our
+                  research and comparisons are produced using our published
+                  methodology.
+                </p>
+              </div>
+            </div>
           </Card>
-        ))}
-      </div>
+        </section>
 
-      <h2 className="font-display text-navy mt-8 text-lg font-bold">
-        Our commitment to transparency
-      </h2>
-      <p className="text-muted mt-2 text-sm">
-        If a provider sponsors a specific section or pays for an ad placement on
-        our site in the future, it will always be explicitly labelled as
-        &ldquo;Sponsored&rdquo; or &ldquo;Advertisement.&rdquo;
-      </p>
+        <section className="mt-14" aria-labelledby="future-model">
+          <p className="text-gold font-mono text-xs font-semibold tracking-[0.16em] uppercase">
+            Our business model
+          </p>
+          <h2
+            id="future-model"
+            className="font-display text-navy mt-2 text-2xl font-bold md:text-3xl"
+          >
+            How the model may work
+          </h2>
+          <p className="text-muted mt-3 max-w-3xl text-sm leading-relaxed">
+            To help fund the research, tools, and comparisons while keeping
+            Trading Guide free to use, we may enter selected commercial
+            partnerships in the future.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {FUTURE_MODEL.map((item) => (
+              <Card key={item.step}>
+                <span className="text-gold font-mono text-sm font-semibold">
+                  {item.step}
+                </span>
+                <h3 className="font-display text-navy mt-4 text-lg font-bold">
+                  {item.title}
+                </h3>
+                <p className="text-muted mt-2 text-sm leading-relaxed">
+                  {item.body}
+                </p>
+              </Card>
+            ))}
+          </div>
+        </section>
 
-      <h2 className="font-display text-navy mt-8 text-lg font-bold">
-        Kept separate from editorial content
-      </h2>
-      <p className="text-muted mt-2 text-sm">
-        Which providers we cover, what we write about them, and the
-        (alphabetical) order they appear in are not influenced by which
-        providers pay us. See our{" "}
-        <Link
-          href="/methodology/editorial-policy"
-          className="text-blue underline"
-        >
-          editorial policy
-        </Link>{" "}
-        for how that separation works in practice.
-      </p>
+        <section className="mt-14" aria-labelledby="independence">
+          <p className="text-gold font-mono text-xs font-semibold tracking-[0.16em] uppercase">
+            Editorial separation
+          </p>
+          <h2
+            id="independence"
+            className="font-display text-navy mt-2 text-2xl font-bold md:text-3xl"
+          >
+            What commercial relationships will not control
+          </h2>
+          <p className="text-muted mt-3 max-w-3xl text-sm leading-relaxed">
+            If commercial relationships are introduced, we intend to keep them
+            separate from the research and editorial decisions that shape
+            Trading Guide.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {INDEPENDENCE_PRINCIPLES.map((principle) => (
+              <Card key={principle.title}>
+                <h3 className="font-display text-navy font-bold">
+                  {principle.title}
+                </h3>
+                <p className="text-muted mt-2 text-sm leading-relaxed">
+                  {principle.body}
+                </p>
+              </Card>
+            ))}
+          </div>
+        </section>
 
-      <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-        <Link href="/affiliate-disclosure" className="text-blue underline">
-          Affiliate disclosure
-        </Link>
-        <Link href="/methodology/comparisons" className="text-blue underline">
-          Comparison methodology
-        </Link>
-      </div>
-    </div>
+        <section className="mt-14" aria-labelledby="sponsored-content">
+          <Card className="bg-panel-secondary">
+            <p className="text-gold font-mono text-xs font-semibold tracking-[0.16em] uppercase">
+              Clear labelling
+            </p>
+            <h2
+              id="sponsored-content"
+              className="font-display text-navy mt-2 text-xl font-bold"
+            >
+              Sponsored content and advertising
+            </h2>
+            <p className="text-muted mt-3 max-w-4xl text-sm leading-relaxed">
+              If Trading Guide introduces sponsored content or paid advertising
+              placements, we will identify them clearly near the relevant
+              placement. For more detail about commercial links and disclosures,
+              read our affiliate disclosure.
+            </p>
+          </Card>
+        </section>
+
+        <section className="border-border mt-12 border-t pt-8">
+          <h2 className="font-display text-navy text-xl font-bold">
+            For more detail!
+          </h2>
+          <p className="text-muted mt-2 text-sm">
+            Read the policies behind our commercial disclosures, comparison
+            research, and editorial process.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <Link
+              href="/affiliate-disclosure"
+              className="text-blue underline underline-offset-2"
+            >
+              Affiliate disclosure
+            </Link>
+            <Link
+              href="/methodology/comparisons"
+              className="text-blue underline underline-offset-2"
+            >
+              Comparison methodology
+            </Link>
+            <Link
+              href="/methodology/editorial-policy"
+              className="text-blue underline underline-offset-2"
+            >
+              Editorial policy
+            </Link>
+            <Link
+              href="/contact"
+              className="text-blue underline underline-offset-2"
+            >
+              Contact us
+            </Link>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
