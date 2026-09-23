@@ -1,0 +1,1228 @@
+Yes — the development URL is useful context. I attempted to fetch `tradingonline.vercel.app` directly, but the web fetcher couldn't retrieve the deployment, so I based the Trading Guide side of this audit on your **latest Phase 10.11.2 source**, while using current Australian competitor pages for the market comparison.
+
+The result is fairly clear: **Trading Guide already has a stronger research/tooling architecture than its current public footprint suggests, but it is substantially behind Finder and Canstar in coverage, authority signals, content scale, and mature comparison UX.** Its strongest opportunity is not to clone either competitor—it is to make **source-linked, scenario-based cost research** much more transparent and understandable than their rating-led models.
+
+## Executive assessment
+
+I would group the market this way:
+
+| Dimension                 | Trading Guide                | Finder               | Canstar                 | Forbes Advisor AU   |
+| ------------------------- | ---------------------------- | -------------------- | ----------------------- | ------------------- |
+| Australian focus          | Strong                       | Strong               | Strong                  | Strong              |
+| Share-platform coverage   | **Limited**                  | Very broad           | Broad                   | Editorial selection |
+| Crypto coverage           | **Limited–moderate**         | Very broad           | Limited                 | Editorial           |
+| Interactive comparison    | Strong foundation            | Very mature          | Very mature             | Weak                |
+| Calculators/tools         | **Potential differentiator** | Moderate             | Moderate                | Weak                |
+| Fee-rule modelling        | **Strong architecture**      | Strong data          | Strong data             | Mostly editorial    |
+| Source transparency       | **Strong direction**         | Good                 | Very strong methodology | Moderate            |
+| Verification lifecycle    | **Strong architecture**      | Fact-checking        | Research methodology    | Editorial           |
+| Editorial breadth         | Weak                         | **Very strong**      | Strong                  | Strong              |
+| Brand authority           | Early                        | **Very strong**      | **Very strong**         | Very strong         |
+| User reviews/social proof | Weak                         | **Very strong**      | Some                    | Weak                |
+| Provider depth            | Moderate                     | **Very strong**      | Very strong             | Moderate            |
+| SEO footprint             | Early                        | **Extremely strong** | Extremely strong        | Strong              |
+| Affiliate maturity        | Early                        | Mature               | Mature                  | Mature              |
+| Beginner education        | Good foundation              | Excellent breadth    | Good                    | Good                |
+| Transparency opportunity  | **Very strong**              | Commercial + ratings | Commercial + ratings    | Editorial picks     |
+| Technical architecture    | **Strong**                   | Mature proprietary   | Mature proprietary      | Publisher           |
+| Operational maturity      | Pre-launch                   | Mature               | Mature                  | Mature              |
+
+This isn't a ranking; the important point is that the platforms are optimized for somewhat different models.
+
+Finder currently says it compares **30+ share-trading platforms**, while its awards research covers more than 40 platforms and thousands of data points. ([finder.com.au][1]) Canstar says its 2026 research assessed 27 providers, 56 products, four consumer profiles and more than 245 individual features. ([Canstar][2])
+
+Your current seeded universe is much smaller: roughly **6 share-trading offerings and 7 crypto exchanges**, plus eToro's cross-category structure.
+
+That coverage gap is probably the single largest competitive weakness today.
+
+---
+
+# 1. Comparison engine
+
+### Trading Guide
+
+Your architecture is quite good:
+
+```text
+Provider
+   ↓
+Offering
+   ↓
+Fees / Markets / Features / Custody
+   ↓
+Comparison DTO
+   ↓
+Comparison UI
+```
+
+You also distinguish:
+
+```text
+✓ supported
+— not supported
+? unknown
+```
+
+and VERIFIED / STALE / UNKNOWN concepts.
+
+That's much better than representing missing data as false or `$0`.
+
+You support:
+
+```text
+/compare/trading-platforms
+/compare/crypto-exchanges
+
+/compare/trading-platforms/a-vs-b
+/compare/crypto-exchanges/a-vs-b
+```
+
+and arbitrary selection of multiple providers.
+
+### Finder
+
+Finder is considerably more mature at the discovery layer.
+
+Its current share-trading table exposes 30+ platforms and lets users compare fees, asset classes, offers and other attributes. It also combines comparison with ratings, awards, editorial reviews and provider details. ([finder.com.au][1])
+
+Its crypto comparison is even deeper: funding methods, fiat currencies, trading fees, supported cryptocurrencies, trading features, reviews, offers and direct comparison. ([finder.com.au][3])
+
+### Canstar
+
+Canstar similarly combines:
+
+```text
+filters
++
+comparison
++
+ratings
++
+glossary
++
+research methodology
++
+awards
+```
+
+and explicitly models price and feature dimensions such as brokerage, ongoing costs, FX, CHESS, research, account management and service. ([Canstar][4])
+
+### Gap
+
+Your comparison **engine architecture is good**, but your dataset is too small.
+
+That's an important distinction.
+
+I would not rewrite the engine.
+
+I would expand the data.
+
+---
+
+# 2. Provider coverage
+
+This is your biggest weakness.
+
+Current share-trading seeds include roughly:
+
+```text
+CMC Invest
+CommSec
+Stake
+Interactive Brokers
+Moomoo
+eToro
+```
+
+Crypto:
+
+```text
+CoinSpot
+Swyftx
+Independent Reserve
+BTC Markets
+CoinJar
+Kraken
+eToro
+```
+
+Compare that with Finder's current share universe of 30+ platforms and crypto universe of 20+ products. ([finder.com.au][1])
+
+Users searching:
+
+> CommSec vs SelfWealth vs Stake
+
+or:
+
+> Webull vs Moomoo
+
+or:
+
+> Coinbase vs CoinSpot
+
+may simply not be able to complete the research on Trading Guide.
+
+### Priority additions
+
+I'd expand share trading first toward names such as:
+
+```text
+SelfWealth
+Pearler
+Superhero
+Webull
+IG
+Tiger Brokers
+nabtrade
+ANZ
+Westpac
+Betashares Direct
+Totality/Saxo lineage
+```
+
+and crypto toward:
+
+```text
+Coinbase
+Binance Australia
+Coinstash
+Digital Surge
+Crypto.com
+Easy Crypto
+Cointree
+```
+
+But every addition should follow your existing source-verification workflow rather than bulk-scraping competitor tables.
+
+---
+
+# 3. Fee transparency
+
+This is where Trading Guide can become unusually strong.
+
+Finder displays fees extremely effectively, but the user generally sees the resulting values.
+
+Trading Guide's architecture can potentially expose:
+
+```text
+Fee
+↓
+rule
+↓
+conditions
+↓
+source
+↓
+verified date
+↓
+calculation
+↓
+assumptions
+```
+
+For example:
+
+```text
+CMC Invest
+
+A$800 ASX buy
+
+Brokerage
+A$0
+
+Why?
+First eligible buy per security per day
+under A$1,000.
+
+Source
+CMC Markets pricing
+
+Verified
+18 Sep 2026
+```
+
+That is fundamentally different from:
+
+```text
+Brokerage: $0
+```
+
+This should become one of the product's defining characteristics.
+
+---
+
+# 4. Calculators and scenario modelling
+
+This may be your strongest product opportunity.
+
+You already have:
+
+```text
+Brokerage calculator
+FX fee calculator
+Trading cost calculator
+Regular investing calculator
+CHESS vs custody explorer
+
+Crypto fee calculator
+Crypto funding/withdrawal tool
+Crypto total-cost calculator
+```
+
+Most competitors have calculators across their wider businesses, but their broker comparison experience is primarily:
+
+```text
+filter
+→ table
+→ rating
+→ provider
+```
+
+Your model can become:
+
+```text
+LEARN
+   ↓
+ENTER YOUR HYPOTHETICAL SCENARIO
+   ↓
+CALCULATE
+   ↓
+UNDERSTAND THE RULE
+   ↓
+COMPARE
+   ↓
+VERIFY SOURCE
+```
+
+That's more educational.
+
+### Example
+
+Instead of:
+
+```text
+CMC       $0
+Stake     $3
+CommSec   $5
+```
+
+show:
+
+```text
+A$500 ASX purchase
+
+CMC
+Estimated brokerage covered here: $0
+Conditional rule applies
+
+Stake
+Estimated brokerage covered here: $3
+
+CommSec
+Estimated brokerage covered here: $5
+
+Why are they different?
+[Explain each pricing rule]
+
+Sources
+[3 official sources]
+
+Last verified
+[dates]
+```
+
+That's a much stronger experience for beginners.
+
+---
+
+# 5. Research methodology
+
+Canstar is particularly strong here.
+
+Its research isn't just a marketing statement. Its current awards methodology describes 27 providers, 56 products, four profiles and more than 245 features. ([Canstar][2])
+
+Finder similarly publishes methodology around hundreds of features and thousands of data points. Its crypto methodology says it analyses more than 500 features across 25 platforms. ([finder.com.au][3])
+
+Trading Guide has excellent **technical foundations**:
+
+```text
+Source
+VerificationStatus
+verifiedAt
+reviewDueAt
+verifiedBy
+Confidence
+DataStatus
+```
+
+But visitors need to see that system.
+
+Right now much of the sophistication lives in your database/admin architecture.
+
+### Build a public research methodology
+
+Something like:
+
+```text
+HOW TRADING GUIDE RESEARCH WORKS
+
+1. Collect
+   Official provider documentation
+
+2. Structure
+   Fees, markets, custody, features
+
+3. Verify
+   Researcher + verification date
+
+4. Calculate
+   Deterministic fee engine
+
+5. Explain
+   Assumptions and exclusions
+
+6. Review
+   Revalidation schedule
+```
+
+That turns invisible backend quality into visible trust.
+
+---
+
+# 6. Ratings
+
+Finder and Canstar lean heavily on scores and awards.
+
+Finder currently shows things such as Finder Scores and award designations. ([finder.com.au][1]) Canstar uses Star Ratings and awards. ([Canstar][4])
+
+I **wouldn't rush Trading Guide into an overall star-rating system**.
+
+Your positioning can instead emphasize:
+
+```text
+We don't reduce platforms
+to one unexplained score.
+
+We show the differences,
+the evidence and the costs.
+```
+
+That makes your absence of ratings intentional rather than incomplete.
+
+---
+
+# 7. Content
+
+This is currently a major weakness.
+
+Your source has approximately 20 guide route implementations plus dynamic CMS content.
+
+Finder has an enormous content graph covering:
+
+```text
+platform comparisons
+reviews
+best-of pages
+crypto assets
+how-to-buy pages
+fees
+tax
+wallets
+SMSFs
+broker comparisons
+individual providers
+news
+market education
+```
+
+Its crypto hub alone links into hundreds of coin-buying guides and substantial comparison content. ([finder.com.au][5])
+
+Canstar similarly connects comparisons to a substantial educational and research library. ([Canstar][4])
+
+### Your problem isn't content quality alone.
+
+It's **topical coverage**.
+
+You need clusters rather than random articles.
+
+For example:
+
+```text
+SHARE TRADING
+│
+├── Beginner
+│   ├── What is share trading?
+│   ├── How brokerage works
+│   ├── CHESS explained
+│   └── Custody explained
+│
+├── Costs
+│   ├── Brokerage
+│   ├── FX
+│   ├── inactivity
+│   └── international trading
+│
+├── Providers
+│   ├── CommSec
+│   ├── Stake
+│   ├── CMC
+│   └── ...
+│
+└── Comparisons
+    ├── CommSec vs Stake
+    ├── CMC vs Stake
+    └── ...
+```
+
+Your Phase 9 strategy was directionally right. It needs scale now.
+
+---
+
+# 8. Provider profile pages
+
+Trading Guide's structured provider model is a strong foundation.
+
+You can display:
+
+```text
+fees
+markets
+features
+custody
+verification
+sources
+pros/limitations
+affiliate status
+```
+
+Finder has a major advantage in editorial depth, reviews and user ratings.
+
+For example, its provider reviews include detailed features, ratings, pros/cons and editorial analysis. ([finder.com.au][6])
+
+### Your profiles should evolve toward
+
+```text
+OVERVIEW
+
+AT A GLANCE
+
+FEES
+
+A$500 / A$1K / A$5K EXAMPLES
+
+MARKETS
+
+CHESS / CUSTODY
+
+FX
+
+FEATURES
+
+WHO THIS PRODUCT IS DESIGNED FOR
+(factual product characteristics, not personal advice)
+
+LIMITATIONS
+
+VERIFIED SOURCES
+
+CHANGE HISTORY
+
+RELATED CALCULATORS
+
+COMPARE WITH...
+
+RELATED GUIDES
+```
+
+The **change history** would be particularly differentiated.
+
+Imagine:
+
+```text
+Pricing history
+
+18 Sep 2026
+FX fee verified
+
+04 Aug 2026
+ASX brokerage updated
+
+11 Jun 2026
+Custody information verified
+```
+
+Few comparison sites expose research freshness that transparently.
+
+---
+
+# 9. User-generated reviews
+
+Trading Guide essentially doesn't have this.
+
+Finder has a substantial review/social-proof ecosystem; its share pages currently surface a 4.7 rating based on hundreds of reviews for its own service, and provider pages integrate review signals. ([finder.com.au][1])
+
+### Should you add reviews?
+
+Not immediately.
+
+Reviews introduce:
+
+```text
+moderation
+fake reviews
+defamation risk
+provider disputes
+spam
+verification
+incentive disclosure
+```
+
+I'd prioritize factual research before community reviews.
+
+Later you could collect structured experience:
+
+```text
+Account opening
+Customer support
+App usability
+Funding
+Withdrawal
+```
+
+without allowing unmoderated accusations.
+
+---
+
+# 10. SEO
+
+This is probably your biggest business challenge after coverage.
+
+Finder and Canstar have enormous domain authority and established topical graphs.
+
+Trying to rank immediately for:
+
+```text
+best trading platform australia
+```
+
+puts you directly against entrenched domains.
+
+Instead attack queries where your **tools/data architecture** provides superior intent satisfaction.
+
+Examples:
+
+```text
+CMC brokerage calculator
+
+Stake vs CommSec fees
+
+ASX brokerage calculator
+
+CHESS vs custody
+
+$1000 share trade brokerage comparison
+
+crypto exchange fee calculator australia
+
+CoinSpot instant buy vs market fee
+
+Swyftx vs CoinSpot fees
+
+crypto withdrawal fee comparison australia
+```
+
+Then connect them upward:
+
+```text
+long-tail tool
+       ↓
+guide
+       ↓
+provider
+       ↓
+comparison
+       ↓
+category authority
+```
+
+This is more realistic than publishing 1,000 generic AI articles.
+
+---
+
+# 11. News
+
+You have `/news`, which is useful.
+
+But news is not currently a competitive moat.
+
+Large publishers can produce news faster.
+
+Your news should exist when it connects to product research:
+
+```text
+ASIC changes
+↓
+news article
+↓
+affected provider records
+↓
+guide explanation
+↓
+comparison implications
+```
+
+Example:
+
+```text
+ASIC digital-asset licensing deadline
+              ↓
+AUSTRAC / ASIC guide
+              ↓
+exchange regulatory fields
+              ↓
+provider profiles
+```
+
+That's much more valuable than generic market-news publishing.
+
+---
+
+# 12. UX
+
+Your navy/gold editorial style gives Trading Guide a more research-oriented visual identity than many comparison sites.
+
+That's useful.
+
+Finder is extremely information-dense.
+
+Canstar is also dense because comparison and commercial elements dominate the page.
+
+Trading Guide can win with:
+
+```text
+less clutter
+more explanation
+better progressive disclosure
+clear evidence
+```
+
+But there's a danger.
+
+If you oversimplify, the site can look beautiful while providing less information.
+
+So the target should be:
+
+> **Simple interface, deep information underneath.**
+
+For example:
+
+```text
+Brokerage
+$3
+
+[How calculated]
+[Source]
+[Last verified]
+```
+
+instead of showing every research field by default.
+
+---
+
+# 13. Navigation
+
+Your current:
+
+```text
+Guides
+Compares
+Tools
+Share Trading
+Crypto Exchanges
+News
+Quick Access
+```
+
+is strong conceptually.
+
+Finder's breadth makes its navigation considerably more complex.
+
+Your Research Navigator is a good differentiator for beginner discovery.
+
+However, I'd eventually simplify the language:
+
+```text
+Learn
+Compare
+Tools
+Share Trading
+Crypto
+News
+```
+
+rather than:
+
+```text
+Guides
+Compares
+```
+
+“Compare” reads more naturally than “Compares”.
+
+---
+
+# 14. Search
+
+Your unified Research Search is architecturally good:
+
+```text
+Static guides
++
+CMS articles
++
+tools
+```
+
+with DB outage fallback.
+
+But it needs to expand eventually to:
+
+```text
+Providers
+Comparisons
+Guides
+News
+Tools
+```
+
+A user should be able to type:
+
+```text
+CoinSpot
+```
+
+and get:
+
+```text
+CoinSpot
+Crypto exchange
+
+CoinSpot fees
+Guide
+
+CoinSpot vs Swyftx
+Comparison
+
+Crypto fee calculator
+Tool
+```
+
+That becomes true research navigation.
+
+---
+
+# 15. Data freshness
+
+This is potentially a major Trading Guide strength.
+
+Most comparison sites tell users when an article was updated.
+
+You can go further and tell them when **individual facts were verified**.
+
+For example:
+
+```text
+CMC Invest
+
+ASX brokerage
+Verified 18 Sep 2026
+
+FX fee
+Verified 4 Sep 2026
+
+CHESS sponsorship
+Verified 12 Sep 2026
+```
+
+That's much more meaningful than:
+
+```text
+Page updated September 2026
+```
+
+Make this visible.
+
+---
+
+# 16. Commercial transparency
+
+This is especially important now.
+
+Finder clearly displays advertiser disclosures, offers and promoted products. ([finder.com.au][1]) Canstar identifies promoted products and explains result ordering and partner relationships. ([Canstar][4])
+
+Your planned model:
+
+```text
+alphabetical default
++
+affiliate status doesn't determine order
++
+explicit affiliate disclosure
++
+source-linked evidence
+```
+
+is good.
+
+Keep it.
+
+The Australian regulatory environment is also putting heightened attention on how comparison sites represent coverage and commercial relationships, which makes clear inclusion criteria and commercial disclosure particularly important. ([The Australian][7])
+
+---
+
+# 17. Trust / E-E-A-T signals
+
+Your biggest missing visible signals are currently:
+
+```text
+Named editorial team
+Researcher profiles
+Editorial policy
+Corrections policy
+Research methodology
+Update history
+Data coverage statement
+Fact-check workflow
+```
+
+Canstar prominently names researchers/editors and marks material fact checked. ([Canstar][4]) Finder similarly names authors/editors and fact checking. ([finder.com.au][1])
+
+You already have much of the infrastructure.
+
+Now expose it.
+
+Article header:
+
+```text
+Written by
+Trading Guide Editorial Team
+
+Reviewed by
+Research Team
+
+Last updated
+21 September 2026
+
+Data checked
+18 September 2026
+
+Sources
+8 primary sources
+
+[How we research]
+```
+
+---
+
+# 18. Regulatory/compliance positioning
+
+Your approach is comparatively conservative:
+
+```text
+no winner
+no "best for you"
+no personalised recommendation
+factual comparisons
+transparent sources
+```
+
+That's sensible for the product you're building.
+
+Competitors use rankings and editorial picks, but they have established methodologies, legal/compliance processes and commercial structures supporting those products.
+
+Don't copy the visible ranking UX without also inheriting the governance burden behind it.
+
+---
+
+# 19. Mobile
+
+Your recent work on:
+
+```text
+full-screen Research Navigator
+responsive comparison
+sticky comparison headers
+calculator stacking
+mobile cards
+```
+
+is directionally strong.
+
+The key competitive test should be:
+
+> Can someone compare two brokers on a 390px phone without horizontal-table frustration?
+
+If you solve that better than competitors, it matters.
+
+I favor:
+
+```text
+Platform A
+vs
+Platform B
+
+Brokerage
+A: $3
+B: $5
+
+CHESS
+A: Yes
+B: Yes
+
+FX
+A: 70 bps
+B: 60 bps
+```
+
+rather than forcing a desktop table sideways.
+
+---
+
+# 20. Technical architecture
+
+This is one area where your application is already sophisticated for its stage.
+
+You have:
+
+```text
+typed Prisma model
+verification lifecycle
+pricing rules
+scenario engine
+affiliate click tracking
+content CMS
+admin
+search
+health endpoint
+DB outage degradation
+CSP
+rate-limit deployment strategy
+canonical URL registry
+SEO/sitemap
+structured data
+production gates
+```
+
+That's substantial.
+
+The danger is **overengineering before distribution**.
+
+You don't currently need another six months of infrastructure.
+
+You need:
+
+```text
+MORE PROVIDERS
++
+MORE VERIFIED DATA
++
+MORE USEFUL CONTENT
++
+MORE INDEXABLE TOOLS
++
+BACKLINKS
++
+REAL USERS
+```
+
+---
+
+# Your strongest areas
+
+I'd preserve and deepen these:
+
+**Evidence-first data.** Source URLs, verification state and dates are a meaningful foundation.
+
+**Scenario calculations.** Your calculators can explain real pricing rules rather than displaying static headline fees.
+
+**Transparent uncertainty.** UNKNOWN/VARIABLE/STALE rather than pretending missing information means zero.
+
+**Unified research journey.**
+
+```text
+Learn → Calculate → Compare → Verify
+```
+
+That's coherent.
+
+**Australian specialization.** You don't need to become a global finance portal.
+
+**Cleaner beginner UX.** There is room between simplistic affiliate blogs and dense comparison databases.
+
+---
+
+# Your weakest areas
+
+The largest weaknesses are much more commercial/content-oriented than technical.
+
+**Coverage is too narrow.** Six share platforms versus competitors researching dozens.
+
+**Authority is low.** New domain, limited backlinks, no established research brand.
+
+**Content depth is low.** Competitors have years of accumulated topical coverage.
+
+**Research sophistication is insufficiently visible.** Your database knows more about verification than the visitor does.
+
+**Provider profiles need more depth.**
+
+**No meaningful social proof yet.**
+
+**No historical research/change record exposed publicly.**
+
+**Search doesn't yet fully unify providers/comparisons.**
+
+**The production launch isn't complete.**
+
+And perhaps most importantly:
+
+**there isn't yet enough unique public data for Google/users to immediately understand why Trading Guide should exist alongside Finder and Canstar.**
+
+---
+
+# The strategic differentiation I'd build around
+
+Don't position it as another:
+
+> Compare Australia's best trading platforms.
+
+That's crowded and invites a direct authority contest with Finder and Canstar.
+
+I'd move toward:
+
+> **Understand what trading platforms actually cost.**
+
+with a supporting proposition:
+
+> Compare Australian trading platforms using source-linked fees, real-world scenarios and independently explained product differences.
+
+Then your product becomes:
+
+```text
+                 TRADING GUIDE
+
+                       │
+       ┌───────────────┼───────────────┐
+       │               │               │
+      LEARN          CALCULATE       COMPARE
+       │               │               │
+       └───────────────┼───────────────┘
+                       │
+                    VERIFY
+                       │
+                Official source
+                Verification date
+                Calculation rule
+                Assumptions
+```
+
+Finder's moat is **scale**.
+
+Canstar's moat is **ratings/research authority**.
+
+Your plausible moat is **explainable comparison data**.
+
+---
+
+# What I'd build next
+
+I would now shift your development allocation dramatically.
+
+For the next stage, think roughly:
+
+```text
+35% provider/data expansion
+25% high-intent content
+20% tools/calculator refinement
+10% authority/backlinks/distribution
+5% UX improvements
+5% infrastructure
+```
+
+You've spent enough effort on the underlying platform that infrastructure should no longer dominate.
+
+The first major target I'd set is:
+
+```text
+SHARE TRADING
+15–20 meaningful platforms
+
+CRYPTO
+12–15 meaningful exchanges
+
+PROVIDER PROFILES
+100% source-linked
+
+CORE FEES
+100% verification status
+
+CORE FEATURES
+100% verification status
+
+TOOLS
+8–10 excellent tools
+
+GUIDES
+50–75 genuinely useful guides
+
+HIGH-VALUE COMPARISONS
+25–50 curated pages
+```
+
+Not 1,000 thin pages.
+
+---
+
+# 12-month competitive direction
+
+**Months 1–3:** finish production launch, increase provider coverage, expose methodology and verification, deepen profiles, complete 20–30 core guides and make calculators excellent.
+
+**Months 4–6:** publish high-intent fee/comparison clusters, curated pair comparisons, provider reviews/profiles, link tools heavily from guides, begin digital PR and Australian finance backlinks.
+
+**Months 7–9:** add change history, richer search, fee alerts/data freshness, additional scenario tools, substantially expand verified platform coverage.
+
+**Months 10–12:** evaluate traffic/search-console behavior and build around actual user demand rather than predetermined page counts.
+
+The success metric shouldn't initially be:
+
+```text
+Do we outrank Finder for
+"best trading platforms Australia"?
+```
+
+It should be:
+
+```text
+Are people finding Trading Guide
+for difficult comparison questions,
+
+using the tools,
+
+moving into provider research,
+
+and trusting the evidence enough
+to continue their decision process?
+```
+
+That path gives Trading Guide a credible reason to exist even in a market with much larger incumbents.
+
+One caveat: I could inspect your latest source in depth, but the web tool could not retrieve the Vercel development deployment itself. So this report compares your **actual current application architecture/content in Phase 10.11.2** against the competitors' currently indexed sites; it isn't pretending I completed a pixel-by-pixel live-site UX audit of the Vercel deployment.
+
+If you want, the most useful follow-up is a **page-by-page competitive gap matrix** for your Homepage, Share Trading hub, Crypto hub, Compare pages, Provider profile, Guide article, Tools hub and individual calculators, with concrete UI/content changes for each.
+
+[1]: https://www.finder.com.au/share-trading?utm_source=chatgpt.com "Online Stock Brokers 2026: 30+ Platforms, From $0 | Finder"
+[2]: https://www.canstar.com.au/star-ratings-awards/online-share-trading/?utm_source=chatgpt.com "2026 Share Trading Platform Awards | Canstar"
+[3]: https://www.finder.com.au/cryptocurrency/exchanges?utm_source=chatgpt.com "8 Best Crypto Exchanges in Australia for 2026 | Finder"
+[4]: https://www.canstar.com.au/online-trading/?utm_source=chatgpt.com "Compare Online Share Trading Platforms | Canstar"
+[5]: https://www.finder.com.au/cryptocurrency?utm_source=chatgpt.com "Cryptocurrency comparison | Best exchanges | Finder"
+[6]: https://www.finder.com.au/cryptocurrency/exchanges/digital-surge-exchange-review?utm_source=chatgpt.com "Digital Surge review (2026): Fees, features & more | Finder"
+[7]: https://www.theaustralian.com.au/wealth/personal-finance/asic-warns-millions-using-comparison-sites-as-crackdown-widens/news-story/33c63716ee9d5b9d0253c2c3c214c6e9?utm_source=chatgpt.com "ASIC widens crackdown on misleading comparison sites after Choosi, Clark Family action"

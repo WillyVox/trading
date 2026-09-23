@@ -78,16 +78,15 @@ export function Footer() {
         <div className="border-background/15 my-6 border-t" />
 
         <p className="text-background/60 mx-auto max-w-3xl text-center text-xs leading-relaxed">
-          Trading Guide is an independent comparison and research service{" "}
-          {"\u2014"} we don&apos;t hold an Australian Financial Services Licence
-          and don&apos;t provide personal financial advice. Some provider links
-          may be commercial or affiliate links. Commercial relationships do not
-          determine the alphabetical order in which providers appear. We
-          don&apos;t compare every provider available in Australia, and fees,
-          features and regulatory status can change {"\u2014"} always verify
-          important details directly with the provider. All investing carries
-          risk, including the risk of losing your entire investment; crypto
-          assets are typically more volatile than listed shares. Read our{" "}
+          The information provided on this website is general information only
+          and does not constitute financial, investment, or trading advice.
+          Trading Guide is an independent information publisher and does not
+          hold an Australian Financial Services Licence (AFSL). We do not
+          endorse or recommend any specific trading platform or broker. We're
+          100% self-funded, in the future, we may receive compensation or
+          affiliate commission from the trading platforms featured on this site
+          when you click on links. This does not affect our objective
+          presentation of factual data. Read our{" "}
           <Link href="/how-we-get-paid" className="text-gold-soft underline">
             how we get paid
           </Link>{" "}

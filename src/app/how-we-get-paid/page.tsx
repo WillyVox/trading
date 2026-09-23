@@ -58,9 +58,10 @@ export default function HowWeGetPaidPage() {
         How we get paid
       </h1>
       <p className="text-muted mt-3">
-        Our goal is to help you compare crypto exchanges transparently so you
-        can make confident decisions. Here&apos;s how we&apos;re funded today,
-        and how we plan to fund the platform going forward.
+        Our goal is to help you compare online share trading platforms & crypto
+        exchanges transparently so you can make confident decisions. Here&apos;s
+        how we&apos;re funded today, and how we plan to fund the platform going
+        forward.
       </p>
 
       <h2 className="font-display text-navy mt-8 text-lg font-bold">

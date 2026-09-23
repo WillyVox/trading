@@ -174,7 +174,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Tools",
-    href: "/tools",
+    // href: "/tools",
     columns: [
       {
         heading: "Share Trading Tools",
