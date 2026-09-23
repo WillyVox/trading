@@ -61,9 +61,9 @@ export function LiveEvidencePanel({
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <tr
-                key={row.label}
+                key={`${row.label}-${index}`}
                 className="border-border border-b last:border-b-0"
               >
                 <td className="px-3 py-4 align-top">

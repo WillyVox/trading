@@ -48,14 +48,6 @@ export default function PrivacyPolicyPage() {
       </h1>
       <p className="text-muted mt-2 text-sm">Last updated {LAST_UPDATED}</p>
 
-      <div className="mt-6">
-        <Notice>
-          This page is a working draft and has not yet been reviewed by a
-          lawyer. Whether we&apos;re formally an APP entity under the Privacy
-          Act hasn&apos;t been determined — see the note in section 7.
-        </Notice>
-      </div>
-
       <div className="text-muted mt-8 flex flex-col gap-8 text-sm leading-relaxed">
         <section>
           <h2 className="font-display text-navy mb-2 text-lg font-bold">

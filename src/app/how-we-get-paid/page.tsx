@@ -15,17 +15,6 @@ export const metadata = buildMetadata({
   image: "/images/og/how-we-get-paid.png",
 });
 
-/**
- * Content status: DRAFT, not legal-reviewed -- see docs/CONTENT-GAPS.md
- * "How We Get Paid page". Every AffiliateLink in the seed data is
- * active: false as of 2026-09-21 (the BTC Markets seed previously set
- * active: true against a PROSPECT partnership -- see
- * prisma/seeds/affiliate-links/btc-markets.ts -- fixed, and
- * prisma/seeds/lib/seed-affiliate-links.ts now guards against this class of
- * bug recurring). No commercial agreement is live today. FUTURE_PLAN
- * describes the intended model once partnerships go live; nothing in it is
- * active yet, so don't present it as current revenue.
- */
 const EFFECTIVE_DATE = "September 2026";
 
 const FUTURE_PLAN = [
@@ -69,11 +58,11 @@ export default function HowWeGetPaidPage() {
       </h2>
       <Card className="mt-3">
         <p className="text-muted text-sm leading-relaxed">
-          Trading Guide is currently 100% self-funded. As of {EFFECTIVE_DATE},
+          Trading Online is currently 100% self-funded. As of {EFFECTIVE_DATE},
           we do not receive compensation, referral fees, or affiliate
-          commissions from any providers featured on this platform. All product
-          recommendations and comparisons are based solely on our objective
-          methodology and market research.
+          commissions from any financial providers featured on this site. All
+          product comparisons and research are conducted independently based
+          solely on our objective methodology and market research.
         </p>
       </Card>
 
@@ -110,7 +99,7 @@ export default function HowWeGetPaidPage() {
       <p className="text-muted mt-2 text-sm">
         Which providers we cover, what we write about them, and the
         (alphabetical) order they appear in are not influenced by which
-        providers pay us, today or in future. See our{" "}
+        providers pay us. See our{" "}
         <Link
           href="/methodology/editorial-policy"
           className="text-blue underline"

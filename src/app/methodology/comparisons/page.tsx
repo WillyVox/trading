@@ -43,7 +43,7 @@ const PRINCIPLES = [
     body: "If we haven't verified a provider's fee for something the table is comparing, that cell reads \u201cNot verified.\u201d We don't estimate a number or leave the cell blank in a way that could be misread as zero.",
   },
   {
-    title: "Alphabetical order, always",
+    title: "Alphabetical order",
     body: "Comparison tables and provider listings are sorted alphabetically by name. Order is never influenced by affiliate revenue, click-through rate, or how recently a provider paid us \u2014 see our how we get paid page.",
   },
 ];
@@ -86,15 +86,6 @@ export default function ComparisonMethodologyPage() {
           has data for it — we don&apos;t render an empty section just to keep
           the layout consistent.
         </p>
-
-        <div className="mt-6">
-          <Notice>
-            This describes how the comparison engine works today. It&apos;s
-            general information about our methodology, not financial advice —
-            always confirm current fees and features directly with the provider
-            before making a decision.
-          </Notice>
-        </div>
 
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
           <Link

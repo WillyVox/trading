@@ -55,7 +55,7 @@ export interface NavItem extends Partial<NavLink> {
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "Guides",
-    // href: "/guides",
+    href: "/guides",
     columns: [
       {
         heading: "Getting Started",
@@ -139,6 +139,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Compares",
+    href: "/compare",
     columns: [
       {
         heading: "Online Trading Platforms",
@@ -174,7 +175,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Tools",
-    // href: "/tools",
+    href: "/tools",
     columns: [
       {
         heading: "Share Trading Tools",
