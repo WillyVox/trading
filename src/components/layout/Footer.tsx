@@ -37,11 +37,6 @@ export function Footer() {
               cryptocurrency
             </p>
           </div>
-
-          {/* legalName/abn/businessAddress confirmed 2026-09-21
-              (src/lib/config/business.ts) and render here automatically;
-              this block still degrades to just the trading name if any of
-              them are ever unset again -- never fabricate a fallback. */}
           <div className="text-background/70 text-right text-xs leading-relaxed">
             <p>
               {"\u00A9"} {YEAR}{" "}
@@ -50,9 +45,6 @@ export function Footer() {
                 ? ` \u00B7 ABN ${businessIdentity.abn}`
                 : null}
             </p>
-            {businessIdentity.businessAddress ? (
-              <p>{businessIdentity.businessAddress}</p>
-            ) : null}
           </div>
         </div>
 

@@ -1,208 +1,270 @@
 import Link from "next/link";
-import { Notice } from "@/components/ui/Notice";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/lib/seo/schema";
-import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { businessIdentity } from "@/lib/config/business";
-import { siteConfig } from "@/lib/seo/config";
+import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema } from "@/lib/seo/schema";
 
 export const metadata = buildMetadata({
   title: "Terms of Use",
-  description: "The terms that apply to using the Trading Guide website.",
+  description:
+    "Terms that apply when you access or use Trading Guide, including our comparisons, provider information, third-party links, and website content.",
   path: "/terms",
 });
 
-const LAST_UPDATED = "21 September 2026";
+const LAST_UPDATED = "September 2026";
 
-/**
- * Content status: DRAFT. Sections marked \u26A0\uFE0F below still need
- * sign-off from a lawyer before this page goes live -- see
- * docs/CONTENT-GAPS.md "Terms of Use". Business identity (legal name, ABN,
- * address, contact email) and governing-law jurisdiction (NSW) were
- * confirmed by the business owner 2026-09-21 -- those are no longer
- * placeholders, but the substantive legal drafting (liability limitation,
- * financial-advice-boundary framing) still has not been reviewed by a
- * lawyer.
- */
+const sections = [
+  ["what-we-do", "1. What Trading Guide does"],
+  ["information", "2. Information, not personal advice"],
+  ["comparisons", "3. Comparisons and provider information"],
+  ["affiliate-links", "4. Links, partners and how we get paid"],
+  ["third-parties", "5. Third-party services"],
+  ["using-site", "6. Using our Site"],
+  ["intellectual-property", "7. Our content and intellectual property"],
+  ["liability", "8. Responsibility and liability"],
+  ["changes", "9. Changes to the Site or these Terms"],
+] as const;
+
+const sectionHeading =
+  "font-display text-navy mb-3 text-xl font-bold sm:text-2xl";
+
 export default function TermsOfUsePage() {
   const trail = breadcrumbTrail([{ name: "Terms of Use", path: "/terms" }]);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div className="mx-auto max-w-5xl px-4 py-12">
       <JsonLd data={breadcrumbSchema(trail)} />
       <Breadcrumbs items={trail} />
-      <h1 className="font-display text-navy text-4xl font-extrabold">
-        Terms of use
-      </h1>
-      <p className="text-muted mt-2 text-sm">Last updated {LAST_UPDATED}</p>
 
-      <div className="mt-6">
-        <Notice>
-          This page is a working draft and has not yet been reviewed by a
-          lawyer. Do not treat it as final. See the inline notes for sections
-          that need review.
-        </Notice>
-      </div>
+      <header className="bg-navy mt-7 rounded-3xl px-6 py-8 text-white sm:px-9 sm:py-10">
+        <p className="text-gold font-mono text-xs font-bold tracking-[0.18em] uppercase">
+          Trading Guide Terms
+        </p>
+        <h1 className="font-display mt-3 max-w-3xl text-4xl font-extrabold text-white sm:text-5xl">
+          What you need to know before using our site
+        </h1>
+        <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-200 sm:text-lg">
+          Trading Guide helps people research and compare trading services.
+          These Terms explain the rules for using our Site and how our
+          relationship with third-party providers works.
+        </p>
+        <p className="mt-5 text-sm text-slate-300">
+          Last updated: {LAST_UPDATED}
+        </p>
+      </header>
 
-      <div className="text-muted mt-8 flex flex-col gap-8 text-sm leading-relaxed">
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            1. Acceptance of these terms
-          </h2>
-          <p>
-            By accessing or using this website (
-            {businessIdentity.legalName ?? siteConfig.shortName}, &quot;Trading
-            Guide&quot;, &quot;we&quot;, &quot;us&quot;), you agree to these
-            Terms of Use. If you don&apos;t agree, please don&apos;t use the
-            site.
+      <div className="mt-10 grid gap-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-12">
+        <nav
+          aria-label="Terms of Use sections"
+          className="border-border bg-panel h-fit rounded-2xl border p-5 lg:sticky lg:top-24"
+        >
+          <p className="font-display text-navy text-base font-bold">
+            On this page
           </p>
-        </section>
+          <ol className="mt-3 space-y-1">
+            {sections.map(([id, label]) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className="text-muted hover:text-blue block py-1.5 text-sm leading-snug no-underline transition"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            2. What this site is
-          </h2>
-          <p>
-            Trading Guide publishes independent research, comparisons, and
-            educational content about share trading platforms and crypto
-            exchanges available to Australians. We do not execute trades, hold
-            customer funds, or act as a broker, crypto exchange, or financial
-            product issuer.
-          </p>
-        </section>
+        <article className="text-muted min-w-0 space-y-10 text-sm leading-relaxed sm:text-base">
+          <aside className="border-gold/60 bg-gold/5 rounded-2xl border-l-4 p-5 sm:p-6">
+            <h2 className="font-display text-navy text-lg font-bold">
+              At a glance
+            </h2>
+            <p className="mt-2">
+              We publish information for a general audience. We do not hold your
+              funds or operate provider accounts. Provider terms can change, so
+              verify important details directly with the provider before acting.
+            </p>
+          </aside>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            3. Informational content, no guarantee of accuracy
-          </h2>
-          <p>
-            Content is provided for general information and educational
-            purposes. We make reasonable efforts to verify provider facts (see
-            our{" "}
-            <Link
-              href="/methodology/comparisons"
-              className="text-blue underline"
-            >
-              comparison methodology
-            </Link>
-            ), but we don&apos;t guarantee that any information on this site is
-            complete, accurate, or current at the time you read it. Always
-            verify important details directly with the provider.
-          </p>
-        </section>
+          <section id="what-we-do" className="scroll-mt-28">
+            <h2 className={sectionHeading}>1. What Trading Guide does</h2>
+            <p>
+              Trading Guide is an information and comparison publisher. We
+              publish research, educational content, and information about share
+              trading platforms, online brokers, and cryptocurrency exchanges
+              available to Australians. We do not execute trades, hold customer
+              money, operate trading accounts, or issue financial products.
+            </p>
+          </section>
 
-        <section className="border-gold-soft bg-panel-secondary rounded-xl border p-4">
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            4. Financial information disclaimer
-          </h2>
-          <p>
-            Nothing on this site is personal financial advice. Content is
-            general in nature and doesn&apos;t take into account your
-            objectives, financial situation, or needs. Consider seeking
-            independent financial, legal, or tax advice before making a
-            decision. All investing carries risk, including the risk of losing
-            your entire investment — this applies to listed shares and other
-            exchange-traded products as well as crypto assets, which are
-            typically more volatile. Past performance doesn&apos;t predict
-            future results.
-          </p>
-          {/* \u26A0\uFE0F LEGAL REVIEW REQUIRED: confirm this framing (factual/
-              educational information vs. anything that could constitute
-              financial product advice) against the site's actual current
-              and planned features -- see CONTENT-GAPS.md. */}
-        </section>
+          <section id="information" className="scroll-mt-28">
+            <h2 className={sectionHeading}>
+              2. Information, not personal advice
+            </h2>
+            <p>
+              Our content is prepared for a general audience and does not take
+              into account your personal objectives, financial situation, or
+              needs. You are responsible for deciding whether a product or
+              service is appropriate for you and for checking current provider
+              information before acting. Consider seeking independent financial,
+              legal, or tax advice where appropriate.
+            </p>
+            <p className="mt-3">
+              Investing and trading involve risk. Investment values can rise or
+              fall and you may lose some or all of the money invested. The
+              nature and degree of risk varies between products, and crypto,
+              leveraged, or derivative products may involve particularly
+              significant risks.
+            </p>
+          </section>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            5. Third-party providers and affiliate links
-          </h2>
-          <p>
-            This site contains links to third-party provider websites, including
-            affiliate/referral links (see our{" "}
-            <Link href="/affiliate-disclosure" className="text-blue underline">
-              affiliate disclosure
-            </Link>
-            ). We aren&apos;t responsible for the content, products, services,
-            or practices of any third-party site. When you use a provider link,
-            you deal directly with that provider under their own terms.
-          </p>
-        </section>
+          <section id="comparisons" className="scroll-mt-28">
+            <h2 className={sectionHeading}>
+              3. Comparisons and provider information
+            </h2>
+            <p>
+              We aim to keep fees, features, and other provider information
+              useful and current, but providers can change their products,
+              pricing, eligibility requirements, and terms. We do not promise
+              that every item on the Site will always be complete, current, or
+              error-free. Check important information directly with the provider
+              before opening an account or making a transaction.
+            </p>
+            <p className="mt-3">
+              You can read more about how we research and compare providers in
+              our{" "}
+              <Link
+                href="/methodology/comparisons"
+                className="text-blue underline"
+              >
+                comparison methodology
+              </Link>
+              .
+            </p>
+          </section>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            6. Acceptable use
-          </h2>
-          <p>
-            You agree not to misuse this site -- including attempting to access
-            it by automated means in a way that degrades the service, attempting
-            to circumvent security, or using it for any unlawful purpose.
-          </p>
-        </section>
+          <section id="affiliate-links" className="scroll-mt-28">
+            <h2 className={sectionHeading}>
+              4. Links, partners and how we get paid
+            </h2>
+            <p>
+              Some links on Trading Guide take you to third-party websites. Some
+              are affiliate or referral links, which means we may receive
+              compensation if you click through or take an eligible action.
+              Commercial relationships do not change the methodology we say we
+              use for our editorial content.
+            </p>
+            <p className="mt-3">
+              See our{" "}
+              <Link
+                href="/affiliate-disclosure"
+                className="text-blue underline"
+              >
+                Affiliate Disclosure
+              </Link>{" "}
+              and{" "}
+              <Link href="/how-we-get-paid" className="text-blue underline">
+                How We Get Paid
+              </Link>{" "}
+              for more information.
+            </p>
+          </section>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            7. Intellectual property
-          </h2>
-          <p>
-            Content on this site, including text, graphics, and layout, is owned
-            by us or our licensors. You may view and share content for personal,
-            non-commercial use. You may not republish, sell, or otherwise
-            commercially exploit our content without permission.
-          </p>
-        </section>
+          <section id="third-parties" className="scroll-mt-28">
+            <h2 className={sectionHeading}>5. Third-party services</h2>
+            <p>
+              If you leave Trading Guide and use a broker, exchange, or other
+              provider, your relationship is with that provider and its own
+              terms, privacy policy, fees, eligibility rules, and service
+              conditions apply. Trading Guide does not control the
+              provider&apos;s service, account decisions, transactions,
+              availability, or customer support.
+            </p>
+          </section>
 
-        <section className="border-gold-soft bg-panel-secondary rounded-xl border p-4">
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            8. Limitation of liability
-          </h2>
-          <p>
-            To the extent permitted by law, Trading Guide isn&apos;t liable for
-            any loss or damage arising from your use of this site or reliance on
-            its content. Nothing in these terms excludes, restricts, or modifies
-            any consumer guarantee, right, or remedy that can&apos;t lawfully be
-            excluded under the Australian Consumer Law.
-          </p>
-          {/* \u26A0\uFE0F LEGAL REVIEW REQUIRED: exact liability-limitation
-              wording needs a lawyer -- do not ship this section as-is. */}
-        </section>
+          <section id="using-site" className="scroll-mt-28">
+            <h2 className={sectionHeading}>6. Using our Site</h2>
+            <p>
+              You may use the Site for lawful purposes. You must not interfere
+              with its operation, attempt unauthorised access, introduce
+              malicious code, bypass security controls, or use automated
+              extraction in a way that materially disrupts or degrades the Site
+              or its services.
+            </p>
+          </section>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            9. Governing law
-          </h2>
-          <p>
-            These terms are governed by the laws of New South Wales, Australia,
-            and you submit to the non-exclusive jurisdiction of its courts.
-          </p>
-          {/* Jurisdiction confirmed by the business owner 2026-09-21 (NSW) --
-              no longer a placeholder guess. Exact wording of this clause is
-              still unreviewed by a lawyer, see file-level note above. */}
-        </section>
+          <section id="intellectual-property" className="scroll-mt-28">
+            <h2 className={sectionHeading}>
+              7. Our content and intellectual property
+            </h2>
+            <p>
+              Trading Guide&apos;s original text, design, software, graphics,
+              branding, and other original content are owned by or licensed to
+              us and may be protected by intellectual property laws. You may
+              view and use the Site for personal, non-commercial purposes, but
+              you may not republish or commercially exploit our original content
+              without permission, subject to rights available under applicable
+              law.
+            </p>
+          </section>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            10. Changes to these terms
-          </h2>
-          <p>
-            We may update these terms from time to time. The &quot;last
-            updated&quot; date at the top of this page reflects the most recent
-            change. Continued use of the site after an update means you accept
-            the revised terms.
-          </p>
-        </section>
+          <section id="liability" className="scroll-mt-28">
+            <h2 className={sectionHeading}>8. Responsibility and liability</h2>
+            <p>
+              Use of the Site and decisions you make using information from it
+              are your responsibility. To the extent permitted by law, Trading
+              Guide is not responsible for losses arising from reliance on
+              inaccurate or outdated information or from products and services
+              supplied by third parties. Nothing in these Terms excludes,
+              restricts, or modifies rights or remedies that cannot lawfully be
+              excluded, restricted, or modified.
+            </p>
+          </section>
 
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            11. Contact
-          </h2>
-          <p>
-            Questions about these terms:{" "}
-            {businessIdentity.supportEmail ??
-              "support email not yet configured"}
-          </p>
-        </section>
+          <section id="changes" className="scroll-mt-28">
+            <h2 className={sectionHeading}>
+              9. Changes to the Site or these Terms
+            </h2>
+            <p>
+              We may update the Site and these Terms from time to time. The
+              current version and its last-updated date will be published on
+              this page. If a change matters to your use of the Site, please
+              review the updated Terms before continuing to use it.
+            </p>
+          </section>
+
+          <aside className="border-border bg-subtle rounded-2xl border p-5 sm:p-6">
+            <h2 className="font-display text-navy text-lg font-bold">
+              Related Trading Guide policies
+            </h2>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <Link href="/privacy" className="text-blue underline">
+                Privacy Policy
+              </Link>
+              <Link
+                href="/affiliate-disclosure"
+                className="text-blue underline"
+              >
+                Affiliate Disclosure
+              </Link>
+              <Link href="/how-we-get-paid" className="text-blue underline">
+                How We Get Paid
+              </Link>
+              <Link href="/methodology" className="text-blue underline">
+                Methodology
+              </Link>
+              <Link
+                href="/methodology/editorial-policy"
+                className="text-blue underline"
+              >
+                Editorial Policy
+              </Link>
+            </div>
+          </aside>
+        </article>
       </div>
     </div>
   );

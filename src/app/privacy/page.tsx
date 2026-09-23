@@ -15,26 +15,6 @@ export const metadata = buildMetadata({
 
 const LAST_UPDATED = "23 September 2026";
 
-/**
- * Content status: DRAFT ONLY -- see docs/CONTENT-GAPS.md "Privacy Policy".
- * Every data category below was checked directly against the codebase
- * (prisma/schema.prisma, src/lib/auth/*, src/lib/affiliates/service.ts) --
- * nothing here is generic boilerplate disconnected from what's actually
- * built:
- *  - Account data: User model (name, email, hashed password via scrypt --
- *    see src/lib/auth/password.ts -- role, createdAt). Registration is via
- *    /register.
- *  - Session data: Auth.js Session/Account/VerificationToken models.
- *  - Affiliate click data: AffiliateClick model captures sourcePage,
- *    placement, campaign, createdAt, and the linkId clicked -- no IP
- *    address or device fingerprint field exists in the schema today.
- *  - Google Analytics 4 is loaded when explicitly enabled by environment
- *    configuration. It measures site usage and may use cookies or similar
- *    technologies. No Google Ads/remarketing tag is installed by this milestone.
- *  - No newsletter/marketing-email feature exists in the codebase.
- * APP-entity status genuinely cannot be determined from the codebase alone
- * (depends on turnover/entity type) -- flagged below rather than guessed.
- */
 export default function PrivacyPolicyPage() {
   const trail = breadcrumbTrail([{ name: "Privacy Policy", path: "/privacy" }]);
 
@@ -179,36 +159,6 @@ export default function PrivacyPolicyPage() {
               "privacy email not yet configured"}
             . If you&apos;re not satisfied with our response, you can contact
             the Office of the Australian Information Commissioner (OAIC).
-          </p>
-        </section>
-
-        <section className="border-gold-soft bg-panel-secondary rounded-xl border p-4">
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            7. Australian Privacy Principles
-          </h2>
-          <p>
-            Whether we&apos;re required to comply with the Australian Privacy
-            Principles as an APP entity (as opposed to qualifying for the
-            small-business exemption) depends on our turnover and business
-            activities, which hasn&apos;t been determined.
-          </p>
-          <p className="text-navy mt-2 font-medium">
-            LEGAL/COMPLIANCE REVIEW REQUIRED.
-          </p>
-          <p className="mt-2">
-            Regardless of exemption status, we aim to follow the practices in
-            this policy given the account and affiliate-tracking features on
-            this site.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            8. Changes to this policy
-          </h2>
-          <p>
-            We may update this policy from time to time. The &quot;last
-            updated&quot; date at the top reflects the most recent change.
           </p>
         </section>
       </div>

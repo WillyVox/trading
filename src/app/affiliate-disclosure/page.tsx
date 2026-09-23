@@ -108,16 +108,6 @@ export default function AffiliateDisclosurePage() {
         ))}
       </div>
 
-      <div className="mt-6">
-        <Notice>
-          Questions about a specific commercial relationship? Visit our{" "}
-          <Link href="/contact" className="text-blue underline">
-            contact page
-          </Link>{" "}
-          or email {businessIdentity.supportEmail ?? "our support address"}.
-        </Notice>
-      </div>
-
       <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
         <Link href="/how-we-get-paid" className="text-blue underline">
           How we get paid

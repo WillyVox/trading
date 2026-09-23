@@ -14,7 +14,9 @@ export const metadata = buildMetadata({
   image: "/images/og/how-we-get-paid.png",
 });
 
-const EFFECTIVE_DATE = "September 2026";
+const EFFECTIVE_YEAR = new Date().getFullYear();
+const EFFECTIVE_MONTH = new Date().toLocaleString("en-AU", { month: "long" });
+const EFFECTIVE_DATE = `${EFFECTIVE_MONTH} ${EFFECTIVE_YEAR}`;
 
 const FUTURE_MODEL = [
   {
