@@ -1,4 +1,3 @@
-import { Notice } from "@/components/ui/Notice";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -14,7 +13,7 @@ export const metadata = buildMetadata({
   path: "/privacy",
 });
 
-const LAST_UPDATED = "22 September 2026";
+const LAST_UPDATED = "23 September 2026";
 
 /**
  * Content status: DRAFT ONLY -- see docs/CONTENT-GAPS.md "Privacy Policy".
@@ -29,9 +28,9 @@ const LAST_UPDATED = "22 September 2026";
  *  - Affiliate click data: AffiliateClick model captures sourcePage,
  *    placement, campaign, createdAt, and the linkId clicked -- no IP
  *    address or device fingerprint field exists in the schema today.
- *  - No analytics, ad-tech, or tracking-pixel code exists anywhere in the
- *    codebase as of this audit (verified by search) -- do not claim
- *    Google Analytics or similar until/unless one is actually added.
+ *  - Google Analytics 4 is loaded when explicitly enabled by environment
+ *    configuration. It measures site usage and may use cookies or similar
+ *    technologies. No Google Ads/remarketing tag is installed by this milestone.
  *  - No newsletter/marketing-email feature exists in the codebase.
  * APP-entity status genuinely cannot be determined from the codebase alone
  * (depends on turnover/entity type) -- flagged below rather than guessed.
@@ -87,9 +86,10 @@ export default function PrivacyPolicyPage() {
             </li>
           </ul>
           <p className="mt-2">
-            We don&apos;t currently use analytics, advertising, or
-            tracking-pixel tools on this site. If that changes, this policy will
-            be updated first.
+            We use Google Analytics to understand how visitors use the site,
+            including page views, navigation and general website interactions.
+            We do not use Google Analytics for advertising or remarketing in
+            this implementation.
           </p>
 
           <h3
@@ -99,7 +99,8 @@ export default function PrivacyPolicyPage() {
             Cookies
           </h3>
           <p className="mb-2">
-            We only use cookies and browser storage that keep the site working:
+            We use cookies and similar browser technologies for site
+            functionality and analytics, including:
           </p>
           <ul className="list-disc space-y-1.5 pl-5">
             <li>
@@ -108,12 +109,9 @@ export default function PrivacyPolicyPage() {
               signed in and protect the sign-in form.
             </li>
             <li>
-              <span className="text-navy font-medium">
-                Cookie notice choice
-              </span>{" "}
-              -- once you click OK on the cookie notice, your browser remembers
-              that in its local storage (not sent to our servers) so we
-              don&apos;t show the notice again.
+              <span className="text-navy font-medium">Analytics cookies</span>{" "}
+              -- Google Analytics may set cookies or use similar technologies to
+              distinguish visits and help us understand how the website is used.
             </li>
             <li>
               <span className="text-navy font-medium">Embedded videos</span> --
@@ -123,9 +121,11 @@ export default function PrivacyPolicyPage() {
             </li>
           </ul>
           <p className="mt-2">
-            We don&apos;t use advertising or analytics cookies. If that changes,
-            we&apos;ll update this policy and change the cookie notice to ask
-            you before any are set.
+            Google Analytics may collect information such as pages viewed,
+            referral information, approximate location, and general device and
+            browser information. We do not intentionally send names, email
+            addresses, financial form values, or other directly identifying
+            information to Google Analytics.
           </p>
         </section>
 
@@ -136,7 +136,9 @@ export default function PrivacyPolicyPage() {
           <p>
             To provide and secure the account features you use, to understand
             which provider links are used (in aggregate, for our own commercial
-            reporting), and to respond if you contact us.
+            reporting), to understand website usage and improve our guides,
+            comparisons, tools and website experience, and to respond if you
+            contact us.
           </p>
         </section>
 
@@ -146,7 +148,9 @@ export default function PrivacyPolicyPage() {
           </h2>
           <p>
             We don&apos;t sell your personal information. It may be processed by
-            service providers we use to run this site (e.g. hosting, database).
+            service providers we use to run this site (e.g. hosting and database
+            services). Website usage information is also processed by Google as
+            the provider of Google Analytics.
           </p>
           {/* \u26A0\uFE0F LEGAL REVIEW REQUIRED: name actual hosting/database
               providers and confirm which countries process/store data --

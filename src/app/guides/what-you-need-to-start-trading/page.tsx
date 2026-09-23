@@ -5,7 +5,6 @@ import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
 import { estimateReadingMinutesByWordCount } from "@/lib/articles/content";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
-import { Notice } from "@/components/ui/Notice";
 import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
 import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
 import { GuideSidebar } from "@/components/guide/GuideSidebar";

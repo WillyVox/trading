@@ -5,9 +5,9 @@ import { siteConfig } from "@/lib/seo/config";
 import TradingGuideLogoWhite from "./LogoWhite";
 
 // Computed once per server render. On a statically-generated page this
-// bakes in the build year rather than the visitor's current year -- fine
+// bakes in the build year rather than the visitor&lsquo;s current year -- fine
 // for a footer copyright line (same tradeoff every SSG site makes), but
-// worth knowing if a build sits unrebuilt across a New Year's Eve.
+// worth knowing if a build sits unrebuilt across a New Year&lsquo;s Eve.
 const YEAR = new Date().getFullYear();
 
 /**
@@ -82,11 +82,11 @@ export function Footer() {
           and does not constitute financial, investment, or trading advice.
           Trading Guide is an independent information publisher and does not
           hold an Australian Financial Services Licence (AFSL). We do not
-          endorse or recommend any specific trading platform or broker. We're
-          100% self-funded, in the future, we may receive compensation or
-          affiliate commission from the trading platforms featured on this site
-          when you click on links. This does not affect our objective
-          presentation of factual data. Read our{" "}
+          endorse or recommend any specific trading platform or broker.
+          We&lsquo;re 100% self-funded, in the future, we may receive
+          compensation or affiliate commission from the trading platforms
+          featured on this site when you click on links. This does not affect
+          our objective presentation of factual data. Read our{" "}
           <Link href="/how-we-get-paid" className="text-gold-soft underline">
             how we get paid
           </Link>{" "}

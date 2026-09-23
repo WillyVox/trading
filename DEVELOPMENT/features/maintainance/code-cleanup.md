@@ -3,13 +3,14 @@ OK, these are actually cleanly separated (good architecture already). Let me che
 ## 1. Duplication — what and how to fix
 
 **Confirmed duplicate component/logic pairs**, built in parallel for crypto vs share-trading instead of shared:
+
 - `components/crypto-exchanges/ProsCons.tsx` ↔ `components/share-trading/OfferingProsCons.tsx` (88 vs 65 lines, same UI, different type names — `ProsCon`/`"PRO"|"LIMITATION"` vs `Item`/`OfferingProsConsType`)
 - `components/crypto-exchanges/FeatureSection.tsx` ↔ `components/share-trading/OfferingFeatureSection.tsx`
-- `lib/crypto-exchanges/comparison.ts` ↔ `lib/share-trading/comparison.ts` (195 vs 257 lines) — comments even say *"Mirrors src/lib/crypto-exchanges/comparison.ts's shape and structure exactly"*, i.e. the duplication is acknowledged, not accidental.
+- `lib/crypto-exchanges/comparison.ts` ↔ `lib/share-trading/comparison.ts` (195 vs 257 lines) — comments even say _"Mirrors src/lib/crypto-exchanges/comparison.ts's shape and structure exactly"_, i.e. the duplication is acknowledged, not accidental.
 
 **Fix:** since `OfferingType` (CRYPTO_EXCHANGE vs share offerings) already exists in the schema, collapse both pairs into one generic, offering-type-parameterised implementation (`ProsCons<T extends OfferingType>` / a single `buildComparison(offeringType, …)`), keeping only the genuinely divergent bits (share-trading's typed-enum row keys vs crypto's free-text matching) as small strategy functions. This is the natural next step of the Provider/Offering unification you already did at the schema level — it just hasn't reached the UI/service layer yet.
 
-**Lower-priority duplication:** the 6 npm gate scripts (`check:production`, `validate:code`, `validate:release`, `launch:gate`, `verify:security:production`, `check:seo:release`) actually compose cleanly (`launch:gate` → `validate:code` → …), so that's *not* duplication, it's a legitimate pipeline — worth noting since it looks redundant at first glance.
+**Lower-priority duplication:** the 6 npm gate scripts (`check:production`, `validate:code`, `validate:release`, `launch:gate`, `verify:security:production`, `check:seo:release`) actually compose cleanly (`launch:gate` → `validate:code` → …), so that's _not_ duplication, it's a legitimate pipeline — worth noting since it looks redundant at first glance.
 
 ## 2. Unnecessary — what to remove
 
@@ -30,14 +31,15 @@ OK, these are actually cleanly separated (good architecture already). Let me che
 
 ## 5. Biggest concerns
 
-- **Doc/comment drift risk**: comments across the codebase are unusually thorough (a strength), but that means they're also unusually expensive to keep honest. E.g. `admin/layout.tsx` says *"Middleware already blocks non-admins"* — the file is actually `src/proxy.ts` (Next 16's renamed middleware convention), which is correct behavior but a confusing label if anyone goes looking for `middleware.ts` and doesn't know about the rename.
+- **Doc/comment drift risk**: comments across the codebase are unusually thorough (a strength), but that means they're also unusually expensive to keep honest. E.g. `admin/layout.tsx` says _"Middleware already blocks non-admins"_ — the file is actually `src/proxy.ts` (Next 16's renamed middleware convention), which is correct behavior but a confusing label if anyone goes looking for `middleware.ts` and doesn't know about the rename.
 - **Legal/compliance gating is enforced by env vars, not code** (`LEGAL_CONTENT_APPROVED`, `EDGE_RATE_LIMITING_CONFIGURED`, `CSP_ENFORCED_AND_VERIFIED` must all be `"true"` strings). This is good practice, but it means a single mis-set env var silently disables a launch gate rather than failing loud — worth a startup assertion that these are exactly `"true"`/`"false"`, not any truthy string.
 - **Open self-registration** (`registerAction`) exists on a content/comparison site — confirm this is actually needed for the public site (vs. admin-only accounts via `promote-admin.ts`). If regular users don't need accounts yet, an unused public attack surface (even a well-throttled one) is worth removing until there's a feature that needs it.
 
 ## 6. Biggest technical errors
 
 None found that would break builds or leak data — the encouraging finding here. The closest things to real errors:
-- The `MobileNav.tsx` "setState during render to reset state on prop change" pattern (lines ~289–292) is actually the *correct* React pattern (not the buggy setState-in-effect the last audit flagged) — so that item from your memory's wave-1 notes looks already resolved; worth confirming `NavMenuItem.tsx` too before closing it out.
+
+- The `MobileNav.tsx` "setState during render to reset state on prop change" pattern (lines ~289–292) is actually the _correct_ React pattern (not the buggy setState-in-effect the last audit flagged) — so that item from your memory's wave-1 notes looks already resolved; worth confirming `NavMenuItem.tsx` too before closing it out.
 - Run `npm run validate:code` fresh in this exported snapshot (Prisma validate → lint → tsc → tests → build) to get a current error count — I can't execute it here without network access to install dependencies, so treat "32 pre-existing lint errors" from the prior audit as unconfirmed until you rerun it.
 
 ## 7. Standards/flow violations
@@ -49,4 +51,3 @@ None found that would break builds or leak data — the encouraging finding here
 ## 8. Fundamentally wrong
 
 Nothing structural. The Provider/Offering domain split, the throttled auth, the graceful-degradation-on-DB-outage pattern, and the layered validation pipeline are all sound architecture — better than what most projects at this stage have. The one thing worth a deliberate decision rather than default drift: **the crypto vs share-trading parallel implementations (comparison, pros/cons, features) are at a fork where continuing to hand-copy each new feature across both domains will compound.** That's the one place a genuine refactor (item #1) pays for itself the more the product grows — everything else here is incremental cleanup, not a redesign.
-

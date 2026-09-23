@@ -18,7 +18,6 @@ const detailPages = walk("src/app/guides").filter(
 
 for (const path of detailPages) {
   const source = readFileSync(path, "utf8");
-  const isDynamic = path.includes("[slug]");
   const delegated = source.includes("ResearchGuidePage");
   if (!delegated && !source.includes("guideBreadcrumbTrail(")) {
     errors.push(`${path}: guide detail page must use guideBreadcrumbTrail().`);

@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AuthStatus } from "./AuthStatus";
+// import { AuthStatus } from "./AuthStatus";
 import HeaderLogo from "./HeaderLogo";
 import {
   NAV_ITEMS,
