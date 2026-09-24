@@ -16,16 +16,16 @@ This report audits the seeded provider catalog. It does **not** make affiliate s
 
 | Provider | Catalog | Seed status | Last provider verification | Evidence URLs | Safe verified badge | Outstanding items |
 | --- | --- | --- | --- | ---: | --- | --- |
-| CMC Markets | Share trading | UNVERIFIED | 2026-09-17 | 11 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
-| Commonwealth Bank of Australia | Share trading | UNVERIFIED | 2026-09-17 | 12 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
-| eToro AUS Capital Limited | Share trading | VERIFIED | 2026-09-22 | 5 | YES | — |
-| Interactive Brokers Australia Pty. Ltd. | Share trading | UNVERIFIED | 2026-09-19 | 6 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
-| Moomoo Securities Australia Ltd | Share trading | VERIFIED | 2026-09-22 | 8 | YES | — |
-| Stakeshop Pty Ltd | Share trading | UNVERIFIED | 2026-09-19 | 2 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
+| CMC Markets | Share trading | UNVERIFIED | 2026-09-17 | 18 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
+| Commonwealth Bank of Australia | Share trading | UNVERIFIED | 2026-09-17 | 20 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
+| eToro AUS Capital Limited | Share trading | VERIFIED | 2026-09-22 | 23 | YES | — |
+| Interactive Brokers Australia Pty. Ltd. | Share trading | UNVERIFIED | 2026-09-19 | 19 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
+| Moomoo Securities Australia Ltd | Share trading | VERIFIED | 2026-09-22 | 28 | YES | — |
+| Stakeshop Pty Ltd | Share trading | UNVERIFIED | 2026-09-19 | 15 | NO | WARN: provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading) |
 | BTC Markets | Crypto exchange | VERIFIED | 2026-09-17 | 19 | YES | — |
 | CoinJar | Crypto exchange | VERIFIED | 2026-09-17 | 45 | YES | — |
 | CoinSpot | Crypto exchange | VERIFIED | 2026-09-17 | 29 | YES | — |
-| eToro AUS Capital Limited | Crypto exchange | VERIFIED | 2026-09-22 | 6 | YES | — |
+| eToro AUS Capital Limited | Crypto exchange | VERIFIED | 2026-09-22 | 23 | YES | — |
 | Independent Reserve | Crypto exchange | VERIFIED | 2026-09-17 | 24 | YES | — |
 | Kraken | Crypto exchange | VERIFIED | 2026-09-17 | 19 | YES | — |
 | Swyftx | Crypto exchange | VERIFIED | 2026-09-17 | 25 | YES | — |

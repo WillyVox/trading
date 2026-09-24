@@ -1,15 +1,16 @@
-import { CmcInvest } from "./cmc-invest";
-import { CommSec } from "./commsec";
-import { InteractiveBrokers } from "./interactive-brokers";
-import { Stake } from "./stake";
-import { Moomoo } from "./moomoo";
-import { EtoroShareTrading } from "./etoro";
+import cmcInvest from "./cmc-invest.json";
+import commsec from "./commsec.json";
+import etoro from "./etoro.json";
+import interactiveBrokers from "./interactive-brokers.json";
+import moomoo from "./moomoo.json";
+import stake from "./stake.json";
+import { reviveSeedJson } from "../lib/json";
 
 export const SHARE_TRADING_PLATFORMS = [
-  CmcInvest,
-  CommSec,
-  Stake,
-  InteractiveBrokers,
-  Moomoo,
-  EtoroShareTrading,
-];
+  cmcInvest,
+  commsec,
+  etoro,
+  interactiveBrokers,
+  moomoo,
+  stake,
+].map(reviveSeedJson);

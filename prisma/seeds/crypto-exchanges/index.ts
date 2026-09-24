@@ -1,17 +1,18 @@
-import { BtcMarkets } from "./btc-markets";
-import { CoinJar } from "./coinjar";
-import { CoinSpot } from "./coinspot";
-import { IndependentReserve } from "./independent-reserve";
-import { Kraken } from "./kraken";
-import { Swyftx } from "./swyftx";
-import { EtoroCrypto } from "./etoro";
+import btcMarkets from "./btc-markets.json";
+import coinJar from "./coinjar.json";
+import coinSpot from "./coinspot.json";
+import etoro from "./etoro.json";
+import independentReserve from "./independent-reserve.json";
+import kraken from "./kraken.json";
+import swyftx from "./swyftx.json";
+import { reviveSeedJson } from "../lib/json";
 
 export const CRYPTO_EXCHANGES = [
-  BtcMarkets,
-  CoinJar,
-  CoinSpot,
-  IndependentReserve,
-  Kraken,
-  Swyftx,
-  EtoroCrypto,
-];
+  btcMarkets,
+  coinJar,
+  coinSpot,
+  independentReserve,
+  kraken,
+  swyftx,
+  etoro,
+].map(reviveSeedJson);

@@ -1,0 +1,262 @@
+{
+  "provider": {
+    "name": "eToro AUS Capital Limited",
+    "slug": "etoro",
+    "website": "https://www.etoro.com/au/",
+    "description": "Australian eToro entity providing access to a multi-asset investment platform. Regulated financial products and non-leveraged cryptoassets have different regulatory treatment in Australia.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-22T00:00:00.000Z",
+    "facts": [
+      {
+        "label": "Australian operating entity",
+        "value": "eToro AUS Capital Limited (ACN 612 791 803)",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "label": "Australian Financial Services Licence",
+        "value": "AFSL 491139",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "sources": [
+      {
+        "label": "eToro Australia",
+        "url": "https://www.etoro.com/au/",
+        "sourceType": "OFFICIAL_WEBSITE",
+        "jurisdiction": "AU",
+        "checkedAt": "2026-09-22T00:00:00.000Z",
+        "verificationStatus": "VERIFIED"
+      },
+      {
+        "label": "eToro Australia fees",
+        "url": "https://www.etoro.com/au/trading/fees/",
+        "sourceType": "OFFICIAL_FEES",
+        "jurisdiction": "AU",
+        "checkedAt": "2026-09-22T00:00:00.000Z",
+        "verificationStatus": "VERIFIED"
+      },
+      {
+        "label": "eToro Australia markets and regulatory disclosure",
+        "url": "https://www.etoro.com/au/trading/markets/",
+        "sourceType": "OFFICIAL_WEBSITE",
+        "jurisdiction": "AU",
+        "checkedAt": "2026-09-22T00:00:00.000Z",
+        "verificationStatus": "VERIFIED"
+      }
+    ],
+    "regulations": [
+      {
+        "jurisdiction": "AU",
+        "regulator": "ASIC",
+        "registrationId": "AFSL 491139",
+        "status": "eToro AUS Capital Limited is authorised to provide financial services under AFSL 491139. This must not be presented as ASIC regulation of non-leveraged spot cryptoasset trading.",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ]
+  },
+  "offering": {
+    "name": "eToro Crypto",
+    "slug": "etoro-crypto",
+    "website": "https://www.etoro.com/au/crypto/",
+    "description": "eToro's Australian non-leveraged cryptoasset investing service. Leveraged crypto positions and some other positions may be CFDs and are outside this spot-crypto comparison offering.",
+    "offeringType": "CRYPTO_EXCHANGE",
+    "jurisdiction": "AU",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "assetSymbols": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP"
+    ],
+    "fees": [
+      {
+        "feeCategory": "CRYPTO_TRADING",
+        "label": "Crypto position opening fee",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 1,
+        "displayValue": "1% when opening a crypto position",
+        "notes": "This row models the opening transaction only. eToro also charges 1% when closing a crypto position, based on the closing transaction value; Trading Guide does not add a hypothetical future closing fee to today's buy amount.",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "CRYPTO_TRADING",
+        "label": "Crypto position closing fee",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 1,
+        "displayValue": "1% when closing a crypto position",
+        "notes": "Calculated on the value when the position is closed. Kept as a separate row so a current buy calculator does not imply a fixed round-trip cost.",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "CRYPTO_WITHDRAWAL",
+        "label": "Platform-to-crypto-wallet transfer fee",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 2,
+        "displayValue": "2%, subject to published minimum/maximum limits",
+        "notes": "This is specifically the transfer from the eToro investment platform to the eToro Crypto Wallet. External blockchain transfers are a separate stage and can incur network fees. The published minimum/maximum transfer-fee caps are not modelled by the current percentage-only rule.",
+        "sourceUrl": "https://www.etoro.com/au/crypto/wallet/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "CRYPTO_WITHDRAWAL",
+        "label": "External crypto send/receive network fee",
+        "calculationBasis": "VARIES",
+        "displayValue": "Blockchain/network fee varies",
+        "notes": "eToro states it does not charge an additional fee for transfers from or to an external source; the blockchain fee is determined by the network.",
+        "sourceUrl": "https://www.etoro.com/au/crypto/wallet/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FIAT_DEPOSIT",
+        "label": "AUD NPP/BECS funding",
+        "calculationBasis": "FREE",
+        "displayValue": "Free",
+        "notes": "AUD account eligibility criteria apply.",
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FIAT_WITHDRAWAL",
+        "label": "AUD account withdrawal",
+        "calculationBasis": "FREE",
+        "displayValue": "Free from AUD account to an external account",
+        "notes": "USD investment-account withdrawals have different fee treatment and are not represented by this AUD-specific row.",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "AUD_DEPOSITS",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "AUD_WITHDRAWALS",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "BANK_TRANSFER",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/crypto/wallet/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "WEB_PLATFORM",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/crypto/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "TWO_FACTOR_AUTH",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/crypto/wallet/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "COLD_STORAGE",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/crypto/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "STAKING",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/crypto/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "COPY_TRADING",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/copytrader/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "AUD account funding and withdrawals are available for eligible Australian users",
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "Supported crypto can be transferred to the eToro Crypto Wallet",
+        "sourceUrl": "https://www.etoro.com/au/crypto/wallet/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "A 1% fee applies when opening and another 1% applies when closing a crypto position",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Platform-to-eToro-Wallet crypto transfers carry a 2% fee subject to published limits",
+        "sourceUrl": "https://www.etoro.com/au/crypto/wallet/fees/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "eToro states non-leveraged cryptoasset trading is unregulated in Australia",
+        "detail": "Consumer protections that apply to regulated financial services/products do not apply to non-leveraged cryptoassets in the same way. Leveraged crypto positions are CFDs with different regulatory treatment.",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  }
+}

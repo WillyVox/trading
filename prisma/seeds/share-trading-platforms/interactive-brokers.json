@@ -1,0 +1,192 @@
+{
+  "provider": {
+    "name": "Interactive Brokers Australia Pty. Ltd.",
+    "slug": "interactive-brokers-australia",
+    "website": "https://www.interactivebrokers.com.au",
+    "description": "Australian subsidiary of global broker Interactive Brokers, ASIC-regulated (AFSL 453554) and a participant of ASX, ASX 24 and Cboe Australia, offering share, ETF, options, futures and forex trading across 90+ international markets.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-19T00:00:00.000Z"
+  },
+  "offering": {
+    "name": "Interactive Brokers Australia",
+    "slug": "interactive-brokers-australia",
+    "website": "https://www.interactivebrokers.com.au",
+    "description": "IBKR Pro's Fixed-rate share trading plan for Australian investors: low per-trade commissions on ASX and US shares, a custodial (non-CHESS) holding model, and access to global markets beyond the ASX and US.",
+    "offeringType": "SHARE_TRADING",
+    "jurisdiction": "AU",
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-19T00:00:00.000Z",
+    "markets": [
+      {
+        "marketCode": "ASX",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "availability": "AVAILABLE",
+        "notes": "IBKR advertises 90+ markets worldwide; exact per-exchange coverage for NYSE vs. Nasdaq not confirmed against an official breakdown in this pass.",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "availability": "AVAILABLE",
+        "notes": "IBKR advertises 90+ markets worldwide; exact per-exchange coverage for NYSE vs. Nasdaq not confirmed against an official breakdown in this pass.",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "products": [
+      {
+        "productType": "AU_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "INTERNATIONAL_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "ETF",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "OPTIONS",
+        "availability": "AVAILABLE",
+        "notes": "Out of scope for this offering's seeded fees (share trading only).",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/index.php?f=49808",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "productType": "FUTURES",
+        "availability": "AVAILABLE",
+        "notes": "Out of scope for this offering's seeded fees (share trading only).",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/index.php?f=49808",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "productType": "FOREX",
+        "availability": "AVAILABLE",
+        "notes": "Out of scope for this offering's seeded fees (share trading only).",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/index.php?f=49808",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "productType": "CFD",
+        "availability": "AVAILABLE",
+        "notes": "Out of scope for this offering's seeded fees (share trading only).",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/index.php?f=49808",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "custody": [
+      {
+        "marketCode": "ASX",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "ASX holdings are held via a nominee/custodial model, not CHESS-sponsored; the client remains beneficial owner but does not hold a HIN directly. Reported consistently in third-party reviews; not yet confirmed against IBKR AU's own PDS/FSG.",
+        "sourceUrl": "https://psyfimoney.com/au/reviews/interactive-brokers-review-australia/",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NYSE",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Standard US brokerage (street-name) custodial holding.",
+        "sourceUrl": "https://psyfimoney.com/au/reviews/interactive-brokers-review-australia/",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Standard US brokerage (street-name) custodial holding.",
+        "sourceUrl": "https://psyfimoney.com/au/reviews/interactive-brokers-review-australia/",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "accountTypes": [
+      {
+        "accountType": "SMSF",
+        "availability": "AVAILABLE",
+        "notes": "Reported as supported in third-party reviews; confirm against IBKR AU's own account-opening documentation before publishing.",
+        "sourceUrl": "https://psyfimoney.com/au/reviews/interactive-brokers-review-australia/",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "accountType": "TRUST",
+        "availability": "AVAILABLE",
+        "notes": "Reported as supported in third-party reviews; confirm against IBKR AU's own account-opening documentation before publishing.",
+        "sourceUrl": "https://psyfimoney.com/au/reviews/interactive-brokers-review-australia/",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "features": [],
+    "prosCons": [],
+    "fees": [
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Australian shares brokerage (Fixed plan)",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 6,
+        "percentage": 0.08,
+        "currency": "AUD",
+        "pricingPlan": "Fixed",
+        "gstPercent": 10,
+        "notes": "IBKR publishes Fixed Australian stock commissions at 0.08% of trade value with a A$6 minimum per order, exclusive of GST. The calculator adds 10% GST. IBKR Tiered pricing and third-party fees are not included in this Fixed-plan estimate.",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/index.php?f=49808",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NYSE",
+        "label": "US shares brokerage (IBKR Pro, Fixed plan)",
+        "calculationBasis": "VARIES",
+        "displayValue": "US$0.005/share (min US$1, max 1% of trade value)",
+        "currency": "USD",
+        "notes": "Priced per share, not per trade value -- doesn't fit this schema's value-based fee shapes. Tiered plan pricing (from US$0.0035/share for the lowest volume tier) not modelled.",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NASDAQ",
+        "label": "US shares brokerage (IBKR Pro, Fixed plan)",
+        "calculationBasis": "VARIES",
+        "displayValue": "US$0.005/share (min US$1, max 1% of trade value)",
+        "currency": "USD",
+        "notes": "Priced per share, not per trade value -- doesn't fit this schema's value-based fee shapes. Tiered plan pricing (from US$0.0035/share for the lowest volume tier) not modelled.",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/globaltrader/pricing.php",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "feeCategory": "FX_CONVERSION",
+        "label": "Automated currency conversion",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 0.03,
+        "notes": "IBKR's automated currency conversion service rate, applied when a trade requires converting AUD to buy a foreign-currency security. A lower client-initiated standalone conversion rate of 0.002% (minimum US$2.00) is available if you convert currency manually ahead of time instead.",
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/pricing/commissions-spot-currencies.php",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ]
+  }
+}

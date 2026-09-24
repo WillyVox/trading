@@ -1,0 +1,411 @@
+{
+  "provider": {
+    "name": "Kraken",
+    "slug": "kraken",
+    "website": "https://www.kraken.com",
+    "logo": "/images/providers/kraken.svg",
+    "description": "Global cryptocurrency platform with Australian operations through Bit Trade Pty Ltd, offering Kraken and Kraken Pro spot trading and AUD funding; other products are subject to eligibility.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "facts": [
+      {
+        "label": "Platform Type",
+        "value": "Centralised cryptocurrency platform / exchange",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://www.kraken.com",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Australian operating entity",
+        "value": "Bit Trade Pty Ltd (ACN 163 237 634)",
+        "jurisdiction": "AU",
+        "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "label": "Founded",
+        "value": "2011",
+        "sourceUrl": "https://support.kraken.com/au/articles/360046261932-australia-faq",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Official website",
+        "url": "https://www.kraken.com",
+        "sourceType": "OFFICIAL_WEBSITE"
+      },
+      {
+        "label": "Official fees",
+        "url": "https://www.kraken.com/features/fee-schedule",
+        "sourceType": "OFFICIAL_FEES"
+      },
+      {
+        "label": "Australian licensing and regulation",
+        "url": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "sourceType": "OFFICIAL_SUPPORT"
+      }
+    ],
+    "regulations": [
+      {
+        "jurisdiction": "AU",
+        "regulator": "AUSTRAC",
+        "status": "Bit Trade Pty Ltd (ACN 163 237 634) is registered as a Digital Currency Exchange and Independent Remittance Dealer",
+        "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "jurisdiction": "AU",
+        "regulator": "ASIC",
+        "status": "Kraken Derivatives are offered to eligible Australian wholesale clients through Beaufort Fiduciaries Pty Ltd (ACN 162 139 871), AFSL 545124",
+        "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  },
+  "offering": {
+    "name": "Kraken Crypto Exchange",
+    "slug": "kraken-exchange",
+    "offeringType": "CRYPTO_EXCHANGE",
+    "jurisdiction": "AU",
+    "assetSymbols": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP"
+    ],
+    "fees": [
+      {
+        "feeCategory": "MAKER",
+        "label": "Pro standard spot maker fee",
+        "calculationBasis": "TIERED",
+        "percentage": 0.4,
+        "currency": "AUD",
+        "tierVolumeCurrency": "USD",
+        "tierAssetsCurrency": "USD",
+        "tiers": [
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 0,
+            "percentage": 0.4
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 2500,
+            "percentage": 0.3
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 10000,
+            "minAssetsOnPlatform": 20000,
+            "percentage": 0.22
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 25000,
+            "minAssetsOnPlatform": 50000,
+            "percentage": 0.2
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 50000,
+            "minAssetsOnPlatform": 100000,
+            "percentage": 0.15
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 100000,
+            "minAssetsOnPlatform": 200000,
+            "percentage": 0.12
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 250000,
+            "minAssetsOnPlatform": 400000,
+            "percentage": 0.1
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 500000,
+            "minAssetsOnPlatform": 600000,
+            "percentage": 0.08
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 1000000,
+            "minAssetsOnPlatform": 1000000,
+            "percentage": 0.06
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 2500000,
+            "minAssetsOnPlatform": 2500000,
+            "percentage": 0.04
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 5000000,
+            "minAssetsOnPlatform": 5000000,
+            "percentage": 0.02
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 10000000,
+            "minAssetsOnPlatform": 10000000,
+            "percentage": 0
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 50000000,
+            "minAssetsOnPlatform": 20000000,
+            "percentage": 0
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 100000000,
+            "minAssetsOnPlatform": 25000000,
+            "percentage": 0
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 250000000,
+            "minAssetsOnPlatform": 50000000,
+            "percentage": 0
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 400000000,
+            "minAssetsOnPlatform": 80000000,
+            "percentage": 0
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 500000000,
+            "minAssetsOnPlatform": 100000000,
+            "percentage": 0
+          }
+        ],
+        "displayValue": "0.40% at Tier 1, tiered down to 0% from Tier 12",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "TAKER",
+        "label": "Pro standard spot taker fee",
+        "calculationBasis": "TIERED",
+        "percentage": 0.8,
+        "currency": "AUD",
+        "tierVolumeCurrency": "USD",
+        "tierAssetsCurrency": "USD",
+        "tiers": [
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 0,
+            "percentage": 0.8
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 2500,
+            "percentage": 0.6
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 10000,
+            "minAssetsOnPlatform": 20000,
+            "percentage": 0.38
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 25000,
+            "minAssetsOnPlatform": 50000,
+            "percentage": 0.35
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 50000,
+            "minAssetsOnPlatform": 100000,
+            "percentage": 0.3
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 100000,
+            "minAssetsOnPlatform": 200000,
+            "percentage": 0.25
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 250000,
+            "minAssetsOnPlatform": 400000,
+            "percentage": 0.22
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 500000,
+            "minAssetsOnPlatform": 600000,
+            "percentage": 0.2
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 1000000,
+            "minAssetsOnPlatform": 1000000,
+            "percentage": 0.18
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 2500000,
+            "minAssetsOnPlatform": 2500000,
+            "percentage": 0.15
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 5000000,
+            "minAssetsOnPlatform": 5000000,
+            "percentage": 0.12
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 10000000,
+            "minAssetsOnPlatform": 10000000,
+            "percentage": 0.1
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 50000000,
+            "minAssetsOnPlatform": 20000000,
+            "percentage": 0.09
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 100000000,
+            "minAssetsOnPlatform": 25000000,
+            "percentage": 0.08
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 250000000,
+            "minAssetsOnPlatform": 50000000,
+            "percentage": 0.07
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 400000000,
+            "minAssetsOnPlatform": 80000000,
+            "percentage": 0.06
+          },
+          {
+            "minAmount": 0,
+            "minRolling30DayVolume": 500000000,
+            "minAssetsOnPlatform": 100000000,
+            "percentage": 0.05
+          }
+        ],
+        "displayValue": "0.80% at Tier 1, tiered down to 0.05% at Pro 5",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "INSTANT_BUY",
+        "label": "Instant Buy/Sell trading fee",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 1,
+        "displayValue": "1% trading fee; payment fees may also apply",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FIAT_DEPOSIT",
+        "label": "AUD bank transfer / Osko deposit fee",
+        "calculationBasis": "FREE",
+        "displayValue": "Free",
+        "sourceUrl": "https://support.kraken.com/en-au/articles/360000381846-cash-deposit-options-fees-minimums-and-processing-times-",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FIAT_WITHDRAWAL",
+        "label": "AUD bank transfer / Osko withdrawal fee",
+        "calculationBasis": "FREE",
+        "displayValue": "Free",
+        "sourceUrl": "https://support.kraken.com/en-au/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "AUD_DEPOSITS",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/au/articles/360045033231-how-do-i-deposit-aud-",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "PAYID",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "BANK_TRANSFER",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.kraken.com",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "API_ACCESS",
+        "available": true,
+        "sourceUrl": "https://docs.kraken.com",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "STAKING",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/articles/overview-of-bitcoin-staking-on-kraken",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "Supports AUD funding including PayID and bank transfer/Osko",
+        "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "Kraken Pro standard spot fees decrease with qualifying spot volume or Assets on Platform",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Instant Buy/Sell uses a 1% trading fee and payment fees may also apply",
+        "sourceUrl": "https://www.kraken.com/features/fee-schedule",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "provider": {
+    "name": "CMC Markets",
+    "slug": "cmc-markets",
+    "website": "https://www.cmcmarkets.com/en-au",
+    "description": "ASX-listed financial services group operating the CMC Invest share trading platform and a separate CFD/forex trading business in Australia.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z"
+  },
+  "offering": {
+    "name": "CMC Invest",
+    "slug": "cmc-invest",
+    "website": "https://www.cmcmarkets.com/en-au/stockbroking",
+    "description": "CMC Markets' CHESS-sponsored share investing platform for Australian and international shares and ETFs, separate from CMC's CFD/forex business.",
+    "offeringType": "SHARE_TRADING",
+    "jurisdiction": "AU",
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "markets": [
+      {
+        "marketCode": "ASX",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "availability": "AVAILABLE",
+        "notes": "CMC Invest advertises access to the ASX plus 15 international markets, including the US; exact per-exchange coverage (NYSE vs. Nasdaq) not yet confirmed against an official breakdown.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "availability": "AVAILABLE",
+        "notes": "CMC Invest advertises access to the ASX plus 15 international markets, including the US; exact per-exchange coverage (NYSE vs. Nasdaq) not yet confirmed against an official breakdown.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "products": [
+      {
+        "productType": "AU_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/products/asx",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "productType": "INTERNATIONAL_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "productType": "ETF",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      }
+    ],
+    "custody": [
+      {
+        "marketCode": "ASX",
+        "custodyType": "CHESS_SPONSORED",
+        "hinSupported": true,
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Reported as custodial in third-party reviews of CMC Invest; not yet confirmed against CMC's own PDS/FSG.",
+        "sourceUrl": "https://invezz.com/au/reviews/cmc-markets-review-australia/",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Reported as custodial in third-party reviews of CMC Invest; not yet confirmed against CMC's own PDS/FSG.",
+        "sourceUrl": "https://invezz.com/au/reviews/cmc-markets-review-australia/",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "accountTypes": [
+      {
+        "accountType": "SMSF",
+        "availability": "AVAILABLE",
+        "notes": "Reported as available in third-party comparisons; confirm against CMC Invest's own account-opening documentation before publishing.",
+        "sourceUrl": "https://www.investmatch.com.au/compare/cmc-invest-vs-sharesies",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "features": [],
+    "prosCons": [],
+    "fees": [
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Standard: first eligible buy under $1,000",
+        "calculationBasis": "FREE",
+        "displayValue": "$0 (first eligible buy under $1,000, per security, per day)",
+        "pricingPlan": "Standard",
+        "tradeSide": "BUY",
+        "firstBuyPerSecurityPerDay": true,
+        "maxTradeAmount": 1000,
+        "maxTradeAmountInclusive": false,
+        "excludesMarginLoanSettlement": true,
+        "currency": "AUD",
+        "notes": "Applies once per security, per day to an eligible buy under A$1,000. Margin-loan-settled trades are excluded.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Standard: buy fallback when the free-buy conditions are not met",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 11,
+        "percentage": 0.1,
+        "currency": "AUD",
+        "pricingPlan": "Standard",
+        "tradeSide": "BUY",
+        "notes": "Standard fallback for a buy that does not satisfy the published first-buy concession, including a margin-loan-settled trade.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Standard: other buys",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 11,
+        "percentage": 0.1,
+        "currency": "AUD",
+        "pricingPlan": "Standard",
+        "tradeSide": "BUY",
+        "firstBuyPerSecurityPerDay": false,
+        "notes": "For Standard pricing, other online buy orders are the greater of A$11 or 0.10% of trade value.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Standard: buy at or above $1,000",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 11,
+        "percentage": 0.1,
+        "currency": "AUD",
+        "pricingPlan": "Standard",
+        "tradeSide": "BUY",
+        "minTradeAmount": 1000,
+        "notes": "The first-buy concession applies only below A$1,000; this Standard rule applies at A$1,000 and above.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Standard: sell order",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 11,
+        "percentage": 0.1,
+        "currency": "AUD",
+        "pricingPlan": "Standard",
+        "tradeSide": "SELL",
+        "notes": "Standard online sell orders are the greater of A$11 or 0.10% of trade value.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NYSE",
+        "label": "International shares brokerage",
+        "calculationBasis": "FREE",
+        "currency": "USD",
+        "pricingPlan": "Standard",
+        "notes": "CMC Invest publishes $0 brokerage for US shares and ETFs. FX spreads and other applicable costs are separate.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NASDAQ",
+        "label": "International shares brokerage",
+        "calculationBasis": "FREE",
+        "currency": "USD",
+        "pricingPlan": "Standard",
+        "notes": "CMC Invest publishes $0 brokerage for US shares and ETFs. FX spreads and other applicable costs are separate.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FX_CONVERSION",
+        "label": "International orders FX spread",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 0.6,
+        "notes": "CMC Invest publishes a 0.60% FX spread for international orders. This calculator estimates the spread cost on the AUD amount entered; the actual execution exchange rate can still move.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/products/international-shares",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ]
+  }
+}

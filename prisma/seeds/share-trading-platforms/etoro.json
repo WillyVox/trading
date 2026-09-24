@@ -1,0 +1,241 @@
+{
+  "provider": {
+    "name": "eToro AUS Capital Limited",
+    "slug": "etoro",
+    "website": "https://www.etoro.com/au/",
+    "description": "Australian eToro entity providing access to a multi-asset investment platform. Regulated financial products and non-leveraged cryptoassets have different regulatory treatment in Australia.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-22T00:00:00.000Z"
+  },
+  "offering": {
+    "name": "eToro Share Trading",
+    "slug": "etoro",
+    "website": "https://www.etoro.com/au/stocks/",
+    "description": "eToro's Australian stock and ETF investing service. Non-leveraged long stock/ETF positions are provided through the eToro Service managed investment scheme; leveraged positions are CFDs and are outside this share-trading offering.",
+    "offeringType": "SHARE_TRADING",
+    "jurisdiction": "AU",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-22T00:00:00.000Z",
+    "markets": [
+      {
+        "marketCode": "ASX",
+        "availability": "AVAILABLE",
+        "notes": "Australian stocks are available through eToro's Australian offering.",
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "availability": "AVAILABLE",
+        "notes": "US stocks are available; individual security availability varies.",
+        "sourceUrl": "https://www.etoro.com/au/stocks/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "availability": "AVAILABLE",
+        "notes": "US stocks are available; individual security availability varies.",
+        "sourceUrl": "https://www.etoro.com/au/stocks/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ],
+    "products": [
+      {
+        "productType": "AU_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "INTERNATIONAL_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.etoro.com/au/stocks/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "ETF",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "custody": [
+      {
+        "marketCode": "ASX",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "For Australian clients, non-leveraged long stock/ETF investing is provided through the eToro Service managed investment scheme. The scheme has legal ownership and the investor has beneficial ownership; eToro states shares are non-transferable and investors do not receive voting rights through this structure.",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "For Australian clients, non-leveraged long stock/ETF investing is provided through the eToro Service managed investment scheme. The scheme has legal ownership and the investor has beneficial ownership; eToro states shares are non-transferable and investors do not receive voting rights through this structure.",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "For Australian clients, non-leveraged long stock/ETF investing is provided through the eToro Service managed investment scheme. The scheme has legal ownership and the investor has beneficial ownership; eToro states shares are non-transferable and investors do not receive voting rights through this structure.",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ],
+    "accountTypes": [
+      {
+        "accountType": "INDIVIDUAL",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.etoro.com/au/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "fees": [
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Stock commission",
+        "calculationBasis": "VARIES",
+        "displayValue": "US$1 or US$2 may apply when opening and closing a stock position",
+        "notes": "The official AU fee page says the amount depends on country of residence and exchange, but its dynamic country table was not sufficiently machine-verifiable for a reliable per-exchange Australian mapping. ETFs, CFDs and some other eToro products have different treatment. Do not calculate this row until the exact AU mapping is verified.",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NYSE",
+        "label": "Stock commission",
+        "calculationBasis": "VARIES",
+        "displayValue": "US$1 or US$2 may apply when opening and closing a stock position",
+        "notes": "The official AU fee page says the amount depends on country of residence and exchange, but its dynamic country table was not sufficiently machine-verifiable for a reliable per-exchange Australian mapping. ETFs, CFDs and some other eToro products have different treatment. Do not calculate this row until the exact AU mapping is verified.",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NASDAQ",
+        "label": "Stock commission",
+        "calculationBasis": "VARIES",
+        "displayValue": "US$1 or US$2 may apply when opening and closing a stock position",
+        "notes": "The official AU fee page says the amount depends on country of residence and exchange, but its dynamic country table was not sufficiently machine-verifiable for a reliable per-exchange Australian mapping. ETFs, CFDs and some other eToro products have different treatment. Do not calculate this row until the exact AU mapping is verified.",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FX_CONVERSION",
+        "marketCode": "ASX",
+        "label": "AUD account to Australian stocks",
+        "calculationBasis": "FREE",
+        "displayValue": "0% FX fee when funding Australian stocks in AUD",
+        "notes": "Eligibility criteria for the AUD account apply.",
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FX_CONVERSION",
+        "label": "Other currency conversion scenarios",
+        "calculationBasis": "VARIES",
+        "displayValue": "Varies by conversion scenario, location, payment method and Club level",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "featureType": "WEB_PLATFORM",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "featureType": "RECURRING_BUYS",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "featureType": "COPY_TRADING",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/copytrader/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "AUD accounts can fund Australian stock investing without an FX conversion fee",
+        "sourceUrl": "https://www.etoro.com/au/trading/currency-accounts/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "CopyTrader is available on the eToro platform",
+        "sourceUrl": "https://www.etoro.com/au/copytrader/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Australian stock holdings are not CHESS-sponsored",
+        "detail": "Non-leveraged long stock/ETF investing is through a managed investment scheme; the investor has beneficial rather than legal ownership of the underlying shares.",
+        "sourceUrl": "https://www.etoro.com/au/trading/markets/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Stock commission can vary by exchange and circumstance",
+        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ]
+  }
+}

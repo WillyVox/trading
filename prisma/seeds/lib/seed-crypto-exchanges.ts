@@ -2,6 +2,15 @@ import { PrismaClient } from "@prisma/client";
 
 import { CRYPTO_EXCHANGES } from "../crypto-exchanges";
 
+type FeeTier = {
+  minAmount: number;
+  maxAmount?: number | null;
+  flatAmount?: number;
+  percentage?: number;
+  minRolling30DayVolume?: number;
+  minAssetsOnPlatform?: number;
+};
+
 export async function seedCryptoExchanges(prisma: PrismaClient) {
   const knownAssets = new Map(
     (
@@ -26,37 +35,29 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
       where: {
         slug: providerData.slug,
       },
-
       update: {
         ...providerData,
-
         facts: {
           deleteMany: {},
           create: facts,
         },
-
         sources: {
           deleteMany: {},
           create: sources,
         },
-
         regulations: {
           deleteMany: {},
           create: regulations,
         },
       },
-
       create: {
         ...providerData,
-
         facts: {
           create: facts,
         },
-
         sources: {
           create: sources,
         },
-
         regulations: {
           create: regulations,
         },
@@ -82,19 +83,17 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
       where: {
         slug: offeringData.slug,
       },
-
       update: {
         providerId: provider.id,
         ...offeringData,
       },
-
       create: {
         providerId: provider.id,
         ...offeringData,
       },
     });
 
-    const assetRows = assetSymbols.map((symbol) => {
+    const assetRows = assetSymbols.map((symbol: string) => {
       const assetId = knownAssets.get(symbol);
 
       if (!assetId) {
@@ -137,20 +136,24 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
 
     if (features.length > 0) {
       await prisma.offeringFeature.createMany({
-        data: features.map((feature) => ({
-          offeringId: offering.id,
-          ...feature,
-        })),
+        data: features.map(
+          (feature: (typeof features)[number]) => ({
+            offeringId: offering.id,
+            ...feature,
+          })
+        ),
       });
     }
 
     if (prosCons.length > 0) {
       await prisma.offeringProsCon.createMany({
-        data: prosCons.map((prosCon, position) => ({
-          offeringId: offering.id,
-          position,
-          ...prosCon,
-        })),
+        data: prosCons.map(
+          (prosCon: (typeof prosCons)[number], position: number) => ({
+            offeringId: offering.id,
+            position,
+            ...prosCon,
+          })
+        ),
       });
     }
 
@@ -163,28 +166,25 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
     if (fees.length > 0) {
       for (const fee of fees) {
         const feeWithTiers = fee as typeof fee & {
-          tiers?: Array<{
-            minAmount: number;
-            maxAmount?: number | null;
-            flatAmount?: number;
-            percentage?: number;
-            minRolling30DayVolume?: number;
-            minAssetsOnPlatform?: number;
-          }>;
+          tiers?: FeeTier[];
           tierVolumeCurrency?: string;
           tierAssetsCurrency?: string;
         };
+
         const { tiers, ...feeData } = feeWithTiers;
+
         await prisma.offeringFee.create({
           data: {
             offeringId: offering.id,
             ...feeData,
             tiers: tiers?.length
               ? {
-                  create: tiers.map((tier, position) => ({
-                    ...tier,
-                    position,
-                  })),
+                  create: tiers.map(
+                    (tier: FeeTier, position: number) => ({
+                      ...tier,
+                      position,
+                    })
+                  ),
                 }
               : undefined,
           },
@@ -192,6 +192,8 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
       }
     }
 
-    console.log(`Seeded crypto exchange: ${provider.name} → ${offering.name}`);
+    console.log(
+      `Seeded crypto exchange: ${provider.name} → ${offering.name}`
+    );
   }
 }

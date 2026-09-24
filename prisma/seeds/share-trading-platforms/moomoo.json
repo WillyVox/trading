@@ -1,0 +1,288 @@
+{
+  "provider": {
+    "name": "Moomoo Securities Australia Ltd",
+    "slug": "moomoo-securities-australia",
+    "website": "https://www.moomoo.com/au",
+    "description": "Australian share-trading provider offering CHESS-sponsored Australian shares plus US and Hong Kong market access.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-22T00:00:00.000Z"
+  },
+  "offering": {
+    "name": "moomoo",
+    "slug": "moomoo",
+    "website": "https://www.moomoo.com/au",
+    "description": "Moomoo's Australian share-trading platform with CHESS-sponsored ASX holdings by default for new accounts and access to US and Hong Kong stocks and ETFs.",
+    "offeringType": "SHARE_TRADING",
+    "jurisdiction": "AU",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-22T00:00:00.000Z",
+    "markets": [
+      {
+        "marketCode": "ASX",
+        "availability": "AVAILABLE",
+        "notes": "CHESS-sponsored Australian shares are supported.",
+        "sourceUrl": "https://www.moomoo.com/au/support/topic6_506",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "availability": "AVAILABLE",
+        "notes": "US shares and ETFs are supported; exact security availability varies.",
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "availability": "AVAILABLE",
+        "notes": "US shares and ETFs are supported; exact security availability varies.",
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "HKEX",
+        "availability": "AVAILABLE",
+        "notes": "Hong Kong shares and ETFs are supported.",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ],
+    "products": [
+      {
+        "productType": "AU_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "INTERNATIONAL_SHARES",
+        "availability": "AVAILABLE",
+        "notes": "US and Hong Kong shares are advertised by Moomoo Australia.",
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "ETF",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "productType": "OPTIONS",
+        "availability": "AVAILABLE",
+        "notes": "US options are supported; options fee schedules are not modelled in this share-brokerage seed.",
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "custody": [
+      {
+        "marketCode": "ASX",
+        "custodyType": "CHESS_SPONSORED",
+        "hinSupported": true,
+        "custodianName": "FinClear Execution Limited",
+        "description": "New Moomoo AU clients are set up with a CHESS-sponsored account by default; ASX holdings are registered under the investor's name. A custodial account can be requested separately.",
+        "sourceUrl": "https://www.moomoo.com/au/support/topic6_506",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "custodianName": "Futu Clearing Inc.",
+        "description": "US equities use an international custodial arrangement; CHESS/HIN does not apply.",
+        "sourceUrl": "https://www.moomoo.com/au/learn/is-stake-chess-sponsored",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "custodianName": "Futu Clearing Inc.",
+        "description": "US equities use an international custodial arrangement; CHESS/HIN does not apply.",
+        "sourceUrl": "https://www.moomoo.com/au/learn/is-stake-chess-sponsored",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "marketCode": "HKEX",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Hong Kong holdings use a custodial arrangement; CHESS/HIN does not apply.",
+        "sourceUrl": "https://www.moomoo.com/au/learn/is-stake-chess-sponsored",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ],
+    "accountTypes": [
+      {
+        "accountType": "INDIVIDUAL",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.moomoo.com/au/support/categories/1549",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "accountType": "COMPANY",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.moomoo.com/au/support/categories/1549",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "accountType": "TRUST",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.moomoo.com/au/support/categories/1549",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "accountType": "SMSF",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.moomoo.com/au/support/categories/1549",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "fees": [
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Australian shares and ETFs brokerage",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 3,
+        "percentage": 0.03,
+        "currency": "AUD",
+        "displayValue": "A$3 or 0.03% of transaction value, whichever is greater",
+        "notes": "GST inclusive. Promotional brokerage offers are not modelled.",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NYSE",
+        "label": "US shares and ETFs standard order fee",
+        "calculationBasis": "FLAT",
+        "flatAmount": 0.99,
+        "currency": "USD",
+        "displayValue": "US$0.99 per standard order",
+        "notes": "Excludes FX, pass-through and other service fees. Fractional/recurring orders below one share can use a different capped percentage schedule and are deliberately not represented by this standard-order row.",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NASDAQ",
+        "label": "US shares and ETFs standard order fee",
+        "calculationBasis": "FLAT",
+        "flatAmount": 0.99,
+        "currency": "USD",
+        "displayValue": "US$0.99 per standard order",
+        "notes": "Excludes FX, pass-through and other service fees. Fractional/recurring orders below one share can use a different capped percentage schedule and are deliberately not represented by this standard-order row.",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FX_CONVERSION",
+        "label": "Currency conversion",
+        "calculationBasis": "VARIES",
+        "displayValue": "Exchange rate shown before confirmation",
+        "notes": "Moomoo confirms currency conversion is available and displays the exchange rate before submission. A current fixed AUD/USD percentage was not sufficiently verified from the official AU sources reviewed, so Trading Guide does not infer one.",
+        "sourceUrl": "https://www.moomoo.com/au/learn/how-to-exchange-currency-on-moomoo",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ],
+    "features": [
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "featureType": "WEB_PLATFORM",
+        "available": true,
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "featureType": "RECURRING_BUYS",
+        "available": true,
+        "sourceUrl": "https://www.moomoo.com/au/feature/recurring-investment",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "featureType": "ADVANCED_CHARTING",
+        "available": true,
+        "sourceUrl": "https://www.moomoo.com/au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ],
+    "prosCons": [
+      {
+        "type": "PRO",
+        "label": "CHESS-sponsored ASX holdings are the default for new Australian accounts",
+        "sourceUrl": "https://www.moomoo.com/au/support/topic6_506",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "type": "PRO",
+        "label": "Australian, US and Hong Kong share-market access is available",
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "US$0.99 standard US order pricing excludes FX and pass-through/service fees",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      },
+      {
+        "type": "LIMITATION",
+        "label": "Fractional and recurring US orders can use a different capped percentage fee schedule",
+        "sourceUrl": "https://www.moomoo.com/au/feature/recurring-investment",
+        "jurisdiction": "AU",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z"
+      }
+    ]
+  }
+}

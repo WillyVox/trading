@@ -2,66 +2,36 @@
 
 > **Production safety:** `npm run db:seed` is a development/reference-data seed, not a live-production update mechanism. Several seeders replace offering child rows (`deleteMany` + recreate), which can replace row IDs and verification metadata. For the first empty production database only, use guarded `npm run db:bootstrap:production`. After launch, use reviewed migrations or admin/editorial workflows.
 
-Seed data is organised by the product/service users compare, not by database table.
+Seed records are JSON-first. **Each seed record lives in its own `.json` file.** TypeScript files in the seed folders are loaders/orchestration only and must not contain provider/product records.
 
-- `crypto-assets/` — global crypto asset catalogue.
-- `crypto-exchanges/` — one self-contained Provider + CRYPTO_EXCHANGE Offering per file.
-- `share-trading-platforms/` — one self-contained Provider + SHARE_TRADING Offering per file.
-- `affiliate-links/` — commercial/affiliate configuration, kept separate from editorial product data.
-- `lib/` — seed orchestration, validation, reusable market catalogue and seed-only types.
+- `crypto-assets/*.json` — one crypto asset per file.
+- `crypto-exchanges/*.json` — one self-contained Provider + CRYPTO_EXCHANGE Offering per file.
+- `share-trading-platforms/*.json` — one self-contained Provider + SHARE_TRADING Offering per file.
+- `affiliate-links/*.json` — one commercial/affiliate-link record per file, kept separate from editorial product data.
+- `markets/*.json` — one reusable market per file.
+- `lib/json.ts` — revives ISO dates from JSON before Prisma writes.
+- `lib/` — seed orchestration and validation.
 - `seed.ts` — top-level runner.
 
 ## Adding a crypto exchange
 
-1. Copy an existing file in `crypto-exchanges/`.
-2. Define the Provider (brand/legal-entity facts, sources and regulation) and the Offering (fees, features, assets and pros/limitations) directly.
+1. Copy an existing `.json` file in `crypto-exchanges/`.
+2. Define the Provider (brand/legal-entity facts, sources and regulation) and the Offering (fees, features, assets and pros/limitations) in that JSON record.
 3. Use an offering slug such as `{provider-slug}-exchange` while the application retains globally unique offering slugs.
-4. Export it from `crypto-exchanges/index.ts`.
-5. If it references a crypto symbol not yet present, add that asset to `crypto-assets/index.ts` first.
+4. Import the JSON file in `crypto-exchanges/index.ts` and append it to `CRYPTO_EXCHANGES`.
+5. If it references a crypto symbol not yet present, add a new record such as `crypto-assets/dogecoin.json` and include it in `crypto-assets/index.ts`.
 
-Do not add ProviderFee/ProviderFeature/ProviderAsset/ProviderProsCon seed data and do not recreate a Provider→Offering mapping layer.
-
-### Classifying a new `provider.facts` entry
-
-`Provider.facts` is for organisation/company-level facts only (legal
-entity, headquarters, founding year, ABN, regulator registration). It is
-**not** a general-purpose bucket for anything you couldn't find a better
-home for — a fact about what the product does or supports almost always
-belongs on the Offering instead, in a typed field, not as free text:
-
-```text
-Is this fact about the company itself (entity, HQ, founding, regulation)?
-  YES -> Provider.facts
-  NO  -> Does a structured Offering field already cover it
-         (an OfferingFeature type, an OfferingFeeSeed, OfferingMarket,
-         OfferingCryptoAsset, etc.)?
-    YES -> use that structured field -- do not also add a Provider.facts
-           row duplicating it in free text
-    NO  -> is it a simple supported/unsupported capability?
-      YES -> add a new OfferingFeatureType value if one doesn't fit
-      NO  -> Offering.description / a research note, only if genuinely
-             necessary -- prefer typed structured data over a new
-             free-text dumping ground
-```
-
-For a provider with more than one Offering (e.g. a broker with both
-Share Trading and CFD products), this matters even more: a fact like
-"AUD support: yes" is ambiguous on `Provider.facts` when it can vary by
-product, but unambiguous as an `OfferingFeature` on the specific Offering
-it describes.
-
-This rule caught a real duplicate during the 2026-09-21 cleanup: every
-crypto exchange seed had both a `Provider.facts` row ("AUD Support: Yes")
-and the equivalent `OfferingFeature` (`AUD_DEPOSITS`/`AUD_WITHDRAWALS`,
-already `available: true`) saying the same thing twice. The free-text
-copy was removed from all five affected seeds -- see git history on this
-file's siblings if you need the exact diff.
+Dates must be ISO strings such as `"2026-09-24T00:00:00.000Z"`. The JSON loader converts them back to `Date` instances before seeding.
 
 ## Adding a share-trading platform
 
-1. Copy an existing file in `share-trading-platforms/`.
-2. Define the Provider and Offering directly.
-3. Export it from `share-trading-platforms/index.ts`.
-4. Add a market to `lib/markets.ts` only when verified offering data needs it.
+1. Copy an existing `.json` file in `share-trading-platforms/`.
+2. Define the Provider and Offering in that JSON record.
+3. Import it in `share-trading-platforms/index.ts` and append it to `SHARE_TRADING_PLATFORMS`.
+4. Add a market as its own `markets/<code>.json` file only when verified offering data needs it, then include it in `markets/index.ts`.
 
-The runner validates duplicate slugs and domain types before database writes. Unknown crypto asset symbols and unknown share-market codes fail loudly instead of being skipped.
+## Adding an affiliate link
+
+Create one `affiliate-links/<partner-slug>.json` file and add it to `affiliate-links/index.ts`. Research evidence URLs belong in the provider/offering JSON and must remain separate from affiliate/referral URLs.
+
+The runner validates duplicate slugs and domain types before database writes. Unknown crypto asset symbols and unknown share-market codes fail loudly instead of being skipped. `npm run check:providers` reads the JSON records directly, so the verification report audits the same source-of-truth files that are seeded.

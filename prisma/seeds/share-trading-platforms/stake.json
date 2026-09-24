@@ -1,0 +1,170 @@
+{
+  "provider": {
+    "name": "Stakeshop Pty Ltd",
+    "slug": "stakeshop",
+    "website": "https://hellostake.com/au",
+    "description": "Sydney-founded fintech broker (trading as Stake) offering CHESS-sponsored ASX trading and US share/ETF investing for Australians.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-19T00:00:00.000Z"
+  },
+  "offering": {
+    "name": "Stake",
+    "slug": "stake",
+    "website": "https://hellostake.com/au",
+    "description": "Stake's CHESS-sponsored ASX share trading and custodial US (Wall St) share and ETF investing platform for Australians, with a flat low-dollar brokerage fee on both sides.",
+    "offeringType": "SHARE_TRADING",
+    "jurisdiction": "AU",
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-19T00:00:00.000Z",
+    "markets": [
+      {
+        "marketCode": "ASX",
+        "availability": "AVAILABLE",
+        "notes": "2,500+ ASX-listed securities across 77 industries.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "availability": "AVAILABLE",
+        "notes": "Stake advertises 11,000+ US stocks, ETFs, government bonds and OTC securities under one \"Wall St\" product; exact per-exchange coverage (NYSE vs. Nasdaq) not confirmed against an official breakdown.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "availability": "AVAILABLE",
+        "notes": "Stake advertises 11,000+ US stocks, ETFs, government bonds and OTC securities under one \"Wall St\" product; exact per-exchange coverage (NYSE vs. Nasdaq) not confirmed against an official breakdown.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "products": [
+      {
+        "productType": "AU_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "productType": "INTERNATIONAL_SHARES",
+        "availability": "AVAILABLE",
+        "notes": "\"Wall St\" product: US-listed stocks and ETFs only.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "productType": "ETF",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "productType": "BONDS",
+        "availability": "AVAILABLE",
+        "notes": "Government bonds listed under the Wall St product on the official pricing page; not broken out further.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      }
+    ],
+    "custody": [
+      {
+        "marketCode": "ASX",
+        "custodyType": "CHESS_SPONSORED",
+        "hinSupported": true,
+        "description": "Only whole shares supported on ASX (no fractional ASX shares); ASX minimum marketable parcel rules apply to the initial purchase.",
+        "sourceUrl": "https://hellostake.com/au/blog/stake-academy/brokerage-fees",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NYSE",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Wall St holdings are held via a custodial structure, not CHESS/HIN; fractional shares are supported from US$10.",
+        "sourceUrl": "https://hellostake.com/au/blog/stake-academy/brokerage-fees",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Wall St holdings are held via a custodial structure, not CHESS/HIN; fractional shares are supported from US$10.",
+        "sourceUrl": "https://hellostake.com/au/blog/stake-academy/brokerage-fees",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "accountTypes": [
+      {
+        "accountType": "SMSF",
+        "availability": "AVAILABLE",
+        "notes": "Available via Stake Super, a separate SMSF administration product/entity (Stake SMSF Pty Ltd) layered on top of a standard Stake trading account; Stake Super's own annual fee (from $990) is not modelled as an OfferingFee here -- see the research manifest.",
+        "sourceUrl": "https://hellostake.com/au/pricing/super",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      }
+    ],
+    "features": [],
+    "prosCons": [],
+    "fees": [
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "label": "Australian shares brokerage",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 3,
+        "percentage": 0.01,
+        "currency": "AUD",
+        "notes": "Effectively a flat A$3 per trade up to A$30,000, then 0.01% of trade value above that. CHESS-sponsored, settled to your own HIN.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NYSE",
+        "label": "US shares brokerage (Wall St)",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 3,
+        "percentage": 0.01,
+        "currency": "USD",
+        "notes": "Effectively a flat US$3 per trade up to US$30,000, then 0.01% of trade value above that. Custodial model, not CHESS-sponsored. Fractional shares available from US$10.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NASDAQ",
+        "label": "US shares brokerage (Wall St)",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 3,
+        "percentage": 0.01,
+        "currency": "USD",
+        "notes": "Effectively a flat US$3 per trade up to US$30,000, then 0.01% of trade value above that. Custodial model, not CHESS-sponsored. Fractional shares available from US$10.",
+        "sourceUrl": "https://hellostake.com/au/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FX_CONVERSION",
+        "label": "Foreign exchange conversion (AUD to USD funding)",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 0.55,
+        "currency": "USD",
+        "notes": "Charged when converting AUD to USD to fund Wall St trading, not on each individual trade. No separate per-trade FX fee for Wall St orders once funded.",
+        "sourceUrl": "https://hellostake.com/au/payment-methods",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      }
+    ]
+  }
+}

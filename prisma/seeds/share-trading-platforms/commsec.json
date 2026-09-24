@@ -1,0 +1,293 @@
+{
+  "provider": {
+    "name": "Commonwealth Bank of Australia",
+    "slug": "commonwealth-bank-of-australia",
+    "website": "https://www.commbank.com.au",
+    "description": "Australia's largest retail bank, operating the CommSec share trading platform.",
+    "jurisdictions": [
+      "AU"
+    ],
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z"
+  },
+  "offering": {
+    "name": "CommSec",
+    "slug": "commsec",
+    "website": "https://www.commsec.com.au",
+    "description": "Commonwealth Bank's CHESS-sponsored share trading platform for Australian and international shares, ETFs, and exchange-traded options.",
+    "offeringType": "SHARE_TRADING",
+    "jurisdiction": "AU",
+    "verificationStatus": "UNVERIFIED",
+    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "markets": [
+      {
+        "marketCode": "ASX",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.commsec.com.au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "availability": "AVAILABLE",
+        "notes": "CommSec advertises international share access; reviews differ on the exact number of international markets (12-25 depending on source), so an exact figure isn't seeded here -- exact per-exchange coverage not yet confirmed against an official breakdown.",
+        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "availability": "AVAILABLE",
+        "notes": "CommSec advertises international share access; reviews differ on the exact number of international markets (12-25 depending on source), so an exact figure isn't seeded here -- exact per-exchange coverage not yet confirmed against an official breakdown.",
+        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "products": [
+      {
+        "productType": "AU_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.commsec.com.au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "productType": "INTERNATIONAL_SHARES",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "productType": "ETF",
+        "availability": "AVAILABLE",
+        "sourceUrl": "https://www.commsec.com.au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "productType": "OPTIONS",
+        "availability": "AVAILABLE",
+        "notes": "Reported in third-party reviews as Exchange Traded Options; confirm against CommSec's own product pages before publishing.",
+        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "custody": [
+      {
+        "marketCode": "ASX",
+        "custodyType": "CHESS_SPONSORED",
+        "hinSupported": true,
+        "sourceUrl": "https://www.commsec.com.au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "marketCode": "NYSE",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Reported in third-party materials as held via a custodial/nominee structure; the specific custodian named in some reviews (Interactive Brokers LLC) is not yet confirmed against CommSec's own FSG/PDS.",
+        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
+        "verificationStatus": "UNVERIFIED"
+      },
+      {
+        "marketCode": "NASDAQ",
+        "custodyType": "CUSTODIAL",
+        "hinSupported": false,
+        "description": "Reported in third-party materials as held via a custodial/nominee structure; the specific custodian named in some reviews (Interactive Brokers LLC) is not yet confirmed against CommSec's own FSG/PDS.",
+        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "accountTypes": [
+      {
+        "accountType": "SMSF",
+        "availability": "AVAILABLE",
+        "notes": "Widely reported as supported; confirm against CommSec's own account-opening documentation before publishing.",
+        "sourceUrl": "https://www.commsec.com.au",
+        "verificationStatus": "UNVERIFIED"
+      }
+    ],
+    "features": [],
+    "prosCons": [],
+    "fees": [
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "channel": "ONLINE_STANDARD_SETTLEMENT",
+        "label": "Australian shares brokerage (online, settled to CDIA or Margin Loan)",
+        "calculationBasis": "TIERED",
+        "currency": "AUD",
+        "notes": "To be eligible you must trade online, be CHESS-sponsored with CommSec, and settle through a Commonwealth Direct Investment Account (CDIA) or a CommSec Margin Loan.",
+        "tiers": [
+          {
+            "minAmount": 0,
+            "maxAmount": 1000,
+            "flatAmount": 5
+          },
+          {
+            "minAmount": 1000,
+            "maxAmount": 3000,
+            "flatAmount": 10
+          },
+          {
+            "minAmount": 3000,
+            "maxAmount": 10000,
+            "flatAmount": 19.95
+          },
+          {
+            "minAmount": 10000,
+            "maxAmount": 25000,
+            "flatAmount": 29.95
+          },
+          {
+            "minAmount": 25000,
+            "percentage": 0.12
+          }
+        ],
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "channel": "ONLINE_OWN_BANK_SETTLEMENT",
+        "label": "Australian shares brokerage (online, settled to your own bank account)",
+        "calculationBasis": "TIERED",
+        "currency": "AUD",
+        "tiers": [
+          {
+            "minAmount": 0,
+            "maxAmount": 9999.99,
+            "flatAmount": 29.95
+          },
+          {
+            "minAmount": 10000,
+            "percentage": 0.31
+          }
+        ],
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "channel": "PHONE_OR_ESTATE",
+        "label": "Australian shares brokerage (phone trades and deceased estates)",
+        "calculationBasis": "TIERED",
+        "currency": "AUD",
+        "notes": "Includes trades settling to CommSec Margin Loans or Commonwealth Bank Geared Investment Loans where the bank exercises its rights under the Margin Loan Terms and Conditions.",
+        "tiers": [
+          {
+            "minAmount": 0,
+            "maxAmount": 10000,
+            "flatAmount": 59.95
+          },
+          {
+            "minAmount": 10000,
+            "maxAmount": 25000,
+            "percentage": 0.52
+          },
+          {
+            "minAmount": 25000,
+            "maxAmount": 1000000,
+            "percentage": 0.49
+          },
+          {
+            "minAmount": 1000000,
+            "percentage": 0.11
+          }
+        ],
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "ASX",
+        "channel": "THIRD_PARTY_SETTLEMENT",
+        "label": "Australian shares brokerage (trades requiring third-party settlement)",
+        "calculationBasis": "TIERED",
+        "currency": "AUD",
+        "notes": "Includes trades settling to CommSec Margin Loans or Commonwealth Bank Geared Investment Loans where the bank exercises its rights under the Margin Loan Terms and Conditions.",
+        "tiers": [
+          {
+            "minAmount": 0,
+            "maxAmount": 15000,
+            "flatAmount": 99.95
+          },
+          {
+            "minAmount": 15000,
+            "percentage": 0.66
+          }
+        ],
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NYSE",
+        "label": "US shares brokerage (International Shares account)",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 5,
+        "percentage": 0.12,
+        "currency": "USD",
+        "notes": "Whichever amount is greater. The International Shares Plus account is greater of USD $9.95 or 0.20%. US brokerage includes SEC and FINRA fees; taxes and third-party fees are put through at cost. A separate foreign exchange fee applies.",
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "marketCode": "NASDAQ",
+        "label": "US shares brokerage (International Shares account)",
+        "calculationBasis": "GREATER_OF",
+        "flatAmount": 5,
+        "percentage": 0.12,
+        "currency": "USD",
+        "notes": "Whichever amount is greater. The International Shares Plus account is greater of USD $9.95 or 0.20%. US brokerage includes SEC and FINRA fees; taxes and third-party fees are put through at cost. A separate foreign exchange fee applies.",
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "FX_CONVERSION",
+        "label": "Foreign exchange conversion fee",
+        "calculationBasis": "PERCENTAGE",
+        "percentage": 0.55,
+        "notes": "Charged per currency conversion. Conversions happen automatically for each international trade unless the Plus foreign-currency wallet is active and funded. Currency pairs that can't be converted directly are charged for each leg.",
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-22T00:00:00.000Z",
+        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "EXCHANGE_TRANSFER",
+        "marketCode": "ASX",
+        "label": "Off-market transfer fee",
+        "calculationBasis": "FLAT",
+        "flatAmount": 54,
+        "currency": "AUD",
+        "notes": "Per transfer, GST-inclusive.",
+        "sourceUrl": "https://www.commsec.com.au/support/rates-and-fees.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "feeCategory": "BROKERAGE",
+        "channel": "ONLINE_STANDARD_SETTLEMENT",
+        "label": "New customer offer: $0 brokerage on your first 30 trades",
+        "calculationBasis": "FREE",
+        "isPromotional": true,
+        "validFrom": "2026-08-31T14:00:00.000Z",
+        "validTo": "2026-09-30T13:59:59.000Z",
+        "promotionalTerms": "For new-to-CommSec customers who open an Australian Shares, International Shares or Exchange Traded Options account between 1 and 30 September 2026 and settle through a CommSec Margin Loan or CDIA. $0 brokerage applies to up to 30 online trades of up to $50,000 each, for orders placed between 1 October 2026 and 31 March 2027. Trades above $50,000 pay standard brokerage; taxes and fees, including FX, still apply to international trades. Not available to existing customers and doesn't apply to CommSec Pocket.",
+        "sourceUrl": "https://www.commsec.com.au/offer",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-19T00:00:00.000Z"
+      }
+    ]
+  }
+}

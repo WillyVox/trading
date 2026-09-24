@@ -24,79 +24,55 @@ const safeUrl = (value) => {
   }
 };
 
-function firstMatch(text, re) {
-  return text.match(re)?.[1] ?? null;
-}
-
-function objectLiteralSection(text, key) {
-  const marker = new RegExp(String.raw`\b${key}\s*:\s*\{`).exec(text);
-  if (!marker) return "";
-  const start = text.indexOf("{", marker.index);
-  let depth = 0;
-  let quote = null;
-  let escaped = false;
-  for (let i = start; i < text.length; i += 1) {
-    const ch = text[i];
-    if (quote) {
-      if (escaped) escaped = false;
-      else if (ch === "\\") escaped = true;
-      else if (ch === quote) quote = null;
-      continue;
-    }
-    if (ch === "\"" || ch === "'" || ch === "`") { quote = ch; continue; }
-    if (ch === "{") depth += 1;
-    else if (ch === "}") {
-      depth -= 1;
-      if (depth === 0) return text.slice(start + 1, i);
-    }
+function walk(value, visit) {
+  if (Array.isArray(value)) {
+    for (const item of value) walk(item, visit);
+    return;
   }
-  return text.slice(start + 1);
+  if (!value || typeof value !== "object") return;
+  visit(value);
+  for (const child of Object.values(value)) walk(child, visit);
 }
 
-function namedConstObjectSection(text, name) {
-  const marker = new RegExp(String.raw`(?:export\s+)?const\s+${name}\s*=\s*\{`).exec(text);
-  if (!marker) return "";
-  const synthetic = `provider: ${text.slice(text.indexOf("{", marker.index))}`;
-  return objectLiteralSection(synthetic, "provider");
+function parseDate(value) {
+  if (typeof value !== "string") return null;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 function inspectFile(kind, file) {
   const full = path.join(ROOT, file);
-  let text = fs.readFileSync(full, "utf8");
-  let providerSection = objectLiteralSection(text, "provider");
-  if (!providerSection) {
-    const providerRef = firstMatch(text, /\bprovider\s*:\s*([A-Z][A-Z0-9_]*)/);
-    if (providerRef) {
-      const importMatch = text.match(new RegExp(String.raw`import\s*\{[^}]*\b${providerRef}\b[^}]*\}\s*from\s*["']([^"']+)["']`));
-      if (importMatch) {
-        const imported = path.resolve(path.dirname(full), `${importMatch[1]}.ts`);
-        if (fs.existsSync(imported)) {
-          const importedText = fs.readFileSync(imported, "utf8");
-          providerSection = namedConstObjectSection(importedText, providerRef) || namedConstObjectSection(importedText, "ETORO_AU_PROVIDER_BASE");
-          const baseRef = firstMatch(providerSection, /\.\.\.([A-Z][A-Z0-9_]*)/);
-          if (baseRef) providerSection = `${namedConstObjectSection(importedText, baseRef)}\n${providerSection}`;
-          for (const m of importedText.matchAll(/const\s+([A-Z][A-Z0-9_]*)\s*=\s*new Date\(["'](\d{4}-\d{2}-\d{2})["']\)/g)) {
-            text += `\nconst ${m[1]} = new Date("${m[2]}");`;
-          }
-        }
+  const seed = JSON.parse(fs.readFileSync(full, "utf8"));
+  const provider = seed.provider ?? {};
+  const name = provider.name ?? path.basename(file, ".json");
+  const slug = provider.slug ?? path.basename(file, ".json");
+  const website = provider.website ?? null;
+  const status = provider.verificationStatus ?? "UNVERIFIED";
+  const lastVerifiedAt = parseDate(provider.lastVerifiedAt);
+  const lastVerifiedRaw = lastVerifiedAt ? iso(lastVerifiedAt) : null;
+  const urls = [];
+  const evidenceUrls = [];
+  const verifiedDates = [];
+  const reviewDates = [];
+  let verifiedClaims = 0;
+  let unverifiedClaims = 0;
+
+  walk(seed, (object) => {
+    for (const [key, value] of Object.entries(object)) {
+      if (["sourceUrl", "url", "website"].includes(key) && typeof value === "string") urls.push(value);
+      if (key === "sourceUrl" && typeof value === "string") evidenceUrls.push(value);
+      if (key === "verifiedAt") {
+        const date = parseDate(value);
+        if (date) verifiedDates.push(date);
       }
+      if (key === "reviewDueAt") {
+        const date = parseDate(value);
+        if (date) reviewDates.push(date);
+      }
+      if (key === "verificationStatus" && value === "VERIFIED") verifiedClaims += 1;
+      if (key === "verificationStatus" && value === "UNVERIFIED") unverifiedClaims += 1;
     }
-  }
-  const dateConstants = new Map([...text.matchAll(/const\s+([A-Z][A-Z0-9_]*)\s*=\s*new Date\(["'](\d{4}-\d{2}-\d{2})["']\)/g)].map((m) => [m[1], m[2]]));
-  const name = firstMatch(providerSection, /\bname\s*:\s*["'`]([^"'`]+)["'`]/) ?? path.basename(file, ".ts");
-  const slug = firstMatch(providerSection, /\bslug\s*:\s*["'`]([^"'`]+)["'`]/) ?? path.basename(file, ".ts");
-  const website = firstMatch(providerSection, /\bwebsite\s*:\s*["'`]([^"'`]+)["'`]/);
-  const status = firstMatch(providerSection, /\bverificationStatus\s*:\s*VerificationStatus\.(VERIFIED|UNVERIFIED|STALE)/) ?? "UNVERIFIED";
-  const directLastVerified = firstMatch(providerSection, /\blastVerifiedAt\s*:\s*new Date\(["'](\d{4}-\d{2}-\d{2})["']\)/);
-  const lastVerifiedSymbol = firstMatch(providerSection, /\blastVerifiedAt\s*:\s*([A-Z][A-Z0-9_]*)/);
-  const lastVerifiedRaw = directLastVerified ?? (lastVerifiedSymbol ? dateConstants.get(lastVerifiedSymbol) ?? null : null);
-  const lastVerifiedAt = lastVerifiedRaw ? new Date(`${lastVerifiedRaw}T00:00:00Z`) : null;
-  const urls = [...text.matchAll(/\b(?:sourceUrl|url|website)\s*:\s*["'`]([^"'`]+)["'`]/g)].map((m) => m[1]);
-  const evidenceUrls = [...text.matchAll(/\bsourceUrl\s*:\s*["'`]([^"'`]+)["'`]/g)].map((m) => m[1]);
-  const verifiedDates = [...text.matchAll(/\bverifiedAt\s*:\s*new Date\(["'](\d{4}-\d{2}-\d{2})["']\)/g)].map((m) => new Date(`${m[1]}T00:00:00Z`));
-  const reviewDates = [...text.matchAll(/\breviewDueAt\s*:\s*new Date\(["'](\d{4}-\d{2}-\d{2})["']\)/g)].map((m) => new Date(`${m[1]}T00:00:00Z`));
-  const verifiedClaims = (text.match(/verificationStatus\s*:\s*VerificationStatus\.VERIFIED/g) || []).length;
-  const unverifiedClaims = (text.match(/verificationStatus\s*:\s*VerificationStatus\.UNVERIFIED/g) || []).length;
+  });
 
   const errors = [];
   const warnings = [];
@@ -126,11 +102,15 @@ function inspectFile(kind, file) {
   const affiliateEvidence = evidenceUrls.filter((u) => /[?&](affiliate|ref|referral|aff)=/i.test(u));
   if (affiliateEvidence.length) warnings.push(`${affiliateEvidence.length} research source URL(s) contain affiliate/referral parameters`);
 
-  if (status === "UNVERIFIED" && verifiedClaims > 0) {
+  // Exclude the provider-level status itself when checking whether a VERIFIED
+  // provider contains unresolved child claims.
+  const childUnverifiedClaims = Math.max(0, unverifiedClaims - (status === "UNVERIFIED" ? 1 : 0));
+  const childVerifiedClaims = Math.max(0, verifiedClaims - (status === "VERIFIED" ? 1 : 0));
+  if (status === "UNVERIFIED" && childVerifiedClaims > 0) {
     warnings.push("provider remains UNVERIFIED although some individual claims are verified (allowed; review unresolved fields before upgrading)");
   }
-  if (status === "VERIFIED" && unverifiedClaims > 0) {
-    errors.push(`provider is VERIFIED but ${unverifiedClaims} seeded claim(s) remain UNVERIFIED`);
+  if (status === "VERIFIED" && childUnverifiedClaims > 0) {
+    errors.push(`provider is VERIFIED but ${childUnverifiedClaims} seeded claim(s) remain UNVERIFIED`);
   }
 
   const effective = errors.length ? "STALE" : status;
@@ -140,7 +120,7 @@ function inspectFile(kind, file) {
 const results = [];
 for (const [kind, dir] of catalogs) {
   const abs = path.join(ROOT, dir);
-  for (const entry of fs.readdirSync(abs).filter((f) => f.endsWith(".ts") && f !== "index.ts").sort()) {
+  for (const entry of fs.readdirSync(abs).filter((f) => f.endsWith(".json")).sort()) {
     results.push(inspectFile(kind, path.join(dir, entry)));
   }
 }

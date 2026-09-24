@@ -1,8 +1,44 @@
 import { PrismaClient } from "@prisma/client";
 
-import { SEED_MARKETS } from "./markets";
+import { SEED_MARKETS } from "../markets";
 import { SHARE_TRADING_PLATFORMS } from "../share-trading-platforms";
 import { assertValidFeeSeed } from "./types";
+
+type OfferingMarketSeed = {
+  marketCode: string;
+  [key: string]: unknown;
+};
+
+type OfferingProductSeed = {
+  [key: string]: unknown;
+};
+
+type OfferingCustodySeed = {
+  marketCode?: string | null;
+  [key: string]: unknown;
+};
+
+type OfferingAccountTypeSeed = {
+  [key: string]: unknown;
+};
+
+type OfferingFeatureSeed = {
+  [key: string]: unknown;
+};
+
+type OfferingProsConSeed = {
+  [key: string]: unknown;
+};
+
+type FeeTierSeed = {
+  minAmount: number;
+  maxAmount?: number | null;
+  flatAmount?: number;
+  percentage?: number;
+  minRolling30DayVolume?: number;
+  minAssetsOnPlatform?: number;
+  [key: string]: unknown;
+};
 
 /**
  * Seeds the reusable market catalogue first.
@@ -91,7 +127,6 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
       where: {
         slug: providerSeed.slug,
       },
-
       update: {
         name: providerSeed.name,
         website: providerSeed.website,
@@ -100,7 +135,6 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
         verificationStatus: providerSeed.verificationStatus,
         lastVerifiedAt: providerSeed.lastVerifiedAt,
       },
-
       create: {
         ...providerSeed,
       },
@@ -129,12 +163,10 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
       where: {
         slug: offeringData.slug,
       },
-
       update: {
         providerId: provider.id,
         ...offeringData,
       },
-
       create: {
         providerId: provider.id,
         ...offeringData,
@@ -185,11 +217,15 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
       }),
 
       prisma.offeringFeature.deleteMany({
-        where: { offeringId: offering.id },
+        where: {
+          offeringId: offering.id,
+        },
       }),
 
       prisma.offeringProsCon.deleteMany({
-        where: { offeringId: offering.id },
+        where: {
+          offeringId: offering.id,
+        },
       }),
     ]);
 
@@ -198,11 +234,16 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
      */
     if (offeringMarkets.length > 0) {
       await prisma.offeringMarket.createMany({
-        data: offeringMarkets.map(({ marketCode, ...market }) => ({
-          offeringId: offering.id,
-          marketId: getMarketId(marketCode),
-          ...market,
-        })),
+        data: offeringMarkets.map(
+          ({
+            marketCode,
+            ...market
+          }: OfferingMarketSeed) => ({
+            offeringId: offering.id,
+            marketId: getMarketId(marketCode),
+            ...market,
+          })
+        ),
       });
     }
 
@@ -211,7 +252,7 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
      */
     if (products.length > 0) {
       await prisma.offeringProduct.createMany({
-        data: products.map((product) => ({
+        data: products.map((product: OfferingProductSeed) => ({
           offeringId: offering.id,
           ...product,
         })),
@@ -223,12 +264,16 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
      */
     if (custody.length > 0) {
       await prisma.offeringCustody.createMany({
-        data: custody.map(({ marketCode, ...custodyData }) => ({
-          offeringId: offering.id,
-          marketId: marketCode ? getMarketId(marketCode) : null,
-
-          ...custodyData,
-        })),
+        data: custody.map(
+          ({
+            marketCode,
+            ...custodyData
+          }: OfferingCustodySeed) => ({
+            offeringId: offering.id,
+            marketId: marketCode ? getMarketId(marketCode) : null,
+            ...custodyData,
+          })
+        ),
       });
     }
 
@@ -237,10 +282,12 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
      */
     if (accountTypes.length > 0) {
       await prisma.offeringAccountType.createMany({
-        data: accountTypes.map((accountType) => ({
-          offeringId: offering.id,
-          ...accountType,
-        })),
+        data: accountTypes.map(
+          (accountType: OfferingAccountTypeSeed) => ({
+            offeringId: offering.id,
+            ...accountType,
+          })
+        ),
       });
     }
 
@@ -249,7 +296,7 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
      */
     if (features.length > 0) {
       await prisma.offeringFeature.createMany({
-        data: features.map((feature) => ({
+        data: features.map((feature: OfferingFeatureSeed) => ({
           offeringId: offering.id,
           ...feature,
         })),
@@ -258,11 +305,13 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
 
     if (prosCons.length > 0) {
       await prisma.offeringProsCon.createMany({
-        data: prosCons.map((prosCon, position) => ({
-          offeringId: offering.id,
-          position,
-          ...prosCon,
-        })),
+        data: prosCons.map(
+          (prosCon: OfferingProsConSeed, position: number) => ({
+            offeringId: offering.id,
+            position,
+            ...prosCon,
+          })
+        ),
       });
     }
 
@@ -292,10 +341,12 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
           tiers:
             tiers && tiers.length > 0
               ? {
-                  create: tiers.map((tier, position) => ({
-                    ...tier,
-                    position,
-                  })),
+                  create: tiers.map(
+                    (tier: FeeTierSeed, position: number) => ({
+                      ...tier,
+                      position,
+                    })
+                  ),
                 }
               : undefined,
         },
