@@ -29,7 +29,7 @@ const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(
 );
 
 const TITLE =
-  "Top Cryptocurrency Exchanges in Australia: What to Compare in 2026";
+  "Cryptocurrency Exchanges in Australia: What to Compare in 2026";
 const DESCRIPTION =
   "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.";
 
@@ -168,7 +168,7 @@ export const metadata = buildMetadata({
 
 export default function TopCryptocurrencyExchangesInAustraliaPage() {
   const trail = guideBreadcrumbTrail(
-    "Top Cryptocurrency Exchanges in Australia",
+    "Cryptocurrency Exchanges in Australia",
     PATH
   );
   const metaItems = [

@@ -97,7 +97,7 @@ const READING_MINUTES = estimateReadingMinutesByWordCount(WORD_COUNT);
 const KEY_TAKEAWAYS = [
   "Investing in crypto means deliberately sizing your risk and time horizon — it's different from a one-off purchase out of curiosity.",
   "Most regulators, including Australia's ASIC and Moneysmart, class crypto assets as high-risk and highly volatile — treat that as a starting assumption, not a worst case.",
-  "A common beginner approach is to only invest money you can afford to lose, spread purchases over time (dollar-cost averaging), and research a project before buying it.",
+  "Crypto can be highly volatile and losses can be substantial. Before buying, understand the asset, the service you are using, custody arrangements, fees, scams and recordkeeping obligations.",
   "Crypto scams are widespread — be sceptical of unsolicited investment opportunities, guaranteed returns, and pressure to act quickly.",
   "Crypto held as an investment is generally subject to Capital Gains Tax in Australia — keep records of every transaction from day one.",
 ];
@@ -106,17 +106,17 @@ const FAQS = [
   {
     question: "Is crypto a good investment for beginners?",
     answer:
-      "It depends entirely on your own risk tolerance and financial situation — there's no universal answer. Crypto assets are volatile and unregulated compared to shares, so most guidance (including Australia's Moneysmart) suggests only investing money you can afford to lose and treating any crypto allocation as one part of a broader financial picture, not the whole of it.",
+      "There is no universal answer. Moneysmart describes most crypto assets as high-risk and highly volatile. Whether any investment is appropriate depends on individual circumstances; this guide explains the risks and mechanics rather than recommending an allocation.",
   },
   {
     question: "How much should a beginner invest in crypto?",
     answer:
-      "There's no fixed rule, but a common approach is to start small — an amount you wouldn't be distressed to lose entirely — and only increase it once you understand how the asset behaves and how you personally react to its volatility.",
+      "There is no fixed percentage that is suitable for everyone. Crypto can lose substantial value quickly, so consider the possibility of losing the amount committed and how that would affect your other financial obligations. Personal allocation decisions depend on individual circumstances.",
   },
   {
-    question: "What's the safest way to start investing in crypto?",
+    question: "What should I check before using a crypto service?",
     answer:
-      "Using a regulated Australian exchange, enabling two-factor authentication, starting with a well-established asset rather than an obscure new token, spreading purchases over time instead of investing a lump sum at once, and moving larger holdings to a personal wallet are all common risk-reducing practices.",
+      "Check whether AUSTRAC registration is required for the service and, where relevant, whether the provider appears on AUSTRAC's VASP register. AUSTRAC registration relates to Australia's AML/CTF framework and is not the same as ASIC approval of a platform or crypto asset. Also review custody, authentication, withdrawal controls, fees and recovery procedures.",
   },
   {
     question: "Do I have to pay tax on crypto in Australia?",
@@ -132,7 +132,7 @@ export const metadata = buildMetadata({
   image: IMAGE,
   type: "article",
   publishedTime: "2026-09-15",
-  modifiedTime: "2026-09-15",
+  modifiedTime: "2026-09-24",
   authors: ["Trading Guide Editorial Team"],
   seoTitle: "How to Start Investing in Crypto for Beginners (2026 Guide)",
   seoDescription:
@@ -148,7 +148,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
   const metaItems = [
     "By Trading Guide Editorial Team",
     // "Published 15 September 2026",
-    "Last updated 15 September 2026",
+    "Last updated 24 September 2026",
     `${READING_MINUTES} min read`,
   ];
 
@@ -308,12 +308,12 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
 
               <h2 id="storage-and-security">Storage and security</h2>
               <p>
-                As your holdings grow, consider moving crypto off the exchange
-                and into a personal wallet you control. A hardware wallet keeps
-                your private keys on a device that&apos;s never connected to the
-                internet, which meaningfully reduces exposure to online attacks
-                — at the cost of taking on full responsibility for keeping that
-                device and its backup phrase safe yourself.
+                Crypto can be held through a platform-controlled wallet or
+                through a wallet where you control the private keys.
+                Self-custody changes the risk rather than removing it: control
+                and recovery responsibility move to the user. Hardware wallets
+                can keep private keys offline, while loss of keys or recovery
+                information can result in loss of access.
               </p>
 
               <GuideFigure caption="Self-custody puts you in control of your crypto — and the responsibility for keeping it secure.">
@@ -338,8 +338,10 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
               <p>
                 Once you&apos;ve thought through your risk tolerance, roughly
                 how much you&apos;re comfortable allocating, and how you&apos;ll
-                keep records, the practical next step is opening an account on a
-                regulated exchange and making a first, modest purchase. Our{" "}
+                keep records, the practical next step is researching how a
+                crypto service works, checking the relevant registration and
+                custody information, and understanding the transaction path
+                before deciding whether to make a purchase. Our{" "}
                 <Link
                   href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO

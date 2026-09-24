@@ -84,6 +84,35 @@ export const PHASE_9_3_GUIDES: Record<string, ResearchGuideConfig> = {
           "Fixed brokerage has a larger proportional effect on a small trade. A $10 fee on a $500 purchase is 2% of the purchase amount before considering any other cost; the same $10 on a $10,000 purchase is 0.1%. This is why Moneysmart specifically warns that fees can be a big share of a small trade.",
           "This does not mean a larger trade is automatically preferable. It only shows why fee comparisons should include the trade amount rather than comparing fee labels in isolation.",
         ],
+        visual: {
+          title: "Worked example: the same flat fee at two trade sizes",
+          caption:
+            "Hypothetical example only. It isolates brokerage and excludes other costs.",
+          example: [
+            { label: "Trade A", value: "$500" },
+            { label: "Brokerage", value: "$10" },
+            { label: "Trade B", value: "$10,000" },
+            { label: "Same brokerage", value: "$10" },
+          ],
+          columns: [
+            {
+              title: "$500 trade",
+              items: [
+                "$10 ÷ $500 = 2%",
+                "Fixed fees have a larger proportional effect on smaller amounts",
+              ],
+            },
+            {
+              title: "$10,000 trade",
+              items: [
+                "$10 ÷ $10,000 = 0.1%",
+                "This comparison does not include investment risk or other fees",
+              ],
+            },
+          ],
+          footer:
+            "The calculation illustrates fee proportions only; it does not imply that a larger trade is preferable.",
+        },
       },
       {
         id: "other-costs",
@@ -159,6 +188,29 @@ export const PHASE_9_3_GUIDES: Record<string, ResearchGuideConfig> = {
           "ASX explains that an investor may instead have a beneficial interest where legal title is held by a custodian on the investor's behalf. This can be referred to as an omnibus structure.",
           "Custody is common in investment markets and does not by itself tell you whether a platform is suitable. The useful questions are who holds legal title, how client assets are recorded, what transfer process applies, and what contractual rights the investor has.",
         ],
+        visual: {
+          title: "Two simplified ownership structures",
+          columns: [
+            {
+              title: "CHESS sponsored",
+              items: [
+                "Investor is registered in CHESS as holder",
+                "A HIN identifies the sponsored holder",
+                "Broker participant sponsors the CHESS holding",
+              ],
+            },
+            {
+              title: "Custodial / omnibus",
+              items: [
+                "Custodian can hold legal title",
+                "Investor may hold a beneficial interest",
+                "Platform/custodian records and terms become important",
+              ],
+            },
+          ],
+          footer:
+            "This is a structural comparison, not a quality ranking. Product-specific arrangements can differ.",
+        },
       },
       {
         id: "differences",
@@ -233,6 +285,29 @@ export const PHASE_9_3_GUIDES: Record<string, ResearchGuideConfig> = {
           "A Holder Identification Number is the identifier used for a sponsored holder on the CHESS subregister. ASX says the HIN links holding details in CHESS with the holder's registration information, such as name and address.",
           "A HIN is often compared with an account number because one HIN can identify multiple CHESS-sponsored holdings associated with that sponsored holder.",
         ],
+        visual: {
+          title: "HIN, SRN and custody at a glance",
+          columns: [
+            {
+              title: "CHESS sponsored",
+              items: [
+                "Identifier: HIN",
+                "Broker-sponsored CHESS subregister",
+                "One HIN can cover multiple sponsored holdings",
+              ],
+            },
+            {
+              title: "Issuer sponsored / custody",
+              items: [
+                "Issuer-sponsored holdings use an SRN",
+                "Custodial structures may not give the customer a personal HIN",
+                "Always check the structure for the specific product",
+              ],
+            },
+          ],
+          footer:
+            "A missing personal HIN is a reason to inspect the custody arrangement, not enough information by itself to describe ownership rights.",
+        },
       },
       {
         id: "hin-vs-srn",
@@ -307,6 +382,19 @@ export const PHASE_9_3_GUIDES: Record<string, ResearchGuideConfig> = {
           "Fractional interests do not always work like whole shares registered directly to an investor. Moneysmart specifically tells investors to understand how the investment is owned and held. Depending on the provider, a custodian or platform entity may hold the whole security while the customer has a contractual or beneficial interest in part of it.",
           "That distinction can affect voting, corporate actions and the process if the provider stops operating.",
         ],
+        visual: {
+          title: "Worked example: buying less than one whole share",
+          caption:
+            "A mathematical illustration only; actual ownership and execution structures depend on the provider.",
+          example: [
+            { label: "Whole-share price", value: "$200" },
+            { label: "Amount allocated", value: "$50" },
+            { label: "Illustrative fraction", value: "0.25 share" },
+            { label: "Key question", value: "Who holds title?" },
+          ],
+          footer:
+            "The arithmetic is simple; the important research questions are ownership, rights, fees and transferability.",
+        },
       },
       {
         id: "fees",
@@ -367,6 +455,17 @@ export const PHASE_9_3_GUIDES: Record<string, ResearchGuideConfig> = {
           "A crypto purchase can involve several separate stages: moving Australian dollars to a platform, executing the purchase, and later transferring or selling the asset. Each stage can have a different pricing rule.",
           "Moneysmart also notes that blockchain transactions can involve transaction fees and that unfamiliar users can overpay or underpay network fees. This is one reason Trading Guide keeps exchange charges and network-dependent costs separate.",
         ],
+        visual: {
+          title: "A crypto transaction can have several cost stages",
+          steps: [
+            { label: "Fund", detail: "Bank, PayID or card" },
+            { label: "Trade", detail: "Instant buy or order book" },
+            { label: "Hold", detail: "Custodial or self-custody" },
+            { label: "Withdraw", detail: "Provider and/or network costs" },
+          ],
+          footer:
+            "A low trading-fee headline does not necessarily describe the total cost of the path you use.",
+        },
       },
       {
         id: "trading",
@@ -551,6 +650,22 @@ export const PHASE_9_3_GUIDES: Record<string, ResearchGuideConfig> = {
         paragraphs: [
           "After funds arrive, a trading fee or spread can apply when crypto is purchased. Later, selling or transferring crypto can create another cost. Compare the full path relevant to your scenario rather than choosing a platform from the deposit fee alone.",
         ],
+        visual: {
+          title: "Worked example: map the funding path before calculating",
+          caption: "Hypothetical process — no provider or fee rate is assumed.",
+          steps: [
+            { label: "Bank", detail: "Choose funding rail" },
+            { label: "AUD balance", detail: "Check deposit fee/limits" },
+            { label: "Buy crypto", detail: "Check execution fee or spread" },
+            { label: "Crypto balance", detail: "Custody stage" },
+            {
+              label: "External wallet",
+              detail: "Optional withdrawal + network",
+            },
+          ],
+          footer:
+            "The purpose is to identify which fee rules need evidence before calculating a total.",
+        },
       },
     ],
     sources: [crypto],
@@ -625,6 +740,36 @@ export const PHASE_9_3_GUIDES: Record<string, ResearchGuideConfig> = {
           "A calculator should not create false precision by converting VARIABLE, UNKNOWN or stale information into zero. If a network fee changes dynamically, or a provider publishes a condition that the engine cannot model, the result should say what remains excluded.",
           "This is why Trading Guide uses the phrase 'estimated costs covered by this calculator' rather than implying every possible cost has been captured.",
         ],
+        visual: {
+          title: "Worked example: a cross-market cost path",
+          caption:
+            "Hypothetical A$2,000 international-share purchase. Values are deliberately not invented for unknown fee components.",
+          steps: [
+            { label: "A$2,000", detail: "Starting amount" },
+            { label: "FX conversion", detail: "Apply only a verified rule" },
+            { label: "Brokerage", detail: "Apply the eligible order rule" },
+            { label: "Share purchase", detail: "Execution" },
+          ],
+          columns: [
+            {
+              title: "Can be calculated",
+              items: [
+                "Verified brokerage rule",
+                "Verified FX rule when modelled",
+              ],
+            },
+            {
+              title: "Keep separate if unknown",
+              items: [
+                "Variable spread",
+                "Unmodelled platform charges",
+                "Conditional/pass-through costs",
+              ],
+            },
+          ],
+          footer:
+            "A defensible partial estimate is more useful than a precise-looking total built from assumed zeroes.",
+        },
       },
     ],
     sources: [moneysmartShares, crypto],

@@ -123,7 +123,7 @@ export const NAV_ITEMS: NavItem[] = [
           },
 
           {
-            label: "Top Cryptocurrency Exchanges in Australia",
+            label: "Cryptocurrency Exchanges in Australia",
             href: getStaticGuideArticleHref(
               STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES
             ),

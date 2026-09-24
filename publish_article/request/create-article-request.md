@@ -57,7 +57,7 @@ how-to-open-online-share-trading-account Documents needed, HIN vs custodian, fun
 steps-to-start-investing-in-share-in-australia Goal, broker, first purchase, diversifying, habit, CGT basics
 how-to-start-investing-in-crypto-for-beginners Risk tolerance, position size, DCA, scams, storage, tax
 simple-steps-to-buy-cryptocurrency 5 steps to buy on an exchange
-top-cryptocurrency-exchanges-in-australia What to compare, AUSTRAC, exchange profiles
+cryptocurrency-exchanges-in-australia What to compare, AUSTRAC, exchange profiles
 Gaps the new guides fill
 
 No page explains trading across all markets (shares, ETFs, crypto, forex, CFDs) in one place.

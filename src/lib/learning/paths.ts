@@ -39,6 +39,14 @@ export const LEARNING_PATHS: LearningPath[] = [
           "Start with how shares, brokers and the Australian market fit together.",
       },
       {
+        id: "asx-market-mechanics",
+        title: "How the ASX works",
+        href: "/guides/how-the-asx-works",
+        minutes: 7,
+        description:
+          "Learn how orders are matched, how market and limit orders differ, and how settlement works.",
+      },
+      {
         id: "trading-costs",
         title: "Trading costs explained",
         href: "/guides/trading-costs-explained",
@@ -104,7 +112,7 @@ export const LEARNING_PATHS: LearningPath[] = [
     label: "Crypto Foundations",
     title: "Crypto Foundations",
     description:
-      "A beginner-friendly path through crypto risk, exchanges, funding, fees and Australian registration context.",
+      "A beginner-friendly path through crypto risk, exchanges, wallets, funding, fees and Australian registration context.",
     lessons: [
       {
         id: "crypto-beginners",
@@ -113,6 +121,14 @@ export const LEARNING_PATHS: LearningPath[] = [
         minutes: 9,
         description:
           "Start with the asset class, risk, security and recordkeeping.",
+      },
+      {
+        id: "crypto-exchanges-wallets",
+        title: "How crypto exchanges and wallets work",
+        href: "/guides/how-crypto-exchanges-and-wallets-work",
+        minutes: 8,
+        description:
+          "Understand exchanges, custodial wallets, self-custody and private keys before funding an account.",
       },
       {
         id: "crypto-funding",

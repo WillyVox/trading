@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { KeyTakeaways } from "@/components/guide/KeyTakeaways";
 import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
 import { GuideSourceList } from "@/components/guide/GuideSourceList";
+import { LearningDiagram } from "@/components/guide/LearningDiagram";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import {
@@ -18,6 +19,14 @@ export type ResearchGuideSection = {
   title: string;
   paragraphs: string[];
   bullets?: string[];
+  visual?: {
+    title: string;
+    caption?: string;
+    steps?: { label: string; detail?: string }[];
+    columns?: { title: string; items: string[] }[];
+    example?: { label: string; value: string }[];
+    footer?: string;
+  };
 };
 
 export type ResearchGuideSource = { id: string; label: string; url: string };
@@ -103,6 +112,16 @@ export function ResearchGuidePage({
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
+                  ) : null}
+                  {section.visual ? (
+                    <LearningDiagram
+                      title={section.visual.title}
+                      caption={section.visual.caption}
+                      steps={section.visual.steps}
+                      columns={section.visual.columns}
+                      example={section.visual.example}
+                      footer={section.visual.footer}
+                    />
                   ) : null}
                 </section>
               ))}

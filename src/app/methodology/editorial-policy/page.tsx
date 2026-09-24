@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
-import { Notice } from "@/components/ui/Notice";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -100,15 +99,6 @@ export default function EditorialPolicyPage() {
           </Link>
           .
         </p>
-
-        <div className="mt-6">
-          <Notice>
-            General information only. This describes our internal editorial
-            process and isn&apos;t a guarantee that every fact on the site is
-            current at the moment you read it — always verify important details
-            directly with the provider.
-          </Notice>
-        </div>
       </div>
     </>
   );

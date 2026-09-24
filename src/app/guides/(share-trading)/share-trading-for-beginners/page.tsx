@@ -94,20 +94,20 @@ const KEY_TAKEAWAYS = [
   "Share trading means buying and selling small ownership stakes (shares) in listed companies, most commonly through the ASX.",
   "You'll need a broker to trade — either an online broker for direct ownership, or a micro-investing app for smaller, automated amounts.",
   "Brokerage fees, the bid-ask spread, and (for managed products) ongoing management fees all eat into returns — compare them before you pick a broker.",
-  "Diversifying across companies and sectors, and investing for the long term, are the two most reliable ways beginners reduce risk.",
-  "CFDs and other leveraged products can amplify losses beyond your original stake — most beginners are better off starting with direct share ownership.",
+  "Diversification can reduce exposure to the performance of a single company or sector, but it does not eliminate investment risk. Time horizon also changes the risks an investor may need to consider.",
+  "CFDs and other leveraged products behave differently from direct share ownership and can amplify losses. Understand leverage, product terms and loss scenarios before using them.",
 ];
 
 const FAQS = [
   {
     question: "How much money do I need to start share trading?",
     answer:
-      "There's no fixed minimum in Australia, but most online brokers set a practical floor of around $50–$500 per trade once brokerage fees are factored in. Micro-investing apps let you start with smaller amounts by pooling your money into fractional shares or ETFs.",
+      "ASX does not impose one universal minimum order value, but brokers can set their own minimums and CHESS rules can affect small holdings. Fractional-share and micro-investing products may use different structures and minimums, so check the provider's current terms and ownership model.",
   },
   {
     question: "Is share trading better than crypto trading for beginners?",
     answer:
-      "They're different asset classes with different risk profiles. Shares represent ownership in a regulated company with earnings and disclosure obligations; crypto assets are unregulated and typically far more volatile. Many beginners start with shares or ETFs for exposure to more established markets, then decide separately whether crypto fits their risk tolerance.",
+      "They are different asset classes with different ownership, market and regulatory characteristics. Listed shares represent an interest in a company and trade within Australia's financial-market framework. Crypto assets and related services can fall under different regulatory regimes depending on their features. Compare the risks and structure of each rather than treating one as automatically better for beginners.",
   },
   {
     question: "Do I need a license to trade shares in Australia?",
@@ -128,7 +128,7 @@ export const metadata = buildMetadata({
   image: IMAGE,
   type: "article",
   publishedTime: "2026-09-15",
-  modifiedTime: "2026-09-15",
+  modifiedTime: "2026-09-24",
   authors: ["Trading Guide Editorial Team"],
   seoTitle:
     "Share Trading for Beginners (2026) — How to Start Investing in Shares",
@@ -142,7 +142,7 @@ export default function ShareTradingForBeginnersPage() {
   const metaItems = [
     "By Trading Guide Editorial Team",
     "Published 15 September 2026",
-    "Last updated 15 September 2026",
+    "Last updated 24 September 2026",
     `${READING_MINUTES} min read`,
   ];
 
@@ -260,9 +260,11 @@ export default function ShareTradingForBeginnersPage() {
                 underlying share — and typically with borrowed money (leverage),
                 which magnifies both gains and losses. Regulators have
                 repeatedly flagged CFDs as a high-risk product: it&apos;s
-                possible to lose more than your original deposit. Most beginners
-                are better off building experience with direct share ownership
-                before ever considering a leveraged product.
+                possible to lose more than your original deposit. That makes a
+                CFD materially different from owning the underlying share.
+                Before using a leveraged product, understand how leverage,
+                margin and losses work and read the product disclosures that
+                apply.
               </p>
 
               <GuideFigure caption="Direct share ownership vs. a diversified ETF: buying one company concentrates your risk in that business; an ETF spreads it across many.">
@@ -419,10 +421,12 @@ export default function ShareTradingForBeginnersPage() {
                 Shares and crypto assets sit at different points on the risk
                 spectrum. A listed company has disclosure obligations, audited
                 financials, and a regulator (ASIC) overseeing the market it
-                trades on. Crypto assets are typically unregulated in Australia,
-                trade 24/7 with far higher volatility, and aren&apos;t backed by
-                a company&apos;s earnings at all — their value is driven almost
-                entirely by supply, demand, and sentiment.
+                trades on. Crypto assets and related services can have different
+                regulatory treatment depending on their rights and features.
+                Many crypto markets trade around the clock and can be highly
+                volatile; unlike a share, a crypto asset does not by itself
+                represent ownership in a listed company or a claim on that
+                company&apos;s earnings.
               </p>
               <p>
                 Neither is inherently &quot;better&quot; — they&apos;re

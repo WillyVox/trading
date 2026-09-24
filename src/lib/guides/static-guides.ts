@@ -27,7 +27,7 @@ export type StaticGuideSummary = {
 export const STATIC_GUIDES = [
   {
     slug: STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES,
-    title: "Top Cryptocurrency Exchanges in Australia: What to Compare in 2026",
+    title: "Cryptocurrency Exchanges in Australia: What to Compare in 2026",
     excerpt:
       "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.",
     category: "crypto-exchanges",
@@ -152,6 +152,33 @@ export const STATIC_GUIDES = [
     source: "STATIC",
   },
 
+  {
+    slug: "how-the-asx-works",
+    title: "How the ASX Works: Orders, Execution and Settlement",
+    excerpt:
+      "Learn how Australian share orders are matched, how market and limit orders differ, and what happens at settlement.",
+    category: "share-trading",
+    featuredImage: "/images/articles/share-trading-for-beginners.png",
+    featuredImageAlt: "How ASX orders, execution and settlement work",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-24",
+    updatedAt: "2026-09-24",
+    source: "STATIC",
+  },
+  {
+    slug: "how-crypto-exchanges-and-wallets-work",
+    title: "How Crypto Exchanges and Wallets Work: Custody, Keys and Transfers",
+    excerpt:
+      "Understand crypto exchanges, custodial and self-custody wallets, private keys and transfers before comparing fees.",
+    category: "crypto-exchanges",
+    featuredImage:
+      "/images/articles/crypto-exchange-fees-australia-explained.png",
+    featuredImageAlt: "How crypto exchanges, wallets and custody work",
+    author: "Trading Guide Editorial Team",
+    publishedAt: "2026-09-24",
+    updatedAt: "2026-09-24",
+    source: "STATIC",
+  },
   {
     slug: "brokerage-fees-australia",
     title: "Brokerage Fees in Australia: How Share Trading Costs Work",

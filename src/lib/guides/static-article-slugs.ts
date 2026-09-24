@@ -3,7 +3,7 @@
  */
 
 export const STATIC_SLUG_IDS = {
-  TOP_CRYPTO_EXCHANGES: "top-cryptocurrency-exchanges-in-australia",
+  TOP_CRYPTO_EXCHANGES: "cryptocurrency-exchanges-in-australia",
   STEPS_TO_BUY_CRYPTO: "simple-steps-to-buy-cryptocurrency",
   START_INVESTING_IN_CRYPTO: "how-to-start-investing-in-crypto-for-beginners",
   SHARE_TRADING_FOR_BEGINNERS: "share-trading-for-beginners",

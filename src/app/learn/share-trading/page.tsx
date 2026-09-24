@@ -34,9 +34,9 @@ export default function Page() {
             Learn, then research
           </h2>
           <p className="text-muted mt-2 leading-7">
-            After the foundations, you can use Trading Guide&lsquo;s calculators and
-            source-linked platform research to investigate costs and features
-            yourself.
+            After the foundations, you can use Trading Guide&lsquo;s calculators
+            and source-linked platform research to investigate costs and
+            features yourself.
           </p>
           <Link
             href="/tools"
