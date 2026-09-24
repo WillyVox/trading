@@ -142,21 +142,23 @@ export function ShareTradingPlatformListCard({
       </div>
 
       {/* Actions */}
-      <div className="flex flex-col items-stretch gap-3 md:items-end">
+      <div className="flex items-center justify-between gap-4 md:justify-end">
+        <Link
+          href={`/share-trading/${offering.slug}`}
+          className="text-navy focus-visible:outline-navy inline-flex min-h-11 shrink-0 items-center text-xs font-semibold whitespace-nowrap hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
+        >
+          View profile{" "}
+          <span className="ml-1" aria-hidden="true">
+            →
+          </span>
+        </Link>
         <VisitSite
           providerSlug={offering.provider.slug}
           officialWebsite={offering.website}
-          officialWebsiteVerified={offering.verificationStatus === "VERIFIED" && Boolean(offering.lastVerifiedAt)}
           hasActiveAffiliate={hasActiveAffiliate}
           placement="share-trading-browse"
-          className="w-full md:w-auto"
+          className="min-w-[9.5rem]"
         />
-        <Link
-          href={`/share-trading/${offering.slug}`}
-          className="text-navy text-center text-xs font-semibold whitespace-nowrap hover:underline md:text-right"
-        >
-          Full profile →
-        </Link>
       </div>
     </div>
   );

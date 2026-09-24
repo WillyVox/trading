@@ -282,3 +282,6 @@ I can then put the **actual Measurement ID into the appropriate production confi
 
   gtag('config', 'G-GYDR9G64W4');
 </script>
+
+## On Vercel
+ gtag('config', 'G-1TVFLW43MV');

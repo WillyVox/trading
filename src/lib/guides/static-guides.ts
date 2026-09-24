@@ -27,7 +27,8 @@ export type StaticGuideSummary = {
 export const STATIC_GUIDES = [
   {
     slug: STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES,
-    title: "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences",
+    title:
+      "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences",
     excerpt:
       "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.",
     category: "crypto-exchanges",

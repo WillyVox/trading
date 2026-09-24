@@ -6,14 +6,51 @@ export type ProviderDestination = {
   placement: string;
 };
 
+type ResolveProviderDestinationArgs = {
+  providerSlug: string;
+  officialWebsite?: string | null;
+  officialWebsiteVerified?: boolean;
+  hasActiveAffiliate: boolean;
+  placement: string;
+};
+
+function safeHttpUrl(value?: string | null): string | null {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    const url = new URL(value);
+
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      return null;
+    }
+
+    // Preserve the original URL rather than normalising it with
+    // URL.toString(), which would turn:
+    //
+    // https://example.com
+    //
+    // into:
+    //
+    // https://example.com/
+    return value;
+  } catch {
+    return null;
+  }
+}
+
 /**
- * Resolve a provider's outbound destination without coupling UI components to
- * commercial state. An active affiliate relationship changes the route and
- * disclosure semantics; it never decides whether a provider is useful to readers.
+ * Resolve the destination for a provider's primary outbound CTA.
  *
- * Official websites are only eligible when the record carrying that website has
- * been verified and has a verification date. A syntactically valid URL alone is
- * not enough for Trading Guide to label it an "official" destination.
+ * Commercial relationships affect the destination, not whether the provider
+ * itself is included in Trading Guide.
+ *
+ * Resolution order:
+ *
+ * 1. Active affiliate relationship -> tracked /go/... route.
+ * 2. No active affiliate -> verified official provider website.
+ * 3. Otherwise -> no outbound destination.
  */
 export function resolveProviderDestination({
   providerSlug,
@@ -21,16 +58,12 @@ export function resolveProviderDestination({
   officialWebsiteVerified = false,
   hasActiveAffiliate,
   placement,
-}: {
-  providerSlug: string;
-  officialWebsite?: string | null;
-  officialWebsiteVerified?: boolean;
-  hasActiveAffiliate: boolean;
-  placement: string;
-}): ProviderDestination | null {
+}: ResolveProviderDestinationArgs): ProviderDestination | null {
   if (hasActiveAffiliate) {
     return {
-      href: `/go/${providerSlug}?placement=${encodeURIComponent(placement)}`,
+      href: `/go/${encodeURIComponent(
+        providerSlug
+      )}?placement=${encodeURIComponent(placement)}`,
       type: "affiliate",
       isAffiliate: true,
       providerSlug,
@@ -38,19 +71,18 @@ export function resolveProviderDestination({
     };
   }
 
-  if (!officialWebsiteVerified) return null;
-  const href = officialWebsite?.trim();
-  if (!href) return null;
+  if (!officialWebsiteVerified) {
+    return null;
+  }
 
-  try {
-    const url = new URL(href);
-    if (url.protocol !== "https:" && url.protocol !== "http:") return null;
-  } catch {
+  const safeOfficialWebsite = safeHttpUrl(officialWebsite);
+
+  if (!safeOfficialWebsite) {
     return null;
   }
 
   return {
-    href,
+    href: safeOfficialWebsite,
     type: "official",
     isAffiliate: false,
     providerSlug,

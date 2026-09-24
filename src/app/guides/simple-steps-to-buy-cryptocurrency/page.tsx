@@ -120,7 +120,8 @@ const FAQS = [
       "Most Australian exchanges let you buy fractions of a coin, often starting from as little as $10–$20, so you don't need to buy a whole Bitcoin or Ethereum to get started.",
   },
   {
-    question: "What does AUSTRAC registration tell me about an Australian crypto exchange?",
+    question:
+      "What does AUSTRAC registration tell me about an Australian crypto exchange?",
     answer:
       "AUSTRAC registration is part of Australia's AML/CTF framework. It is a useful factual check, but it is not ASIC approval of the provider or crypto asset, an investment-quality score, or a guarantee against loss. Financial-services protections depend on the particular product or service.",
   },
@@ -220,10 +221,10 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
               <p>
                 Start by comparing factual information about exchanges available
                 in Australia: fees, supported assets, funding methods, custody,
-                security controls and whether AUSTRAC registration is required and
-                recorded. AUSTRAC registration relates to AML/CTF obligations; it
-                is not an endorsement of the provider or the crypto assets it
-                lists. Our{" "}
+                security controls and whether AUSTRAC registration is required
+                and recorded. AUSTRAC registration relates to AML/CTF
+                obligations; it is not an endorsement of the provider or the
+                crypto assets it lists. Our{" "}
                 <Link href="/compare/crypto-exchanges">
                   crypto exchange comparison
                 </Link>{" "}
@@ -238,8 +239,9 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                 or &quot;know your customer&quot;). This usually means uploading
                 a photo of your driver&apos;s licence or passport and taking a
                 quick selfie. It&apos;s a standard legal requirement for every
-                service where the relevant AML/CTF obligations apply, not necessarily something specific to the platform
-                you&apos;ve chosen.
+                service where the relevant AML/CTF obligations apply, not
+                necessarily something specific to the platform you&apos;ve
+                chosen.
               </p>
 
               <h2 id="step-3">Step 3: Deposit funds</h2>
@@ -287,13 +289,13 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
 
               <h2 id="step-5">Step 5: Secure your crypto</h2>
               <p>
-                After a purchase, crypto may remain in custodial storage provided
-                by a service or be transferred to a self-custody wallet. In a
-                custodial model, the service controls the private keys. With
-                self-custody, the user controls the keys and also takes on the
-                responsibility for protecting and recovering them. These are
-                different risk models rather than a simple safer-versus-less-safe
-                choice.
+                After a purchase, crypto may remain in custodial storage
+                provided by a service or be transferred to a self-custody
+                wallet. In a custodial model, the service controls the private
+                keys. With self-custody, the user controls the keys and also
+                takes on the responsibility for protecting and recovering them.
+                These are different risk models rather than a simple
+                safer-versus-less-safe choice.
               </p>
 
               <GuideFigure caption="Custodial and self-custody models place control of private keys and recovery responsibility with different parties.">

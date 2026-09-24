@@ -28,7 +28,8 @@ const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(
   STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
 );
 
-const TITLE = "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences";
+const TITLE =
+  "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences";
 const DESCRIPTION =
   "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.";
 
@@ -155,7 +156,8 @@ const SOURCES = [
 ];
 
 export const metadata = buildMetadata({
-  title: "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences",
+  title:
+    "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences",
   description: DESCRIPTION,
   path: PATH,
   image: getStaticGuideArticleImage(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES),

@@ -45,7 +45,8 @@ export function toCompareSubjects(
     const destination = resolveProviderDestination({
       providerSlug: o.provider.slug,
       officialWebsite: o.website,
-      officialWebsiteVerified: o.verificationStatus === "VERIFIED" && Boolean(o.lastVerifiedAt),
+      officialWebsiteVerified:
+        o.verificationStatus === "VERIFIED" && Boolean(o.lastVerifiedAt),
       hasActiveAffiliate: affiliateLinks?.has(o.provider.slug) ?? false,
       placement: "compare",
     });

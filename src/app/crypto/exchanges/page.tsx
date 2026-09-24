@@ -83,20 +83,22 @@ export default async function ExchangesPage() {
                     </p>
                   </div>
                 </div>
-                <div className="mt-auto flex flex-col gap-3 pt-5 sm:flex-row sm:items-center">
+                <div className="mt-auto flex items-center justify-between gap-4 pt-5">
                   <Link
                     href={`/crypto/exchanges/${p.slug}`}
-                    className="border-border text-navy hover:bg-panel-secondary inline-flex min-h-11 w-full items-center justify-center rounded-full border px-4 py-2.5 text-sm font-semibold sm:flex-1"
+                    className="text-navy focus-visible:outline-navy inline-flex min-h-11 shrink-0 items-center text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
                   >
                     View profile
+                    <span className="ml-1" aria-hidden="true">
+                      →
+                    </span>
                   </Link>
                   <VisitSite
                     providerSlug={p.slug}
                     officialWebsite={offering.website ?? p.website}
-                    officialWebsiteVerified={(offering.website ? offering.verificationStatus === "VERIFIED" && Boolean(offering.lastVerifiedAt) : p.verificationStatus === "VERIFIED" && Boolean(p.lastVerifiedAt))}
                     hasActiveAffiliate={affiliateLinks.has(p.slug)}
                     placement="crypto-exchange-browse"
-                    className="w-full sm:flex-[1.25]"
+                    className="min-w-[9.5rem] sm:min-w-[11rem]"
                   />
                 </div>
               </Card>

@@ -10,7 +10,6 @@ type GuideProvider = {
   name: string;
   description: string | null;
   verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
-  lastVerifiedAt: Date | null;
   activeLink: boolean;
   website: string | null;
 };
@@ -19,10 +18,9 @@ type GuideProvider = {
  * "Providers mentioned in this guide" — deliberately not "Best" or
  * "Recommended for you" (see Guide spec §11): those labels require a
  * defensible editorial methodology this component has no way to verify.
- * Outbound navigation is independent of commercial status: an active
- * affiliate relationship uses the tracked route, otherwise a verified
- * official website may be used. The caller derives activeLink from a real
- * ACTIVE AffiliateLink lookup — never fabricated here.
+ * An affiliate CTA only renders when providers.activeLink is true, which
+ * the caller must have derived from a real ACTIVE AffiliateLink lookup —
+ * never fabricated here.
  */
 export function RelatedProviders({
   providers,
@@ -53,20 +51,22 @@ export function RelatedProviders({
             {p.description && (
               <p className="text-muted mt-1.5 text-sm">{p.description}</p>
             )}
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-4 flex items-center justify-between gap-4">
               <Link
                 href={`/crypto/exchanges/${p.slug}`}
-                className="border-border text-navy hover:bg-panel-secondary inline-flex min-h-11 flex-1 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold"
+                className="text-navy focus-visible:outline-navy inline-flex min-h-11 shrink-0 items-center text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
               >
-                View profile
+                View profile{" "}
+                <span className="ml-1" aria-hidden="true">
+                  →
+                </span>
               </Link>
               <VisitSite
                 providerSlug={p.slug}
                 officialWebsite={p.website}
-                officialWebsiteVerified={p.verificationStatus === "VERIFIED" && Boolean(p.lastVerifiedAt)}
                 hasActiveAffiliate={p.activeLink}
                 placement="guide-related-provider"
-                className="flex-[1.25]"
+                className="min-w-[9.5rem]"
               />
             </div>
           </Card>

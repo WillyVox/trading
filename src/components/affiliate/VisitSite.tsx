@@ -14,8 +14,10 @@ type Props = {
 };
 
 /**
- * Primary outbound provider action. Commercial status changes the destination
- * and link relationship, never whether the provider is useful to readers.
+ * Primary outbound provider action.
+ *
+ * Commercial status changes the destination and link relationship,
+ * never whether the provider itself is useful to readers.
  */
 export function VisitSite({
   providerSlug,
@@ -36,7 +38,9 @@ export function VisitSite({
       placement,
     });
 
-  if (!destination) return null;
+  if (!destination) {
+    return null;
+  }
 
   return (
     <a

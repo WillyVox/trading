@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+
 import { resolveProviderDestination } from "../provider-destination";
 
 const base = {
@@ -54,15 +55,40 @@ test("unverified official website fails closed when no affiliate is active", () 
   );
 });
 
-test("active affiliate remains available even when the stored official website is unverified", () => {
-  assert.equal(
+test("active affiliate remains available when the official website is unverified", () => {
+  assert.deepEqual(
     resolveProviderDestination({
       ...base,
       officialWebsiteVerified: false,
       hasActiveAffiliate: true,
       placement: "browse",
-    })?.type,
-    "affiliate"
+    }),
+    {
+      href: "/go/example-provider?placement=browse",
+      type: "affiliate",
+      isAffiliate: true,
+      providerSlug: "example-provider",
+      placement: "browse",
+    }
+  );
+});
+
+test("active affiliate remains available when no official website exists", () => {
+  assert.deepEqual(
+    resolveProviderDestination({
+      providerSlug: "example-provider",
+      officialWebsite: null,
+      officialWebsiteVerified: false,
+      hasActiveAffiliate: true,
+      placement: "browse",
+    }),
+    {
+      href: "/go/example-provider?placement=browse",
+      type: "affiliate",
+      isAffiliate: true,
+      providerSlug: "example-provider",
+      placement: "browse",
+    }
   );
 });
 
@@ -92,4 +118,23 @@ test("unsafe or malformed official URLs fail closed", () => {
       null
     );
   }
+});
+
+test("unsafe official website does not affect an active affiliate destination", () => {
+  assert.deepEqual(
+    resolveProviderDestination({
+      providerSlug: "example-provider",
+      officialWebsite: "javascript:alert(1)",
+      officialWebsiteVerified: true,
+      hasActiveAffiliate: true,
+      placement: "comparison",
+    }),
+    {
+      href: "/go/example-provider?placement=comparison",
+      type: "affiliate",
+      isAffiliate: true,
+      providerSlug: "example-provider",
+      placement: "comparison",
+    }
+  );
 });

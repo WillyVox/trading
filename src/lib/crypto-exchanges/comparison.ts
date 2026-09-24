@@ -192,8 +192,10 @@ export async function getCryptoExchangeComparison(publicSlugs: string[]) {
     logo: offering.logo ?? offering.provider.logo,
     website: offering.website ?? offering.provider.website,
     officialWebsiteVerified: offering.website
-      ? offering.verificationStatus === "VERIFIED" && Boolean(offering.lastVerifiedAt)
-      : offering.provider.verificationStatus === "VERIFIED" && Boolean(offering.provider.lastVerifiedAt),
+      ? offering.verificationStatus === "VERIFIED" &&
+        Boolean(offering.lastVerifiedAt)
+      : offering.provider.verificationStatus === "VERIFIED" &&
+        Boolean(offering.provider.lastVerifiedAt),
     facts: offering.provider.facts,
     fees: offering.fees.map((fee) => ({
       label: fee.label,

@@ -212,8 +212,8 @@ export default function StepsToStartInvestingInSharesPage() {
                 once the initial purchase is made.
               </p>
               <p>
-                Neither approach is inherently &quot;better&quot;. They differ in
-                diversification, control, costs and the amount of research a
+                Neither approach is inherently &quot;better&quot;. They differ
+                in diversification, control, costs and the amount of research a
                 person may need to do. This guide describes those differences
                 rather than selecting an approach for the reader.
               </p>
@@ -231,9 +231,9 @@ export default function StepsToStartInvestingInSharesPage() {
               <p>
                 When comparing these services, check the ownership model,
                 available investments, brokerage or management fees, minimums,
-                automation features and transfer rules. Those factual differences
-                are more useful than treating either service type as universally
-                suitable.
+                automation features and transfer rules. Those factual
+                differences are more useful than treating either service type as
+                universally suitable.
               </p>
 
               <h2 id="open-fund">Step 4: Open and fund your account</h2>
@@ -252,9 +252,10 @@ export default function StepsToStartInvestingInSharesPage() {
               <h2 id="first-purchase">Step 5: Make your first purchase</h2>
               <p>
                 A first purchase involves choosing an order type, quantity and
-                price conditions, then reviewing brokerage and settlement details
-                before submission. Trading Guide does not suggest an amount or
-                security; the purpose here is to explain the mechanics.
+                price conditions, then reviewing brokerage and settlement
+                details before submission. Trading Guide does not suggest an
+                amount or security; the purpose here is to explain the
+                mechanics.
               </p>
 
               <GuideFigure caption="Spreading investment across companies and sectors reduces the impact of any single one underperforming.">
@@ -270,24 +271,24 @@ export default function StepsToStartInvestingInSharesPage() {
               </h2>
               <p>
                 Holding a single company creates greater exposure to that
-                company&apos;s performance. Diversification spreads exposure across
-                multiple holdings or sectors and can reduce concentration risk,
-                but it does not prevent losses or guarantee smoother returns.
+                company&apos;s performance. Diversification spreads exposure
+                across multiple holdings or sectors and can reduce concentration
+                risk, but it does not prevent losses or guarantee smoother
+                returns.
               </p>
 
               <GuideFigure caption="Regular investing spreads purchase dates across time; it changes timing exposure but does not guarantee a lower average price or protect against losses.">
                 <GrowthTrendIllustration title="Regular contributions over time smoothing out short-term price swings" />
               </GuideFigure>
 
-              <h2 id="regular-habit">
-                Step 7: Understand regular investing
-              </h2>
+              <h2 id="regular-habit">Step 7: Understand regular investing</h2>
               <p>
-                Investing a fixed amount on a regular schedule is commonly called{" "}
-                <strong>dollar-cost averaging</strong>. It spreads purchases
-                across different dates and prices. It does not guarantee a lower
-                average purchase price, protect against falling markets, or make
-                regular investing preferable to a lump-sum approach.
+                Investing a fixed amount on a regular schedule is commonly
+                called <strong>dollar-cost averaging</strong>. It spreads
+                purchases across different dates and prices. It does not
+                guarantee a lower average purchase price, protect against
+                falling markets, or make regular investing preferable to a
+                lump-sum approach.
               </p>
 
               <h2 id="tax-basics">Tax basics every new investor should know</h2>
