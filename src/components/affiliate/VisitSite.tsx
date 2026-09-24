@@ -6,6 +6,7 @@ import {
 type Props = {
   providerSlug: string;
   officialWebsite?: string | null;
+  officialWebsiteVerified?: boolean;
   hasActiveAffiliate?: boolean;
   placement: string;
   destination?: ProviderDestination | null;
@@ -19,6 +20,7 @@ type Props = {
 export function VisitSite({
   providerSlug,
   officialWebsite,
+  officialWebsiteVerified = false,
   hasActiveAffiliate = false,
   placement,
   destination: suppliedDestination,
@@ -29,6 +31,7 @@ export function VisitSite({
     resolveProviderDestination({
       providerSlug,
       officialWebsite,
+      officialWebsiteVerified,
       hasActiveAffiliate,
       placement,
     });

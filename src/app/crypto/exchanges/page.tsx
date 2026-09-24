@@ -93,6 +93,7 @@ export default async function ExchangesPage() {
                   <VisitSite
                     providerSlug={p.slug}
                     officialWebsite={offering.website ?? p.website}
+                    officialWebsiteVerified={(offering.website ? offering.verificationStatus === "VERIFIED" && Boolean(offering.lastVerifiedAt) : p.verificationStatus === "VERIFIED" && Boolean(p.lastVerifiedAt))}
                     hasActiveAffiliate={affiliateLinks.has(p.slug)}
                     placement="crypto-exchange-browse"
                     className="w-full sm:flex-[1.25]"

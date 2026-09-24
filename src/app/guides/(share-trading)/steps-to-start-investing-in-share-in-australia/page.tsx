@@ -39,7 +39,7 @@ const IMAGE = getStaticGuideArticleImage(
 );
 const TITLE = "Steps to Start Investing in Shares in Australia";
 const DESCRIPTION =
-  "Ready to start investing in shares? Here's the full path — setting goals, choosing a broker, your first purchase, and building a habit — for Australian beginners.";
+  "A factual walkthrough of the decisions and mechanics involved in starting to invest in Australian shares, from account structures and orders to diversification and tax basics.";
 
 const HEADINGS = [
   {
@@ -54,7 +54,7 @@ const HEADINGS = [
   },
   {
     id: "choose-broker",
-    text: "Step 3: Choose a broker or micro-investing app",
+    text: "Step 3: Compare brokers and micro-investing services",
     level: 2 as const,
   },
   {
@@ -69,12 +69,12 @@ const HEADINGS = [
   },
   {
     id: "diversify",
-    text: "Step 6: Diversify instead of picking one stock",
+    text: "Step 6: Understand concentration and diversification",
     level: 2 as const,
   },
   {
     id: "regular-habit",
-    text: "Step 7: Build a regular investing habit",
+    text: "Step 7: Understand regular investing",
     level: 2 as const,
   },
   {
@@ -88,9 +88,9 @@ const WORD_COUNT = 1700;
 const READING_MINUTES = estimateReadingMinutesByWordCount(WORD_COUNT);
 
 const KEY_TAKEAWAYS = [
-  "Start with your goal and time horizon — that decides whether you want individual shares, ETFs, or both.",
-  "Decide between a full-service broker and a micro-investing app based on how much control (and how much hands-on management) you want.",
-  "Diversification and regular investing (dollar-cost averaging) are the two habits that matter most for beginners.",
+  "Time horizon and purpose are relevant factors when researching investment products, but they do not determine a universally suitable product.",
+  "Broker and micro-investing services differ in ownership structure, control, available products, fees and automation; compare those characteristics before opening an account.",
+  "Diversification can reduce concentration risk, while regular-investing strategies change purchase timing; neither removes market risk or guarantees better returns.",
   "Understand capital gains tax (CGT) basics before you start selling — the 12-month discount matters.",
   "This guide covers the investing journey; if you're ready to actually open an account, see our step-by-step account-opening guide.",
 ];
@@ -104,7 +104,7 @@ const FAQS = [
   {
     question: "Should I buy individual shares or ETFs as a beginner?",
     answer:
-      "ETFs offer instant diversification with less research required; individual shares offer more control but concentrate risk unless you hold several. Many beginners start with ETFs and add individual shares over time.",
+      "ETFs and individual shares have different diversification, control, cost and research characteristics. Neither is universally preferable; the differences should be understood before making a product decision.",
   },
   {
     question: "Do I have to pay tax on shares I haven't sold?",
@@ -212,31 +212,28 @@ export default function StepsToStartInvestingInSharesPage() {
                 once the initial purchase is made.
               </p>
               <p>
-                Neither approach is inherently &quot;better&quot; — they suit
-                different amounts of time, interest, and appetite for
-                researching individual companies. Many beginners start with the
-                lower-maintenance option and add individual shares later once
-                they&apos;re more comfortable with how the market behaves.
+                Neither approach is inherently &quot;better&quot;. They differ in
+                diversification, control, costs and the amount of research a
+                person may need to do. This guide describes those differences
+                rather than selecting an approach for the reader.
               </p>
 
               <h2 id="choose-broker">
-                Step 3: Choose a broker or micro-investing app
+                Step 3: Compare brokers and micro-investing services
               </h2>
               <p>
-                Full-service online brokers, like CommSec and CMC Invest, suit
-                investors who want direct share ownership and control over every
-                trade — you choose exactly what to buy, when, and at what price.
-                Micro-investing apps automate smaller, regular contributions
-                into a pooled portfolio instead, which is convenient but usually
-                comes with less individual-stock control and ongoing management
-                fees on top of any brokerage.
+                Full-service online brokers and micro-investing services can
+                differ in ownership structure, available investments, order
+                control, minimums, automation and fees. Some services let users
+                select individual securities and order conditions; others use
+                managed or pooled portfolios with different fee structures.
               </p>
               <p>
-                If you already know you want to hold specific companies
-                directly, a full-service broker is the more natural fit; if
-                you&apos;d rather automate small, regular contributions and
-                worry less about individual stock selection, a micro-investing
-                app may suit you better.
+                When comparing these services, check the ownership model,
+                available investments, brokerage or management fees, minimums,
+                automation features and transfer rules. Those factual differences
+                are more useful than treating either service type as universally
+                suitable.
               </p>
 
               <h2 id="open-fund">Step 4: Open and fund your account</h2>
@@ -254,13 +251,10 @@ export default function StepsToStartInvestingInSharesPage() {
 
               <h2 id="first-purchase">Step 5: Make your first purchase</h2>
               <p>
-                Start with an amount you&apos;re comfortable holding through a
-                downturn, not the maximum you can afford — the goal of a first
-                trade is to get comfortable with the mechanics, not to maximise
-                your initial position. Many beginners start with a broad ETF as
-                their first purchase, then add individual shares once
-                they&apos;re comfortable placing orders and watching prices
-                move.
+                A first purchase involves choosing an order type, quantity and
+                price conditions, then reviewing brokerage and settlement details
+                before submission. Trading Guide does not suggest an amount or
+                security; the purpose here is to explain the mechanics.
               </p>
 
               <GuideFigure caption="Spreading investment across companies and sectors reduces the impact of any single one underperforming.">
@@ -272,49 +266,44 @@ export default function StepsToStartInvestingInSharesPage() {
               </GuideFigure>
 
               <h2 id="diversify">
-                Step 6: Diversify instead of picking one stock
+                Step 6: Understand concentration and diversification
               </h2>
               <p>
-                Putting your entire balance into one company concentrates your
-                risk on that one company&apos;s fortunes — if it has a bad
-                quarter, cuts its dividend, or underperforms its sector, your
-                whole portfolio feels it. Spreading across sectors, or holding a
-                diversified ETF, smooths out those bumps without requiring you
-                to predict which individual company will perform best.
+                Holding a single company creates greater exposure to that
+                company&apos;s performance. Diversification spreads exposure across
+                multiple holdings or sectors and can reduce concentration risk,
+                but it does not prevent losses or guarantee smoother returns.
               </p>
 
-              <GuideFigure caption="Regular, smaller contributions over time (dollar-cost averaging) smooth out the effect of short-term price swings.">
+              <GuideFigure caption="Regular investing spreads purchase dates across time; it changes timing exposure but does not guarantee a lower average price or protect against losses.">
                 <GrowthTrendIllustration title="Regular contributions over time smoothing out short-term price swings" />
               </GuideFigure>
 
               <h2 id="regular-habit">
-                Step 7: Build a regular investing habit
+                Step 7: Understand regular investing
               </h2>
               <p>
-                Investing a fixed amount on a regular schedule — weekly,
-                fortnightly, or monthly — is known as{" "}
-                <strong>dollar-cost averaging</strong>. It removes the pressure
-                of trying to &quot;time&quot; the market, since you&apos;re
-                buying at whatever the price happens to be each time, and builds
-                a habit that compounds over years rather than depending on a
-                single well-timed lump sum.
+                Investing a fixed amount on a regular schedule is commonly called{" "}
+                <strong>dollar-cost averaging</strong>. It spreads purchases
+                across different dates and prices. It does not guarantee a lower
+                average purchase price, protect against falling markets, or make
+                regular investing preferable to a lump-sum approach.
               </p>
 
               <h2 id="tax-basics">Tax basics every new investor should know</h2>
               <p>
-                Selling shares for a profit triggers{" "}
-                <strong>capital gains tax (CGT)</strong>. Hold an asset for more
-                than 12 months before selling and individuals generally qualify
-                for a 50% CGT discount on the gain, which makes holding period a
-                genuinely important decision, not just a technicality.
+                Selling or otherwise disposing of shares can create a capital
+                gains tax (CGT) event. Australian resident individuals may be
+                eligible for the CGT discount when the relevant conditions are
+                met, including generally holding the asset for at least 12
+                months. Tax outcomes depend on individual circumstances.
               </p>
               <p>
-                Franked dividends also carry franking credits, which can reduce
-                your overall tax bill because the company has already paid tax
-                on that portion of its profit. Both of these are worth
-                understanding before you start actively trading, not after
-                you&apos;ve already triggered a tax event you weren&apos;t
-                expecting.
+                Franked dividends may include franking credits reflecting tax
+                already paid by the company. How those credits and any capital
+                gains affect a person&apos;s tax position depends on their
+                circumstances. Keep transaction and income records and use ATO
+                guidance or professional tax advice where needed.
               </p>
             </div>
 

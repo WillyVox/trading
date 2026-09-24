@@ -27,7 +27,7 @@ export type StaticGuideSummary = {
 export const STATIC_GUIDES = [
   {
     slug: STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES,
-    title: "Cryptocurrency Exchanges in Australia: What to Compare in 2026",
+    title: "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences",
     excerpt:
       "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.",
     category: "crypto-exchanges",
@@ -45,7 +45,7 @@ export const STATIC_GUIDES = [
     slug: STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO,
     title: "5 Simple Steps to Buy Cryptocurrency (Beginner's Guide)",
     excerpt:
-      "A clear, 5-step walkthrough for buying your first cryptocurrency in Australia — choosing an exchange, verifying your identity, funding your account, buying, and storing it safely.",
+      "A factual 5-step walkthrough of how a cryptocurrency purchase can work in Australia — exchange research, identity checks, funding, orders and custody choices.",
     category: "getting-started",
     featuredImage: getStaticGuideArticleImage(
       STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
@@ -109,7 +109,7 @@ export const STATIC_GUIDES = [
     slug: STATIC_SLUG_IDS.STEPS_TO_START_INVESTING_IN_SHARES,
     title: "Steps to Start Investing in Shares in Australia",
     excerpt:
-      "The full path to investing in Australian shares — setting your goal, choosing a broker, making your first purchase, diversifying, and building a regular investing habit.",
+      "A factual walkthrough of the decisions and mechanics involved in starting to invest in Australian shares, including accounts, orders, diversification and tax basics.",
     category: "share-trading",
     featuredImage: getStaticGuideArticleImage(
       STATIC_SLUG_IDS.STEPS_TO_START_INVESTING_IN_SHARES

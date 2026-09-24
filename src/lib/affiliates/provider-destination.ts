@@ -9,20 +9,22 @@ export type ProviderDestination = {
 /**
  * Resolve a provider's outbound destination without coupling UI components to
  * commercial state. An active affiliate relationship changes the route and
- * disclosure semantics; it never decides whether a provider is linkable.
+ * disclosure semantics; it never decides whether a provider is useful to readers.
  *
- * Official websites are the non-commercial fallback. If neither an active
- * affiliate relationship nor a verified/stored official website exists, we
- * fail closed and render no outbound CTA rather than guessing a URL.
+ * Official websites are only eligible when the record carrying that website has
+ * been verified and has a verification date. A syntactically valid URL alone is
+ * not enough for Trading Guide to label it an "official" destination.
  */
 export function resolveProviderDestination({
   providerSlug,
   officialWebsite,
+  officialWebsiteVerified = false,
   hasActiveAffiliate,
   placement,
 }: {
   providerSlug: string;
   officialWebsite?: string | null;
+  officialWebsiteVerified?: boolean;
   hasActiveAffiliate: boolean;
   placement: string;
 }): ProviderDestination | null {
@@ -36,8 +38,10 @@ export function resolveProviderDestination({
     };
   }
 
+  if (!officialWebsiteVerified) return null;
   const href = officialWebsite?.trim();
   if (!href) return null;
+
   try {
     const url = new URL(href);
     if (url.protocol !== "https:" && url.protocol !== "http:") return null;

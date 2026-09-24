@@ -15,7 +15,8 @@ export const metadata = buildMetadata({
 });
 
 /**
- * Content status: DRAFT, not legal-reviewed -- see docs/CONTENT-GAPS.md
+ * Content status: EDITORIALLY REVIEWED for implementation accuracy (2026-09-24).
+ * This records internal product/editorial review, not external legal advice.
  * "Editorial Policy page". Every standard below is checked directly against
  * src/lib/articles/editorial-checklist.ts, the admin checklist every
  * article is actually scored against before publishing:

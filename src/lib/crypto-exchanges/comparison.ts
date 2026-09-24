@@ -30,6 +30,7 @@ export type CryptoComparisonEntry = {
   verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
   logo: string | null;
   website: string | null;
+  officialWebsiteVerified: boolean;
   facts: { label: string; value: string }[];
   fees: { label: string; displayValue: string | null }[];
   features: {
@@ -68,6 +69,7 @@ export function toCompareSubjects(
     const destination = resolveProviderDestination({
       providerSlug: p.slug,
       officialWebsite: p.website,
+      officialWebsiteVerified: p.officialWebsiteVerified,
       hasActiveAffiliate: Boolean(affiliateLink),
       placement: "compare",
     });
@@ -189,6 +191,9 @@ export async function getCryptoExchangeComparison(publicSlugs: string[]) {
     verificationStatus: offering.verificationStatus,
     logo: offering.logo ?? offering.provider.logo,
     website: offering.website ?? offering.provider.website,
+    officialWebsiteVerified: offering.website
+      ? offering.verificationStatus === "VERIFIED" && Boolean(offering.lastVerifiedAt)
+      : offering.provider.verificationStatus === "VERIFIED" && Boolean(offering.provider.lastVerifiedAt),
     facts: offering.provider.facts,
     fees: offering.fees.map((fee) => ({
       label: fee.label,

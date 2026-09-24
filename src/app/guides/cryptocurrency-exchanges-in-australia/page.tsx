@@ -28,7 +28,7 @@ const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(
   STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
 );
 
-const TITLE = "Cryptocurrency Exchanges in Australia: What to Compare in 2026";
+const TITLE = "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences";
 const DESCRIPTION =
   "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.";
 
@@ -155,7 +155,7 @@ const SOURCES = [
 ];
 
 export const metadata = buildMetadata({
-  title: "Cryptocurrency Exchanges in Australia: Compare Options (2026)",
+  title: "Cryptocurrency Exchanges in Australia: Fees, Features & Key Differences",
   description: DESCRIPTION,
   path: PATH,
   image: getStaticGuideArticleImage(STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES),
@@ -196,7 +196,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
       <PageHero
         breadcrumbs={trail}
         eyebrow="Guides · Crypto exchanges"
-        title="Cryptocurrency exchanges in Australia: what beginners should compare"
+        title="Cryptocurrency exchanges in Australia: fees, features and key differences"
         subheading="Australian crypto exchanges differ in fees, AUD funding, available assets, trading tools and security features. This guide explains the differences and the checks to make before opening an account."
         meta={metaItems}
         graphic="crypto"

@@ -65,7 +65,7 @@ const HEADINGS = [
   },
   {
     id: "dollar-cost-averaging",
-    text: "Dollar-cost averaging: a common beginner strategy",
+    text: "Dollar-cost averaging: how the strategy works",
     level: 2 as const,
   },
   {
@@ -248,12 +248,12 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 commitments.
               </p>
 
-              <GuideFigure caption="A long time horizon and modest, regular contributions are a common way beginners manage crypto's volatility — not a guarantee against loss.">
+              <GuideFigure caption="Regular contributions spread purchase dates across time, but they do not remove crypto volatility or guarantee a better outcome.">
                 <GrowthTrendIllustration title="Illustrative effect of investing gradually over time rather than all at once" />
               </GuideFigure>
 
               <h2 id="dollar-cost-averaging">
-                Dollar-cost averaging: a common beginner strategy
+                Dollar-cost averaging: how the strategy works
               </h2>
               <p>
                 Rather than investing a lump sum at once,{" "}

@@ -222,6 +222,7 @@ export default async function ShareTradingOfferingPage({
           <VisitSite
             providerSlug={offering.provider.slug}
             officialWebsite={offering.website}
+            officialWebsiteVerified={offering.verificationStatus === "VERIFIED" && Boolean(offering.lastVerifiedAt)}
             hasActiveAffiliate={hasActiveAffiliate}
             placement="share-trading-profile"
             className="w-full shrink-0 sm:w-auto"

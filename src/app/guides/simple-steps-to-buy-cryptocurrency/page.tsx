@@ -40,13 +40,13 @@ const RELATED_PATH_SHARE_TRADING_FOR_BEGINNERS = getStaticGuideArticleHref(
 
 const TITLE = "5 Simple Steps to Buy Cryptocurrency (Beginner's Guide)";
 const DESCRIPTION =
-  "A clear, 5-step walkthrough for buying your first cryptocurrency in Australia — choosing an exchange, verifying your identity, funding your account, buying, and storing it safely.";
+  "A factual 5-step walkthrough of how a cryptocurrency purchase can work in Australia — researching an exchange, identity checks, funding, orders and custody choices.";
 
 const HEADINGS = [
   { id: "before-you-start", text: "Before you start", level: 2 as const },
   {
     id: "step-1",
-    text: "Step 1: Choose a regulated exchange",
+    text: "Step 1: Research an exchange",
     level: 2 as const,
   },
   {
@@ -74,8 +74,8 @@ const READING_MINUTES = estimateReadingMinutesByWordCount(WORD_COUNT);
 
 const STEPS = [
   {
-    name: "Choose a regulated exchange",
-    text: "Compare Australian crypto exchanges on fees, the coins they list, and how they handle account security, then pick one that suits how you plan to use it.",
+    name: "Research an exchange",
+    text: "Compare factual differences such as fees, supported assets, funding methods, custody, security controls and AUSTRAC registration. Registration is an AML/CTF check, not an endorsement or investment-quality rating.",
   },
   {
     name: "Create and verify your account",
@@ -91,16 +91,16 @@ const STEPS = [
   },
   {
     name: "Secure your crypto",
-    text: "Decide whether to leave a small amount on the exchange for convenience, or move it to a personal wallet you control for longer-term holding.",
+    text: "Understand the difference between custodial exchange storage and self-custody. Each changes who controls the private keys and who is responsible for security and recovery.",
   },
 ];
 
 const KEY_TAKEAWAYS = [
   "Buying crypto in Australia takes five practical steps: pick an exchange, verify your identity, deposit funds, place your order, then secure the asset.",
-  "Identity verification (KYC) is a legal requirement on regulated exchanges, not a red flag — expect to provide a driver's licence or passport.",
+  "Australian virtual-asset service providers may have customer-identification obligations under AML/CTF rules; the exact checks depend on the service and circumstances.",
   "A market order buys instantly at the current price; a limit order only executes at the price you choose.",
   "Exchange fees, deposit fees, and the bid-ask spread all affect what you actually pay — compare the total cost, not just the headline trading fee.",
-  "Crypto held on an exchange is convenient but relies on that exchange's security; a personal wallet gives you direct control of your private keys.",
+  "Custodial exchange storage and self-custody have different control, security and recovery trade-offs; neither removes the underlying risks of crypto assets.",
 ];
 
 const FAQS = [
@@ -112,7 +112,7 @@ const FAQS = [
   {
     question: "Do I need a separate wallet to buy crypto?",
     answer:
-      "No — every exchange gives you a built-in wallet as part of your account, which is fine for small amounts or active trading. A separate personal wallet (hardware or software) becomes more important as your holdings grow, since it puts you in control of the private keys rather than relying on the exchange.",
+      "Not necessarily. Some services provide custodial storage, while self-custody wallets put control of the private keys with the user. The two models have different security, recovery and operational risks; this guide explains those differences rather than recommending one based on portfolio size.",
   },
   {
     question: "What's the minimum amount of crypto I can buy?",
@@ -120,9 +120,9 @@ const FAQS = [
       "Most Australian exchanges let you buy fractions of a coin, often starting from as little as $10–$20, so you don't need to buy a whole Bitcoin or Ethereum to get started.",
   },
   {
-    question: "Is it safe to buy crypto on an Australian exchange?",
+    question: "What does AUSTRAC registration tell me about an Australian crypto exchange?",
     answer:
-      "Using a regulated, AUSTRAC-registered exchange with strong account security (two-factor authentication, withdrawal whitelisting) reduces — but doesn't eliminate — risk. Crypto assets themselves remain volatile and are not covered by the same investor protections as bank deposits or ASX-listed shares.",
+      "AUSTRAC registration is part of Australia's AML/CTF framework. It is a useful factual check, but it is not ASIC approval of the provider or crypto asset, an investment-quality score, or a guarantee against loss. Financial-services protections depend on the particular product or service.",
   },
 ];
 
@@ -216,14 +216,14 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                 <StepsFlowIllustration title="Five steps to buy cryptocurrency: choose an exchange, verify, deposit, buy, secure" />
               </GuideFigure>
 
-              <h2 id="step-1">Step 1: Choose a regulated exchange</h2>
+              <h2 id="step-1">Step 1: Research an exchange</h2>
               <p>
-                Start by comparing exchanges that operate in Australia and are
-                registered with <strong>AUSTRAC</strong> (the financial crimes
-                regulator). Look at the coins each one lists, its trading and
-                withdrawal fees, its deposit methods, and how it explains its
-                security practices — two-factor authentication and cold storage
-                of customer funds are good signs. Our{" "}
+                Start by comparing factual information about exchanges available
+                in Australia: fees, supported assets, funding methods, custody,
+                security controls and whether AUSTRAC registration is required and
+                recorded. AUSTRAC registration relates to AML/CTF obligations; it
+                is not an endorsement of the provider or the crypto assets it
+                lists. Our{" "}
                 <Link href="/compare/crypto-exchanges">
                   crypto exchange comparison
                 </Link>{" "}
@@ -238,7 +238,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                 or &quot;know your customer&quot;). This usually means uploading
                 a photo of your driver&apos;s licence or passport and taking a
                 quick selfie. It&apos;s a standard legal requirement for every
-                regulated exchange, not something specific to the platform
+                service where the relevant AML/CTF obligations apply, not necessarily something specific to the platform
                 you&apos;ve chosen.
               </p>
 
@@ -287,17 +287,17 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
 
               <h2 id="step-5">Step 5: Secure your crypto</h2>
               <p>
-                After the purchase, decide where to keep it. Leaving it on the
-                exchange is convenient if you plan to trade again soon, but it
-                means trusting the exchange&apos;s security. Moving it to a
-                personal wallet — a software wallet on your phone or computer,
-                or a hardware wallet for larger amounts — puts you in direct
-                control of the private keys, with the added responsibility of
-                keeping them safe yourself.
+                After a purchase, crypto may remain in custodial storage provided
+                by a service or be transferred to a self-custody wallet. In a
+                custodial model, the service controls the private keys. With
+                self-custody, the user controls the keys and also takes on the
+                responsibility for protecting and recovering them. These are
+                different risk models rather than a simple safer-versus-less-safe
+                choice.
               </p>
 
-              <GuideFigure caption="A hardware or software wallet you control puts you in charge of your private keys, rather than relying solely on the exchange.">
-                <SecurityShieldIllustration title="Securing cryptocurrency with a personal wallet" />
+              <GuideFigure caption="Custodial and self-custody models place control of private keys and recovery responsibility with different parties.">
+                <SecurityShieldIllustration title="Comparing custodial and self-custody responsibility" />
               </GuideFigure>
 
               <h2 id="fees-to-expect">Fees to expect</h2>

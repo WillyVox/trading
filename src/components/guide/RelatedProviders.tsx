@@ -10,6 +10,7 @@ type GuideProvider = {
   name: string;
   description: string | null;
   verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
+  lastVerifiedAt: Date | null;
   activeLink: boolean;
   website: string | null;
 };
@@ -18,9 +19,10 @@ type GuideProvider = {
  * "Providers mentioned in this guide" — deliberately not "Best" or
  * "Recommended for you" (see Guide spec §11): those labels require a
  * defensible editorial methodology this component has no way to verify.
- * An affiliate CTA only renders when providers.activeLink is true, which
- * the caller must have derived from a real ACTIVE AffiliateLink lookup —
- * never fabricated here.
+ * Outbound navigation is independent of commercial status: an active
+ * affiliate relationship uses the tracked route, otherwise a verified
+ * official website may be used. The caller derives activeLink from a real
+ * ACTIVE AffiliateLink lookup — never fabricated here.
  */
 export function RelatedProviders({
   providers,
@@ -61,6 +63,7 @@ export function RelatedProviders({
               <VisitSite
                 providerSlug={p.slug}
                 officialWebsite={p.website}
+                officialWebsiteVerified={p.verificationStatus === "VERIFIED" && Boolean(p.lastVerifiedAt)}
                 hasActiveAffiliate={p.activeLink}
                 placement="guide-related-provider"
                 className="flex-[1.25]"

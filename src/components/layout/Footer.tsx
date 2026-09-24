@@ -79,7 +79,7 @@ export function Footer() {
           from any provider we cover. We may introduce affiliate partnerships in
           the future — if we do, any affiliate link will be clearly disclosed,
           and commercial relationships will never determine how providers are
-          included, ranked, or ordered. Read our{" "}
+          included, evaluated, or ordered. Read our{" "}
           <Link href="/how-we-get-paid" className="text-gold-soft underline">
             how we get paid
           </Link>{" "}

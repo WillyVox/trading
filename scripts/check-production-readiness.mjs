@@ -54,6 +54,32 @@ if (process.env.LEGAL_CONTENT_APPROVED === "true" && legalMarkersRemain) {
   );
 }
 
+let trustMarkersRemain = false;
+for (const [path, label] of [
+  ["src/app/methodology/editorial-policy/page.tsx", "Editorial Policy"],
+  ["src/app/methodology/comparisons/page.tsx", "Comparison Methodology"],
+  ["src/app/affiliate-disclosure/page.tsx", "Affiliate Disclosure"],
+]) {
+  if (!existsSync(path)) errors.push(`${label} page is missing.`);
+  else {
+    const text = readFileSync(path, "utf8");
+    if (/Content status:\s*DRAFT|not legal-reviewed|needs? sign-off before.*production/i.test(text)) {
+      trustMarkersRemain = true;
+      errors.push(`${label} still contains unresolved draft/approval markers.`);
+    }
+  }
+}
+if (process.env.TRUST_CONTENT_APPROVED !== "true") {
+  errors.push(
+    "TRUST_CONTENT_APPROVED=true is required after the Editorial Policy, Comparison Methodology and Affiliate Disclosure have been reconciled with the production implementation and internally approved."
+  );
+}
+if (process.env.TRUST_CONTENT_APPROVED === "true" && trustMarkersRemain) {
+  errors.push(
+    "TRUST_CONTENT_APPROVED=true conflicts with unresolved draft/approval markers in trust pages."
+  );
+}
+
 if (process.env.EDGE_RATE_LIMITING_CONFIGURED !== "true") {
   errors.push(
     "EDGE_RATE_LIMITING_CONFIGURED=true is required after deploying and verifying the host/WAF rules in docs/EDGE-RATE-LIMITING.md."

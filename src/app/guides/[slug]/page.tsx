@@ -170,6 +170,7 @@ export default async function GuidePage({
         description: string | null;
         website: string | null;
         verificationStatus: string;
+        lastVerifiedAt: Date | null;
       };
     }) => ({
       id: ap.provider.id,
@@ -178,6 +179,7 @@ export default async function GuidePage({
       description: ap.provider.description,
       website: ap.provider.website,
       verificationStatus: ap.provider.verificationStatus,
+      lastVerifiedAt: ap.provider.lastVerifiedAt,
       activeLink: activeLinks.has(ap.provider.slug),
     })
   );

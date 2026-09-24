@@ -15,8 +15,8 @@ export const metadata = buildMetadata({
 });
 
 /**
- * Content status: DRAFT, not legal-reviewed -- see docs/CONTENT-GAPS.md
- * "Comparison Methodology page". Every claim below is checked directly
+ * Content status: EDITORIALLY REVIEWED for implementation accuracy (2026-09-24).
+ * This is an internal product/editorial approval, not a representation that external legal advice was obtained. Every implementation claim below is checked directly
  * against src/lib/crypto-exchanges/comparison.ts and service.ts:
  *  - Comparison tables are generated live from Provider facts/fees/features
  *    (getProvidersBySlugs), never a separately-maintained copy.

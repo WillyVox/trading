@@ -11,7 +11,7 @@ import { providerOfferingRepository } from "@/lib/repository";
  */
 
 const OFFERING_LIST_INCLUDE = {
-  provider: { select: { id: true, name: true, slug: true } },
+  provider: { select: { id: true, name: true, slug: true, verificationStatus: true, lastVerifiedAt: true } },
   // Widened from a provider-only include so the list page's row cards can
   // show market/product/custody/account-type chips without a second query
   // per offering. Mirrors OFFERING_DETAIL_INCLUDE below; kept as a
@@ -62,7 +62,7 @@ export function getShareTradingPlatforms(
 }
 
 const OFFERING_DETAIL_INCLUDE = {
-  provider: { select: { id: true, name: true, slug: true } },
+  provider: { select: { id: true, name: true, slug: true, verificationStatus: true, lastVerifiedAt: true } },
   markets: {
     include: { market: true },
     orderBy: { market: { name: "asc" as const } },

@@ -16,17 +16,15 @@ export const metadata = buildMetadata({
 });
 
 /**
- * Content status: DRAFT, not legal-reviewed. Rewritten 2026-09-14 to match
- * what the codebase actually does today (see docs/CONTENT-GAPS.md
- * "Affiliate Disclosure page" for the specific claims that still need
- * sign-off before this is production-final):
- *  - Every AffiliateLink in the seed data is active: false with
- *    commissionType NONE and partnershipStatus PROSPECT (see
- *    prisma/seeds/affiliate-links/*.ts and prisma/seeds/lib/
- *    seed-affiliate-links.ts, which now guards against a PROSPECT
- *    partnership ever being seeded active: true) -- there is no live
- *    commercial relationship with any provider yet, so this page describes
- *    affiliate links as a planned future model, not a current one.
+ * Content status: EDITORIALLY REVIEWED for implementation accuracy (2026-09-24).
+ * This is an internal product/editorial approval, not a representation that external legal advice was obtained. Reconciled with what the codebase actually does today (see docs/CONTENT-GAPS.md
+ * "Affiliate Disclosure page" for the implementation checks):
+ *  - Every seeded AffiliateLink is currently active: false and PROSPECT.
+ *    Some prospect records may store publicly researched program mechanics,
+ *    but they are not treated as agreed Trading Guide commercial terms.
+ *    prisma/seeds/lib/seed-affiliate-links.ts guards against a PROSPECT
+ *    partnership being seeded active: true, so there is no live commercial
+ *    relationship with any provider yet.
  *  - "alphabetical, not commercially weighted" -- verified true today
  *    against src/lib/providers/service.ts (orderBy: { name: "asc" }) and
  *    src/lib/crypto-exchanges/comparison.ts (no scoring/weighting logic exists). If
@@ -51,7 +49,7 @@ const SECTIONS = [
   },
   {
     title: "Zero cost to you",
-    body: "Clicking our links will never increase your price or alter the terms offered by the provider, now or once partnerships are active. Always check the provider's own fee schedule before signing up, since fees and offers can change.",
+    body: "Trading Guide does not add a fee to a provider's product when you use an outbound link. Providers control their own prices, eligibility rules, offers and terms, which can change, so check the provider's current information before taking action.",
   },
   {
     title: "Commercial independence",

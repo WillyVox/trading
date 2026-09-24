@@ -146,6 +146,7 @@ export function ShareTradingPlatformListCard({
         <VisitSite
           providerSlug={offering.provider.slug}
           officialWebsite={offering.website}
+          officialWebsiteVerified={offering.verificationStatus === "VERIFIED" && Boolean(offering.lastVerifiedAt)}
           hasActiveAffiliate={hasActiveAffiliate}
           placement="share-trading-browse"
           className="w-full md:w-auto"
