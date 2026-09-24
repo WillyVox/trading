@@ -1,362 +1,460 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { PageHero } from "@/components/layout/PageHero";
-import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { NavIcon, type NavIconName } from "@/components/layout/NavIcon";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { formatFeatureLabel } from "@/lib/crypto-exchanges/features";
-import { getFeaturedCryptoExchanges } from "@/lib/crypto-exchanges/service";
-import {
-  getFeaturedShareTradingPlatforms,
-  type FeaturedShareTradingPlatform,
-} from "@/lib/share-trading/service";
-import { formatProductType } from "@/lib/share-trading/labels";
-import type { FeaturedCryptoExchange } from "@/lib/crypto-exchanges/service";
-import {
-  DataUnavailable,
-  DataUnavailableBanner,
-} from "@/components/data/DataUnavailable";
-import { publicDatabaseRead } from "@/lib/data/public-read";
 
 export const metadata = buildMetadata({
-  title:
-    "Trading Guide \u2014 Independent Research for Cryptocurrencies and Trading Platforms in Australia",
+  title: "Learn Share Trading & Crypto in Australia | Trading Guide",
   description:
-    "Independent, source-linked research and comparisons for share trading and cryptocurrency platforms in Australia \u2014 verified facts and transparent fees.",
+    "Learn how share trading and cryptocurrency work in Australia with beginner guides, transparent calculators, worked examples and source-linked research.",
   path: "/",
 });
 
-// Icon replaces the old plain numeral circle (see homepage redesign
-// proposal, "Three/four steps" — Option A): the numeral becomes a small
-// corner badge instead, and the icon is the primary visual cue. Reuses the
-// exact NavIcon set already defined for the header mega-menu rather than
-// introducing a second icon language.
-const howItWorksSteps: {
-  number: string;
+type LearningStep = {
+  label: string;
+  description?: string;
   href: string;
+};
+
+type LearningPath = {
+  eyebrow: string;
   title: string;
   description: string;
-  icon: NavIconName;
-}[] = [
+  steps: LearningStep[];
+};
+
+const learningPaths: LearningPath[] = [
   {
-    number: "1",
-    href: "/guides",
-    title: "Learn the basics",
+    eyebrow: "SHARE TRADING",
+    title: "Learn share trading from the ground up",
     description:
-      "Start with beginner guides on share trading and crypto — no jargon, no assumed experience.",
-    icon: "book",
+      "Build the foundations first, then learn how costs, ownership and platform research fit together.",
+    steps: [
+      {
+        label: "Start from zero",
+        description:
+          "Shares, trading, brokers and the basics of getting started.",
+        href: "/guides/share-trading",
+      },
+      {
+        label: "Understand trading costs",
+        href: "/guides/trading-costs-explained",
+      },
+      {
+        label: "Learn CHESS, HIN and custody",
+        href: "/guides/chess-vs-custody",
+      },
+      {
+        label: "Try the brokerage calculators",
+        href: "/tools/brokerage-calculator",
+      },
+      {
+        label: "Research share trading platforms",
+        href: "/share-trading",
+      },
+    ],
   },
   {
-    number: "2",
-    href: "/providers",
-    title: "Research the providers",
+    eyebrow: "CRYPTO",
+    title: "Learn cryptocurrency without the hype",
     description:
-      "Read structured, source-linked profiles — fees, features, and provenance for each one.",
-    icon: "grid",
-  },
-  {
-    number: "3",
-    href: "/compare",
-    title: "Compare side by side",
-    description:
-      "See providers against each other on the same facts before you choose one.",
-    icon: "scale",
-  },
-  {
-    number: "4",
-    href: "/tools",
-    title: "Check the real cost",
-    description:
-      "Run our calculators — brokerage, FX and ongoing fees — before you commit.",
-    icon: "calc",
+      "Understand exchanges, funding, custody and fees before you start researching individual providers.",
+    steps: [
+      {
+        label: "Start from zero",
+        description:
+          "Crypto basics, exchanges and a beginner-friendly starting point.",
+        href: "/guides/crypto",
+      },
+      {
+        label: "Understand crypto exchanges",
+        href: "/guides/how-to-start-investing-in-crypto-for-beginners",
+      },
+      {
+        label: "Learn funding and withdrawals",
+        href: "/guides/crypto-exchange-funding-australia",
+      },
+      {
+        label: "Understand crypto fees",
+        href: "/guides/crypto-exchange-fees-australia",
+      },
+      {
+        label: "Research crypto exchanges",
+        href: "/crypto/exchanges",
+      },
+    ],
   },
 ];
 
-// Card 1 and 2 now cover both verticals (see homepage redesign proposal,
-// "Provider profiles" — Option A): copy is generalized and each card gets
-// two sub-links instead of one card-wide href, mirroring the pattern the
-// header&lsquo;s "Compares" mega-menu already uses for the same crypto/share
-// trading split. Card 3 (guides) is vertical-agnostic already, so it&lsquo;s
-// unchanged and keeps its single implicit link.
-const researchStandardLinks = [
+const tools: {
+  title: string;
+  description: string;
+  href: string;
+  icon: NavIconName;
+}[] = [
   {
-    tagLabel: "PROVIDERS",
-    tagClassName: "border-blue/30 bg-blue/10 text-blue",
-    title: "Provider profiles",
+    title: "Brokerage cost",
     description:
-      "Structured facts, fees, and sources for every crypto exchange and share trading platform we cover.",
-    links: [
-      { label: "Crypto exchanges", href: "/crypto/exchanges" },
-      { label: "Share trading", href: "/share-trading" },
-    ],
+      "Estimate brokerage for a hypothetical Australian share-trading pattern.",
+    href: "/tools/brokerage-calculator",
+    icon: "calc",
   },
   {
-    tagLabel: "COMPARE",
-    tagClassName: "border-green/30 bg-green/10 text-green",
-    title: "Side-by-side comparisons",
+    title: "FX fees",
     description:
-      "Generated live from the same provider dataset — for exchanges and platforms alike.",
-    links: [
-      { label: "Compare exchanges", href: "/compare/crypto-exchanges" },
-      { label: "Compare platforms", href: "/compare/trading-platforms" },
-    ],
+      "Explore how currency conversion can affect an international trade.",
+    href: "/tools/fx-fee-calculator",
+    icon: "fx",
   },
   {
-    tagLabel: "GUIDES",
-    tagClassName: "border-blue/30 bg-blue/10 text-blue",
-    title: "Guides & news",
+    title: "Regular investing",
     description:
-      "Editorial content, kept structurally separate from affiliate data.",
-    links: [],
+      "Estimate repeated brokerage for a regular investing scenario.",
+    href: "/tools/regular-investing-calculator",
+    icon: "repeat",
   },
-] as const;
+  {
+    title: "Crypto costs",
+    description:
+      "Explore trading, funding and withdrawal costs for crypto scenarios.",
+    href: "/tools/crypto-cost-calculator",
+    icon: "coin",
+  },
+];
 
-/** Shared card shape for both featured-provider sections below (crypto
- *  exchanges and share trading platforms) — same layout, different data
- *  source per section. See homepage redesign proposal, "Featured
- *  providers" — Option A (two stacked static sections, not a client-side
- *  tab toggle, to keep the homepage fully server-rendered). */
-function FeaturedProviderCard({
-  logo,
-  name,
-  description,
-  chips,
-  profileHref,
-}: {
-  logo: string | null;
-  name: string;
-  description: string | null;
-  chips: string[];
-  profileHref: string;
-}) {
-  return (
-    <Card className="h-full">
-      <div className="flex items-center gap-3">
-        <ProviderLogo logo={logo} name={name} size="sm" />
-        <div className="font-display text-navy text-lg font-bold">{name}</div>
-      </div>
-      <div className="mt-3">
-        <Badge tone="green">Verified</Badge>
-      </div>
-      {description && <p className="text-muted mt-3 text-sm">{description}</p>}
-      {chips.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {chips.map((chip) => (
-            <span
-              key={chip}
-              className="bg-panel-secondary text-navy rounded-full px-2 py-0.5 text-xs"
-            >
-              {chip}
-            </span>
-          ))}
-        </div>
-      )}
-      <Link
-        href={profileHref}
-        className="border-border text-blue focus-visible:ring-gold-soft mt-3 inline-block rounded border-t pt-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-      >
-        View profile →
-      </Link>
-    </Card>
-  );
-}
+const popularLearning = [
+  {
+    tag: "SHARE TRADING",
+    title: "Share trading for beginners",
+    description:
+      "Learn the basic concepts, terminology and steps before researching a trading platform.",
+    href: "/guides/share-trading-for-beginners",
+  },
+  {
+    tag: "COSTS",
+    title: "Brokerage fees in Australia",
+    description:
+      "Understand common brokerage pricing models and why trading frequency and size matter.",
+    href: "/guides/brokerage-fees-australia",
+  },
+  {
+    tag: "OWNERSHIP",
+    title: "CHESS vs custody",
+    description:
+      "Understand two common ways Australian investors may hold shares and what to research.",
+    href: "/guides/chess-vs-custody",
+  },
+  {
+    tag: "CRYPTO BASICS",
+    title: "How crypto exchange fees work",
+    description:
+      "Learn about trading fees, spreads, funding and withdrawal costs before comparing exchanges.",
+    href: "/guides/crypto-exchange-fees-australia",
+  },
+];
 
-function FeaturedCryptoCard({
-  offering,
-}: {
-  offering: FeaturedCryptoExchange;
-}) {
-  const provider = offering.provider;
-  return (
-    <FeaturedProviderCard
-      logo={provider.logo}
-      name={provider.name}
-      description={offering.description ?? provider.description}
-      chips={offering.features.map((feature) =>
-        formatFeatureLabel(feature.featureType, feature.label)
-      )}
-      profileHref={`/crypto/exchanges/${provider.slug}`}
-    />
-  );
-}
-
-function FeaturedShareTradingCard({
-  offering,
-}: {
-  offering: FeaturedShareTradingPlatform;
-}) {
-  const provider = offering.provider;
-  return (
-    <FeaturedProviderCard
-      logo={provider.logo}
-      name={provider.name}
-      description={offering.description ?? provider.description}
-      chips={offering.products.map((product) =>
-        formatProductType(product.productType)
-      )}
-      profileHref={`/share-trading/${offering.slug}`}
-    />
-  );
-}
-
-export default async function HomePage() {
-  const featuredResult = await publicDatabaseRead(
-    "homepage.featuredProviders",
-    async () => {
-      const [featuredCrypto, featuredShareTrading] = await Promise.all([
-        getFeaturedCryptoExchanges(3),
-        getFeaturedShareTradingPlatforms(3),
-      ]);
-      return { featuredCrypto, featuredShareTrading };
-    }
-  );
-  const featuredCrypto = featuredResult.ok
-    ? featuredResult.data.featuredCrypto
-    : [];
-  const featuredShareTrading = featuredResult.ok
-    ? featuredResult.data.featuredShareTrading
-    : [];
-
+export default function HomePage() {
   return (
     <>
       <PageHero
-        eyebrow="Independent trading research · Australia"
+        eyebrow="Independent trading education · Australia"
         title="Understand trading before you start investing."
-        subheading="Beginner-friendly guides and source-linked research for share trading and cryptocurrency in Australia — verified facts and transparent fees."
+        subheading="Learn how share trading and cryptocurrency work, understand the costs and risks, then use source-linked research when you&lsquo;re ready to investigate platforms."
         ctas={[
+          { label: "Start learning", href: "/guides", variant: "gold" },
           {
-            label: "Explore crypto exchanges",
-            href: "/crypto/exchanges",
-            variant: "gold",
-          },
-          {
-            label: "Explore share trading platforms",
-            href: "/share-trading",
+            label: "Explore research tools",
+            href: "/tools",
             variant: "outline-soft",
           },
         ]}
-        note={{ label: "or read our methodology →", href: "/methodology" }}
+        note={{
+          label: "Compare platforms when you&lsquo;re ready →",
+          href: "/compare",
+        }}
         meta={[
-          "Source-linked facts",
-          "Independent editorial",
-          "Direct provider comparisons",
+          "Beginner-friendly guides",
+          "Transparent calculators",
+          "Source-linked research",
         ]}
         graphic="home"
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <Eyebrow>Research standard</Eyebrow>
-        <h2 className="font-display text-navy mt-4 text-3xl font-bold">
-          Facts carry provenance.
-        </h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {researchStandardLinks.map((item) => (
-            <Card className="h-full transition-colors" key={item.title}>
-              <span
-                className={`mb-3 inline-block rounded-full border px-2.5 py-0.5 text-xs font-medium ${item.tagClassName}`}
-              >
-                {item.tagLabel}
-              </span>
-              <div className="font-display text-navy text-xl font-bold">
-                {item.title}
-              </div>
-              <p className="text-muted mt-1 text-sm">{item.description}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
+      <main>
+        <section className="mx-auto max-w-6xl px-4 py-14 md:py-16">
+          <Eyebrow>Choose your learning path</Eyebrow>
+          <h2 className="font-display text-navy mt-4 max-w-3xl text-3xl font-bold md:text-4xl">
+            Start with what you want to understand.
+          </h2>
+          <p className="text-muted mt-3 max-w-2xl text-base leading-7">
+            No assumed experience. Follow a path in order or jump directly to
+            the topic you need.
+          </p>
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <Eyebrow>How this site works</Eyebrow>
-        <h2 className="font-display text-navy mt-4 text-3xl font-bold">
-          Four steps to figuring out a trading strategy
-        </h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {howItWorksSteps.map((step) => (
-            <Link
-              key={step.href}
-              href={step.href}
-              className="focus-visible:ring-gold-soft block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            >
-              <Card className="hover:border-gold-soft h-full transition-colors">
-                <div className="relative mb-3 inline-flex">
-                  <NavIcon name={step.icon} />
-                  <span
-                    aria-hidden="true"
-                    className="border-panel bg-navy text-background absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full border font-mono text-[10px] font-semibold"
-                  >
-                    {step.number}
-                  </span>
-                </div>
-                <div className="font-display text-navy text-xl font-bold">
-                  {step.title}
-                </div>
-                <p className="text-muted mt-1 text-sm">{step.description}</p>
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            {learningPaths.map((path) => (
+              <Card key={path.eyebrow} className="h-full p-5 sm:p-6">
+                <span className="border-gold-soft bg-gold-soft/20 text-navy inline-flex rounded-full border px-3 py-1 font-mono text-xs font-semibold tracking-wide">
+                  {path.eyebrow}
+                </span>
+                <h3 className="font-display text-navy mt-4 text-2xl font-bold">
+                  {path.title}
+                </h3>
+                <p className="text-muted mt-2 max-w-xl text-sm leading-6">
+                  {path.description}
+                </p>
+                <ol className="border-border mt-6 divide-y border-y">
+                  {path.steps.map((step, index) => (
+                    <li key={step.href}>
+                      <Link
+                        href={step.href}
+                        className="group focus-visible:ring-gold-soft -mx-2 flex min-h-14 items-start gap-3 rounded-lg px-2 py-3 focus:outline-none focus-visible:ring-2"
+                      >
+                        <span className="text-gold mt-0.5 w-6 shrink-0 font-mono text-xs font-bold">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="text-navy group-hover:text-blue block text-sm font-semibold">
+                            {step.label} →
+                          </span>
+                          {step.description && (
+                            <span className="text-muted mt-1 block text-xs leading-5">
+                              {step.description}
+                            </span>
+                          )}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
               </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-panel-secondary border-border border-y">
+          <div className="mx-auto max-w-6xl px-4 py-14 md:py-16">
+            <Eyebrow>Learn by doing</Eyebrow>
+            <h2 className="font-display text-navy mt-4 max-w-3xl text-3xl font-bold md:text-4xl">
+              Put the concepts into a hypothetical scenario.
+            </h2>
+            <p className="text-muted mt-3 max-w-3xl text-base leading-7">
+              Our calculators show their assumptions and help you explore how
+              different costs can affect a scenario. They are educational tools,
+              not predictions or personal advice.
+            </p>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {tools.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="focus-visible:ring-gold-soft group block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                >
+                  <Card className="hover:border-gold-soft h-full transition-colors">
+                    <NavIcon name={tool.icon} />
+                    <h3 className="font-display text-navy mt-4 text-xl font-bold">
+                      {tool.title}
+                    </h3>
+                    <p className="text-muted mt-2 text-sm leading-6">
+                      {tool.description}
+                    </p>
+                    <span className="text-blue mt-4 inline-block text-sm font-semibold">
+                      Open tool →
+                    </span>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+            <Link
+              href="/tools"
+              className="text-blue mt-6 inline-block text-sm font-semibold"
+            >
+              Explore all research tools →
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {!featuredResult.ok && (
-        <>
-          <DataUnavailableBanner />
-          <section className="mx-auto max-w-6xl px-4 py-10">
-            <DataUnavailable title="Featured provider research is temporarily unavailable">
-              We couldn&lsquo;t load provider research right now. Educational
-              guides, methodology and other non-database content remain
-              available.
-            </DataUnavailable>
-          </section>
-        </>
-      )}
-
-      {featuredCrypto.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-14">
-          <Eyebrow>Featured providers</Eyebrow>
-          <h2 className="font-display text-navy mt-4 text-3xl font-bold">
-            A few crypto exchanges we&apos;ve verified.
+        <section className="mx-auto max-w-6xl px-4 py-14 md:py-16">
+          <Eyebrow>Continue learning</Eyebrow>
+          <h2 className="font-display text-navy mt-4 text-3xl font-bold md:text-4xl">
+            Popular learning topics
           </h2>
-          <p className="text-muted mt-1 text-sm">
-            Shown alphabetically — not a ranking.
-          </p>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {featuredCrypto.map((offering) => (
-              <FeaturedCryptoCard key={offering.id} offering={offering} />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {popularLearning.map((guide) => (
+              <Link
+                key={guide.href}
+                href={guide.href}
+                className="focus-visible:ring-gold-soft group block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              >
+                <Card className="hover:border-gold-soft h-full transition-colors">
+                  <span className="text-gold font-mono text-[11px] font-bold tracking-wider">
+                    {guide.tag}
+                  </span>
+                  <h3 className="font-display text-navy group-hover:text-blue mt-3 text-xl font-bold">
+                    {guide.title}
+                  </h3>
+                  <p className="text-muted mt-2 text-sm leading-6">
+                    {guide.description}
+                  </p>
+                  <span className="text-blue mt-4 inline-block text-sm font-semibold">
+                    Read guide →
+                  </span>
+                </Card>
+              </Link>
             ))}
           </div>
           <Link
-            href="/crypto/exchanges"
-            className="text-blue mt-4 inline-block text-sm font-semibold"
+            href="/guides"
+            className="text-blue mt-6 inline-block text-sm font-semibold"
           >
-            See all exchanges →
+            Browse all guides →
           </Link>
         </section>
-      )}
 
-      {featuredShareTrading.length > 0 && (
-        <section className="border-border mx-auto max-w-6xl border-t px-4 pt-10 pb-14">
-          <h2 className="font-display text-navy text-3xl font-bold">
-            A few share trading platforms we&apos;ve verified.
-          </h2>
-          <p className="text-muted mt-1 text-sm">
-            Shown alphabetically — not a ranking.
-          </p>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {featuredShareTrading.map((offering) => (
-              <FeaturedShareTradingCard key={offering.id} offering={offering} />
-            ))}
+        <section className="border-border mx-auto max-w-6xl border-t px-4 py-14 md:py-16">
+          <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr] lg:items-start">
+            <div>
+              <Eyebrow>How we research</Eyebrow>
+              <h2 className="font-display text-navy mt-4 max-w-2xl text-3xl font-bold md:text-4xl">
+                Facts should show where they came from.
+              </h2>
+              <p className="text-muted mt-3 max-w-2xl text-base leading-7">
+                Provider research is kept distinct from educational content.
+                Where practical, fees and features link back to source material
+                and verification details so you can check important information
+                yourself.
+              </p>
+              <div className="border-gold bg-gold-soft/10 mt-6 rounded-xl border-l-4 p-5">
+                <p className="text-navy font-semibold">
+                  No overall winner badges or hidden scores.
+                </p>
+                <p className="text-muted mt-1 text-sm leading-6">
+                  Use the facts, calculators and source links to form your own
+                  view. Commercial relationships are disclosed separately.
+                </p>
+              </div>
+            </div>
+            <Card className="bg-navy- h-full p-6">
+              <div className="bg-navy rounded-2xl p-7 sm:p-8 lg:p-10">
+                <p className="text-gold text-xs font-bold tracking-[0.18em] uppercase">
+                  Research standard
+                </p>
+
+                <p className="mt-4 max-w-md text-sm leading-6 text-white/75 sm:text-base sm:leading-7">
+                  Important provider information should be easy to verify — not
+                  hidden behind scores or unexplained rankings.
+                </p>
+
+                <ul className="mt-7 space-y-3 text-sm text-white/85 sm:text-base">
+                  <li className="flex items-start gap-3">
+                    <span
+                      className="text-gold mt-0.5 font-bold"
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                    <span>Sources shown where practical</span>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <span
+                      className="text-gold mt-0.5 font-bold"
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                    <span>Review dates shown where available</span>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <span
+                      className="text-gold mt-0.5 font-bold"
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                    <span>Unknown information stays unknown</span>
+                  </li>
+                </ul>
+
+                <Link
+                  href="/methodology"
+                  className="text-gold mt-8 inline-flex items-center font-semibold transition hover:underline"
+                >
+                  See how we research
+                  <span className="ml-2" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              </div>
+            </Card>
           </div>
-          <Link
-            href="/share-trading"
-            className="text-blue mt-4 inline-block text-sm font-semibold"
-          >
-            See all platforms →
-          </Link>
         </section>
-      )}
+
+        <section className="bg-panel-secondary border-border border-y">
+          <div className="mx-auto max-w-6xl px-4 py-14 md:py-16">
+            <Eyebrow>When you&lsquo;re ready</Eyebrow>
+            <h2 className="font-display text-navy mt-4 max-w-3xl text-3xl font-bold md:text-4xl">
+              Research platforms after you understand the basics.
+            </h2>
+            <p className="text-muted mt-3 max-w-3xl text-base leading-7">
+              Comparisons are research tools, not rankings. Explore factual
+              provider information side by side after learning how fees,
+              ownership and product features work.
+            </p>
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
+              <Card className="h-full p-6">
+                <h3 className="font-display text-navy text-2xl font-bold">
+                  Share trading platforms
+                </h3>
+                <p className="text-muted mt-2 text-sm leading-6">
+                  Research brokerage, market access, ownership structure and
+                  other source-linked platform facts.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
+                  <Link
+                    href="/share-trading"
+                    className="text-blue text-sm font-semibold"
+                  >
+                    Research platforms →
+                  </Link>
+                  <Link
+                    href="/compare/trading-platforms"
+                    className="text-blue text-sm font-semibold"
+                  >
+                    Compare platform facts →
+                  </Link>
+                </div>
+              </Card>
+              <Card className="h-full p-6">
+                <h3 className="font-display text-navy text-2xl font-bold">
+                  Crypto exchanges
+                </h3>
+                <p className="text-muted mt-2 text-sm leading-6">
+                  Research exchange fees, funding methods, features and other
+                  factual provider information.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
+                  <Link
+                    href="/crypto/exchanges"
+                    className="text-blue text-sm font-semibold"
+                  >
+                    Research exchanges →
+                  </Link>
+                  <Link
+                    href="/compare/crypto-exchanges"
+                    className="text-blue text-sm font-semibold"
+                  >
+                    Compare exchange facts →
+                  </Link>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

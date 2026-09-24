@@ -1,0 +1,1162 @@
+I audited the uploaded source as a **pre-production release candidate** and also checked the current 2026 Google, ASIC and OAIC guidance relevant to your goals.
+
+My overall assessment: **the architecture is much closer to production-ready than it was earlier, but I would not call this a green production release yet.** The biggest remaining work is not another redesign. It is release verification, content depth/authority, compliance review, privacy accuracy, mobile QA, and proving the live deployment behaves exactly as the source intends.
+
+One important expectation to set: no legitimate SEO work can guarantee “1000% retention” or a top Google position. Google explicitly emphasizes helpful, reliable, people-first, original content rather than content primarily made to manipulate rankings. Its 2026 guidance for AI-powered Search likewise stresses valuable, unique, non-commodity content. ([Google Developers][1])
+
+## Current production assessment
+
+| Area                              | Status | Assessment                                                              |
+| --------------------------------- | ------ | ----------------------------------------------------------------------- |
+| Application architecture          | 🟢     | Strong                                                                  |
+| SEO architecture                  | 🟢     | Strong foundation                                                       |
+| Sitemap architecture              | 🟢     | Well designed; live validation still required                           |
+| Internal links                    | 🟢     | Static checker passes                                                   |
+| Breadcrumb consistency            | 🟢     | Checker passes                                                          |
+| Structured data                   | 🟢     | Conservative and sensible                                               |
+| Educational content               | 🟡     | Several excellent pages; coverage still uneven                          |
+| Calculators/tools                 | 🟢/🟡  | Strong differentiator; needs production data QA                         |
+| Desktop UI                        | 🟢/🟡  | Strong design system; visual QA required                                |
+| Mobile UI                         | 🟡     | Must be systematically tested                                           |
+| Footer/trust pages                | 🟡     | Much improved, several wording/data concerns remain                     |
+| Privacy/analytics                 | 🟡     | Fundamentally reasonable but incomplete disclosure details              |
+| Financial regulatory boundary     | 🟠     | Requires deliberate final review                                        |
+| Production environment            | 🔴     | Cannot yet prove green from this ZIP                                    |
+| Build/release gate                | 🟠     | Excellent gate exists; full execution needs production env/dependencies |
+| Search Console/GA4                | 🟡     | Architecture ready; live verification needed                            |
+| Content originality/human quality | 🟡     | Good direction, needs editorial process rather than merely code         |
+
+---
+
+# 1. What you've done particularly well
+
+There are several things I would **not redesign now**.
+
+Your SEO architecture is much healthier than the typical early-stage comparison site. You have canonical metadata infrastructure, dynamic sitemap generation, robots configuration, breadcrumb schema, Article/NewsArticle/FAQ/HowTo/ItemList schema, internal-link validation and release-time SEO checks.
+
+I particularly like this philosophy in `schema.ts`:
+
+> No fake Review/AggregateRating/Product/author
+
+Keep it.
+
+Don't invent star ratings simply because competitors have them.
+
+Your provider pages also explicitly state that Trading Guide doesn't assign an overall score or winner. That's strategically important given the direction you want the site to take.
+
+The sitemap also has a sensible failure mode: if PostgreSQL is temporarily unavailable, static URLs can still be returned rather than killing `/sitemap.xml`.
+
+And your source checks currently report:
+
+```text
+SEO release:
+0 errors
+
+Canonical internal links:
+0 errors
+
+Guide breadcrumb consistency:
+0 errors
+```
+
+That's a strong foundation.
+
+---
+
+# 2. Your strongest SEO opportunity isn't comparisons
+
+I agree with your stated goal here.
+
+I would position Trading Guide primarily as:
+
+> **An Australian trading education and research platform with calculators, explainers, source-linked provider data and comparisons.**
+
+Not:
+
+> another “best broker” affiliate site.
+
+That's a much stronger long-term differentiation.
+
+You already have evidence of this direction.
+
+Several major beginner guides are substantial:
+
+```text
+~1,650 source words
+Steps to start investing in shares in Australia
+
+~1,790
+How to open an online share trading account
+
+~1,795
+Simple steps to buy cryptocurrency
+
+~1,820
+How to start investing in crypto for beginners
+```
+
+And the calculators are potentially even more valuable than generic articles because they give users something they can **do**, not merely read.
+
+Google's people-first guidance asks whether content provides original information/research/analysis and whether it provides substantial, complete treatment of the topic. ([Google Developers][1])
+
+That is exactly where I'd invest.
+
+---
+
+# 3. But content quality is uneven
+
+This is one of my major pre-launch concerns.
+
+Some dedicated guide source files are tiny:
+
+```text
+~136 source words
+CHESS vs custody
+Crypto exchange funding
+Fractional shares
+Trading costs explained
+What is a HIN
+```
+
+Some of these may delegate content into shared components/data, so raw source word count isn't equivalent to rendered word count. Nevertheless, they should be manually audited.
+
+For every indexable educational URL I want to ask:
+
+**Why does this page deserve to exist independently in Google?**
+
+A good page needs more than:
+
+```text
+definition
++
+3 bullet points
++
+FAQ
++
+related links
+```
+
+It should deliver something difficult for generic generated content to replicate.
+
+For example:
+
+### `/guides/what-is-a-hin`
+
+I'd aim for:
+
+```text
+What a HIN actually is
+        ↓
+Example HIN format
+        ↓
+When you receive one
+        ↓
+CHESS-sponsored ownership diagram
+        ↓
+HIN vs SRN
+        ↓
+What happens when changing brokers
+        ↓
+Can one investor have multiple HINs?
+        ↓
+What happens if a broker fails?
+        ↓
+Real worked scenario
+        ↓
+ASIC/ASX/source references
+        ↓
+Related CHESS calculator/explorer
+```
+
+That's substantially more valuable than an SEO article.
+
+---
+
+# 4. Build topic clusters rather than isolated articles
+
+For **Share Trading**, I'd develop an educational curriculum.
+
+```text
+START HERE
+What is investing?
+        ↓
+What is share trading?
+        ↓
+ASX explained
+        ↓
+How brokers work
+        ↓
+CHESS vs custody
+        ↓
+HIN vs SRN
+        ↓
+Brokerage fees
+        ↓
+FX fees
+        ↓
+Market vs limit orders
+        ↓
+ETFs vs individual shares
+        ↓
+Dividends
+        ↓
+Tax basics / CGT concepts
+        ↓
+International shares
+        ↓
+Risk management concepts
+```
+
+Crypto gets another curriculum:
+
+```text
+What is cryptocurrency?
+        ↓
+Bitcoin basics
+        ↓
+Blockchain
+        ↓
+Wallets
+        ↓
+Exchange vs wallet
+        ↓
+Custodial vs self-custody
+        ↓
+How crypto exchanges work
+        ↓
+Trading fees
+        ↓
+Spreads
+        ↓
+Deposit/withdrawal fees
+        ↓
+Network fees
+        ↓
+AUSTRAC registration
+        ↓
+Scams/security
+        ↓
+Tax concepts
+```
+
+Then comparisons sit **below education**, not above it.
+
+That's a much better architecture for the site you say you want.
+
+---
+
+# 5. Calculators can become your SEO moat
+
+This is probably the most strategically interesting part of the project.
+
+You already have:
+
+* Brokerage Cost Calculator
+* FX Fee Calculator
+* Trading Cost Calculator
+* Regular Investing Brokerage Calculator
+* Crypto Fee Calculator
+* Crypto Cost Calculator
+* Crypto Deposit & Withdrawal Fees
+* CHESS vs Custody Explorer
+
+And your implementation explicitly says:
+
+> unknown, variable, stale or unsupported pricing will be labelled instead of treated as zero.
+
+Excellent.
+
+I'd build around that.
+
+For example:
+
+> “If I invest $500 every fortnight using Platform X, what brokerage might I pay over 12 months?”
+
+Instead of answering:
+
+> $120
+
+show:
+
+```text
+YOUR SCENARIO
+
+$500 every fortnight
+26 purchases/year
+
+              ↓
+
+BROKERAGE RULE
+
+$3 per trade up to $X
+Source: Provider pricing page
+Verified: 22 Sep 2026
+
+              ↓
+
+CALCULATION
+
+26 × $3
+= $78/year
+
+              ↓
+
+EFFECTIVE COST
+
+$78 / $13,000 invested
+≈ 0.60%
+
+              ↓
+
+NOT INCLUDED
+
+Market movement
+FX conversion
+Spread
+Tax
+Other product costs
+
+              ↓
+
+LEARN
+
+Why brokerage matters →
+How regular investing works →
+What FX fees mean →
+```
+
+That creates **education + utility + transparency**.
+
+Much harder to commoditize.
+
+---
+
+# 6. Regulatory boundary — keep this as a hard release gate
+
+This deserves particular attention.
+
+ASIC currently says factual information is objectively ascertainable information and can be provided without an AFS licence. But financial-product advice includes recommendations/statements of opinion intended—or reasonably regarded as intended—to influence a financial-product decision. ASIC also notes qualitative evaluation/comparison can become advice depending on presentation. ([ASIC][2])
+
+ASIC's guidance on discussing financial products online makes another particularly relevant point: factual information can cross the line if presented in a way that conveys a recommendation, and receiving benefits/payment can make the context more significant. ([ASIC][3])
+
+Its updated **June 2026 RG 234** also expressly applies to publishers of advertising for financial products/services. ([ASIC][4])
+
+Your code already shows good awareness of this.
+
+You avoid:
+
+```text
+⭐ 4.8/5
+Best broker
+#1 platform
+Our winner
+Recommended for you
+Best for beginners
+```
+
+Keep that discipline.
+
+Instead:
+
+```text
+ASX brokerage
+CHESS sponsorship
+US market access
+FX conversion fee
+Available account types
+Source
+Last verified
+```
+
+Then let the reader make the decision.
+
+### Particularly watch future AI-generated/imported articles
+
+Your admin publishing system should reject or flag phrases like:
+
+```text
+we recommend
+our top pick
+best broker for you
+you should invest
+perfect for investors
+safest exchange
+guaranteed
+low risk
+ideal investment
+```
+
+Not because every appearance is automatically unlawful, but because these deserve human review before publication.
+
+---
+
+# 7. Your footer needs another pass
+
+Current footer:
+
+> We're 100% self-funded, in the future, we may receive compensation or affiliate commission...
+
+The information is useful, but the sentence doesn't read naturally.
+
+I'd eventually make it more human:
+
+> Trading Guide is currently self-funded and does not receive commissions from the providers we cover. We may introduce affiliate partnerships in the future. If we do, eligible links will be clearly disclosed and commercial relationships will not determine how providers are included or ordered.
+
+But there's a more important issue.
+
+Your footer currently says:
+
+> “We do not endorse or recommend any specific trading platform or broker.”
+
+Good.
+
+Yet your homepage says:
+
+> “Four steps to a platform you trust.”
+
+I'd change that.
+
+“Trust” is a qualitative conclusion.
+
+Something such as:
+
+> **Four steps to researching a trading platform**
+
+would fit your methodology much better.
+
+---
+
+# 8. Business identity needs final verification
+
+Your source currently declares:
+
+```text
+legalName:
+TradingGuide.com.au
+
+ABN:
+54347400601
+
+address:
+254B North Rocks Rd
+North Rocks NSW 2151
+
+email:
+tradingguide@outlook.com.au
+```
+
+Before production, manually verify each one.
+
+In particular, make sure:
+
+**TradingGuide.com.au is genuinely the correct legal/entity representation**, not merely the domain/trading name.
+
+The code is already correctly designed not to fabricate ACN, AFSL or authorised-representative information.
+
+That's excellent.
+
+Don't add any of those unless actually applicable.
+
+---
+
+# 9. Privacy page needs more precision
+
+Your Privacy Policy is substantially better than many early-stage sites.
+
+It discloses:
+
+* account data;
+* session data;
+* affiliate-click data;
+* GA;
+* cookies;
+* embedded videos;
+* approximate location/device/browser information;
+* service providers;
+* security;
+* access/correction;
+* OAIC escalation.
+
+OAIC itself publicly discloses Google Analytics collection including pages visited, timestamps, device/browser information and approximate geographic data. ([OAIC][5])
+
+But your section:
+
+> “Sharing and overseas disclosure”
+
+only says data may be processed by hosting/database providers and Google.
+
+I'd review whether it should identify **likely overseas processing locations/providers** more precisely based on your actual deployment architecture.
+
+Also document:
+
+* Vercel;
+* Supabase/Postgres hosting region;
+* Google Analytics;
+* authentication infrastructure;
+* embedded YouTube/Vimeo behavior;
+* email provider;
+* logs;
+* retention periods;
+* deletion/account closure behavior.
+
+OAIC's updated APP guidance also emphasizes data minimisation—collecting only what is reasonably necessary. ([OAIC][6])
+
+Your analytics design is already relatively conservative because you're intentionally not sending names/email/financial form values to GA.
+
+Keep it that way.
+
+---
+
+# 10. Don't call content “human-built” just because AI wasn't visible
+
+Your last requirement is important:
+
+> all contents should be human building not AI way
+
+I'd define this operationally rather than stylistically.
+
+Google's guidance is about **value and purpose**, not merely whether AI touched the drafting process. It emphasizes original information, reporting, research and analysis. ([Google Developers][1])
+
+Your publishing workflow should therefore require:
+
+```text
+Topic selected because users need it
+            ↓
+Primary-source research
+            ↓
+Human outline
+            ↓
+Draft
+            ↓
+Facts linked to sources
+            ↓
+Worked examples / diagrams / tools
+            ↓
+Australian context
+            ↓
+Human editorial review
+            ↓
+Compliance-language review
+            ↓
+SEO review
+            ↓
+Publish
+            ↓
+Scheduled factual re-verification
+```
+
+AI can assist with mechanics if you choose.
+
+But the **research, judgement, sourcing, examples and editorial accountability** should belong to Trading Guide.
+
+---
+
+# 11. Add authorship/editorial accountability
+
+This is one area I'd strengthen substantially.
+
+For major educational articles, show:
+
+```text
+Written by
+Huy Vo / Trading Guide Editorial Team
+
+Reviewed by
+Trading Guide Editorial Team
+
+Published
+12 September 2026
+
+Last reviewed
+23 September 2026
+
+Sources
+ASIC
+ASX
+ATO
+Provider fee schedule
+...
+```
+
+Don't fabricate experts or credentials.
+
+If there isn't an external financial expert reviewing an article, don't imply there is.
+
+A transparent real author is much better than:
+
+> “Reviewed by our team of investment experts”
+
+when that isn't true.
+
+---
+
+# 12. Mobile needs a formal QA matrix
+
+Your Tailwind structure is generally responsive, but code inspection cannot prove “perfect on mobile”.
+
+Before green release, test at least:
+
+```text
+320px
+360px
+375px
+390px
+430px
+
+768px
+
+1024px
+1280px
+1440px
+1920px
+```
+
+For each, check:
+
+* no horizontal overflow;
+* header/menu;
+* Research Navigator;
+* comparison tables;
+* calculator inputs;
+* long provider names;
+* cards;
+* charts;
+* tables;
+* sticky elements;
+* legal-page navigation;
+* article images;
+* embedded videos;
+* breadcrumbs;
+* footer;
+* 200% zoom;
+* keyboard navigation.
+
+Comparison tables deserve special attention at 320–430px.
+
+Do not force a desktop table into a tiny viewport.
+
+---
+
+# 13. Accessibility should become a launch gate
+
+You've already corrected the multiple-H1 problem.
+
+Next I would automate:
+
+```text
+one meaningful H1
+logical heading hierarchy
+image alt text
+form labels
+keyboard navigation
+focus visibility
+ARIA names
+dialog focus trapping
+colour contrast
+touch targets
+reduced-motion behavior
+```
+
+Eventually add Playwright + axe rather than relying solely on manual inspection.
+
+---
+
+# 14. Sitemap status is now architecturally good, but production must prove it
+
+Your earlier local result was:
+
+```text
+72 URLs
+0 errors
+0 redirects
+0 slow URLs
+```
+
+Excellent.
+
+But the release criterion must be the production command:
+
+```bash
+npm run check:sitemap:production
+```
+
+after deployment.
+
+I'd require:
+
+```text
+HTTP 200             100%
+canonical match      100%
+indexable             100%
+one H1                100%
+valid title           100%
+valid description     100%
+unexpected redirect     0
+noindex conflict        0
+```
+
+Then submit the sitemap to Search Console.
+
+Do not treat local sitemap validation as equivalent to production.
+
+---
+
+# 15. Production build isn't proven green yet
+
+This is currently a release blocker.
+
+You have a very good release pipeline:
+
+```text
+Prisma validate
+Prisma generate
+ESLint
+TypeScript
+Tests
+Prettier
+Production build
+Production readiness
+SEO
+Internal links
+Breadcrumbs
+Migration safety
+Security verification
+Launch gate
+```
+
+However, the uploaded archive doesn't contain the installed environment/dependencies necessary for me to reproduce the full production pipeline here, and the combined launch script stalled at Prisma tooling rather than giving me a successful full run.
+
+Your own readiness checker also intentionally requires production configuration including:
+
+```text
+DATABASE_URL
+AUTH_SECRET / NEXTAUTH_SECRET
+NEXT_PUBLIC_SITE_URL
+
+LEGAL_CONTENT_APPROVED=true
+
+EDGE_RATE_LIMITING_CONFIGURED=true
+
+CSP_ENFORCED_AND_VERIFIED=true
+```
+
+I strongly agree with those gates.
+
+Don't bypass them just to get a green deployment.
+
+---
+
+# 16. CSP is deliberately not production-green yet
+
+Your security architecture currently uses CSP Report-Only until you've observed real traffic and verified the policy.
+
+That's the right rollout pattern.
+
+Your own production gate requires:
+
+```text
+CSP_ENFORCED_AND_VERIFIED=true
+```
+
+before final approval.
+
+So this is currently a deliberate **release blocker**, not a bug.
+
+Deploy staging → inspect violations → correct legitimate dependencies → enable enforcement → retest.
+
+---
+
+# 17. Edge rate limiting is another deliberate blocker
+
+Same story.
+
+Your production checker requires:
+
+```text
+EDGE_RATE_LIMITING_CONFIGURED=true
+```
+
+after the host/WAF rules are deployed and verified.
+
+Keep that gate.
+
+Particularly protect:
+
+```text
+/api/auth/*
+/api/search
+/api/csp-report
+/go/*
+login/register
+admin
+```
+
+according to the policy you've documented.
+
+---
+
+# 18. Don't optimize for “time on site” blindly
+
+You said:
+
+> people should stay for a long time
+
+I'd modify the product goal.
+
+A visitor who searches:
+
+> “What is a HIN?”
+
+and receives an excellent answer in 90 seconds hasn't failed.
+
+The better metrics are:
+
+```text
+Task completion
+Useful tool usage
+Related article progression
+Return visits
+Bookmark/direct traffic
+Search impressions
+Search CTR
+Calculator completion
+Source-link engagement
+Guide → guide progression
+Guide → tool progression
+```
+
+You want people to stay because there is **another useful thing to do**, not because pages are artificially long.
+
+---
+
+# 19. Build learning journeys
+
+This would substantially improve retention.
+
+At the end of:
+
+> What is brokerage?
+
+show:
+
+```text
+CONTINUE LEARNING
+
+You now understand brokerage.
+
+Next:
+1. Learn about FX fees          ~6 min
+2. Understand CHESS custody     ~8 min
+3. Calculate a hypothetical fee ~2 min
+```
+
+And record progress locally if appropriate.
+
+Eventually:
+
+```text
+Share Trading Foundations
+
+✓ What is trading?
+✓ How the ASX works
+✓ Brokerage
+○ Market orders
+○ CHESS
+○ ETFs
+○ Dividends
+
+3 of 7 completed
+```
+
+Now people have a reason to return.
+
+---
+
+# 20. Add original visual education
+
+Your biggest content opportunity beyond calculators is diagrams.
+
+For example:
+
+```text
+Investor
+   │
+   ▼
+Broker
+   │
+   ▼
+ASX
+   │
+   ▼
+Trade executes
+   │
+   ▼
+Settlement
+   │
+   ├── CHESS/HIN
+   │
+   └── Custodial structure
+```
+
+Or:
+
+```text
+$1,000 AUD
+    │
+    ├── brokerage
+    ├── FX conversion
+    ├── spread
+    └── other applicable costs
+          ↓
+Amount effectively invested
+```
+
+Original diagrams are educational, linkable and difficult for generic SEO content to substitute.
+
+---
+
+# 21. Homepage needs to emphasize learning more
+
+The current homepage hero says:
+
+> Understand trading before you start investing.
+
+Excellent.
+
+But its primary CTAs are currently:
+
+> Explore crypto exchanges
+> Explore share trading platforms
+
+That immediately pulls the visitor back toward provider comparison.
+
+Given your stated strategy, I would consider:
+
+```text
+Primary:
+Start learning
+
+Secondary:
+Explore research tools
+
+Tertiary:
+Compare platforms
+```
+
+And immediately below:
+
+```text
+Choose your learning path
+
+SHARE TRADING                 CRYPTO
+
+Start from zero →             Start from zero →
+Understand fees →             Understand exchanges →
+Learn ownership →             Learn wallets →
+Try calculators →             Learn fees →
+Research platforms →          Research exchanges →
+```
+
+That would align the actual homepage with your stated SEO/business strategy.
+
+---
+
+# 22. Content roadmap I would prioritize
+
+Your next educational wave should not be 100 random keywords.
+
+I'd build approximately:
+
+### Foundation
+
+* What is investing?
+* Investing vs trading
+* What is the ASX?
+* What is a broker?
+* How share ownership works
+* Market orders vs limit orders
+* ETFs explained
+* Dividends explained
+* Portfolio diversification
+* Risk and volatility
+* Dollar-cost averaging
+
+### Costs
+
+* Brokerage
+* FX fees
+* spreads
+* inactivity fees
+* transfer fees
+* hidden trading costs
+* crypto network fees
+* worked fee examples
+
+### Ownership
+
+* CHESS
+* HIN
+* SRN
+* custody
+* transferring brokers
+* broker insolvency concepts
+
+### Crypto
+
+* Bitcoin
+* Ethereum
+* blockchain
+* wallets
+* public/private keys
+* exchanges
+* custody
+* stablecoins
+* crypto scams
+* AUSTRAC
+* crypto taxation concepts
+
+### Practical learning
+
+* reading a brokerage fee schedule;
+* reading a PDS;
+* reading exchange fees;
+* evaluating a provider's regulatory claims;
+* interpreting market prices;
+* understanding an order book;
+* using a calculator.
+
+That's the content library I'd want Google to associate with **Trading Guide**.
+
+---
+
+# 23. Production release plan
+
+I would now stop adding miscellaneous features and execute five focused phases.
+
+### Phase 1 — Release blockers
+
+Get all of these green:
+
+```text
+npm ci
+npm run validate:code
+npm run db:review:migrations
+npm run check:seo:release
+npm run check:internal-links
+npm run check:guide-breadcrumbs
+npm run check:production
+npm run launch:gate
+```
+
+Then verify:
+
+```text
+production database
+production migrations
+environment variables
+authentication
+admin protection
+edge rate limiting
+CSP enforcement
+GA4
+Search Console
+```
+
+**No production release until this phase is green.**
+
+### Phase 2 — Content/compliance audit
+
+Review every indexable page for:
+
+```text
+unique search intent
+substantive content
+primary sources
+updated date
+author/accountability
+recommendation language
+affiliate status
+stale facts
+duplicate intent
+internal learning path
+useful next action
+```
+
+Any page that doesn't deserve indexing:
+
+**improve, merge, noindex or remove it.**
+
+Do not keep it merely to make the sitemap larger.
+
+### Phase 3 — UX/mobile/accessibility
+
+Run the viewport matrix.
+
+Test all calculators and comparison flows.
+
+Add automated browser/accessibility testing.
+
+Fix every overflow, keyboard, focus and touch issue.
+
+### Phase 4 — Education-first homepage/navigation
+
+Move learning and tools higher in the product hierarchy.
+
+Comparisons remain available but aren't the site's identity.
+
+### Phase 5 — Production deployment
+
+Deploy staging first.
+
+Then:
+
+```text
+production build
+DB migration
+smoke test
+auth test
+admin test
+affiliate redirect test
+GA4 realtime
+CSP verification
+sitemap production check
+robots.txt
+canonical URLs
+structured data
+Search Console
+Core Web Vitals
+```
+
+Then release.
+
+---
+
+# My current release verdict
+
+I would classify this version as:
+
+> **Production Release Candidate — not Production Green yet.**
+
+The code architecture is strong enough that I **would not recommend another major refactor**.
+
+Your next work should be predominantly:
+
+**verification → content quality → compliance → responsive/accessibility QA → production infrastructure → live SEO validation.**
+
+The highest-value product strategy is also becoming clear:
+
+> **Trading Guide should win through Australian trading education + transparent calculators + source-linked research, with comparisons as supporting functionality rather than the entire product.**
+
+That is much more defensible than trying to outrank established comparison businesses by publishing another collection of “best broker” pages.
+
+And because your site discusses financial products, I'd make the final compliance review a real launch requirement rather than relying on Terms/footer disclaimers: ASIC says the **overall impression and presentation** of the content matters when distinguishing factual information from financial-product advice. ([ASIC][7])
+
+I have **not changed any source code in this audit**. The logical next implementation milestone is **Production Green Phase 1**, where we tackle the actual release gates one by one rather than adding new features.
+
+[1]: https://developers.google.com/search/docs/fundamentals/creating-helpful-content?utm_source=chatgpt.com "Creating Helpful, Reliable, People-First Content | Google Search Central  |  Documentation  |  Google for Developers"
+[2]: https://www.asic.gov.au/regulatory-resources/financial-services/financial-advice/running-a-financial-advice-business/obligations-when-giving-financial-advice?utm_source=chatgpt.com "Obligations when giving financial advice | ASIC"
+[3]: https://asic.gov.au/regulatory-resources/financial-services/giving-financial-product-advice/discussing-financial-products-and-services-online/?utm_source=chatgpt.com "Discussing financial products and services online | ASIC"
+[4]: https://www.asic.gov.au/regulatory-resources/find-a-document/regulatory-guides/rg-234-advertising-financial-products-and-services-including-credit?utm_source=chatgpt.com "RG 234 Advertising financial products and services (including credit) | ASIC"
+[5]: https://www.oaic.gov.au/about-the-OAIC/our-corporate-information/plans-policies-and-procedures/privacy-policy?utm_source=chatgpt.com "Privacy policy | OAIC"
+[6]: https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines?utm_source=chatgpt.com "Australian Privacy Principles guidelines | OAIC"
+[7]: https://www.asic.gov.au/regulatory-resources/financial-services/giving-financial-product-advice?utm_source=chatgpt.com "Giving financial product advice | ASIC"
