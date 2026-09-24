@@ -4,9 +4,7 @@
     "slug": "stakeshop",
     "website": "https://hellostake.com/au",
     "description": "Sydney-founded fintech broker (trading as Stake) offering CHESS-sponsored ASX trading and US share/ETF investing for Australians.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "UNVERIFIED",
     "lastVerifiedAt": "2026-09-19T00:00:00.000Z"
   },

@@ -4,9 +4,7 @@
     "slug": "cmc-markets",
     "website": "https://www.cmcmarkets.com/en-au",
     "description": "ASX-listed financial services group operating the CMC Invest share trading platform and a separate CFD/forex trading business in Australia.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "UNVERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z"
   },

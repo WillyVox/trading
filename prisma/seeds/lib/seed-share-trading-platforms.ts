@@ -235,10 +235,7 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
     if (offeringMarkets.length > 0) {
       await prisma.offeringMarket.createMany({
         data: offeringMarkets.map(
-          ({
-            marketCode,
-            ...market
-          }: OfferingMarketSeed) => ({
+          ({ marketCode, ...market }: OfferingMarketSeed) => ({
             offeringId: offering.id,
             marketId: getMarketId(marketCode),
             ...market,
@@ -265,10 +262,7 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
     if (custody.length > 0) {
       await prisma.offeringCustody.createMany({
         data: custody.map(
-          ({
-            marketCode,
-            ...custodyData
-          }: OfferingCustodySeed) => ({
+          ({ marketCode, ...custodyData }: OfferingCustodySeed) => ({
             offeringId: offering.id,
             marketId: marketCode ? getMarketId(marketCode) : null,
             ...custodyData,
@@ -282,12 +276,10 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
      */
     if (accountTypes.length > 0) {
       await prisma.offeringAccountType.createMany({
-        data: accountTypes.map(
-          (accountType: OfferingAccountTypeSeed) => ({
-            offeringId: offering.id,
-            ...accountType,
-          })
-        ),
+        data: accountTypes.map((accountType: OfferingAccountTypeSeed) => ({
+          offeringId: offering.id,
+          ...accountType,
+        })),
       });
     }
 
@@ -341,12 +333,10 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
           tiers:
             tiers && tiers.length > 0
               ? {
-                  create: tiers.map(
-                    (tier: FeeTierSeed, position: number) => ({
-                      ...tier,
-                      position,
-                    })
-                  ),
+                  create: tiers.map((tier: FeeTierSeed, position: number) => ({
+                    ...tier,
+                    position,
+                  })),
                 }
               : undefined,
         },

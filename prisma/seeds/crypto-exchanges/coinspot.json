@@ -4,9 +4,7 @@
     "slug": "coinspot",
     "website": "https://www.coinspot.com.au",
     "description": "Australian cryptocurrency platform offering Instant Buy/Sell/Swap, Markets and OTC trading, with AUD funding including PayID and Direct Deposit.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
     "logo": "/images/providers/coinspot.svg",
@@ -99,11 +97,7 @@
     "slug": "coinspot-exchange",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
-    "assetSymbols": [
-      "BTC",
-      "ETH",
-      "SOL"
-    ],
+    "assetSymbols": ["BTC", "ETH", "SOL"],
     "fees": [
       {
         "feeCategory": "CRYPTO_TRADING",

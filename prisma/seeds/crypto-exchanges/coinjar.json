@@ -5,9 +5,7 @@
     "website": "https://www.coinjar.com/au",
     "logo": "/images/providers/coinjar.svg",
     "description": "Australian cryptocurrency exchange operating since 2013, offering a simple buy/sell experience alongside CoinJar Exchange for active trading, with AUD funding, 60+ digital assets, recurring buys, Bundles, SMSF accounts, OTC services and a mobile app.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
     "facts": [
@@ -115,12 +113,7 @@
     "slug": "coinjar-exchange",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
-    "assetSymbols": [
-      "BTC",
-      "ETH",
-      "SOL",
-      "XRP"
-    ],
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
     "fees": [
       {
         "feeCategory": "INSTANT_BUY",

@@ -136,12 +136,10 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
 
     if (features.length > 0) {
       await prisma.offeringFeature.createMany({
-        data: features.map(
-          (feature: (typeof features)[number]) => ({
-            offeringId: offering.id,
-            ...feature,
-          })
-        ),
+        data: features.map((feature: (typeof features)[number]) => ({
+          offeringId: offering.id,
+          ...feature,
+        })),
       });
     }
 
@@ -179,12 +177,10 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
             ...feeData,
             tiers: tiers?.length
               ? {
-                  create: tiers.map(
-                    (tier: FeeTier, position: number) => ({
-                      ...tier,
-                      position,
-                    })
-                  ),
+                  create: tiers.map((tier: FeeTier, position: number) => ({
+                    ...tier,
+                    position,
+                  })),
                 }
               : undefined,
           },
@@ -192,8 +188,6 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
       }
     }
 
-    console.log(
-      `Seeded crypto exchange: ${provider.name} → ${offering.name}`
-    );
+    console.log(`Seeded crypto exchange: ${provider.name} → ${offering.name}`);
   }
 }
