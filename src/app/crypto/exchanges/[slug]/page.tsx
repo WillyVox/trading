@@ -152,13 +152,6 @@ export default async function ExchangeProfilePage({
           <VisitSite
             providerSlug={provider.slug}
             officialWebsite={offering.website ?? provider.website}
-            officialWebsiteVerified={
-              offering.website
-                ? offering.verificationStatus === "VERIFIED" &&
-                  Boolean(offering.lastVerifiedAt)
-                : provider.verificationStatus === "VERIFIED" &&
-                  Boolean(provider.lastVerifiedAt)
-            }
             hasActiveAffiliate={Boolean(link)}
             placement="crypto-exchange-profile"
             className="w-full shrink-0 sm:w-auto"

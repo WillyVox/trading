@@ -6,7 +6,6 @@ import { resolveProviderDestination } from "../provider-destination";
 const base = {
   providerSlug: "example-provider",
   officialWebsite: "https://example.com",
-  officialWebsiteVerified: true,
 };
 
 test("active affiliate relationship always uses the tracked affiliate route", () => {
@@ -26,7 +25,7 @@ test("active affiliate relationship always uses the tracked affiliate route", ()
   );
 });
 
-test("verified official website is the fallback when no affiliate is active", () => {
+test("official website is used when no affiliate relationship is active", () => {
   assert.deepEqual(
     resolveProviderDestination({
       ...base,
@@ -43,23 +42,10 @@ test("verified official website is the fallback when no affiliate is active", ()
   );
 });
 
-test("unverified official website fails closed when no affiliate is active", () => {
-  assert.equal(
-    resolveProviderDestination({
-      ...base,
-      officialWebsiteVerified: false,
-      hasActiveAffiliate: false,
-      placement: "browse",
-    }),
-    null
-  );
-});
-
-test("active affiliate remains available when the official website is unverified", () => {
+test("active affiliate takes precedence over the official website", () => {
   assert.deepEqual(
     resolveProviderDestination({
       ...base,
-      officialWebsiteVerified: false,
       hasActiveAffiliate: true,
       placement: "browse",
     }),
@@ -78,7 +64,6 @@ test("active affiliate remains available when no official website exists", () =>
     resolveProviderDestination({
       providerSlug: "example-provider",
       officialWebsite: null,
-      officialWebsiteVerified: false,
       hasActiveAffiliate: true,
       placement: "browse",
     }),
@@ -92,12 +77,11 @@ test("active affiliate remains available when no official website exists", () =>
   );
 });
 
-test("no outbound destination is invented when neither branch is available", () => {
+test("no outbound destination is returned when no affiliate or official website exists", () => {
   assert.equal(
     resolveProviderDestination({
       providerSlug: "example-provider",
       officialWebsite: null,
-      officialWebsiteVerified: false,
       hasActiveAffiliate: false,
       placement: "browse",
     }),
@@ -105,13 +89,17 @@ test("no outbound destination is invented when neither branch is available", () 
   );
 });
 
-test("unsafe or malformed official URLs fail closed", () => {
-  for (const officialWebsite of ["javascript:alert(1)", "not-a-url", ""]) {
+test("unsafe or malformed official URLs fail closed when no affiliate is active", () => {
+  for (const officialWebsite of [
+    "javascript:alert(1)",
+    "not-a-url",
+    "",
+    "ftp://example.com",
+  ]) {
     assert.equal(
       resolveProviderDestination({
         providerSlug: "example-provider",
         officialWebsite,
-        officialWebsiteVerified: true,
         hasActiveAffiliate: false,
         placement: "browse",
       }),
@@ -120,12 +108,47 @@ test("unsafe or malformed official URLs fail closed", () => {
   }
 });
 
+test("http official website is accepted when no affiliate is active", () => {
+  assert.deepEqual(
+    resolveProviderDestination({
+      providerSlug: "example-provider",
+      officialWebsite: "http://example.com",
+      hasActiveAffiliate: false,
+      placement: "browse",
+    }),
+    {
+      href: "http://example.com",
+      type: "official",
+      isAffiliate: false,
+      providerSlug: "example-provider",
+      placement: "browse",
+    }
+  );
+});
+
+test("https official website is accepted when no affiliate is active", () => {
+  assert.deepEqual(
+    resolveProviderDestination({
+      providerSlug: "example-provider",
+      officialWebsite: "https://example.com",
+      hasActiveAffiliate: false,
+      placement: "browse",
+    }),
+    {
+      href: "https://example.com",
+      type: "official",
+      isAffiliate: false,
+      providerSlug: "example-provider",
+      placement: "browse",
+    }
+  );
+});
+
 test("unsafe official website does not affect an active affiliate destination", () => {
   assert.deepEqual(
     resolveProviderDestination({
       providerSlug: "example-provider",
       officialWebsite: "javascript:alert(1)",
-      officialWebsiteVerified: true,
       hasActiveAffiliate: true,
       placement: "comparison",
     }),
@@ -135,6 +158,24 @@ test("unsafe official website does not affect an active affiliate destination", 
       isAffiliate: true,
       providerSlug: "example-provider",
       placement: "comparison",
+    }
+  );
+});
+
+test("provider slug and placement are URL encoded for affiliate destinations", () => {
+  assert.deepEqual(
+    resolveProviderDestination({
+      providerSlug: "example provider",
+      officialWebsite: "https://example.com",
+      hasActiveAffiliate: true,
+      placement: "compare mobile / table",
+    }),
+    {
+      href: "/go/example%20provider?placement=compare%20mobile%20%2F%20table",
+      type: "affiliate",
+      isAffiliate: true,
+      providerSlug: "example provider",
+      placement: "compare mobile / table",
     }
   );
 });

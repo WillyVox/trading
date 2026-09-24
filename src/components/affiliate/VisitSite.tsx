@@ -6,23 +6,15 @@ import {
 type Props = {
   providerSlug: string;
   officialWebsite?: string | null;
-  officialWebsiteVerified?: boolean;
   hasActiveAffiliate?: boolean;
   placement: string;
   destination?: ProviderDestination | null;
   className?: string;
 };
 
-/**
- * Primary outbound provider action.
- *
- * Commercial status changes the destination and link relationship,
- * never whether the provider itself is useful to readers.
- */
 export function VisitSite({
   providerSlug,
   officialWebsite,
-  officialWebsiteVerified = false,
   hasActiveAffiliate = false,
   placement,
   destination: suppliedDestination,
@@ -33,7 +25,6 @@ export function VisitSite({
     resolveProviderDestination({
       providerSlug,
       officialWebsite,
-      officialWebsiteVerified,
       hasActiveAffiliate,
       placement,
     });

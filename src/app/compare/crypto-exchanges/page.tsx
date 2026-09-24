@@ -46,10 +46,6 @@ export default async function CompareCryptoExchangesPage() {
         verificationStatus: offering.verificationStatus,
         logo: offering.logo ?? offering.provider.logo,
         website: offering.website ?? offering.provider.website,
-
-        officialWebsiteVerified:
-          offering.provider.verificationStatus === "VERIFIED",
-
         facts: offering.provider.facts,
 
         fees: offering.fees.map((fee) => ({
