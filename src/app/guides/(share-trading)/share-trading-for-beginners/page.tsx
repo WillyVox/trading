@@ -15,6 +15,10 @@ import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
 import {
+  ContinueLearning,
+  LearningJourneyHeader,
+} from "@/components/learning/LearningJourney";
+import {
   CompareColumnsIllustration,
   GrowthTrendIllustration,
 } from "@/components/guide/illustrations";
@@ -170,6 +174,7 @@ export default function ShareTradingForBeginnersPage() {
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="max-w-3xl min-w-0">
+            <LearningJourneyHeader href={PATH} />
             <KeyTakeaways items={KEY_TAKEAWAYS} />
 
             <div className="mt-6 lg:hidden">
@@ -469,6 +474,8 @@ export default function ShareTradingForBeginnersPage() {
                 },
               ]}
             />
+
+            <ContinueLearning href={PATH} />
 
             <RelatedGuides
               guides={[

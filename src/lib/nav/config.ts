@@ -108,19 +108,20 @@ export const NAV_ITEMS: NavItem[] = [
         heading: "Crypto Exchanges",
         links: [
           {
-            label: "5 Simple Steps to Buy Cryptocurrency",
-            href: getStaticGuideArticleHref(
-              STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
-            ),
-            icon: "coin",
-          },
-          {
             label: "How to Start Investing in Crypto for Beginners",
             href: getStaticGuideArticleHref(
               STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
             ),
             icon: "wallet",
           },
+          {
+            label: "5 Simple Steps to Buy Cryptocurrency",
+            href: getStaticGuideArticleHref(
+              STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
+            ),
+            icon: "coin",
+          },
+
           {
             label: "Top Cryptocurrency Exchanges in Australia",
             href: getStaticGuideArticleHref(

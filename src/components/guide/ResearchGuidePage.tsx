@@ -8,6 +8,10 @@ import { GuideTableOfContents } from "@/components/guide/GuideTableOfContents";
 import { GuideSourceList } from "@/components/guide/GuideSourceList";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
+import {
+  ContinueLearning,
+  LearningJourneyHeader,
+} from "@/components/learning/LearningJourney";
 
 export type ResearchGuideSection = {
   id: string;
@@ -80,6 +84,7 @@ export function ResearchGuidePage({
       <main className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="max-w-3xl min-w-0">
+            <LearningJourneyHeader href={config.path} />
             <KeyTakeaways items={config.takeaways} />
             {evidence}
             <div className="mt-6 lg:hidden">
@@ -121,6 +126,7 @@ export function ResearchGuidePage({
                 ))}
               </div>
             </Card>
+            <ContinueLearning href={config.path} />
             <GuideSourceList sources={config.sources} />
             <p className="text-muted mt-4 text-xs leading-5">
               Sources were reviewed on {config.updated}. Provider pricing and

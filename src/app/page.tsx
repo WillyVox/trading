@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/Card";
 import { PageHero } from "@/components/layout/PageHero";
 import { NavIcon, type NavIconName } from "@/components/layout/NavIcon";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { HomepageLearningProgress } from "@/components/learning/LearningProgressClient";
 
 export const metadata = buildMetadata({
   title: "Learn Share Trading & Crypto in Australia | Trading Guide",
@@ -36,7 +37,7 @@ const learningPaths: LearningPath[] = [
         label: "Start from zero",
         description:
           "Shares, trading, brokers and the basics of getting started.",
-        href: "/guides/share-trading",
+        href: "/learn/share-trading",
       },
       {
         label: "Understand trading costs",
@@ -66,7 +67,7 @@ const learningPaths: LearningPath[] = [
         label: "Start from zero",
         description:
           "Crypto basics, exchanges and a beginner-friendly starting point.",
-        href: "/guides/crypto",
+        href: "/learn/crypto",
       },
       {
         label: "Understand crypto exchanges",
@@ -183,6 +184,7 @@ export default function HomePage() {
       />
 
       <main>
+        <HomepageLearningProgress />
         <section className="mx-auto max-w-6xl px-4 py-14 md:py-16">
           <Eyebrow>Choose your learning path</Eyebrow>
           <h2 className="font-display text-navy mt-4 max-w-3xl text-3xl font-bold md:text-4xl">
