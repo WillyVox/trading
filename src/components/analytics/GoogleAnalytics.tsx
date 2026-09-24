@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
 import { analyticsConfig, isAnalyticsConfigured } from "@/lib/analytics/config";
 
 declare global {
@@ -15,23 +16,38 @@ declare global {
 export function GoogleAnalytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
   const [loaded, setLoaded] = useState(false);
+
   const configured = isAnalyticsConfigured();
   const id = analyticsConfig.measurementId;
 
   const initialise = () => {
     window.dataLayer = window.dataLayer ?? [];
-    window.gtag = (...args: unknown[]) => window.dataLayer?.push(args);
+
+    window.gtag = function gtag() {
+      // Google's gtag bootstrap intentionally pushes the Arguments object.
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer?.push(arguments);
+    };
+
     window.gtag("js", new Date());
-    window.gtag("config", id, { send_page_view: false });
+
+    window.gtag("config", id, {
+      send_page_view: false,
+    });
+
     setLoaded(true);
   };
 
   useEffect(() => {
-    if (!configured || !loaded || typeof window.gtag !== "function") return;
+    if (!configured || !loaded || typeof window.gtag !== "function") {
+      return;
+    }
 
     const query = searchParams.toString();
     const pagePath = `${pathname}${query ? `?${query}` : ""}`;
+
     window.gtag("event", "page_view", {
       page_location: `${window.location.origin}${pagePath}`,
       page_path: pagePath,
@@ -39,7 +55,9 @@ export function GoogleAnalytics() {
     });
   }, [configured, loaded, pathname, searchParams]);
 
-  if (!configured) return null;
+  if (!configured) {
+    return null;
+  }
 
   return (
     <Script
