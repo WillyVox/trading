@@ -122,6 +122,16 @@ npm run build
 
 npm run check:seed-data
 npm run check:providers
+
 npm run validate:release
 
 npm run check:production
+
+
+* chekc DB
+
+npx prisma generate
+npx prisma migrate status
+npm run dev
+
+http://localhost:3000/api/auth/session
