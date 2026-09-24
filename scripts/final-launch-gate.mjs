@@ -3,6 +3,7 @@ const steps = [
   ["Code validation", "npm", ["run", "validate:code"]],
   ["SEO release check", "npm", ["run", "check:seo:release"]],
   ["Canonical internal links", "npm", ["run", "check:internal-links"]],
+  ["Provider verification", "npm", ["run", "check:providers"]],
   ["Production readiness", "npm", ["run", "check:production"]],
 ];
 for (const [label, cmd, args] of steps) {

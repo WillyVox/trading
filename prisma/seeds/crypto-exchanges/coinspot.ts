@@ -51,7 +51,7 @@ export const CoinSpot = {
         label: "Founded",
         value: "2013",
         jurisdiction: "AU",
-        sourceUrl: "https://www.coinspot.com.au/?affiliate=NP4T8",
+        sourceUrl: "https://www.coinspot.com.au/",
         verificationStatus: VerificationStatus.VERIFIED,
         verifiedAt: new Date("2026-09-22"),
       },

@@ -99,7 +99,7 @@ export function CompareTable({
               fees, and features side by side.
             </caption>
             <thead>
-              <tr className="border-border bg-panel-secondary sticky top-[74px] z-10 border-b text-left">
+              <tr className="border-border bg-panel-secondary sticky top-0 z-10 border-b text-left">
                 <th
                   scope="col"
                   className="bg-panel-secondary sticky left-0 z-20 w-[210px] min-w-[210px] px-5 py-4 align-bottom"
