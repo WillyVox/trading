@@ -93,12 +93,6 @@ export default function PrivacyPolicyPage() {
               -- Google Analytics may set cookies or use similar technologies to
               distinguish visits and help us understand how the website is used.
             </li>
-            <li>
-              <span className="text-navy font-medium">Embedded videos</span> --
-              some guides embed videos from YouTube or Vimeo. Those providers
-              may set their own cookies when a video loads or plays, and handle
-              that information under their own policies.
-            </li>
           </ul>
           <p className="mt-2">
             Google Analytics may collect information such as pages viewed,
@@ -124,13 +118,13 @@ export default function PrivacyPolicyPage() {
 
         <section>
           <h2 className="font-display text-navy mb-2 text-lg font-bold">
-            4. Sharing and overseas disclosure
+            4. Data may be processed by hosting/database providers and Google
           </h2>
           <p>
-            We don&apos;t sell your personal information. It may be processed by
-            service providers we use to run this site (e.g. hosting and database
-            services). Website usage information is also processed by Google as
-            the provider of Google Analytics.
+            Your personal information may be processed by service providers we
+            use to run this site (e.g. hosting and database services). Website
+            usage information is also processed by Google as the provider of
+            Google Analytics.
           </p>
         </section>
 

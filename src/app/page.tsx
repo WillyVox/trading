@@ -271,7 +271,7 @@ export default async function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-14">
         <Eyebrow>How this site works</Eyebrow>
         <h2 className="font-display text-navy mt-4 text-3xl font-bold">
-          Four steps to a platform you trust.
+          Four steps to figuring out a trading strategy
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {howItWorksSteps.map((step) => (

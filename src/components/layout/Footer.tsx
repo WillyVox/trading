@@ -74,15 +74,16 @@ export function Footer() {
           and does not constitute financial, investment, or trading advice.
           Trading Guide is an independent information publisher and does not
           hold an Australian Financial Services Licence (AFSL). We do not
-          endorse or recommend any specific trading platform or broker.
-          We&lsquo;re 100% self-funded, in the future, we may receive
-          compensation or affiliate commission from the trading platforms
-          featured on this site when you click on links. This does not affect
-          our objective presentation of factual data. Read our{" "}
+          endorse or recommend any specific trading platform or broker. Trading
+          Guide is currently 100% self-funded and does not receive commissions
+          from any provider we cover. We may introduce affiliate partnerships in
+          the future — if we do, any affiliate link will be clearly disclosed,
+          and commercial relationships will never determine how providers are
+          included, ranked, or ordered. Read our{" "}
           <Link href="/how-we-get-paid" className="text-gold-soft underline">
             how we get paid
           </Link>{" "}
-          disclosure.
+          disclosure for details.
         </p>
       </div>
     </footer>

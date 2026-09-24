@@ -20,6 +20,7 @@ export interface BusinessIdentity {
   /** Registered legal entity name, if different from the "Trading Guide" trading name. */
   legalName?: string;
   tradingName?: string;
+  web?: string;
   abn?: string;
   acn?: string;
   /** Only set if Trading Guide (or its operator) genuinely holds an AFSL. Do not set based on assumption. */
@@ -33,8 +34,9 @@ export interface BusinessIdentity {
 }
 
 export const businessIdentity: BusinessIdentity = {
-  legalName: "TradingGuide.com.au",
+  legalName: "Le T",
   tradingName: "Trading Guide",
+  web: "TradingGuide.com.au",
   abn: "54347400601",
   businessAddress: "254B North Rocks Rd, North Rocks, NSW 2151",
   supportEmail: "tradingguide@outlook.com.au",
