@@ -5,8 +5,8 @@
     "website": "https://www.commbank.com.au",
     "description": "Australia's largest retail bank, operating the CommSec share trading platform.",
     "jurisdictions": ["AU"],
-    "verificationStatus": "UNVERIFIED",
-    "lastVerifiedAt": "2026-09-17T00:00:00.000Z"
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },
   "offering": {
     "name": "CommSec",
@@ -15,8 +15,8 @@
     "description": "Commonwealth Bank's CHESS-sponsored share trading platform for Australian and international shares, ETFs, and exchange-traded options.",
     "offeringType": "SHARE_TRADING",
     "jurisdiction": "AU",
-    "verificationStatus": "UNVERIFIED",
-    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-24T00:00:00.000Z",
     "markets": [
       {
         "marketCode": "ASX",
@@ -28,16 +28,18 @@
       {
         "marketCode": "NYSE",
         "availability": "AVAILABLE",
-        "notes": "CommSec advertises international share access; reviews differ on the exact number of international markets (12-25 depending on source), so an exact figure isn't seeded here -- exact per-exchange coverage not yet confirmed against an official breakdown.",
-        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
-        "verificationStatus": "UNVERIFIED"
+        "notes": "CommSec International Shares supports this US exchange.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       },
       {
         "marketCode": "NASDAQ",
         "availability": "AVAILABLE",
-        "notes": "CommSec advertises international share access; reviews differ on the exact number of international markets (12-25 depending on source), so an exact figure isn't seeded here -- exact per-exchange coverage not yet confirmed against an official breakdown.",
-        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
-        "verificationStatus": "UNVERIFIED"
+        "notes": "CommSec International Shares supports this US exchange.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "products": [
@@ -66,8 +68,9 @@
         "productType": "OPTIONS",
         "availability": "AVAILABLE",
         "notes": "Reported in third-party reviews as Exchange Traded Options; confirm against CommSec's own product pages before publishing.",
-        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
-        "verificationStatus": "UNVERIFIED"
+        "sourceUrl": "https://www.commsec.com.au/products/eto-options.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "custody": [
@@ -83,26 +86,29 @@
         "marketCode": "NYSE",
         "custodyType": "CUSTODIAL",
         "hinSupported": false,
-        "description": "Reported in third-party materials as held via a custodial/nominee structure; the specific custodian named in some reviews (Interactive Brokers LLC) is not yet confirmed against CommSec's own FSG/PDS.",
-        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
-        "verificationStatus": "UNVERIFIED"
+        "description": "International shares use CommSec nominee/custody arrangements; Interactive Brokers LLC is the appointed international sub-custodian and the customer retains beneficial ownership.",
+        "sourceUrl": "https://www.commsec.com.au/support/help-centre/international-shares/where-are-my-international-shares-held.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       },
       {
         "marketCode": "NASDAQ",
         "custodyType": "CUSTODIAL",
         "hinSupported": false,
-        "description": "Reported in third-party materials as held via a custodial/nominee structure; the specific custodian named in some reviews (Interactive Brokers LLC) is not yet confirmed against CommSec's own FSG/PDS.",
-        "sourceUrl": "https://www.commbank.com.au/investing/commsec-australian-shares.html",
-        "verificationStatus": "UNVERIFIED"
+        "description": "International shares use CommSec nominee/custody arrangements; Interactive Brokers LLC is the appointed international sub-custodian and the customer retains beneficial ownership.",
+        "sourceUrl": "https://www.commsec.com.au/support/help-centre/international-shares/where-are-my-international-shares-held.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "accountTypes": [
       {
         "accountType": "SMSF",
         "availability": "AVAILABLE",
-        "notes": "Widely reported as supported; confirm against CommSec's own account-opening documentation before publishing.",
-        "sourceUrl": "https://www.commsec.com.au",
-        "verificationStatus": "UNVERIFIED"
+        "notes": "CommSec supports SMSF Share Trading Accounts and International Shares Accounts for eligible SMSFs.",
+        "sourceUrl": "https://www.commsec.com.au/support/help-centre/managing-your-account/how-to-open-smsf-trading-account-cash-account.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "features": [],

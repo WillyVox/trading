@@ -5,8 +5,8 @@
     "website": "https://hellostake.com/au",
     "description": "Sydney-founded fintech broker (trading as Stake) offering CHESS-sponsored ASX trading and US share/ETF investing for Australians.",
     "jurisdictions": ["AU"],
-    "verificationStatus": "UNVERIFIED",
-    "lastVerifiedAt": "2026-09-19T00:00:00.000Z"
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },
   "offering": {
     "name": "Stake",
@@ -15,8 +15,8 @@
     "description": "Stake's CHESS-sponsored ASX share trading and custodial US (Wall St) share and ETF investing platform for Australians, with a flat low-dollar brokerage fee on both sides.",
     "offeringType": "SHARE_TRADING",
     "jurisdiction": "AU",
-    "verificationStatus": "UNVERIFIED",
-    "lastVerifiedAt": "2026-09-19T00:00:00.000Z",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-24T00:00:00.000Z",
     "markets": [
       {
         "marketCode": "ASX",
@@ -29,16 +29,18 @@
       {
         "marketCode": "NYSE",
         "availability": "AVAILABLE",
-        "notes": "Stake advertises 11,000+ US stocks, ETFs, government bonds and OTC securities under one \"Wall St\" product; exact per-exchange coverage (NYSE vs. Nasdaq) not confirmed against an official breakdown.",
-        "sourceUrl": "https://hellostake.com/au/pricing",
-        "verificationStatus": "UNVERIFIED"
+        "notes": "Stake Wall St supports U.S.-listed shares from major exchanges including NYSE and Nasdaq.",
+        "sourceUrl": "https://hellostake.com/au/support/investing-and-trading/instruments/52919224079641",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       },
       {
         "marketCode": "NASDAQ",
         "availability": "AVAILABLE",
-        "notes": "Stake advertises 11,000+ US stocks, ETFs, government bonds and OTC securities under one \"Wall St\" product; exact per-exchange coverage (NYSE vs. Nasdaq) not confirmed against an official breakdown.",
-        "sourceUrl": "https://hellostake.com/au/pricing",
-        "verificationStatus": "UNVERIFIED"
+        "notes": "Stake Wall St supports U.S.-listed shares from major exchanges including NYSE and Nasdaq.",
+        "sourceUrl": "https://hellostake.com/au/support/investing-and-trading/instruments/52919224079641",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "products": [
@@ -78,25 +80,28 @@
         "marketCode": "ASX",
         "custodyType": "CHESS_SPONSORED",
         "hinSupported": true,
-        "description": "Only whole shares supported on ASX (no fractional ASX shares); ASX minimum marketable parcel rules apply to the initial purchase.",
-        "sourceUrl": "https://hellostake.com/au/blog/stake-academy/brokerage-fees",
-        "verificationStatus": "UNVERIFIED"
+        "description": "Stake AUS holdings are registered under the customer’s unique HIN; fractional ASX shares are not supported.",
+        "sourceUrl": "https://hellostake.com/au/support/privacy-and-security/shares-and-funds-security/26010910072729",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       },
       {
         "marketCode": "NYSE",
         "custodyType": "CUSTODIAL",
         "hinSupported": false,
-        "description": "Wall St holdings are held via a custodial structure, not CHESS/HIN; fractional shares are supported from US$10.",
-        "sourceUrl": "https://hellostake.com/au/blog/stake-academy/brokerage-fees",
-        "verificationStatus": "UNVERIFIED"
+        "description": "Stake Wall St uses a custodial model. DriveWealth provides custody and maintains records identifying customer holdings; U.S. shares are held through DTC.",
+        "sourceUrl": "https://hellostake.com/au/support/privacy-and-security/shares-and-funds-security/26010910072729",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       },
       {
         "marketCode": "NASDAQ",
         "custodyType": "CUSTODIAL",
         "hinSupported": false,
-        "description": "Wall St holdings are held via a custodial structure, not CHESS/HIN; fractional shares are supported from US$10.",
-        "sourceUrl": "https://hellostake.com/au/blog/stake-academy/brokerage-fees",
-        "verificationStatus": "UNVERIFIED"
+        "description": "Stake Wall St uses a custodial model. DriveWealth provides custody and maintains records identifying customer holdings; U.S. shares are held through DTC.",
+        "sourceUrl": "https://hellostake.com/au/support/privacy-and-security/shares-and-funds-security/26010910072729",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "accountTypes": [

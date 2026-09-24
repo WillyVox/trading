@@ -5,8 +5,8 @@
     "website": "https://www.cmcmarkets.com/en-au",
     "description": "ASX-listed financial services group operating the CMC Invest share trading platform and a separate CFD/forex trading business in Australia.",
     "jurisdictions": ["AU"],
-    "verificationStatus": "UNVERIFIED",
-    "lastVerifiedAt": "2026-09-17T00:00:00.000Z"
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },
   "offering": {
     "name": "CMC Invest",
@@ -15,8 +15,8 @@
     "description": "CMC Markets' CHESS-sponsored share investing platform for Australian and international shares and ETFs, separate from CMC's CFD/forex business.",
     "offeringType": "SHARE_TRADING",
     "jurisdiction": "AU",
-    "verificationStatus": "UNVERIFIED",
-    "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-24T00:00:00.000Z",
     "markets": [
       {
         "marketCode": "ASX",
@@ -28,16 +28,18 @@
       {
         "marketCode": "NYSE",
         "availability": "AVAILABLE",
-        "notes": "CMC Invest advertises access to the ASX plus 15 international markets, including the US; exact per-exchange coverage (NYSE vs. Nasdaq) not yet confirmed against an official breakdown.",
+        "notes": "CMC Invest explicitly lists NYSE and NASDAQ among supported exchanges.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
-        "verificationStatus": "UNVERIFIED"
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       },
       {
         "marketCode": "NASDAQ",
         "availability": "AVAILABLE",
-        "notes": "CMC Invest advertises access to the ASX plus 15 international markets, including the US; exact per-exchange coverage (NYSE vs. Nasdaq) not yet confirmed against an official breakdown.",
+        "notes": "CMC Invest explicitly lists NYSE and NASDAQ among supported exchanges.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
-        "verificationStatus": "UNVERIFIED"
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "products": [
@@ -76,26 +78,29 @@
         "marketCode": "NYSE",
         "custodyType": "CUSTODIAL",
         "hinSupported": false,
-        "description": "Reported as custodial in third-party reviews of CMC Invest; not yet confirmed against CMC's own PDS/FSG.",
-        "sourceUrl": "https://invezz.com/au/reviews/cmc-markets-review-australia/",
-        "verificationStatus": "UNVERIFIED"
+        "description": "International securities are held in a custody arrangement between CMC Markets Stockbroking and BNP Paribas SA.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/products/international-shares",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       },
       {
         "marketCode": "NASDAQ",
         "custodyType": "CUSTODIAL",
         "hinSupported": false,
-        "description": "Reported as custodial in third-party reviews of CMC Invest; not yet confirmed against CMC's own PDS/FSG.",
-        "sourceUrl": "https://invezz.com/au/reviews/cmc-markets-review-australia/",
-        "verificationStatus": "UNVERIFIED"
+        "description": "International securities are held in a custody arrangement between CMC Markets Stockbroking and BNP Paribas SA.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/products/international-shares",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "accountTypes": [
       {
         "accountType": "SMSF",
         "availability": "AVAILABLE",
-        "notes": "Reported as available in third-party comparisons; confirm against CMC Invest's own account-opening documentation before publishing.",
-        "sourceUrl": "https://www.investmatch.com.au/compare/cmc-invest-vs-sharesies",
-        "verificationStatus": "UNVERIFIED"
+        "notes": "CMC Invest supports accounts opened in an established SMSF name.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/smsfs",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
     "features": [],

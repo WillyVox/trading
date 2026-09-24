@@ -35,29 +35,37 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
       where: {
         slug: providerData.slug,
       },
+
       update: {
         ...providerData,
+
         facts: {
           deleteMany: {},
           create: facts,
         },
+
         sources: {
           deleteMany: {},
           create: sources,
         },
+
         regulations: {
           deleteMany: {},
           create: regulations,
         },
       },
+
       create: {
         ...providerData,
+
         facts: {
           create: facts,
         },
+
         sources: {
           create: sources,
         },
+
         regulations: {
           create: regulations,
         },
@@ -83,10 +91,12 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
       where: {
         slug: offeringData.slug,
       },
+
       update: {
         providerId: provider.id,
         ...offeringData,
       },
+
       create: {
         providerId: provider.id,
         ...offeringData,
@@ -168,9 +178,7 @@ export async function seedCryptoExchanges(prisma: PrismaClient) {
           tierVolumeCurrency?: string;
           tierAssetsCurrency?: string;
         };
-
         const { tiers, ...feeData } = feeWithTiers;
-
         await prisma.offeringFee.create({
           data: {
             offeringId: offering.id,

@@ -3,33 +3,15 @@ import { PrismaClient } from "@prisma/client";
 import { SEED_MARKETS } from "../markets";
 import { SHARE_TRADING_PLATFORMS } from "../share-trading-platforms";
 import { assertValidFeeSeed } from "./types";
-
-type OfferingMarketSeed = {
-  marketCode: string;
-  [key: string]: unknown;
-};
-
-type OfferingProductSeed = {
-  [key: string]: unknown;
-};
-
+type OfferingMarketSeed = { marketCode: string; [key: string]: unknown };
+type OfferingProductSeed = { [key: string]: unknown };
 type OfferingCustodySeed = {
   marketCode?: string | null;
   [key: string]: unknown;
 };
-
-type OfferingAccountTypeSeed = {
-  [key: string]: unknown;
-};
-
-type OfferingFeatureSeed = {
-  [key: string]: unknown;
-};
-
-type OfferingProsConSeed = {
-  [key: string]: unknown;
-};
-
+type OfferingAccountTypeSeed = { [key: string]: unknown };
+type OfferingFeatureSeed = { [key: string]: unknown };
+type OfferingProsConSeed = { [key: string]: unknown };
 type FeeTierSeed = {
   minAmount: number;
   maxAmount?: number | null;
@@ -127,6 +109,7 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
       where: {
         slug: providerSeed.slug,
       },
+
       update: {
         name: providerSeed.name,
         website: providerSeed.website,
@@ -135,6 +118,7 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
         verificationStatus: providerSeed.verificationStatus,
         lastVerifiedAt: providerSeed.lastVerifiedAt,
       },
+
       create: {
         ...providerSeed,
       },
@@ -163,10 +147,12 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
       where: {
         slug: offeringData.slug,
       },
+
       update: {
         providerId: provider.id,
         ...offeringData,
       },
+
       create: {
         providerId: provider.id,
         ...offeringData,
@@ -217,15 +203,11 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
       }),
 
       prisma.offeringFeature.deleteMany({
-        where: {
-          offeringId: offering.id,
-        },
+        where: { offeringId: offering.id },
       }),
 
       prisma.offeringProsCon.deleteMany({
-        where: {
-          offeringId: offering.id,
-        },
+        where: { offeringId: offering.id },
       }),
     ]);
 
@@ -265,6 +247,7 @@ export async function seedShareTradingPlatforms(prisma: PrismaClient) {
           ({ marketCode, ...custodyData }: OfferingCustodySeed) => ({
             offeringId: offering.id,
             marketId: marketCode ? getMarketId(marketCode) : null,
+
             ...custodyData,
           })
         ),

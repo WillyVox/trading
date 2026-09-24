@@ -127,8 +127,7 @@ npm run validate:release
 
 npm run check:production
 
-
-* chekc DB
+- chekc DB
 
 npx prisma generate
 npx prisma migrate status
