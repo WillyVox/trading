@@ -37,7 +37,9 @@
     "test:provider-outbound": "tsx --test src/lib/affiliates/__test__/provider-destination.test.ts",
     "check:providers": "node scripts/check-provider-verification.mjs",
     "report:providers": "PROVIDER_STALE_DAYS=90 node scripts/check-provider-verification.mjs",
-    "check:seed-data": "node scripts/check-seed-json.mjs"
+    "check:seed-data": "node scripts/check-seed-json.mjs",
+    "check:environment": "node scripts/check-environment-safety.mjs",
+    "check:phase3": "npm run check:environment && npm run db:review:migrations && npm run check:production"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",

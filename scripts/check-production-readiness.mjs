@@ -1,13 +1,18 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 
 const errors = [];
 const warnings = [];
-const required = ["DATABASE_URL"];
+const required = ["DATABASE_URL", "DIRECT_URL"];
 for (const name of required) {
   if (!process.env[name]) errors.push(`${name} is not set.`);
 }
-if (!process.env.AUTH_SECRET && !process.env.NEXTAUTH_SECRET) {
+const authSecret = process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET;
+if (!authSecret) {
   errors.push("AUTH_SECRET (or NEXTAUTH_SECRET) is not set.");
+} else if (authSecret.length < 32) {
+  errors.push(
+    "AUTH_SECRET (or NEXTAUTH_SECRET) must be at least 32 characters."
+  );
 }
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXTAUTH_URL;
@@ -22,6 +27,22 @@ else {
     }
   } catch {
     errors.push("Production site URL is not a valid absolute URL.");
+  }
+}
+
+const migrationsRoot = "prisma/migrations";
+if (!existsSync(migrationsRoot)) {
+  errors.push(
+    "prisma/migrations is missing; production cannot safely use prisma migrate deploy."
+  );
+} else {
+  const migrationDirs = readdirSync(migrationsRoot, {
+    withFileTypes: true,
+  }).filter((entry) => entry.isDirectory());
+  if (migrationDirs.length === 0) {
+    errors.push(
+      "No committed Prisma migration directories were found. Establish/baseline migration history before production deployment; do not fabricate it against the live database."
+    );
   }
 }
 
@@ -51,6 +72,12 @@ if (process.env.LEGAL_CONTENT_APPROVED !== "true") {
 if (process.env.LEGAL_CONTENT_APPROVED === "true" && legalMarkersRemain) {
   errors.push(
     "LEGAL_CONTENT_APPROVED=true conflicts with draft/legal-review markers still present in the legal pages."
+  );
+}
+
+if (process.env.TRUST_CONTENT_APPROVED !== "true") {
+  errors.push(
+    "TRUST_CONTENT_APPROVED=true is required after Methodology, Editorial Policy, Affiliate Disclosure and How We Get Paid have been reviewed against the deployed implementation."
   );
 }
 

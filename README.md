@@ -119,18 +119,10 @@ npm test
 npm run lint
 npm run format:check
 npm run build
-
-npm run check:seed-data
-npm run check:providers
-
-npm run validate:release
-
 npm run check:production
 
-- chekc DB
-
-npx prisma generate
-npx prisma migrate status
-npm run dev
-
-http://localhost:3000/api/auth/session
+- Prisma production deployment hardened
+  npm run db:review:migrations
+  npm run db:status
+  npm run db:deploy
+  npm run db:inspect:production

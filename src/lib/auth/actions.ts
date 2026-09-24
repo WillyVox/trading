@@ -112,9 +112,10 @@ export async function registerAction(
     throw error;
   }
   if (existing) {
-    // Same reasoning as login: don't reveal whether the account is a
-    // password account or (in future) an OAuth-only one.
-    return { error: "An account with that email already exists." };
+    // Do not reveal whether this email already has an account. Keep the
+    // response deliberately generic so registration cannot be used for
+    // account enumeration.
+    return { error: "Unable to create an account with those details." };
   }
 
   const passwordHash = await hashPassword(password);

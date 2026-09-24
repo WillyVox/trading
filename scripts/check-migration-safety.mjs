@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 const root = "prisma/migrations";
 const patterns = [
@@ -8,10 +8,24 @@ const patterns = [
   ["TRUNCATE", /\bTRUNCATE\b/i],
   ["DELETE FROM", /\bDELETE\s+FROM\b/i],
 ];
+if (!existsSync(root)) {
+  console.error("ERROR: prisma/migrations is missing.");
+  process.exit(1);
+}
+
+const migrationDirs = readdirSync(root)
+  .map((entry) => join(root, entry))
+  .filter((dir) => statSync(dir).isDirectory());
+
+if (migrationDirs.length === 0) {
+  console.error(
+    "ERROR: no committed Prisma migration directories were found. Establish/baseline migration history before production deployment."
+  );
+  process.exit(1);
+}
+
 const findings = [];
-for (const entry of readdirSync(root).sort()) {
-  const dir = join(root, entry);
-  if (!statSync(dir).isDirectory()) continue;
+for (const dir of migrationDirs) {
   for (const file of readdirSync(dir).filter((f) => f.endsWith(".sql"))) {
     const path = join(dir, file);
     const sql = readFileSync(path, "utf8");
