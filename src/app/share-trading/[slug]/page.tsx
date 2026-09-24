@@ -30,6 +30,9 @@ import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
+import { getActiveAffiliateLink } from "@/lib/affiliates/service";
+import { VisitSite } from "@/components/affiliate/VisitSite";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 /** Matches the "1 Oct 2026" style used elsewhere for guide/article dates
  *  (see GuideHeader's local formatDate) -- short form suits a promo's
@@ -107,6 +110,12 @@ export default async function ShareTradingOfferingPage({
   }
   const offering = offeringResult.data;
   if (!offering) notFound();
+  const affiliateResult = await publicDatabaseRead(
+    "shareTrading.detail.affiliateLink",
+    () => getActiveAffiliateLink(offering.provider.slug)
+  );
+  const hasActiveAffiliate =
+    affiliateResult.ok && Boolean(affiliateResult.data);
 
   const trail = breadcrumbTrail([
     { name: "Share trading", path: "/share-trading" },
@@ -200,7 +209,7 @@ export default async function ShareTradingOfferingPage({
         maxWidth="max-w-4xl"
       />
       <div className="mx-auto max-w-4xl px-4 py-12">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 items-center gap-4">
             <ProviderLogo logo={offering.logo} name={offering.name} size="lg" />
             <div className="min-w-0">
@@ -210,7 +219,15 @@ export default async function ShareTradingOfferingPage({
               <VerificationBadge status={offering.verificationStatus} />
             </div>
           </div>
+          <VisitSite
+            providerSlug={offering.provider.slug}
+            officialWebsite={offering.website}
+            hasActiveAffiliate={hasActiveAffiliate}
+            placement="share-trading-profile"
+            className="w-full shrink-0 sm:w-auto"
+          />
         </div>
+        {hasActiveAffiliate && <AffiliateDisclosure />}
 
         <Card className="mt-8">
           <h2 className="font-display text-navy mb-1 text-lg font-bold">

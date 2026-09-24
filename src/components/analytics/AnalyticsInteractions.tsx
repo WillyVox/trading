@@ -45,12 +45,30 @@ export function AnalyticsInteractions() {
       const target = event.target as Element | null;
       const anchor = target?.closest("a[href]") as HTMLAnchorElement | null;
       if (!anchor) return;
+      const outbound = anchor.dataset.providerOutbound === "true";
+      if (outbound) {
+        const providerSlug = anchor.dataset.providerSlug;
+        const destinationType = anchor.dataset.destinationType;
+        const placement = anchor.dataset.placement ?? "unspecified";
+        if (providerSlug && destinationType) {
+          trackEvent("provider_outbound_click", {
+            provider_slug: providerSlug,
+            destination_type: destinationType,
+            placement,
+            source_path: window.location.pathname,
+          });
+        }
+      }
+
       const url = new URL(anchor.href, window.location.origin);
       const match = url.pathname.match(/^\/go\/([^/]+)$/);
       if (!match) return;
       trackEvent("affiliate_click", {
         provider_slug: match[1],
-        placement: url.searchParams.get("placement") ?? "unspecified",
+        placement:
+          anchor.dataset.placement ??
+          url.searchParams.get("placement") ??
+          "unspecified",
         source_path: window.location.pathname,
       });
     };

@@ -4,6 +4,7 @@ import type {
   CompareSubject,
 } from "@/components/compare/types";
 import type { ShareTradingPlatformDetail } from "./service";
+import { resolveProviderDestination } from "@/lib/affiliates/provider-destination";
 import {
   formatAvailability,
   formatProductType,
@@ -31,27 +32,40 @@ import {
  * unresolved boolean.
  */
 
-/**
- * `cta` here is website-only -- there's no affiliate tier the way
- * src/lib/crypto-exchanges/comparison.ts has one. AffiliateLink.partnerSlug matches
- * Provider.slug by convention (see src/lib/affiliates/service.ts); an
- * offering isn't a Provider, so it isn't in that namespace and can't be
- * looked up the same way. That's a deliberate scope boundary, not a
- * missing feature -- if share trading platforms get their own affiliate
- * program later, this is where the second tier would go.
- */
+/** Active links are keyed by Provider.slug, while the public comparison
+ * identity remains the offering slug. This keeps commercial state attached to
+ * the provider without changing the offering/profile model. */
+type AffiliateLinkLookup = Map<string, { partnerSlug: string }>;
+
 export function toCompareSubjects(
-  offerings: ShareTradingPlatformDetail[]
+  offerings: ShareTradingPlatformDetail[],
+  affiliateLinks?: AffiliateLinkLookup
 ): CompareSubject[] {
-  return offerings.map((o) => ({
-    id: o.id,
-    slug: o.slug,
-    name: o.name,
-    verificationStatus: o.verificationStatus,
-    profileHref: `/share-trading/${o.slug}`,
-    logo: o.logo,
-    cta: o.website ? { href: o.website, isAffiliate: false } : null,
-  }));
+  return offerings.map((o) => {
+    const destination = resolveProviderDestination({
+      providerSlug: o.provider.slug,
+      officialWebsite: o.website,
+      hasActiveAffiliate: affiliateLinks?.has(o.provider.slug) ?? false,
+      placement: "compare",
+    });
+    return {
+      id: o.id,
+      slug: o.slug,
+      name: o.name,
+      verificationStatus: o.verificationStatus,
+      profileHref: `/share-trading/${o.slug}`,
+      logo: o.logo,
+      cta: destination
+        ? {
+            href: destination.href,
+            isAffiliate: destination.isAffiliate,
+            destinationType: destination.type,
+            providerSlug: destination.providerSlug,
+            placement: destination.placement,
+          }
+        : null,
+    };
+  });
 }
 
 export function buildMarketRows(

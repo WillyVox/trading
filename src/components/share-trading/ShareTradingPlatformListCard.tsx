@@ -24,8 +24,10 @@ import { VisitSite } from "@/components/affiliate/VisitSite";
  */
 export function ShareTradingPlatformListCard({
   offering,
+  hasActiveAffiliate = false,
 }: {
   offering: ShareTradingPlatformListItem;
+  hasActiveAffiliate?: boolean;
 }) {
   const marketCodes = offering.markets.map((m) => m.market.code);
   const visibleMarkets = marketCodes.slice(0, 3);
@@ -140,14 +142,17 @@ export function ShareTradingPlatformListCard({
       </div>
 
       {/* Actions */}
-      <div className="flex flex-row items-center gap-3 md:flex-col md:items-end">
-        {/* No share-trading affiliate links exist yet, so this is a plain
-            outbound link to the platform's own website. When one does, look
-            it up on the page and pass its partnerSlug here. */}
-        <VisitSite href={offering.website ?? undefined} />
+      <div className="flex flex-col items-stretch gap-3 md:items-end">
+        <VisitSite
+          providerSlug={offering.provider.slug}
+          officialWebsite={offering.website}
+          hasActiveAffiliate={hasActiveAffiliate}
+          placement="share-trading-browse"
+          className="w-full md:w-auto"
+        />
         <Link
           href={`/share-trading/${offering.slug}`}
-          className="text-navy text-xs font-semibold whitespace-nowrap hover:underline"
+          className="text-navy text-center text-xs font-semibold whitespace-nowrap hover:underline md:text-right"
         >
           Full profile →
         </Link>

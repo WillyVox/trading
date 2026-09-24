@@ -10,6 +10,8 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
+import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 // Matches the STATIC_GUIDES category already used by
 // /guides/share-trading-for-beginners -- see src/lib/guides/static-guides.ts.
@@ -32,13 +34,19 @@ export default async function ShareTradingPage() {
         getShareTradingPlatforms(),
         getLatestArticlesForCategory(SHARE_TRADING_CATEGORY),
       ]);
-      return { items, latestArticles };
+      const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
+        items.map((item) => item.provider.slug)
+      );
+      return { items, latestArticles, affiliateLinks };
     }
   );
   const items = pageDataResult.ok ? pageDataResult.data.items : [];
   const latestArticles = pageDataResult.ok
     ? pageDataResult.data.latestArticles
     : [];
+  const affiliateLinks = pageDataResult.ok
+    ? pageDataResult.data.affiliateLinks
+    : new Map<string, { partnerSlug: string }>();
   const trail = breadcrumbTrail([
     { name: "Share trading", path: "/share-trading" },
   ]);
@@ -71,11 +79,13 @@ export default async function ShareTradingPage() {
         ) : items.length === 0 ? (
           <p className="text-muted mt-4">No platforms seeded yet.</p>
         ) : null}
+        {affiliateLinks.size > 0 && <SectionAffiliateDisclosure />}
         <div className="mt-6 flex flex-col gap-4">
           {items.map((offering) => (
             <ShareTradingPlatformListCard
               key={offering.id}
               offering={offering}
+              hasActiveAffiliate={affiliateLinks.has(offering.provider.slug)}
             />
           ))}
         </div>

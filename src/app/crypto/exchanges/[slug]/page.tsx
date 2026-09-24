@@ -21,6 +21,7 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 import { VisitSite } from "@/components/affiliate/VisitSite";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
@@ -138,7 +139,7 @@ export default async function ExchangeProfilePage({
         maxWidth="max-w-4xl"
       />
       <div className="mx-auto max-w-4xl px-4 py-12">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 items-center gap-4">
             <ProviderLogo logo={provider.logo} name={provider.name} size="lg" />
             <div className="min-w-0">
@@ -148,8 +149,15 @@ export default async function ExchangeProfilePage({
               <VerificationBadge status={provider.verificationStatus} />
             </div>
           </div>
-          {link && <VisitSite partnerSlug={slug} placement="Exchange" />}
+          <VisitSite
+            providerSlug={provider.slug}
+            officialWebsite={offering.website ?? provider.website}
+            hasActiveAffiliate={Boolean(link)}
+            placement="crypto-exchange-profile"
+            className="w-full shrink-0 sm:w-auto"
+          />
         </div>
+        {link && <AffiliateDisclosure />}
 
         <Card className="mt-8">
           <h2 className="font-display text-navy mb-4 text-lg font-bold">

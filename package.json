@@ -33,7 +33,8 @@
     "sitemap:check": "node scripts/check-sitemap-health.mjs",
     "sitemap:check:production": "node scripts/check-sitemap-health.mjs https://tradingguide.com.au/sitemap.xml",
     "test:learning": "tsx --test src/lib/learning/__test__/*.test.ts",
-    "check:learning": "node scripts/check-learning-journeys.mjs"
+    "check:learning": "node scripts/check-learning-journeys.mjs",
+    "test:provider-outbound": "tsx --test src/lib/affiliates/__test__/provider-destination.test.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",

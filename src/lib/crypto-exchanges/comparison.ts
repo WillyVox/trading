@@ -1,4 +1,5 @@
 import type { OfferingFeatureType } from "@prisma/client";
+import { resolveProviderDestination } from "@/lib/affiliates/provider-destination";
 import { featureGroup, type CryptoFeatureGroup } from "./features";
 import type {
   CompareRow,
@@ -64,11 +65,21 @@ export function toCompareSubjects(
 ): CompareSubject[] {
   return providers.map((p) => {
     const affiliateLink = affiliateLinks?.get(p.slug);
-    const cta = affiliateLink
-      ? { href: `/go/${p.slug}?placement=compare`, isAffiliate: true }
-      : p.website
-        ? { href: p.website, isAffiliate: false }
-        : null;
+    const destination = resolveProviderDestination({
+      providerSlug: p.slug,
+      officialWebsite: p.website,
+      hasActiveAffiliate: Boolean(affiliateLink),
+      placement: "compare",
+    });
+    const cta = destination
+      ? {
+          href: destination.href,
+          isAffiliate: destination.isAffiliate,
+          destinationType: destination.type,
+          providerSlug: destination.providerSlug,
+          placement: destination.placement,
+        }
+      : null;
 
     return {
       id: p.id,

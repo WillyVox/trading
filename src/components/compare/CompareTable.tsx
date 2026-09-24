@@ -179,9 +179,13 @@ export function CompareTable({
                               rel={
                                 s.cta.isAffiliate
                                   ? "sponsored noopener"
-                                  : "nofollow noopener"
+                                  : "noopener"
                               }
-                              className="text-muted hover:text-navy inline-flex items-center gap-1 text-xs font-medium"
+                              data-provider-outbound="true"
+                              data-provider-slug={s.cta.providerSlug}
+                              data-destination-type={s.cta.destinationType}
+                              data-placement={s.cta.placement}
+                              className="bg-navy text-background hover:bg-navy-dark inline-flex min-h-10 items-center justify-center gap-1 rounded-full px-4 py-2 text-xs font-bold shadow-sm transition hover:shadow-md"
                             >
                               Visit site <span aria-hidden>↗</span>
                             </a>

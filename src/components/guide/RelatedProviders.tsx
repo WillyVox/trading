@@ -11,6 +11,7 @@ type GuideProvider = {
   description: string | null;
   verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
   activeLink: boolean;
+  website: string | null;
 };
 
 /**
@@ -50,17 +51,20 @@ export function RelatedProviders({
             {p.description && (
               <p className="text-muted mt-1.5 text-sm">{p.description}</p>
             )}
-            <div className="pt-4">
-              {p.activeLink ? (
-                <VisitSite partnerSlug={p.slug} placement="ArticleDetails" />
-              ) : (
-                <Link
-                  href={`/crypto/exchanges/${p.slug}`}
-                  className="border-border text-navy hover:bg-panel-secondary mt-4 inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold"
-                >
-                  View profile
-                </Link>
-              )}
+            <div className="mt-4 flex items-center gap-3">
+              <Link
+                href={`/crypto/exchanges/${p.slug}`}
+                className="border-border text-navy hover:bg-panel-secondary inline-flex min-h-11 flex-1 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold"
+              >
+                View profile
+              </Link>
+              <VisitSite
+                providerSlug={p.slug}
+                officialWebsite={p.website}
+                hasActiveAffiliate={p.activeLink}
+                placement="guide-related-provider"
+                className="flex-[1.25]"
+              />
             </div>
           </Card>
         ))}

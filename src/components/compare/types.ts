@@ -8,7 +8,13 @@ export type CompareSubject = {
   verificationStatus: VerificationStatus;
   profileHref: string;
   logo: string | null;
-  cta: { href: string; isAffiliate: boolean } | null;
+  cta: {
+    href: string;
+    isAffiliate: boolean;
+    destinationType: "affiliate" | "official";
+    providerSlug: string;
+    placement: string;
+  } | null;
 };
 
 export type CompareRow = {

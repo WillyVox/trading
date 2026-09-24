@@ -81,10 +81,10 @@ export function CompareMobileCards({
             </div>
           </div>
 
-          <div className="mt-4 flex items-center gap-4">
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
               href={s.profileHref}
-              className="bg-navy text-background hover:bg-navy-dark flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold"
+              className="border-border text-navy hover:bg-panel-secondary inline-flex min-h-12 w-full items-center justify-center rounded-full border px-4 py-3 text-center text-sm font-semibold sm:flex-1"
             >
               View details
             </Link>
@@ -92,12 +92,14 @@ export function CompareMobileCards({
               <a
                 href={s.cta.href}
                 target="_blank"
-                rel={
-                  s.cta.isAffiliate ? "sponsored noopener" : "nofollow noopener"
-                }
-                className="text-muted hover:text-navy text-sm font-medium underline"
+                rel={s.cta.isAffiliate ? "sponsored noopener" : "noopener"}
+                data-provider-outbound="true"
+                data-provider-slug={s.cta.providerSlug}
+                data-destination-type={s.cta.destinationType}
+                data-placement={s.cta.placement}
+                className="bg-navy text-background hover:bg-navy-dark inline-flex min-h-12 w-full items-center justify-center rounded-full px-4 py-3 text-center text-sm font-bold shadow-sm sm:flex-[1.35]"
               >
-                Visit provider ↗
+                Visit site ↗
               </a>
             )}
           </div>

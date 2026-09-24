@@ -168,6 +168,7 @@ export default async function GuidePage({
         slug: string;
         name: string;
         description: string | null;
+        website: string | null;
         verificationStatus: string;
       };
     }) => ({
@@ -175,6 +176,7 @@ export default async function GuidePage({
       slug: ap.provider.slug,
       name: ap.provider.name,
       description: ap.provider.description,
+      website: ap.provider.website,
       verificationStatus: ap.provider.verificationStatus,
       activeLink: activeLinks.has(ap.provider.slug),
     })

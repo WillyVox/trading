@@ -28,8 +28,7 @@ const RELATED_PATH_START_INVESTING_IN_CRYPTO = getStaticGuideArticleHref(
   STATIC_SLUG_IDS.START_INVESTING_IN_CRYPTO
 );
 
-const TITLE =
-  "Cryptocurrency Exchanges in Australia: What to Compare in 2026";
+const TITLE = "Cryptocurrency Exchanges in Australia: What to Compare in 2026";
 const DESCRIPTION =
   "Learn how cryptocurrency exchanges in Australia differ on trading fees, AUD funding, supported assets, security and AUSTRAC registration, with source-linked information for beginners.";
 

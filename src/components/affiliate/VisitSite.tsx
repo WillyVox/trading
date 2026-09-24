@@ -1,48 +1,55 @@
+import {
+  resolveProviderDestination,
+  type ProviderDestination,
+} from "@/lib/affiliates/provider-destination";
+
 type Props = {
-  /**
-   * Pass this ONLY when an active AffiliateLink exists for the provider.
-   * It routes the click through /go/[partner] (recorded, sponsored). Without
-   * it the button links straight to `href` -- a plain outbound link with no
-   * commercial relationship, so it must not go through /go (which 404s for
-   * any slug that has no active link).
-   */
-  partnerSlug?: string;
-  /** The provider's own website, used when there is no active affiliate link. */
-  href?: string;
-  placement?: string; // where users click to navigate
+  providerSlug: string;
+  officialWebsite?: string | null;
+  hasActiveAffiliate?: boolean;
+  placement: string;
+  destination?: ProviderDestination | null;
+  className?: string;
 };
 
 /**
- * Referral/tracking parameters belong in AffiliateLink.approvedUrl, not here:
- * /go/[partner] redirects to that stored URL, so nothing has to be appended
- * to the link at render time.
+ * Primary outbound provider action. Commercial status changes the destination
+ * and link relationship, never whether the provider is useful to readers.
  */
-export function VisitSite({ partnerSlug, href, placement }: Props) {
-  const isAffiliate = Boolean(partnerSlug);
-  const target = isAffiliate
-    ? placement
-      ? `/go/${partnerSlug}?placement=${encodeURIComponent(placement)}`
-      : `/go/${partnerSlug}`
-    : href;
+export function VisitSite({
+  providerSlug,
+  officialWebsite,
+  hasActiveAffiliate = false,
+  placement,
+  destination: suppliedDestination,
+  className = "",
+}: Props) {
+  const destination =
+    suppliedDestination ??
+    resolveProviderDestination({
+      providerSlug,
+      officialWebsite,
+      hasActiveAffiliate,
+      placement,
+    });
 
-  // No active affiliate link and no website on record: render nothing
-  // rather than a dead button.
-  if (!target) return null;
+  if (!destination) return null;
 
   return (
     <a
-      href={target}
+      href={destination.href}
       target="_blank"
-      // "sponsored" only where money may change hands; "noopener" alone
-      // (not "noreferrer") keeps the Referer that /go/[partner] reads for
-      // click attribution.
-      rel={isAffiliate ? "sponsored noopener" : "noopener"}
-      className="bg-navy text-background hover:bg-navy-dark inline-flex items-center gap-1 rounded-full px-4 py-2 text-xs font-semibold whitespace-nowrap"
+      rel={destination.isAffiliate ? "sponsored noopener" : "noopener"}
+      data-provider-outbound="true"
+      data-provider-slug={destination.providerSlug}
+      data-destination-type={destination.type}
+      data-placement={destination.placement}
+      className={`bg-navy text-background hover:bg-navy-dark focus-visible:ring-gold inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold whitespace-nowrap shadow-sm transition hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 ${className}`}
     >
       Visit site
       <svg
-        width="11"
-        height="11"
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
         fill="none"
         aria-hidden="true"
