@@ -14,21 +14,21 @@ This report audits the seeded provider catalog. It does **not** make affiliate s
 
 ## Catalog
 
-| Provider | Catalog | Seed status | Last provider verification | Evidence URLs | Safe verified badge | Outstanding items |
-| --- | --- | --- | --- | ---: | --- | --- |
-| CMC Markets | Share trading | VERIFIED | 2026-09-24 | 18 | YES | — |
-| Commonwealth Bank of Australia | Share trading | VERIFIED | 2026-09-24 | 20 | YES | — |
-| eToro AUS Capital Limited | Share trading | VERIFIED | 2026-09-22 | 23 | YES | — |
-| Interactive Brokers Australia Pty. Ltd. | Share trading | VERIFIED | 2026-09-24 | 19 | YES | — |
-| Moomoo Securities Australia Ltd | Share trading | VERIFIED | 2026-09-22 | 28 | YES | — |
-| Stakeshop Pty Ltd | Share trading | VERIFIED | 2026-09-24 | 15 | YES | — |
-| BTC Markets | Crypto exchange | VERIFIED | 2026-09-17 | 19 | YES | — |
-| CoinJar | Crypto exchange | VERIFIED | 2026-09-17 | 45 | YES | — |
-| CoinSpot | Crypto exchange | VERIFIED | 2026-09-17 | 29 | YES | — |
-| eToro AUS Capital Limited | Crypto exchange | VERIFIED | 2026-09-22 | 23 | YES | — |
-| Independent Reserve | Crypto exchange | VERIFIED | 2026-09-17 | 24 | YES | — |
-| Kraken | Crypto exchange | VERIFIED | 2026-09-17 | 19 | YES | — |
-| Swyftx | Crypto exchange | VERIFIED | 2026-09-17 | 25 | YES | — |
+| Provider                                | Catalog         | Seed status | Last provider verification | Evidence URLs | Safe verified badge | Outstanding items |
+| --------------------------------------- | --------------- | ----------- | -------------------------- | ------------: | ------------------- | ----------------- |
+| CMC Markets                             | Share trading   | VERIFIED    | 2026-09-24                 |            18 | YES                 | —                 |
+| Commonwealth Bank of Australia          | Share trading   | VERIFIED    | 2026-09-24                 |            20 | YES                 | —                 |
+| eToro AUS Capital Limited               | Share trading   | VERIFIED    | 2026-09-22                 |            23 | YES                 | —                 |
+| Interactive Brokers Australia Pty. Ltd. | Share trading   | VERIFIED    | 2026-09-24                 |            19 | YES                 | —                 |
+| Moomoo Securities Australia Ltd         | Share trading   | VERIFIED    | 2026-09-22                 |            28 | YES                 | —                 |
+| Stakeshop Pty Ltd                       | Share trading   | VERIFIED    | 2026-09-24                 |            15 | YES                 | —                 |
+| BTC Markets                             | Crypto exchange | VERIFIED    | 2026-09-17                 |            19 | YES                 | —                 |
+| CoinJar                                 | Crypto exchange | VERIFIED    | 2026-09-17                 |            45 | YES                 | —                 |
+| CoinSpot                                | Crypto exchange | VERIFIED    | 2026-09-17                 |            29 | YES                 | —                 |
+| eToro AUS Capital Limited               | Crypto exchange | VERIFIED    | 2026-09-22                 |            23 | YES                 | —                 |
+| Independent Reserve                     | Crypto exchange | VERIFIED    | 2026-09-17                 |            24 | YES                 | —                 |
+| Kraken                                  | Crypto exchange | VERIFIED    | 2026-09-17                 |            19 | YES                 | —                 |
+| Swyftx                                  | Crypto exchange | VERIFIED    | 2026-09-17                 |            25 | YES                 | —                 |
 
 ## Gate rules
 
