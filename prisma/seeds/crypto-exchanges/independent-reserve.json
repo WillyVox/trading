@@ -23,7 +23,7 @@
         "jurisdiction": "AU",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "label": "Founded",
@@ -228,7 +228,8 @@
         "displayValue": "0.50% starting fee, tiered down to 0.02% at AUD $200m rolling 30-day trading volume",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -237,7 +238,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -246,7 +248,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -257,7 +260,8 @@
         "displayValue": "AUD 1.50",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_WITHDRAWAL",
@@ -268,7 +272,8 @@
         "displayValue": "0.0001 BTC",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -278,7 +283,8 @@
         "displayValue": "1% for Australian debit/credit cards",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -288,7 +294,8 @@
         "displayValue": "1%",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ],
     "features": [
@@ -297,14 +304,14 @@
         "available": true,
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "BANK_TRANSFER",
         "available": true,
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "API_ACCESS",
@@ -354,6 +361,13 @@
         "sourceUrl": "https://www.independentreserve.com/au/features/mobile-app",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "PAYID",
+        "available": true,
+        "sourceUrl": "https://www.independentreserve.com/help/mobile",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "prosCons": [
@@ -362,21 +376,21 @@
         "label": "Trading fee decreases from 0.50% to 0.02% as rolling 30-day trading volume increases",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "PRO",
         "label": "AUD bank-transfer deposits and AUD EFT withdrawals are free",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",
         "label": "The starting trading fee is 0.50% before volume discounts",
         "sourceUrl": "https://www.independentreserve.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ]
   }

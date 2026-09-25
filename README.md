@@ -935,6 +935,31 @@ npm run build
 npm run check:production
 ```
 
+# LOCAL DB ONLY — destructive
+
+npx prisma migrate reset
+
+# Verify new canonical history
+
+npx prisma migrate status
+
+# Regenerate client
+
+npx prisma generate
+npx prisma validate
+
+# Validate data
+
+npm run check:seed-data
+npm run check:providers
+
+# Validate application
+
+npx tsc --noEmit
+npm test
+npm run lint
+npm run build
+
 ---
 
 # Trading Guide

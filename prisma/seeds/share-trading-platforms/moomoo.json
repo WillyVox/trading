@@ -175,8 +175,8 @@
         "notes": "GST inclusive. Promotional brokerage offers are not modelled.",
         "sourceUrl": "https://www.moomoo.com/au/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -189,8 +189,8 @@
         "notes": "Excludes FX, pass-through and other service fees. Fractional/recurring orders below one share can use a different capped percentage schedule and are deliberately not represented by this standard-order row.",
         "sourceUrl": "https://www.moomoo.com/au/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -203,8 +203,8 @@
         "notes": "Excludes FX, pass-through and other service fees. Fractional/recurring orders below one share can use a different capped percentage schedule and are deliberately not represented by this standard-order row.",
         "sourceUrl": "https://www.moomoo.com/au/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FX_CONVERSION",
@@ -222,30 +222,30 @@
       {
         "featureType": "MOBILE_APP",
         "available": true,
-        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "WEB_PLATFORM",
         "available": true,
-        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "RECURRING_BUYS",
         "available": true,
-        "sourceUrl": "https://www.moomoo.com/au/feature/recurring-investment",
+        "sourceUrl": "https://www.moomoo.com/au/invest/smsf",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "ADVANCED_CHARTING",
         "available": true,
-        "sourceUrl": "https://www.moomoo.com/au",
+        "sourceUrl": "https://www.moomoo.com/au/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "prosCons": [
@@ -271,7 +271,7 @@
         "sourceUrl": "https://www.moomoo.com/au/pricing",
         "jurisdiction": "AU",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",

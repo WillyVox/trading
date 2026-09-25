@@ -4,7 +4,9 @@
     "slug": "coinspot",
     "website": "https://www.coinspot.com.au",
     "description": "Australian cryptocurrency platform offering Instant Buy/Sell/Swap, Markets and OTC trading, with AUD funding including PayID and Direct Deposit.",
-    "jurisdictions": ["AU"],
+    "jurisdictions": [
+      "AU"
+    ],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
     "logo": "/images/providers/coinspot.svg",
@@ -23,7 +25,7 @@
         "jurisdiction": "AU",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "label": "Operating entity",
@@ -97,7 +99,11 @@
     "slug": "coinspot",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
-    "assetSymbols": ["BTC", "ETH", "SOL"],
+    "assetSymbols": [
+      "BTC",
+      "ETH",
+      "SOL"
+    ],
     "fees": [
       {
         "feeCategory": "CRYPTO_TRADING",
@@ -107,7 +113,8 @@
         "displayValue": "0.1%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "INSTANT_BUY",
@@ -117,7 +124,8 @@
         "displayValue": "1%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "OTHER",
@@ -127,7 +135,8 @@
         "displayValue": "1%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "OTHER",
@@ -137,7 +146,8 @@
         "displayValue": "1%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "OTHER",
@@ -147,7 +157,8 @@
         "displayValue": "0.1%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -156,7 +167,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -166,7 +178,8 @@
         "displayValue": "2.5%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -176,7 +189,8 @@
         "displayValue": "1.22%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -186,7 +200,8 @@
         "displayValue": "0.5%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -195,7 +210,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -205,7 +221,8 @@
         "displayValue": "2%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_WITHDRAWAL",
@@ -214,7 +231,8 @@
         "displayValue": "A flat transaction/mining fee applies; current amount is shown on the relevant wallet page",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ],
     "features": [
@@ -223,35 +241,35 @@
         "available": true,
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "AUD_WITHDRAWALS",
         "available": true,
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "PAYID",
         "available": true,
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "BANK_TRANSFER",
         "available": true,
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "RECURRING_BUYS",
         "available": true,
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "OTC_DESK",
@@ -259,6 +277,20 @@
         "sourceUrl": "https://www.coinspot.com.au/otc",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "featureType": "API_ACCESS",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/api",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "TWO_FACTOR_AUTH",
+        "available": true,
+        "sourceUrl": "https://www.coinspot.com.au/security",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "prosCons": [
@@ -267,21 +299,21 @@
         "label": "Markets and OTC trading are priced at 0.1%",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "PRO",
         "label": "PayID and Direct Deposit are fee-free and AUD bank withdrawals are free",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",
         "label": "Instant Buy/Sell/Swap costs 1%, compared with 0.1% for Markets orders",
         "sourceUrl": "https://www.coinspot.com.au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ]
   }

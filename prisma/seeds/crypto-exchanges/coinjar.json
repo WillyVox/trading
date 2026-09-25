@@ -39,7 +39,7 @@
         "jurisdiction": "AU",
         "sourceUrl": "https://www.coinjar.com/au/exchange",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "label": "Advertised crypto assets",
@@ -63,7 +63,7 @@
         "jurisdiction": "AU",
         "sourceUrl": "https://www.coinjar.com/au/exchange",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "sources": [
@@ -123,7 +123,8 @@
         "displayValue": "1%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_TRADING",
@@ -133,7 +134,8 @@
         "displayValue": "1%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_TRADING",
@@ -143,7 +145,8 @@
         "displayValue": "1%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "MAKER",
@@ -177,7 +180,8 @@
         "displayValue": "0.10% at the entry tier; falls to 0.02% above $10m 30-day trading volume",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "TAKER",
@@ -211,7 +215,8 @@
         "displayValue": "0.10% at the entry tier; falls to 0.06% above $10m 30-day trading volume",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "MAKER",
@@ -221,7 +226,8 @@
         "displayValue": "0%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "TAKER",
@@ -231,7 +237,8 @@
         "displayValue": "0.06%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -240,7 +247,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -249,7 +257,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -258,7 +267,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -268,7 +278,8 @@
         "displayValue": "0.5%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -277,7 +288,8 @@
         "displayValue": "Free for withdrawals back to PayPal from crypto sales",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -287,7 +299,8 @@
         "displayValue": "2%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "OTHER",
@@ -297,7 +310,8 @@
         "displayValue": "1% for recurring purchases using debit/credit card or Apple Pay / Google Pay",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_WITHDRAWAL",
@@ -306,7 +320,8 @@
         "displayValue": "Dynamic fee that varies by cryptocurrency and network conditions",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "MAKER",
@@ -316,7 +331,8 @@
         "displayValue": "0%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "TAKER",
@@ -326,7 +342,8 @@
         "displayValue": "0.001%",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ],
     "features": [
@@ -335,28 +352,28 @@
         "available": true,
         "verificationStatus": "VERIFIED",
         "sourceUrl": "https://www.coinjar.com/au/fees",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "AUD_WITHDRAWALS",
         "available": true,
         "verificationStatus": "VERIFIED",
         "sourceUrl": "https://www.coinjar.com/au/fees",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "PAYID",
         "available": true,
         "verificationStatus": "VERIFIED",
         "sourceUrl": "https://www.coinjar.com/au/fees",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "BANK_TRANSFER",
         "available": true,
         "verificationStatus": "VERIFIED",
         "sourceUrl": "https://www.coinjar.com/au/fees",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "CARD_DEPOSIT",
@@ -385,7 +402,7 @@
         "available": true,
         "verificationStatus": "VERIFIED",
         "sourceUrl": "https://www.coinjar.com/au/exchange",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "ADVANCED_CHARTING",
@@ -393,7 +410,7 @@
         "label": "TradingView integration",
         "verificationStatus": "VERIFIED",
         "sourceUrl": "https://www.coinjar.com/au/exchange",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "OTC_DESK",
@@ -430,14 +447,14 @@
         "label": "CoinJar Exchange starts at 0.10% maker/taker for fiat pairs, with lower rates at higher trading volumes",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "PRO",
         "label": "Free AUD deposits through PayID/Osko/NPP and bank transfer, with free standard AUD bank withdrawals",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "PRO",
@@ -458,14 +475,14 @@
         "label": "Simple CoinJar conversions cost 1%, substantially more than the entry-level 0.10% CoinJar Exchange fee",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",
         "label": "Card purchases cost 2%, while PayID and standard bank-transfer funding are fee-free",
         "sourceUrl": "https://www.coinjar.com/au/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",

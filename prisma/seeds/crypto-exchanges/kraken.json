@@ -23,14 +23,14 @@
         "jurisdiction": "AU",
         "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "label": "Founded",
         "value": "2011",
         "sourceUrl": "https://support.kraken.com/au/articles/360046261932-australia-faq",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "sources": [
@@ -56,14 +56,14 @@
         "regulator": "AUSTRAC",
         "status": "Bit Trade Pty Ltd (ACN 163 237 634) is registered as a Digital Currency Exchange and Independent Remittance Dealer",
         "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "jurisdiction": "AU",
         "regulator": "ASIC",
         "status": "Kraken Derivatives are offered to eligible Australian wholesale clients through Beaufort Fiduciaries Pty Ltd (ACN 162 139 871), AFSL 545124",
         "sourceUrl": "https://support.kraken.com/au/articles/where-is-kraken-licensed-or-regulated",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ]
   },
@@ -187,7 +187,8 @@
         "displayValue": "0.40% at Tier 1, tiered down to 0% from Tier 12",
         "sourceUrl": "https://www.kraken.com/features/fee-schedule",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "TAKER",
@@ -302,7 +303,8 @@
         "displayValue": "0.80% at Tier 1, tiered down to 0.05% at Pro 5",
         "sourceUrl": "https://www.kraken.com/features/fee-schedule",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "INSTANT_BUY",
@@ -312,7 +314,8 @@
         "displayValue": "1% trading fee; payment fees may also apply",
         "sourceUrl": "https://www.kraken.com/features/fee-schedule",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -321,7 +324,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://support.kraken.com/en-au/articles/360000381846-cash-deposit-options-fees-minimums-and-processing-times-",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -330,7 +334,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://support.kraken.com/en-au/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ],
     "features": [
@@ -339,21 +344,21 @@
         "available": true,
         "sourceUrl": "https://support.kraken.com/au/articles/360045033231-how-do-i-deposit-aud-",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "PAYID",
         "available": true,
         "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "BANK_TRANSFER",
         "available": true,
         "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "MOBILE_APP",
@@ -374,7 +379,28 @@
         "available": true,
         "sourceUrl": "https://support.kraken.com/articles/overview-of-bitcoin-staking-on-kraken",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "RECURRING_BUYS",
+        "available": true,
+        "sourceUrl": "https://support.kraken.com/au/articles/6906240918804-recurring-buys-on-the-kraken-app",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "TWO_FACTOR_AUTH",
+        "available": true,
+        "sourceUrl": "https://www.kraken.com/en-au/features/security",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "COLD_STORAGE",
+        "available": true,
+        "sourceUrl": "https://www.kraken.com/en-au/features/security",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "prosCons": [
@@ -383,21 +409,21 @@
         "label": "Supports AUD funding including PayID and bank transfer/Osko",
         "sourceUrl": "https://support.kraken.com/articles/360045033651-aud-bank-transfers-with-osko-and-payid",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "PRO",
         "label": "Kraken Pro standard spot fees decrease with qualifying spot volume or Assets on Platform",
         "sourceUrl": "https://www.kraken.com/features/fee-schedule",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",
         "label": "Instant Buy/Sell uses a 1% trading fee and payment fees may also apply",
         "sourceUrl": "https://www.kraken.com/features/fee-schedule",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ]
   }

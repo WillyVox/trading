@@ -4,7 +4,9 @@
     "slug": "cmc-markets",
     "website": "https://www.cmcmarkets.com/en-au",
     "description": "ASX-listed financial services group operating the CMC Invest share trading platform and a separate CFD/forex trading business in Australia.",
-    "jurisdictions": ["AU"],
+    "jurisdictions": [
+      "AU"
+    ],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },
@@ -63,6 +65,14 @@
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "productType": "OPTIONS",
+        "availability": "AVAILABLE",
+        "notes": "CMC Invest offers exchange-traded options; options pricing and PDS are published separately from standard share brokerage.",
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "custody": [
@@ -103,7 +113,36 @@
         "verifiedAt": "2026-09-24T00:00:00.000Z"
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "featureType": "MOBILE_APP",
+        "available": true,
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/platform",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "WEB_PLATFORM",
+        "available": true,
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/platform",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "ADVANCED_CHARTING",
+        "available": true,
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/platform",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "TWO_FACTOR_AUTH",
+        "available": true,
+        "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/learn/platform-guides/invest-platform-video",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      }
+    ],
     "prosCons": [],
     "fees": [
       {
@@ -122,8 +161,8 @@
         "notes": "Applies once per security, per day to an eligible buy under A$1,000. Margin-loan-settled trades are excluded.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -138,8 +177,8 @@
         "notes": "Standard fallback for a buy that does not satisfy the published first-buy concession, including a margin-loan-settled trade.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -155,8 +194,8 @@
         "notes": "For Standard pricing, other online buy orders are the greater of A$11 or 0.10% of trade value.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -172,8 +211,8 @@
         "notes": "The first-buy concession applies only below A$1,000; this Standard rule applies at A$1,000 and above.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -188,8 +227,8 @@
         "notes": "Standard online sell orders are the greater of A$11 or 0.10% of trade value.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -201,8 +240,8 @@
         "notes": "CMC Invest publishes $0 brokerage for US shares and ETFs. FX spreads and other applicable costs are separate.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -214,8 +253,8 @@
         "notes": "CMC Invest publishes $0 brokerage for US shares and ETFs. FX spreads and other applicable costs are separate.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/pricing",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FX_CONVERSION",
@@ -225,8 +264,8 @@
         "notes": "CMC Invest publishes a 0.60% FX spread for international orders. This calculator estimates the spread cost on the AUD amount entered; the actual execution exchange rate can still move.",
         "sourceUrl": "https://www.cmcmarkets.com/en-au/stockbroking/products/international-shares",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ]
   }

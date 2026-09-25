@@ -26,4 +26,6 @@ export type CompareRow = {
 export type CompareSection = {
   title: string;
   rows: CompareRow[];
+  /** Secondary research stays available without bloating the default table. */
+  secondary?: boolean;
 };

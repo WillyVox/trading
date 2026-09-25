@@ -73,6 +73,8 @@ export function CompareTable({
   const canRemove = subjects.length > 2 && Boolean(comparisonBasePath);
   const colCount = subjects.length + (buildYourOwnHref ? 2 : 1);
   const isWide = subjects.length > 4;
+  const primarySections = sections.filter((section) => !section.secondary);
+  const secondarySections = sections.filter((section) => section.secondary);
 
   return (
     <div className="hidden md:block">
@@ -210,7 +212,7 @@ export function CompareTable({
               </tr>
             </thead>
             <tbody>
-              {sections.map((section) => (
+              {primarySections.map((section) => (
                 <Fragment key={section.title}>
                   <tr className="border-border bg-panel-secondary/70 border-b">
                     <th
@@ -247,7 +249,7 @@ export function CompareTable({
                   ))}
                 </Fragment>
               ))}
-              {sections.length === 0 && (
+              {primarySections.length === 0 && (
                 <tr>
                   <td
                     colSpan={colCount}
@@ -268,6 +270,65 @@ export function CompareTable({
           />
         )}
       </div>
+      {secondarySections.length > 0 && (
+        <details className="border-border bg-panel mt-4 rounded-2xl border shadow-sm">
+          <summary className="text-navy hover:bg-panel-secondary cursor-pointer rounded-2xl px-5 py-4 text-sm font-semibold">
+            Show more comparison details
+          </summary>
+          <div className="border-border overflow-x-auto border-t">
+            <table className="w-max min-w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-panel-secondary border-border border-b text-left">
+                  <th className="w-[210px] min-w-[210px] px-5 py-3">Detail</th>
+                  {subjects.map((subject) => (
+                    <th
+                      key={subject.id}
+                      className="w-[190px] min-w-[190px] px-4 py-3"
+                    >
+                      {subject.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {secondarySections.map((section) => (
+                  <Fragment key={section.title}>
+                    <tr className="bg-panel-secondary/70 border-border border-b">
+                      <th
+                        colSpan={subjects.length + 1}
+                        className="text-muted px-5 py-2.5 text-left text-xs font-semibold tracking-wide uppercase"
+                      >
+                        {section.title}
+                      </th>
+                    </tr>
+                    {section.rows.map((row) => (
+                      <tr
+                        key={row.key}
+                        className="border-border border-b last:border-0"
+                      >
+                        <th
+                          scope="row"
+                          className="text-muted w-[210px] min-w-[210px] px-5 py-3 text-left font-medium"
+                        >
+                          {row.label}
+                        </th>
+                        {row.values.map((value, index) => (
+                          <td
+                            key={subjects[index]?.id ?? index}
+                            className="text-navy w-[190px] min-w-[190px] px-4 py-3 align-top"
+                          >
+                            {renderCompareValue(value)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      )}
       <p className="text-muted mt-2 text-[11px]">
         Data verification describes Trading Guide's research status. It is not
         an endorsement or recommendation of a provider.

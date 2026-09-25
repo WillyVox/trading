@@ -2,7 +2,7 @@ import { getCryptoExchanges } from "@/lib/crypto-exchanges/service";
 import {
   buildCompareSections,
   toCompareSubjects,
-  type CryptoComparisonEntry,
+  toCryptoComparisonEntry,
 } from "@/lib/crypto-exchanges/comparison";
 import { getActiveAffiliateEngagementsForOfferingSlugs } from "@/lib/affiliates/service";
 import { CompareTable } from "@/components/compare/CompareTable";
@@ -39,24 +39,7 @@ export default async function CompareCryptoExchangesPage() {
     "compare.crypto.index",
     async () => {
       const cryptoOfferings = await getCryptoExchanges();
-      const rows: CryptoComparisonEntry[] = cryptoOfferings.map((offering) => ({
-        id: offering.id,
-        slug: offering.slug,
-        providerSlug: offering.provider.slug,
-        name: offering.name,
-        verificationStatus: offering.verificationStatus,
-        logo: offering.logo ?? offering.provider.logo,
-        website: offering.website ?? offering.provider.website,
-        facts: offering.provider.facts,
-
-        fees: offering.fees.map((fee) => ({
-          label: fee.label,
-          displayValue: fee.displayValue,
-        })),
-
-        features:
-          offering.features as unknown as CryptoComparisonEntry["features"],
-      }));
+      const rows = cryptoOfferings.map(toCryptoComparisonEntry);
       const affiliateEngagements =
         await getActiveAffiliateEngagementsForOfferingSlugs(
           rows.map((p) => p.slug)

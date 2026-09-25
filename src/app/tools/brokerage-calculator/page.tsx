@@ -63,7 +63,7 @@ export default async function BrokerageCalculatorPage({
         ) : (
           <Notice>
             No verified calculator-ready brokerage rules are currently
-            available. We would rather show no estimate than guess.
+            available.
           </Notice>
         )}
         <section className="mt-10 max-w-3xl" aria-labelledby="how-it-works">

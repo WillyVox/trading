@@ -82,8 +82,8 @@
         "notes": "This row models the opening transaction only. eToro also charges 1% when closing a crypto position, based on the closing transaction value; Trading Guide does not add a hypothetical future closing fee to today's buy amount.",
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_TRADING",
@@ -94,8 +94,8 @@
         "notes": "Calculated on the value when the position is closed. Kept as a separate row so a current buy calculator does not imply a fixed round-trip cost.",
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_WITHDRAWAL",
@@ -106,8 +106,8 @@
         "notes": "This is specifically the transfer from the eToro investment platform to the eToro Crypto Wallet. External blockchain transfers are a separate stage and can incur network fees. The published minimum/maximum transfer-fee caps are not modelled by the current percentage-only rule.",
         "sourceUrl": "https://www.etoro.com/au/crypto/wallet/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_WITHDRAWAL",
@@ -117,8 +117,8 @@
         "notes": "eToro states it does not charge an additional fee for transfers from or to an external source; the blockchain fee is determined by the network.",
         "sourceUrl": "https://www.etoro.com/au/crypto/wallet/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -139,8 +139,8 @@
         "notes": "USD investment-account withdrawals have different fee treatment and are not represented by this AUD-specific row.",
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ],
     "features": [
@@ -231,7 +231,7 @@
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "jurisdiction": "AU",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",
@@ -239,7 +239,7 @@
         "sourceUrl": "https://www.etoro.com/au/crypto/wallet/fees/",
         "jurisdiction": "AU",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",

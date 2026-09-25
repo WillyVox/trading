@@ -120,8 +120,8 @@
         "notes": "The official AU fee page says the amount depends on country of residence and exchange, but its dynamic country table was not sufficiently machine-verifiable for a reliable per-exchange Australian mapping. ETFs, CFDs and some other eToro products have different treatment. Do not calculate this row until the exact AU mapping is verified.",
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -132,8 +132,8 @@
         "notes": "The official AU fee page says the amount depends on country of residence and exchange, but its dynamic country table was not sufficiently machine-verifiable for a reliable per-exchange Australian mapping. ETFs, CFDs and some other eToro products have different treatment. Do not calculate this row until the exact AU mapping is verified.",
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "BROKERAGE",
@@ -144,8 +144,8 @@
         "notes": "The official AU fee page says the amount depends on country of residence and exchange, but its dynamic country table was not sufficiently machine-verifiable for a reliable per-exchange Australian mapping. ETFs, CFDs and some other eToro products have different treatment. Do not calculate this row until the exact AU mapping is verified.",
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FX_CONVERSION",
@@ -166,38 +166,45 @@
         "displayValue": "Varies by conversion scenario, location, payment method and Club level",
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z",
-        "reviewDueAt": "2026-11-06T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ],
     "features": [
       {
         "featureType": "MOBILE_APP",
         "available": true,
-        "sourceUrl": "https://www.etoro.com/au/",
+        "sourceUrl": "https://www.etoro.com/au/trading/platforms/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "WEB_PLATFORM",
         "available": true,
-        "sourceUrl": "https://www.etoro.com/au/",
+        "sourceUrl": "https://www.etoro.com/au/trading/platforms/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "RECURRING_BUYS",
         "available": true,
-        "sourceUrl": "https://www.etoro.com/au/trading/fees/",
+        "sourceUrl": "https://www.etoro.com/au/trading/platforms/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "COPY_TRADING",
         "available": true,
-        "sourceUrl": "https://www.etoro.com/au/copytrader/",
+        "sourceUrl": "https://www.etoro.com/au/trading/platforms/",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "ADVANCED_CHARTING",
+        "available": true,
+        "sourceUrl": "https://www.etoro.com/au/trading/platforms/",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "prosCons": [
@@ -232,7 +239,7 @@
         "sourceUrl": "https://www.etoro.com/au/trading/fees/",
         "jurisdiction": "AU",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ]
   }

@@ -49,7 +49,7 @@ export default async function RegularInvestingCalculatorPage() {
         ) : (
           <Notice>
             No verified calculator-ready brokerage rules are currently
-            available. We would rather show no estimate than guess.
+            available.
           </Notice>
         )}
         <section

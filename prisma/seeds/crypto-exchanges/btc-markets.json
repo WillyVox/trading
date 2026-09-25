@@ -31,7 +31,7 @@
         "jurisdiction": "AU",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ],
     "sources": [
@@ -76,7 +76,8 @@
         "displayValue": "0.85% at the lowest volume tier, decreasing to 0.10% above $5m rolling 30-day volume",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "MAKER",
@@ -86,7 +87,8 @@
         "displayValue": "-0.05% maker rebate for supported BTC market pairs",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "TAKER",
@@ -96,7 +98,8 @@
         "displayValue": "0.20% for supported BTC market pairs",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "SPREAD",
@@ -105,7 +108,8 @@
         "displayValue": "Variable spread included in quoted price; no additional Quick Buy/Sell trading fee",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_DEPOSIT",
@@ -114,7 +118,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "FIAT_WITHDRAWAL",
@@ -123,7 +128,8 @@
         "displayValue": "Free",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       },
       {
         "feeCategory": "CRYPTO_WITHDRAWAL",
@@ -134,7 +140,8 @@
         "displayValue": "0.0002 BTC",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-22T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-11-10T00:00:00.000Z"
       }
     ],
     "features": [
@@ -143,7 +150,7 @@
         "available": true,
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "featureType": "MOBILE_APP",
@@ -180,21 +187,21 @@
         "label": "Offers Advanced Trade/order-book trading plus simpler Quick Buy/Sell pricing",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",
         "label": "Lowest-volume AUD/USDT exchange trading tier is 0.85%",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       },
       {
         "type": "LIMITATION",
         "label": "Quick Buy/Sell pricing includes a variable spread rather than using the Advanced Trade fee schedule",
         "sourceUrl": "https://www.btcmarkets.net/fees",
         "verificationStatus": "VERIFIED",
-        "verifiedAt": "2026-09-17T00:00:00.000Z"
+        "verifiedAt": "2026-09-26T00:00:00.000Z"
       }
     ]
   }

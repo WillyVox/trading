@@ -251,16 +251,172 @@ export function buildFeatureRows(
   }));
 }
 
+function rowForMarketSummary(
+  offerings: ShareTradingPlatformDetail[]
+): CompareRow {
+  return {
+    key: "market:summary",
+    label: "Markets",
+    values: offerings.map((offering) => {
+      const available = offering.markets
+        .filter((row) => row.availability === "AVAILABLE")
+        .map((row) => row.market.code);
+      if (available.length === 0) return null;
+      const hasUS = available.includes("NYSE") || available.includes("NASDAQ");
+      const compact = [
+        available.includes("ASX") ? "Australia" : null,
+        hasUS ? "US" : null,
+        available.includes("HKEX") ? "Hong Kong" : null,
+      ].filter(Boolean);
+      const represented = new Set([
+        ...(available.includes("ASX") ? ["ASX"] : []),
+        ...(hasUS ? ["NYSE", "NASDAQ"] : []),
+        ...(available.includes("HKEX") ? ["HKEX"] : []),
+      ]);
+      const otherCount = available.filter(
+        (code) => !represented.has(code)
+      ).length;
+      return `${compact.join(" · ")}${otherCount ? ` · +${otherCount} more` : ""}`;
+    }),
+  };
+}
+
+function rowForProduct(
+  offerings: ShareTradingPlatformDetail[],
+  productType: ShareTradingPlatformDetail["products"][number]["productType"],
+  label: string
+): CompareRow {
+  return {
+    key: `product:${productType}`,
+    label,
+    values: offerings.map((offering) => {
+      const row = offering.products.find(
+        (candidate) => candidate.productType === productType
+      );
+      return row ? formatAvailability(row.availability) : null;
+    }),
+  };
+}
+
+function rowForFeature(
+  offerings: ShareTradingPlatformDetail[],
+  featureType: ShareTradingPlatformDetail["features"][number]["featureType"],
+  label: string
+): CompareRow {
+  return {
+    key: `feature:${featureType}`,
+    label,
+    values: offerings.map((offering) => {
+      const feature = offering.features.find(
+        (candidate) => candidate.featureType === featureType
+      );
+      if (!feature) return null;
+      if (feature.value) return feature.value;
+      if (feature.available === true) return "✓";
+      if (feature.available === false) return "—";
+      return null;
+    }),
+  };
+}
+
+function rowForAccount(
+  offerings: ShareTradingPlatformDetail[],
+  accountType: ShareTradingPlatformDetail["accountTypes"][number]["accountType"],
+  label: string
+): CompareRow {
+  return {
+    key: `account:${accountType}`,
+    label,
+    values: offerings.map((offering) => {
+      const row = offering.accountTypes.find(
+        (candidate) => candidate.accountType === accountType
+      );
+      return row ? formatAvailability(row.availability) : null;
+    }),
+  };
+}
+
+function rowForCustody(
+  offerings: ShareTradingPlatformDetail[],
+  marketCode: string,
+  label: string
+): CompareRow {
+  return {
+    key: `custody:${marketCode}`,
+    label,
+    values: offerings.map((offering) => {
+      const row = offering.custody.find(
+        (candidate) => candidate.market?.code === marketCode
+      );
+      if (!row) return null;
+      return custodyTypeCopy(row.custodyType).label;
+    }),
+  };
+}
+
+function rowForFee(
+  offerings: ShareTradingPlatformDetail[],
+  category: OfferingFeeRow["feeCategory"],
+  marketCodes: string[] | null,
+  label: string
+): CompareRow {
+  return {
+    key: `fee:${category}:${marketCodes?.join("+") ?? "all"}`,
+    label,
+    values: offerings.map((offering) => {
+      const candidates = offering.fees.filter((fee) => {
+        if (fee.isPromotional || fee.feeCategory !== category) return false;
+        if (marketCodes === null) return fee.market == null;
+        return fee.market ? marketCodes.includes(fee.market.code) : false;
+      });
+      const headline = pickHeadlineFee(candidates);
+      return headline ? formatFeeValue(headline) : null;
+    }),
+  };
+}
+
+function keepRows(rows: CompareRow[]) {
+  return rows.filter((row) => row.values.some((value) => value !== null));
+}
+
+/**
+ * Curated decision policy: the research model is deliberately richer than the
+ * default comparison. Detailed exchange lists, every account type and every
+ * fee variant remain on profiles / in seed evidence instead of becoming rows.
+ */
 export function buildShareTradingCompareSections(
   offerings: ShareTradingPlatformDetail[]
 ): CompareSection[] {
+  const costs = keepRows([
+    rowForFee(offerings, "BROKERAGE", ["ASX"], "ASX brokerage"),
+    rowForFee(offerings, "BROKERAGE", ["NYSE", "NASDAQ"], "US brokerage"),
+    rowForFee(offerings, "FX_CONVERSION", null, "FX conversion"),
+    rowForFee(offerings, "ACCOUNT_KEEPING", null, "Account fee"),
+    rowForFee(offerings, "INACTIVITY", null, "Inactivity fee"),
+  ]);
+  const ownership = keepRows([
+    rowForCustody(offerings, "ASX", "ASX ownership"),
+    rowForMarketSummary(offerings),
+  ]);
+  const investing = keepRows([
+    rowForProduct(offerings, "ETF", "ETFs"),
+    rowForFeature(offerings, "RECURRING_BUYS", "Recurring investing"),
+    rowForFeature(offerings, "ADVANCED_CHARTING", "Advanced charting"),
+    rowForAccount(offerings, "SMSF", "SMSF support"),
+  ]);
+  const more = keepRows([
+    rowForProduct(offerings, "OPTIONS", "Options"),
+    rowForProduct(offerings, "BONDS", "Bonds"),
+    rowForProduct(offerings, "FUTURES", "Futures"),
+    rowForProduct(offerings, "FOREX", "Forex"),
+    rowForFeature(offerings, "MOBILE_APP", "Mobile app"),
+    rowForFeature(offerings, "WEB_PLATFORM", "Web platform"),
+  ]);
   return [
-    { title: "Markets", rows: buildMarketRows(offerings) },
-    { title: "Products", rows: buildProductRows(offerings) },
-    { title: "Custody & ownership", rows: buildCustodyRows(offerings) },
-    { title: "Account types", rows: buildAccountTypeRows(offerings) },
-    { title: "Platform features", rows: buildFeatureRows(offerings) },
-    { title: "Costs", rows: buildFeeRows(offerings) },
+    { title: "Key costs", rows: costs },
+    { title: "Ownership & access", rows: ownership },
+    { title: "Investing features", rows: investing },
+    { title: "More details", rows: more, secondary: true },
   ].filter((section) => section.rows.length > 0);
 }
 
