@@ -34,7 +34,7 @@ export interface BusinessIdentity {
 }
 
 export const businessIdentity: BusinessIdentity = {
-  legalName: "Le T",
+  legalName: "Le T.",
   tradingName: "Trading Guide",
   web: "TradingGuide.com.au",
   abn: "54347400601",

@@ -67,24 +67,21 @@ export function Footer() {
           ))}
         </nav>
 
-        <div className="border-background/15 my-6 border-t" />
-
-        <p className="text-background/60 mx-auto max-w-3xl text-center text-xs leading-relaxed">
-          The information provided on this website is general information only
-          and does not constitute financial, investment, or trading advice.
-          Trading Guide is an independent information publisher and does not
-          hold an Australian Financial Services Licence (AFSL). We do not
-          endorse or recommend any specific trading platform or broker. Trading
-          Guide is currently 100% self-funded and does not receive commissions
-          from any provider we cover. We may introduce affiliate partnerships in
-          the future — if we do, any affiliate link will be clearly disclosed,
-          and commercial relationships will never determine how providers are
-          included, evaluated, or ordered. Read our{" "}
-          <Link href="/how-we-get-paid" className="text-gold-soft underline">
-            how we get paid
-          </Link>{" "}
-          disclosure for details.
-        </p>
+        <div className="mx-auto flex max-w-6xl items-start gap-3 px-4 py-5 sm:gap-4 sm:py-6">
+          <p className="text-background/60 mx-auto text-xs leading-relaxed">
+            The information provided on this website is general information only
+            and does not constitute financial, investment, or trading advice.
+            Trading Guide is an independent information publisher and does not
+            hold an Australian Financial Services Licence (AFSL). We do not
+            endorse or recommend any specific trading platform or broker.
+            <br />
+            Trading Guide is currently 100% self-funded and does not receive
+            commissions from any provider we cover. We may introduce affiliate
+            partnerships in the future — if we do, any affiliate link will be
+            clearly disclosed, and commercial relationships will never determine
+            how providers are included, evaluated, or ordered.
+          </p>
+        </div>
       </div>
     </footer>
   );

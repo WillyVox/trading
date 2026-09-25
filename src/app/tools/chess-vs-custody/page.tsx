@@ -113,11 +113,10 @@ export default async function ChessVsCustodyPage() {
           </p>
           <div className="mt-5">
             <Notice>
-              General information only. This explorer describes ownership and
-              custody structures; it does not rate one structure as safer,
-              better or more suitable for you. Check the provider&apos;s current
-              terms and official documentation before relying on a
-              platform-specific record.
+              This explorer describes ownership and custody structures; it does
+              not rate one structure as safer, better or more suitable for you.
+              Check the provider&apos;s current terms and official documentation
+              before relying on a platform-specific record.
             </Notice>
           </div>
         </section>

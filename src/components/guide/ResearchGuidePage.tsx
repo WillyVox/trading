@@ -150,8 +150,7 @@ export function ResearchGuidePage({
             <p className="text-muted mt-4 text-xs leading-5">
               Sources were reviewed on {config.updated}. Provider pricing and
               product terms can change; verify current terms with the provider
-              before acting. This guide is general educational information, not
-              personal financial advice.
+              before acting.
             </p>
           </article>
           <aside className="hidden lg:block">

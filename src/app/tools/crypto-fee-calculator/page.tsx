@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CryptoFeeCalculator } from "@/components/tools/crypto-fees/CryptoFeeCalculator";
-import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getCryptoFeeOfferings } from "@/lib/tools/crypto-fees/service";
@@ -54,9 +53,7 @@ export default async function CryptoFeeCalculatorPage() {
             structured rule supports it. Tiered or variable records stay visibly
             tiered or variable rather than becoming a misleading $0 estimate.
           </p>
-          <div className="mt-5">
-            <ToolDisclaimer />
-          </div>
+          <div className="mt-5"></div>
         </section>
         <section className="border-border mt-10 border-t pt-8">
           <h2 className="font-display text-navy text-xl font-bold">

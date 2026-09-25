@@ -2,7 +2,6 @@ import { BrokerageCalculator } from "@/components/tools/brokerage/BrokerageCalcu
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Notice } from "@/components/ui/Notice";
-import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { RelatedTools } from "@/components/tools/shared/RelatedTools";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -65,9 +64,7 @@ export default async function BrokerageCalculatorPage() {
             and trade-value tiers. Pricing that depends on information we do not
             model is not forced into an estimate.
           </p>
-          <div className="mt-5">
-            <ToolDisclaimer />
-          </div>
+          <div className="mt-5"></div>
         </section>
         <RelatedTools />
       </main>

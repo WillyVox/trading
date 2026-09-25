@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CryptoCostCalculator } from "@/components/tools/crypto-cost/CryptoCostCalculator";
-import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getCryptoFeeOfferings } from "@/lib/tools/crypto-fees/service";
@@ -53,9 +52,7 @@ export default async function CryptoCostCalculatorPage() {
             cannot be added to an AUD trading fee without an exchange rate, and
             variable network fees prevent a complete combined total.
           </p>
-          <div className="mt-5">
-            <ToolDisclaimer />
-          </div>
+          <div className="mt-5"></div>
         </section>
         <section className="border-border mt-10 border-t pt-8">
           <div className="flex flex-wrap gap-5 text-sm font-semibold">

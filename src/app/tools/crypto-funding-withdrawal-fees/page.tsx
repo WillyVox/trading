@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CryptoFundingWithdrawalCalculator } from "@/components/tools/crypto-funding/CryptoFundingWithdrawalCalculator";
-import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getCryptoFeeOfferings } from "@/lib/tools/crypto-fees/service";
@@ -56,9 +55,7 @@ export default async function CryptoFundingWithdrawalFeesPage() {
             of transfer. Trading Guide keeps those records variable unless the
             verified rule contains a deterministic amount.
           </p>
-          <div className="mt-5">
-            <ToolDisclaimer />
-          </div>
+          <div className="mt-5"></div>
         </section>
         <section className="border-border mt-10 border-t pt-8">
           <div className="flex flex-wrap gap-5 text-sm font-semibold">

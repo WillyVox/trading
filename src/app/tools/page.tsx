@@ -1,6 +1,5 @@
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Notice } from "@/components/ui/Notice";
 import { ToolCard } from "@/components/tools/ToolCard";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
@@ -102,15 +101,6 @@ export default function ToolsPage() {
             ))}
           </div>
         </section>
-
-        <div className="mt-10">
-          <Notice>
-            General information only. These tools are designed to explain
-            published pricing and ownership structures for hypothetical
-            scenarios. They do not recommend a platform or make a financial
-            decision for you.
-          </Notice>
-        </div>
       </main>
     </>
   );

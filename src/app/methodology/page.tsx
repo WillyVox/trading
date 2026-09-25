@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
-import { Notice } from "@/components/ui/Notice";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -59,13 +58,6 @@ export default function MethodologyPage() {
               <p className="text-muted text-sm">{p.body}</p>
             </Card>
           ))}
-        </div>
-
-        <div className="mt-6">
-          <Notice>
-            General information only. This research interface is not personal
-            financial advice and does not execute trades.
-          </Notice>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">

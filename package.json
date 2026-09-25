@@ -26,7 +26,7 @@
     "db:bootstrap:production": "tsx scripts/bootstrap-production-reference-data.ts",
     "db:review:migrations": "node scripts/check-migration-safety.mjs",
     "verify:security:production": "node scripts/verify-production-security.mjs",
-    "check:seo:release": "node scripts/check-seo-release.mjs",
+    "seo:release:check": "node scripts/check-seo-release.mjs",
     "launch:gate": "node scripts/final-launch-gate.mjs && npm run check:guide-breadcrumbs",
     "check:internal-links": "node scripts/check-internal-links.mjs",
     "check:guide-breadcrumbs": "node scripts/check-guide-breadcrumbs.mjs",

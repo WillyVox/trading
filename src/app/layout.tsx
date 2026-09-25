@@ -4,6 +4,7 @@ import { Playfair_Display, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { SiteDisclosure } from "@/components/layout/SiteDisclosure";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { AnalyticsInteractions } from "@/components/analytics/AnalyticsInteractions";
 import { AuthProvider } from "@/components/providers/AuthProvider";
@@ -69,6 +70,7 @@ export default function RootLayout({
         <AuthProvider>
           <Header />
           <main className="min-h-screen">{children}</main>
+          <SiteDisclosure />
           <Footer />
         </AuthProvider>
         <Suspense fallback={null}>

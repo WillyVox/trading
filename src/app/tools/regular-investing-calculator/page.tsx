@@ -2,7 +2,6 @@ import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Notice } from "@/components/ui/Notice";
 import { RegularInvestingCalculator } from "@/components/tools/regular-investing/RegularInvestingCalculator";
-import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { RelatedTools } from "@/components/tools/shared/RelatedTools";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -70,9 +69,7 @@ export default async function RegularInvestingCalculatorPage() {
             brokerage covered by that rule; it does not project investment
             returns or assume future provider pricing will stay the same.
           </p>
-          <div className="mt-5">
-            <ToolDisclaimer />
-          </div>
+          <div className="mt-5"></div>
         </section>
         <RelatedTools />
       </main>

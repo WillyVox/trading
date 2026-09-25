@@ -344,11 +344,6 @@ export default function HomePage() {
                   Research standard
                 </p>
 
-                <p className="mt-4 max-w-md text-sm leading-6 text-white/75 sm:text-base sm:leading-7">
-                  Important provider information should be easy to verify — not
-                  hidden behind scores or unexplained rankings.
-                </p>
-
                 <ul className="mt-7 space-y-3 text-sm text-white/85 sm:text-base">
                   <li className="flex items-start gap-3">
                     <span

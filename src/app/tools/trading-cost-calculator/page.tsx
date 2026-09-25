@@ -1,7 +1,6 @@
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { TradingCostCalculator } from "@/components/tools/trading-cost/TradingCostCalculator";
-import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { RelatedTools } from "@/components/tools/shared/RelatedTools";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -79,9 +78,7 @@ export default async function TradingCostCalculatorPage() {
             structured data, not a claim that every cost of placing or settling
             a trade has been captured.
           </p>
-          <div className="mt-5">
-            <ToolDisclaimer />
-          </div>
+          <div className="mt-5"></div>
         </section>
         <RelatedTools />
       </main>

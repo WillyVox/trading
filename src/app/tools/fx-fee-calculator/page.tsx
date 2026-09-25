@@ -3,7 +3,6 @@ import { FxFeeCalculator } from "@/components/tools/fx/FxFeeCalculator";
 import { getFxOfferings } from "@/lib/tools/fx/service";
 import { PageHero } from "@/components/layout/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ToolDisclaimer } from "@/components/tools/shared/ToolDisclaimer";
 import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -76,9 +75,7 @@ export default async function FxFeeCalculatorPage({
             that needs additional inputs, the tool explains the limitation
             rather than converting unknown pricing into a false $0 estimate.
           </p>
-          <div className="mt-5">
-            <ToolDisclaimer />
-          </div>
+          <div className="mt-5"></div>
         </section>
 
         <section

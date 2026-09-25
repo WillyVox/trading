@@ -126,3 +126,8 @@ npm run check:production
   npm run db:status
   npm run db:deploy
   npm run db:inspect:production
+
+* Production Release
+  npm run check:seed-data
+  npm run check:providers
+  npm run validate:release
