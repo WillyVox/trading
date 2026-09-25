@@ -87,7 +87,7 @@ export async function cryptoWorkedExamples(): Promise<EvidenceRow[]> {
             : "Needs more input";
       rows.push({
         label: `${offering.name} — ${rule.label}`,
-        href: `/crypto/exchanges/${offering.slug === "etoro-crypto" ? "etoro" : offering.slug}`,
+        href: `/crypto/exchanges/${offering.slug}`,
         sourceUrl: rule.sourceUrl,
         verifiedAt: rule.verifiedAt,
         cells: [

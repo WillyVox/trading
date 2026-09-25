@@ -480,10 +480,10 @@ export const CONTENT_OPPORTUNITIES: readonly ContentOpportunity[] = [
     intent: "COMPARISON",
     workingTitle:
       "CoinSpot vs eToro Crypto: Fee Models, Funding and Platform Structure",
-    targetPath: "/compare/crypto-exchanges/coinspot-vs-etoro",
+    targetPath: "/compare/crypto-exchanges/coinspot-vs-etoro-crypto",
     rationale: "Useful because the product structures differ materially.",
     evidenceNeeded: ["current provider sources"],
-    supports: ["/crypto/exchanges/coinspot", "/crypto/exchanges/etoro"],
+    supports: ["/crypto/exchanges/coinspot", "/crypto/exchanges/etoro-crypto"],
   },
   {
     id: "crypto-order-types",

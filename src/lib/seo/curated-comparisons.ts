@@ -119,7 +119,7 @@ const comparisons: CuratedComparison[] = [
   },
   {
     domain: "crypto-exchanges",
-    slugs: ["etoro", "coinspot"],
+    slugs: ["etoro-crypto", "coinspot"],
     title: "eToro vs CoinSpot: Crypto Platform Comparison Australia",
     description:
       "Compare eToro and CoinSpot on source-linked crypto fees, funding, features and provider facts for Australian users.",

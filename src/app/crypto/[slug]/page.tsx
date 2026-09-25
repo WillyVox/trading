@@ -74,17 +74,11 @@ export default async function CryptoAssetPage({
   const asset = assetResult.data;
   if (!asset) notFound();
 
-  // One entry per exchange (a provider could in principle have several
-  // active crypto-exchange offerings), alphabetical -- never ranked. Links
-  // use the public provider slug, same as every other /crypto/exchanges link.
-  const exchanges = [
-    ...new Map(
-      asset.offerings.map((oa) => [
-        oa.offering.provider.id,
-        oa.offering.provider,
-      ])
-    ).values(),
-  ].sort((a, b) => a.name.localeCompare(b.name));
+  // One entry per active crypto Offering, alphabetical and never ranked.
+  // Product links use the Offering slug, matching profiles and comparisons.
+  const exchanges = asset.offerings
+    .map((oa) => oa.offering)
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },

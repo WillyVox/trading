@@ -75,7 +75,7 @@ export async function FeaturedCryptoExchanges() {
                 </div>
               )}
               <Link
-                href={`/crypto/exchanges/${provider.slug}`}
+                href={`/crypto/exchanges/${offering.slug}`}
                 className="border-border text-blue focus-visible:ring-gold-soft mt-3 inline-block rounded border-t pt-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               >
                 View profile →

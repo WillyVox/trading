@@ -108,10 +108,10 @@ export async function newsEntries(): Promise<MetadataRoute.Sitemap> {
 export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
   const offerings = await prisma.providerOffering.findMany({
     where: { active: true, noIndex: false, offeringType: "CRYPTO_EXCHANGE" },
-    select: { updatedAt: true, provider: { select: { slug: true } } },
+    select: { slug: true, updatedAt: true },
   });
   return offerings.map((o) => ({
-    url: absoluteUrl(`/crypto/exchanges/${o.provider.slug}`),
+    url: absoluteUrl(`/crypto/exchanges/${o.slug}`),
     lastModified: o.updatedAt,
   }));
 }

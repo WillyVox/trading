@@ -10,10 +10,10 @@ import type {
 export type { CompareRow, CompareSection };
 
 /**
- * Shape the Comparison Engine (Phase 5) needs from each Provider --
+ * Shape the comparison engine needs from each crypto Offering --
  * intentionally a subset of getProviderBySlug()'s full payload (facts/fees/
  * features only; no prosCons/sources/regulations/assets, which the table
- * doesn't render). Built live from getProvidersBySlugs() -- see
+ * doesn't render). Built live from canonical Offering lookups -- see
  * docs/IMPLEMENTATION-PLAN.md §4/§7: comparisons never duplicate Provider
  * data into compare-specific tables, so changing a fact/fee/feature updates
  * every comparison automatically.
@@ -26,6 +26,7 @@ export type { CompareRow, CompareSection };
 export type CryptoComparisonEntry = {
   id: string;
   slug: string;
+  providerSlug: string;
   name: string;
   verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
   logo: string | null;
@@ -64,9 +65,9 @@ export function toCompareSubjects(
   affiliateLinks?: AffiliateLinkLookup
 ): CompareSubject[] {
   return providers.map((p) => {
-    const affiliateLink = affiliateLinks?.get(p.slug);
+    const affiliateLink = affiliateLinks?.get(p.providerSlug);
     const destination = resolveProviderDestination({
-      providerSlug: p.slug,
+      providerSlug: p.providerSlug,
       officialWebsite: p.website,
       hasActiveAffiliate: Boolean(affiliateLink),
       placement: "compare",
@@ -176,16 +177,17 @@ export function buildCompareSections(
   ].filter((section) => section.rows.length > 0);
 }
 
-export async function getCryptoExchangeComparison(publicSlugs: string[]) {
-  const { getCryptoExchangesByPublicSlugs } = await import("./service");
+export async function getCryptoExchangeComparison(offeringSlugs: string[]) {
+  const { getCryptoExchangesBySlugs } = await import("./service");
   const { getActiveAffiliateLinksForProviderSlugs } =
     await import("@/lib/affiliates/service");
-  const offerings = await getCryptoExchangesByPublicSlugs(publicSlugs);
-  if (offerings.length !== publicSlugs.length) return null;
+  const offerings = await getCryptoExchangesBySlugs(offeringSlugs);
+  if (offerings.length !== offeringSlugs.length) return null;
   const rows: CryptoComparisonEntry[] = offerings.map((offering) => ({
     id: offering.id,
-    slug: offering.provider.slug,
-    name: offering.provider.name,
+    slug: offering.slug,
+    providerSlug: offering.provider.slug,
+    name: offering.name,
     verificationStatus: offering.verificationStatus,
     logo: offering.logo ?? offering.provider.logo,
     website: offering.website ?? offering.provider.website,
@@ -197,7 +199,7 @@ export async function getCryptoExchangeComparison(publicSlugs: string[]) {
     features: offering.features,
   }));
   const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
-    rows.map((row) => row.slug)
+    rows.map((row) => row.providerSlug)
   );
   return {
     subjects: toCompareSubjects(rows, affiliateLinks),

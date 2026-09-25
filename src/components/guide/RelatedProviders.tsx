@@ -7,6 +7,7 @@ import { VisitSite } from "../affiliate/VisitSite";
 type GuideProvider = {
   id: string;
   slug: string;
+  providerSlug: string;
   name: string;
   description: string | null;
   verificationStatus: "VERIFIED" | "UNVERIFIED" | "STALE";
@@ -62,7 +63,7 @@ export function RelatedProviders({
                 </span>
               </Link>
               <VisitSite
-                providerSlug={p.slug}
+                providerSlug={p.providerSlug}
                 officialWebsite={p.website}
                 hasActiveAffiliate={p.activeLink}
                 placement="guide-related-provider"

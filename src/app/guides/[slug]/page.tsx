@@ -7,6 +7,7 @@ import {
   getRegionalFamily,
 } from "@/lib/articles/service";
 import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { getCryptoExchangeSlugMapForProviderSlugs } from "@/lib/crypto-exchanges/service";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { guideBreadcrumbTrail } from "@/lib/seo/breadcrumbs";
@@ -156,11 +157,22 @@ export default async function GuidePage({
   const providerSlugs = article.providers.map(
     (ap: { provider: { slug: string } }) => ap.provider.slug
   );
-  const activeLinksResult = await publicDatabaseRead(
-    "guides.detail.affiliateLinks",
-    () => getActiveAffiliateLinksForProviderSlugs(providerSlugs)
+  const providerLinkDataResult = await publicDatabaseRead(
+    "guides.detail.providerLinks",
+    async () => {
+      const [activeLinks, cryptoOfferingSlugs] = await Promise.all([
+        getActiveAffiliateLinksForProviderSlugs(providerSlugs),
+        getCryptoExchangeSlugMapForProviderSlugs(providerSlugs),
+      ]);
+      return { activeLinks, cryptoOfferingSlugs };
+    }
   );
-  const activeLinks = activeLinksResult.ok ? activeLinksResult.data : new Map();
+  const activeLinks = providerLinkDataResult.ok
+    ? providerLinkDataResult.data.activeLinks
+    : new Map();
+  const cryptoOfferingSlugs = providerLinkDataResult.ok
+    ? providerLinkDataResult.data.cryptoOfferingSlugs
+    : new Map<string, string>();
   const guideProviders = article.providers.map(
     (ap: {
       provider: {
@@ -174,7 +186,8 @@ export default async function GuidePage({
       };
     }) => ({
       id: ap.provider.id,
-      slug: ap.provider.slug,
+      slug: cryptoOfferingSlugs.get(ap.provider.slug) ?? ap.provider.slug,
+      providerSlug: ap.provider.slug,
       name: ap.provider.name,
       description: ap.provider.description,
       website: ap.provider.website,

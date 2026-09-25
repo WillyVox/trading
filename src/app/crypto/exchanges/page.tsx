@@ -63,7 +63,7 @@ export default async function ExchangesPage() {
             const p = offering.provider;
             return (
               <Card
-                key={p.id}
+                key={offering.id}
                 className="hover:border-gold-soft flex h-full flex-col transition-colors"
               >
                 <div className="flex items-start gap-4">
@@ -71,21 +71,21 @@ export default async function ExchangesPage() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-2">
                       <Link
-                        href={`/crypto/exchanges/${p.slug}`}
+                        href={`/crypto/exchanges/${offering.slug}`}
                         className="font-display text-navy truncate text-lg font-bold hover:underline"
                       >
-                        {p.name}
+                        {offering.name}
                       </Link>
                       <VerificationBadge status={p.verificationStatus} />
                     </div>
                     <p className="text-muted mt-2 line-clamp-3 text-sm">
-                      {p.description}
+                      {offering.description ?? p.description}
                     </p>
                   </div>
                 </div>
                 <div className="mt-auto flex items-center justify-between gap-4 pt-5">
                   <Link
-                    href={`/crypto/exchanges/${p.slug}`}
+                    href={`/crypto/exchanges/${offering.slug}`}
                     className="text-navy focus-visible:outline-navy inline-flex min-h-11 shrink-0 items-center text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
                   >
                     View profile

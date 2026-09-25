@@ -41,8 +41,9 @@ export default async function CompareCryptoExchangesPage() {
       const cryptoOfferings = await getCryptoExchanges();
       const rows: CryptoComparisonEntry[] = cryptoOfferings.map((offering) => ({
         id: offering.id,
-        slug: offering.provider.slug,
-        name: offering.provider.name,
+        slug: offering.slug,
+        providerSlug: offering.provider.slug,
+        name: offering.name,
         verificationStatus: offering.verificationStatus,
         logo: offering.logo ?? offering.provider.logo,
         website: offering.website ?? offering.provider.website,
@@ -57,7 +58,7 @@ export default async function CompareCryptoExchangesPage() {
           offering.features as unknown as CryptoComparisonEntry["features"],
       }));
       const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
-        rows.map((p) => p.slug)
+        rows.map((p) => p.providerSlug)
       );
       return { cryptoOfferings, rows, affiliateLinks };
     }
@@ -74,11 +75,11 @@ export default async function CompareCryptoExchangesPage() {
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 
   // Built from the offerings already loaded above -- no second query. Same
-  // identity (public provider slug/name) the compare URLs use.
+  // identity (Offering slug/name) the compare URLs use.
   const selectorPool = cryptoOfferings.map((offering) => ({
     id: offering.id,
-    slug: offering.provider.slug,
-    name: offering.provider.name,
+    slug: offering.slug,
+    name: offering.name,
   }));
 
   const trail = breadcrumbTrail([

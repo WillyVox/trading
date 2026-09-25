@@ -1,7 +1,10 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import { getRelatedContentForProvider } from "@/lib/providers/service";
-import { getCryptoExchangeByPublicSlug } from "@/lib/crypto-exchanges/service";
+import {
+  getCryptoExchangeBySlug,
+  resolveCryptoExchangeSlug,
+} from "@/lib/crypto-exchanges/service";
 import { getActiveAffiliateLink } from "@/lib/affiliates/service";
 import {
   groupFeatures,
@@ -39,8 +42,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const result = await publicDatabaseRead("cryptoExchange.metadata", () =>
-    getCryptoExchangeByPublicSlug(slug)
+  const result = await publicDatabaseRead(
+    "cryptoExchange.metadata",
+    async () => {
+      const canonicalSlug = await resolveCryptoExchangeSlug(slug);
+      return canonicalSlug ? getCryptoExchangeBySlug(canonicalSlug) : null;
+    }
   );
   if (!result.ok)
     return buildMetadata({
@@ -49,9 +56,10 @@ export async function generateMetadata({
       path: `/crypto/exchanges/${slug}`,
       noIndex: true,
     });
+
   const offering = result.data;
   const provider = offering?.provider;
-  if (!provider)
+  if (!offering || !provider)
     return buildMetadata({
       title: "Exchange not found",
       description: "",
@@ -60,14 +68,15 @@ export async function generateMetadata({
     });
 
   return buildMetadata({
-    title: `${provider.name} Australia Review: Fees, Features & Verified Facts`,
+    title: `${offering.name} Australia Review: Fees, Features & Verified Facts`,
     description:
+      offering.description ??
       provider.description ??
-      `${provider.name} crypto exchange profile for Australian users \u2014 fees, features, and source-verified facts.`,
-    path: `/crypto/exchanges/${slug}`,
-    seoTitle: provider.seoTitle,
-    seoDescription: provider.seoDescription,
-    noIndex: provider.noIndex,
+      `${offering.name} profile for Australian users — fees, features, and source-verified facts.`,
+    path: `/crypto/exchanges/${offering.slug}`,
+    seoTitle: offering.seoTitle ?? provider.seoTitle,
+    seoDescription: offering.seoDescription ?? provider.seoDescription,
+    noIndex: offering.noIndex || provider.noIndex,
   });
 }
 
@@ -77,8 +86,16 @@ export default async function ExchangeProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offeringResult = await publicDatabaseRead("cryptoExchange.detail", () =>
-    getCryptoExchangeByPublicSlug(slug)
+  const offeringResult = await publicDatabaseRead(
+    "cryptoExchange.detail",
+    async () => {
+      const canonicalSlug = await resolveCryptoExchangeSlug(slug);
+      if (!canonicalSlug) return { canonicalSlug: null, offering: null };
+      return {
+        canonicalSlug,
+        offering: await getCryptoExchangeBySlug(canonicalSlug),
+      };
+    }
   );
   if (!offeringResult.ok) {
     return (
@@ -97,8 +114,10 @@ export default async function ExchangeProfilePage({
       </>
     );
   }
-  const offering = offeringResult.data;
-  if (!offering) notFound();
+  const { canonicalSlug, offering } = offeringResult.data;
+  if (!canonicalSlug || !offering) notFound();
+  if (slug !== canonicalSlug)
+    permanentRedirect(`/crypto/exchanges/${canonicalSlug}`);
   const provider = offering.provider;
   // The comparable-providers pool for the (currently disabled) CompareSelector
   // was fetched here but never read. If that selector is re-enabled, use the
@@ -108,7 +127,7 @@ export default async function ExchangeProfilePage({
     "cryptoExchange.related",
     async () => {
       const [link, relatedContent] = await Promise.all([
-        getActiveAffiliateLink(slug),
+        getActiveAffiliateLink(provider.slug),
         getRelatedContentForProvider(provider.id),
       ]);
       return { link, relatedContent };
@@ -125,7 +144,7 @@ export default async function ExchangeProfilePage({
 
   const trail = breadcrumbTrail([
     { name: "Exchanges", path: "/crypto/exchanges" },
-    { name: provider.name, path: `/crypto/exchanges/${slug}` },
+    { name: offering.name, path: `/crypto/exchanges/${offering.slug}` },
   ]);
 
   return (
@@ -134,17 +153,21 @@ export default async function ExchangeProfilePage({
       <PageHero
         breadcrumbs={trail}
         eyebrow={formatOfferingType(offering.offeringType)}
-        title={`${provider.name} Australia review`}
-        subheading={provider.description ?? undefined}
+        title={`${offering.name} Australia review`}
+        subheading={offering.description ?? provider.description ?? undefined}
         maxWidth="max-w-4xl"
       />
       <div className="mx-auto max-w-4xl px-4 py-12">
         <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 items-center gap-4">
-            <ProviderLogo logo={provider.logo} name={provider.name} size="lg" />
+            <ProviderLogo
+              logo={offering.logo ?? provider.logo}
+              name={offering.name}
+              size="lg"
+            />
             <div className="min-w-0">
               <h2 className="font-display text-navy truncate text-lg font-bold">
-                {provider.name}
+                {offering.name}
               </h2>
               <VerificationBadge status={provider.verificationStatus} />
             </div>
@@ -239,11 +262,11 @@ export default async function ExchangeProfilePage({
 
         <RelatedComparisons
           domain="crypto-exchanges"
-          subjectSlug={provider.slug}
+          subjectSlug={offering.slug}
         />
         <TopicClusterLinks
           clusterId="crypto"
-          excludeHref={`/crypto/exchanges/${provider.slug}`}
+          excludeHref={`/crypto/exchanges/${offering.slug}`}
         />
 
         {offering.cryptoAssets.length > 0 && (

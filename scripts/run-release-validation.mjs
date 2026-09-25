@@ -6,6 +6,7 @@ const npm = isWindows ? "npm.cmd" : "npm";
 for (const [label, args] of [
   ["Code validation", ["run", "validate:code"]],
   ["Provider verification", ["run", "check:providers"]],
+  ["Crypto Offering identity", ["run", "check:crypto-identity"]],
   ["Production readiness", ["run", "check:production"]],
 ]) {
   console.log(`\n=== ${label} ===`);

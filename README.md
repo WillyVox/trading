@@ -128,6 +128,12 @@ npm run check:production
   npm run db:inspect:production
 
 * Production Release
+  npm run check:internal-links
+  npm run  check:guide-breadcrumbs
+  npm run sitemap:check
+  npm run test:provider-outbound
+  npm run check:phase3
+  npm runcheck:crypto-identity
   npm run check:seed-data
   npm run check:providers
   npm run validate:release

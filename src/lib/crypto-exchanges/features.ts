@@ -13,7 +13,7 @@ import type { OfferingFeatureType } from "@prisma/client";
  * Deliberately not generic: the repository layer's findBySlug(slug, extra)
  * takes an untyped `extra` include object (see src/lib/repository.ts), so
  * Prisma can't statically infer the OfferingFeature payload shape from
- * getCryptoExchangeByPublicSlug()'s include -- a generic here would have its
+ * getCryptoExchangeBySlug()'s include -- a generic here would have its
  * type parameter fall back to the bare constraint at the call site instead
  * of the real row shape. An explicit row type + a cast at the call site is
  * more reliable than fighting that inference.

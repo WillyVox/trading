@@ -1,10 +1,13 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
 import { CompareSelector } from "@/components/compare/CompareSelector";
 import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { getCryptoExchangeComparison } from "@/lib/crypto-exchanges/comparison";
-import { getCryptoExchangeSelectorOptions } from "@/lib/crypto-exchanges/service";
+import {
+  getCryptoExchangeSelectorOptions,
+  resolveCryptoExchangeSlugs,
+} from "@/lib/crypto-exchanges/service";
 import {
   canonicalCompareSlugMulti,
   parseCompareSlugs,
@@ -24,18 +27,33 @@ import { publicDatabaseRead } from "@/lib/data/public-read";
 
 const BASE_PATH = "/compare/crypto-exchanges";
 
+async function resolveComparisonSlugs(
+  slugs: string[]
+): Promise<string[] | null> {
+  const resolved = await resolveCryptoExchangeSlugs(slugs);
+  return resolved ? [...new Set(resolved)] : null;
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const slugs = parseCompareSlugs(slug);
-  const metadataResult = slugs.length
-    ? await publicDatabaseRead("compare.crypto-exchanges.metadata", () =>
-        getCryptoExchangeComparison(slugs)
+  const requestedSlugs = parseCompareSlugs(slug);
+  const metadataResult = requestedSlugs.length
+    ? await publicDatabaseRead(
+        "compare.crypto-exchanges.metadata",
+        async () => {
+          const slugs = await resolveComparisonSlugs(requestedSlugs);
+          if (!slugs) return { slugs: null, comparison: null };
+          return {
+            slugs,
+            comparison: await getCryptoExchangeComparison(slugs),
+          };
+        }
       )
-    : { ok: true as const, data: null };
+    : { ok: true as const, data: { slugs: null, comparison: null } };
   if (!metadataResult.ok)
     return buildMetadata({
       title: "Comparison temporarily unavailable",
@@ -43,9 +61,13 @@ export async function generateMetadata({
       path: `${BASE_PATH}/${slug}`,
       noIndex: true,
     });
-  const comparison = metadataResult.data;
-  const names = comparison?.subjects.map((subject) => subject.name) ?? slugs;
-  const canonicalSlug = canonicalCompareSlugMulti(slugs);
+  const resolvedSlugs = metadataResult.data.slugs;
+  const comparison = metadataResult.data.comparison;
+  const names =
+    comparison?.subjects.map((subject) => subject.name) ?? requestedSlugs;
+  const canonicalSlug = canonicalCompareSlugMulti(
+    resolvedSlugs ?? requestedSlugs
+  );
   const curated = getCuratedComparison("crypto-exchanges", canonicalSlug);
   return buildMetadata({
     title:
@@ -69,14 +91,16 @@ export default async function CryptoExchangeComparisonPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const slugs = parseCompareSlugs(slug);
-  if (!slugs.length) notFound();
-  const canonicalSlug = canonicalCompareSlugMulti(slugs);
-  if (slug !== canonicalSlug) redirect(`${BASE_PATH}/${canonicalSlug}`);
+  const requestedSlugs = parseCompareSlugs(slug);
+  if (!requestedSlugs.length) notFound();
 
   const comparisonResult = await publicDatabaseRead(
     "compare.crypto-exchanges.detail",
-    () => getCryptoExchangeComparison(slugs)
+    async () => {
+      const slugs = await resolveComparisonSlugs(requestedSlugs);
+      if (!slugs) return { slugs: null, comparison: null };
+      return { slugs, comparison: await getCryptoExchangeComparison(slugs) };
+    }
   );
   if (!comparisonResult.ok) {
     return (
@@ -94,8 +118,12 @@ export default async function CryptoExchangeComparisonPage({
       </>
     );
   }
-  const comparison = comparisonResult.data;
-  if (!comparison) notFound();
+  const { slugs, comparison } = comparisonResult.data;
+  if (!slugs || !comparison) notFound();
+  const canonicalSlug = canonicalCompareSlugMulti(slugs);
+  if (slug !== canonicalSlug)
+    permanentRedirect(`${BASE_PATH}/${canonicalSlug}`);
+
   const { subjects, sections } = comparison;
   const curated = getCuratedComparison("crypto-exchanges", canonicalSlug);
   const poolResult = await publicDatabaseRead(
