@@ -89,8 +89,7 @@ export default function EditorialPolicyPage() {
           <Link href="/methodology/comparisons" className="text-blue underline">
             comparison methodology
           </Link>
-          . For how we&apos;re paid and how that&apos;s kept separate from
-          coverage, see{" "}
+          . For how we're paid and how that's kept separate from coverage, see{" "}
           <Link href="/how-we-get-paid" className="text-blue underline">
             how we get paid
           </Link>{" "}

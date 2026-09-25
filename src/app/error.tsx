@@ -10,7 +10,7 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
           Trading Guide
         </p>
         <h1 className="mt-3 font-serif text-3xl font-semibold text-[var(--navy)]">
-          We couldn&apos;t load this page
+          We couldn't load this page
         </h1>
         <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--muted)]">
           A temporary problem prevented this page from loading. You can try

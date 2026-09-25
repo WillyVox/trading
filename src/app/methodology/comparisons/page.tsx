@@ -82,8 +82,8 @@ export default function ComparisonMethodologyPage() {
           Where the data exists, a comparison is grouped into five sections:
           Facts, Fees, Products &amp; trading, Deposits &amp; withdrawals, and
           Security. A section is only shown if at least one compared provider
-          has data for it — we don&apos;t render an empty section just to keep
-          the layout consistent.
+          has data for it — we don't render an empty section just to keep the
+          layout consistent.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">

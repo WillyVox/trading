@@ -84,7 +84,7 @@ export default async function ChessVsCustodyPage() {
             <p className="text-muted mt-3 text-sm leading-6">
               ASX notes that an investor may instead have a beneficial interest
               where legal title is held by a custodian, including through an
-              omnibus structure. The provider&apos;s terms determine how that
+              omnibus structure. The provider's terms determine how that
               arrangement operates.
             </p>
             <a
@@ -115,7 +115,7 @@ export default async function ChessVsCustodyPage() {
             <Notice>
               This explorer describes ownership and custody structures; it does
               not rate one structure as safer, better or more suitable for you.
-              Check the provider&apos;s current terms and official documentation
+              Check the provider's current terms and official documentation
               before relying on a platform-specific record.
             </Notice>
           </div>

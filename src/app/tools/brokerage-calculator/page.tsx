@@ -75,7 +75,7 @@ export default async function BrokerageCalculatorPage({
           </h2>
           <p className="text-muted mt-3 leading-7">
             The calculator uses verified brokerage rules stored against Trading
-            Guide&apos;s share-trading offerings. It supports deterministic
+            Guide's share-trading offerings. It supports deterministic
             value-based rules such as flat fees, percentages, greater-of rules
             and trade-value tiers. Pricing that depends on information we do not
             model is not forced into an estimate.

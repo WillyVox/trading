@@ -218,8 +218,8 @@ export async function ArticleForm({
             or <code className="font-mono">{"{{video:vimeo:VIDEO_ID}}"}</code>,
             on their own line. Other embed markers (e.g.{" "}
             <code className="font-mono">{"{{provider-comparison:...}}"}</code>)
-            can be typed in now — they&apos;ll show a &quot;not yet
-            available&quot; note in Preview until that block type ships.
+            can be typed in now — they'll show a &quot;not yet available&quot;
+            note in Preview until that block type ships.
           </p>
           <ArticleRichEditor
             name="content"

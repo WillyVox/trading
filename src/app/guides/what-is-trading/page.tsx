@@ -193,16 +193,16 @@ export default function WhatIsTradingPage() {
                 A simple example (illustrative only): you buy 100 shares at
                 $10.00, paying $1,000. The price rises to $10.80 and you sell
                 for $1,080 — an $80 gross gain. With $10 brokerage each way, you
-                keep $60. If the price had dropped to $9.20 instead, you&apos;d
-                be down $80, plus $20 in brokerage: $100 in total.
+                keep $60. If the price had dropped to $9.20 instead, you'd be
+                down $80, plus $20 in brokerage: $100 in total.
               </p>
 
               <h2 id="trading-vs-investing">
-                Trading vs investing: what&apos;s the real difference?
+                Trading vs investing: what's the real difference?
               </h2>
               <p>
-                Trading and investing happen in the same markets, but
-                they&apos;re driven by different goals and time horizons.
+                Trading and investing happen in the same markets, but they're
+                driven by different goals and time horizons.
               </p>
               <table>
                 <thead>
@@ -246,22 +246,22 @@ export default function WhatIsTradingPage() {
                 </tbody>
               </table>
               <p>
-                It matters for tax, too. The ATO decides whether you&apos;re
-                treated as a share investor or as carrying on a business of
-                share trading by looking at your intention, how often you trade,
-                and how business-like your activity is. Most beginners who buy
-                to hold are treated as investors, and capital gains tax rules
-                apply — but the ATO makes that call on the facts of your
-                situation, so check its guidance or a registered tax agent if
-                you&apos;re unsure which applies to you.
+                It matters for tax, too. The ATO decides whether you're treated
+                as a share investor or as carrying on a business of share
+                trading by looking at your intention, how often you trade, and
+                how business-like your activity is. Most beginners who buy to
+                hold are treated as investors, and capital gains tax rules apply
+                — but the ATO makes that call on the facts of your situation, so
+                check its guidance or a registered tax agent if you're unsure
+                which applies to you.
               </p>
 
               <h2 id="how-a-trade-works">How does a trade actually work?</h2>
               <p>
-                Whichever asset you&apos;re trading, the mechanics follow a
-                similar path: you place an order, your broker routes it, the
-                exchange matches a buyer and a seller, the trade is confirmed,
-                and it settles.
+                Whichever asset you're trading, the mechanics follow a similar
+                path: you place an order, your broker routes it, the exchange
+                matches a buyer and a seller, the trade is confirmed, and it
+                settles.
               </p>
 
               <GuideFigure caption="A share trade travels from your order, through your broker, to the exchange, and on to confirmation and settlement.">
@@ -277,9 +277,9 @@ export default function WhatIsTradingPage() {
               <p>
                 <strong>Order types.</strong> A market order buys or sells
                 straight away at the best available price, but the price can
-                move before you&apos;re filled. A limit order only trades at
-                your price or better, though it may never fill. A stop-loss
-                order triggers a sale if the price falls to your level, but in a
+                move before you're filled. A limit order only trades at your
+                price or better, though it may never fill. A stop-loss order
+                triggers a sale if the price falls to your level, but in a
                 fast-moving market it can fill below your stop price.
               </p>
               <p>
@@ -336,15 +336,15 @@ export default function WhatIsTradingPage() {
                     <td>CFDs and other derivatives</td>
                     <td>Contracts that track a price, often leveraged</td>
                     <td>Varies</td>
-                    <td>Not covered — see Moneysmart&apos;s warnings</td>
+                    <td>Not covered — see Moneysmart's warnings</td>
                   </tr>
                 </tbody>
               </table>
               <p>
                 CFDs and other leveraged derivatives carry the highest beginner
                 risk of everything in this table — you can lose more than your
-                original deposit. We don&apos;t cover them as a product to trade
-                on this site.
+                original deposit. We don't cover them as a product to trade on
+                this site.
               </p>
 
               <h2 id="trading-styles">The main styles of trading</h2>
@@ -441,10 +441,9 @@ export default function WhatIsTradingPage() {
                 <li>
                   <strong>Scams</strong> — &quot;guaranteed&quot; returns,
                   unlicensed trading &quot;coaches&quot;, unlicensed brokers,
-                  and pressure to deposit quickly. Check a broker&apos;s licence
-                  on ASIC&apos;s professional registers and read
-                  Moneysmart&apos;s investment warnings before you deposit
-                  anywhere.
+                  and pressure to deposit quickly. Check a broker's licence on
+                  ASIC's professional registers and read Moneysmart's investment
+                  warnings before you deposit anywhere.
                 </li>
               </ul>
 
@@ -456,15 +455,14 @@ export default function WhatIsTradingPage() {
                 Is trading right for you? Where to go next
               </h2>
               <p>
-                Trading isn&apos;t right or wrong — it&apos;s a different
-                activity to investing, with different costs, time commitment and
-                risk. If you&apos;re still working out whether you&apos;re ready
-                to place your first trade, our 10-point readiness checklist
-                covers the money, knowledge, setup and discipline to sort out
-                first.
+                Trading isn't right or wrong — it's a different activity to
+                investing, with different costs, time commitment and risk. If
+                you're still working out whether you're ready to place your
+                first trade, our 10-point readiness checklist covers the money,
+                knowledge, setup and discipline to sort out first.
               </p>
               <p>
-                From there, your next step depends on which market you&apos;re
+                From there, your next step depends on which market you're
                 heading toward — share trading or crypto — both covered below.
               </p>
             </div>

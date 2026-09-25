@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/Card";
 import { PageHero } from "@/components/layout/PageHero";
 import { NavIcon, type NavIconName } from "@/components/layout/NavIcon";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { HomepageLearningProgress } from "@/components/learning/LearningProgressClient";
 
 export const metadata = buildMetadata({
   title: "Learn Share Trading & Crypto in Australia | Trading Guide",
@@ -184,15 +183,13 @@ export default function HomePage() {
       />
 
       <main>
-        <HomepageLearningProgress />
         <section className="mx-auto max-w-6xl px-4 py-14 md:py-16">
           <Eyebrow>Choose your learning path</Eyebrow>
           <h2 className="font-display text-navy mt-4 max-w-3xl text-3xl font-bold md:text-4xl">
             Start with what you want to understand.
           </h2>
           <p className="text-muted mt-3 max-w-2xl text-base leading-7">
-            No assumed experience. Follow a path in order or jump directly to
-            the topic you need.
+            Follow a path in order or jump directly to the topic you need.
           </p>
 
           <div className="mt-8 grid gap-5 lg:grid-cols-2">
@@ -392,7 +389,7 @@ export default function HomePage() {
 
         <section className="bg-panel-secondary border-border border-y">
           <div className="mx-auto max-w-6xl px-4 py-14 md:py-16">
-            <Eyebrow>When you&lsquo;re ready</Eyebrow>
+            <Eyebrow>When you're ready</Eyebrow>
             <h2 className="font-display text-navy mt-4 max-w-3xl text-3xl font-bold md:text-4xl">
               Research platforms after you understand the basics.
             </h2>

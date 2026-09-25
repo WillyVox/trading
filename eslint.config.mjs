@@ -14,6 +14,11 @@ const eslintConfig = [
   ...nextTypescript,
   // Belt-and-braces: these are also eslint-config-next's defaults.
   { ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"] },
+  {
+    rules: {
+      "react/no-unescaped-entities": "off",
+    },
+  },
   // Append prettier last so it overrides any conflicting stylistic rules.
   eslintConfigPrettier,
 ];

@@ -190,13 +190,12 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
             <div className="prose prose-headings:font-display prose-headings:text-navy mt-8 max-w-none">
               <h2 id="investing-vs-buying">Investing vs. just buying crypto</h2>
               <p>
-                There&apos;s a meaningful difference between buying a small
-                amount of crypto out of curiosity and actually{" "}
-                <em>investing</em> in it. Investing implies a plan: a rough idea
-                of how much you&apos;re putting in, over what timeframe, and why
-                — versus reacting to a headline or a friend&apos;s tip. If
-                you&apos;re only after the mechanics of making a first purchase,
-                our{" "}
+                There's a meaningful difference between buying a small amount of
+                crypto out of curiosity and actually <em>investing</em> in it.
+                Investing implies a plan: a rough idea of how much you're
+                putting in, over what timeframe, and why — versus reacting to a
+                headline or a friend's tip. If you're only after the mechanics
+                of making a first purchase, our{" "}
                 <Link
                   href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
@@ -209,38 +208,38 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
               </p>
 
               <h2 id="understand-the-asset-class">
-                Understand what you&apos;re investing in
+                Understand what you're investing in
               </h2>
               <p>
                 Crypto assets are a broad category — cryptocurrencies, tokens,
                 and coins built on blockchain networks. Unlike a share, a crypto
-                asset doesn&apos;t represent ownership in a company with
-                earnings or assets behind it; its value comes almost entirely
-                from supply, demand, and how useful or trusted the network
-                behind it is perceived to be. That makes it a fundamentally
-                different kind of asset to shares, property, or cash — and one
-                that Australia&apos;s Moneysmart explicitly flags as high-risk,
-                alongside CFDs and forex trading.
+                asset doesn't represent ownership in a company with earnings or
+                assets behind it; its value comes almost entirely from supply,
+                demand, and how useful or trusted the network behind it is
+                perceived to be. That makes it a fundamentally different kind of
+                asset to shares, property, or cash — and one that Australia's
+                Moneysmart explicitly flags as high-risk, alongside CFDs and
+                forex trading.
               </p>
 
               <h2 id="know-your-risk-tolerance">
                 Know your risk tolerance first
               </h2>
               <p>
-                Before choosing an amount, be honest about how you&apos;d react
-                if that amount fell by half in a week — because crypto assets
-                have historically done exactly that, more than once. If that
-                thought is genuinely distressing rather than merely
-                uncomfortable, that&apos;s useful information about how much (if
-                any) crypto exposure suits you right now.
+                Before choosing an amount, be honest about how you'd react if
+                that amount fell by half in a week — because crypto assets have
+                historically done exactly that, more than once. If that thought
+                is genuinely distressing rather than merely uncomfortable,
+                that's useful information about how much (if any) crypto
+                exposure suits you right now.
               </p>
 
               <h2 id="how-much-to-invest">
                 How much of your money should go into crypto?
               </h2>
               <p>
-                There&apos;s no universal percentage that applies to everyone —
-                it depends on your income, existing savings, debt, and other
+                There's no universal percentage that applies to everyone — it
+                depends on your income, existing savings, debt, and other
                 financial goals. What most beginner-friendly guidance agrees on
                 is the principle, not the number: treat crypto as money you
                 could afford to lose entirely without affecting your ability to
@@ -260,8 +259,8 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                 <strong>dollar-cost averaging (DCA)</strong> means investing a
                 smaller, fixed amount at regular intervals — say, weekly or
                 monthly — regardless of the price on that particular day. This
-                doesn&apos;t protect against an asset losing value overall, but
-                it does smooth out the impact of buying at a single, potentially
+                doesn't protect against an asset losing value overall, but it
+                does smooth out the impact of buying at a single, potentially
                 high, price point, and it removes the pressure of trying to time
                 the market.
               </p>
@@ -269,15 +268,13 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
               <h2 id="researching-a-project">
                 Researching a crypto project before you buy
               </h2>
-              <p>
-                Before buying a specific asset, it&apos;s worth looking into:
-              </p>
+              <p>Before buying a specific asset, it's worth looking into:</p>
               <ul>
                 <li>
                   What problem the network or token is actually trying to solve.
                 </li>
                 <li>
-                  How long it&apos;s been operating, and how the team behind it
+                  How long it's been operating, and how the team behind it
                   communicates publicly.
                 </li>
                 <li>
@@ -285,7 +282,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
                   harder to sell at a fair price.
                 </li>
                 <li>
-                  Whether independent sources (not just the project&apos;s own
+                  Whether independent sources (not just the project's own
                   marketing) corroborate its claims.
                 </li>
               </ul>
@@ -296,14 +293,13 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
 
               <h2 id="avoiding-scams">Avoiding common crypto scams</h2>
               <p>
-                Crypto&apos;s combination of popularity and irreversible
-                transactions makes it a frequent target for scammers. Common
-                patterns include unsolicited investment
-                &quot;opportunities&quot; from strangers or new online contacts,
-                promises of guaranteed or unusually high returns, fake or cloned
-                trading platforms, and pressure to act quickly or keep the
-                opportunity secret. Genuine investments don&apos;t require
-                secrecy or urgency — treat both as warning signs.
+                Crypto's combination of popularity and irreversible transactions
+                makes it a frequent target for scammers. Common patterns include
+                unsolicited investment &quot;opportunities&quot; from strangers
+                or new online contacts, promises of guaranteed or unusually high
+                returns, fake or cloned trading platforms, and pressure to act
+                quickly or keep the opportunity secret. Genuine investments
+                don't require secrecy or urgency — treat both as warning signs.
               </p>
 
               <h2 id="storage-and-security">Storage and security</h2>
@@ -324,24 +320,23 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
               <p>
                 The ATO treats crypto assets held as an investment as subject to{" "}
                 <strong>Capital Gains Tax (CGT)</strong>. Broadly, buying crypto
-                with Australian dollars and simply holding it isn&apos;t a
-                taxable event, but selling it, swapping it for another crypto
-                asset, or spending it generally is. Keeping accurate records —
-                dates, amounts, and AUD values — from your very first
-                transaction makes this far easier at tax time. Tax treatment can
-                be detailed and is subject to change, so check the ATO&apos;s
-                current guidance or speak with a tax professional for your
-                specific situation.
+                with Australian dollars and simply holding it isn't a taxable
+                event, but selling it, swapping it for another crypto asset, or
+                spending it generally is. Keeping accurate records — dates,
+                amounts, and AUD values — from your very first transaction makes
+                this far easier at tax time. Tax treatment can be detailed and
+                is subject to change, so check the ATO's current guidance or
+                speak with a tax professional for your specific situation.
               </p>
 
               <h2 id="getting-started">Getting started</h2>
               <p>
-                Once you&apos;ve thought through your risk tolerance, roughly
-                how much you&apos;re comfortable allocating, and how you&apos;ll
-                keep records, the practical next step is researching how a
-                crypto service works, checking the relevant registration and
-                custody information, and understanding the transaction path
-                before deciding whether to make a purchase. Our{" "}
+                Once you've thought through your risk tolerance, roughly how
+                much you're comfortable allocating, and how you'll keep records,
+                the practical next step is researching how a crypto service
+                works, checking the relevant registration and custody
+                information, and understanding the transaction path before
+                deciding whether to make a purchase. Our{" "}
                 <Link
                   href={getStaticGuideArticleHref(
                     STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO

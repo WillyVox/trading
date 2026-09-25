@@ -70,35 +70,41 @@ export function LessonCompletionControl({ href }: { href: string }) {
           Progress is saved only in this browser. No account is required.
         </p>
       </div>
-      <button
-        type="button"
-        onClick={() => {
-          const nextCompleted = !completed;
-          setLessonCompleted(context.path.id, context.lesson.id, nextCompleted);
-          if (nextCompleted) {
-            trackEvent("lesson_completed", {
-              path_id: context.path.id,
-              lesson_id: context.lesson.id,
-              lesson_number: context.index + 1,
-              total_lessons: context.path.lessons.length,
-            });
-            if (state.completedCount + 1 === context.path.lessons.length)
-              trackEvent("learning_path_completed", {
+      {!completed && (
+        <button
+          type="button"
+          onClick={() => {
+            const nextCompleted = !completed;
+            setLessonCompleted(
+              context.path.id,
+              context.lesson.id,
+              nextCompleted
+            );
+            if (nextCompleted) {
+              trackEvent("lesson_completed", {
                 path_id: context.path.id,
+                lesson_id: context.lesson.id,
+                lesson_number: context.index + 1,
                 total_lessons: context.path.lessons.length,
               });
-          } else {
-            trackEvent("lesson_completion_undone", {
-              path_id: context.path.id,
-              lesson_id: context.lesson.id,
-            });
-          }
-        }}
-        aria-pressed={completed}
-        className="border-gold-soft text-navy hover:bg-gold-soft/20 focus-visible:ring-gold-soft mt-4 inline-flex min-h-11 items-center justify-center rounded-lg border px-4 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 sm:mt-0"
-      >
-        {completed ? "✓ Completed · undo" : "Mark lesson complete"}
-      </button>
+              if (state.completedCount + 1 === context.path.lessons.length)
+                trackEvent("learning_path_completed", {
+                  path_id: context.path.id,
+                  total_lessons: context.path.lessons.length,
+                });
+            } else {
+              trackEvent("lesson_completion_undone", {
+                path_id: context.path.id,
+                lesson_id: context.lesson.id,
+              });
+            }
+          }}
+          aria-pressed={completed}
+          className="border-gold-soft text-navy hover:bg-gold-soft/20 focus-visible:ring-gold-soft mt-4 inline-flex min-h-11 items-center justify-center rounded-lg border px-4 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 sm:mt-0"
+        >
+          {completed ? "✓ Completed · undo" : "Mark lesson complete"}
+        </button>
+      )}
     </div>
   );
 }

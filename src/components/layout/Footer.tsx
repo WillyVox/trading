@@ -5,9 +5,9 @@ import { siteConfig } from "@/lib/seo/config";
 import TradingGuideLogoWhite from "./LogoWhite";
 
 // Computed once per server render. On a statically-generated page this
-// bakes in the build year rather than the visitor&lsquo;s current year -- fine
+// bakes in the build year rather than the visitor's current year -- fine
 // for a footer copyright line (same tradeoff every SSG site makes), but
-// worth knowing if a build sits unrebuilt across a New Year&lsquo;s Eve.
+// worth knowing if a build sits unrebuilt across a New Year's Eve.
 const YEAR = new Date().getFullYear();
 
 /**

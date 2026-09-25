@@ -89,10 +89,10 @@ export default async function FxFeeCalculatorPage({
             What the estimate does — and does not — measure
           </h2>
           <p className="text-muted mt-3 leading-7">
-            The estimate applies the selected provider&apos;s structured
-            published FX percentage to the hypothetical AUD amount entered. It
-            is designed to explain the pricing rule, not to predict the exchange
-            rate you will receive.
+            The estimate applies the selected provider's structured published FX
+            percentage to the hypothetical AUD amount entered. It is designed to
+            explain the pricing rule, not to predict the exchange rate you will
+            receive.
           </p>
           <p className="text-muted mt-3 leading-7">
             Brokerage, market fees, taxes, deposit or withdrawal charges and

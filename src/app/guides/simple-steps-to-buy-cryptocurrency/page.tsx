@@ -205,12 +205,11 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
               <h2 id="before-you-start">Before you start</h2>
               <p>
                 Buying cryptocurrency in Australia is a straightforward process
-                once you know the steps — but it&apos;s worth doing a little
-                groundwork first. Decide roughly how much you&apos;re
-                comfortable putting in (only money you can afford to see fall in
-                value), and have a form of photo ID ready, since every regulated
-                exchange is legally required to verify who you are before you
-                can trade.
+                once you know the steps — but it's worth doing a little
+                groundwork first. Decide roughly how much you're comfortable
+                putting in (only money you can afford to see fall in value), and
+                have a form of photo ID ready, since every regulated exchange is
+                legally required to verify who you are before you can trade.
               </p>
 
               <GuideFigure caption="The five steps to buying your first cryptocurrency, from choosing an exchange through to securing it.">
@@ -237,11 +236,10 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                 Sign up with your email and a strong, unique password, then
                 complete identity verification (known as <strong>KYC</strong>,
                 or &quot;know your customer&quot;). This usually means uploading
-                a photo of your driver&apos;s licence or passport and taking a
-                quick selfie. It&apos;s a standard legal requirement for every
-                service where the relevant AML/CTF obligations apply, not
-                necessarily something specific to the platform you&apos;ve
-                chosen.
+                a photo of your driver's licence or passport and taking a quick
+                selfie. It's a standard legal requirement for every service
+                where the relevant AML/CTF obligations apply, not necessarily
+                something specific to the platform you've chosen.
               </p>
 
               <h2 id="step-3">Step 3: Deposit funds</h2>
@@ -269,8 +267,8 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
               <p>
                 Choose the asset you want (for example Bitcoin or Ethereum) and
                 how much AUD you want to spend — most exchanges let you buy a
-                fraction of a coin rather than a whole one. You&apos;ll
-                typically choose between:
+                fraction of a coin rather than a whole one. You'll typically
+                choose between:
               </p>
               <ul>
                 <li>
@@ -324,12 +322,12 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
                   account is created.
                 </li>
                 <li>
-                  Never share your password, 2FA codes, or wallet&apos;s private
+                  Never share your password, 2FA codes, or wallet's private
                   key/seed phrase with anyone.
                 </li>
                 <li>
                   Double-check withdrawal addresses before sending — crypto
-                  transactions can&apos;t be reversed.
+                  transactions can't be reversed.
                 </li>
                 <li>
                   Start with a small amount while you get comfortable with how

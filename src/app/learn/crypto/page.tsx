@@ -35,8 +35,7 @@ export default function Page() {
           </h2>
           <p className="text-muted mt-2 leading-7">
             Use the educational calculators to explore hypothetical fee paths,
-            then inspect source-linked exchange information when you&lsquo;re
-            ready.
+            then inspect source-linked exchange information when you're ready.
           </p>
           <Link
             href="/tools"

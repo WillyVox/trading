@@ -35,8 +35,8 @@ export default async function NewsPage() {
       <div className="mx-auto max-w-6xl px-4 py-16">
         {!newsResult.ok ? (
           <DataUnavailable title="News is temporarily unavailable">
-            We couldn&lsquo;t load database-backed news right now. Please try
-            again shortly.
+            We couldn't load database-backed news right now. Please try again
+            shortly.
           </DataUnavailable>
         ) : items.length === 0 ? (
           <div className="mt-6">

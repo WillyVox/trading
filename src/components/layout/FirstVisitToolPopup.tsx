@@ -116,7 +116,7 @@ export function FirstVisitToolPopup() {
             id="first-visit-tool-title"
             className="font-display mt-2 max-w-xl text-3xl leading-[1.05] font-extrabold sm:text-4xl"
           >
-            Don&apos;t guess the fee.
+            Don't guess the fee.
             <br />
             Estimate it.
           </h2>
@@ -138,7 +138,7 @@ export function FirstVisitToolPopup() {
               <strong className="text-sm">Buy</strong>
             </div>
             <div className="flex items-center justify-between gap-4 py-2.5">
-              <span className="text-muted text-sm">What you&apos;ll see</span>
+              <span className="text-muted text-sm">What you'll see</span>
               <strong className="text-right text-sm">
                 Estimated brokerage
               </strong>

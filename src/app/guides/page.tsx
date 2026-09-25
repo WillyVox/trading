@@ -15,6 +15,8 @@ import { Card } from "@/components/ui/Card";
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
 
+// import { HomepageLearningProgress } from "@/components/learning/LearningProgressClient";
+
 export const metadata = buildMetadata({
   title:
     "Online Share Trading & Crypto Exchanges Guides Australia — Beginner Education",
@@ -99,6 +101,7 @@ export default async function GuidesPage({
             </Card>
           </Link>
         </section>
+        {/* <HomepageLearningProgress/> */}
         {!guidesResult.ok && (
           <div className="mb-8">
             <DataUnavailable title="Published guide library is temporarily unavailable">

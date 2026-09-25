@@ -402,8 +402,8 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 retail buy/sell interface and CoinSpot Markets. Its Markets page
                 currently advertises a 0.1% market trading fee. That distinction
                 is useful for beginners: the price and fee structure of a
-                provider&apos;s instant-buy service can differ from its
-                order-book market. See our{" "}
+                provider's instant-buy service can differ from its order-book
+                market. See our{" "}
                 <Link href={cryptoExchangePath("coinspot")}>
                   CoinSpot profile
                 </Link>{" "}
@@ -513,7 +513,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 <li>
                   <strong>Australian registration:</strong> If the provider
                   supplies registrable virtual asset services in Australia, can
-                  you verify it on AUSTRAC&apos;s VASP register?
+                  you verify it on AUSTRAC's VASP register?
                 </li>
                 <li>
                   <strong>Support and records:</strong> Can you obtain
@@ -562,7 +562,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 asset services in Australia must be registered before providing
                 those services. Since 30 June 2026, AUSTRAC has made its VASP
                 register public, allowing consumers to search for registered
-                providers. Registration supports Australia&apos;s
+                providers. Registration supports Australia's
                 anti-money-laundering and counter-terrorism-financing framework
                 and can be an important legitimacy check.
               </p>
@@ -616,8 +616,8 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 impersonation. Moneysmart warns that scammers create fake
                 trading platforms, wallet sites and apps, and also impersonate
                 legitimate digital-asset platforms. Always navigate to the
-                provider&apos;s verified website yourself rather than trusting
-                an unexpected message or advertisement.
+                provider's verified website yourself rather than trusting an
+                unexpected message or advertisement.
               </p>
               <p>Common warning signs include:</p>
               <ul>
@@ -655,9 +655,9 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
               </p>
               <p>
                 Tax treatment can be detailed and can change. Check the
-                Australian Taxation Office&apos;s current crypto guidance or
-                obtain professional tax advice for your circumstances. This
-                guide provides general information only and is not personal tax
+                Australian Taxation Office's current crypto guidance or obtain
+                professional tax advice for your circumstances. This guide
+                provides general information only and is not personal tax
                 advice.
               </p>
 

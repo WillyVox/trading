@@ -164,14 +164,7 @@ export function CompareTable({
                           <span aria-hidden>{verification.marker}</span>{" "}
                           {verification.label}
                         </p>
-                        <div className="mt-auto flex flex-col items-start gap-1.5 pt-4">
-                          <Link
-                            href={s.profileHref}
-                            className="text-navy text-xs font-semibold underline underline-offset-2"
-                          >
-                            View details
-                            {/* → */}
-                          </Link>
+                        <div className="mt-auto flex flex-col">
                           {s.cta && (
                             <a
                               href={s.cta.href}
@@ -276,8 +269,8 @@ export function CompareTable({
         )}
       </div>
       <p className="text-muted mt-2 text-[11px]">
-        Data verification describes Trading Guide&apos;s research status. It is
-        not an endorsement or recommendation of a provider.
+        Data verification describes Trading Guide's research status. It is not
+        an endorsement or recommendation of a provider.
       </p>
     </div>
   );

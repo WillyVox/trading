@@ -13,7 +13,7 @@ export default function GlobalError({ reset }: { reset: () => void }) {
           }}
         >
           <h1>Trading Guide is temporarily unavailable</h1>
-          <p>We couldn&apos;t load the application. Please try again.</p>
+          <p>We couldn't load the application. Please try again.</p>
           <button
             type="button"
             onClick={reset}

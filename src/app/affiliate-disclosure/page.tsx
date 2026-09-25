@@ -90,7 +90,7 @@ export default function AffiliateDisclosurePage() {
       <p className="text-muted mt-3">
         This page explains how Trading Guide is funded today, how we expect that
         to change as provider partnerships go live, and exactly what a
-        commercial relationship will and won&apos;t influence on this site.
+        commercial relationship will and won't influence on this site.
       </p>
 
       <div className="mt-8 flex flex-col gap-4">

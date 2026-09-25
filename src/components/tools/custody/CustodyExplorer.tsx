@@ -116,7 +116,7 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
             ) : (
               <p className="text-muted mt-5 text-xs">
                 Educational wording is still marked as awaiting source review in
-                Trading Guide&apos;s glossary.
+                Trading Guide's glossary.
               </p>
             )}
             {concept.sources.length > 0 && (
@@ -146,8 +146,8 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
           See the structure recorded for a platform
         </h2>
         <p className="text-muted mt-2 max-w-3xl leading-7">
-          This section reads Trading Guide&apos;s structured custody records. A
-          row marked unverified is shown as unverified rather than treated as
+          This section reads Trading Guide's structured custody records. A row
+          marked unverified is shown as unverified rather than treated as
           confirmed.
         </p>
         {rows.length === 0 ? (

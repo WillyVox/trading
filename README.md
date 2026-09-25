@@ -61,7 +61,7 @@ The project also contains working foundations for:
 All dynamic App Router routes follow the Next.js 16 async `params` convention:
 
 ```ts
-params: Promise<{ slug: string }>
+params: Promise<{ slug: string }>;
 ```
 
 and await `params` before use.

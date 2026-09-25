@@ -67,7 +67,7 @@ export default async function TradingCostCalculatorPage() {
           </h2>
           <p className="text-muted mt-3 leading-7">
             The tool reuses the same verified brokerage and FX rules used by
-            Trading Guide&apos;s dedicated calculators. It only shows a numeric
+            Trading Guide's dedicated calculators. It only shows a numeric
             combined total when calculated components use the same currency. If
             brokerage is published in USD while the FX estimate is AUD, the
             components stay separate because adding them would require an

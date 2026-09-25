@@ -61,8 +61,8 @@ export default function PrivacyPolicyPage() {
                 Affiliate click information
               </span>{" "}
               -- when you click a provider link, we record which link, which
-              page it was on, and when. This doesn&apos;t currently include your
-              IP address or device details.
+              page it was on, and when. This doesn't currently include your IP
+              address or device details.
             </li>
           </ul>
           <p className="mt-2">
@@ -148,8 +148,8 @@ export default function PrivacyPolicyPage() {
             raise a privacy concern, at{" "}
             {businessIdentity.privacyEmail ??
               "privacy email not yet configured"}
-            . If you&apos;re not satisfied with our response, you can contact
-            the Office of the Australian Information Commissioner (OAIC).
+            . If you're not satisfied with our response, you can contact the
+            Office of the Australian Information Commissioner (OAIC).
           </p>
         </section>
       </div>

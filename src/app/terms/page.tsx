@@ -178,9 +178,9 @@ export default function TermsOfUsePage() {
               If you leave Trading Guide and use a broker, exchange, or other
               provider, your relationship is with that provider and its own
               terms, privacy policy, fees, eligibility rules, and service
-              conditions apply. Trading Guide does not control the
-              provider&apos;s service, account decisions, transactions,
-              availability, or customer support.
+              conditions apply. Trading Guide does not control the provider's
+              service, account decisions, transactions, availability, or
+              customer support.
             </p>
           </section>
 
@@ -200,7 +200,7 @@ export default function TermsOfUsePage() {
               7. Our content and intellectual property
             </h2>
             <p>
-              Trading Guide&apos;s original text, design, software, graphics,
+              Trading Guide's original text, design, software, graphics,
               branding, and other original content are owned by or licensed to
               us and may be protected by intellectual property laws. You may
               view and use the Site for personal, non-commercial purposes, but

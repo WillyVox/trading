@@ -12,7 +12,7 @@ export default function ForbiddenPage() {
         403 — Forbidden
       </h1>
       <p className="text-muted mt-2">
-        You don&apos;t have permission to view this page.
+        You don't have permission to view this page.
       </p>
     </div>
   );

@@ -185,10 +185,9 @@ export default function StepsToStartInvestingInSharesPage() {
                 Are you investing for a house deposit in three years, retirement
                 in thirty, or just to learn how markets work? Your timeframe
                 shapes almost everything else that follows. Shorter horizons
-                generally call for more caution, since there&apos;s less time to
-                ride out a downturn, while longer horizons can absorb more
-                short-term volatility in exchange for potentially higher
-                long-term returns.
+                generally call for more caution, since there's less time to ride
+                out a downturn, while longer horizons can absorb more short-term
+                volatility in exchange for potentially higher long-term returns.
               </p>
               <p>
                 Writing your goal down — even just a sentence — makes the
@@ -271,10 +270,9 @@ export default function StepsToStartInvestingInSharesPage() {
               </h2>
               <p>
                 Holding a single company creates greater exposure to that
-                company&apos;s performance. Diversification spreads exposure
-                across multiple holdings or sectors and can reduce concentration
-                risk, but it does not prevent losses or guarantee smoother
-                returns.
+                company's performance. Diversification spreads exposure across
+                multiple holdings or sectors and can reduce concentration risk,
+                but it does not prevent losses or guarantee smoother returns.
               </p>
 
               <GuideFigure caption="Regular investing spreads purchase dates across time; it changes timing exposure but does not guarantee a lower average price or protect against losses.">
@@ -302,7 +300,7 @@ export default function StepsToStartInvestingInSharesPage() {
               <p>
                 Franked dividends may include franking credits reflecting tax
                 already paid by the company. How those credits and any capital
-                gains affect a person&apos;s tax position depends on their
+                gains affect a person's tax position depends on their
                 circumstances. Keep transaction and income records and use ATO
                 guidance or professional tax advice where needed.
               </p>

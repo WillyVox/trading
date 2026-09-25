@@ -65,7 +65,7 @@ export default function NotFound() {
               404
             </p>
             <h1 className="font-display text-navy mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              We couldn&apos;t find this page.
+              We couldn't find this page.
             </h1>
             <p className="text-muted mt-5 max-w-2xl text-base leading-7 sm:text-lg">
               It may have moved, the address may be incorrect, or the content

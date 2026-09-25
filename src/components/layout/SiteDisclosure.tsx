@@ -32,8 +32,8 @@ export function SiteDisclosure() {
             calculator estimates may not include every feature, fee or cost that
             could apply, and providers can change their fees at any time, so
             figures may not reflect current pricing. We recommend checking the
-            relevant provider&lsquo;s website for the most accurate and
-            up-to-date details before making a decision.
+            relevant provider's website for the most accurate and up-to-date
+            details before making a decision.
           </p>
         </div>
       </div>

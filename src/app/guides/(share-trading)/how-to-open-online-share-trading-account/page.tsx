@@ -178,12 +178,12 @@ export default function OpenShareTradingAccountPage() {
               <h2 id="what-you-need">What you need before you start</h2>
               <p>
                 Before opening an account, gather three things: a form of photo
-                ID (driver&apos;s licence or passport), your{" "}
+                ID (driver's licence or passport), your{" "}
                 <strong>Tax File Number (TFN)</strong>, and your bank account
-                details for linking. A TFN isn&apos;t compulsory to open an
-                account, but skipping it means tax is withheld at the top
-                marginal rate on any unfranked dividend income you receive —
-                most beginners provide it upfront to avoid the surprise later.
+                details for linking. A TFN isn't compulsory to open an account,
+                but skipping it means tax is withheld at the top marginal rate
+                on any unfranked dividend income you receive — most beginners
+                provide it upfront to avoid the surprise later.
               </p>
               <p>
                 Most Australian brokers also ask for your residential address
@@ -208,11 +208,11 @@ export default function OpenShareTradingAccountPage() {
               <p>
                 Company, trust and SMSF accounts involve extra documentation —
                 trust deeds, company extracts, and sometimes a certified copy of
-                a fund&apos;s trust deed — and are usually set up with guidance
-                from an accountant rather than through a self-service online
-                form. Unless you already have a specific reason to use one of
-                these structures, an individual account is the practical
-                starting point.
+                a fund's trust deed — and are usually set up with guidance from
+                an accountant rather than through a self-service online form.
+                Unless you already have a specific reason to use one of these
+                structures, an individual account is the practical starting
+                point.
               </p>
 
               <GuideFigure caption="HIN (CHESS-sponsored) vs custodian model — where your shares are actually registered.">
@@ -228,21 +228,20 @@ export default function OpenShareTradingAccountPage() {
               </h2>
               <p>
                 A broker-sponsored <strong>HIN</strong> (Holder Identification
-                Number) means the shares sit directly in your name on the
-                ASX&apos;s CHESS register — you get a HIN and can move those
-                holdings to another broker relatively freely, because the
-                ASX&apos;s own record shows you, not the broker, as the holder.
+                Number) means the shares sit directly in your name on the ASX's
+                CHESS register — you get a HIN and can move those holdings to
+                another broker relatively freely, because the ASX's own record
+                shows you, not the broker, as the holder.
               </p>
               <p>
                 A <strong>custodian model</strong> pools client shares under the
-                broker&apos;s own name or HIN, which is often cheaper or
-                fee-free to run, but means you don&apos;t hold a HIN yourself —
-                moving providers later can be more involved, since the broker
-                (not the ASX register) is the one who has to action the
-                transfer. Neither model is &quot;wrong,&quot; but it&apos;s
-                worth knowing which one you&apos;re signing up for before you
-                commit, especially if portability between brokers matters to
-                you.
+                broker's own name or HIN, which is often cheaper or fee-free to
+                run, but means you don't hold a HIN yourself — moving providers
+                later can be more involved, since the broker (not the ASX
+                register) is the one who has to action the transfer. Neither
+                model is &quot;wrong,&quot; but it's worth knowing which one
+                you're signing up for before you commit, especially if
+                portability between brokers matters to you.
               </p>
 
               <GuideFigure caption="The typical seven-step flow for opening an online share trading account.">
@@ -276,7 +275,7 @@ export default function OpenShareTradingAccountPage() {
                 direct bank-feed matching — to confirm the linked account
                 actually belongs to you before your first trade can settle. This
                 protects both you and the broker from funds being sent to or
-                from an account that isn&apos;t yours.
+                from an account that isn't yours.
               </p>
               <p>
                 Funding methods vary by platform: BPAY and direct debit are
@@ -296,13 +295,12 @@ export default function OpenShareTradingAccountPage() {
               </p>
               <p>
                 Expect this step to be near-instant for most applicants, with
-                manual review only kicking in if something doesn&apos;t match
-                automatically — a changed address that hasn&apos;t been updated
-                on your licence, for example, or a name that doesn&apos;t
-                exactly match across documents. If you&apos;re asked for manual
-                review, it doesn&apos;t necessarily mean anything is wrong; it
-                just means a human needs to check the details a computer
-                couldn&apos;t confirm.
+                manual review only kicking in if something doesn't match
+                automatically — a changed address that hasn't been updated on
+                your licence, for example, or a name that doesn't exactly match
+                across documents. If you're asked for manual review, it doesn't
+                necessarily mean anything is wrong; it just means a human needs
+                to check the details a computer couldn't confirm.
               </p>
 
               <h2 id="first-trade">Placing your first trade</h2>
@@ -312,11 +310,11 @@ export default function OpenShareTradingAccountPage() {
                 a <strong>limit order</strong> (executes only at your specified
                 price or better). For a first trade, many beginners use a limit
                 order to avoid unexpected slippage on a volatile stock — you set
-                the maximum price you&apos;re willing to pay, and the order
-                simply won&apos;t fill above it.
+                the maximum price you're willing to pay, and the order simply
+                won't fill above it.
               </p>
               <p>
-                If you&apos;re still deciding what to actually buy — an ETF, an
+                If you're still deciding what to actually buy — an ETF, an
                 individual company, or a mix of both — our{" "}
                 <Link href={RELATED_PATH_STEPS_TO_START_INVESTING}>
                   guide to the steps for starting to invest in shares

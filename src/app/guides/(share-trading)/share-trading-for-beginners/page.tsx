@@ -191,18 +191,18 @@ export default function ShareTradingForBeginnersPage() {
                 dividends it pays out. In Australia, the vast majority of share
                 trading happens on the{" "}
                 <strong>Australian Securities Exchange (ASX)</strong>, the
-                country&apos;s main public market for listed companies.
+                country's main public market for listed companies.
               </p>
               <p>
                 &quot;Trading&quot; and &quot;investing&quot; are often used
                 interchangeably, but they describe different approaches to the
                 same market. Investing usually means buying shares and holding
-                them for years, aiming to benefit from a company&apos;s
-                long-term growth and dividends. Trading usually means buying and
-                selling more frequently, aiming to profit from shorter-term
-                price movements. Most beginners are better served by the
-                investing approach — it requires less time, less specialist
-                knowledge, and carries lower transaction costs.
+                them for years, aiming to benefit from a company's long-term
+                growth and dividends. Trading usually means buying and selling
+                more frequently, aiming to profit from shorter-term price
+                movements. Most beginners are better served by the investing
+                approach — it requires less time, less specialist knowledge, and
+                carries lower transaction costs.
               </p>
 
               <h2 id="how-it-works">How share trading actually works</h2>
@@ -215,27 +215,26 @@ export default function ShareTradingForBeginnersPage() {
                 price versus how many want to sell.
               </p>
               <p>
-                You can&apos;t trade directly on the ASX yourself; you place an
-                order through a licensed broker, who routes it to the exchange.
-                When your buy order matches someone else&apos;s sell order at an
-                agreed price, the trade executes and the shares move into your
-                name, held electronically through the ASX&apos;s settlement
-                system (CHESS) or, with some brokers, in a custodial account on
-                your behalf.
+                You can't trade directly on the ASX yourself; you place an order
+                through a licensed broker, who routes it to the exchange. When
+                your buy order matches someone else's sell order at an agreed
+                price, the trade executes and the shares move into your name,
+                held electronically through the ASX's settlement system (CHESS)
+                or, with some brokers, in a custodial account on your behalf.
               </p>
 
               <h2 id="ways-to-buy-shares">Ways to buy shares in Australia</h2>
               <p>
-                There isn&apos;t just one way to get exposure to shares. The
-                right approach depends on how hands-on you want to be and how
-                much risk you&apos;re comfortable taking on.
+                There isn't just one way to get exposure to shares. The right
+                approach depends on how hands-on you want to be and how much
+                risk you're comfortable taking on.
               </p>
 
               <h3 id="direct-ownership">Buying shares directly (the ASX)</h3>
               <p>
                 This is the most straightforward approach: you open a brokerage
                 account, deposit cash, and buy shares in specific companies
-                you&apos;ve chosen — for example a bank, a mining company, or a
+                you've chosen — for example a bank, a mining company, or a
                 retailer. You own those shares outright, in your name, and can
                 hold them for as long as you like.
               </p>
@@ -248,7 +247,7 @@ export default function ShareTradingForBeginnersPage() {
                 (like the ASX 200) or a theme, and trades on the exchange just
                 like an ordinary share. This spreads your risk across many
                 companies at once, and is one of the most common starting points
-                for beginners who don&apos;t want to research individual stocks.
+                for beginners who don't want to research individual stocks.
               </p>
 
               <h3 id="cfds-warning">
@@ -256,15 +255,14 @@ export default function ShareTradingForBeginnersPage() {
               </h3>
               <p>
                 A <strong>Contract for Difference (CFD)</strong> lets you
-                speculate on a share&apos;s price movement without owning the
+                speculate on a share's price movement without owning the
                 underlying share — and typically with borrowed money (leverage),
                 which magnifies both gains and losses. Regulators have
-                repeatedly flagged CFDs as a high-risk product: it&apos;s
-                possible to lose more than your original deposit. That makes a
-                CFD materially different from owning the underlying share.
-                Before using a leveraged product, understand how leverage,
-                margin and losses work and read the product disclosures that
-                apply.
+                repeatedly flagged CFDs as a high-risk product: it's possible to
+                lose more than your original deposit. That makes a CFD
+                materially different from owning the underlying share. Before
+                using a leveraged product, understand how leverage, margin and
+                losses work and read the product disclosures that apply.
               </p>
 
               <GuideFigure caption="Direct share ownership vs. a diversified ETF: buying one company concentrates your risk in that business; an ETF spreads it across many.">
@@ -288,8 +286,8 @@ export default function ShareTradingForBeginnersPage() {
                   offer, and whether the broker holds an AFSL.
                 </li>
                 <li>
-                  <strong>Open and verify your account.</strong> You&apos;ll
-                  need standard identity documents and a linked bank account —
+                  <strong>Open and verify your account.</strong> You'll need
+                  standard identity documents and a linked bank account —
                   similar to opening any financial account.
                 </li>
                 <li>
@@ -298,9 +296,9 @@ export default function ShareTradingForBeginnersPage() {
                   for a fee.
                 </li>
                 <li>
-                  <strong>Research before you buy.</strong> Read the
-                  company&apos;s latest results or the ETF&apos;s product
-                  disclosure statement before committing money.
+                  <strong>Research before you buy.</strong> Read the company's
+                  latest results or the ETF's product disclosure statement
+                  before committing money.
                 </li>
                 <li>
                   <strong>Place your first order</strong> — either a{" "}
@@ -399,8 +397,8 @@ export default function ShareTradingForBeginnersPage() {
                   forced to sell at a loss.
                 </li>
                 <li>
-                  Chasing a stock after it&apos;s already risen sharply, driven
-                  by hype rather than research.
+                  Chasing a stock after it's already risen sharply, driven by
+                  hype rather than research.
                 </li>
                 <li>
                   Putting most of your portfolio into a single company or
@@ -426,12 +424,12 @@ export default function ShareTradingForBeginnersPage() {
                 Many crypto markets trade around the clock and can be highly
                 volatile; unlike a share, a crypto asset does not by itself
                 represent ownership in a listed company or a claim on that
-                company&apos;s earnings.
+                company's earnings.
               </p>
               <p>
-                Neither is inherently &quot;better&quot; — they&apos;re
-                different tools for different risk appetites, and some investors
-                hold both. If you&apos;re specifically weighing up crypto, our{" "}
+                Neither is inherently &quot;better&quot; — they're different
+                tools for different risk appetites, and some investors hold
+                both. If you're specifically weighing up crypto, our{" "}
                 <Link href={RELATED_PATH_START_INVESTING_IN_CRYPTO}>
                   guide to investing in crypto for beginners
                 </Link>{" "}
