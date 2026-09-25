@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { CRYPTO_EXCHANGES } from "./crypto-exchanges";
 import { SHARE_TRADING_PLATFORMS } from "./share-trading-platforms";
-import { seedAffiliateLinks } from "./lib/seed-affiliate-links";
+import { seedAffiliateEngagements } from "./lib/seed-affiliate-engagements";
 import { seedCryptoAssets } from "./lib/seed-crypto-assets";
 import { seedCryptoExchanges } from "./lib/seed-crypto-exchanges";
 import { seedShareTradingPlatforms } from "./lib/seed-share-trading-platforms";
@@ -14,7 +14,7 @@ async function main() {
   await seedCryptoAssets(prisma);
   await seedCryptoExchanges(prisma);
   await seedShareTradingPlatforms(prisma);
-  await seedAffiliateLinks(prisma);
+  await seedAffiliateEngagements(prisma);
   console.log("Seed complete.");
 }
 

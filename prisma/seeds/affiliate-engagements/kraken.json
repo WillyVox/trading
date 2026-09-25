@@ -1,0 +1,10 @@
+{
+  "providerSlug": "kraken",
+  "offeringSlug": "kraken",
+  "partnershipStatus": "PROSPECT",
+  "engagementStatus": "DRAFT",
+  "destinationUrl": "https://www.kraken.com",
+  "commissionType": "NONE",
+  "campaignReference": "default",
+  "notes": "Placeholder affiliate configuration. Replace destinationUrl and set ACTIVE only after an official affiliate agreement is approved."
+}

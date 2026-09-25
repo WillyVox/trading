@@ -104,7 +104,7 @@ I know that the project already contains at least some of the following concepts
 - `/methodology/comparisons`
 - affiliate CTA components
 - affiliate disclosure component
-- `/go/[partner]` server-side affiliate redirect
+- `/go/[offering]` server-side affiliate redirect
 - affiliate click tracking
 - AffiliatePartnership
 - AffiliateProgram

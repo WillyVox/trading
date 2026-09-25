@@ -513,7 +513,7 @@ AffiliatePartnership
 AffiliateProgram
 AffiliateLink
        ↓
-/go/[partner]
+/go/[offering]
 ```
 
 Do **not** put:

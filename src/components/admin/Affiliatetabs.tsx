@@ -7,8 +7,8 @@ import clsx from "clsx";
 const TABS = [
   { href: "/admin/affiliates", label: "Overview" },
   { href: "/admin/affiliates/partners", label: "Partners" },
-  { href: "/admin/affiliates/links", label: "Links" },
-  { href: "/admin/affiliates/clicks", label: "Clicks" },
+  { href: "/admin/affiliates/engagements", label: "Engagements" },
+  { href: "/admin/affiliates/events", label: "Events" },
 ];
 
 export function AffiliateTabs() {

@@ -50,47 +50,46 @@ export function getCryptoExchangeBySlug(
   });
 }
 
+/** Historical public slugs retained only for permanent redirects.
+ *
+ * Keep this explicit: Provider.slug is not a general-purpose product alias.
+ * An entry belongs here only if that exact URL was previously public.
+ */
+export const LEGACY_CRYPTO_EXCHANGE_SLUG_ALIASES = {
+  etoro: "etoro-crypto",
+} as const satisfies Readonly<Record<string, string>>;
+
+type LegacyCryptoExchangeSlug =
+  keyof typeof LEGACY_CRYPTO_EXCHANGE_SLUG_ALIASES;
+
+export function canonicalCryptoExchangeSlug(slug: string): string {
+  return (
+    LEGACY_CRYPTO_EXCHANGE_SLUG_ALIASES[slug as LegacyCryptoExchangeSlug] ??
+    slug
+  );
+}
+
 /**
- * Resolve canonical Offering slugs in one query. Exact Offering slugs always
- * win. A legacy Provider slug is accepted only when that Provider identifies
- * exactly one active crypto Offering, so future multi-product Providers never
- * acquire an ambiguous compatibility URL. Returned values preserve input order.
+ * Resolve requested public slugs to canonical Offering slugs. Exact Offering
+ * slugs remain unchanged; only explicitly documented historical aliases are
+ * translated. A single DB query confirms that every canonical target is an
+ * active crypto Offering. Returned values preserve input order.
  */
 export async function resolveCryptoExchangeSlugs(
   slugs: string[]
 ): Promise<string[] | null> {
   if (!slugs.length) return [];
-  const requested = [...new Set(slugs)];
+
+  const canonical = slugs.map(canonicalCryptoExchangeSlug);
+  const requested = [...new Set(canonical)];
   const rows = await prisma.providerOffering.findMany({
-    where: {
-      ...activeCryptoExchangeWhere,
-      OR: [
-        { slug: { in: requested } },
-        { provider: { slug: { in: requested } } },
-      ],
-    },
-    select: { slug: true, provider: { select: { slug: true } } },
+    where: { ...activeCryptoExchangeWhere, slug: { in: requested } },
+    select: { slug: true },
   });
+  const existing = new Set(rows.map((row) => row.slug));
+  if (requested.some((slug) => !existing.has(slug))) return null;
 
-  const exact = new Set(rows.map((row) => row.slug));
-  const byProvider = new Map<string, string[]>();
-  for (const row of rows) {
-    const values = byProvider.get(row.provider.slug) ?? [];
-    values.push(row.slug);
-    byProvider.set(row.provider.slug, values);
-  }
-
-  const resolved: string[] = [];
-  for (const requestedSlug of slugs) {
-    if (exact.has(requestedSlug)) {
-      resolved.push(requestedSlug);
-      continue;
-    }
-    const aliases = byProvider.get(requestedSlug) ?? [];
-    if (aliases.length !== 1) return null;
-    resolved.push(aliases[0]);
-  }
-  return resolved;
+  return canonical;
 }
 
 export async function resolveCryptoExchangeSlug(

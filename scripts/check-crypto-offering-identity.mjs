@@ -24,7 +24,6 @@ const actual = new Set(
     )
     .map((record) => record.offering.slug)
 );
-
 if (
   actual.size !== expected.size ||
   [...expected].some((slug) => !actual.has(slug))
@@ -34,66 +33,128 @@ if (
   );
 }
 
-const sourceFiles = [
-  "src/lib/crypto-exchanges/service.ts",
-  "src/lib/crypto-exchanges/comparison.ts",
-  "src/app/crypto/exchanges/[slug]/page.tsx",
-  "src/app/compare/crypto-exchanges/[slug]/page.tsx",
-  "src/app/compare/crypto-exchanges/page.tsx",
-  "src/lib/seo/sitemap-entries.ts",
-  "src/lib/guides/live-evidence.ts",
-  "src/lib/guides/topic-evidence.ts",
-  "src/components/home/FeaturedProviders.tsx",
-  "src/app/crypto/[slug]/page.tsx",
-];
-const source = sourceFiles.map(read).join("\n");
+const service = read("src/lib/crypto-exchanges/service.ts");
+const routes = read("src/lib/crypto-exchanges/routes.ts");
+const profile = read("src/app/crypto/exchanges/[slug]/page.tsx");
+const comparison = read("src/app/compare/crypto-exchanges/[slug]/page.tsx");
+const sitemap = read("src/lib/seo/sitemap-entries.ts");
 
-for (const legacy of [
-  "getCryptoExchangeByPublicSlug",
-  "getCryptoExchangesByPublicSlugs",
-  'slug === "etoro-crypto" ? "etoro"',
-]) {
-  if (source.includes(legacy))
-    errors.push(`Legacy crypto identity pattern remains: ${legacy}`);
+const forbidden = [
+  [service, "getCryptoExchangeByPublicSlug", "old public-slug lookup"],
+  [service, "getCryptoExchangesByPublicSlugs", "old comparison lookup"],
+  [
+    service,
+    "provider: { slug: { in: requested } }",
+    "dynamic Provider-slug alias lookup",
+  ],
+  [
+    service,
+    'slug === "etoro-crypto" ? "etoro"',
+    "hard-coded reverse eToro URL hack",
+  ],
+];
+for (const [source, needle, label] of forbidden) {
+  if (source.includes(needle))
+    errors.push(`Legacy crypto identity pattern remains: ${label}`);
 }
 
 const required = [
-  ["src/lib/crypto-exchanges/service.ts", "slug: offeringSlug"],
+  [service, 'etoro: "etoro-crypto"', "explicit historical eToro alias"],
   [
-    "src/lib/crypto-exchanges/service.ts",
-    "select: { id: true, slug: true, name: true }",
+    service,
+    "LEGACY_CRYPTO_EXCHANGE_SLUG_ALIASES",
+    "explicit legacy alias registry",
   ],
-  ["src/lib/crypto-exchanges/comparison.ts", "slug: offering.slug"],
+  [service, "slug: { in: requested }", "Offering-only alias validation query"],
   [
-    "src/lib/crypto-exchanges/comparison.ts",
-    "providerSlug: offering.provider.slug",
+    routes,
+    'CRYPTO_EXCHANGES_PATH = "/crypto/exchanges"',
+    "canonical exchange base path",
+  ],
+  [routes, "CRYPTO_EXCHANGE_COMPARISON_PATH", "canonical comparison base path"],
+  [
+    profile,
+    "permanentRedirect(cryptoExchangePath(canonicalSlug))",
+    "profile permanent canonical redirect",
   ],
   [
-    "src/app/crypto/exchanges/[slug]/page.tsx",
-    "permanentRedirect(`/crypto/exchanges/${canonicalSlug}`)",
+    profile,
+    "path: cryptoExchangePath(offering.slug)",
+    "profile canonical metadata",
   ],
   [
-    "src/app/compare/crypto-exchanges/[slug]/page.tsx",
-    "permanentRedirect(`${BASE_PATH}/${canonicalSlug}`)",
+    comparison,
+    "permanentRedirect(cryptoExchangeComparisonPath(canonicalSlug))",
+    "comparison permanent canonical redirect",
   ],
-  ["src/lib/seo/sitemap-entries.ts", "`/crypto/exchanges/${o.slug}`"],
-  ["src/lib/seo/curated-comparisons.ts", 'slugs: ["etoro-crypto", "coinspot"]'],
+  [
+    comparison,
+    "return unique.length >= 2 ? unique : null",
+    "duplicate/one-subject rejection",
+  ],
+  [
+    comparison,
+    "path: cryptoExchangeComparisonPath(canonicalSlug)",
+    "comparison canonical metadata/breadcrumb",
+  ],
+  [
+    sitemap,
+    "absoluteUrl(cryptoExchangePath(o.slug))",
+    "Offering-based sitemap path",
+  ],
 ];
-for (const [file, needle] of required) {
-  if (!read(file).includes(needle))
-    errors.push(`${file} is missing identity invariant: ${needle}`);
+for (const [source, needle, label] of required) {
+  if (!source.includes(needle))
+    errors.push(`Missing crypto identity invariant: ${label}`);
 }
 
-console.log("Trading Guide crypto Offering identity check");
+// Product-facing dynamic crypto profile URLs should go through the canonical
+// helper rather than being rebuilt ad hoc. This excludes the helper itself.
+const scanDirs = ["src/app", "src/components", "src/lib"];
+for (const dir of scanDirs) {
+  const walk = (folder) => {
+    for (const entry of fs.readdirSync(path.join(root, folder), {
+      withFileTypes: true,
+    })) {
+      const rel = path.join(folder, entry.name);
+      if (entry.isDirectory()) walk(rel);
+      else if (
+        /\.(ts|tsx)$/.test(entry.name) &&
+        rel !== "src/lib/crypto-exchanges/routes.ts"
+      ) {
+        const source = read(rel);
+        if (/\/crypto\/exchanges\/\$\{/.test(source)) {
+          errors.push(
+            `${rel} constructs a dynamic crypto profile path outside cryptoExchangePath()`
+          );
+        }
+        if (/\/compare\/crypto-exchanges\/\$\{/.test(source)) {
+          errors.push(
+            `${rel} constructs a dynamic crypto comparison path outside cryptoExchangeComparisonPath()`
+          );
+        }
+      }
+    }
+  };
+  walk(dir);
+}
+
+console.log("Trading Guide crypto Offering identity + canonical SEO check");
 if (errors.length) {
   for (const error of errors) console.error(`✗ ${error}`);
   console.error(`\n${errors.length} error(s).`);
   process.exit(1);
 }
 console.log(
-  "✓ Offering slugs are canonical across crypto profiles, comparisons, sitemap and internal links."
+  "✓ Legacy aliases are explicit and canonicalized with permanent redirects."
 );
 console.log(
-  "✓ Provider slugs remain separate for Provider-owned affiliate/commercial lookups."
+  "✓ Offering slugs own crypto profile/comparison URLs, sitemap, metadata and breadcrumbs."
+);
+console.log(
+  "✓ Dynamic crypto product URLs use centralized canonical path helpers."
+);
+console.log(
+  "✓ Provider identity remains separate while affiliate engagement routing is Offering-owned."
 );
 console.log("0 error(s).");

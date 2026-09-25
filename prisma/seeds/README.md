@@ -7,7 +7,7 @@ Seed records are JSON-first. **Each seed record lives in its own `.json` file.**
 - `crypto-assets/*.json` — one crypto asset per file.
 - `crypto-exchanges/*.json` — one self-contained Provider + CRYPTO_EXCHANGE Offering per file.
 - `share-trading-platforms/*.json` — one self-contained Provider + SHARE_TRADING Offering per file.
-- `affiliate-links/*.json` — one commercial/affiliate-link record per file, kept separate from editorial product data.
+- `affiliate-engagements/*.json` — one Offering-specific commercial engagement record per file, kept separate from editorial product data.
 - `markets/*.json` — one reusable market per file.
 - `lib/json.ts` — revives ISO dates from JSON before Prisma writes.
 - `lib/` — seed orchestration and validation.
@@ -30,9 +30,9 @@ Dates must be ISO strings such as `"2026-09-24T00:00:00.000Z"`. The JSON loader 
 3. Import it in `share-trading-platforms/index.ts` and append it to `SHARE_TRADING_PLATFORMS`.
 4. Add a market as its own `markets/<code>.json` file only when verified offering data needs it, then include it in `markets/index.ts`.
 
-## Adding an affiliate link
+## Adding an affiliate engagement
 
-Create one `affiliate-links/<partner-slug>.json` file and add it to `affiliate-links/index.ts`. Research evidence URLs belong in the provider/offering JSON and must remain separate from affiliate/referral URLs.
+Create one `affiliate-engagements/<offering-slug>.json` file and add it to `affiliate-engagements/index.ts`. Research evidence URLs belong in the provider/offering JSON and must remain separate from commercial destination URLs.
 
 The runner validates duplicate slugs and domain types before database writes. Unknown crypto asset symbols and unknown share-market codes fail loudly instead of being skipped. `npm run check:providers` reads the JSON records directly, so the verification report audits the same source-of-truth files that are seeded.
 

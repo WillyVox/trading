@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getCustodyExplorerRows } from "@/lib/tools/custody/service";
 import { getCryptoFeeOfferings } from "@/lib/tools/crypto-fees/service";
 import type { EvidenceRow } from "@/components/guide/LiveEvidencePanel";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 
 const custodyLabel: Record<string, string> = {
   CHESS_SPONSORED: "CHESS sponsored",
@@ -17,7 +18,7 @@ const custodyLabel: Record<string, string> = {
 };
 
 const providerHref = (slug: string) => `/share-trading/${slug}`;
-const cryptoHref = (slug: string) => `/crypto/exchanges/${slug}`;
+const cryptoHref = cryptoExchangePath;
 
 export async function custodyEvidenceRows(): Promise<EvidenceRow[]> {
   const rows = await getCustodyExplorerRows();

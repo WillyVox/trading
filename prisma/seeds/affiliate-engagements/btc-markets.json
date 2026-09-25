@@ -1,0 +1,10 @@
+{
+  "providerSlug": "btc-markets",
+  "offeringSlug": "btc-markets",
+  "partnershipStatus": "PROSPECT",
+  "engagementStatus": "DRAFT",
+  "destinationUrl": "https://www.btcmarkets.net",
+  "commissionType": "NONE",
+  "campaignReference": "default",
+  "notes": "Placeholder affiliate configuration. Replace destinationUrl with an approved tracking URL and set ACTIVE only after an official affiliate agreement is approved."
+}

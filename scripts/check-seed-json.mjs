@@ -7,7 +7,7 @@ const catalogs = [
   ["crypto assets", "prisma/seeds/crypto-assets"],
   ["crypto exchanges", "prisma/seeds/crypto-exchanges"],
   ["share trading platforms", "prisma/seeds/share-trading-platforms"],
-  ["affiliate links", "prisma/seeds/affiliate-links"],
+  ["affiliate engagements", "prisma/seeds/affiliate-engagements"],
   ["markets", "prisma/seeds/markets"],
 ];
 

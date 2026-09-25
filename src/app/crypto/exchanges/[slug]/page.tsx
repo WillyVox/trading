@@ -5,7 +5,7 @@ import {
   getCryptoExchangeBySlug,
   resolveCryptoExchangeSlug,
 } from "@/lib/crypto-exchanges/service";
-import { getActiveAffiliateLink } from "@/lib/affiliates/service";
+import { getActiveAffiliateEngagement } from "@/lib/affiliates/service";
 import {
   groupFeatures,
   type CryptoFeatureRow,
@@ -27,6 +27,7 @@ import { VisitSite } from "@/components/affiliate/VisitSite";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
@@ -53,7 +54,7 @@ export async function generateMetadata({
     return buildMetadata({
       title: "Crypto exchange",
       description: "",
-      path: `/crypto/exchanges/${slug}`,
+      path: cryptoExchangePath(slug),
       noIndex: true,
     });
 
@@ -63,7 +64,7 @@ export async function generateMetadata({
     return buildMetadata({
       title: "Exchange not found",
       description: "",
-      path: `/crypto/exchanges/${slug}`,
+      path: cryptoExchangePath(slug),
       noIndex: true,
     });
 
@@ -73,7 +74,7 @@ export async function generateMetadata({
       offering.description ??
       provider.description ??
       `${offering.name} profile for Australian users — fees, features, and source-verified facts.`,
-    path: `/crypto/exchanges/${offering.slug}`,
+    path: cryptoExchangePath(offering.slug),
     seoTitle: offering.seoTitle ?? provider.seoTitle,
     seoDescription: offering.seoDescription ?? provider.seoDescription,
     noIndex: offering.noIndex || provider.noIndex,
@@ -117,7 +118,7 @@ export default async function ExchangeProfilePage({
   const { canonicalSlug, offering } = offeringResult.data;
   if (!canonicalSlug || !offering) notFound();
   if (slug !== canonicalSlug)
-    permanentRedirect(`/crypto/exchanges/${canonicalSlug}`);
+    permanentRedirect(cryptoExchangePath(canonicalSlug));
   const provider = offering.provider;
   // The comparable-providers pool for the (currently disabled) CompareSelector
   // was fetched here but never read. If that selector is re-enabled, use the
@@ -127,7 +128,7 @@ export default async function ExchangeProfilePage({
     "cryptoExchange.related",
     async () => {
       const [link, relatedContent] = await Promise.all([
-        getActiveAffiliateLink(provider.slug),
+        getActiveAffiliateEngagement(offering.slug),
         getRelatedContentForProvider(provider.id),
       ]);
       return { link, relatedContent };
@@ -144,7 +145,7 @@ export default async function ExchangeProfilePage({
 
   const trail = breadcrumbTrail([
     { name: "Exchanges", path: "/crypto/exchanges" },
-    { name: offering.name, path: `/crypto/exchanges/${offering.slug}` },
+    { name: offering.name, path: cryptoExchangePath(offering.slug) },
   ]);
 
   return (
@@ -174,6 +175,7 @@ export default async function ExchangeProfilePage({
           </div>
           <VisitSite
             providerSlug={provider.slug}
+            offeringSlug={offering.slug}
             officialWebsite={offering.website ?? provider.website}
             hasActiveAffiliate={Boolean(link)}
             placement="crypto-exchange-profile"
@@ -266,7 +268,7 @@ export default async function ExchangeProfilePage({
         />
         <TopicClusterLinks
           clusterId="crypto"
-          excludeHref={`/crypto/exchanges/${offering.slug}`}
+          excludeHref={cryptoExchangePath(offering.slug)}
         />
 
         {offering.cryptoAssets.length > 0 && (
@@ -287,11 +289,6 @@ export default async function ExchangeProfilePage({
             </div>
           </Card>
         )}
-
-        {/* The hero's compact AffiliateCTA above renders showDisclosure={false} --
-          this is the one AffiliateCTA on the page that actually shows the
-          disclosure, so it must stay true rather than false. */}
-        {/* {link && <AffiliateCTA partnerSlug={slug} providerName={provider.name} showDisclosure={true} />} */}
 
         <RelatedGuides guides={relatedContent.guides} />
         <RelatedNews items={relatedContent.news} />

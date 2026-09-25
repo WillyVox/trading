@@ -5,6 +5,7 @@ import { resolveProviderDestination } from "../provider-destination";
 
 const base = {
   providerSlug: "example-provider",
+  offeringSlug: "example-offering",
   officialWebsite: "https://example.com",
 };
 
@@ -16,10 +17,11 @@ test("active affiliate relationship always uses the tracked affiliate route", ()
       placement: "compare mobile",
     }),
     {
-      href: "/go/example-provider?placement=compare%20mobile",
+      href: "/go/example-offering?placement=compare%20mobile",
       type: "affiliate",
       isAffiliate: true,
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       placement: "compare mobile",
     }
   );
@@ -37,6 +39,7 @@ test("official website is used when no affiliate relationship is active", () => 
       type: "official",
       isAffiliate: false,
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       placement: "profile-hero",
     }
   );
@@ -50,10 +53,11 @@ test("active affiliate takes precedence over the official website", () => {
       placement: "browse",
     }),
     {
-      href: "/go/example-provider?placement=browse",
+      href: "/go/example-offering?placement=browse",
       type: "affiliate",
       isAffiliate: true,
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       placement: "browse",
     }
   );
@@ -63,15 +67,17 @@ test("active affiliate remains available when no official website exists", () =>
   assert.deepEqual(
     resolveProviderDestination({
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       officialWebsite: null,
       hasActiveAffiliate: true,
       placement: "browse",
     }),
     {
-      href: "/go/example-provider?placement=browse",
+      href: "/go/example-offering?placement=browse",
       type: "affiliate",
       isAffiliate: true,
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       placement: "browse",
     }
   );
@@ -121,6 +127,7 @@ test("http official website is accepted when no affiliate is active", () => {
       type: "official",
       isAffiliate: false,
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       placement: "browse",
     }
   );
@@ -139,6 +146,7 @@ test("https official website is accepted when no affiliate is active", () => {
       type: "official",
       isAffiliate: false,
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       placement: "browse",
     }
   );
@@ -148,15 +156,17 @@ test("unsafe official website does not affect an active affiliate destination", 
   assert.deepEqual(
     resolveProviderDestination({
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       officialWebsite: "javascript:alert(1)",
       hasActiveAffiliate: true,
       placement: "comparison",
     }),
     {
-      href: "/go/example-provider?placement=comparison",
+      href: "/go/example-offering?placement=comparison",
       type: "affiliate",
       isAffiliate: true,
       providerSlug: "example-provider",
+      offeringSlug: "example-offering",
       placement: "comparison",
     }
   );
@@ -166,15 +176,17 @@ test("provider slug and placement are URL encoded for affiliate destinations", (
   assert.deepEqual(
     resolveProviderDestination({
       providerSlug: "example provider",
+      offeringSlug: "example offering",
       officialWebsite: "https://example.com",
       hasActiveAffiliate: true,
       placement: "compare mobile / table",
     }),
     {
-      href: "/go/example%20provider?placement=compare%20mobile%20%2F%20table",
+      href: "/go/example%20offering?placement=compare%20mobile%20%2F%20table",
       type: "affiliate",
       isAffiliate: true,
       providerSlug: "example provider",
+      offeringSlug: "example offering",
       placement: "compare mobile / table",
     }
   );

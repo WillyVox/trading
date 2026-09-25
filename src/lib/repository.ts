@@ -69,11 +69,7 @@ export const providerOfferingRepository = createRepository(
   prisma.providerOffering
 );
 export const cryptoAssetRepository = createRepository(prisma.cryptoAsset);
-export const affiliateLinkRepository = createRepository(prisma.affiliateLink);
-export const affiliateClickRepository = createRepository(prisma.affiliateClick);
-export const affiliatePartnershipRepository = createRepository(
-  prisma.affiliatePartnership
+export const affiliateEngagementRepository = createRepository(
+  prisma.affiliateEngagement
 );
-export const affiliateProgramRepository = createRepository(
-  prisma.affiliateProgram
-);
+export const affiliateEventRepository = createRepository(prisma.affiliateEvent);

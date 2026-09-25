@@ -1,4 +1,5 @@
 import type { OfferingFeatureType } from "@prisma/client";
+import { cryptoExchangePath } from "./routes";
 import { resolveProviderDestination } from "@/lib/affiliates/provider-destination";
 import { featureGroup, type CryptoFeatureGroup } from "./features";
 import type {
@@ -41,35 +42,38 @@ export type CryptoComparisonEntry = {
   }[];
 };
 
-/** Minimal shape toCompareSubjects needs from an affiliate link -- see
- * getActiveAffiliateLinksForProviderSlugs, whose Map is keyed by
- * Provider.slug (== AffiliateLink.partnerSlug by convention). */
-type AffiliateLinkLookup = Map<string, { partnerSlug: string }>;
+/** Minimal shape toCompareSubjects needs from an affiliate engagement -- see
+ * getActiveAffiliateEngagementsForOfferingSlugs, whose Map is keyed by
+ * Offering.slug. */
+type AffiliateEngagementLookup = Map<
+  string,
+  { offeringSlug: string; providerSlug: string }
+>;
 
 /**
  * Maps CryptoComparisonEntry rows to the domain-agnostic CompareSubject
  * shape CompareTable/CompareMobileCards render -- the one place that knows
  * a crypto exchange's profile lives at /crypto/exchanges/[slug].
  *
- * `cta` resolves in two tiers: an active AffiliateLink for this provider's
- * slug (routed through /go/[partner] so the click is recorded) wins;
+ * `cta` resolves in two tiers: an active AffiliateEngagement for this Offering slug (routed through /go/[offering] so the click is recorded) wins;
  * otherwise the provider's own `website` is used directly; otherwise no
  * button renders at all -- see CompareSubject's comment on why a null
  * cta is preferred over a dead one. Takes the affiliate map as a separate
  * argument rather than looking it up here because that lookup is async
- * (getActiveAffiliateLinksForProviderSlugs hits the DB) and this function
+ * (getActiveAffiliateEngagementsForOfferingSlugs hits the DB) and this function
  * stays sync and pure; callers fetch the map once and pass it in.
  */
 export function toCompareSubjects(
   providers: CryptoComparisonEntry[],
-  affiliateLinks?: AffiliateLinkLookup
+  affiliateEngagements?: AffiliateEngagementLookup
 ): CompareSubject[] {
   return providers.map((p) => {
-    const affiliateLink = affiliateLinks?.get(p.providerSlug);
+    const affiliateEngagement = affiliateEngagements?.get(p.slug);
     const destination = resolveProviderDestination({
       providerSlug: p.providerSlug,
+      offeringSlug: p.slug,
       officialWebsite: p.website,
-      hasActiveAffiliate: Boolean(affiliateLink),
+      hasActiveAffiliate: Boolean(affiliateEngagement),
       placement: "compare",
     });
     const cta = destination
@@ -87,7 +91,7 @@ export function toCompareSubjects(
       slug: p.slug,
       name: p.name,
       verificationStatus: p.verificationStatus,
-      profileHref: `/crypto/exchanges/${p.slug}`,
+      profileHref: cryptoExchangePath(p.slug),
       logo: p.logo,
       cta,
     };
@@ -179,7 +183,7 @@ export function buildCompareSections(
 
 export async function getCryptoExchangeComparison(offeringSlugs: string[]) {
   const { getCryptoExchangesBySlugs } = await import("./service");
-  const { getActiveAffiliateLinksForProviderSlugs } =
+  const { getActiveAffiliateEngagementsForOfferingSlugs } =
     await import("@/lib/affiliates/service");
   const offerings = await getCryptoExchangesBySlugs(offeringSlugs);
   if (offerings.length !== offeringSlugs.length) return null;
@@ -198,11 +202,12 @@ export async function getCryptoExchangeComparison(offeringSlugs: string[]) {
     })),
     features: offering.features,
   }));
-  const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
-    rows.map((row) => row.providerSlug)
-  );
+  const affiliateEngagements =
+    await getActiveAffiliateEngagementsForOfferingSlugs(
+      rows.map((row) => row.slug)
+    );
   return {
-    subjects: toCompareSubjects(rows, affiliateLinks),
+    subjects: toCompareSubjects(rows, affiliateEngagements),
     sections: buildCompareSections(rows),
   };
 }

@@ -1,75 +1,84 @@
 import { prisma } from "@/lib/prisma";
 import { LIVE_PARTNERSHIP_STATUSES } from "./status";
 
-/**
- * A link only counts as active when BOTH the link is switched on AND its
- * partnership is in a live status (see ./status.ts). Checking the
- * partnership here, at read time, is what stops a PROSPECT/PAUSED/ENDED
- * partner from ever monetising -- regardless of what the link row says.
- */
-const LIVE_LINK_FILTER = {
-  active: true,
-  program: {
-    partnership: { status: { in: [...LIVE_PARTNERSHIP_STATUSES] } },
-  },
-};
+const now = () => new Date();
 
-export async function getActiveAffiliateLink(partnerSlug: string) {
-  return prisma.affiliateLink.findFirst({
-    where: { partnerSlug, ...LIVE_LINK_FILTER },
-  });
-}
-
-/**
- * Batched lookup for pages that render several providers at once (e.g. a
- * Guide's "providers mentioned" section) so we don't issue one query per
- * provider. By convention AffiliateLink.partnerSlug matches Provider.slug
- * (see src/app/go/[partner]/route.ts and the exchange profile page).
- */
-export async function getActiveAffiliateLinksForProviderSlugs(slugs: string[]) {
-  if (slugs.length === 0) return new Map<string, { partnerSlug: string }>();
-  const links = await prisma.affiliateLink.findMany({
+/** Canonical commercial lookup: Offering -> Engagement -> Partnership -> Provider. */
+export async function getActiveAffiliateEngagement(offeringSlug: string) {
+  const at = now();
+  return prisma.affiliateEngagement.findFirst({
     where: {
-      partnerSlug: { in: slugs },
-      ...LIVE_LINK_FILTER,
+      offering: { slug: offeringSlug, active: true },
+      status: "ACTIVE",
+      partnership: { status: { in: [...LIVE_PARTNERSHIP_STATUSES] } },
+      AND: [
+        { OR: [{ validFrom: null }, { validFrom: { lte: at } }] },
+        { OR: [{ validUntil: null }, { validUntil: { gt: at } }] },
+      ],
     },
+    include: {
+      offering: {
+        select: { id: true, slug: true, providerId: true, name: true },
+      },
+      partnership: {
+        include: { provider: { select: { id: true, slug: true, name: true } } },
+      },
+    },
+    orderBy: { createdAt: "desc" },
   });
-  return new Map(links.map((link) => [link.partnerSlug, link]));
 }
 
-export async function recordAffiliateClick(
-  linkId: string,
+export async function getActiveAffiliateEngagementsForOfferingSlugs(
+  slugs: string[]
+) {
+  if (!slugs.length)
+    return new Map<string, { offeringSlug: string; providerSlug: string }>();
+  const at = now();
+  const rows = await prisma.affiliateEngagement.findMany({
+    where: {
+      offering: { slug: { in: slugs }, active: true },
+      status: "ACTIVE",
+      partnership: { status: { in: [...LIVE_PARTNERSHIP_STATUSES] } },
+      AND: [
+        { OR: [{ validFrom: null }, { validFrom: { lte: at } }] },
+        { OR: [{ validUntil: null }, { validUntil: { gt: at } }] },
+      ],
+    },
+    include: {
+      offering: { select: { slug: true } },
+      partnership: { include: { provider: { select: { slug: true } } } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+  const map = new Map<string, { offeringSlug: string; providerSlug: string }>();
+  for (const row of rows)
+    if (!map.has(row.offering.slug))
+      map.set(row.offering.slug, {
+        offeringSlug: row.offering.slug,
+        providerSlug: row.partnership.provider.slug,
+      });
+  return map;
+}
+
+export async function recordAffiliateEvent(
+  engagementId: string,
   meta: { sourcePage?: string; placement?: string; campaign?: string }
 ) {
-  return prisma.affiliateClick.create({
-    data: {
-      linkId,
-      sourcePage: meta.sourcePage,
-      placement: meta.placement,
-      campaign: meta.campaign,
-    },
+  return prisma.affiliateEvent.create({
+    data: { engagementId, eventType: "CLICK", ...meta },
   });
 }
 
-// ---------------------------------------------------------------------------
-// Admin read queries (Phase 6 — /admin/affiliates/partners, /links, /clicks).
-// These are read-only lookups for the admin UI; mutations live in
-// src/lib/affiliates/actions.ts so every write path goes through its own
-// requireAdmin() check independently of the page/layout guard.
-// ---------------------------------------------------------------------------
-
-/** All partnerships, newest first, with the provider and each program's link count. */
 export async function getPartnershipsAdmin() {
   return prisma.affiliatePartnership.findMany({
     orderBy: { createdAt: "desc" },
     include: {
       provider: { select: { id: true, name: true, slug: true } },
-      programs: { include: { _count: { select: { links: true } } } },
+      _count: { select: { engagements: true } },
     },
   });
 }
 
-/** Providers for the "new partnership" select — every provider, regardless of existing partnerships (a provider can have more than one program/partnership over time, e.g. re-applying after ENDED). */
 export function getProvidersForPartnershipForm() {
   return prisma.provider.findMany({
     orderBy: { name: "asc" },
@@ -77,27 +86,19 @@ export function getProvidersForPartnershipForm() {
   });
 }
 
-/** Partnerships for the "new link" select, with their existing programs so the form can reuse one instead of always creating a new program per link. */
-export async function getPartnershipsForLinkForm() {
+export async function getPartnershipsForEngagementForm() {
   return prisma.affiliatePartnership.findMany({
     orderBy: { createdAt: "desc" },
     include: {
-      provider: { select: { name: true, slug: true } },
-      programs: { select: { id: true, commissionType: true } },
-    },
-  });
-}
-
-/** All affiliate links with their program/partnership/provider chain and click counts. */
-export async function getAffiliateLinksAdmin() {
-  return prisma.affiliateLink.findMany({
-    orderBy: { partnerSlug: "asc" },
-    include: {
-      _count: { select: { clicks: true } },
-      program: {
-        include: {
-          partnership: {
-            include: { provider: { select: { name: true, slug: true } } },
+      provider: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          offerings: {
+            where: { active: true },
+            orderBy: { name: "asc" },
+            select: { id: true, name: true, slug: true },
           },
         },
       },
@@ -105,16 +106,37 @@ export async function getAffiliateLinksAdmin() {
   });
 }
 
-/** Paginated click log, newest first, for the admin clicks view. */
-export async function getAffiliateClicksAdmin(page = 1, pageSize = 50) {
+export async function getAffiliateEngagementsAdmin() {
+  return prisma.affiliateEngagement.findMany({
+    orderBy: { createdAt: "desc" },
+    include: {
+      offering: { select: { name: true, slug: true } },
+      partnership: {
+        include: { provider: { select: { name: true, slug: true } } },
+      },
+      _count: { select: { events: true } },
+    },
+  });
+}
+
+export async function getAffiliateEventsAdmin(page = 1, pageSize = 50) {
   const [items, total] = await Promise.all([
-    prisma.affiliateClick.findMany({
+    prisma.affiliateEvent.findMany({
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * pageSize,
       take: pageSize,
-      include: { link: { select: { partnerSlug: true } } },
+      include: {
+        engagement: {
+          include: {
+            offering: { select: { name: true, slug: true } },
+            partnership: {
+              include: { provider: { select: { name: true, slug: true } } },
+            },
+          },
+        },
+      },
     }),
-    prisma.affiliateClick.count(),
+    prisma.affiliateEvent.count(),
   ]);
   return {
     items,

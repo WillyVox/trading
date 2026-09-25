@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 import { Card } from "@/components/ui/Card";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
@@ -20,7 +21,7 @@ type GuideProvider = {
  * "Recommended for you" (see Guide spec §11): those labels require a
  * defensible editorial methodology this component has no way to verify.
  * An affiliate CTA only renders when providers.activeLink is true, which
- * the caller must have derived from a real ACTIVE AffiliateLink lookup —
+ * the caller must have derived from a real ACTIVE AffiliateEngagement lookup —
  * never fabricated here.
  */
 export function RelatedProviders({
@@ -42,7 +43,7 @@ export function RelatedProviders({
           <Card key={p.id}>
             <div className="flex items-center justify-between">
               <Link
-                href={`/crypto/exchanges/${p.slug}`}
+                href={cryptoExchangePath(p.slug)}
                 className="font-display text-navy font-semibold hover:underline"
               >
                 {p.name}
@@ -54,7 +55,7 @@ export function RelatedProviders({
             )}
             <div className="mt-4 flex items-center justify-between gap-4">
               <Link
-                href={`/crypto/exchanges/${p.slug}`}
+                href={cryptoExchangePath(p.slug)}
                 className="text-navy focus-visible:outline-navy inline-flex min-h-11 shrink-0 items-center text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
               >
                 View profile{" "}
@@ -64,6 +65,7 @@ export function RelatedProviders({
               </Link>
               <VisitSite
                 providerSlug={p.providerSlug}
+                offeringSlug={p.slug}
                 officialWebsite={p.website}
                 hasActiveAffiliate={p.activeLink}
                 placement="guide-related-provider"

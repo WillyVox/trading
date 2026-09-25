@@ -4,7 +4,7 @@ import {
   toCompareSubjects,
   type CryptoComparisonEntry,
 } from "@/lib/crypto-exchanges/comparison";
-import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { getActiveAffiliateEngagementsForOfferingSlugs } from "@/lib/affiliates/service";
 import { CompareTable } from "@/components/compare/CompareTable";
 import { CompareMobileCards } from "@/components/compare/CompareMobileCards";
 import { CompareHubMode } from "@/components/compare/CompareHubMode";
@@ -57,20 +57,21 @@ export default async function CompareCryptoExchangesPage() {
         features:
           offering.features as unknown as CryptoComparisonEntry["features"],
       }));
-      const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
-        rows.map((p) => p.providerSlug)
-      );
-      return { cryptoOfferings, rows, affiliateLinks };
+      const affiliateEngagements =
+        await getActiveAffiliateEngagementsForOfferingSlugs(
+          rows.map((p) => p.slug)
+        );
+      return { cryptoOfferings, rows, affiliateEngagements };
     }
   );
   const cryptoOfferings = comparisonResult.ok
     ? comparisonResult.data.cryptoOfferings
     : [];
   const rows = comparisonResult.ok ? comparisonResult.data.rows : [];
-  const affiliateLinks = comparisonResult.ok
-    ? comparisonResult.data.affiliateLinks
+  const affiliateEngagements = comparisonResult.ok
+    ? comparisonResult.data.affiliateEngagements
     : new Map();
-  const subjects = toCompareSubjects(rows, affiliateLinks);
+  const subjects = toCompareSubjects(rows, affiliateEngagements);
   const sections = buildCompareSections(rows);
   const hasAffiliateCta = subjects.some((s) => s.cta?.isAffiliate);
 

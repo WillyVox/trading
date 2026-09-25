@@ -1,3 +1,8 @@
+import {
+  cryptoExchangeComparisonPath,
+  cryptoExchangePath,
+} from "@/lib/crypto-exchanges/routes";
+
 export type ContentCluster = "share-trading" | "crypto" | "cross-market";
 export type ContentPriority =
   "BUILD_NOW" | "BUILD_NEXT" | "LATER" | "DO_NOT_BUILD";
@@ -455,10 +460,10 @@ export const CONTENT_OPPORTUNITIES: readonly ContentOpportunity[] = [
     format: "comparison",
     intent: "COMPARISON",
     workingTitle: "CoinSpot vs Swyftx: Published Fees, Funding and Features",
-    targetPath: "/compare/crypto-exchanges/coinspot-vs-swyftx",
+    targetPath: cryptoExchangeComparisonPath("coinspot-vs-swyftx"),
     rationale: "Already curated; deepen existing URL.",
     evidenceNeeded: ["current provider sources"],
-    supports: ["/crypto/exchanges/coinspot", "/crypto/exchanges/swyftx"],
+    supports: [cryptoExchangePath("coinspot"), cryptoExchangePath("swyftx")],
   },
   {
     id: "coinspot-kraken-context",
@@ -467,10 +472,10 @@ export const CONTENT_OPPORTUNITIES: readonly ContentOpportunity[] = [
     format: "comparison",
     intent: "COMPARISON",
     workingTitle: "CoinSpot vs Kraken: Published Fees, Funding and Features",
-    targetPath: "/compare/crypto-exchanges/coinspot-vs-kraken",
+    targetPath: cryptoExchangeComparisonPath("coinspot-vs-kraken"),
     rationale: "Already curated; deepen existing URL.",
     evidenceNeeded: ["current provider sources"],
-    supports: ["/crypto/exchanges/coinspot", "/crypto/exchanges/kraken"],
+    supports: [cryptoExchangePath("coinspot"), cryptoExchangePath("kraken")],
   },
   {
     id: "coinspot-etoro-context",
@@ -480,10 +485,13 @@ export const CONTENT_OPPORTUNITIES: readonly ContentOpportunity[] = [
     intent: "COMPARISON",
     workingTitle:
       "CoinSpot vs eToro Crypto: Fee Models, Funding and Platform Structure",
-    targetPath: "/compare/crypto-exchanges/coinspot-vs-etoro-crypto",
+    targetPath: cryptoExchangeComparisonPath("coinspot-vs-etoro-crypto"),
     rationale: "Useful because the product structures differ materially.",
     evidenceNeeded: ["current provider sources"],
-    supports: ["/crypto/exchanges/coinspot", "/crypto/exchanges/etoro-crypto"],
+    supports: [
+      cryptoExchangePath("coinspot"),
+      cryptoExchangePath("etoro-crypto"),
+    ],
   },
   {
     id: "crypto-order-types",

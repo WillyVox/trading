@@ -29,7 +29,7 @@ reference's unlicensed Georgia placeholder).
 
 Phases 2–6 are in place as a working skeleton (auth/admin shell, article CMS
 reads, provider domain, comparison engine, affiliate domain incl.
-`/go/[partner]` redirect). All dynamic routes use Next 16's async `params`
+`/go/[offering]` redirect). All dynamic routes use Next 16's async `params`
 (`params: Promise<{...}>`, awaited before use).
 
 This has **not** been `npm install`'d or build-tested in this environment (no
@@ -89,8 +89,8 @@ When migrate failed
   Prisma directly.
 - `src/proxy.ts` + `src/lib/auth/require-admin.ts` — two independent
   layers of admin protection (route-level and mutation-level).
-- `/go/[partner]` only ever redirects to a stored `approvedUrl` on an
-  `ACTIVE` `AffiliateLink` row — never to a user-supplied URL.
+- `/go/[offering]` only ever redirects to a stored `destinationUrl` on an
+  `ACTIVE` `AffiliateEngagement` row — never to a user-supplied URL.
 
 npm ci
 npx prisma validate
@@ -128,12 +128,32 @@ npm run check:production
   npm run db:inspect:production
 
 * Production Release
-  npm run check:internal-links
-  npm run  check:guide-breadcrumbs
-  npm run sitemap:check
-  npm run test:provider-outbound
-  npm run check:phase3
-  npm runcheck:crypto-identity
   npm run check:seed-data
   npm run check:providers
   npm run validate:release
+
+* When Prisma chema is updated/modified
+
+# 2. Generate Prisma Client from the NEW schema
+
+npx prisma generate
+
+# 3. Check that the schema itself is valid
+
+npx prisma validate
+
+# 4. Check migration state against your current DB
+
+npx prisma migrate status
+
+- Note, if the `root/prisma/migrations` already contains a migration, do not run `prisma migrate dev` to create another migration for the same schema change. Apply the included migration:
+
+# 5. Apply pending migration(s)
+
+npx prisma migrate deploy
+
+Then verify:
+
+# 6. Confirm everything is aligned
+
+npx prisma migrate status

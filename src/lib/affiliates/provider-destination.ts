@@ -3,29 +3,23 @@ export type ProviderDestination = {
   type: "affiliate" | "official";
   isAffiliate: boolean;
   providerSlug: string;
+  offeringSlug?: string;
   placement: string;
 };
 
 type ResolveProviderDestinationArgs = {
   providerSlug: string;
+  offeringSlug?: string;
   officialWebsite?: string | null;
   hasActiveAffiliate: boolean;
   placement: string;
 };
 
 function safeHttpUrl(value?: string | null): string | null {
-  if (!value) {
-    return null;
-  }
-
+  if (!value) return null;
   try {
     const url = new URL(value);
-
-    if (url.protocol !== "http:" && url.protocol !== "https:") {
-      return null;
-    }
-
-    return value;
+    return url.protocol === "http:" || url.protocol === "https:" ? value : null;
   } catch {
     return null;
   }
@@ -33,36 +27,30 @@ function safeHttpUrl(value?: string | null): string | null {
 
 export function resolveProviderDestination({
   providerSlug,
+  offeringSlug,
   officialWebsite,
   hasActiveAffiliate,
   placement,
 }: ResolveProviderDestinationArgs): ProviderDestination | null {
-  // Commercial relationship takes precedence when it is genuinely active.
   if (hasActiveAffiliate) {
+    if (!offeringSlug) return null;
     return {
-      href: `/go/${encodeURIComponent(
-        providerSlug
-      )}?placement=${encodeURIComponent(placement)}`,
+      href: `/go/${encodeURIComponent(offeringSlug)}?placement=${encodeURIComponent(placement)}`,
       type: "affiliate",
       isAffiliate: true,
       providerSlug,
+      offeringSlug,
       placement,
     };
   }
-
-  // No affiliate relationship:
-  // link directly to the provider's official website.
   const safeOfficialWebsite = safeHttpUrl(officialWebsite);
-
-  if (!safeOfficialWebsite) {
-    return null;
-  }
-
+  if (!safeOfficialWebsite) return null;
   return {
     href: safeOfficialWebsite,
     type: "official",
     isAffiliate: false,
     providerSlug,
+    offeringSlug,
     placement,
   };
 }

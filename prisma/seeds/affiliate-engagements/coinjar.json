@@ -1,0 +1,10 @@
+{
+  "providerSlug": "coinjar",
+  "offeringSlug": "coinjar",
+  "partnershipStatus": "PROSPECT",
+  "engagementStatus": "DRAFT",
+  "destinationUrl": "https://www.coinjar.com/au",
+  "commissionType": "REVSHARE",
+  "campaignReference": "default",
+  "notes": "Placeholder affiliate configuration. Official program runs via Impact.com. Replace destinationUrl and set ACTIVE only after an official affiliate agreement is approved."
+}

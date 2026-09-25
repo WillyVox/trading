@@ -22,7 +22,7 @@ interface ResolvedProvider {
  * docs/article-import-format.md "Affiliate resolution": affiliateProviders
  * never stores a URL, it only makes the provider eligible for the site's
  * existing affiliate-CTA logic (which keys off ArticleProvider + an ACTIVE
- * AffiliateLink — see src/lib/affiliates/service.ts).
+ * AffiliateEngagement — see src/lib/affiliates/service.ts).
  *
  * Sync behavior: `providerRelationships`, when present, is treated as the
  * complete desired list — existing ArticleProvider rows for providers no
@@ -100,15 +100,25 @@ async function resolveProviders(
   }
 
   if (affiliateSlugs.length > 0) {
-    const activeLinks = await prisma.affiliateLink.findMany({
-      where: { partnerSlug: { in: affiliateSlugs }, active: true },
-      select: { partnerSlug: true },
+    const activeEngagements = await prisma.affiliateEngagement.findMany({
+      where: {
+        status: "ACTIVE",
+        partnership: {
+          provider: { slug: { in: affiliateSlugs } },
+          status: { in: ["APPROVED", "ACTIVE"] },
+        },
+      },
+      select: {
+        partnership: { select: { provider: { select: { slug: true } } } },
+      },
     });
-    const activeSlugSet = new Set(activeLinks.map((l) => l.partnerSlug));
+    const activeSlugSet = new Set(
+      activeEngagements.map((e) => e.partnership.provider.slug)
+    );
     for (const slug of affiliateSlugs) {
       if (!activeSlugSet.has(slug)) {
         warnings.push(
-          `"${slug}" requested as affiliate placement, but no ACTIVE affiliate link exists — placement was not created`
+          `"${slug}" requested as affiliate placement, but no ACTIVE affiliate engagement exists — placement was not created`
         );
       }
     }
@@ -293,7 +303,7 @@ export async function resolveRelationships(
 /**
  * Read-only equivalent of resolveRelationships, for `--dry-run`. Reports the
  * same warnings (missing provider, missing related guide, no active
- * affiliate link, missing/self-referencing canonical slug) without writing
+ * affiliate engagement, missing/self-referencing canonical slug) without writing
  * anything. Note: in a batch dry-run, a `relatedGuides`/`canonicalArticleSlug`
  * reference to another file in the *same* batch will warn as "not found"
  * even though it would resolve on a real run, since dry-run never creates
@@ -360,15 +370,25 @@ export async function previewRelationshipWarnings(
   }
 
   if (payload.affiliateProviders && payload.affiliateProviders.length > 0) {
-    const activeLinks = await prisma.affiliateLink.findMany({
-      where: { partnerSlug: { in: payload.affiliateProviders }, active: true },
-      select: { partnerSlug: true },
+    const activeEngagements = await prisma.affiliateEngagement.findMany({
+      where: {
+        status: "ACTIVE",
+        partnership: {
+          provider: { slug: { in: payload.affiliateProviders } },
+          status: { in: ["APPROVED", "ACTIVE"] },
+        },
+      },
+      select: {
+        partnership: { select: { provider: { select: { slug: true } } } },
+      },
     });
-    const activeSlugSet = new Set(activeLinks.map((l) => l.partnerSlug));
+    const activeSlugSet = new Set(
+      activeEngagements.map((e) => e.partnership.provider.slug)
+    );
     for (const slug of payload.affiliateProviders) {
       if (!activeSlugSet.has(slug)) {
         warnings.push(
-          `"${slug}" requested as affiliate placement, but no ACTIVE affiliate link exists`
+          `"${slug}" requested as affiliate placement, but no ACTIVE affiliate engagement exists`
         );
       }
     }

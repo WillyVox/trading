@@ -16,7 +16,7 @@ import { CuratedComparisonList } from "@/components/seo/CuratedComparisonList";
 
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
-import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { getActiveAffiliateEngagementsForOfferingSlugs } from "@/lib/affiliates/service";
 
 export const metadata = buildMetadata({
   title:
@@ -43,17 +43,18 @@ export default async function CompareTradingPlatformsPage() {
     "compare.shareTrading.index",
     async () => {
       const offerings = await getAllShareTradingPlatformsForCompare();
-      const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
-        offerings.map((offering) => offering.provider.slug)
-      );
-      return { offerings, affiliateLinks };
+      const affiliateEngagements =
+        await getActiveAffiliateEngagementsForOfferingSlugs(
+          offerings.map((offering) => offering.slug)
+        );
+      return { offerings, affiliateEngagements };
     }
   );
   const offerings = offeringsResult.ok ? offeringsResult.data.offerings : [];
-  const affiliateLinks = offeringsResult.ok
-    ? offeringsResult.data.affiliateLinks
-    : new Map<string, { partnerSlug: string }>();
-  const subjects = toCompareSubjects(offerings, affiliateLinks);
+  const affiliateEngagements = offeringsResult.ok
+    ? offeringsResult.data.affiliateEngagements
+    : new Map<string, { offeringSlug: string; providerSlug: string }>();
+  const subjects = toCompareSubjects(offerings, affiliateEngagements);
   const sections = buildShareTradingCompareSections(offerings);
   // Always false today -- the offering domain has no affiliate tier (see
   // toCompareSubjects&lsquo;s comment in src/lib/share-trading/comparison.ts). Kept

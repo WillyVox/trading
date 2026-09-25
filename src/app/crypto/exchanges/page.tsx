@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 import { getCryptoExchanges } from "@/lib/crypto-exchanges/service";
 import { VerificationBadge } from "@/components/trust/VerificationBadge";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
@@ -9,7 +10,7 @@ import { breadcrumbTrail } from "@/lib/seo/breadcrumbs";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
-import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { getActiveAffiliateEngagementsForOfferingSlugs } from "@/lib/affiliates/service";
 import { VisitSite } from "@/components/affiliate/VisitSite";
 import { SectionAffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
@@ -25,16 +26,17 @@ export default async function ExchangesPage() {
     "getCryptoExchanges.index",
     async () => {
       const items = await getCryptoExchanges();
-      const affiliateLinks = await getActiveAffiliateLinksForProviderSlugs(
-        items.map((item) => item.provider.slug)
-      );
-      return { items, affiliateLinks };
+      const affiliateEngagements =
+        await getActiveAffiliateEngagementsForOfferingSlugs(
+          items.map((item) => item.slug)
+        );
+      return { items, affiliateEngagements };
     }
   );
   const items = itemsResult.ok ? itemsResult.data.items : [];
-  const affiliateLinks = itemsResult.ok
-    ? itemsResult.data.affiliateLinks
-    : new Map<string, { partnerSlug: string }>();
+  const affiliateEngagements = itemsResult.ok
+    ? itemsResult.data.affiliateEngagements
+    : new Map<string, { offeringSlug: string; providerSlug: string }>();
   const trail = breadcrumbTrail([
     { name: "Crypto", path: "/crypto" },
     { name: "Exchanges", path: "/crypto/exchanges" },
@@ -57,7 +59,7 @@ export default async function ExchangesPage() {
         ) : items.length === 0 ? (
           <p className="text-muted mt-4">No providers seeded yet.</p>
         ) : null}
-        {affiliateLinks.size > 0 && <SectionAffiliateDisclosure />}
+        {affiliateEngagements.size > 0 && <SectionAffiliateDisclosure />}
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {items.map((offering) => {
             const p = offering.provider;
@@ -71,7 +73,7 @@ export default async function ExchangesPage() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-2">
                       <Link
-                        href={`/crypto/exchanges/${offering.slug}`}
+                        href={cryptoExchangePath(offering.slug)}
                         className="font-display text-navy truncate text-lg font-bold hover:underline"
                       >
                         {offering.name}
@@ -85,7 +87,7 @@ export default async function ExchangesPage() {
                 </div>
                 <div className="mt-auto flex items-center justify-between gap-4 pt-5">
                   <Link
-                    href={`/crypto/exchanges/${offering.slug}`}
+                    href={cryptoExchangePath(offering.slug)}
                     className="text-navy focus-visible:outline-navy inline-flex min-h-11 shrink-0 items-center text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
                   >
                     View profile
@@ -95,8 +97,9 @@ export default async function ExchangesPage() {
                   </Link>
                   <VisitSite
                     providerSlug={p.slug}
+                    offeringSlug={offering.slug}
                     officialWebsite={offering.website ?? p.website}
-                    hasActiveAffiliate={affiliateLinks.has(p.slug)}
+                    hasActiveAffiliate={affiliateEngagements.has(offering.slug)}
                     placement="crypto-exchange-browse"
                     className="min-w-[9.5rem] sm:min-w-[11rem]"
                   />

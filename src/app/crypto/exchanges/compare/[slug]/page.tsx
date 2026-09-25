@@ -1,4 +1,5 @@
 import { permanentRedirect } from "next/navigation";
+import { cryptoExchangeComparisonPath } from "@/lib/crypto-exchanges/routes";
 
 export default async function LegacyCryptoExchangeComparisonPage({
   params,
@@ -6,5 +7,5 @@ export default async function LegacyCryptoExchangeComparisonPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  permanentRedirect(`/compare/crypto-exchanges/${encodeURIComponent(slug)}`);
+  permanentRedirect(cryptoExchangeComparisonPath(slug));
 }

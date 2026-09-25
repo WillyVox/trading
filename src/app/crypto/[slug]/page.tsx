@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 import { getCryptoAssetBySlug } from "@/lib/crypto/service";
 import { Card } from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -109,7 +110,7 @@ export default async function CryptoAssetPage({
               {exchanges.map((exchange) => (
                 <li key={exchange.id}>
                   <Link
-                    href={`/crypto/exchanges/${exchange.slug}`}
+                    href={cryptoExchangePath(exchange.slug)}
                     className="text-navy hover:underline"
                   >
                     {exchange.name}

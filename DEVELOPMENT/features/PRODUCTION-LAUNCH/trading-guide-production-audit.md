@@ -8,7 +8,7 @@ No code has been modified. This is the audit only — waiting for your approval 
 
 ## Executive assessment
 
-The engineering foundation is unusually disciplined for a pre-launch project: the codebase already anticipates most of the traps this brief warns about. `businessIdentity` fields are deliberately left blank rather than fabricated; the SEO domain resolver **fails the build** rather than silently falling back to `localhost` in production; `/go/[partner]` redirects only to a DB-stored `approvedUrl` (no open-redirect surface); `robots.ts` disallows `/admin`, `/go/`, `/login`, `/403`; every legal page (`/terms`, `/privacy`, `/how-we-get-paid`, `/affiliate-disclosure`) is explicitly self-labelled as an unreviewed draft with a visible on-page warning, rather than being quietly published as if final.
+The engineering foundation is unusually disciplined for a pre-launch project: the codebase already anticipates most of the traps this brief warns about. `businessIdentity` fields are deliberately left blank rather than fabricated; the SEO domain resolver **fails the build** rather than silently falling back to `localhost` in production; `/go/[offering]` redirects only to a DB-stored `approvedUrl` (no open-redirect surface); `robots.ts` disallows `/admin`, `/go/`, `/login`, `/403`; every legal page (`/terms`, `/privacy`, `/how-we-get-paid`, `/affiliate-disclosure`) is explicitly self-labelled as an unreviewed draft with a visible on-page warning, rather than being quietly published as if final.
 
 That said, this is genuinely **not production-ready**, and the gaps are exactly the kind that are easy to miss because the code _looks_ finished:
 
@@ -86,7 +86,7 @@ None of this is a reason the project is in bad shape — the guardrails already 
 - Repo-wide grep for TODO/FIXME/placeholder/draft/localhost/etc., with every hit triaged, not just counted
 - `businessIdentity`, `siteConfig`/domain resolution, `footerLinks` — all handle missing data safely, no fabrication
 - All four legal/trust pages, read in full
-- `/go/[partner]` redirect handler and `robots.ts` — sound against open-redirect and indexation of private surfaces
+- `/go/[offering]` redirect handler and `robots.ts` — sound against open-redirect and indexation of private surfaces
 - Affiliate seed data (all 6 providers) and the seeding driver that writes it to the DB
 - `prisma/schema.prisma` model/enum inventory (Provider/Offering split matches the target architecture in project memory)
 - `docs/ROADMAP.md`, `docs/data-correction/` verification records, `package.json` scripts

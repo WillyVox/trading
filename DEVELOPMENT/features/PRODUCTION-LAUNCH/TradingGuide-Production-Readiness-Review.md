@@ -137,7 +137,7 @@ unless you actually have the corresponding commercial relationship.
 
 ---
 
-## 3. 🔴 The `/go/[partner]` infrastructure itself is good
+## 3. 🔴 The `/go/[offering]` infrastructure itself is good
 
 This is one of the better pieces I found.
 

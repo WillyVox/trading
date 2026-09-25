@@ -6,7 +6,7 @@ import {
   getNextSteps,
   getRegionalFamily,
 } from "@/lib/articles/service";
-import { getActiveAffiliateLinksForProviderSlugs } from "@/lib/affiliates/service";
+import { getActiveAffiliateEngagementsForOfferingSlugs } from "@/lib/affiliates/service";
 import { getCryptoExchangeSlugMapForProviderSlugs } from "@/lib/crypto-exchanges/service";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/schema";
@@ -160,15 +160,16 @@ export default async function GuidePage({
   const providerLinkDataResult = await publicDatabaseRead(
     "guides.detail.providerLinks",
     async () => {
-      const [activeLinks, cryptoOfferingSlugs] = await Promise.all([
-        getActiveAffiliateLinksForProviderSlugs(providerSlugs),
-        getCryptoExchangeSlugMapForProviderSlugs(providerSlugs),
-      ]);
-      return { activeLinks, cryptoOfferingSlugs };
+      const cryptoOfferingSlugs =
+        await getCryptoExchangeSlugMapForProviderSlugs(providerSlugs);
+      const offeringSlugs = Array.from(cryptoOfferingSlugs.values());
+      const activeEngagements =
+        await getActiveAffiliateEngagementsForOfferingSlugs(offeringSlugs);
+      return { activeEngagements, cryptoOfferingSlugs };
     }
   );
-  const activeLinks = providerLinkDataResult.ok
-    ? providerLinkDataResult.data.activeLinks
+  const activeEngagements = providerLinkDataResult.ok
+    ? providerLinkDataResult.data.activeEngagements
     : new Map();
   const cryptoOfferingSlugs = providerLinkDataResult.ok
     ? providerLinkDataResult.data.cryptoOfferingSlugs
@@ -193,7 +194,9 @@ export default async function GuidePage({
       website: ap.provider.website,
       verificationStatus: ap.provider.verificationStatus,
       lastVerifiedAt: ap.provider.lastVerifiedAt,
-      activeLink: activeLinks.has(ap.provider.slug),
+      activeLink: activeEngagements.has(
+        cryptoOfferingSlugs.get(ap.provider.slug) ?? ""
+      ),
     })
   );
 

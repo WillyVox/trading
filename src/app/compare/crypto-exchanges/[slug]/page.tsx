@@ -21,17 +21,23 @@ import { ComparisonEditorial } from "@/components/seo/ComparisonEditorial";
 import { RelatedComparisons } from "@/components/seo/RelatedComparisons";
 import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 import { getCuratedComparison } from "@/lib/seo/curated-comparisons";
+import {
+  CRYPTO_EXCHANGE_COMPARISON_PATH,
+  cryptoExchangeComparisonPath,
+} from "@/lib/crypto-exchanges/routes";
 
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
 
-const BASE_PATH = "/compare/crypto-exchanges";
+const BASE_PATH = CRYPTO_EXCHANGE_COMPARISON_PATH;
 
 async function resolveComparisonSlugs(
   slugs: string[]
 ): Promise<string[] | null> {
   const resolved = await resolveCryptoExchangeSlugs(slugs);
-  return resolved ? [...new Set(resolved)] : null;
+  if (!resolved) return null;
+  const unique = [...new Set(resolved)];
+  return unique.length >= 2 ? unique : null;
 }
 
 export async function generateMetadata({
@@ -58,7 +64,7 @@ export async function generateMetadata({
     return buildMetadata({
       title: "Comparison temporarily unavailable",
       description: "",
-      path: `${BASE_PATH}/${slug}`,
+      path: cryptoExchangeComparisonPath(slug),
       noIndex: true,
     });
   const resolvedSlugs = metadataResult.data.slugs;
@@ -80,7 +86,7 @@ export async function generateMetadata({
       (names.length > 1
         ? `Compare ${names.join(", ")} crypto exchanges for Australian users — fees and features side by side.`
         : "Compare crypto exchanges for Australian users."),
-    path: `${BASE_PATH}/${canonicalSlug}`,
+    path: cryptoExchangeComparisonPath(canonicalSlug),
     noIndex: !curated,
   });
 }
@@ -122,7 +128,7 @@ export default async function CryptoExchangeComparisonPage({
   if (!slugs || !comparison) notFound();
   const canonicalSlug = canonicalCompareSlugMulti(slugs);
   if (slug !== canonicalSlug)
-    permanentRedirect(`${BASE_PATH}/${canonicalSlug}`);
+    permanentRedirect(cryptoExchangeComparisonPath(canonicalSlug));
 
   const { subjects, sections } = comparison;
   const curated = getCuratedComparison("crypto-exchanges", canonicalSlug);
@@ -133,10 +139,10 @@ export default async function CryptoExchangeComparisonPage({
   const pool = poolResult.ok ? poolResult.data : [];
   const trail = breadcrumbTrail([
     { name: "Compare", path: "/compare" },
-    { name: "Crypto exchanges", path: "/compare/crypto-exchanges" },
+    { name: "Crypto exchanges", path: CRYPTO_EXCHANGE_COMPARISON_PATH },
     {
       name: subjects.map((subject) => subject.name).join(" vs "),
-      path: `${BASE_PATH}/${slug}`,
+      path: cryptoExchangeComparisonPath(canonicalSlug),
     },
   ]);
 

@@ -470,6 +470,7 @@ model ProviderOffering {
   features     OfferingFeature[]
   prosCons     OfferingProsCon[]
   cryptoAssets OfferingCryptoAsset[]
+  affiliateEngagements AffiliateEngagement[]
 
   @@index([providerId])
   @@index([offeringType])
@@ -831,52 +832,75 @@ enum CommissionType {
   NONE
 }
 
+enum AffiliateEngagementStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ENDED
+}
+
+enum AffiliateEventType {
+  CLICK
+  REDIRECT
+  CONVERSION
+}
+
 model AffiliatePartnership {
   id         String                  @id @default(cuid())
   providerId String
   status     AffiliatePartnerStatus  @default(PROSPECT)
   provider   Provider                @relation(fields: [providerId], references: [id], onDelete: Cascade)
-  programs   AffiliateProgram[]
+  engagements AffiliateEngagement[]
+  network              String?
+  externalPartnerId    String?
+  agreementReference   String?
+  startedAt            DateTime?
+  endedAt              DateTime?
+  notes                String?
   createdAt  DateTime                @default(now())
 }
 
-model AffiliateProgram {
-  id             String               @id @default(cuid())
-  partnershipId  String
-  commissionType CommissionType       @default(NONE)
-  notes          String?
-  partnership    AffiliatePartnership @relation(fields: [partnershipId], references: [id], onDelete: Cascade)
-  links          AffiliateLink[]
+
+model AffiliateEngagement {
+  id                 String                    @id @default(cuid())
+  partnershipId      String
+  offeringId         String
+  status             AffiliateEngagementStatus @default(DRAFT)
+  destinationUrl     String
+  commissionType     CommissionType            @default(NONE)
+  commissionValue    Decimal?                  @db.Decimal(12, 4)
+  commissionCurrency String?
+  campaignReference  String?
+  trackingCode       String?
+  validFrom          DateTime?
+  validUntil         DateTime?
+  notes              String?
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+
+  partnership AffiliatePartnership @relation(fields: [partnershipId], references: [id], onDelete: Cascade)
+  offering    ProviderOffering     @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  events      AffiliateEvent[]
+
+  @@index([partnershipId])
+  @@index([offeringId, status])
 }
 
-model AffiliateLink {
-  id          String    @id @default(cuid())
-  programId   String
-  partnerSlug String    @unique
-  approvedUrl String
-  placement   String?
-  campaign    String?
-  active      Boolean   @default(true)
-  program     AffiliateProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
-  clicks      AffiliateClick[]
+model AffiliateEvent {
+  id           String             @id @default(cuid())
+  engagementId String
+  eventType    AffiliateEventType @default(CLICK)
+  sourcePage   String?
+  placement    String?
+  campaign     String?
+  createdAt    DateTime           @default(now())
+
+  engagement AffiliateEngagement @relation(fields: [engagementId], references: [id], onDelete: Cascade)
+
+  @@index([engagementId, createdAt])
+  @@index([eventType, createdAt])
 }
 
-model AffiliateClick {
-  id         String        @id @default(cuid())
-  linkId     String
-  sourcePage String?
-  placement  String?
-  campaign   String?
-  createdAt  DateTime      @default(now())
-  link       AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
-}
-
-model AffiliateConversion {
-  id        String   @id @default(cuid())
-  clickId   String?
-  amount    Float?
-  createdAt DateTime @default(now())
-}
 
 /// Sliding-window counters for login/register throttling (src/lib/security).
 /// `key` is "<rule>:<HMAC of the identifier>" -- no raw email or IP is stored.

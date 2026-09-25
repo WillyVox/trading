@@ -29,7 +29,7 @@ below changes, change it here.
   the next admin request. `src/proxy.ts` only does the coarse redirect from the
   token.
 
-## Affiliate redirects (`/go/[partner]`)
+## Affiliate redirects (`/go/[offering]`)
 
 - Redirects only to the stored `approvedUrl`, and only if it is https, the link
   is active **and** its partnership status is APPROVED or ACTIVE

@@ -30,7 +30,7 @@ import { TopicClusterLinks } from "@/components/seo/TopicClusterLinks";
 
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
-import { getActiveAffiliateLink } from "@/lib/affiliates/service";
+import { getActiveAffiliateEngagement } from "@/lib/affiliates/service";
 import { VisitSite } from "@/components/affiliate/VisitSite";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
@@ -111,8 +111,8 @@ export default async function ShareTradingOfferingPage({
   const offering = offeringResult.data;
   if (!offering) notFound();
   const affiliateResult = await publicDatabaseRead(
-    "shareTrading.detail.affiliateLink",
-    () => getActiveAffiliateLink(offering.provider.slug)
+    "shareTrading.detail.affiliateEngagement",
+    () => getActiveAffiliateEngagement(offering.slug)
   );
   const hasActiveAffiliate =
     affiliateResult.ok && Boolean(affiliateResult.data);
@@ -221,6 +221,7 @@ export default async function ShareTradingOfferingPage({
           </div>
           <VisitSite
             providerSlug={offering.provider.slug}
+            offeringSlug={offering.slug}
             officialWebsite={offering.website}
             hasActiveAffiliate={hasActiveAffiliate}
             placement="share-trading-profile"

@@ -18,7 +18,7 @@ const sections = [
   ["what-we-do", "1. What Trading Guide does"],
   ["information", "2. Information, not personal advice"],
   ["comparisons", "3. Comparisons and provider information"],
-  ["affiliate-links", "4. Links, partners and how we get paid"],
+  ["affiliate-partnerships", "4. Links, partners and how we get paid"],
   ["third-parties", "5. Third-party services"],
   ["using-site", "6. Using our Site"],
   ["intellectual-property", "7. Our content and intellectual property"],
@@ -145,7 +145,7 @@ export default function TermsOfUsePage() {
             </p>
           </section>
 
-          <section id="affiliate-links" className="scroll-mt-28">
+          <section id="affiliate-partnerships" className="scroll-mt-28">
             <h2 className={sectionHeading}>
               4. Links, partners and how we get paid
             </h2>

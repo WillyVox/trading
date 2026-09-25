@@ -6,8 +6,8 @@ export default function AffiliatesLayout({
   children: React.ReactNode;
 }) {
   // requireAdmin() already runs in src/app/admin/layout.tsx for every
-  // /admin/* route; this sub-layout only adds the Overview/Partners/Links/
-  // Clicks navigation, no additional data access.
+  // /admin/* route; this sub-layout only adds the Overview/Partners/Engagements/
+  // Events navigation, no additional data access.
   return (
     <div>
       <h1 className="font-display text-navy text-2xl font-bold">Affiliates</h1>

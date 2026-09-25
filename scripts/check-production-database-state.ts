@@ -7,16 +7,16 @@ async function main() {
     providers,
     offerings,
     fees,
-    affiliateClicks,
-    affiliateConversions,
+    affiliateEvents,
+    affiliateEngagements,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.article.count(),
     prisma.provider.count(),
     prisma.providerOffering.count(),
     prisma.offeringFee.count(),
-    prisma.affiliateClick.count(),
-    prisma.affiliateConversion.count(),
+    prisma.affiliateEvent.count(),
+    prisma.affiliateEngagement.count(),
   ]);
   console.log("Trading Guide production database state");
   console.table({
@@ -25,8 +25,8 @@ async function main() {
     providers,
     offerings,
     fees,
-    affiliateClicks,
-    affiliateConversions,
+    affiliateEvents,
+    affiliateEngagements,
   });
   console.log("\nRead-only inspection complete. No data was modified.");
 }

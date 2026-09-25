@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { CRYPTO_EXCHANGES } from "../prisma/seeds/crypto-exchanges";
 import { SHARE_TRADING_PLATFORMS } from "../prisma/seeds/share-trading-platforms";
-import { seedAffiliateLinks } from "../prisma/seeds/lib/seed-affiliate-links";
+import { seedAffiliateEngagements } from "../prisma/seeds/lib/seed-affiliate-engagements";
 import { seedCryptoAssets } from "../prisma/seeds/lib/seed-crypto-assets";
 import { seedCryptoExchanges } from "../prisma/seeds/lib/seed-crypto-exchanges";
 import { seedShareTradingPlatforms } from "../prisma/seeds/lib/seed-share-trading-platforms";
@@ -22,23 +22,23 @@ async function main() {
     articles,
     providers,
     offerings,
-    affiliateClicks,
-    affiliateConversions,
+    affiliateEvents,
+    affiliateEngagements,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.article.count(),
     prisma.provider.count(),
     prisma.providerOffering.count(),
-    prisma.affiliateClick.count(),
-    prisma.affiliateConversion.count(),
+    prisma.affiliateEvent.count(),
+    prisma.affiliateEngagement.count(),
   ]);
   const existing = {
     users,
     articles,
     providers,
     offerings,
-    affiliateClicks,
-    affiliateConversions,
+    affiliateEvents,
+    affiliateEngagements,
   };
   if (Object.values(existing).some((count) => count > 0))
     throw new Error(
@@ -48,7 +48,7 @@ async function main() {
   await seedCryptoAssets(prisma);
   await seedCryptoExchanges(prisma);
   await seedShareTradingPlatforms(prisma);
-  await seedAffiliateLinks(prisma);
+  await seedAffiliateEngagements(prisma);
   console.log(
     "Initial production reference-data bootstrap complete. Do not rerun after production data exists."
   );

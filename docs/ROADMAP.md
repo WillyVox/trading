@@ -77,24 +77,24 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 
 ## Phase 6 — Affiliate Domain
 
-- ✅ Full schema: `AffiliatePartnership`, `AffiliateProgram`, `AffiliateLink`, `AffiliateClick`, `AffiliateConversion` (no separate `AffiliatePlacement` model — placement is a string field on `AffiliateLink`/`AffiliateClick` instead; see IMPLEMENTATION-PLAN §4 vs. the actual schema)
-- ✅ `lib/affiliates/service.ts` — `getActiveAffiliateLink`, `getActiveAffiliateLinksForProviderSlugs`, `recordAffiliateClick`, plus (this change) the admin read queries `getPartnershipsAdmin`, `getProvidersForPartnershipForm`, `getPartnershipsForLinkForm`, `getAffiliateLinksAdmin`, `getAffiliateClicksAdmin`
-- ✅ `/go/[partner]` route handler — redirects only to a stored `approvedUrl` on an ACTIVE link, 404s otherwise, records a click first (open-redirect-safe by construction)
+- ✅ Full schema: `AffiliatePartnership`, `AffiliateEngagement`, `AffiliateEvent` (no separate `AffiliatePlacement` model — placement is a string field on `AffiliateEngagement`/`AffiliateEvent` instead; see IMPLEMENTATION-PLAN §4 vs. the actual schema)
+- ✅ `lib/affiliates/service.ts` — `getActiveAffiliateEngagement`, `getActiveAffiliateEngagementsForOfferingSlugs`, `recordAffiliateEvent`, plus (this change) the admin read queries `getPartnershipsAdmin`, `getProvidersForPartnershipForm`, `getPartnershipsForLinkForm`, `getAffiliateEngagementsAdmin`, `getAffiliateEventsAdmin`
+- ✅ `/go/[offering]` route handler — redirects only to a stored `destinationUrl` on an ACTIVE engagement, 404s otherwise, records an event first (open-redirect-safe by construction)
 - ✅ `AffiliateCTA` + `AffiliateDisclosure` components
-- ✅ `AffiliateCTA` wired into the exchange profile page (`/crypto/exchanges/[slug]`), conditional on a real `getActiveAffiliateLink()` lookup, and into `RelatedProviders` on the guide template — both gated on a real ACTIVE link, never fabricated. (This change also fixed the exchange profile page rendering the CTA with `showDisclosure={false}` and no other disclosure on the page — it now shows its own, matching the one-CTA vs. shared-section-disclosure convention `RelatedProviders` already used.)
+- ✅ `AffiliateCTA` wired into the exchange profile page (`/crypto/exchanges/[slug]`), conditional on a real `getActiveAffiliateEngagement()` lookup, and into `RelatedProviders` on the guide template — both gated on a real ACTIVE engagement, never fabricated. (This change also fixed the exchange profile page rendering the CTA with `showDisclosure={false}` and no other disclosure on the page — it now shows its own, matching the one-CTA vs. shared-section-disclosure convention `RelatedProviders` already used.)
 - ✅ `/admin/affiliates/partners`, `/links`, `/clicks` (this change) — real CRUD/read views, not placeholders:
   - `/admin/affiliates` — overview with partnership/link/click counts linking into the three tabs
   - `/admin/affiliates/partners` — list + create `AffiliatePartnership` (`lib/affiliates/actions.ts#createPartnership`), inline status update (`updatePartnershipStatus`)
-  - `/admin/affiliates/links` — list + create `AffiliateLink` under an APPROVED/ACTIVE partnership (`createAffiliateLink`, reuses or creates the backing `AffiliateProgram` in a transaction), activate/deactivate toggle (`toggleAffiliateLinkActive`); `approvedUrl` is validated as a real `https://` URL before it's stored, since it's the only place `/go/[partner]`'s redirect target is ever set
-  - `/admin/affiliates/clicks` — paginated, read-only click log (`AffiliateClick` is an append-only record written by `/go/[partner]`, never edited from the admin UI)
+  - `/admin/affiliates/engagements` — list + create `AffiliateEngagement` under an APPROVED/ACTIVE partnership (`createAffiliateEngagement`, validates the Offering belongs to the Partnership Provider in a transaction), status update (`updateAffiliateEngagementStatus`); `destinationUrl` is validated as a real `https://` URL before it's stored, since it's the only place `/go/[offering]`'s redirect target is ever set
+  - `/admin/affiliates/events` — paginated, read-only click log (`AffiliateEvent` is an append-only record written by `/go/[offering]`, never edited from the admin UI)
   - Every mutation in `lib/affiliates/actions.ts` calls `requireAdmin()` itself, independent of the `/admin` layout guard, per the Phase 10 cross-cutting rule
-  - Ending/pausing a partnership only changes its own status — it never deletes an `AffiliateLink` or touches the `Provider` row; a link's own `active` flag is what controls whether `getActiveAffiliateLink()` returns it publicly
+  - Ending/pausing a partnership only changes its own status — it never deletes an `AffiliateEngagement` or touches the `Provider` row; a link's own `active` flag is what controls whether `getActiveAffiliateEngagement()` returns it publicly
 
 ## Phase 7 — Affiliate Analytics
 
 - ✅ `/admin/affiliates` overview reads real click counts per link
 - ⬜ Aggregated reporting by article/comparison/placement/campaign/date
-- ⬜ Conversion/revenue import (schema exists via `AffiliateConversion`, nothing populates it — by design)
+- ⬜ Conversion/revenue import (schema exists via `AffiliateEvent`, nothing populates it — by design)
 
 ## Phase 8 — SEO Growth
 
@@ -110,8 +110,8 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 - ✅ `Article` gains `keyTakeaways String[]`, `lastReviewedAt`, `searchIntent` (`ArticleSearchIntent` enum), `region`/`canonicalArticleId` self-relation, and a curated `ArticleRelated` join table — all additive, migration at `prisma/migrations/20260910090000_guide_phase_1/`
 - ✅ `src/lib/articles/content.ts` — heading extraction (anchors ids for TOC) + reading-time estimate, both derived from real content, nothing fabricated
 - ✅ `src/lib/articles/service.ts` — `getRelatedGuides()` (curated → category/intent → tags → recent, per the priority chain in the spec), `getNextSteps()` (only for BEGINNER/LEARN intent, only when curated), `getRegionalFamily()` for hreflang, all wrapped in React `cache()` to dedupe within a request
-- ✅ `src/lib/affiliates/service.ts` — `getActiveAffiliateLinksForProviderSlugs()`, a batched lookup for the guide's provider-discovery section
-- ✅ New `src/components/guide/*` — `GuideHeader`, `KeyTakeaways`, `GuideTableOfContents` (zero-JS, native `<details>`), `GuideSidebar`, `GuideSourceList`, `RelatedGuides`, `RelatedProviders` (safe non-superlative labels, affiliate CTA gated on a real ACTIVE link), `GuideNextSteps`
+- ✅ `src/lib/affiliates/service.ts` — `getActiveAffiliateEngagementsForProviderSlugs()`, a batched lookup for the guide's provider-discovery section
+- ✅ New `src/components/guide/*` — `GuideHeader`, `KeyTakeaways`, `GuideTableOfContents` (zero-JS, native `<details>`), `GuideSidebar`, `GuideSourceList`, `RelatedGuides`, `RelatedProviders` (safe non-superlative labels, affiliate CTA gated on a real ACTIVE engagement), `GuideNextSteps`
 - ✅ `AffiliateCTA` gains an optional `showDisclosure` prop so multi-provider sections show one disclosure, not one per card
 - ✅ `/guides/[slug]` rebuilt around all of the above; `generateMetadata()` emits `hreflang`/`x-default` only when real regional variants exist
 - ⬜ Admin authoring UI for the new fields (`keyTakeaways`, `searchIntent`, `region`, curated `ArticleRelated` rows) — still blocked on the Phase 3 article editor not existing yet
@@ -133,7 +133,7 @@ If you're dropping this into an existing codebase instead of starting fresh, run
 2. `npm run db:migrate` to create the schema, then `npm run db:seed`.
 3. Wire a real Auth.js provider in `src/lib/auth/config.ts`, promote your own user to `ADMIN` via `prisma studio` or a script.
 4. Build the article editor (`/admin/articles/new`) and its server actions — this unblocks real content, which unblocks everything downstream (SEO, provider mentions, affiliate placements).
-5. Wire `AffiliateCTA` into the provider profile page, conditional on `getActiveAffiliateLink()`.
+5. Wire `AffiliateCTA` into the provider profile page, conditional on `getActiveAffiliateEngagement()`.
 6. Replace placeholder seed providers with real, sourced Australian provider data before any public deployment.
 
 ## Phase 9 — SEO content engine (implemented 2026-09-22)

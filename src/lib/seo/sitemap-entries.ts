@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 import type { ArticleType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl } from "./config";
@@ -111,7 +112,7 @@ export async function providerEntries(): Promise<MetadataRoute.Sitemap> {
     select: { slug: true, updatedAt: true },
   });
   return offerings.map((o) => ({
-    url: absoluteUrl(`/crypto/exchanges/${o.slug}`),
+    url: absoluteUrl(cryptoExchangePath(o.slug)),
     lastModified: o.updatedAt,
   }));
 }

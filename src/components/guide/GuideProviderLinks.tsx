@@ -13,7 +13,7 @@ export interface ProviderLink {
  * authored guides (app/(guides)/*). Deliberately simpler than
  * RelatedProviders: it never renders a verification badge or affiliate CTA,
  * because those both require a live DB lookup (VerificationBadge status,
- * ACTIVE AffiliateLink check) this static page doesn't perform — showing
+ * ACTIVE AffiliateEngagement check) this static page doesn't perform — showing
  * either here would be fabricating trust signals the page hasn't earned.
  * Plain profile links only; the real comparison lives at /compare.
  */

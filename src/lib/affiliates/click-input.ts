@@ -1,10 +1,10 @@
 /**
- * Input handling for /go/[partner] click recording. Kept free of Next.js and
+ * Input handling for /go/[offering] click recording. Kept free of Next.js and
  * Prisma imports so it can be unit-tested directly.
  *
  * Everything a visitor can influence (the ?placement= query, the Referer
  * header, the User-Agent) is untrusted: it is validated or trimmed here
- * before anything is written to AffiliateClick.
+ * before anything is written to AffiliateEvent.
  */
 
 type HeaderReader = { get(name: string): string | null };

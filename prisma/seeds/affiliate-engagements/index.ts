@@ -6,7 +6,7 @@ import kraken from "./kraken.json";
 import swyftx from "./swyftx.json";
 import { reviveSeedJson } from "../lib/json";
 
-export const affiliateSeeds = [
+export const affiliateEngagementSeeds = [
   btcMarkets,
   coinJar,
   coinSpot,

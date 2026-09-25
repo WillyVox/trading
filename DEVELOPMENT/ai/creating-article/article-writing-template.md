@@ -892,7 +892,7 @@ Affiliate links MUST use the project's existing internal redirect/tracking archi
 For example, use existing:
 
 ```text
-/go/[partner]
+/go/[offering]
 ```
 
 or the current implementation.

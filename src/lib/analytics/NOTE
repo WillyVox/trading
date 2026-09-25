@@ -7,13 +7,13 @@ The implementation adds a central `trackEvent()` layer rather than scattering ra
 | `page_view`          | Initial load + Next.js navigation       | URL/path/title                          |
 | `provider_view`      | Provider/exchange detail page           | provider slug/type                      |
 | `comparison_created` | User creates comparison                 | comparison type + provider count        |
-| `affiliate_click`    | User clicks `/go/[partner]`             | provider slug + placement + source path |
+| `affiliate_click`    | User clicks `/go/[offering]`             | provider slug + placement + source path |
 | `tool_used`          | First meaningful calculator interaction | tool name                               |
 | `sign_up`            | Successful account registration         | `method: credentials`                   |
 
 Importantly, calculator financial values, email addresses, names and passwords are **not** sent to GA4.
 
-Your PostgreSQL `AffiliateClick` tracking remains independent. GA4 is therefore behavioural analytics while your database remains the first-party affiliate-click record.
+Your PostgreSQL `AffiliateEvent` tracking remains independent. GA4 is therefore behavioural analytics while your database remains the first-party affiliate-event record.
 
 Google supports custom events and parameters for this kind of measurement, and custom events can subsequently be designated as key events. ([Google Help][1])
 

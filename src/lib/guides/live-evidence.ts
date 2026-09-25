@@ -7,6 +7,7 @@ import { getBrokerageOfferings } from "@/lib/tools/brokerage/service";
 import { calculateCryptoFee } from "@/lib/tools/crypto-fees/calculate";
 import { getCryptoFeeOfferings } from "@/lib/tools/crypto-fees/service";
 import type { EvidenceRow } from "@/components/guide/LiveEvidencePanel";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 
 const money = (amount: number | undefined, currency?: string) =>
   amount == null ? "—" : `${currency ?? ""} ${amount.toFixed(2)}`.trim();
@@ -87,7 +88,7 @@ export async function cryptoWorkedExamples(): Promise<EvidenceRow[]> {
             : "Needs more input";
       rows.push({
         label: `${offering.name} — ${rule.label}`,
-        href: `/crypto/exchanges/${offering.slug}`,
+        href: cryptoExchangePath(offering.slug),
         sourceUrl: rule.sourceUrl,
         verifiedAt: rule.verifiedAt,
         cells: [

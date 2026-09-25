@@ -63,30 +63,16 @@ const nextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
-  async redirects() {
-    return [
-      {
-        source: "/share-trading/compare",
-        destination: "/compare/trading-platforms",
-        permanent: true,
-      },
-      {
-        source: "/share-trading/compare/:slug",
-        destination: "/compare/trading-platforms/:slug",
-        permanent: true,
-      },
-      {
-        source: "/crypto/exchanges/compare",
-        destination: "/compare/crypto-exchanges",
-        permanent: true,
-      },
-      {
-        source: "/crypto/exchanges/compare/:slug",
-        destination: "/compare/crypto-exchanges/:slug",
-        permanent: true,
-      },
-    ];
-  },
+  // To support a legacy url that was indexed redirect to a new destination that is valid
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/share-trading/compare",
+  //       destination: "/compare/trading-platforms",
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;

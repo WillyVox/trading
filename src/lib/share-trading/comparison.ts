@@ -35,17 +35,21 @@ import {
 /** Active links are keyed by Provider.slug, while the public comparison
  * identity remains the offering slug. This keeps commercial state attached to
  * the provider without changing the offering/profile model. */
-type AffiliateLinkLookup = Map<string, { partnerSlug: string }>;
+type AffiliateEngagementLookup = Map<
+  string,
+  { offeringSlug: string; providerSlug: string }
+>;
 
 export function toCompareSubjects(
   offerings: ShareTradingPlatformDetail[],
-  affiliateLinks?: AffiliateLinkLookup
+  affiliateEngagements?: AffiliateEngagementLookup
 ): CompareSubject[] {
   return offerings.map((o) => {
     const destination = resolveProviderDestination({
       providerSlug: o.provider.slug,
+      offeringSlug: o.slug,
       officialWebsite: o.website,
-      hasActiveAffiliate: affiliateLinks?.has(o.provider.slug) ?? false,
+      hasActiveAffiliate: affiliateEngagements?.has(o.slug) ?? false,
       placement: "compare",
     });
     return {

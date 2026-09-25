@@ -96,25 +96,19 @@ export default async function AdminAffiliatePartnersPage() {
               <tr className="border-border text-muted border-b text-left">
                 <th className="py-2">Provider</th>
                 <th className="py-2">Status</th>
-                <th className="py-2">Programs</th>
-                <th className="py-2">Links</th>
+                <th className="py-2">Engagements</th>
                 <th className="py-2">Update status</th>
               </tr>
             </thead>
             <tbody>
               {partnerships.map((p) => {
-                const linkCount = p.programs.reduce(
-                  (sum, prog) => sum + prog._count.links,
-                  0
-                );
                 return (
                   <tr key={p.id} className="border-border border-b align-top">
                     <td className="py-3">{p.provider.name}</td>
                     <td className="py-3">
                       <PartnerStatusBadge status={p.status} />
                     </td>
-                    <td className="py-3">{p.programs.length}</td>
-                    <td className="py-3">{linkCount}</td>
+                    <td className="py-3">{p._count.engagements}</td>
                     <td className="py-3">
                       <form
                         action={updatePartnershipStatus}

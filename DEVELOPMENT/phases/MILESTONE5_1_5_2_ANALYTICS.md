@@ -50,7 +50,7 @@ Those remain subsequent Milestone 5 work.
 
 The application now emits a deliberately small event set through `src/lib/analytics/events.ts`:
 
-- `affiliate_click`: click on a first-party `/go/[partner]` affiliate redirect; parameters: `provider_slug`, `placement`, `source_path`.
+- `affiliate_click`: click on a first-party `/go/[offering]` affiliate redirect; parameters: `provider_slug`, `placement`, `source_path`.
 - `comparison_created`: user submits the comparison selector; parameters: `comparison_type`, `provider_count`. Provider combinations are deliberately not sent to avoid high-cardinality reporting.
 - `provider_view`: view of a supported provider/exchange detail route; parameters: `provider_slug`, `provider_type`.
 - `tool_used`: first meaningful form interaction on a `/tools/[tool]` page per route visit; parameter: `tool_name`. Financial input values are never sent.

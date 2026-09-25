@@ -154,6 +154,7 @@ export function ShareTradingPlatformListCard({
         </Link>
         <VisitSite
           providerSlug={offering.provider.slug}
+          offeringSlug={offering.slug}
           officialWebsite={offering.website}
           hasActiveAffiliate={hasActiveAffiliate}
           placement="share-trading-browse"

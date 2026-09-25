@@ -14,6 +14,7 @@ import { GuideFigure } from "@/components/guide/GuideFigure";
 import { RelatedGuides } from "@/components/guide/RelatedGuides";
 import { GuideProviderLinks } from "@/components/guide/GuideProviderLinks";
 import { GuideNextSteps } from "@/components/guide/GuideNextSteps";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 import {
   getStaticGuideArticleHref,
   getStaticGuideArticleImage,
@@ -403,7 +404,9 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 is useful for beginners: the price and fee structure of a
                 provider&apos;s instant-buy service can differ from its
                 order-book market. See our{" "}
-                <Link href="/crypto/exchanges/coinspot">CoinSpot profile</Link>{" "}
+                <Link href={cryptoExchangePath("coinspot")}>
+                  CoinSpot profile
+                </Link>{" "}
                 for the structured facts and sources we track.
               </p>
 
@@ -416,7 +419,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 tiers, reaching 0.1% at the highest published tier. The
                 practical lesson is that the same provider can charge different
                 trading rates depending on activity. See our{" "}
-                <Link href="/crypto/exchanges/swyftx">Swyftx profile</Link>.
+                <Link href={cryptoExchangePath("swyftx")}>Swyftx profile</Link>.
               </p>
 
               <h3 id="btc-markets">BTC Markets</h3>
@@ -428,7 +431,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 Markets also publishes its own fee schedule, which should be
                 checked before trading because fee tiers and product pricing can
                 change. See our{" "}
-                <Link href="/crypto/exchanges/btc-markets">
+                <Link href={cryptoExchangePath("btc-markets")}>
                   BTC Markets profile
                 </Link>
                 .
@@ -454,7 +457,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 with rolling 30-day trading volume, with lower published rates
                 at high volume. It also supports free EFT bank withdrawals
                 according to its current fee page. See our{" "}
-                <Link href="/crypto/exchanges/independent-reserve">
+                <Link href={cryptoExchangePath("independent-reserve")}>
                   Independent Reserve profile
                 </Link>
                 .
@@ -469,7 +472,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
                 legal entity, fee schedule and regulatory scope relevant to the
                 service you intend to use rather than assuming every Kraken
                 product works the same way. See our{" "}
-                <Link href="/crypto/exchanges/kraken">Kraken profile</Link>.
+                <Link href={cryptoExchangePath("kraken")}>Kraken profile</Link>.
               </p>
 
               <h2 id="what-to-compare">

@@ -40,7 +40,8 @@
     "check:seed-data": "node scripts/check-seed-json.mjs",
     "check:environment": "node scripts/check-environment-safety.mjs",
     "check:phase3": "npm run check:environment && npm run db:review:migrations && npm run check:production",
-    "check:crypto-identity": "node scripts/check-crypto-offering-identity.mjs"
+    "check:crypto-identity": "node scripts/check-crypto-offering-identity.mjs",
+    "check:affiliate-integrity": "node scripts/check-affiliate-integrity.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",

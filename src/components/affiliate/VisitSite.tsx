@@ -5,6 +5,7 @@ import {
 
 type Props = {
   providerSlug: string;
+  offeringSlug?: string;
   officialWebsite?: string | null;
   hasActiveAffiliate?: boolean;
   placement: string;
@@ -14,6 +15,7 @@ type Props = {
 
 export function VisitSite({
   providerSlug,
+  offeringSlug,
   officialWebsite,
   hasActiveAffiliate = false,
   placement,
@@ -24,6 +26,7 @@ export function VisitSite({
     suppliedDestination ??
     resolveProviderDestination({
       providerSlug,
+      offeringSlug,
       officialWebsite,
       hasActiveAffiliate,
       placement,
@@ -40,6 +43,7 @@ export function VisitSite({
       rel={destination.isAffiliate ? "sponsored noopener" : "noopener"}
       data-provider-outbound="true"
       data-provider-slug={destination.providerSlug}
+      data-offering-slug={destination.offeringSlug}
       data-destination-type={destination.type}
       data-placement={destination.placement}
       className={`bg-navy text-background hover:bg-navy-dark focus-visible:ring-gold inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold whitespace-nowrap shadow-sm transition hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 ${className}`}

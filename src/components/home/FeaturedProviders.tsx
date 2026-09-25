@@ -8,6 +8,7 @@ import {
   type FeaturedCryptoExchange,
 } from "@/lib/crypto-exchanges/service";
 import { formatFeatureLabel } from "@/lib/crypto-exchanges/features";
+import { cryptoExchangePath } from "@/lib/crypto-exchanges/routes";
 
 /**
  * Isolated behind its own Suspense boundary in page.tsx so a slow or failed
@@ -75,7 +76,7 @@ export async function FeaturedCryptoExchanges() {
                 </div>
               )}
               <Link
-                href={`/crypto/exchanges/${offering.slug}`}
+                href={cryptoExchangePath(offering.slug)}
                 className="border-border text-blue focus-visible:ring-gold-soft mt-3 inline-block rounded border-t pt-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               >
                 View profile →

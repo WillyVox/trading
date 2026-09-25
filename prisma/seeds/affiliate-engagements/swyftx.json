@@ -1,0 +1,10 @@
+{
+  "providerSlug": "swyftx",
+  "offeringSlug": "swyftx",
+  "partnershipStatus": "PROSPECT",
+  "engagementStatus": "DRAFT",
+  "destinationUrl": "https://swyftx.com",
+  "commissionType": "NONE",
+  "campaignReference": "default",
+  "notes": "Placeholder affiliate configuration. Replace destinationUrl with an approved tracking URL and set ACTIVE only after an official affiliate agreement is approved."
+}

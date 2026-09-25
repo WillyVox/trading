@@ -19,10 +19,10 @@ export const metadata = buildMetadata({
  * Content status: EDITORIALLY REVIEWED for implementation accuracy (2026-09-24).
  * This is an internal product/editorial approval, not a representation that external legal advice was obtained. Reconciled with what the codebase actually does today (see docs/CONTENT-GAPS.md
  * "Affiliate Disclosure page" for the implementation checks):
- *  - Every seeded AffiliateLink is currently active: false and PROSPECT.
+ *  - Every seeded AffiliateEngagement is currently DRAFT under a PROSPECT partnership.
  *    Some prospect records may store publicly researched program mechanics,
  *    but they are not treated as agreed Trading Guide commercial terms.
- *    prisma/seeds/lib/seed-affiliate-links.ts guards against a PROSPECT
+ *    prisma/seeds/lib/seed-affiliate-engagements.ts guards against a PROSPECT
  *    partnership being seeded active: true, so there is no live commercial
  *    relationship with any provider yet.
  *  - "alphabetical, not commercially weighted" -- verified true today

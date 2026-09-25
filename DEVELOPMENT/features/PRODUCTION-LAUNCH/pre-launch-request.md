@@ -208,7 +208,7 @@ static guides
 
 /admin/...
 
-/go/[partner]
+/go/[offering]
 
 Verify the actual repository.
 
@@ -450,7 +450,7 @@ Provider
 → AffiliateProgram
 → AffiliateLink
 → CTA
-→ /go/[partner]
+→ /go/[offering]
 → click record
 → approved destination
 

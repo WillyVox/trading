@@ -1,14 +1,14 @@
 import { AffiliateDisclosure } from "./AffiliateDisclosure";
 
 export function AffiliateCTA({
-  partnerSlug,
+  offeringSlug,
   providerName,
   variant = "default",
   showDisclosure = false,
   isNewTab = true,
   placement,
 }: {
-  partnerSlug: string;
+  offeringSlug: string;
   providerName: string;
   /**
    * "default" — bordered panel, own label ("Visit {providerName}"). Use
@@ -24,15 +24,15 @@ export function AffiliateCTA({
   isNewTab?: boolean;
   /** Tags this click's placement in the admin click report (e.g.
    * "compare", "profile-hero") independently of whatever default
-   * placement is stored on the AffiliateLink record itself -- see the
-   * ?placement override in src/app/go/[partner]/route.ts. Omit to fall
-   * back to the link's stored placement. */
+   * placement is stored on the AffiliateEngagement record -- see the
+   * ?placement override in src/app/go/[offering]/route.ts. Omit to fall
+   * back to the engagement metadata. */
   placement?: string;
 }) {
   const label = variant === "compact" ? "Visit site" : `Visit ${providerName}`;
   const href = placement
-    ? `/go/${partnerSlug}?placement=${encodeURIComponent(placement)}`
-    : `/go/${partnerSlug}`; // referral params live in AffiliateLink.approvedUrl, not appended here
+    ? `/go/${offeringSlug}?placement=${encodeURIComponent(placement)}`
+    : `/go/${offeringSlug}`; // referral params live in AffiliateEngagement.destinationUrl, not appended here
 
   const link = (
     <a
@@ -42,8 +42,8 @@ export function AffiliateCTA({
       // crawling it, but rel is what discloses the commercial
       // relationship on links that do get seen. "noopener" alone (not
       // "noreferrer") keeps the tab-hijack protection without stripping
-      // the Referer header that /go/[partner]/route.ts reads for
-      // AffiliateClick.sourcePage -- noreferrer was silently zeroing out
+      // the Referer header that /go/[offering]/route.ts reads for
+      // AffiliateEvent.sourcePage -- noreferrer was silently zeroing out
       // click attribution.
       rel={isNewTab ? "sponsored noopener" : "sponsored"}
       href={href}
