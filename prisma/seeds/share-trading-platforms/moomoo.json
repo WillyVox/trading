@@ -4,7 +4,9 @@
     "slug": "moomoo-securities-australia",
     "website": "https://www.moomoo.com/au",
     "description": "Australian share-trading provider offering CHESS-sponsored Australian shares plus US and Hong Kong market access.",
-    "jurisdictions": ["AU"],
+    "jurisdictions": [
+      "AU"
+    ],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-22T00:00:00.000Z"
   },
@@ -246,6 +248,16 @@
         "sourceUrl": "https://www.moomoo.com/au/pricing",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "OTHER",
+        "label": "Market access",
+        "value": "Australia \u00b7 US \u00b7 Hong Kong",
+        "available": true,
+        "sourceUrl": "https://www.moomoo.com/au/invest/stocks",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
       }
     ],
     "prosCons": [

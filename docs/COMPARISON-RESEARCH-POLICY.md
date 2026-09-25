@@ -77,3 +77,14 @@ Promotional fees do not replace standing fees in comparisons. Promotions can be 
 ## Research independence
 
 Affiliate/commercial status does not determine comparison rows, research conclusions, ordering, verification or factual presentation. Commercial configuration controls outbound destination/tracking only.
+
+## Market-access representation
+
+Market access has two complementary representations:
+
+1. `OfferingMarket` rows are structured exchange-level evidence where the provider publishes a sufficiently explicit list. They support profile detail, fee/custody scoping and future filters.
+2. A sourced `OfferingFeature` with `featureType: OTHER`, `label: "Market access"` is the concise breadth summary used by the comparison table when raw exchange-row counts would be misleading.
+
+Do not infer total market breadth from the number of `OfferingMarket` rows. Providers describe coverage differently (country markets, exchanges, venues, or multi-asset markets), and some have coverage too broad to model exhaustively just for a comparison cell.
+
+The comparison should prefer the researched Market access summary and use seeded exchange rows only as a fallback. This is a temporary normalized seam; if market breadth becomes a filter/calculator input, promote it to a dedicated typed field rather than adding more `OTHER` feature conventions.

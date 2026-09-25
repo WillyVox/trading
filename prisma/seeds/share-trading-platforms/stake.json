@@ -4,7 +4,9 @@
     "slug": "stakeshop",
     "website": "https://hellostake.com/au",
     "description": "Sydney-founded fintech broker (trading as Stake) offering CHESS-sponsored ASX trading and US share/ETF investing for Australians.",
-    "jurisdictions": ["AU"],
+    "jurisdictions": [
+      "AU"
+    ],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },
@@ -80,7 +82,7 @@
         "marketCode": "ASX",
         "custodyType": "CHESS_SPONSORED",
         "hinSupported": true,
-        "description": "Stake AUS holdings are registered under the customer’s unique HIN; fractional ASX shares are not supported.",
+        "description": "Stake AUS holdings are registered under the customer\u2019s unique HIN; fractional ASX shares are not supported.",
         "sourceUrl": "https://hellostake.com/au/support/privacy-and-security/shares-and-funds-security/26010910072729",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-24T00:00:00.000Z"
@@ -135,6 +137,16 @@
         "sourceUrl": "https://hellostake.com/au/blog/stake-updates/new-web-platform-a-richer-investing-experience",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "OTHER",
+        "label": "Market access",
+        "value": "Australia \u00b7 US",
+        "available": true,
+        "sourceUrl": "https://www.hellostake.com/au",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
       }
     ],
     "prosCons": [],

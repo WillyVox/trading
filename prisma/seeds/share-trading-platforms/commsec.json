@@ -4,7 +4,9 @@
     "slug": "commonwealth-bank-of-australia",
     "website": "https://www.commbank.com.au",
     "description": "Australia's largest retail bank, operating the CommSec share trading platform.",
-    "jurisdictions": ["AU"],
+    "jurisdictions": [
+      "AU"
+    ],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },
@@ -40,6 +42,132 @@
         "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-24T00:00:00.000Z"
+      },
+      {
+        "marketCode": "AMEX",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "ARCA",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "TSX",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "EPA",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "XETRA",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "HKEX",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "BVME",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "TSEJ",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "AMS",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "OSE",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "SGX",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "SIX",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "STO",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
+      },
+      {
+        "marketCode": "LSE",
+        "availability": "AVAILABLE",
+        "notes": "Listed in the CommSec International Shares Client Guide country/exchange table.",
+        "sourceUrl": "https://www.commsec.com.au/content/dam/EN/PDFs/FSG/International_Shares_Client_Guide.pdf",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
       }
     ],
     "products": [
@@ -132,6 +260,16 @@
         "sourceUrl": "https://www.commsec.com.au/products/international-shares.html",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "OTHER",
+        "label": "Market access",
+        "value": "Australia + 13 international markets",
+        "available": true,
+        "sourceUrl": "https://www.commsec.com.au/products/international-shares.html",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
       }
     ],
     "prosCons": [],

@@ -4,7 +4,9 @@
     "slug": "interactive-brokers-australia",
     "website": "https://www.interactivebrokers.com.au",
     "description": "Australian subsidiary of global broker Interactive Brokers, ASIC-regulated (AFSL 453554) and a participant of ASX, ASX 24 and Cboe Australia, offering share, ETF, options, futures and forex trading across 90+ international markets.",
-    "jurisdictions": ["AU"],
+    "jurisdictions": [
+      "AU"
+    ],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },
@@ -102,7 +104,7 @@
         "marketCode": "ASX",
         "custodyType": "CUSTODIAL",
         "hinSupported": false,
-        "description": "IBA uses a nominee/custodial model for Australian shares through BNP Paribas; clients remain beneficial owners and assets are held separately from IBA’s own assets.",
+        "description": "IBA uses a nominee/custodial model for Australian shares through BNP Paribas; clients remain beneficial owners and assets are held separately from IBA\u2019s own assets.",
         "sourceUrl": "https://www.interactivebrokers.com.au/en/general/security-investor-protection.php",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-24T00:00:00.000Z"
@@ -179,6 +181,16 @@
         "sourceUrl": "https://www.interactivebrokers.com.au/en/trading/ibkr-mobile.php",
         "verificationStatus": "VERIFIED",
         "verifiedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "featureType": "OTHER",
+        "label": "Market access",
+        "value": "170 markets \u00b7 40 countries (multi-asset)",
+        "available": true,
+        "sourceUrl": "https://www.interactivebrokers.com.au/en/accounts/broker.php",
+        "verificationStatus": "VERIFIED",
+        "verifiedAt": "2026-09-26T00:00:00.000Z",
+        "reviewDueAt": "2026-12-25T00:00:00.000Z"
       }
     ],
     "prosCons": [],
