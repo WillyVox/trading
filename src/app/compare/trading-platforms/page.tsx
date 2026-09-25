@@ -17,6 +17,10 @@ import { CuratedComparisonList } from "@/components/seo/CuratedComparisonList";
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
 import { getActiveAffiliateEngagementsForOfferingSlugs } from "@/lib/affiliates/service";
+import { getBrokerageOfferings } from "@/lib/tools/brokerage/service";
+import { RepresentativeAsxCostComparison } from "@/components/compare/RepresentativeAsxCostComparison";
+import { RepresentativeUsCostComparison } from "@/components/compare/RepresentativeUsCostComparison";
+import { getFxOfferings } from "@/lib/tools/fx/service";
 
 export const metadata = buildMetadata({
   title:
@@ -47,13 +51,21 @@ export default async function CompareTradingPlatformsPage() {
         await getActiveAffiliateEngagementsForOfferingSlugs(
           offerings.map((offering) => offering.slug)
         );
-      return { offerings, affiliateEngagements };
+      const [brokerageOfferings, fxOfferings] = await Promise.all([
+        getBrokerageOfferings(),
+        getFxOfferings(),
+      ]);
+      return { offerings, affiliateEngagements, brokerageOfferings, fxOfferings };
     }
   );
   const offerings = offeringsResult.ok ? offeringsResult.data.offerings : [];
   const affiliateEngagements = offeringsResult.ok
     ? offeringsResult.data.affiliateEngagements
     : new Map<string, { offeringSlug: string; providerSlug: string }>();
+  const brokerageOfferings = offeringsResult.ok
+    ? offeringsResult.data.brokerageOfferings
+    : [];
+  const fxOfferings = offeringsResult.ok ? offeringsResult.data.fxOfferings : [];
   const subjects = toCompareSubjects(offerings, affiliateEngagements);
   const sections = buildShareTradingCompareSections(offerings);
   // Always false today -- the offering domain has no affiliate tier (see
@@ -112,6 +124,8 @@ export default async function CompareTradingPlatformsPage() {
                 </div>
                 <CompareTable subjects={subjects} sections={sections} />
                 <CompareMobileCards subjects={subjects} sections={sections} />
+                <RepresentativeAsxCostComparison offerings={brokerageOfferings} />
+                <RepresentativeUsCostComparison offerings={brokerageOfferings} fxOfferings={fxOfferings} />
               </div>
             </CompareHubMode>
             {hasAffiliateCta && <SectionAffiliateDisclosure />}

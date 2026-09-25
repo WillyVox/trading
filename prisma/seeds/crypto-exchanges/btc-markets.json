@@ -4,7 +4,9 @@
     "slug": "btc-markets",
     "website": "https://www.btcmarkets.net",
     "description": "Australian cryptocurrency exchange offering Advanced Trade/order-book markets and Quick Buy/Sell, with AUD funding, mobile trading and API access.",
-    "jurisdictions": ["AU"],
+    "jurisdictions": [
+      "AU"
+    ],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
     "logo": "/images/providers/btc-markets.svg",
@@ -66,7 +68,12 @@
     "slug": "btc-markets",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
-    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
+    "assetSymbols": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP"
+    ],
     "fees": [
       {
         "feeCategory": "CRYPTO_TRADING",

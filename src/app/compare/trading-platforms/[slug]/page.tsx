@@ -21,6 +21,10 @@ import { getCuratedComparison } from "@/lib/seo/curated-comparisons";
 
 import { DataUnavailable } from "@/components/data/DataUnavailable";
 import { publicDatabaseRead } from "@/lib/data/public-read";
+import { getBrokerageOfferings } from "@/lib/tools/brokerage/service";
+import { getFxOfferings } from "@/lib/tools/fx/service";
+import { RepresentativeUsCostComparison } from "@/components/compare/RepresentativeUsCostComparison";
+import { RepresentativeAsxCostComparison } from "@/components/compare/RepresentativeAsxCostComparison";
 
 const BASE_PATH = "/compare/trading-platforms";
 
@@ -103,6 +107,20 @@ export default async function ShareTradingComparisonPage({
     getShareTradingSelectorOptions
   );
   const pool = poolResult.ok ? poolResult.data : [];
+  const brokerageResult = await publicDatabaseRead(
+    "compare.trading-platforms.brokerage-scenario",
+    getBrokerageOfferings
+  );
+  const selectedBrokerageOfferings = brokerageResult.ok
+    ? brokerageResult.data.filter((offering) => slugs.includes(offering.slug))
+    : [];
+  const fxResult = await publicDatabaseRead(
+    "compare.trading-platforms.fx-scenario",
+    getFxOfferings
+  );
+  const selectedFxOfferings = fxResult.ok
+    ? fxResult.data.filter((offering) => slugs.includes(offering.slug))
+    : [];
   const trail = breadcrumbTrail([
     { name: "Compare", path: "/compare" },
     { name: "Trading platforms", path: "/compare/trading-platforms" },
@@ -135,6 +153,15 @@ export default async function ShareTradingComparisonPage({
           buildYourOwnHref="#build-your-own"
           comparisonBasePath={BASE_PATH}
         />
+        {selectedBrokerageOfferings.length > 0 && (
+          <>
+            <RepresentativeAsxCostComparison offerings={selectedBrokerageOfferings} />
+            <RepresentativeUsCostComparison
+              offerings={selectedBrokerageOfferings}
+              fxOfferings={selectedFxOfferings}
+            />
+          </>
+        )}
         <CompareSelector
           providers={pool}
           initialSelected={slugs}

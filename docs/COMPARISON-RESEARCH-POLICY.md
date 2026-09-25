@@ -88,3 +88,19 @@ Market access has two complementary representations:
 Do not infer total market breadth from the number of `OfferingMarket` rows. Providers describe coverage differently (country markets, exchanges, venues, or multi-asset markets), and some have coverage too broad to model exhaustively just for a comparison cell.
 
 The comparison should prefer the researched Market access summary and use seeded exchange rows only as a fallback. This is a temporary normalized seam; if market breadth becomes a filter/calculator input, promote it to a dedicated typed field rather than adding more `OTHER` feature conventions.
+
+## Representative ASX brokerage scenario
+
+Share-trading comparisons may show a representative brokerage calculation in addition to the published headline fee rows. The scenario is a presentation layer over the existing verified brokerage calculator rules; it must not maintain a second set of pricing formulas.
+
+Default scenario assumptions:
+
+- online ASX buy;
+- first eligible buy of that security on the day;
+- no margin-loan settlement;
+- Standard pricing plan where a provider explicitly names one, or Fixed for Interactive Brokers;
+- CommSec uses its online CDIA/Margin Loan settlement schedule as the representative standard-settlement schedule.
+
+Only rules that pass the calculator verification/freshness/source eligibility checks may produce a numeric estimate. `VARIES`, stale, unverified or structurally incomplete pricing must render as not calculable rather than being approximated. Promotions are excluded from the brokerage service and therefore cannot silently become the representative cost.
+
+The result is brokerage only. It must not be described as total investing cost because FX, spreads, taxes, exchange/pass-through charges, subscriptions and other costs may apply. A future international scenario may combine brokerage and FX only where both components are deterministic from the user's supplied inputs.
