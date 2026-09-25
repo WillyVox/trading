@@ -1,0 +1,1163 @@
+Yes — I think this is the right moment to reconsider it. Looking at the actual schema and usage again, I see a conceptual inconsistency that accumulated during the crypto → Offering refactor.
+
+The important distinction should be:
+
+> **Provider = organisation/business/legal entity.**
+> **Offering = product/service a visitor researches, compares, calculates fees for, and visits a profile page for.**
+
+Once we enforce that consistently, many of the slug questions answer themselves.
+
+No code changes here.
+
+## 1. Do Providers need a slug?
+
+### I think: **yes, but it should not be the primary product URL slug.**
+
+Your current model has:
+
+```prisma
+model Provider {
+  id   String @id @default(cuid())
+  name String
+  slug String @unique
+
+  offerings ProviderOffering[]
+  ...
+}
+```
+
+There are legitimate reasons to retain it.
+
+For example:
+
+```text
+Provider
+────────────────────────────────
+name: Commonwealth Bank of Australia
+slug: commonwealth-bank-of-australia
+
+Offering
+────────────────────────────────
+name: CommSec
+slug: commsec
+type: SHARE_TRADING
+```
+
+Provider slug is useful as a stable human-readable identifier for:
+
+* admin interfaces;
+* seed files;
+* article/provider relationships;
+* affiliate relationships;
+* regulation and source records;
+* internal debugging;
+* future provider/company pages;
+* APIs/import/export;
+* looking up an organisation without exposing database IDs.
+
+So I would **not remove `Provider.slug`**.
+
+But I would stop treating it as the identity of a product.
+
+The relationship should be:
+
+```text
+Provider.slug
+    ↓
+organisation identity
+
+Offering.slug
+    ↓
+public product identity
+```
+
+---
+
+# 2. Why do crypto offerings have `-exchange`?
+
+This is mostly historical residue from when we were worried about Provider/Offering collisions.
+
+Right now you have:
+
+```text
+Provider                 Offering
+────────────────────────────────────────────────
+BTC Markets              BTC Markets Crypto Exchange
+btc-markets              btc-markets-exchange
+
+CoinSpot                 CoinSpot Crypto Exchange
+coinspot                 coinspot-exchange
+
+Kraken                   Kraken Crypto Exchange
+kraken                    kraken-exchange
+
+Swyftx                   Swyftx Crypto Exchange
+swyftx                    swyftx-exchange
+```
+
+At the time, `-exchange` made the Offering identity visibly distinct from the Provider identity.
+
+Technically that's defensible.
+
+But I now think it's **unnecessary for these products**.
+
+If the Offering itself is commonly known publicly as:
+
+> CoinSpot
+
+then this is a better public identity:
+
+```text
+Provider
+slug = coinspot
+
+Offering
+slug = coinspot
+```
+
+There's no database conflict because they are in completely different tables.
+
+Prisma is perfectly happy with:
+
+```text
+Provider.slug = "coinspot"
+ProviderOffering.slug = "coinspot"
+```
+
+Their uniqueness constraints are independent.
+
+---
+
+# 3. Can Provider slug and Offering slug be identical?
+
+### Absolutely.
+
+And in several cases I think they **should be**.
+
+For example:
+
+```text
+Provider                   Offering
+──────────────────────────────────────────
+Kraken                     Kraken
+kraken                     kraken
+
+CoinSpot                   CoinSpot
+coinspot                   coinspot
+
+BTC Markets                BTC Markets
+btc-markets                btc-markets
+```
+
+There is no reason to create:
+
+```text
+btc-markets-exchange
+```
+
+merely to prevent a collision that doesn't exist.
+
+The URL:
+
+```text
+/crypto/exchanges/btc-markets
+```
+
+is also cleaner than:
+
+```text
+/crypto/exchanges/btc-markets-exchange
+```
+
+because the path already establishes the context:
+
+```text
+/crypto/exchanges/
+        ↑
+we already know it's an exchange
+```
+
+Adding `-exchange` again is redundant.
+
+---
+
+# 4. But we shouldn't force Provider and Offering slugs to match
+
+This is equally important.
+
+Consider CMC:
+
+```text
+Provider
+────────────────────
+CMC Markets
+cmc-markets
+
+Offering
+────────────────────
+CMC Invest
+cmc-invest
+```
+
+These **should not** match.
+
+Or CommSec:
+
+```text
+Provider
+──────────────────────────────
+Commonwealth Bank of Australia
+commonwealth-bank-of-australia
+
+Offering
+──────────────────────────────
+CommSec
+commsec
+```
+
+Again, Offering slug is clearly superior for public navigation.
+
+So the rule should NOT be:
+
+> Offering slug = Provider slug.
+
+It should be:
+
+> **Offering slug describes the Offering itself.**
+
+Sometimes that naturally happens to equal Provider slug.
+
+---
+
+# 5. eToro proves why this matters
+
+Your schema currently has:
+
+```text
+Provider
+────────────────
+eToro AUS Capital Limited
+slug: etoro
+```
+
+and:
+
+```text
+Offering #1
+────────────────
+eToro Share Trading
+slug: etoro
+
+Offering #2
+────────────────
+eToro Crypto
+slug: etoro-crypto
+```
+
+That's reasonable.
+
+The same organisation provides multiple products.
+
+Potentially later:
+
+```text
+Provider
+eToro
+   │
+   ├── Offering
+   │   eToro Share Trading
+   │   slug: etoro
+   │
+   ├── Offering
+   │   eToro Crypto
+   │   slug: etoro-crypto
+   │
+   └── Offering
+       eToro CFD Trading
+       slug: etoro-cfd
+```
+
+That's exactly why Provider and Offering exist separately.
+
+---
+
+# 6. Which slug should comparisons use?
+
+This is where I think the current application should change.
+
+## **Offering slug.**
+
+Consistently.
+
+Today shares already work that way:
+
+```text
+/share-trading/commsec
+
+/share-trading/cmc-invest
+
+/share-trading/stake
+```
+
+and comparisons use those same Offering identities.
+
+That's conceptually correct.
+
+Crypto, however, currently deliberately maps backward:
+
+```ts
+provider.slug
+```
+
+for selector/profile/comparison URLs.
+
+I found this explicitly in the current service:
+
+```ts
+getCryptoExchangeSelectorOptions()
+```
+
+selects:
+
+```ts
+provider: {
+  select: {
+    slug: true,
+    name: true
+  }
+}
+```
+
+then returns:
+
+```ts
+slug: row.provider.slug
+```
+
+and:
+
+```ts
+getCryptoExchangeByPublicSlug(providerSlug)
+```
+
+queries:
+
+```ts
+provider: {
+  slug: providerSlug
+}
+```
+
+That's the inconsistency.
+
+---
+
+# 7. Current architecture
+
+Right now you've effectively got:
+
+```text
+                SHARE TRADING
+
+Provider
+Commonwealth Bank
+commonwealth-bank-of-australia
+          │
+          ▼
+Offering
+CommSec
+commsec
+          │
+          ├── Profile
+          │   /share-trading/commsec
+          │
+          └── Comparison
+              commsec-vs-stake
+
+
+                  CRYPTO
+
+Provider
+CoinSpot
+coinspot
+          │
+          ▼
+Offering
+CoinSpot Crypto Exchange
+coinspot-exchange
+          │
+          │
+          └── ignored for public identity
+                   ↓
+Provider.slug used instead
+                   ↓
+          /crypto/exchanges/coinspot
+```
+
+That's why it feels odd.
+
+The schema says Offering is the product, but crypto routing still behaves like the older Provider-centric architecture.
+
+---
+
+# 8. What I think it should become
+
+Both domains should follow exactly the same rule:
+
+```text
+                    Provider
+              corporate/legal entity
+                       │
+                       │ has many
+                       ▼
+                    Offering
+              public product/service
+                       │
+              ┌────────┼─────────┐
+              │        │         │
+              ▼        ▼         ▼
+            profile  compare    tools
+              │        │         │
+              └────────┼─────────┘
+                       │
+                       ▼
+                 Offering.slug
+```
+
+So:
+
+### Shares
+
+```text
+/share-trading/commsec
+/share-trading/stake
+/share-trading/cmc-invest
+```
+
+### Crypto
+
+```text
+/crypto/exchanges/coinspot
+/crypto/exchanges/kraken
+/crypto/exchanges/btc-markets
+/crypto/exchanges/independent-reserve
+/crypto/exchanges/etoro-crypto
+```
+
+And comparisons:
+
+```text
+/share-trading/commsec-vs-stake
+
+/crypto/exchanges/compare/coinspot-vs-kraken
+```
+
+Everything uses Offering identity.
+
+---
+
+# 9. What should the crypto Offering slugs actually be?
+
+I'd change these:
+
+| Current                        | Proposed              |
+| ------------------------------ | --------------------- |
+| `btc-markets-exchange`         | `btc-markets`         |
+| `coinjar-exchange`             | `coinjar`             |
+| `coinspot-exchange`            | `coinspot`            |
+| `independent-reserve-exchange` | `independent-reserve` |
+| `kraken-exchange`              | `kraken`              |
+| `swyftx-exchange`              | `swyftx`              |
+| `etoro-crypto`                 | `etoro-crypto`        |
+
+Notice I'm **not** applying one mechanical rule.
+
+The correct question is:
+
+> What is the clearest stable identity for this Offering?
+
+For CoinSpot:
+
+```text
+coinspot
+```
+
+For eToro Crypto:
+
+```text
+etoro-crypto
+```
+
+because there is another eToro Offering:
+
+```text
+etoro
+```
+
+This is much cleaner.
+
+---
+
+# 10. Should Offering slugs be globally unique?
+
+Currently:
+
+```prisma
+slug String @unique
+```
+
+I would **keep that**.
+
+An alternative would be:
+
+```prisma
+slug String
+
+@@unique([offeringType, slug])
+```
+
+which could allow:
+
+```text
+crypto:        etoro
+share trading: etoro
+```
+
+I don't recommend that for Trading Guide.
+
+Globally unique Offering slugs give you a very useful invariant:
+
+```text
+"commsec"      → exactly one Offering
+"coinspot"     → exactly one Offering
+"etoro-crypto" → exactly one Offering
+```
+
+That simplifies:
+
+* admin;
+* imports;
+* APIs;
+* analytics;
+* tools;
+* comparisons;
+* logs;
+* logo registry;
+* caching;
+* internal linking.
+
+So keep:
+
+```prisma
+ProviderOffering.slug String @unique
+```
+
+---
+
+# 11. Should Provider SEO fields exist?
+
+This is another thing I noticed.
+
+Provider currently has:
+
+```prisma
+seoTitle
+seoDescription
+noIndex
+```
+
+Offering also has:
+
+```prisma
+seoTitle
+seoDescription
+noIndex
+```
+
+If public profile pages become entirely Offering-based, we should ask:
+
+> What page uses Provider SEO metadata?
+
+If there are **no public Provider pages**, those Provider SEO fields become questionable.
+
+I wouldn't remove them immediately.
+
+You may eventually want:
+
+```text
+/providers/commonwealth-bank-of-australia
+/providers/etoro
+/providers/cmc-markets
+```
+
+with company-level information.
+
+But if that's not on the roadmap, I'd mark Provider SEO as something to reassess rather than blindly maintain two SEO layers.
+
+---
+
+# 12. Provider `logo` has the same question
+
+Conceptually:
+
+```text
+Provider.logo
+```
+
+could still be legitimate.
+
+A company logo belongs to the organisation.
+
+Meanwhile:
+
+```text
+Offering.logo
+```
+
+could represent a product-specific brand.
+
+For example:
+
+```text
+Provider:
+Commonwealth Bank
+logo → CBA
+
+Offering:
+CommSec
+logo → CommSec
+```
+
+Those are meaningfully different.
+
+So despite our previous logo refactor, I would **not conclude that Provider.logo is conceptually wrong**.
+
+Instead:
+
+```text
+Provider.logo
+= corporate identity
+
+Offering.logo
+= product identity
+```
+
+Whether those should be database URLs or bundled React assets is a separate implementation decision.
+
+---
+
+# 13. Affiliate relationships are another important inconsistency
+
+Currently affiliates are Provider-based:
+
+```text
+AffiliatePartnership
+        ↓
+Provider
+```
+
+and redirect resolution uses:
+
+```ts
+providerSlug
+```
+
+This may be correct **today**, but commercially it may eventually be too coarse.
+
+Imagine:
+
+```text
+eToro
+  │
+  ├── Share Trading
+  ├── Crypto
+  └── CFD
+```
+
+Affiliate programs may have:
+
+* different landing URLs;
+* different campaigns;
+* different commissions;
+* different regulatory disclosures;
+* different eligibility;
+* different tracking parameters.
+
+So long term I suspect:
+
+```text
+AffiliatePartnership
+        ↓
+Offering
+```
+
+or:
+
+```text
+AffiliatePartnership
+        ↓
+Provider
+        │
+        └── optional Offering
+```
+
+will be more accurate.
+
+I would **not change it during the slug migration**, though.
+
+That's a separate commercial-model decision.
+
+---
+
+# 14. Provider facts may eventually need the same review
+
+You have:
+
+```text
+ProviderFact
+ProviderSource
+ProviderRegulation
+```
+
+and:
+
+```text
+OfferingFee
+OfferingFeature
+OfferingMarket
+OfferingCustody
+...
+```
+
+That's mostly a sensible split.
+
+But each fact should pass this test:
+
+### Provider-level
+
+> Is this true about the organisation regardless of which product we're discussing?
+
+Examples:
+
+```text
+Legal entity
+AFSL holder
+ABN
+Headquarters
+Regulatory registration
+```
+
+→ Provider.
+
+### Offering-level
+
+> Could this differ between products from the same Provider?
+
+Examples:
+
+```text
+Fees
+Markets
+Custody
+Available assets
+Order types
+Account types
+Trading features
+```
+
+→ Offering.
+
+That's the boundary I'd enforce throughout the project.
+
+---
+
+# 15. A cleaner domain model
+
+I would formalize the architecture like this:
+
+```text
+┌────────────────────────────────────────────┐
+│ PROVIDER                                   │
+│                                            │
+│ Organisation / legal / commercial entity  │
+│                                            │
+│ id                                         │
+│ name                                       │
+│ slug                                       │
+│ corporate website                         │
+│ corporate logo                            │
+│ regulations                               │
+│ sources                                   │
+│ organisation facts                        │
+│ affiliate relationships (for now)         │
+└──────────────────────┬─────────────────────┘
+                       │
+                       │ 1:N
+                       ▼
+┌────────────────────────────────────────────┐
+│ OFFERING                                   │
+│                                            │
+│ Actual thing Trading Guide compares        │
+│                                            │
+│ id                                         │
+│ providerId                                 │
+│ name                                       │
+│ slug  ← PRIMARY PUBLIC IDENTITY             │
+│ offeringType                               │
+│ website                                    │
+│ description                                │
+│ SEO                                        │
+│ markets                                    │
+│ products                                   │
+│ fees                                       │
+│ custody                                    │
+│ features                                   │
+│ assets                                     │
+│ account types                              │
+│ pros / limitations                         │
+└──────────────────────┬─────────────────────┘
+                       │
+              ┌────────┼────────┐
+              ▼        ▼        ▼
+           Profile   Compare   Tools
+```
+
+This is the model I'd build around.
+
+---
+
+# 16. One thing I would NOT do
+
+I would not eliminate Provider entirely and put everything on Offering.
+
+It may seem simpler now:
+
+```text
+CoinSpot = provider = exchange
+Kraken = provider = exchange
+```
+
+but CommSec/eToro already demonstrate why that breaks.
+
+And as Trading Guide grows into:
+
+```text
+CFDs
+Forex
+Super
+Managed funds
+Wallets
+```
+
+one Provider will increasingly have multiple Offerings.
+
+Your decision to introduce `ProviderOffering` was therefore sound.
+
+The inconsistency is mainly in **how the application uses it**, not the existence of the model.
+
+---
+
+# 17. My recommended slug rule
+
+I'd write this down as an architectural invariant:
+
+> **Provider.slug identifies an organisation. Offering.slug identifies a product/service and is the canonical public identity for product pages, comparisons, tools, analytics and Offering-owned assets.**
+
+Then:
+
+```text
+Same brand/product?
+Provider.slug may equal Offering.slug.
+✓ perfectly valid
+
+Different product brand?
+Different slugs.
+✓ CommSec vs Commonwealth Bank
+
+Multiple offerings from one brand?
+Use descriptive Offering slug.
+✓ etoro
+✓ etoro-crypto
+✓ potentially etoro-cfd
+```
+
+No artificial suffix solely because it's an Offering.
+
+---
+
+# 18. Proposed migration plan
+
+I would do this carefully because some existing URLs may already be indexed.
+
+### Phase 0 — Establish invariants
+
+Document:
+
+```text
+Provider slug
+→ organisation identity
+
+Offering slug
+→ canonical product identity
+
+Profile URLs
+→ Offering slug
+
+Comparison URLs
+→ Offering slugs
+
+Tools
+→ Offering slug
+
+Offering logo
+→ Offering slug
+
+Affiliate lookup
+→ Provider identity FOR NOW
+```
+
+This prevents another mixed architecture later.
+
+### Phase 1 — Normalize crypto Offering slugs
+
+Database/seed values:
+
+```text
+btc-markets-exchange
+        ↓
+btc-markets
+
+coinjar-exchange
+        ↓
+coinjar
+
+coinspot-exchange
+        ↓
+coinspot
+
+independent-reserve-exchange
+        ↓
+independent-reserve
+
+kraken-exchange
+        ↓
+kraken
+
+swyftx-exchange
+        ↓
+swyftx
+```
+
+Keep:
+
+```text
+etoro-crypto
+```
+
+### Phase 2 — Make crypto services Offering-centric
+
+Replace patterns such as:
+
+```ts
+getCryptoExchangeByPublicSlug(providerSlug)
+```
+
+with conceptually:
+
+```ts
+getCryptoExchangeBySlug(offeringSlug)
+```
+
+and query:
+
+```ts
+where: {
+  slug: offeringSlug,
+  offeringType: CRYPTO_EXCHANGE
+}
+```
+
+Selector:
+
+```text
+id
+offering.slug
+offering.name
+```
+
+not:
+
+```text
+id
+provider.slug
+provider.name
+```
+
+### Phase 3 — Profile URLs
+
+Canonical:
+
+```text
+/crypto/exchanges/[offeringSlug]
+```
+
+So:
+
+```text
+/crypto/exchanges/coinspot
+/crypto/exchanges/kraken
+/crypto/exchanges/etoro-crypto
+```
+
+### Phase 4 — Comparisons
+
+Both engines become structurally symmetrical:
+
+```text
+Share:
+commsec vs stake
+
+Crypto:
+coinspot vs kraken
+```
+
+Both use:
+
+```ts
+ProviderOffering.slug
+```
+
+### Phase 5 — Internal links
+
+There are currently some particularly telling transformations such as:
+
+```ts
+offering.slug === "etoro-crypto"
+  ? "etoro"
+  : offering.slug.replace(/-exchange$/, "")
+```
+
+That is architectural debt.
+
+Once Offering slugs become canonical, that entire kind of translation disappears:
+
+```ts
+href: `/crypto/exchanges/${offering.slug}`
+```
+
+Much better.
+
+### Phase 6 — Redirect old URLs
+
+If current public URLs are already live/indexed:
+
+```text
+OLD
+/crypto/exchanges/coinspot
+
+NEW
+/crypto/exchanges/coinspot
+```
+
+Interesting point: for most crypto products the **current public URL already uses Provider slug**, which is exactly the clean Offering slug I'm recommending.
+
+That means we may be able to change the underlying Offering slug:
+
+```text
+coinspot-exchange → coinspot
+```
+
+without changing the public URL at all.
+
+That's excellent.
+
+eToro is the exception:
+
+```text
+currently:
+/crypto/exchanges/etoro
+
+proposed canonical:
+/crypto/exchanges/etoro-crypto
+```
+
+For that one I'd consider whether changing the established public URL is actually worth it. There is a legitimate argument for keeping `/crypto/exchanges/etoro` as a route alias/canonical exception even though the Offering slug is `etoro-crypto`.
+
+We should decide that deliberately based on SEO/history rather than blindly enforcing purity.
+
+### Phase 7 — Sitemap/canonical/schema/internal-link tests
+
+Verify:
+
+```text
+canonical URLs
+sitemap
+breadcrumbs
+JSON-LD
+internal links
+related guides
+comparison URLs
+search results
+homepage
+calculator offering selectors
+analytics
+```
+
+all use the same identity.
+
+### Phase 8 — Reassess affiliate model separately
+
+Only after the identity cleanup:
+
+```text
+Should AffiliatePartnership stay Provider-level?
+
+or
+
+Provider + optional Offering?
+```
+
+I lean toward **Provider + optional Offering** eventually.
+
+---
+
+## The key conclusion
+
+I don't think your Prisma schema is fundamentally wrong.
+
+In fact, its most important architectural decision is good:
+
+> **Provider and Offering should be separate.**
+
+The issue is that the application is currently **halfway through adopting that model**:
+
+```text
+Database
+       → Offering-centric ✓
+
+Share trading
+       → Offering-centric ✓
+
+Tools
+       → largely Offering-centric ✓
+
+Crypto URLs/comparisons
+       → still Provider-centric ✗
+
+Affiliate relationships
+       → Provider-centric, intentionally for now
+
+Some SEO/provider fields
+       → need future review
+```
+
+So I wouldn't redesign everything again.
+
+I would finish the architectural transition:
+
+> **Provider = who provides it.
+> Offering = what the user is actually researching.**
+
+And make **Offering.slug the canonical product identity everywhere that concerns a product**.
+
+That would give Trading Guide a much cleaner foundation for adding CFDs, forex, wallets, super, managed funds, and multiple products from the same financial company later.

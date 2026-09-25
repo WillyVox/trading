@@ -71,7 +71,7 @@
   },
   "offering": {
     "name": "Independent Reserve Crypto Exchange",
-    "slug": "independent-reserve-exchange",
+    "slug": "independent-reserve",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
     "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],

@@ -40,5 +40,5 @@ Before promotion:
 1. Run `npm run validate:code` with dependencies installed.
 2. Run `npm run launch:gate` with the Production-equivalent environment.
 3. Deploy a production candidate/preview and inspect CSP report-only violations.
-4. After CSP is clean, set `CSP_ENFORCED_AND_VERIFIED=true`, redeploy and run `PRODUCTION_VERIFY_URL=https://... npm run verify:security:production`.
+4. After CSP is clean, set `CSP_ENFORCED_AND_VERIFIED=true`, redeploy and run `NEXT_PUBLIC_SITE_URL=https://... npm run verify:security:production`.
 5. Verify edge rate limiting separately and only then attest `EDGE_RATE_LIMITING_CONFIGURED=true`.

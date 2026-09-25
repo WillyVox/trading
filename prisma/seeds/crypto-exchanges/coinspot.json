@@ -94,7 +94,7 @@
   },
   "offering": {
     "name": "CoinSpot Crypto Exchange",
-    "slug": "coinspot-exchange",
+    "slug": "coinspot",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
     "assetSymbols": ["BTC", "ETH", "SOL"],

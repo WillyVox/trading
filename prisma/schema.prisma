@@ -440,6 +440,8 @@ model Market {
   fees      OfferingFee[]
 }
 
+// Offering is the public product/service identity. See docs/IDENTITY-AND-SLUGS.md.
+// Its slug is globally unique and may intentionally equal its Provider slug.
 model ProviderOffering {
   id                 String              @id @default(cuid())
   providerId         String
@@ -708,6 +710,8 @@ model OfferingFeeTier {
   @@index([feeId])
 }
 
+// Provider is the organisation/legal/commercial identity. See docs/IDENTITY-AND-SLUGS.md.
+// Its slug is independent from ProviderOffering.slug and may share the same value.
 model Provider {
   id                 String              @id @default(cuid())
   name               String

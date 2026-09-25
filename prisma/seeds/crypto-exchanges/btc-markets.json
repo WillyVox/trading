@@ -63,7 +63,7 @@
   },
   "offering": {
     "name": "BTC Markets Crypto Exchange",
-    "slug": "btc-markets-exchange",
+    "slug": "btc-markets",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
     "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],

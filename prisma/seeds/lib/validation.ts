@@ -49,6 +49,15 @@ export function validateCatalogSlugs(
     }
     providerNamesBySlug.set(p, existingProviderName ?? seed.provider.name);
 
+    // Provider and Offering slugs are independent identities. If the clearest
+    // Offering identity is the same as its Provider, keep the same value rather
+    // than manufacturing a redundant "-exchange" suffix.
+    if (o === `${p}-exchange`) {
+      throw new Error(
+        `Offering slug "${o}" redundantly suffixes Provider slug "${p}". Use "${p}" unless the suffix is part of the product's real identity.`
+      );
+    }
+
     if (offeringSlugs.has(o)) {
       throw new Error(`Duplicate offering slug: ${o}`);
     }

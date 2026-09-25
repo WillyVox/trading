@@ -86,7 +86,7 @@
   },
   "offering": {
     "name": "Swyftx Crypto Exchange",
-    "slug": "swyftx-exchange",
+    "slug": "swyftx",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
     "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],

@@ -1,7 +1,7 @@
-const base = process.env.PRODUCTION_VERIFY_URL;
+const base = process.env.NEXT_PUBLIC_SITE_URL;
 if (!base) {
   console.error(
-    "PRODUCTION_VERIFY_URL is required, e.g. https://tradingguide.com.au"
+    "NEXT_PUBLIC_SITE_URL is required, e.g. https://tradingguide.com.au"
   );
   process.exit(1);
 }

@@ -80,7 +80,7 @@ export default async function CompareTradingPlatformsPage() {
         breadcrumbs={trail}
         eyebrow="Platform comparison"
         title="Share trading platforms, compared"
-        subheading="See which markets and products each platform covers, and how your shares are actually held \u2014 side by side."
+        subheading="What's tradable. Who holds it."
       />
       <div className="mx-auto max-w-6xl px-4 py-16">
         {!offeringsResult.ok ? (

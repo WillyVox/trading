@@ -30,6 +30,16 @@ for (const [label, relativeDir] of catalogs) {
           `ERROR ${relativeDir}/${file}: each JSON file must contain exactly one object record.`
         );
         errors += 1;
+      } else if (
+        (relativeDir === "prisma/seeds/crypto-exchanges" ||
+          relativeDir === "prisma/seeds/share-trading-platforms") &&
+        value.provider?.slug &&
+        value.offering?.slug === `${value.provider.slug}-exchange`
+      ) {
+        console.error(
+          `ERROR ${relativeDir}/${file}: offering slug "${value.offering.slug}" redundantly suffixes provider slug "${value.provider.slug}". Provider and Offering slugs may intentionally be identical.`
+        );
+        errors += 1;
       }
     } catch (error) {
       console.error(

@@ -18,7 +18,7 @@ const custodyLabel: Record<string, string> = {
 
 const providerHref = (slug: string) => `/share-trading/${slug}`;
 const cryptoHref = (slug: string) =>
-  `/crypto/exchanges/${slug === "etoro-crypto" ? "etoro" : slug.replace(/-exchange$/, "")}`;
+  `/crypto/exchanges/${slug === "etoro-crypto" ? "etoro" : slug}`;
 
 export async function custodyEvidenceRows(): Promise<EvidenceRow[]> {
   const rows = await getCustodyExplorerRows();

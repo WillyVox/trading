@@ -69,7 +69,7 @@
   },
   "offering": {
     "name": "Kraken Crypto Exchange",
-    "slug": "kraken-exchange",
+    "slug": "kraken",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
     "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],

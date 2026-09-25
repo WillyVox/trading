@@ -17,7 +17,7 @@ Seed records are JSON-first. **Each seed record lives in its own `.json` file.**
 
 1. Copy an existing `.json` file in `crypto-exchanges/`.
 2. Define the Provider (brand/legal-entity facts, sources and regulation) and the Offering (fees, features, assets and pros/limitations) in that JSON record.
-3. Use an offering slug such as `{provider-slug}-exchange` while the application retains globally unique offering slugs.
+3. Choose a globally unique slug for the Offering itself. It may equal the Provider slug when that is the clearest product identity (for example `coinspot`). Do not add `-exchange` merely to distinguish the Offering from its Provider. Use a descriptive suffix only when needed to distinguish multiple Offerings from one Provider (for example `etoro` and `etoro-crypto`).
 4. Import the JSON file in `crypto-exchanges/index.ts` and append it to `CRYPTO_EXCHANGES`.
 5. If it references a crypto symbol not yet present, add a new record such as `crypto-assets/dogecoin.json` and include it in `crypto-assets/index.ts`.
 
@@ -35,3 +35,7 @@ Dates must be ISO strings such as `"2026-09-24T00:00:00.000Z"`. The JSON loader 
 Create one `affiliate-links/<partner-slug>.json` file and add it to `affiliate-links/index.ts`. Research evidence URLs belong in the provider/offering JSON and must remain separate from affiliate/referral URLs.
 
 The runner validates duplicate slugs and domain types before database writes. Unknown crypto asset symbols and unknown share-market codes fail loudly instead of being skipped. `npm run check:providers` reads the JSON records directly, so the verification report audits the same source-of-truth files that are seeded.
+
+## Provider vs Offering identity
+
+See `docs/IDENTITY-AND-SLUGS.md` for the canonical identity and slug rules. In short: Provider slugs identify organisations; Offering slugs identify the products/services users research, compare and use in tools.

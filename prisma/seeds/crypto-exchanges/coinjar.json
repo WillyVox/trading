@@ -110,7 +110,7 @@
   },
   "offering": {
     "name": "CoinJar Crypto Exchange",
-    "slug": "coinjar-exchange",
+    "slug": "coinjar",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
     "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
