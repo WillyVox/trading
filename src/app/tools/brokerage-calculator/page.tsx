@@ -19,7 +19,19 @@ export const metadata = buildMetadata({
 
 export const revalidate = 3600;
 
-export default async function BrokerageCalculatorPage() {
+export default async function BrokerageCalculatorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ amount?: string; side?: string }>;
+}) {
+  const params = await searchParams;
+  const requestedAmount = Number(params.amount);
+  const initialTradeAmount =
+    Number.isFinite(requestedAmount) && requestedAmount > 0
+      ? String(requestedAmount)
+      : "2000";
+  const initialTradeSide: "BUY" | "SELL" =
+    params.side === "SELL" ? "SELL" : "BUY";
   const trail = breadcrumbTrail([
     { name: "Tools", path: "/tools" },
     { name: "Brokerage calculator", path: "/tools/brokerage-calculator" },
@@ -43,7 +55,11 @@ export default async function BrokerageCalculatorPage() {
         {!offeringsResult.ok ? (
           <CalculatorUnavailable />
         ) : offerings.length > 0 ? (
-          <BrokerageCalculator offerings={offerings} />
+          <BrokerageCalculator
+            offerings={offerings}
+            initialTradeAmount={initialTradeAmount}
+            initialTradeSide={initialTradeSide}
+          />
         ) : (
           <Notice>
             No verified calculator-ready brokerage rules are currently

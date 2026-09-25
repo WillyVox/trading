@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SiteDisclosure } from "@/components/layout/SiteDisclosure";
+import { FirstVisitToolPopup } from "@/components/layout/FirstVisitToolPopup";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { AnalyticsInteractions } from "@/components/analytics/AnalyticsInteractions";
 import { AuthProvider } from "@/components/providers/AuthProvider";
@@ -69,6 +70,7 @@ export default function RootLayout({
         <JsonLd data={websiteSchema()} />
         <AuthProvider>
           <Header />
+          <FirstVisitToolPopup />
           <main className="min-h-screen">{children}</main>
           <SiteDisclosure />
           <Footer />

@@ -1,5 +1,6 @@
 "use client";
 
+import { getDefaultMarketCode } from "@/lib/tools/markets/default-market";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
@@ -51,7 +52,7 @@ export function CustodyExplorer({ rows }: { rows: CustodyExplorerRow[] }) {
   const effectiveMarket =
     marketCode && markets.some((market) => market.code === marketCode)
       ? marketCode
-      : (markets[0]?.code ?? "");
+      : getDefaultMarketCode(markets.map((market) => market.code));
   const selectedRow =
     offeringRows.find((row) => (row.marketCode ?? "ALL") === effectiveMarket) ??
     null;

@@ -1,5 +1,6 @@
 "use client";
 
+import { getDefaultMarketCode } from "@/lib/tools/markets/default-market";
 import { useMemo, useState } from "react";
 import {
   calculateBrokerage,
@@ -21,8 +22,12 @@ const AVAILABILITY = {
 
 export function BrokerageCalculator({
   offerings,
+  initialTradeAmount = "2000",
+  initialTradeSide = "BUY",
 }: {
   offerings: BrokerageOfferingOption[];
+  initialTradeAmount?: string;
+  initialTradeSide?: "BUY" | "SELL";
 }) {
   const [offeringSlug, setOfferingSlug] = useState(offerings[0]?.slug ?? "");
   const offering =
@@ -39,7 +44,7 @@ export function BrokerageCalculator({
   const [marketCode, setMarketCode] = useState("");
   const effectiveMarket = markets.some(([c]) => c === marketCode)
     ? marketCode
-    : (markets[0]?.[0] ?? "");
+    : getDefaultMarketCode(markets.map(([code]) => code));
   const marketRules = (offering?.rules ?? []).filter(
     (r) => r.marketCode === effectiveMarket
   );
@@ -54,8 +59,8 @@ export function BrokerageCalculator({
   const effectivePlan = plans.includes(pricingPlan)
     ? pricingPlan
     : (plans[0] ?? null);
-  const [tradeAmount, setTradeAmount] = useState("2000");
-  const [tradeSide, setTradeSide] = useState<"BUY" | "SELL">("BUY");
+  const [tradeAmount, setTradeAmount] = useState(initialTradeAmount);
+  const [tradeSide, setTradeSide] = useState<"BUY" | "SELL">(initialTradeSide);
   const [firstBuy, setFirstBuy] = useState(true);
   const [marginLoan, setMarginLoan] = useState(false);
   const amount = Number(tradeAmount);
@@ -98,6 +103,8 @@ export function BrokerageCalculator({
     setOfferingSlug(slug);
     setMarketCode("");
     setPricingPlan("");
+    setFirstBuy(true);
+    setMarginLoan(false);
   }
   return (
     <ToolShell>
@@ -141,7 +148,11 @@ export function BrokerageCalculator({
               Market
               <select
                 value={effectiveMarket}
-                onChange={(e) => setMarketCode(e.target.value)}
+                onChange={(e) => {
+                  setMarketCode(e.target.value);
+                  setFirstBuy(true);
+                  setMarginLoan(false);
+                }}
                 className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
               >
                 {markets.map(([c, n]) => (
@@ -157,7 +168,11 @@ export function BrokerageCalculator({
               Pricing plan
               <select
                 value={effectivePlan ?? ""}
-                onChange={(e) => setPricingPlan(e.target.value)}
+                onChange={(e) => {
+                  setPricingPlan(e.target.value);
+                  setFirstBuy(true);
+                  setMarginLoan(false);
+                }}
                 className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
               >
                 {plans.map((p) => (
@@ -176,7 +191,11 @@ export function BrokerageCalculator({
                   type="button"
                   key={side}
                   aria-pressed={tradeSide === side}
-                  onClick={() => setTradeSide(side)}
+                  onClick={() => {
+                    setTradeSide(side);
+                    setFirstBuy(true);
+                    setMarginLoan(false);
+                  }}
                   className={`min-h-11 rounded-lg border px-3 text-sm ${tradeSide === side ? "border-navy bg-navy text-white" : "border-border bg-background text-navy"}`}
                 >
                   {side === "BUY" ? "Buy" : "Sell"}

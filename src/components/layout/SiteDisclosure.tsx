@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 /**
  * Site-wide general-information disclosure.
  *
@@ -32,20 +30,10 @@ export function SiteDisclosure() {
             only. It is not personal financial advice and does not execute
             trades or recommend a particular platform. Research, comparisons and
             calculator estimates may not include every feature, fee or cost that
-            could apply. Trading Guide does not hold an Australian Financial
-            Services Licence (AFSL), and does not compare all available
-            providers in Australia.
-          </p>
-          <p className="text-muted mt-2 text-xs leading-5">
-            Learn more in our{" "}
-            <Link href="/methodology" className="text-blue underline">
-              methodology
-            </Link>{" "}
-            and{" "}
-            <Link href="/how-we-get-paid" className="text-blue underline">
-              how we get paid
-            </Link>{" "}
-            disclosure.
+            could apply, and providers can change their fees at any time, so
+            figures may not reflect current pricing. We recommend checking the
+            relevant provider&lsquo;s website for the most accurate and
+            up-to-date details before making a decision.
           </p>
         </div>
       </div>

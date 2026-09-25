@@ -1,5 +1,6 @@
 "use client";
 
+import { getDefaultMarketCode } from "@/lib/tools/markets/default-market";
 import { useMemo, useState } from "react";
 import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
@@ -48,7 +49,7 @@ export function RegularInvestingCalculator({
   const [marketCode, setMarketCode] = useState("");
   const effectiveMarket = markets.some(([code]) => code === marketCode)
     ? marketCode
-    : (markets[0]?.[0] ?? "");
+    : getDefaultMarketCode(markets.map(([code]) => code));
   const marketRules = (offering?.rules ?? []).filter(
     (r) => r.marketCode === effectiveMarket
   );
@@ -66,8 +67,8 @@ export function RegularInvestingCalculator({
   const [contributionAmount, setContributionAmount] = useState("500");
   const [frequency, setFrequency] = useState<InvestingFrequency>("MONTHLY");
   const [years, setYears] = useState("1");
-  const [firstBuy, setFirstBuy] = useState<boolean | null>(null);
-  const [marginLoan, setMarginLoan] = useState<boolean | null>(null);
+  const [firstBuy, setFirstBuy] = useState<boolean | null>(true);
+  const [marginLoan, setMarginLoan] = useState<boolean | null>(false);
 
   const amount = Number(contributionAmount);
   const periodYears = Number(years);
@@ -115,8 +116,8 @@ export function RegularInvestingCalculator({
     setOfferingSlug(slug);
     setMarketCode("");
     setPricingPlan("");
-    setFirstBuy(null);
-    setMarginLoan(null);
+    setFirstBuy(true);
+    setMarginLoan(false);
   }
 
   return (
@@ -152,7 +153,11 @@ export function RegularInvestingCalculator({
               Market
               <select
                 value={effectiveMarket}
-                onChange={(e) => setMarketCode(e.target.value)}
+                onChange={(e) => {
+                  setMarketCode(e.target.value);
+                  setFirstBuy(true);
+                  setMarginLoan(false);
+                }}
                 className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
               >
                 {markets.map(([code, name]) => (
@@ -168,7 +173,11 @@ export function RegularInvestingCalculator({
               Pricing plan
               <select
                 value={effectivePlan ?? ""}
-                onChange={(e) => setPricingPlan(e.target.value)}
+                onChange={(e) => {
+                  setPricingPlan(e.target.value);
+                  setFirstBuy(true);
+                  setMarginLoan(false);
+                }}
                 className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
               >
                 {plans.map((plan) => (

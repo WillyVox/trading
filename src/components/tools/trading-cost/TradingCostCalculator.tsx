@@ -1,5 +1,6 @@
 "use client";
 
+import { getDefaultMarketCode } from "@/lib/tools/markets/default-market";
 import { useState } from "react";
 import { ToolPanel, ToolShell } from "@/components/tools/shared/ToolShell";
 import { ToolResultPanel } from "@/components/tools/shared/ToolResultPanel";
@@ -48,7 +49,7 @@ export function TradingCostCalculator({
   const [marketCode, setMarketCode] = useState("");
   const effectiveMarket = markets.some(([code]) => code === marketCode)
     ? marketCode
-    : (markets[0]?.[0] ?? "");
+    : getDefaultMarketCode(markets.map(([code]) => code));
   const marketRules = (offering?.rules ?? []).filter(
     (r) => r.marketCode === effectiveMarket
   );
@@ -63,8 +64,8 @@ export function TradingCostCalculator({
   const effectivePlan = plans.includes(plan) ? plan : (plans[0] ?? null);
   const [amountText, setAmountText] = useState("5000");
   const [tradeSide, setTradeSide] = useState<"BUY" | "SELL">("BUY");
-  const [firstBuy, setFirstBuy] = useState<boolean | null>(null);
-  const [marginLoan, setMarginLoan] = useState<boolean | null>(null);
+  const [firstBuy, setFirstBuy] = useState(true);
+  const [marginLoan, setMarginLoan] = useState(false);
   const [includeFx, setIncludeFx] = useState(true);
   const amount = Number(amountText);
   const relevant = marketRules.filter(
@@ -105,8 +106,8 @@ export function TradingCostCalculator({
     setSlug(next);
     setMarketCode("");
     setPlan("");
-    setFirstBuy(null);
-    setMarginLoan(null);
+    setFirstBuy(true);
+    setMarginLoan(false);
   }
 
   return (
@@ -143,8 +144,8 @@ export function TradingCostCalculator({
               value={effectiveMarket}
               onChange={(e) => {
                 setMarketCode(e.target.value);
-                setFirstBuy(null);
-                setMarginLoan(null);
+                setFirstBuy(true);
+                setMarginLoan(false);
               }}
               className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
             >
@@ -160,7 +161,11 @@ export function TradingCostCalculator({
               Pricing plan
               <select
                 value={effectivePlan ?? ""}
-                onChange={(e) => setPlan(e.target.value)}
+                onChange={(e) => {
+                  setPlan(e.target.value);
+                  setFirstBuy(true);
+                  setMarginLoan(false);
+                }}
                 className="border-border bg-background mt-2 min-h-11 w-full rounded-lg border px-3 py-2 font-normal"
               >
                 {plans.map((p) => (
@@ -179,8 +184,8 @@ export function TradingCostCalculator({
                   aria-pressed={tradeSide === side}
                   onClick={() => {
                     setTradeSide(side);
-                    setFirstBuy(null);
-                    setMarginLoan(null);
+                    setFirstBuy(true);
+                    setMarginLoan(false);
                   }}
                   className={`min-h-11 rounded-lg border px-3 text-sm ${tradeSide === side ? "border-navy bg-navy text-white" : "border-border bg-background text-navy"}`}
                 >
