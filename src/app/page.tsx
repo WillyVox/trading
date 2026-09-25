@@ -161,8 +161,8 @@ export default function HomePage() {
     <>
       <PageHero
         eyebrow="Independent trading education · Australia"
-        title="Understand trading before you start investing."
-        subheading="Learn how share trading and cryptocurrency work, understand the costs and risks, then use source-linked research when you&lsquo;re ready to investigate platforms."
+        title="Understand trading costs before you start investing."
+        subheading="Australian trading education, research, provider comparison, and affiliate platform."
         ctas={[
           { label: "Start learning", href: "/guides", variant: "gold" },
           {
@@ -172,7 +172,7 @@ export default function HomePage() {
           },
         ]}
         note={{
-          label: "Compare platforms when you&lsquo;re ready →",
+          label: "Compare platforms when you're ready →",
           href: "/compare",
         }}
         meta={[
