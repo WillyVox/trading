@@ -887,6 +887,7 @@ npm run dev
 ```bash
 npx prisma validate
 npx prisma generate
+npx prisma migrate status
 npx prisma migrate deploy
 npm run db:seed
 ```
