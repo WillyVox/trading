@@ -14,7 +14,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: "2026-09-22",
   modifiedTime: "2026-09-22",
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
 });
 export const revalidate = 3600;
 

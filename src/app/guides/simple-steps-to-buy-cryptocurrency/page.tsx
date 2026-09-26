@@ -135,7 +135,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: "2026-09-15",
   modifiedTime: "2026-09-15",
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
   seoTitle: "5 Simple Steps to Buy Cryptocurrency in Australia (2026)",
   seoDescription:
     "Buying your first crypto doesn't have to be confusing. Follow these 5 steps — choose an exchange, verify, deposit, buy, and store it safely.",
@@ -148,7 +148,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
   );
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     // "Published 15 September 2026",
     "Last updated 15 September 2026",
     `${READING_MINUTES} min read`,
@@ -163,7 +163,7 @@ export default function SimpleStepsToBuyCryptocurrencyPage() {
           image: getStaticGuideArticleImage(
             STATIC_SLUG_IDS.STEPS_TO_BUY_CRYPTO
           ),
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: "2026-09-15",
           dateModified: "2026-09-15",
           path: PATH,

@@ -127,7 +127,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: "2026-09-18",
   modifiedTime: "2026-09-18",
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
   seoTitle: "Steps to Start Investing in Shares in Australia (2026 Guide)",
   seoDescription: DESCRIPTION,
 });
@@ -139,7 +139,7 @@ export default function StepsToStartInvestingInSharesPage() {
   );
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     "Published 18 September 2026",
     "Last updated 18 September 2026",
     `${READING_MINUTES} min read`,
@@ -152,7 +152,7 @@ export default function StepsToStartInvestingInSharesPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: "2026-09-18",
           dateModified: "2026-09-18",
           path: PATH,

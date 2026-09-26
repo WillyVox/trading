@@ -1299,7 +1299,7 @@ Comparing three Australian crypto exchanges
 A source-linked comparison of fees, AUD funding,
 asset selection and trading interfaces.
 
-By Trading Guide Editorial Team
+By Editorial Team
 Updated 14 Sep 2026 • 8 min read
 
 ──────────────────────────────────────────────────────────

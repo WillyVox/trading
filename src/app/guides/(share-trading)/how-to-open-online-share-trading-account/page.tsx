@@ -122,7 +122,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: "2026-09-18",
   modifiedTime: "2026-09-18",
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
   seoTitle: "How to Open an Online Share Trading Account in Australia (2026)",
   seoDescription: DESCRIPTION,
 });
@@ -134,7 +134,7 @@ export default function OpenShareTradingAccountPage() {
   );
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     "Published 18 September 2026",
     "Last updated 18 September 2026",
     `${READING_MINUTES} min read`,
@@ -147,7 +147,7 @@ export default function OpenShareTradingAccountPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: "2026-09-18",
           dateModified: "2026-09-18",
           path: PATH,

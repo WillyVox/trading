@@ -165,7 +165,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: "2026-09-17",
   modifiedTime: "2026-09-17",
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
 });
 
 export default function TopCryptocurrencyExchangesInAustraliaPage() {
@@ -174,7 +174,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
     PATH
   );
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     "Last updated 17 September 2026",
     `${READING_MINUTES} min read`,
   ];
@@ -188,7 +188,7 @@ export default function TopCryptocurrencyExchangesInAustraliaPage() {
           image: getStaticGuideArticleImage(
             STATIC_SLUG_IDS.TOP_CRYPTO_EXCHANGES
           ),
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: "2026-09-17",
           dateModified: "2026-09-17",
           path: PATH,

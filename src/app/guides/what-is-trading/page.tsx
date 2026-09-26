@@ -123,7 +123,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: PUBLISHED,
   modifiedTime: PUBLISHED,
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
   seoTitle: "What Is Trading? A Beginner's Guide for Australians (2026)",
   seoDescription: DESCRIPTION,
 });
@@ -132,7 +132,7 @@ export default function WhatIsTradingPage() {
   const trail = guideBreadcrumbTrail("What is trading?", PATH);
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     "Published 21 September 2026",
     "Last updated 21 September 2026",
     `${READING_MINUTES} min read`,
@@ -145,7 +145,7 @@ export default function WhatIsTradingPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: PUBLISHED,
           dateModified: PUBLISHED,
           path: PATH,

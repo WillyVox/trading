@@ -70,7 +70,7 @@ export function ResearchGuidePage({
         data={articleSchema({
           headline: config.title,
           description: config.description,
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: config.published,
           dateModified: config.updated,
           path: config.path,
@@ -83,7 +83,7 @@ export function ResearchGuidePage({
         title={config.title}
         subheading={config.description}
         meta={[
-          "By Trading Guide Editorial Team",
+          "By Editorial Team",
           `Published ${config.published}`,
           `Last reviewed ${config.updated}`,
           `${config.readMinutes} min read`,

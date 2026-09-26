@@ -133,7 +133,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: "2026-09-15",
   modifiedTime: "2026-09-24",
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
   seoTitle: "How to Start Investing in Crypto for Beginners (2026 Guide)",
   seoDescription:
     "Thinking about investing in crypto? Learn how to size your risk, research before you buy, avoid scams, and understand tax — before you put money in.",
@@ -146,7 +146,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
   );
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     // "Published 15 September 2026",
     "Last updated 24 September 2026",
     `${READING_MINUTES} min read`,
@@ -159,7 +159,7 @@ export default function HowToStartInvestingInCryptoForBeginnersPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: "2026-09-15",
           dateModified: "2026-09-15",
           path: PATH,

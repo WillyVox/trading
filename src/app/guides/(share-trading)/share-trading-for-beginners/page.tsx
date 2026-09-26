@@ -129,7 +129,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: "2026-09-15",
   modifiedTime: "2026-09-24",
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
   seoTitle:
     "Share Trading for Beginners (2026) — How to Start Investing in Shares",
   seoDescription:
@@ -140,7 +140,7 @@ export default function ShareTradingForBeginnersPage() {
   const trail = guideBreadcrumbTrail("Share trading for beginners", PATH);
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     "Published 15 September 2026",
     "Last updated 24 September 2026",
     `${READING_MINUTES} min read`,
@@ -153,7 +153,7 @@ export default function ShareTradingForBeginnersPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: "2026-09-15",
           dateModified: "2026-09-15",
           path: PATH,

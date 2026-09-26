@@ -76,7 +76,7 @@ Social preview images. docs/og-images.md says static guides were moved from .svg
 A broken link. In share-trading-for-beginners, the "5 simple steps to buy cryptocurrency" link uses getStaticGuideArticleImage(...) as its href, so it points at an image file instead of the guide.
 No callout component. There is nowhere to put "General information only", "Example" or "Warning" boxes in a consistent style.
 buildMetadata() sends only an image URL. No alt text or width/height.
-articleSchema lists the author as a Person called "Trading Guide Editorial Team", and has no inLanguage or publisher logo.
+articleSchema lists the author as a Person called "Editorial Team", and has no inLanguage or publisher logo.
 Compare links use the canonical routes /compare/trading-platforms and /compare/crypto-exchanges. Use canonical routes in all generated internal links.
 None of these are changed by this mockup. I list them so you can decide.
 
@@ -92,7 +92,7 @@ Generic explainer pages A short definition box at the top, trading vs investing 
 I have not used a keyword-volume tool, so I can't give search volumes. Search Console data (or a keyword tool) should be checked before we finalise the keyword targets.
 
 4. Guide A mockup: What is trading?
-   URL: /guides/what-is-trading Title tag (58 chars): What Is Trading? A Beginner's Guide for Australians (2026) Meta description (150 chars): What is trading? Learn how buying and selling shares, ETFs and crypto works, the main styles, costs and risks, and how trading differs from investing. Hero: eyebrow Guides · Trading basics · H1 What is trading? Subheading: What trading actually means, how a trade works, the main styles, and how it differs from investing — explained in plain English for Australians. Meta line: By Trading Guide Editorial Team · Published 21 September 2026 · Last updated 21 September 2026 · about 10 min read
+   URL: /guides/what-is-trading Title tag (58 chars): What Is Trading? A Beginner's Guide for Australians (2026) Meta description (150 chars): What is trading? Learn how buying and selling shares, ETFs and crypto works, the main styles, costs and risks, and how trading differs from investing. Hero: eyebrow Guides · Trading basics · H1 What is trading? Subheading: What trading actually means, how a trade works, the main styles, and how it differs from investing — explained in plain English for Australians. Meta line: By Editorial Team · Published 21 September 2026 · Last updated 21 September 2026 · about 10 min read
 
 General information only. This guide explains how trading works. It isn't financial advice and doesn't consider your situation. Trading can lose money — including more than you put in when leverage is used.
 

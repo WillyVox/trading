@@ -119,7 +119,7 @@ export const metadata = buildMetadata({
   type: "article",
   publishedTime: PUBLISHED,
   modifiedTime: PUBLISHED,
-  authors: ["Trading Guide Editorial Team"],
+  authors: ["Editorial Team"],
   seoTitle: "What You Need to Start Trading: 10-Point Checklist (2026)",
   seoDescription: DESCRIPTION,
 });
@@ -128,7 +128,7 @@ export default function WhatYouNeedToStartTradingPage() {
   const trail = guideBreadcrumbTrail("What you need to start trading", PATH);
 
   const metaItems = [
-    "By Trading Guide Editorial Team",
+    "By Editorial Team",
     "Published 21 September 2026",
     "Last updated 21 September 2026",
     `${READING_MINUTES} min read`,
@@ -141,7 +141,7 @@ export default function WhatYouNeedToStartTradingPage() {
           headline: TITLE,
           description: DESCRIPTION,
           image: IMAGE,
-          author: "Trading Guide Editorial Team",
+          author: "Editorial Team",
           datePublished: PUBLISHED,
           dateModified: PUBLISHED,
           path: PATH,
