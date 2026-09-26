@@ -1,0 +1,1233 @@
+# Executive assessment
+
+I audited the supplied `Archive(20260926-043000).zip` against the production-readiness brief you attached. I have **not modified the repository**, consistent with the explicit audit-first requirement. :chatgpt-content-reference{index="0"}
+
+The application is substantially more mature than an early-stage prototype. The core Provider → Offering separation is coherent, the affiliate architecture is much safer than the earlier link-based design, comparison identity/canonicalisation has dedicated regression checks, the CMS sanitises article HTML on both write/read paths, admin access has independent proxy and server-side checks, the sitemap filters `noIndex`, and there are meaningful production-readiness/security scripts.
+
+However, I would **not launch the current repository as production-ready yet**.
+
+The main reasons are not cosmetic. They are:
+
+1. production/legal/trust approval gates are intentionally unresolved;
+2. the final automated launch gate itself contains a broken npm-script reference;
+3. production environment documentation is incomplete because `.env.example` is absent;
+4. current commercial wording is not completely aligned with the actual inactive affiliate state;
+5. author/editorial trust identity is weak for a financial/YMYL site;
+6. several public static Guides are strong, but a second group relies on generic `"Editorial Team"` attribution and shared generated guide structures without a real author identity;
+7. current digital-asset regulatory wording needs a specific September-2026 → April-2027 transition review;
+8. production CSP, edge rate limiting, database backup/restore, responsive/accessibility testing and deployment smoke testing are explicitly unverified;
+9. a clean `npm ci` / complete build could not be reproduced in this sandbox because dependency installation timed out, so I will not claim the build passes.
+
+Your brief correctly says compilation alone is insufficient and requires the release gates to be evaluated together. :chatgpt-content-reference{index="1"}
+
+---
+
+# Production readiness scorecard
+
+| Area | Status | Assessment |
+|---|---|---|
+| Product | **NEEDS WORK** | Coherent product direction; launch evidence incomplete |
+| Share trading | **NEEDS WORK** | Strong structured fee/feature foundation; regulatory/entity verification presentation needs strengthening |
+| Crypto | **NEEDS WORK** | Good distinction between AUSTRAC/ASIC in seeds, but 2026 transition requires immediate review |
+| Provider data | **NEEDS WORK** | 13/13 pass internal verification check; source modelling is uneven between crypto/share seeds |
+| Comparison | **READY** | Strong architecture and integrity checks; curated-indexing strategy sensible |
+| Content | **NEEDS WORK** | Several substantial Guides; trust/authorship and some content depth remain issues |
+| Legal/compliance | **BLOCKER** | Approval intentionally unresolved; current regulatory transition needs review |
+| Privacy | **NEEDS WORK** | Real privacy page exists; deployment-specific handling and applicability must be confirmed |
+| Affiliate | **NEEDS WORK** | Architecture good; no live seed monetisation; public wording needs synchronisation |
+| SEO | **NEEDS WORK** | Strong technical foundation; final production validation outstanding |
+| Google Search | **NEEDS WORK** | Sitemap/indexation architecture good; production Search Console evidence absent |
+| Accessibility | **NEEDS WORK** | Considerable accessibility-aware code, but no complete manual WCAG validation |
+| Mobile | **NEEDS WORK** | Responsive architecture exists; required width matrix not manually validated |
+| Desktop | **NEEDS WORK** | Mature UI architecture; final browser QA outstanding |
+| Performance | **NEEDS WORK** | Sensible server/client boundaries in many places; no production CWV evidence |
+| Security | **NEEDS WORK** | Strong foundations; enforcing CSP/WAF/production verification incomplete |
+| Database | **NEEDS WORK** | Good relational architecture; destructive legacy migration requires deployment review |
+| Admin | **NEEDS WORK** | Proper authorization design; complete production workflow smoke test outstanding |
+| CMS | **NEEDS WORK** | Good sanitisation/editor architecture; workflow and real publishing QA needed |
+| Analytics | **NEEDS WORK** | GA4 architecture present; production configuration/PII validation required |
+| Deployment | **BLOCKER** | production gates/env/CSP/WAF/backup/build evidence incomplete |
+
+---
+
+# Route-by-route audit
+
+The repository is larger than the surface list in the brief.
+
+## Core/public hubs
+
+| Route/template | Indexing | Assessment |
+|---|---|---|
+| `/` | Index | Strong balanced share/crypto learning homepage |
+| `/guides` | Index | Appropriate content hub |
+| `/guides/share-trading` | Index | Good topic cluster |
+| `/guides/crypto` | Index | Good topic cluster |
+| `/learn/share-trading` | Index | Useful beginner journey |
+| `/learn/crypto` | Index | Useful beginner journey |
+| `/share-trading` | Index | Important commercial/research hub |
+| `/crypto` | Index | Useful crypto/asset hub |
+| `/crypto/exchanges` | Index | Core exchange research surface |
+| `/providers` | Index | Needs stronger differentiation from offering-specific surfaces |
+| `/compare` | Index | Useful comparison gateway |
+| `/news` | Index | Appropriate editorial hub |
+| `/tools` | Index | Strong differentiation opportunity |
+
+The homepage has materially improved from the earlier crypto-heavy direction. It now establishes separate Share Trading and Crypto learning journeys and routes users through Learn → Tools → Research/Compare.
+
+## Dynamic product/profile routes
+
+| Route | Behaviour | Assessment |
+|---|---|---|
+| `/share-trading/[slug]` | Offering profile | Good canonical Offering identity |
+| `/crypto/exchanges/[slug]` | Offering profile | Good Offering identity + legacy canonicalisation |
+| `/crypto/[slug]` | Crypto asset | Correctly separate from exchange/provider |
+| `/guides/[slug]` | CMS Guide | Correct publication/noindex logic |
+| `/news/[slug]` | CMS News | Correct publication/noindex logic |
+
+Your earlier `noIndex` question is resolved correctly in this version.
+
+Published Guides use:
+
+```ts
+noIndex: article.noIndex
+```
+
+while database failure/not-found fallbacks use:
+
+```ts
+noIndex: true
+```
+
+The sitemap independently requires:
+
+```ts
+status: "PUBLISHED",
+noIndex: false
+```
+
+That is the right separation.
+
+Google explicitly says `noindex` removes a crawled page from Search and also warns that a URL blocked by robots cannot reliably expose its `noindex` directive. :chatgpt-content-reference{index="2"}
+
+## Comparison routes
+
+Canonical:
+
+```text
+/compare/crypto-exchanges
+/compare/crypto-exchanges/[slug]
+
+/compare/trading-platforms
+/compare/trading-platforms/[slug]
+```
+
+Legacy compatibility:
+
+```text
+/crypto/exchanges/compare
+/crypto/exchanges/compare/[slug]
+
+/share-trading/compare
+/share-trading/compare/[slug]
+```
+
+The compatibility routes redirect rather than duplicate content.
+
+Dynamic combinations are `noindex` unless curated. This is a good decision. Google specifically warns against scaled, substantially similar pages created primarily for search acquisition. :chatgpt-content-reference{index="3"}
+
+Curated comparison pages may be indexable where they genuinely contain differentiated content.
+
+## Tools
+
+I found:
+
+```text
+/tools/trading-cost-calculator
+/tools/brokerage-calculator
+/tools/fx-fee-calculator
+/tools/crypto-fee-calculator
+/tools/crypto-cost-calculator
+/tools/crypto-funding-withdrawal-fees
+/tools/regular-investing-calculator
+/tools/chess-vs-custody
+```
+
+This is one of Trading Guide's strongest potential differentiators. It creates original utility beyond an affiliate-content site, which aligns much better with Google's people-first and thin-affiliate guidance. Google explicitly distinguishes useful affiliate sites that add comparison/research value from thin affiliation. :chatgpt-content-reference{index="4"}
+
+## Trust/legal
+
+Present:
+
+```text
+/methodology
+/methodology/comparisons
+/methodology/editorial-policy
+/affiliate-disclosure
+/how-we-get-paid
+/privacy
+/terms
+/contact
+```
+
+Missing:
+
+```text
+/about
+/authors/[slug]
+```
+
+That absence matters more here than it would for an entertainment site because Trading Guide publishes financial/YMYL material.
+
+## Authentication/admin
+
+```text
+/login
+/register
+/403
+
+/admin
+/admin/articles
+/admin/articles/new
+/admin/articles/[id]
+/admin/articles/[id]/preview
+/admin/media
+/admin/pricing-verification
+/admin/settings
+/admin/affiliates
+/admin/affiliates/partners
+/admin/affiliates/engagements
+/admin/affiliates/events
+```
+
+Admin is protected by both proxy authorization and `requireAdmin()` at the layout layer.
+
+That's good defence-in-depth.
+
+## APIs/redirects
+
+```text
+/api/auth/[...nextauth]
+/api/search
+/api/health
+/api/csp-report
+/go/[offering]
+```
+
+`/go/[offering]` validates the slug, requires an ACTIVE engagement attached to a live partnership, requires HTTPS, records first-party events, uses `307`, disables caching and returns 404 rather than performing an arbitrary redirect.
+
+That architecture is substantially safer than accepting destination URLs from the request.
+
+---
+
+# P0 launch blockers
+
+### P0-1 — Production approval gates unresolved
+
+`check-production-readiness.mjs` currently requires:
+
+```text
+LEGAL_CONTENT_APPROVED=true
+TRUST_CONTENT_APPROVED=true
+EDGE_RATE_LIMITING_CONFIGURED=true
+CSP_ENFORCED_AND_VERIFIED=true
+```
+
+Running the checker without production environment evidence produced eight errors.
+
+This is expected rather than a bug: the application intentionally refuses to declare itself production-ready until those external/manual facts are confirmed.
+
+Do not bypass these checks just to get a green build.
+
+### P0-2 — Digital-asset regulatory transition
+
+This is the most time-sensitive substantive issue.
+
+ASIC's current INFO 225 applies existing financial-services law to digital assets and ASIC's no-action transition currently runs through **30 September 2026** for affected firms. :chatgpt-content-reference{index="5"}
+
+Separately, the Corporations Amendment (Digital Assets Framework) Act 2026 establishes the new DAP/TCP framework. The Federal Register's commencement table gives **8 April 2027** for the Act's commencement. :chatgpt-content-reference{index="6"}
+
+Therefore Trading Guide must not reduce regulatory status to:
+
+```text
+AUSTRAC registered = regulated exchange
+```
+
+or:
+
+```text
+AFSL = entire crypto business licensed
+```
+
+Your seeds already show awareness of this distinction—which is good—but every rendered badge, profile and Guide must be checked.
+
+### P0-3 — Production build/release evidence incomplete
+
+I successfully ran the repository's dependency-independent integrity checks, but the ZIP contains no `node_modules`.
+
+A clean:
+
+```bash
+npm ci
+```
+
+timed out in this environment.
+
+Therefore I cannot responsibly mark:
+
+```text
+npm test
+npm run lint
+npm run build
+```
+
+as passing.
+
+The brief itself correctly requires clean-install validation. :chatgpt-content-reference{index="7"}
+
+---
+
+# P1 pre-launch issues
+
+### Broken final launch gate
+
+`package.json` defines:
+
+```json
+"seo:release:check": "node scripts/check-seo-release.mjs"
+```
+
+but:
+
+```text
+scripts/final-launch-gate.mjs
+```
+
+calls:
+
+```text
+npm run check:seo:release
+```
+
+That script doesn't exist.
+
+This should be fixed before relying on `launch:gate`.
+
+### `.env.example` is missing
+
+The brief explicitly requires names-only production configuration documentation. :chatgpt-content-reference{index="8"}
+
+Current required/used variables include at least:
+
+```text
+DATABASE_URL
+DIRECT_URL
+AUTH_SECRET / NEXTAUTH_SECRET
+NEXT_PUBLIC_SITE_URL
+NEXTAUTH_URL
+NEXT_PUBLIC_ANALYTICS_ENABLED
+NEXT_PUBLIC_GA_MEASUREMENT_ID
+LEGAL_CONTENT_APPROVED
+TRUST_CONTENT_APPROVED
+EDGE_RATE_LIMITING_CONFIGURED
+CSP_ENFORCED_AND_VERIFIED
+```
+
+Production-only confirmation flags should be documented separately from actual secrets.
+
+### Affiliate disclosure wording isn't fully synchronized
+
+Actual seed state:
+
+```text
+6 partnerships = PROSPECT
+6 engagements = DRAFT
+0 active seeded commercial engagements
+```
+
+Affiliate Disclosure says Trading Guide is currently self-funded and receives no affiliate commissions.
+
+How We Get Paid says essentially the same.
+
+Terms says:
+
+> “Some are affiliate or referral links, which means we may receive compensation...”
+
+That isn't catastrophic, but it blurs **current** and **future** commercial behaviour.
+
+I recommend a single commercial-state source of truth so the site cannot say both:
+
+```text
+currently no affiliate relationships
+```
+
+and:
+
+```text
+some current links are affiliate links
+```
+
+after deployment state changes.
+
+### Real authorship/trust architecture is missing
+
+All 18 registered static Guides use:
+
+```text
+author: "Editorial Team"
+```
+
+There is no:
+
+```text
+/about
+/authors/[slug]
+```
+
+Google's people-first guidance explicitly asks whether readers can understand who produced the content, the site's background and the expertise involved. :chatgpt-content-reference{index="9"}
+
+For financial content, `"Editorial Team"` without an identifiable team or author page is weak.
+
+Do **not** fabricate credentials.
+
+Instead publish real information about whoever actually researches/writes/reviews Trading Guide.
+
+### Business identity requires final human confirmation
+
+The repository currently contains actual business identity configuration including a legal/operator name, ABN, physical address and contact emails.
+
+I will not reproduce those personal/business details unnecessarily here.
+
+Before launch, verify that every field is intentionally public and correct.
+
+Especially review whether publishing a residential-looking business address is genuinely desired/necessary.
+
+### Share-platform provenance architecture is weaker than crypto
+
+The share seed JSON files contain numerous individual `sourceUrl` values, which is good.
+
+But unlike the crypto provider records, the top-level provider-source/regulatory representation isn't consistently populated in the same way.
+
+I would normalize provenance presentation without destroying the structured fee-level sources you already have.
+
+### Destructive migration requires deployment review
+
+Migration safety reports:
+
+```text
+20260926_remove_legacy_affiliate_models
+DROP TABLE
+```
+
+This isn't automatically wrong—the legacy models are intentionally being removed—but it requires:
+
+```text
+backup
+target DB inspection
+migration history verification
+restore plan
+```
+
+before production deployment.
+
+---
+
+# P2 improvements
+
+The main P2 opportunities are an `/about` page, real author profiles, stronger correction workflow visibility, more provider source transparency on share profiles, production observability, richer “recently verified” surfaces, image/OG validation, and gradual replacement of generic static-guide attribution with identifiable authors/reviewers.
+
+I would also make the evidence pipeline visible:
+
+```text
+Official source
+      ↓
+Fact
+      ↓
+Checked date
+      ↓
+Explanation
+      ↓
+Comparison
+```
+
+That is more differentiated than trying to imitate Finder/Canstar rankings.
+
+---
+
+# Regulatory/compliance findings
+
+## Financial-information/advice boundary
+
+Your current direction is relatively conservative.
+
+Positive examples include:
+
+```text
+"No overall winner badges or hidden scores."
+```
+
+and tool wording that describes scenarios as educational rather than predictions/personal advice.
+
+That's appropriate.
+
+A footer disclaimer alone is not enough if substantive content starts making recommendations, so continue treating language such as:
+
+```text
+best for you
+our pick
+you should use
+safest
+winner
+```
+
+as contextual review triggers rather than banned words.
+
+### ASIC advertising
+
+ASIC issued an updated RG 234 on 9 June 2026. It applies to promoters and publishers of advertising for financial products/services and focuses on false/misleading representations. :chatgpt-content-reference{index="10"}
+
+That makes your structured conditional-fee model particularly valuable.
+
+For example:
+
+```text
+"$0 brokerage"
+```
+
+must not visually dominate while:
+
+```text
+first buy only
+under $1,000
+one security per day
+FX applies
+```
+
+is hidden elsewhere.
+
+The ACCC similarly warns that qualifications/fine print must not contradict the overall message and specifically identifies conditional “free” representations as a risk. :chatgpt-content-reference{index="11"}
+
+## AUSTRAC
+
+AUSTRAC registration means the relevant business has satisfied the applicable registration requirement for providing designated virtual-asset services. It is not a government investment endorsement. AUSTRAC now operates a public VASP register. :chatgpt-content-reference{index="12"}
+
+Your current crypto seed language generally recognises this distinction.
+
+Keep it.
+
+## Privacy
+
+Your site actually collects/handles data through:
+
+```text
+accounts
+authentication/session state
+affiliate event records
+rate-limit records
+GA4
+server logs
+CSP reports
+contact via email
+```
+
+The privacy page therefore needs to describe the deployed reality rather than a generic template.
+
+OAIC's current APP guidance says an APP Privacy Policy, where applicable, should describe what personal information is collected, how it is collected/held, its purposes, access/correction, complaints and likely overseas disclosure. :chatgpt-content-reference{index="13"}
+
+Whether Trading Guide is legally an APP entity depends on facts such as turnover and statutory exceptions; the repository cannot establish that legal question by itself. That remains a business/legal determination rather than something code should guess.
+
+There is also an upcoming **10 December 2026** APP privacy-policy requirement for certain automated decisions significantly affecting individuals. Nothing I saw suggests Trading Guide currently performs that kind of automated decision-making, but it should be reconsidered if personalised platform recommendations or eligibility decisions are introduced. :chatgpt-content-reference{index="14"}
+
+## Newsletter
+
+I did not find a live public newsletter collection workflow requiring launch remediation.
+
+That's good.
+
+Don't add a non-operational email capture form.
+
+If marketing email is added later, ACMA requires consent, sender identification/contact information and functional unsubscribe handling, generally processed within five working days. :chatgpt-content-reference{index="15"}
+
+---
+
+# Competitor benchmark
+
+This comparison describes capabilities; it is not an overall ranking.
+
+| Capability | Trading Guide | Finder | Canstar | Moneysmart | Action |
+|---|---|---|---|---|---|
+| Provider breadth | Small curated set | 30+ share platforms | Large partner/comparison set | Educational/regulatory focus | Expand slowly |
+| Source-linked facts | Strong architectural emphasis | Sources/editorial process | Research methodology | Strong authoritative education | **Strengthen** |
+| Brokerage comparison | Structured rules + calculators | Extensive comparison | Extensive comparison | Educational | **Strengthen** |
+| CHESS/custody | Strong education direction | Comparison criterion | Comparison criterion | Educational | **Strengthen** |
+| Ratings/rankings | Intentionally none | Proprietary scores/rankings | Star ratings/awards | None | **Keep differentiated** |
+| Author identity | Weak | Named authors/editors | Named writers/editors/research | Institutional authority | **Improve** |
+| Fact-check signals | Verification dates/data | Explicit fact checked | Explicit fact checked | Government authority | **Improve visibility** |
+| Original tools | Multiple calculators | Comparison tools | Comparison/filter tools | Calculators/education vary | **Strengthen** |
+| Affiliate disclosure | Good architecture, wording needs sync | Advertiser disclosure | Promoted/partner labels | N/A | **Improve** |
+| Provider count | 13 seeded | Much broader | Much broader | Not commercial comparator | Expand only with verified data |
+
+Current Finder comparison pages expose large feature datasets, named authors/editors, fact-checking, explicit advertiser disclosure and extensive provider breadth. :chatgpt-content-reference{index="16"}
+
+Canstar similarly exposes ownership model, brokerage, FX, features, promoted-provider treatment, research authorship and fact-check signals. :chatgpt-content-reference{index="17"}
+
+Trading Guide should **not** respond by inventing its own star score.
+
+Its better differentiation is:
+
+```text
+transparent facts
++ source provenance
++ verification dates
++ scenario calculators
++ clear uncertainty
++ no commission-driven winner
+```
+
+---
+
+# SEO audit
+
+The technical foundation is generally good.
+
+`buildMetadata()` centralizes:
+
+```text
+title
+description
+canonical
+robots
+Open Graph
+Twitter
+```
+
+Published CMS Guides/News use their own SEO fields and `article.noIndex`.
+
+Sitemap includes only:
+
+```text
+PUBLISHED
+AND noIndex = false
+```
+
+for CMS content and only active/indexable Offerings for provider profiles.
+
+That's correct.
+
+Google recommends consistent canonical signals and notes that redirects, canonical tags and sitemap inclusion can reinforce one another. :chatgpt-content-reference{index="18"}
+
+## Good decisions
+
+- canonical helper centralization;
+- Offering slugs as product URLs;
+- permanent legacy crypto redirects;
+- dynamic arbitrary comparisons noindexed;
+- curated comparisons selectively indexable;
+- sitemap excludes admin/auth/redirect URLs;
+- production domain fails loudly rather than silently producing localhost sitemap URLs;
+- Article/NewsArticle structured data uses visible data;
+- no fabricated Review/AggregateRating schema;
+- provider list uses ItemList rather than pretending providers are rated Products.
+
+## SEO issues
+
+The largest SEO problem isn't a missing meta tag.
+
+It's **trust/content identity**.
+
+Google's current people-first guidance emphasizes original research, substantial value, sourcing and identifiable background/expertise. :chatgpt-content-reference{index="19"}
+
+Trading Guide needs stronger:
+
+```text
+About
+Authors
+Review process
+Corrections
+Research provenance
+```
+
+before aggressively increasing page count.
+
+Do not mass-generate provider-vs-provider pages.
+
+Google's scaled-content and doorway policies reinforce your current conservative approach. :chatgpt-content-reference{index="20"}
+
+---
+
+# Content audit
+
+I found 18 registered static flagship Guides.
+
+Some are substantial hand-authored pages, including Guides with roughly 1,600–3,200 words of source-backed content.
+
+Others use shared research-guide configuration/components, so raw `page.tsx` size understates their actual content. I therefore do **not** classify them as thin merely because the route wrapper is 48–200 source-code words.
+
+That distinction matters.
+
+The shared content in:
+
+```text
+phase9-3-guides.ts
+learning-foundation-guides.ts
+```
+
+contains meaningful educational material.
+
+The principal content weakness is therefore not simply “word count.”
+
+It's authorship and evidence presentation.
+
+Every static Guide currently claims:
+
+```text
+Editorial Team
+```
+
+without identifying that team.
+
+For a financial research publication, fix that before scaling content production.
+
+---
+
+# UX audit
+
+The current information architecture is substantially better than the earlier versions.
+
+Homepage now communicates:
+
+```text
+LEARN
+→ understand concepts
+
+TOOLS
+→ test scenarios
+
+RESEARCH
+→ inspect providers
+
+COMPARE
+→ compare facts
+```
+
+and covers both share trading and crypto.
+
+The recent comparison-table design direction—one expandable comparison rather than two separate tables—is also better for comprehension.
+
+Important manual checks remain:
+
+```text
+320
+360
+375
+390
+430
+768
+1024
+1280
+1440+
+```
+
+especially for:
+
+- comparison columns/cards;
+- long provider names;
+- long conditional fee text;
+- rich article tables;
+- mobile navigation;
+- calculator controls;
+- sticky headers;
+- admin editor.
+
+I have not visually executed those widths in a browser in this audit, so they remain **NEEDS WORK**, not passed.
+
+---
+
+# Accessibility audit
+
+The source shows good accessibility awareness:
+
+- semantic tables;
+- hidden accessible labels;
+- focus-visible styling;
+- `aria` use;
+- mobile comparison alternatives;
+- alt-text support;
+- accessible breadcrumbs;
+- meaningful buttons/links in most inspected components.
+
+But WCAG 2.2 AA cannot be declared from source inspection alone.
+
+Before launch, manually validate:
+
+```text
+keyboard-only navigation
+focus order
+mobile nav
+comparison expansion
+forms/errors
+editor controls
+calculators
+contrast
+screen-reader table interpretation
+zoom/reflow
+touch targets
+reduced motion
+```
+
+The brief correctly requires manual review in addition to automation. :chatgpt-content-reference{index="21"}
+
+---
+
+# Code architecture audit
+
+The domain architecture is now one of the stronger parts of the project.
+
+The key model is:
+
+```text
+Provider
+    ↓
+ProviderOffering
+    ↓
+OfferingFeature
+OfferingFee
+OfferingMarket
+OfferingProduct
+OfferingCustody
+OfferingAccountType
+```
+
+Commercial data is separated:
+
+```text
+Provider
+    ↓
+AffiliatePartnership
+    ↓
+AffiliateEngagement
+    ↓
+AffiliateEvent
+```
+
+That's the right conceptual boundary.
+
+Keep:
+
+```text
+Provider = organisation
+Offering = product/service
+Partnership = commercial relationship
+Engagement = offering-specific commercial config
+Event = observed action
+```
+
+Do not collapse these models.
+
+There are also good repository/service/DTO boundaries in several domains.
+
+The biggest code-quality issues I would remediate are the broken launch script, stale implementation-history comments, missing env template, uneven source modelling and some large components/config files—not a wholesale refactor.
+
+---
+
+# Security audit
+
+Several security decisions are good:
+
+**Authentication:** credentials are hashed; unknown-email verification uses a dummy hash to reduce enumeration timing differences.
+
+**Authorization:** `/admin` is protected by middleware/proxy and independently server-checked.
+
+**Registration:** new users always receive `USER`; admin promotion is out-of-band.
+
+**Rate limiting:** raw email/IP identifiers are HMACed before storage.
+
+**Affiliate redirects:** destination is server-controlled and HTTPS-only.
+
+**CMS:** article HTML uses a strict allowlist and is sanitised on write and again before rendering.
+
+**External article links:** receive `noopener noreferrer`.
+
+**Embeds:** arbitrary iframes are not accepted; only typed YouTube/Vimeo markers are rendered.
+
+**Security headers:** HSTS, nosniff, frame restrictions, Referrer-Policy and Permissions-Policy are configured.
+
+The remaining major issue is operational:
+
+```text
+CSP is report-only until verified
+edge/WAF rate limiting not yet confirmed
+```
+
+Do not set the confirmation flags until actual production verification occurs.
+
+---
+
+# Data-quality audit
+
+Current static checks:
+
+```text
+44 seed records
+0 errors
+
+13 providers
+13 VERIFIED
+0 errors
+0 warnings
+
+Crypto Offering identity
+PASS
+
+Affiliate integrity
+PASS
+
+Comparison integrity
+PASS
+
+Canonical internal links
+PASS
+
+Guide breadcrumbs
+PASS
+
+Learning journeys
+PASS
+```
+
+That's a strong baseline.
+
+Crypto regulatory seeds are particularly careful.
+
+For example, some explicitly distinguish:
+
+```text
+AFSL relationship
+≠
+all spot crypto services being AFSL-regulated
+```
+
+Preserve this.
+
+The weakness is that the verification script saying `VERIFIED` proves consistency with your seed metadata—not necessarily that every fact remains externally true today.
+
+Volatile facts still need the planned re-verification cadence.
+
+---
+
+# Missing product capabilities
+
+I would not add lots of features before launch.
+
+The genuinely important missing capabilities are:
+
+```text
+/about
+real author/reviewer profiles
+visible correction process
+production observability
+stronger public verification/provenance display
+deployment evidence
+```
+
+Saved comparisons/watchlists/newsletters can wait.
+
+The existing calculators already provide more differentiation than another engagement feature would.
+
+---
+
+# Proposed final information architecture
+
+```text
+/
+├── learn
+│   ├── share-trading
+│   └── crypto
+│
+├── guides
+│   ├── share-trading
+│   ├── crypto
+│   └── [slug]
+│
+├── share-trading
+│   └── [offering]
+│
+├── crypto
+│   ├── [asset]
+│   └── exchanges
+│       └── [offering]
+│
+├── compare
+│   ├── trading-platforms
+│   │   └── [curated-comparison]
+│   └── crypto-exchanges
+│       └── [curated-comparison]
+│
+├── tools
+│   ├── trading-cost-calculator
+│   ├── brokerage-calculator
+│   ├── fx-fee-calculator
+│   ├── regular-investing-calculator
+│   ├── chess-vs-custody
+│   ├── crypto-fee-calculator
+│   ├── crypto-cost-calculator
+│   └── crypto-funding-withdrawal-fees
+│
+├── news
+│   └── [slug]
+│
+├── methodology
+│   ├── comparisons
+│   └── editorial-policy
+│
+├── about                         NEW
+├── authors                       NEW
+│   └── [slug]                    NEW
+├── contact
+├── affiliate-disclosure
+├── how-we-get-paid
+├── privacy
+└── terms
+```
+
+Legacy comparison routes should remain redirects rather than be resurrected as separate pages.
+
+---
+
+# File-by-file remediation plan
+
+| Action | File/area | Reason |
+|---|---|---|
+| **MODIFY** | `scripts/final-launch-gate.mjs` | Correct nonexistent SEO npm script |
+| **NEW** | `.env.example` | Document required variable names safely |
+| **MODIFY** | `src/lib/config/business.ts` | Final owner verification/privacy decision |
+| **MODIFY** | `terms/page.tsx` | Align current vs future affiliate state |
+| **MODIFY** | `affiliate-disclosure/page.tsx` | Centralize commercial-state wording |
+| **MODIFY** | `how-we-get-paid/page.tsx` | Same commercial truth |
+| **MODIFY** | `privacy/page.tsx` | Verify against deployed analytics/auth/logging/providers |
+| **NEW** | `/about` | Operator/editorial trust |
+| **NEW** | author architecture | Real identifiable authors/reviewers |
+| **MODIFY** | static Guide registry | Replace generic authors only when real identity exists |
+| **MODIFY** | crypto regulatory presentation | September-2026/April-2027 regulatory transition |
+| **MODIFY** | provider/source presentation | Surface evidence/verification consistently |
+| **KEEP** | Provider/Offering architecture | Correct |
+| **KEEP** | Affiliate Partnership/Engagement/Event architecture | Correct |
+| **KEEP** | `buildMetadata()` noindex logic | Correct |
+| **KEEP** | sitemap published/noIndex filters | Correct |
+| **KEEP** | dynamic comparison noindex guardrail | Correct |
+| **KEEP** | CMS sanitizer architecture | Correct |
+| **KEEP** | admin dual authorization | Correct |
+| **REVIEW** | destructive affiliate migration | Production backup/state check |
+| **REVIEW** | CSP | Enforce only after real report validation |
+| **REVIEW** | WAF/edge rate limits | External deployment configuration |
+| **CLEAN** | stale implementation-history comments | Reduce maintenance noise without removing rationale |
+
+---
+
+# Database changes
+
+I do **not** recommend another major schema refactor before launch.
+
+The present schema already supports the essential domain.
+
+Potential additive changes later:
+
+```text
+Author
+Reviewer/editor profile
+ArticleAuthor relation
+```
+
+But even that can initially be implemented with a small trustworthy editorial identity layer before committing to a large CMS-person model.
+
+Do not create a migration merely to satisfy architecture aesthetics.
+
+---
+
+# Implementation milestones
+
+### Milestone 0 — Release infrastructure
+
+Fix launch-gate command, add `.env.example`, document exact clean release sequence.
+
+### Milestone 1 — Compliance truth alignment
+
+Reconcile Terms, Affiliate Disclosure, How We Get Paid, Privacy and current commercial state.
+
+Review crypto regulatory language against September 2026 status.
+
+### Milestone 2 — Trust architecture
+
+Add About, real author/reviewer identity and corrections visibility.
+
+### Milestone 3 — Data provenance
+
+Audit all 13 providers externally; update volatile facts and make verification/source status visible.
+
+### Milestone 4 — SEO/indexation
+
+Validate sitemap, canonical, redirects, robots, structured data and Search Console against production.
+
+### Milestone 5 — Security/operations
+
+Production CSP enforcement test, edge/WAF rules, backup/restore, health monitoring and error observability.
+
+### Milestone 6 — UX/accessibility
+
+Browser/device matrix, keyboard QA, screen-reader-oriented review and calculator/comparison mobile testing.
+
+### Milestone 7 — Clean release validation
+
+Run clean install, Prisma validation/generation, migrations, unit/integration checks, lint, build, production start and smoke tests.
+
+### Milestone 8 — Re-audit
+
+Repeat blocker search, route inventory, regulatory review, SEO, security, accessibility, affiliate and privacy audits before declaring launch status.
+
+---
+
+# Production launch checklist
+
+The launch gate should ultimately require all of these to be true:
+
+```text
+✓ clean npm install
+✓ Prisma schema validates
+✓ Prisma client generates
+✓ migration history matches production
+✓ backup exists and restore procedure tested
+✓ destructive migration reviewed
+✓ seed strategy confirmed
+✓ all tests pass
+✓ lint passes
+✓ production build passes
+✓ production server smoke test passes
+✓ canonical production host configured
+✓ sitemap validated
+✓ robots validated
+✓ Search Console configured
+✓ GA4 verified without PII
+✓ legal wording reviewed
+✓ trust/commercial wording reviewed
+✓ provider facts current
+✓ crypto regulatory wording current
+✓ affiliate relationships reflect reality
+✓ CSP enforcing and verified
+✓ edge rate limiting verified
+✓ admin auth verified
+✓ CMS publish workflow tested
+✓ mobile matrix checked
+✓ keyboard/accessibility checked
+✓ rollback documented
+✓ monitoring operational
+```
+
+---
+
+# 30/60/90-day growth plan
+
+## First 30 days
+
+Concentrate on indexation and measurement rather than publishing dozens of pages.
+
+Submit sitemap, inspect core URLs in Search Console, validate canonical selection, monitor indexing, establish GA4/Search Console baseline, publish/update genuinely useful Guides, and make the About/authorship/research methodology highly visible.
+
+Target leading indicators:
+
+```text
+indexed useful pages
+Search Console impressions
+non-brand queries
+guide → provider clicks
+guide → tool clicks
+comparison starts
+calculator use
+```
+
+## Days 31–60
+
+Use actual Search Console queries to improve existing content.
+
+Prioritise clusters such as:
+
+```text
+brokerage fees australia
+CHESS vs custody
+what is a HIN
+how to buy shares australia
+international share trading australia
+crypto exchange fees australia
+crypto custody
+AUSTRAC crypto registration
+```
+
+Don't build a page just because a keyword exists.
+
+Google recommends people-first content that provides original/substantial value rather than content produced primarily to attract search traffic. :chatgpt-content-reference{index="22"}
+
+## Days 61–90
+
+Use Trading Guide's data as the acquisition differentiator.
+
+Potential original assets:
+
+```text
+verified brokerage change tracker
+fee comparison scenarios
+CHESS/custody explorer
+FX-cost examples
+provider verification history
+crypto funding-fee matrix
+```
+
+These are much harder to replicate than generic “best broker” articles.
+
+Do selective outreach to Australian finance/technology communities and publications around genuinely useful datasets/tools rather than mass backlink acquisition.
+
+Google explicitly identifies low-quality link-building and search-manipulation schemes as spam. :chatgpt-content-reference{index="23"}
+
+---
+
+# Decisions required from you
+
+There are only a few things I cannot resolve from source or authoritative public material:
+
+1. **Business identity:** confirm that the configured legal/operator identity, ABN, email and especially the physical address are correct and intentionally public.
+
+2. **Legal/trust approval:** decide who will perform the final human approval of Terms, Privacy, Methodology, Editorial Policy, Affiliate Disclosure and How We Get Paid. You can perform an internal review, but material uncertainty should not be converted into `LEGAL_CONTENT_APPROVED=true` simply to pass deployment.
+
+3. **Authorship:** tell me the real public author/reviewer identity you want Trading Guide to use. I will not invent credentials.
+
+4. **Affiliate status:** confirm that Trading Guide still has **no currently active commission-earning affiliate partnership**. The source-controlled seed state says none are active.
+
+5. **Production infrastructure:** confirm whether the production deployment will be Vercel + Neon and whether the production domain is definitively `https://tradingguide.com.au` with non-`www` canonical.
+
+6. **Privacy applicability/business facts:** annual turnover and any other circumstances relevant to Privacy Act applicability aren't established by the repository. That determination should remain explicit rather than assumed.
+
+---
+
+## Audit status
+
+No repository changes have been made.
+
+The source-only validation I could actually execute produced:
+
+```text
+Seed data                     PASS — 44 records, 0 errors
+Provider verification         PASS — 13 providers, 0 errors/warnings
+Crypto Offering identity      PASS
+Affiliate integrity           PASS
+Comparison integrity          PASS
+Canonical internal links      PASS
+Guide breadcrumbs             PASS
+Learning journeys             PASS
+Migration safety              REVIEW — legacy DROP TABLE detected
+Production readiness          BLOCKED — deployment/approval evidence absent
+Clean npm ci                  NOT VERIFIED — environment timeout
+Full npm test                 NOT VERIFIED in this audit
+ESLint                        NOT VERIFIED in this audit
+Production build              NOT VERIFIED in this audit
+```
+
+The repository therefore remains **NOT READY FOR PRODUCTION at this audit stage**, primarily because the mandatory external/manual release gates and clean production validation have not yet been completed—not because the core architecture needs to be rebuilt.
+
+Once you approve this direction with **“PROCEED WITH PRODUCTION REMEDIATION”**, the next phase should start with Milestones 0–1 and preserve the Provider/Offering, comparison, affiliate, CMS and SEO foundations that are already working.

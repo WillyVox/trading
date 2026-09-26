@@ -68,7 +68,7 @@
     ]
   },
   "offering": {
-    "name": "Kraken Crypto Exchange",
+    "name": "Kraken",
     "slug": "kraken",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",

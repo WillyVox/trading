@@ -109,7 +109,7 @@
     ]
   },
   "offering": {
-    "name": "CoinJar Crypto Exchange",
+    "name": "CoinJar",
     "slug": "coinjar",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",

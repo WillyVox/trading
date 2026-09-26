@@ -1,6 +1,6 @@
 # Trading Guide
 
-Australian trading education, research, provider comparison, and affiliate platform.
+Australian trading education, research, provider comparison
 
 Built with:
 

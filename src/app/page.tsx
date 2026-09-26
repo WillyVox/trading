@@ -160,8 +160,8 @@ export default function HomePage() {
     <>
       <PageHero
         eyebrow="Independent trading education · Australia"
-        title="Understand trading costs before you start investing."
-        subheading="Australian trading education, research, provider comparison, and affiliate platform."
+        title="Understand trading before you start investing."
+        subheading="Australian trading education, research, provider comparison"
         ctas={[
           { label: "Start learning", href: "/guides", variant: "gold" },
           {

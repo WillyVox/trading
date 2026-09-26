@@ -85,7 +85,7 @@
     ]
   },
   "offering": {
-    "name": "Swyftx Crypto Exchange",
+    "name": "Swyftx",
     "slug": "swyftx",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
