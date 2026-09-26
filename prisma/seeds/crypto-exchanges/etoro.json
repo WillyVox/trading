@@ -4,9 +4,7 @@
     "slug": "etoro",
     "website": "https://www.etoro.com/au/",
     "description": "Australian eToro entity providing access to a multi-asset investment platform. Regulated financial products and non-leveraged cryptoassets have different regulatory treatment in Australia.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-22T00:00:00.000Z",
     "facts": [
@@ -73,12 +71,7 @@
     "jurisdiction": "AU",
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
-    "assetSymbols": [
-      "BTC",
-      "ETH",
-      "SOL",
-      "XRP"
-    ],
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
     "fees": [
       {
         "feeCategory": "CRYPTO_TRADING",

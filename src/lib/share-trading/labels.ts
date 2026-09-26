@@ -110,10 +110,10 @@ export function custodyTypeCopy(type: CustodyType) {
 
 const AVAILABILITY_LABELS: Record<AvailabilityStatus, string> = {
   AVAILABLE: "Available",
-  UNAVAILABLE: "Not available",
+  UNAVAILABLE: "Not supported",
   CONDITIONAL: "Conditional",
   LIMITED: "Limited",
-  UNKNOWN: "Not yet confirmed",
+  UNKNOWN: "Not verified",
 };
 
 export function formatAvailability(status: AvailabilityStatus): string {

@@ -5,9 +5,7 @@
     "website": "https://www.kraken.com",
     "logo": "/images/providers/kraken.svg",
     "description": "Global cryptocurrency platform with Australian operations through Bit Trade Pty Ltd, offering Kraken and Kraken Pro spot trading and AUD funding; other products are subject to eligibility.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
     "facts": [
@@ -74,12 +72,7 @@
     "slug": "kraken",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
-    "assetSymbols": [
-      "BTC",
-      "ETH",
-      "SOL",
-      "XRP"
-    ],
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
     "fees": [
       {
         "feeCategory": "MAKER",

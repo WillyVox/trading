@@ -78,7 +78,10 @@ export function toCryptoComparisonEntry(
     verificationStatus: offering.verificationStatus,
     logo: offering.logo ?? offering.provider.logo,
     website: offering.website ?? offering.provider.website,
-    facts: offering.provider.facts.map(({ label, value }) => ({ label, value })),
+    facts: offering.provider.facts.map(({ label, value }) => ({
+      label,
+      value,
+    })),
     regulations: offering.provider.regulations.map(({ regulator, status }) => ({
       regulator,
       status,
@@ -161,29 +164,109 @@ export function toCompareSubjects(
  * grow with it. Profile pages remain the place for exhaustive facts/fees.
  */
 const CRYPTO_FACT_POLICY = [
-  { key: "assets", label: "Cryptocurrencies", labels: ["Advertised crypto assets"] },
+  {
+    key: "assets",
+    label: "Cryptocurrencies",
+    labels: ["Advertised crypto assets"],
+  },
 ] as const;
 
 const CRYPTO_FEE_POLICY = [
-  { key: "spot", label: "Spot / standard trading fee", categories: ["CRYPTO_TRADING", "MAKER", "TAKER"], labelHints: ["Markets order-book fee", "Standard trading fee", "Trading fee", "Exchange fiat-pair taker fee", "Pro standard spot taker fee", "AUD/USDT exchange trading fee", "Crypto position opening fee"] },
-  { key: "instant", label: "Instant buy / conversion fee", categories: ["INSTANT_BUY"], labelHints: ["Instant Buy / Sell / Swap fee", "Fiat-to-crypto conversion fee", "Instant Buy/Sell trading fee"] },
-  { key: "spread", label: "Spread", categories: ["SPREAD"], labelHints: ["Trading spread", "Quick Buy/Sell spread"] },
-  { key: "aud-deposit", label: "AUD bank / PayID deposit", categories: ["FIAT_DEPOSIT"], labelHints: ["AUD PayID / Direct Deposit fee", "AUD PayID / Osko / NPP deposit fee", "AUD bank transfer / PayID deposit fee", "AUD bank transfer / Osko deposit fee", "AUD deposit fee", "AUD bank transfer deposit", "AUD NPP/BECS funding"] },
-  { key: "card", label: "Card funding", categories: ["FIAT_DEPOSIT"], labelHints: ["AUD card deposit fee", "AUD card deposit fee (Stripe)", "Australian card deposit fee", "Visa / Mastercard crypto purchase"] },
-  { key: "aud-withdrawal", label: "AUD withdrawal", categories: ["FIAT_WITHDRAWAL"], labelHints: ["AUD bank withdrawal fee", "AUD bank transfer / Osko withdrawal fee", "AUD EFT withdrawal", "AUD account withdrawal"] },
-  { key: "crypto-withdrawal", label: "Crypto withdrawal", categories: ["CRYPTO_WITHDRAWAL"], labelHints: ["Crypto withdrawal fee", "External cryptocurrency transfer fee", "Crypto withdrawal network fee", "External crypto send/receive network fee", "Bitcoin withdrawal fee", "Bitcoin withdrawal"] },
+  {
+    key: "spot",
+    label: "Spot / standard trading fee",
+    categories: ["CRYPTO_TRADING", "MAKER", "TAKER"],
+    labelHints: [
+      "Markets order-book fee",
+      "Standard trading fee",
+      "Trading fee",
+      "Exchange fiat-pair taker fee",
+      "Pro standard spot taker fee",
+      "AUD/USDT exchange trading fee",
+      "Crypto position opening fee",
+    ],
+  },
+  {
+    key: "instant",
+    label: "Instant buy / conversion fee",
+    categories: ["INSTANT_BUY"],
+    labelHints: [
+      "Instant Buy / Sell / Swap fee",
+      "Fiat-to-crypto conversion fee",
+      "Instant Buy/Sell trading fee",
+    ],
+  },
+  {
+    key: "spread",
+    label: "Spread",
+    categories: ["SPREAD"],
+    labelHints: ["Trading spread", "Quick Buy/Sell spread"],
+  },
+  {
+    key: "aud-deposit",
+    label: "AUD bank / PayID deposit",
+    categories: ["FIAT_DEPOSIT"],
+    labelHints: [
+      "AUD PayID / Direct Deposit fee",
+      "AUD PayID / Osko / NPP deposit fee",
+      "AUD bank transfer / PayID deposit fee",
+      "AUD bank transfer / Osko deposit fee",
+      "AUD deposit fee",
+      "AUD bank transfer deposit",
+      "AUD NPP/BECS funding",
+    ],
+  },
+  {
+    key: "card",
+    label: "Card funding",
+    categories: ["FIAT_DEPOSIT"],
+    labelHints: [
+      "AUD card deposit fee",
+      "AUD card deposit fee (Stripe)",
+      "Australian card deposit fee",
+      "Visa / Mastercard crypto purchase",
+    ],
+  },
+  {
+    key: "aud-withdrawal",
+    label: "AUD withdrawal",
+    categories: ["FIAT_WITHDRAWAL"],
+    labelHints: [
+      "AUD bank withdrawal fee",
+      "AUD bank transfer / Osko withdrawal fee",
+      "AUD EFT withdrawal",
+      "AUD account withdrawal",
+    ],
+  },
+  {
+    key: "crypto-withdrawal",
+    label: "Crypto withdrawal",
+    categories: ["CRYPTO_WITHDRAWAL"],
+    labelHints: [
+      "Crypto withdrawal fee",
+      "External cryptocurrency transfer fee",
+      "Crypto withdrawal network fee",
+      "External crypto send/receive network fee",
+      "Bitcoin withdrawal fee",
+      "Bitcoin withdrawal",
+    ],
+  },
 ] as const;
 
-const PRIMARY_CRYPTO_FEATURES: { type: OfferingFeatureType; label: string }[] = [
-  { type: "PAYID", label: "PayID" },
-  { type: "RECURRING_BUYS", label: "Recurring buys" },
-  { type: "STAKING", label: "Staking" },
-  { type: "API_ACCESS", label: "API access" },
-  { type: "TWO_FACTOR_AUTH", label: "Two-factor authentication" },
-  { type: "COLD_STORAGE", label: "Cold-storage controls" },
-];
+const PRIMARY_CRYPTO_FEATURES: { type: OfferingFeatureType; label: string }[] =
+  [
+    { type: "PAYID", label: "PayID" },
+    { type: "RECURRING_BUYS", label: "Recurring buys" },
+    { type: "STAKING", label: "Staking" },
+    { type: "API_ACCESS", label: "API access" },
+    { type: "TWO_FACTOR_AUTH", label: "Two-factor authentication" },
+    { type: "COLD_STORAGE", label: "Cold-storage controls" },
+  ];
 
-const SECONDARY_CRYPTO_FEATURES: { type: OfferingFeatureType; label: string }[] = [
+const SECONDARY_CRYPTO_FEATURES: {
+  type: OfferingFeatureType;
+  label: string;
+}[] = [
   { type: "MOBILE_APP", label: "Mobile app" },
   { type: "WEB_PLATFORM", label: "Web platform" },
   { type: "ADVANCED_CHARTING", label: "Advanced charting" },
@@ -192,16 +275,24 @@ const SECONDARY_CRYPTO_FEATURES: { type: OfferingFeatureType; label: string }[] 
   { type: "COPY_TRADING", label: "Copy trading" },
 ];
 
-function featureValue(provider: CryptoComparisonEntry, type: OfferingFeatureType) {
-  const feature = provider.features.find((candidate) => candidate.featureType === type);
+function featureValue(
+  provider: CryptoComparisonEntry,
+  type: OfferingFeatureType
+) {
+  const feature = provider.features.find(
+    (candidate) => candidate.featureType === type
+  );
   if (!feature) return null;
   if (feature.value) return feature.value;
   if (feature.available === true) return "✓";
-  if (feature.available === false) return "—";
+  if (feature.available === false) return "Not supported";
   return null;
 }
 
-function feeValue(provider: CryptoComparisonEntry, policy: (typeof CRYPTO_FEE_POLICY)[number]) {
+function feeValue(
+  provider: CryptoComparisonEntry,
+  policy: (typeof CRYPTO_FEE_POLICY)[number]
+) {
   const exact = policy.labelHints
     .map((label) => provider.fees.find((fee) => fee.label === label))
     .find(Boolean);
@@ -209,18 +300,22 @@ function feeValue(provider: CryptoComparisonEntry, policy: (typeof CRYPTO_FEE_PO
   return null;
 }
 
-export function buildFactRows(providers: CryptoComparisonEntry[]): CompareRow[] {
+export function buildFactRows(
+  providers: CryptoComparisonEntry[]
+): CompareRow[] {
   return CRYPTO_FACT_POLICY.map((policy) => ({
     key: `fact:${policy.key}`,
     label: policy.label,
     values: providers.map((provider) => {
       for (const label of policy.labels) {
-        const fact = provider.facts.find((candidate) => candidate.label === label);
+        const fact = provider.facts.find(
+          (candidate) => candidate.label === label
+        );
         if (fact) return fact.value;
       }
       return null;
     }),
-  })).filter((row) => row.values.some((value) => value !== null));
+  }));
 }
 
 export function buildFeeRows(providers: CryptoComparisonEntry[]): CompareRow[] {
@@ -228,50 +323,84 @@ export function buildFeeRows(providers: CryptoComparisonEntry[]): CompareRow[] {
     key: `fee:${policy.key}`,
     label: policy.label,
     values: providers.map((provider) => feeValue(provider, policy)),
-  })).filter((row) => row.values.some((value) => value !== null));
+  }));
 }
 
-export function buildFeatureSections(providers: CryptoComparisonEntry[]): Record<CryptoFeatureGroup, CompareRow[]> {
-  const rows: Record<CryptoFeatureGroup, CompareRow[]> = { products: [], deposits: [], security: [] };
-  for (const { type, label } of [...PRIMARY_CRYPTO_FEATURES, ...SECONDARY_CRYPTO_FEATURES]) {
+export function buildFeatureSections(
+  providers: CryptoComparisonEntry[]
+): Record<CryptoFeatureGroup, CompareRow[]> {
+  const rows: Record<CryptoFeatureGroup, CompareRow[]> = {
+    products: [],
+    deposits: [],
+    security: [],
+  };
+  for (const { type, label } of [
+    ...PRIMARY_CRYPTO_FEATURES,
+    ...SECONDARY_CRYPTO_FEATURES,
+  ]) {
     const row: CompareRow = {
       key: `feature:${type}`,
       label,
       values: providers.map((provider) => featureValue(provider, type)),
     };
-    if (row.values.some((value) => value !== null)) rows[featureGroup(type)].push(row);
+    if (row.values.some((value) => value !== null))
+      rows[featureGroup(type)].push(row);
   }
   return rows;
 }
 
 function buildFeatureRowsFromPolicy(
   providers: CryptoComparisonEntry[],
-  policy: { type: OfferingFeatureType; label: string }[]
+  policy: { type: OfferingFeatureType; label: string }[],
+  keepUnknownRows = false
 ): CompareRow[] {
-  return policy.map(({ type, label }) => ({
+  const rows = policy.map(({ type, label }) => ({
     key: `feature:${type}`,
     label,
     values: providers.map((provider) => featureValue(provider, type)),
-  })).filter((row) => row.values.some((value) => value !== null));
+  }));
+  return keepUnknownRows
+    ? rows
+    : rows.filter((row) => row.values.some((value) => value !== null));
 }
 
-export function buildCompareSections(providers: CryptoComparisonEntry[]): CompareSection[] {
+export function buildCompareSections(
+  providers: CryptoComparisonEntry[]
+): CompareSection[] {
   const facts = buildFactRows(providers);
   const austrac: CompareRow = {
     key: "regulation:austrac",
     label: "AUSTRAC",
-    values: providers.map((provider) => provider.regulations.some((row) => row.regulator === "AUSTRAC") ? "Registered" : null),
+    values: providers.map((provider) =>
+      provider.regulations.some((row) => row.regulator === "AUSTRAC")
+        ? "Registered"
+        : null
+    ),
   };
   const fees = buildFeeRows(providers);
-  const primaryFeatures = buildFeatureRowsFromPolicy(providers, PRIMARY_CRYPTO_FEATURES);
-  const secondaryFeatures = buildFeatureRowsFromPolicy(providers, SECONDARY_CRYPTO_FEATURES);
+  const primaryFeatures = buildFeatureRowsFromPolicy(
+    providers,
+    PRIMARY_CRYPTO_FEATURES,
+    true
+  );
+  const secondaryFeatures = buildFeatureRowsFromPolicy(
+    providers,
+    SECONDARY_CRYPTO_FEATURES
+  );
   return [
     { title: "Key costs", rows: fees.slice(0, 4) },
-    { title: "Selection & access", rows: [...facts, ...primaryFeatures.slice(0, 3)] },
-    { title: "Australian registration", rows: austrac.values.some((value) => value !== null) ? [austrac] : [] },
+    {
+      title: "Selection & access",
+      rows: [...facts, ...primaryFeatures.slice(0, 3)],
+    },
+    { title: "Australian registration", rows: [austrac] },
     { title: "Security & trading", rows: primaryFeatures.slice(3) },
     { title: "More costs", rows: fees.slice(4), secondary: true },
-    { title: "More platform features", rows: secondaryFeatures, secondary: true },
+    {
+      title: "More platform features",
+      rows: secondaryFeatures,
+      secondary: true,
+    },
   ].filter((section) => section.rows.length > 0);
 }
 

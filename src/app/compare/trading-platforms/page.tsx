@@ -55,7 +55,12 @@ export default async function CompareTradingPlatformsPage() {
         getBrokerageOfferings(),
         getFxOfferings(),
       ]);
-      return { offerings, affiliateEngagements, brokerageOfferings, fxOfferings };
+      return {
+        offerings,
+        affiliateEngagements,
+        brokerageOfferings,
+        fxOfferings,
+      };
     }
   );
   const offerings = offeringsResult.ok ? offeringsResult.data.offerings : [];
@@ -65,7 +70,9 @@ export default async function CompareTradingPlatformsPage() {
   const brokerageOfferings = offeringsResult.ok
     ? offeringsResult.data.brokerageOfferings
     : [];
-  const fxOfferings = offeringsResult.ok ? offeringsResult.data.fxOfferings : [];
+  const fxOfferings = offeringsResult.ok
+    ? offeringsResult.data.fxOfferings
+    : [];
   const subjects = toCompareSubjects(offerings, affiliateEngagements);
   const sections = buildShareTradingCompareSections(offerings);
   // Always false today -- the offering domain has no affiliate tier (see
@@ -124,8 +131,13 @@ export default async function CompareTradingPlatformsPage() {
                 </div>
                 <CompareTable subjects={subjects} sections={sections} />
                 <CompareMobileCards subjects={subjects} sections={sections} />
-                <RepresentativeAsxCostComparison offerings={brokerageOfferings} />
-                <RepresentativeUsCostComparison offerings={brokerageOfferings} fxOfferings={fxOfferings} />
+                <RepresentativeAsxCostComparison
+                  offerings={brokerageOfferings}
+                />
+                <RepresentativeUsCostComparison
+                  offerings={brokerageOfferings}
+                  fxOfferings={fxOfferings}
+                />
               </div>
             </CompareHubMode>
             {hasAffiliateCta && <SectionAffiliateDisclosure />}

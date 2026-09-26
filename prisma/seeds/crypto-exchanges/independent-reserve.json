@@ -5,9 +5,7 @@
     "website": "https://www.independentreserve.com",
     "logo": "/images/providers/independent-reserve.svg",
     "description": "Australian cryptocurrency exchange established in 2013, offering transparent order-book trading, recurring buys, API access, OTC trading and SMSF/business account support.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
     "facts": [
@@ -76,12 +74,7 @@
     "slug": "independent-reserve",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
-    "assetSymbols": [
-      "BTC",
-      "ETH",
-      "SOL",
-      "XRP"
-    ],
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
     "fees": [
       {
         "feeCategory": "CRYPTO_TRADING",

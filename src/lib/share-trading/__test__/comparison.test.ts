@@ -46,5 +46,5 @@ test("share comparison preserves explicit unavailable and unknown feature states
     },
   ] as never;
   const rows = buildFeatureRows(offerings);
-  assert.deepEqual(rows[0]?.values, ["—", "Not yet confirmed"]);
+  assert.deepEqual(rows[0]?.values, ["Not supported", "Not verified"]);
 });

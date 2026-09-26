@@ -1,6 +1,6 @@
 explore and study, feel free to return me you feedback, concerns, pros and cons. outline your ideas, recommendations, solutions, approaches.
 
-return me several mockup displays in static htlm for me to review before we decide if if implement and do code changes.
+return me several html mockup displays in for me to review before we decide if if implement and do code changes.
 
 # -1. check the latest source code, with the requirement provided. try to explore, understand the requirements, feel free to give me your feedback, concerns.
 

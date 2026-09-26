@@ -21,4 +21,26 @@ import tsx from "./tsx.json";
 import xetra from "./xetra.json";
 
 /** Reusable market catalogue. One market per JSON file. */
-export const SEED_MARKETS = [amex, ams, arca, asx, bme, bvme, cph, ebr, epa, hkex, lse, nasdaq, nyse, nzx, ose, sgx, six, sto, tsej, tsx, xetra];
+export const SEED_MARKETS = [
+  amex,
+  ams,
+  arca,
+  asx,
+  bme,
+  bvme,
+  cph,
+  ebr,
+  epa,
+  hkex,
+  lse,
+  nasdaq,
+  nyse,
+  nzx,
+  ose,
+  sgx,
+  six,
+  sto,
+  tsej,
+  tsx,
+  xetra,
+];

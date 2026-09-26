@@ -1,11 +1,14 @@
+"use client";
+
 import Link from "next/link";
-import { Fragment, type ReactNode } from "react";
+import { Fragment, useState } from "react";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { comparisonHrefWithout } from "@/components/compare/paths";
 import type {
   CompareSection,
   CompareSubject,
 } from "@/components/compare/types";
+import { renderCompareValue } from "@/components/compare/CompareValue";
 
 function verificationCopy(status: CompareSubject["verificationStatus"]) {
   if (status === "VERIFIED")
@@ -17,40 +20,6 @@ function verificationCopy(status: CompareSubject["verificationStatus"]) {
     marker: "○",
     className: "text-muted",
   };
-}
-
-/** Preserve evidence semantics: a missing row is unknown, never false/zero. */
-function renderCompareValue(value: string | null): ReactNode {
-  if (
-    value === null ||
-    value === "?" ||
-    value === "Not yet confirmed" ||
-    value === "Not verified"
-  ) {
-    return (
-      <span className="text-muted inline-flex items-center gap-1.5">
-        <span aria-hidden>?</span>
-        <span>Not yet confirmed</span>
-      </span>
-    );
-  }
-  if (value === "✓" || value === "Available") {
-    return (
-      <span className="text-navy inline-flex items-center gap-1.5">
-        <span aria-hidden>✓</span>
-        <span>Available</span>
-      </span>
-    );
-  }
-  if (value === "—" || value === "Not available") {
-    return (
-      <span className="text-muted inline-flex items-center gap-1.5">
-        <span aria-hidden>—</span>
-        <span>Not available</span>
-      </span>
-    );
-  }
-  return value;
 }
 
 /**
@@ -75,19 +44,56 @@ export function CompareTable({
   const isWide = subjects.length > 4;
   const primarySections = sections.filter((section) => !section.secondary);
   const secondarySections = sections.filter((section) => section.secondary);
+  const [showFullComparison, setShowFullComparison] = useState(false);
+  const visibleSections = showFullComparison
+    ? [...primarySections, ...secondarySections]
+    : primarySections;
 
   return (
     <div className="hidden md:block">
-      <div className="mb-2 flex items-center justify-between gap-4">
-        <p className="text-muted text-xs">
-          <span className="mr-3">● Data verified</span>
-          <span>○ Not yet verified</span>
-        </p>
-        {isWide && (
-          <p className="text-muted text-xs" aria-hidden="true">
-            Scroll to see more platforms →
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <p className="text-muted text-xs">
+            <span className="mr-3">● Data verified</span>
+            <span>○ Not verified</span>
           </p>
-        )}
+          <p
+            className="text-muted flex items-center gap-3 text-xs"
+            aria-label="Comparison value legend"
+          >
+            <span>
+              <span className="text-green font-bold" aria-hidden>
+                ✓
+              </span>{" "}
+              Supported
+            </span>
+            <span>
+              <span aria-hidden>—</span> Not supported
+            </span>
+            <span>
+              <span aria-hidden>?</span> Not verified
+            </span>
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          {isWide && (
+            <p className="text-muted text-xs" aria-hidden="true">
+              Scroll to see more platforms →
+            </p>
+          )}
+          {secondarySections.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowFullComparison((current) => !current)}
+              aria-expanded={showFullComparison}
+              className="border-border text-navy hover:bg-panel-secondary inline-flex min-h-10 items-center justify-center rounded-full border px-4 py-2 text-xs font-semibold transition"
+            >
+              {showFullComparison
+                ? "View main features ↑"
+                : "View full comparison ↓"}
+            </button>
+          )}
+        </div>
       </div>
       <div className="relative">
         <div
@@ -212,7 +218,7 @@ export function CompareTable({
               </tr>
             </thead>
             <tbody>
-              {primarySections.map((section) => (
+              {visibleSections.map((section) => (
                 <Fragment key={section.title}>
                   <tr className="border-border bg-panel-secondary/70 border-b">
                     <th
@@ -270,65 +276,6 @@ export function CompareTable({
           />
         )}
       </div>
-      {secondarySections.length > 0 && (
-        <details className="border-border bg-panel mt-4 rounded-2xl border shadow-sm">
-          <summary className="text-navy hover:bg-panel-secondary cursor-pointer rounded-2xl px-5 py-4 text-sm font-semibold">
-            Show more comparison details
-          </summary>
-          <div className="border-border overflow-x-auto border-t">
-            <table className="w-max min-w-full border-collapse text-sm">
-              <thead>
-                <tr className="bg-panel-secondary border-border border-b text-left">
-                  <th className="w-[210px] min-w-[210px] px-5 py-3">Detail</th>
-                  {subjects.map((subject) => (
-                    <th
-                      key={subject.id}
-                      className="w-[190px] min-w-[190px] px-4 py-3"
-                    >
-                      {subject.name}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {secondarySections.map((section) => (
-                  <Fragment key={section.title}>
-                    <tr className="bg-panel-secondary/70 border-border border-b">
-                      <th
-                        colSpan={subjects.length + 1}
-                        className="text-muted px-5 py-2.5 text-left text-xs font-semibold tracking-wide uppercase"
-                      >
-                        {section.title}
-                      </th>
-                    </tr>
-                    {section.rows.map((row) => (
-                      <tr
-                        key={row.key}
-                        className="border-border border-b last:border-0"
-                      >
-                        <th
-                          scope="row"
-                          className="text-muted w-[210px] min-w-[210px] px-5 py-3 text-left font-medium"
-                        >
-                          {row.label}
-                        </th>
-                        {row.values.map((value, index) => (
-                          <td
-                            key={subjects[index]?.id ?? index}
-                            className="text-navy w-[190px] min-w-[190px] px-4 py-3 align-top"
-                          >
-                            {renderCompareValue(value)}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </Fragment>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </details>
-      )}
       <p className="text-muted mt-2 text-[11px]">
         Data verification describes Trading Guide's research status. It is not
         an endorsement or recommendation of a provider.

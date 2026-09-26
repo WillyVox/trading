@@ -4,9 +4,7 @@
     "slug": "interactive-brokers-australia",
     "website": "https://www.interactivebrokers.com.au",
     "description": "Australian subsidiary of global broker Interactive Brokers, ASIC-regulated (AFSL 453554) and a participant of ASX, ASX 24 and Cboe Australia, offering share, ETF, options, futures and forex trading across 90+ international markets.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-24T00:00:00.000Z"
   },

@@ -25,7 +25,7 @@ import {
  * crypto side.
  *
  * `null` in a row's values means "no row recorded for this offering" (the
- * fact hasn't been researched at all); a formatted "Not yet confirmed"
+ * fact hasn't been researched at all); a formatted "Not verified"
  * string means a row exists but its AvailabilityStatus is UNKNOWN. Those
  * are different signals and deliberately rendered differently -- same
  * distinction the crypto builder draws between a missing fact and an
@@ -245,13 +245,15 @@ export function buildFeatureRows(
       if (!feature) return null;
       if (feature.value) return feature.value;
       if (feature.available === true) return "✓";
-      if (feature.available === false) return "—";
-      return "Not yet confirmed";
+      if (feature.available === false) return "Not supported";
+      return "Not verified";
     }),
   }));
 }
 
-function rowForMarketSummary(offerings: ShareTradingPlatformDetail[]): CompareRow {
+function rowForMarketSummary(
+  offerings: ShareTradingPlatformDetail[]
+): CompareRow {
   return {
     key: "market:summary",
     label: "Market access",
@@ -302,56 +304,85 @@ function rowForMarketSummary(offerings: ShareTradingPlatformDetail[]): CompareRo
   };
 }
 
-function rowForProduct(offerings: ShareTradingPlatformDetail[], productType: ShareTradingPlatformDetail["products"][number]["productType"], label: string): CompareRow {
+function rowForProduct(
+  offerings: ShareTradingPlatformDetail[],
+  productType: ShareTradingPlatformDetail["products"][number]["productType"],
+  label: string
+): CompareRow {
   return {
     key: `product:${productType}`,
     label,
     values: offerings.map((offering) => {
-      const row = offering.products.find((candidate) => candidate.productType === productType);
+      const row = offering.products.find(
+        (candidate) => candidate.productType === productType
+      );
       return row ? formatAvailability(row.availability) : null;
     }),
   };
 }
 
-function rowForFeature(offerings: ShareTradingPlatformDetail[], featureType: ShareTradingPlatformDetail["features"][number]["featureType"], label: string): CompareRow {
+function rowForFeature(
+  offerings: ShareTradingPlatformDetail[],
+  featureType: ShareTradingPlatformDetail["features"][number]["featureType"],
+  label: string
+): CompareRow {
   return {
     key: `feature:${featureType}`,
     label,
     values: offerings.map((offering) => {
-      const feature = offering.features.find((candidate) => candidate.featureType === featureType);
+      const feature = offering.features.find(
+        (candidate) => candidate.featureType === featureType
+      );
       if (!feature) return null;
       if (feature.value) return feature.value;
       if (feature.available === true) return "✓";
-      if (feature.available === false) return "—";
+      if (feature.available === false) return "Not supported";
       return null;
     }),
   };
 }
 
-function rowForAccount(offerings: ShareTradingPlatformDetail[], accountType: ShareTradingPlatformDetail["accountTypes"][number]["accountType"], label: string): CompareRow {
+function rowForAccount(
+  offerings: ShareTradingPlatformDetail[],
+  accountType: ShareTradingPlatformDetail["accountTypes"][number]["accountType"],
+  label: string
+): CompareRow {
   return {
     key: `account:${accountType}`,
     label,
     values: offerings.map((offering) => {
-      const row = offering.accountTypes.find((candidate) => candidate.accountType === accountType);
+      const row = offering.accountTypes.find(
+        (candidate) => candidate.accountType === accountType
+      );
       return row ? formatAvailability(row.availability) : null;
     }),
   };
 }
 
-function rowForCustody(offerings: ShareTradingPlatformDetail[], marketCode: string, label: string): CompareRow {
+function rowForCustody(
+  offerings: ShareTradingPlatformDetail[],
+  marketCode: string,
+  label: string
+): CompareRow {
   return {
     key: `custody:${marketCode}`,
     label,
     values: offerings.map((offering) => {
-      const row = offering.custody.find((candidate) => candidate.market?.code === marketCode);
+      const row = offering.custody.find(
+        (candidate) => candidate.market?.code === marketCode
+      );
       if (!row) return null;
       return custodyTypeCopy(row.custodyType).label;
     }),
   };
 }
 
-function rowForFee(offerings: ShareTradingPlatformDetail[], category: OfferingFeeRow["feeCategory"], marketCodes: string[] | null, label: string): CompareRow {
+function rowForFee(
+  offerings: ShareTradingPlatformDetail[],
+  category: OfferingFeeRow["feeCategory"],
+  marketCodes: string[] | null,
+  label: string
+): CompareRow {
   return {
     key: `fee:${category}:${marketCodes?.join("+") ?? "all"}`,
     label,

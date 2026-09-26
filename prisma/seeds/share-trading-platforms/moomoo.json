@@ -4,9 +4,7 @@
     "slug": "moomoo-securities-australia",
     "website": "https://www.moomoo.com/au",
     "description": "Australian share-trading provider offering CHESS-sponsored Australian shares plus US and Hong Kong market access.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-22T00:00:00.000Z"
   },

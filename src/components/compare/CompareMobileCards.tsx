@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { ProviderLogo } from "@/components/providers/ProviderLogo";
 import { comparisonHrefWithout } from "@/components/compare/paths";
@@ -6,6 +9,7 @@ import type {
   CompareSection,
   CompareSubject,
 } from "@/components/compare/types";
+import { renderCompareValue } from "@/components/compare/CompareValue";
 
 /**
  * Small-screen counterpart to CompareTable -- a wide comparison table
@@ -32,9 +36,44 @@ export function CompareMobileCards({
   const canRemove = subjects.length > 2 && Boolean(comparisonBasePath);
   const primarySections = sections.filter((section) => !section.secondary);
   const secondarySections = sections.filter((section) => section.secondary);
+  const [showFullComparison, setShowFullComparison] = useState(false);
+  const visibleSections = showFullComparison
+    ? [...primarySections, ...secondarySections]
+    : primarySections;
 
   return (
     <div className="space-y-4 md:hidden">
+      <div className="flex flex-col gap-3">
+        <p
+          className="text-muted flex flex-wrap items-center gap-x-3 gap-y-1 text-xs"
+          aria-label="Comparison value legend"
+        >
+          <span>
+            <span className="text-green font-bold" aria-hidden>
+              ✓
+            </span>{" "}
+            Supported
+          </span>
+          <span>
+            <span aria-hidden>—</span> Not supported
+          </span>
+          <span>
+            <span aria-hidden>?</span> Not verified
+          </span>
+        </p>
+        {secondarySections.length > 0 && (
+          <button
+            type="button"
+            onClick={() => setShowFullComparison((current) => !current)}
+            aria-expanded={showFullComparison}
+            className="border-border text-navy hover:bg-panel-secondary inline-flex min-h-11 w-full items-center justify-center rounded-full border px-4 py-2.5 text-sm font-semibold transition"
+          >
+            {showFullComparison
+              ? "View main features ↑"
+              : "View full comparison ↓"}
+          </button>
+        )}
+      </div>
       {subjects.map((s, i) => (
         <Card key={s.id} className="relative">
           {canRemove && (
@@ -78,7 +117,7 @@ export function CompareMobileCards({
                   ? "● Data verified"
                   : s.verificationStatus === "STALE"
                     ? "● Data review due"
-                    : "○ Data not yet verified"}
+                    : "○ Data not verified"}
               </p>
             </div>
           </div>
@@ -106,7 +145,7 @@ export function CompareMobileCards({
             )}
           </div>
 
-          {primarySections.map((section) => (
+          {visibleSections.map((section) => (
             <div key={section.title} className="mt-4">
               <h3 className="text-muted text-xs font-semibold tracking-wide uppercase">
                 {section.title}
@@ -119,41 +158,13 @@ export function CompareMobileCards({
                   >
                     <span className="text-muted">{row.label}</span>
                     <span className="text-navy">
-                      {row.values[i] ?? "? Not yet confirmed"}
+                      {renderCompareValue(row.values[i] ?? null)}
                     </span>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
-
-          {secondarySections.length > 0 && (
-            <details className="border-border mt-4 border-t pt-3">
-              <summary className="text-navy cursor-pointer text-sm font-semibold">
-                Show more details
-              </summary>
-              {secondarySections.map((section) => (
-                <div key={section.title} className="mt-4">
-                  <h3 className="text-muted text-xs font-semibold tracking-wide uppercase">
-                    {section.title}
-                  </h3>
-                  <ul className="mt-2 space-y-2 text-sm">
-                    {section.rows.map((row) => (
-                      <li
-                        key={row.key}
-                        className="border-border flex justify-between gap-4 border-b pb-2"
-                      >
-                        <span className="text-muted">{row.label}</span>
-                        <span className="text-navy text-right">
-                          {row.values[i] ?? "? Not yet confirmed"}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </details>
-          )}
 
           {primarySections.length === 0 && (
             <p className="text-muted mt-4 text-sm">

@@ -155,7 +155,9 @@ export default async function ShareTradingComparisonPage({
         />
         {selectedBrokerageOfferings.length > 0 && (
           <>
-            <RepresentativeAsxCostComparison offerings={selectedBrokerageOfferings} />
+            <RepresentativeAsxCostComparison
+              offerings={selectedBrokerageOfferings}
+            />
             <RepresentativeUsCostComparison
               offerings={selectedBrokerageOfferings}
               fxOfferings={selectedFxOfferings}

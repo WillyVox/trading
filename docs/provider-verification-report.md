@@ -1,6 +1,6 @@
 # Provider Verification Launch Report
 
-Generated: 2026-09-25  
+Generated: 2026-09-26  
 Freshness threshold: 90 days
 
 This report audits the seeded provider catalog. It does **not** make affiliate status a condition of research verification, and provider verification does **not** control whether a valid official website can be shown as `Visit site`.
@@ -14,21 +14,21 @@ This report audits the seeded provider catalog. It does **not** make affiliate s
 
 ## Catalog
 
-| Provider | Catalog | Seed status | Last provider verification | Evidence URLs | Safe verified badge | Outstanding items |
-| --- | --- | --- | --- | ---: | --- | --- |
-| CMC Markets | Share trading | VERIFIED | 2026-09-24 | 38 | YES | — |
-| Commonwealth Bank of Australia | Share trading | VERIFIED | 2026-09-24 | 38 | YES | — |
-| eToro AUS Capital Limited | Share trading | VERIFIED | 2026-09-22 | 25 | YES | — |
-| Interactive Brokers Australia Pty. Ltd. | Share trading | VERIFIED | 2026-09-24 | 25 | YES | — |
-| Moomoo Securities Australia Ltd | Share trading | VERIFIED | 2026-09-22 | 29 | YES | — |
-| Stakeshop Pty Ltd | Share trading | VERIFIED | 2026-09-24 | 19 | YES | — |
-| BTC Markets | Crypto exchange | VERIFIED | 2026-09-17 | 19 | YES | — |
-| CoinJar | Crypto exchange | VERIFIED | 2026-09-17 | 45 | YES | — |
-| CoinSpot | Crypto exchange | VERIFIED | 2026-09-17 | 31 | YES | — |
-| eToro AUS Capital Limited | Crypto exchange | VERIFIED | 2026-09-22 | 23 | YES | — |
-| Independent Reserve | Crypto exchange | VERIFIED | 2026-09-17 | 25 | YES | — |
-| Kraken | Crypto exchange | VERIFIED | 2026-09-17 | 22 | YES | — |
-| Swyftx | Crypto exchange | VERIFIED | 2026-09-17 | 26 | YES | — |
+| Provider                                | Catalog         | Seed status | Last provider verification | Evidence URLs | Safe verified badge | Outstanding items |
+| --------------------------------------- | --------------- | ----------- | -------------------------- | ------------: | ------------------- | ----------------- |
+| CMC Markets                             | Share trading   | VERIFIED    | 2026-09-24                 |            38 | YES                 | —                 |
+| Commonwealth Bank of Australia          | Share trading   | VERIFIED    | 2026-09-24                 |            38 | YES                 | —                 |
+| eToro AUS Capital Limited               | Share trading   | VERIFIED    | 2026-09-22                 |            25 | YES                 | —                 |
+| Interactive Brokers Australia Pty. Ltd. | Share trading   | VERIFIED    | 2026-09-24                 |            25 | YES                 | —                 |
+| Moomoo Securities Australia Ltd         | Share trading   | VERIFIED    | 2026-09-22                 |            29 | YES                 | —                 |
+| Stakeshop Pty Ltd                       | Share trading   | VERIFIED    | 2026-09-24                 |            19 | YES                 | —                 |
+| BTC Markets                             | Crypto exchange | VERIFIED    | 2026-09-17                 |            19 | YES                 | —                 |
+| CoinJar                                 | Crypto exchange | VERIFIED    | 2026-09-17                 |            45 | YES                 | —                 |
+| CoinSpot                                | Crypto exchange | VERIFIED    | 2026-09-17                 |            31 | YES                 | —                 |
+| eToro AUS Capital Limited               | Crypto exchange | VERIFIED    | 2026-09-22                 |            23 | YES                 | —                 |
+| Independent Reserve                     | Crypto exchange | VERIFIED    | 2026-09-17                 |            25 | YES                 | —                 |
+| Kraken                                  | Crypto exchange | VERIFIED    | 2026-09-17                 |            22 | YES                 | —                 |
+| Swyftx                                  | Crypto exchange | VERIFIED    | 2026-09-17                 |            26 | YES                 | —                 |
 
 ## Gate rules
 

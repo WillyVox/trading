@@ -47,7 +47,9 @@ export function representativeAsxScenario(
 }
 
 function preferredPlan(rules: BrokerageRule[]) {
-  const plans = [...new Set(rules.map((rule) => rule.pricingPlan).filter(Boolean))] as string[];
+  const plans = [
+    ...new Set(rules.map((rule) => rule.pricingPlan).filter(Boolean)),
+  ] as string[];
   if (plans.includes("Standard")) return "Standard";
   if (plans.includes("Fixed")) return "Fixed";
   return plans[0] ?? null;

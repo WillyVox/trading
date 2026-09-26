@@ -1,6 +1,10 @@
 import { brokerageEligibility } from "./eligibility";
 import { calculateBrokerage, selectBrokerageRule } from "./calculate";
-import type { BrokerageOfferingOption, BrokerageRule, BrokerageScenario } from "./types";
+import type {
+  BrokerageOfferingOption,
+  BrokerageRule,
+  BrokerageScenario,
+} from "./types";
 import { calculateFxFee } from "../fx/calculate";
 import { selectFxRuleForMarket } from "../fx/selection";
 import type { FxOfferingOption } from "../fx/types";
@@ -26,11 +30,15 @@ export type UsCostComparisonResult = {
 
 function usRules(offering: BrokerageOfferingOption) {
   const nyse = offering.rules.filter((rule) => rule.marketCode === "NYSE");
-  return nyse.length ? nyse : offering.rules.filter((rule) => rule.marketCode === "NASDAQ");
+  return nyse.length
+    ? nyse
+    : offering.rules.filter((rule) => rule.marketCode === "NASDAQ");
 }
 
 function preferredPlan(rules: BrokerageRule[]) {
-  const plans = [...new Set(rules.map((rule) => rule.pricingPlan).filter(Boolean))] as string[];
+  const plans = [
+    ...new Set(rules.map((rule) => rule.pricingPlan).filter(Boolean)),
+  ] as string[];
   if (plans.includes("Standard")) return "Standard";
   if (plans.includes("Fixed")) return "Fixed";
   return plans[0] ?? null;
@@ -42,11 +50,15 @@ export function compareRepresentativeUsCosts(
   audInvestmentAmount: number,
   now = new Date()
 ): UsCostComparisonResult[] {
-  const fxBySlug = new Map(fxOfferings.map((offering) => [offering.slug, offering]));
+  const fxBySlug = new Map(
+    fxOfferings.map((offering) => [offering.slug, offering])
+  );
 
   return brokerageOfferings.map((offering) => {
     const rules = usRules(offering);
-    const eligible = rules.filter((rule) => brokerageEligibility(rule, now).eligible);
+    const eligible = rules.filter(
+      (rule) => brokerageEligibility(rule, now).eligible
+    );
     const scenario: BrokerageScenario = {
       tradeAmount: audInvestmentAmount,
       tradeSide: "BUY",
@@ -55,7 +67,9 @@ export function compareRepresentativeUsCosts(
       pricingPlan: preferredPlan(eligible),
     };
     const brokerageRule = selectBrokerageRule(eligible, scenario);
-    const variableBrokerage = rules.find((rule) => rule.calculationBasis === "VARIES");
+    const variableBrokerage = rules.find(
+      (rule) => rule.calculationBasis === "VARIES"
+    );
     const brokerage = brokerageRule
       ? calculateBrokerage(brokerageRule, audInvestmentAmount)
       : null;
@@ -90,10 +104,14 @@ export function compareRepresentativeUsCosts(
         variableBrokerage?.displayValue ??
         offering.reason ??
         "No verified calculator-ready US brokerage rule is available.",
-      brokerageSourceUrl: brokerageRule?.sourceUrl ?? variableBrokerage?.sourceUrl ?? null,
-      brokerageVerifiedAt: brokerageRule?.verifiedAt ?? variableBrokerage?.verifiedAt ?? null,
+      brokerageSourceUrl:
+        brokerageRule?.sourceUrl ?? variableBrokerage?.sourceUrl ?? null,
+      brokerageVerifiedAt:
+        brokerageRule?.verifiedAt ?? variableBrokerage?.verifiedAt ?? null,
       fxAmount: fxCalculated ? (fx.amount ?? null) : null,
-      fxCurrency: fxCalculated ? (fx.currency ?? "AUD") : (fxRule?.currency ?? null),
+      fxCurrency: fxCalculated
+        ? (fx.currency ?? "AUD")
+        : (fxRule?.currency ?? null),
       fxLabel: fxRule?.label ?? null,
       fxExplanation:
         fx?.message ??

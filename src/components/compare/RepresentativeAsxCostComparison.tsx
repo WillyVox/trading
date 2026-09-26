@@ -62,7 +62,9 @@ export function RepresentativeAsxCostComparison({
         <label className="text-navy ml-1 text-sm font-semibold">
           Custom amount
           <span className="border-border bg-background ml-2 inline-flex min-h-10 items-center rounded-full border px-3">
-            <span className="text-muted" aria-hidden>$</span>
+            <span className="text-muted" aria-hidden>
+              $
+            </span>
             <input
               type="number"
               min="1"
@@ -81,6 +83,7 @@ export function RepresentativeAsxCostComparison({
           <thead className="bg-panel-secondary text-left">
             <tr className="border-border border-b">
               <th className="px-4 py-3">Platform</th>
+              <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3">Estimated brokerage</th>
               <th className="px-4 py-3">Rule used</th>
               <th className="px-4 py-3">Evidence</th>
@@ -88,10 +91,21 @@ export function RepresentativeAsxCostComparison({
           </thead>
           <tbody>
             {results.map((result) => (
-              <tr key={result.offeringSlug} className="border-border border-b last:border-0">
-                <th scope="row" className="text-navy px-4 py-3 text-left font-semibold">
+              <tr
+                key={result.offeringSlug}
+                className="border-border border-b last:border-0"
+              >
+                <th
+                  scope="row"
+                  className="text-navy px-4 py-3 text-left font-semibold"
+                >
                   {result.offeringName}
                 </th>
+                <td className="text-navy px-4 py-3 font-semibold">
+                  {result.status === "CALCULATED"
+                    ? "Calculated"
+                    : "Not calculable"}
+                </td>
                 <td className="text-navy px-4 py-3 font-semibold">
                   {result.status === "CALCULATED" && result.amount != null
                     ? money(result.amount, result.currency)
@@ -111,11 +125,12 @@ export function RepresentativeAsxCostComparison({
                       Source ↗
                     </a>
                   ) : (
-                    <span className="text-muted">Not available</span>
+                    <span className="text-muted">Source not verified</span>
                   )}
                   {result.verifiedAt && (
                     <span className="text-muted mt-1 block text-xs">
-                      Verified {new Date(result.verifiedAt).toLocaleDateString("en-AU")}
+                      Verified{" "}
+                      {new Date(result.verifiedAt).toLocaleDateString("en-AU")}
                     </span>
                   )}
                 </td>

@@ -5,9 +5,7 @@
     "website": "https://swyftx.com",
     "logo": "/images/providers/swyftx.svg",
     "description": "Australian-owned and operated cryptocurrency platform supporting AUD funding, 410+ crypto assets, Auto Invest and tiered trading fees based on rolling 30-day trading volume.",
-    "jurisdictions": [
-      "AU"
-    ],
+    "jurisdictions": ["AU"],
     "verificationStatus": "VERIFIED",
     "lastVerifiedAt": "2026-09-17T00:00:00.000Z",
     "facts": [
@@ -91,12 +89,7 @@
     "slug": "swyftx",
     "offeringType": "CRYPTO_EXCHANGE",
     "jurisdiction": "AU",
-    "assetSymbols": [
-      "BTC",
-      "ETH",
-      "SOL",
-      "XRP"
-    ],
+    "assetSymbols": ["BTC", "ETH", "SOL", "XRP"],
     "fees": [
       {
         "feeCategory": "CRYPTO_TRADING",
