@@ -41,7 +41,7 @@ providerRelationships:
     relationship: "MENTIONED"
 relatedGuides:
   - "austrac-registration-crypto-exchanges-explained"
-  - "asic-digital-asset-licensing-deadline-2026"
+  - "asic-digital-asset-licensing-deadline"
   - "how-to-choose-crypto-exchange-australia"
 sources:
   - label: "AUSTRAC — Virtual asset service provider register goes public"
@@ -63,7 +63,7 @@ sources:
 </ul>
 <h2>What it doesn't tell you</h2>
 <blockquote><p>Registration on AUSTRAC's VASP register is an AML/CTF compliance status. It is not a safety rating, not an ASIC financial-product licence, and not a government endorsement of the platform's quality or financial soundness.</p></blockquote>
-<p>For what registration does and doesn't actually guarantee, see our fuller explainer on <a href="/guides/austrac-registration-crypto-exchanges-explained">what AUSTRAC registration means</a>. For the separate question of financial-services licensing, see our piece on <a href="/guides/asic-digital-asset-licensing-deadline-2026">ASIC's 2026 digital-asset licensing deadline</a>.</p>
+<p>For what registration does and doesn't actually guarantee, see our fuller explainer on <a href="/guides/austrac-registration-crypto-exchanges-explained">what AUSTRAC registration means</a>. For the separate question of financial-services licensing, see our piece on <a href="/guides/asic-digital-asset-licensing-deadline">ASIC's 2026 digital-asset licensing deadline</a>.</p>
 <h2>The bigger picture</h2>
 <p>A public register is a meaningful step toward making Australia's crypto regulatory environment easier for ordinary users to navigate — but it works best as one input into a broader decision, alongside fees, security practices and how you actually plan to use an exchange. See our full <a href="/guides/how-to-choose-crypto-exchange-australia">exchange-selection guide</a> for the rest of that picture.</p>
 <p>We haven't independently confirmed the current register status of every provider mentioned on this site as part of writing this article — always check the live register yourself before relying on registration status.</p>

@@ -43,7 +43,7 @@ providerRelationships:
 relatedGuides:
   - "how-to-choose-crypto-exchange-australia"
   - "austrac-vasp-register-public-explainer"
-  - "asic-digital-asset-licensing-deadline-2026"
+  - "asic-digital-asset-licensing-deadline"
 sources:
   - label: "AUSTRAC — Virtual asset service provider register goes public"
     url: "https://www.austrac.gov.au/virtual-asset-service-provider-register-goes-public"

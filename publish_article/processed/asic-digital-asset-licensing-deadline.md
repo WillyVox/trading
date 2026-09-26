@@ -1,6 +1,6 @@
 ---
 title: "ASIC's Digital Asset Licensing Deadline: What the 30 September 2026 Cut-off Means"
-slug: "asic-digital-asset-licensing-deadline-2026"
+slug: "asic-digital-asset-licensing-deadline"
 articleType: "NEWS"
 excerpt:
   "ASIC's extended no-action position for digital asset businesses expires 30 September 2026. Here's\

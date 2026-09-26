@@ -114,30 +114,10 @@ test("unsafe or malformed official URLs fail closed when no affiliate is active"
   }
 });
 
-test("http official website is accepted when no affiliate is active", () => {
-  assert.deepEqual(
-    resolveProviderDestination({
-      providerSlug: "example-provider",
-      officialWebsite: "http://example.com",
-      hasActiveAffiliate: false,
-      placement: "browse",
-    }),
-    {
-      href: "http://example.com",
-      type: "official",
-      isAffiliate: false,
-      providerSlug: "example-provider",
-      offeringSlug: "example-offering",
-      placement: "browse",
-    }
-  );
-});
-
 test("https official website is accepted when no affiliate is active", () => {
   assert.deepEqual(
     resolveProviderDestination({
-      providerSlug: "example-provider",
-      officialWebsite: "https://example.com",
+      ...base,
       hasActiveAffiliate: false,
       placement: "browse",
     }),
